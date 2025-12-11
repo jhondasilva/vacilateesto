@@ -1,21 +1,50 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, ArrowRight, Sparkles } from "lucide-react";
+import { Mail, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setIsLoading(true);
+    try {
+      const { error } = await supabase
+        .from("newsletter_subscribers")
+        .insert({ email: email.toLowerCase().trim() });
+
+      if (error) {
+        if (error.code === "23505") {
+          toast({
+            title: "Ya estás suscrito",
+            description: "Este correo ya está registrado en nuestra newsletter.",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "¡Suscrito con éxito!",
+          description: "Te enviaremos las últimas novedades a tu correo.",
+        });
+        setEmail("");
+      }
+    } catch (error) {
+      console.error("Error subscribing:", error);
       toast({
-        title: "¡Gracias por suscribirte!",
-        description: "Te enviaremos las últimas novedades a tu correo.",
+        title: "Error",
+        description: "Hubo un problema al suscribirte. Intenta de nuevo.",
+        variant: "destructive",
       });
-      setEmail("");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,9 +83,15 @@ const NewsletterSection = () => {
                 required
               />
             </div>
-            <Button type="submit" size="lg" className="h-14 px-8 group">
-              Suscribirme
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Button type="submit" size="lg" className="h-14 px-8 group" disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <>
+                  Suscribirme
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </Button>
           </form>
 
