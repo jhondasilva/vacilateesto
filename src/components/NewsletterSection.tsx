@@ -4,15 +4,45 @@ import { Input } from "@/components/ui/input";
 import { Mail, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const emailSchema = z.string()
+  .min(1, "Por favor ingresa tu correo electrónico")
+  .email("Por favor ingresa un correo electrónico válido")
+  .max(255, "El correo es demasiado largo")
+  .refine(
+    (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email),
+    "El formato del correo no es válido"
+  );
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  const validateEmail = (value: string): boolean => {
+    const result = emailSchema.safeParse(value);
+    if (!result.success) {
+      setEmailError(result.error.errors[0].message);
+      return false;
+    }
+    setEmailError(null);
+    return true;
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (emailError) {
+      validateEmail(value);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    
+    if (!validateEmail(email)) return;
 
     setIsLoading(true);
     try {
@@ -35,6 +65,7 @@ const NewsletterSection = () => {
           description: "Te enviaremos las últimas novedades a tu correo.",
         });
         setEmail("");
+        setEmailError(null);
       }
     } catch (error) {
       console.error("Error subscribing:", error);
@@ -71,28 +102,35 @@ const NewsletterSection = () => {
           </p>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <div className="relative flex-1">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input
-                type="email"
-                placeholder="tu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="h-14 pl-12 pr-6 bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary rounded-full"
-                required
-              />
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Input
+                  type="email"
+                  placeholder="tu@email.com"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onBlur={() => email && validateEmail(email)}
+                  className={`h-14 pl-12 pr-6 bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary rounded-full ${
+                    emailError ? "border-destructive focus:border-destructive" : ""
+                  }`}
+                />
+              </div>
+              <Button type="submit" size="lg" className="h-14 px-8 group" disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    Suscribirme
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
+              </Button>
             </div>
-            <Button type="submit" size="lg" className="h-14 px-8 group" disabled={isLoading}>
-              {isLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <>
-                  Suscribirme
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </Button>
+            {emailError && (
+              <p className="text-sm text-destructive mt-2 text-left">{emailError}</p>
+            )}
           </form>
 
           <p className="text-xs text-muted-foreground mt-4">
