@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 const navLinks = [
   { label: "Inicio", href: "#hero" },
   { label: "Episodios", href: "#episodes" },
-  { label: "Hosts", href: "#hosts" },
+  { label: "Nosotros", href: "#hosts" },
   { label: "Plataformas", href: "#platforms" },
   { label: "Contacto", href: "#contact" },
 ];
@@ -26,7 +27,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg"
+          ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-soft"
           : "bg-transparent"
       }`}
     >
@@ -34,12 +35,12 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="font-display text-2xl text-primary-foreground">V</span>
+            <Logo size="sm" className="group-hover:scale-110 transition-transform duration-300" />
+            <div className="hidden sm:block">
+              <span className="font-handwritten text-3xl text-foreground">
+                Vacílate <span className="text-primary">Esto</span>
+              </span>
             </div>
-            <span className="font-display text-2xl tracking-wide hidden sm:block">
-              VACÍLATE<span className="text-primary"> ESTO</span>
-            </span>
           </a>
 
           {/* Desktop Nav */}
@@ -48,7 +49,7 @@ const Header = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
               >
                 {link.label}
               </a>
@@ -57,8 +58,8 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button variant="default" size="lg">
-              Escucha Ahora
+            <Button variant="default" size="default">
+              Escuchar Ahora
             </Button>
           </div>
 
@@ -89,7 +90,7 @@ const Header = () => {
               </a>
             ))}
             <Button variant="default" size="lg" className="mt-4">
-              Escucha Ahora
+              Escuchar Ahora
             </Button>
           </nav>
         </div>

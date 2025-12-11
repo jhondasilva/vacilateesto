@@ -1,75 +1,84 @@
 import { Button } from "@/components/ui/button";
-import { Play, Headphones } from "lucide-react";
+import { Play, Headphones, Users, Video, Star } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-float-delayed" />
-        
-        {/* Grid Pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }}
-        />
+      {/* Background Decorations */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8 animate-fade-in">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">Nuevo Episodio Cada Semana</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent border border-primary/20 mb-8 animate-fade-in">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span className="text-sm font-medium text-foreground">El podcast más viral de Venezuela 🇻🇪</span>
+          </div>
+
+          {/* Logo */}
+          <div className="flex justify-center mb-6 animate-scale-in">
+            <Logo size="lg" className="animate-bounce-slow" />
           </div>
 
           {/* Main Title */}
-          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none mb-6 animate-slide-up">
-            VACÍLATE
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-6 animate-slide-up">
+            <span className="font-handwritten text-foreground">Vacílate</span>
             <br />
-            <span className="text-gradient">ESTO</span>
+            <span className="font-handwritten text-primary">Esto</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            El podcast que te hace reír, pensar y disfrutar. 
-            Conversaciones sin filtro sobre la vida, cultura y todo lo demás.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>
+            ¡Que nunca se queda quieto! Conversaciones sin filtro, 
+            historias increíbles y el contenido más auténtico. 
+            Estamos en todo ✨👋
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <Button variant="hero" size="xl" className="group">
-              <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" />
               Último Episodio
             </Button>
-            <Button variant="heroSecondary" size="xl" className="group">
+            <Button variant="heroOutline" size="xl" className="group">
               <Headphones className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Explorar Podcast
+              Ver en YouTube
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-16 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <div className="text-center">
-              <div className="font-display text-4xl md:text-5xl text-gradient">200+</div>
-              <div className="text-sm text-muted-foreground mt-1">Episodios</div>
+          <div className="grid grid-cols-3 gap-6 max-w-md mx-auto mt-16 animate-fade-in" style={{ animationDelay: "0.6s" }}>
+            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-2">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div className="text-2xl md:text-3xl font-bold text-foreground">113K+</div>
+              <div className="text-xs text-muted-foreground mt-1">Suscriptores</div>
             </div>
-            <div className="text-center">
-              <div className="font-display text-4xl md:text-5xl text-gradient">50K+</div>
-              <div className="text-sm text-muted-foreground mt-1">Oyentes</div>
+            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-2">
+                <Video className="w-5 h-5 text-primary" />
+              </div>
+              <div className="text-2xl md:text-3xl font-bold text-foreground">1.3K+</div>
+              <div className="text-xs text-muted-foreground mt-1">Videos</div>
             </div>
-            <div className="text-center">
-              <div className="font-display text-4xl md:text-5xl text-gradient">4.9</div>
-              <div className="text-sm text-muted-foreground mt-1">Rating</div>
+            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-2">
+                <Star className="w-5 h-5 text-primary" />
+              </div>
+              <div className="text-2xl md:text-3xl font-bold text-foreground">4.9</div>
+              <div className="text-xs text-muted-foreground mt-1">Rating</div>
             </div>
           </div>
         </div>
@@ -78,7 +87,7 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
-          <div className="w-1 h-2 rounded-full bg-primary animate-pulse" />
+          <div className="w-1 h-2 rounded-full bg-primary" />
         </div>
       </div>
     </section>
