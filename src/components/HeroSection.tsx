@@ -46,11 +46,11 @@ const HeroSection = () => {
               href="https://www.youtube.com/@Vacilateestopodcast" 
               target="_blank" 
               rel="noopener noreferrer"
-              aria-label="Ver último episodio del mejor podcast de Venezuela en YouTube"
+              aria-label="Ver Vacílate Esto en YouTube - Uno de los mejores podcasts de Venezuela"
             >
               <Button variant="hero" size="xl" className="group">
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" aria-hidden="true" />
-                Último Episodio
+                Ver en YouTube
               </Button>
             </a>
             <a 
