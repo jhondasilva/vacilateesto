@@ -1,36 +1,7 @@
-import { useEffect } from "react";
 import { Play, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const SocialReelsSection = () => {
-  useEffect(() => {
-    // Load TikTok embed script
-    const tiktokScript = document.createElement("script");
-    tiktokScript.src = "https://www.tiktok.com/embed.js";
-    tiktokScript.async = true;
-    document.body.appendChild(tiktokScript);
-
-    // Load Instagram embed script
-    const instaScript = document.createElement("script");
-    instaScript.src = "https://www.instagram.com/embed.js";
-    instaScript.async = true;
-    document.body.appendChild(instaScript);
-
-    // Process Instagram embeds when script loads
-    instaScript.onload = () => {
-      if ((window as any).instgrm) {
-        (window as any).instgrm.Embeds.process();
-      }
-    };
-
-    return () => {
-      const existingTiktok = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
-      const existingInsta = document.querySelector('script[src="https://www.instagram.com/embed.js"]');
-      if (existingTiktok) existingTiktok.remove();
-      if (existingInsta) existingInsta.remove();
-    };
-  }, []);
-
   return (
     <section className="py-20 bg-gradient-to-b from-background to-accent/30 relative overflow-hidden">
       {/* Background decoration */}
@@ -54,112 +25,89 @@ const SocialReelsSection = () => {
           </p>
         </div>
 
-        {/* Social Embeds Grid */}
+        {/* Social Cards Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-          {/* TikTok Embed */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-background" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground">TikTok</h3>
-                <p className="text-xs text-muted-foreground">@vacilateestopodcast</p>
-              </div>
-            </div>
-            
-            <div className="w-full max-w-[325px] min-h-[500px] rounded-2xl overflow-hidden bg-card shadow-elevated">
-              <blockquote 
-                className="tiktok-embed" 
-                cite="https://www.tiktok.com/@vacilateestopodcast" 
-                data-unique-id="vacilateestopodcast" 
-                data-embed-from="embed_page" 
-                data-embed-type="creator"
-                style={{ maxWidth: "325px", minWidth: "288px" }}
-              >
-                <section>
-                  <a 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    href="https://www.tiktok.com/@vacilateestopodcast?refer=creator_embed"
-                  >
-                    @vacilateestopodcast
-                  </a>
-                </section>
-              </blockquote>
-            </div>
-
-            <a 
-              href="https://www.tiktok.com/@vacilateestopodcast" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="mt-4"
-            >
-              <Button variant="outline" size="sm" className="group">
-                Ver más en TikTok
-                <ExternalLink className="w-3 h-3 ml-2 group-hover:translate-x-0.5 transition-transform" />
-              </Button>
-            </a>
-          </div>
-
-          {/* Instagram Embed */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-background" fill="currentColor">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground">Instagram</h3>
-                <p className="text-xs text-muted-foreground">@vacilateestopodcast</p>
-              </div>
-            </div>
-            
-            <div className="w-full max-w-[325px] min-h-[500px] rounded-2xl overflow-hidden bg-card shadow-elevated flex items-center justify-center">
-              <blockquote 
-                className="instagram-media" 
-                data-instgrm-permalink="https://www.instagram.com/vacilateestopodcast/"
-                data-instgrm-version="14"
-                style={{ 
-                  background: "#FFF", 
-                  border: 0, 
-                  borderRadius: "3px", 
-                  boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)", 
-                  margin: "1px", 
-                  maxWidth: "325px", 
-                  minWidth: "288px", 
-                  padding: 0, 
-                  width: "calc(100% - 2px)" 
-                }}
-              >
-                <div style={{ padding: "16px" }}>
-                  <a 
-                    href="https://www.instagram.com/vacilateestopodcast/" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    Ver perfil en Instagram
-                  </a>
+          {/* TikTok Card */}
+          <a 
+            href="https://www.tiktok.com/@vacilateestopodcast" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <div className="relative h-[400px] rounded-3xl overflow-hidden bg-foreground shadow-elevated transition-transform duration-500 group-hover:scale-[1.02]">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground to-foreground/90">
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-10 left-10 w-20 h-20 border-2 border-background/30 rounded-full" />
+                  <div className="absolute bottom-20 right-10 w-32 h-32 border-2 border-background/20 rounded-full" />
+                  <div className="absolute top-1/2 left-1/4 w-16 h-16 border-2 border-background/20 rounded-full" />
                 </div>
-              </blockquote>
-            </div>
+              </div>
+              
+              {/* Content */}
+              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
+                {/* TikTok Icon */}
+                <div className="w-24 h-24 rounded-full bg-background/10 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg viewBox="0 0 24 24" className="w-12 h-12 text-background" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                </div>
 
-            <a 
-              href="https://www.instagram.com/vacilateestopodcast/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="mt-4"
-            >
-              <Button variant="outline" size="sm" className="group">
-                Ver más en Instagram
-                <ExternalLink className="w-3 h-3 ml-2 group-hover:translate-x-0.5 transition-transform" />
-              </Button>
-            </a>
-          </div>
+                <h3 className="text-2xl font-bold text-background mb-2">TikTok</h3>
+                <p className="text-background/70 text-sm mb-2">@vacilateestopodcast</p>
+                <p className="text-background/60 text-sm mb-6 max-w-xs">
+                  Videos cortos, clips virales y los mejores momentos del ecosistema
+                </p>
+
+                {/* CTA */}
+                <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-background/10 text-background group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <span className="font-semibold">Ver TikToks</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+          </a>
+
+          {/* Instagram Card */}
+          <a 
+            href="https://www.instagram.com/vacilateestopodcast/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-elevated transition-transform duration-500 group-hover:scale-[1.02]">
+              {/* Instagram Gradient Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-10 right-10 w-24 h-24 border-2 border-background/30 rounded-full" />
+                  <div className="absolute bottom-16 left-10 w-28 h-28 border-2 border-background/20 rounded-full" />
+                  <div className="absolute top-1/3 right-1/4 w-14 h-14 border-2 border-background/20 rounded-full" />
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
+                {/* Instagram Icon */}
+                <div className="w-24 h-24 rounded-full bg-background/10 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <svg viewBox="0 0 24 24" className="w-12 h-12 text-background" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+
+                <h3 className="text-2xl font-bold text-background mb-2">Instagram</h3>
+                <p className="text-background/70 text-sm mb-2">@vacilateestopodcast</p>
+                <p className="text-background/60 text-sm mb-6 max-w-xs">
+                  Reels, stories y fotos de las aventuras del equipo
+                </p>
+
+                {/* CTA */}
+                <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-background/10 text-background group-hover:bg-background group-hover:text-foreground transition-all duration-300">
+                  <span className="font-semibold">Ver Reels</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
 
         {/* Follow CTA */}
