@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
+import SpotifySection from "@/components/SpotifySection";
 import SocialReelsSection from "@/components/SocialReelsSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
@@ -16,6 +17,7 @@ const Index = () => {
       <main>
         <HeroBanner />
         <HeroSection />
+        <SpotifySection />
         <EpisodesSection />
         <HostsSection />
         <EcosystemSection />
