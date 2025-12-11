@@ -92,21 +92,21 @@ const Footer = () => {
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
               Vacílate Esto es una marca de{" "}
               <a 
-                href="https://www.elpatiocontentstudio.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                El Patio Content Studio
-              </a>
-              , una unidad de{" "}
-              <a 
                 href="https://www.lawebfigitalagency.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
                 La Web Figital Agency
+              </a>
+              {" "}producido por su unidad{" "}
+              <a 
+                href="https://www.elpatiocontentstudio.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                El Patio Content Studio
               </a>
               . Ecosistema de Fun Educaitment 🇻🇪 que nunca se queda quieto. ✨👋
             </p>
