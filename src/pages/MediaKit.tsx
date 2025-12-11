@@ -183,7 +183,7 @@ const MediaKit = () => {
             <div className="container mx-auto px-4 relative z-10">
               <div className="text-center max-w-4xl mx-auto">
                 <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/20 border border-primary/30 mb-8">
-                  <span className="text-sm font-semibold text-primary">Media Kit 2025</span>
+                  <span className="text-sm font-semibold text-primary">MediaKit 2026</span>
                 </div>
                 
                 <img 
