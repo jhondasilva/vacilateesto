@@ -35,9 +35,9 @@ const PodcastEterno = () => {
   ];
 
   const highlights = [
-    "Danny Ocean - Cantante venezolano",
-    "Luis Carlos Díaz - Periodista de tecnología",
-    "Leonardo Padrón - Escritor",
+    "Lele Pons - Creadora digital venezolana",
+    "Nacho - Cantante venezolano",
+    "Oscar D'León - Salsero legendario",
     "Edcar Caro - Creador español",
   ];
 
@@ -98,9 +98,9 @@ const PodcastEterno = () => {
           "address": { "@type": "PostalAddress", "addressCountry": "VE", "addressLocality": "Caracas" }
         },
         "contributor": [
-          { "@type": "Person", "name": "Danny Ocean", "description": "Cantante venezolano" },
-          { "@type": "Person", "name": "Luis Carlos Díaz", "description": "Periodista de tecnología y ciberactivismo" },
-          { "@type": "Person", "name": "Leonardo Padrón", "description": "Escritor venezolano" },
+          { "@type": "Person", "name": "Lele Pons", "description": "Creadora digital venezolana" },
+          { "@type": "Person", "name": "Nacho", "description": "Cantante venezolano" },
+          { "@type": "Person", "name": "Oscar D'León", "description": "Salsero legendario venezolano" },
           { "@type": "Person", "name": "Edcar Caro", "description": "Creador de contenido español" }
         ],
         "aggregateRating": {
