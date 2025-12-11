@@ -150,7 +150,7 @@ const contentFormats = [
     description: "Proyectos con identidad propia que nacen del ecosistema Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.",
     icon: Star,
     color: "bg-[#7DE8E8]",
-    stats: "3 proyectos activos",
+    stats: "3 proyectos realizados",
   },
 ];
 
