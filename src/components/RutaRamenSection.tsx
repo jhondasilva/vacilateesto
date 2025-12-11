@@ -4,11 +4,6 @@ import { Button } from "@/components/ui/button";
 const RutaRamenSection = () => {
   const restaurants = [
     {
-      name: "Yatai",
-      description: "Caldos profundos y noodles artesanales con autenticidad japonesa.",
-      rating: "4.5",
-    },
-    {
       name: "Sake",
       description: "Sabores y texturas que sorprenden en cada bocado.",
       rating: "4.3",
