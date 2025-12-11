@@ -52,7 +52,7 @@ const ecosystemItems = [
     name: "Me Traje",
     platforms: [
       { name: "TikTok", icon: "tiktok", color: "#000000" },
-      { name: "YouTube", icon: "youtube", color: "#FF0000" },
+      { name: "Instagram", icon: "instagram", color: "#E4405F" },
     ],
   },
   {
