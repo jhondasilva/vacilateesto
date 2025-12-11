@@ -1,12 +1,29 @@
 import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch } from "lucide-react";
 import Logo from "@/components/Logo";
 
+// Custom TikTok icon since lucide doesn't have one
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { icon: Instagram, href: "https://www.instagram.com/vacilateestopodcast/", label: "Instagram" },
     { icon: Youtube, href: "https://www.youtube.com/@Vacilateestopodcast", label: "YouTube" },
+    { icon: TikTokIcon, href: "https://www.tiktok.com/@vacilateesto/", label: "TikTok" },
     { icon: Facebook, href: "https://www.facebook.com/vacilatestopodcast/", label: "Facebook" },
     { icon: Twitch, href: "https://www.twitch.tv/vacilateesto", label: "Twitch" },
     { icon: Globe, href: "https://www.vacilateesto.com", label: "Website" },
