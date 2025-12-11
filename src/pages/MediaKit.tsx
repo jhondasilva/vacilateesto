@@ -94,7 +94,7 @@ const contentFormats = [
     platforms: "Facebook, Instagram, TikTok, YouTube Shorts",
   },
   {
-    title: "Podcast Largo",
+    title: "Podcast",
     subtitle: "Vacílate Esto",
     description: "Nuestro formato estrella de análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana. Episodios semanales de ~45 minutos que generan conversación.",
     icon: Mic,
