@@ -4,6 +4,7 @@ const scheduleData = [
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
+      { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
     ],
   },
   {
@@ -12,6 +13,7 @@ const scheduleData = [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "10:00 AM", title: "Streaming", platform: "Twitch" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
+      { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
       { time: "6:00 PM", title: "Comiendo", platform: "TikTok/Instagram" },
     ],
   },
@@ -21,6 +23,7 @@ const scheduleData = [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "12:00 PM", title: "Newsletter", platform: "Email" },
+      { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
     ],
   },
   {
@@ -28,6 +31,7 @@ const scheduleData = [
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
+      { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
       { time: "8:00 PM", title: "Podcast", platform: "YouTube/Spotify" },
     ],
   },
@@ -36,6 +40,7 @@ const scheduleData = [
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
+      { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
       { time: "6:00 PM", title: "Me Traje", platform: "TikTok/Instagram" },
     ],
   },
