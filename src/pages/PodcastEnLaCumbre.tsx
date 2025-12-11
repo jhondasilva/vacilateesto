@@ -188,14 +188,9 @@ const PodcastEnLaCumbre = () => {
                   description: "Cámara en mano, ojo entrenado para encontrar encuadres que cuentan historias."
                 },
                 {
-                  name: "Oriana",
-                  role: "Producción general",
-                  description: "Organiza horarios, rutas y logística en tiempo real."
-                },
-                {
-                  name: "Kemberly",
-                  role: "Producción de campo y digital",
-                  description: "Pendiente de que el contenido fluya hacia redes y que nada quede fuera del registro."
+                  name: "Joel",
+                  role: "Equipo audiovisual",
+                  description: "Cámara en mano, responsable del documental."
                 },
               ].map((member) => (
                 <div
