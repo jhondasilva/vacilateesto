@@ -23,7 +23,8 @@ import {
   Download,
   Tv,
   Smartphone,
-  MapPin
+  MapPin,
+  Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -142,6 +143,14 @@ const contentFormats = [
     icon: Mail,
     color: "bg-primary",
     stats: "Contenido curado",
+  },
+  {
+    title: "Proyectos Especiales",
+    subtitle: "Producciones Únicas",
+    description: "Proyectos con identidad propia que nacen del ecosistema Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.",
+    icon: Star,
+    color: "bg-[#7DE8E8]",
+    stats: "3 proyectos activos",
   },
 ];
 
