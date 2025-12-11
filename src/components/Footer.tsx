@@ -1,4 +1,4 @@
-import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch } from "lucide-react";
+import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch, Linkedin } from "lucide-react";
 import Logo from "@/components/Logo";
 
 // Custom TikTok icon since lucide doesn't have one
@@ -64,6 +64,7 @@ const Footer = () => {
     { icon: TikTokIcon, href: "https://www.tiktok.com/@vacilateesto/", label: "TikTok" },
     { icon: SpotifyIcon, href: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1?si=f0ce3d6e27a241a1", label: "Spotify" },
     { icon: Facebook, href: "https://www.facebook.com/vacilatestopodcast/", label: "Facebook" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/vacílate-esto/?originalSubdomain=ve", label: "LinkedIn" },
     { icon: Twitch, href: "https://www.twitch.tv/vacilateesto", label: "Twitch" },
     { icon: Globe, href: "https://www.vacilateesto.com", label: "Website" },
   ];
