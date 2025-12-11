@@ -26,7 +26,8 @@ import {
   MapPin,
   Star,
   Footprints,
-  MessageCircle
+  MessageCircle,
+  Trophy
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -169,6 +170,14 @@ const contentFormats = [
     icon: Star,
     color: "bg-primary",
     stats: "3 proyectos realizados",
+  },
+  {
+    title: "Vacílate El Mundial",
+    subtitle: "Cobertura Especial 2026",
+    description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.",
+    icon: Trophy,
+    color: "bg-[#7DE8E8]",
+    stats: "Feb - Jul 2026",
   },
 ];
 
