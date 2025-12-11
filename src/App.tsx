@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import PodcastEnLaCumbre from "./pages/PodcastEnLaCumbre";
+import PodcastEterno from "./pages/PodcastEterno";
 import MediaKit from "./pages/MediaKit";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
@@ -21,6 +22,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
+          <Route path="/podcast-eterno" element={<PodcastEterno />} />
           <Route path="/media-kit" element={<MediaKit />} />
           <Route path="/privacidad" element={<PrivacyPolicy />} />
           <Route path="/terminos" element={<TermsOfUse />} />
