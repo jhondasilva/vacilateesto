@@ -20,9 +20,8 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent via-background to-accent/50" />
       <div className="absolute top-10 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       
