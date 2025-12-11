@@ -206,7 +206,7 @@ const MediaKit = () => {
                 
                 <h1 className="text-4xl md:text-6xl font-black text-background mb-6">
                   El Ecosistema de Contenido
-                  <span className="block text-primary mt-2">Más Grande de Venezuela</span>
+                  <span className="block text-primary mt-2">Fun Educaitment</span>
                 </h1>
                 
                 <p className="text-xl text-background/70 mb-10 max-w-2xl mx-auto">
