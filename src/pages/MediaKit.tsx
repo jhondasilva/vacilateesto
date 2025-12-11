@@ -189,7 +189,7 @@ const MediaKit = () => {
                 <img 
                   src={logoVacilate} 
                   alt="Vacílate Esto" 
-                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-2xl"
+                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-2xl brightness-0 invert"
                 />
                 
                 <h1 className="text-4xl md:text-6xl font-black text-background mb-6">
