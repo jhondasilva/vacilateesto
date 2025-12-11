@@ -740,5 +740,124 @@ export const generateMediaKitPdf = async () => {
   doc.text("© 2026 Vacílate Esto - Todos los derechos reservados", pageWidth / 2, pageHeight - 20, { align: "center" });
 
   // Save the PDF
-  doc.save("VacilateEsto-MediaKit-2026.pdf");
+  doc.save("Media Kit Vacilate Esto 2026.pdf");
+};
+
+// Function to get PDF as base64 for email sending
+export const generateMediaKitPdfBase64 = async (): Promise<string> => {
+  const jsPDF = (await import("jspdf")).default;
+  const doc = new jsPDF("p", "mm", "a4");
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 20;
+  let y = 0;
+
+  // Load logo
+  let logoBase64: string | null = null;
+  try {
+    logoBase64 = await loadImageAsBase64(logoVacilate);
+  } catch (e) {
+    console.warn("Could not load logo:", e);
+  }
+
+  const addNewPage = () => {
+    doc.addPage();
+    y = margin;
+  };
+
+  // Helper colors
+  const PRIMARY: [number, number, number] = [239, 68, 68];
+  const DARK: [number, number, number] = [20, 20, 20];
+  const ACCENT: [number, number, number] = [125, 232, 232];
+
+  // ==================== SIMPLIFIED PDF FOR EMAIL ====================
+  // Cover page
+  doc.setFillColor(...DARK);
+  doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+  doc.setFillColor(PRIMARY[0], PRIMARY[1], PRIMARY[2], 0.3);
+  doc.roundedRect(pageWidth / 2 - 30, 35, 60, 12, 6, 6, "F");
+  doc.setTextColor(...PRIMARY);
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
+
+  if (logoBase64) {
+    doc.addImage(logoBase64, "PNG", (pageWidth - 80) / 2, 55, 80, 25);
+  } else {
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(36);
+    doc.text("VACÍLATE ESTO", pageWidth / 2, 75, { align: "center" });
+  }
+
+  doc.setTextColor(...PRIMARY);
+  doc.setFontSize(18);
+  doc.text("El Ecosistema de Contenido", pageWidth / 2, 92, { align: "center" });
+  doc.setFontSize(24);
+  doc.text("Fun Educaitment", pageWidth / 2, 105, { align: "center" });
+
+  doc.setTextColor(200, 200, 200);
+  doc.setFontSize(11);
+  const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores.";
+  doc.text(desc, pageWidth / 2, 125, { align: "center", maxWidth: pageWidth - 60 });
+
+  // Stats
+  const stats = [
+    { value: "3.5M+", label: "Seguidores" },
+    { value: "89.6M", label: "Impresiones" },
+    { value: "5.2M", label: "Interacciones" },
+    { value: "6,705", label: "Publicaciones" },
+  ];
+  
+  let boxX = (pageWidth - 184) / 2;
+  stats.forEach((stat) => {
+    doc.setFillColor(40, 40, 40);
+    doc.roundedRect(boxX, 155, 38, 35, 4, 4, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text(stat.value, boxX + 19, 170, { align: "center" });
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(7);
+    doc.text(stat.label, boxX + 19, 180, { align: "center" });
+    boxX += 46;
+  });
+
+  doc.setTextColor(100, 100, 100);
+  doc.setFontSize(8);
+  doc.text("Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
+
+  // Page 2: Contact
+  addNewPage();
+  doc.setFillColor(...DARK);
+  doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+  doc.setTextColor(...PRIMARY);
+  doc.setFontSize(12);
+  doc.text("CONTACTO", pageWidth / 2, 60, { align: "center" });
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(28);
+  doc.text("¿Listo para Conectar", pageWidth / 2, 85, { align: "center" });
+  doc.text("con Nuestra Audiencia?", pageWidth / 2, 100, { align: "center" });
+
+  doc.setFillColor(40, 40, 40);
+  doc.roundedRect(pageWidth / 2 - 60, 120, 120, 40, 5, 5, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+  doc.text("Email:", pageWidth / 2, 135, { align: "center" });
+  doc.setTextColor(...PRIMARY);
+  doc.setFontSize(12);
+  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 150, { align: "center" });
+
+  doc.setTextColor(150, 150, 150);
+  doc.setFontSize(10);
+  doc.text("www.vacilateesto.com", pageWidth / 2, 180, { align: "center" });
+
+  doc.setTextColor(100, 100, 100);
+  doc.setFontSize(8);
+  doc.text("© 2026 Vacílate Esto - Todos los derechos reservados", pageWidth / 2, pageHeight - 20, { align: "center" });
+
+  // Return as base64
+  return doc.output("datauristring").split(",")[1];
 };

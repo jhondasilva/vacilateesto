@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { generateMediaKitPdf } from "@/utils/generateMediaKitPdf";
+import { generateMediaKitPdf, generateMediaKitPdfBase64 } from "@/utils/generateMediaKitPdf";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +28,7 @@ import {
   CheckCircle2,
   ArrowRight,
   Download,
+  Send,
   Tv,
   Smartphone,
   MapPin,
@@ -329,6 +330,127 @@ const ContactForm = () => {
         )}
       </Button>
     </form>
+  );
+};
+
+const PdfActions = () => {
+  const { toast } = useToast();
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [sendEmail, setSendEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSendEmail = async () => {
+    if (!sendEmail) {
+      toast({
+        title: "Error",
+        description: "Por favor ingresa un email válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(sendEmail)) {
+      toast({
+        title: "Error",
+        description: "Por favor ingresa un email válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      const pdfBase64 = await generateMediaKitPdfBase64();
+
+      const { data, error } = await supabase.functions.invoke("send-mediakit-email", {
+        body: { email: sendEmail, pdfBase64 },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "¡Media Kit enviado!",
+        description: `El PDF ha sido enviado a ${sendEmail}`,
+      });
+
+      setSendEmail("");
+      setShowEmailInput(false);
+    } catch (error: any) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al enviar el email. Intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  return (
+    <div className="mt-8 space-y-4">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button 
+          variant="outline" 
+          size="lg" 
+          className="group"
+          onClick={() => generateMediaKitPdf()}
+        >
+          <Download className="w-5 h-5 mr-2" />
+          Descargar Media Kit PDF
+        </Button>
+        
+        <Button 
+          size="lg" 
+          className="group"
+          onClick={() => setShowEmailInput(!showEmailInput)}
+        >
+          <Send className="w-5 h-5 mr-2" />
+          Enviar PDF por Email
+        </Button>
+      </div>
+
+      {showEmailInput && (
+        <div className="bg-muted/50 rounded-2xl p-6 max-w-md mx-auto animate-fade-in">
+          <Label htmlFor="send-email" className="text-sm font-medium mb-2 block">
+            Ingresa el email donde quieres recibir el Media Kit
+          </Label>
+          <div className="flex gap-2">
+            <Input
+              id="send-email"
+              type="email"
+              placeholder="tu@email.com"
+              value={sendEmail}
+              onChange={(e) => setSendEmail(e.target.value)}
+              className="flex-1"
+              disabled={isSending}
+            />
+            <Button 
+              onClick={handleSendEmail} 
+              disabled={isSending}
+              className="shrink-0"
+            >
+              {isSending ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Enviando...
+                </span>
+              ) : (
+                <>
+                  <Send className="w-4 h-4 mr-2" />
+                  Enviar
+                </>
+              )}
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Recibirás el Media Kit Vacílate Esto 2026 en tu bandeja de entrada.
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -701,17 +823,7 @@ const MediaKit = () => {
 
                 <ContactForm />
 
-                <div className="mt-8 text-center">
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="group"
-                    onClick={() => generateMediaKitPdf()}
-                  >
-                    <Download className="w-5 h-5 mr-2" />
-                    Descargar Media Kit PDF
-                  </Button>
-                </div>
+                <PdfActions />
               </div>
             </div>
           </section>
