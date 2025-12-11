@@ -39,7 +39,6 @@ const audienceData = {
     { name: "YouTube", followers: "210.68K", growth: "+11.8%", icon: Youtube },
     { name: "Facebook", followers: "113K", growth: "+1.8%", icon: Facebook },
     { name: "Threads", followers: "58.06K", growth: "+13.69%", icon: FileText },
-    { name: "X (Twitter)", followers: "1.16M", growth: "+3.86%", icon: Globe },
   ],
   impressions: {
     facebook: "44.79M",
@@ -249,7 +248,7 @@ const MediaKit = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {audienceData.platforms.map((platform, index) => (
                   <div 
                     key={index} 
@@ -258,6 +257,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-xs text-muted-foreground mb-1">{platform.name}</div>
                     <div className="text-2xl font-bold text-foreground">{platform.followers}</div>
+                    <div className="text-xs text-muted-foreground mb-1">Seguidores</div>
                     <div className="text-sm font-semibold text-green-500">{platform.growth}</div>
                   </div>
                 ))}
