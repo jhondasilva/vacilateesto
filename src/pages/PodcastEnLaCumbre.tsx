@@ -9,10 +9,10 @@ const PodcastEnLaCumbre = () => {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative py-20 bg-foreground overflow-hidden">
+        <section className="relative py-20 bg-background overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 w-40 h-40 border-2 border-background rounded-full" />
-            <div className="absolute bottom-20 right-20 w-60 h-60 border-2 border-background rounded-full" />
+            <div className="absolute top-10 left-10 w-40 h-40 border-2 border-foreground rounded-full" />
+            <div className="absolute bottom-20 right-20 w-60 h-60 border-2 border-foreground rounded-full" />
           </div>
           
           <div className="container mx-auto px-4 relative z-10 text-center">
@@ -25,7 +25,7 @@ const PodcastEnLaCumbre = () => {
               />
             </div>
             
-            <p className="text-background/80 text-lg max-w-3xl mx-auto">
+            <p className="text-foreground/80 text-lg max-w-3xl mx-auto">
               Una travesía audiovisual de siete meses para mostrar a Venezuela desde sus alturas 
               —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, humor y reflexión.
             </p>
