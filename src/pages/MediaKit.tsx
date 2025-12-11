@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { 
   Users, 
   Eye, 
@@ -216,6 +222,114 @@ const topPosts = [
   { date: "11 Feb 2025", description: "¿Crees esta leyenda? ¿Qué opinas?", impressions: "743.38K", interactions: "103.98K" },
   { date: "07 May 2025", description: "La historia de constancia y éxito...", impressions: "685.74K", interactions: "88.78K" },
 ];
+
+const ContactForm = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Por favor completa los campos requeridos.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "¡Mensaje enviado!",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
+
+      setFormData({ name: "", email: "", company: "", message: "" });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al enviar el mensaje. Intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 shadow-card border border-border space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label htmlFor="name">Nombre *</Label>
+          <Input
+            id="name"
+            placeholder="Tu nombre"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Email *</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="tu@email.com"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="company">Empresa / Marca</Label>
+        <Input
+          id="company"
+          placeholder="Nombre de tu empresa o marca"
+          value={formData.company}
+          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="message">Mensaje *</Label>
+        <Textarea
+          id="message"
+          placeholder="Cuéntanos sobre tu proyecto y cómo podemos colaborar..."
+          rows={5}
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          required
+        />
+      </div>
+      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? (
+          "Enviando..."
+        ) : (
+          <>
+            <Mail className="w-5 h-5 mr-2" />
+            Enviar Mensaje
+          </>
+        )}
+      </Button>
+    </form>
+  );
+};
 
 const MediaKit = () => {
   return (
@@ -567,28 +681,26 @@ const MediaKit = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="py-20 bg-background">
+          {/* Contact Form Section */}
+          <section className="py-20 bg-background" id="contacto">
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  ¿Listo para Conectar con Nuestra Audiencia?
-                </h2>
-                <p className="text-muted-foreground text-lg mb-8">
-                  Contáctanos para crear una estrategia personalizada que conecte tu marca 
-                  con más de 3.5 millones de seguidores apasionados.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a 
-                    href="mailto:jhon@hacemosloquenosgusta.com"
-                    className="inline-flex"
-                  >
-                    <Button size="lg" className="group w-full sm:w-auto">
-                      <Mail className="w-5 h-5 mr-2" />
-                      Contáctanos
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </a>
+              <div className="max-w-2xl mx-auto">
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-foreground">Contacto</span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    ¿Listo para Conectar con Nuestra Audiencia?
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
+                    Completa el formulario y te contactaremos para crear una estrategia personalizada.
+                  </p>
+                </div>
+
+                <ContactForm />
+
+                <div className="mt-8 text-center">
                   <Button variant="outline" size="lg" className="group">
                     <Download className="w-5 h-5 mr-2" />
                     Descargar Media Kit PDF
