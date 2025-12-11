@@ -12,7 +12,7 @@ const scheduleData = [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "10:00 AM", title: "Streaming", platform: "Twitch" },
       { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
-      { time: "6:00 PM", title: "Comiendo", platform: "TikTok" },
+      { time: "6:00 PM", title: "Comiendo", platform: "TikTok/Instagram" },
     ],
   },
   {
