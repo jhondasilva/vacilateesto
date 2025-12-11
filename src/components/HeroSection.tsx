@@ -11,7 +11,7 @@ const HeroSection = () => {
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#7DE8E8]/10 rounded-full blur-3xl animate-float-delayed" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
@@ -27,16 +27,9 @@ const HeroSection = () => {
           </div>
 
           {/* Logo */}
-          <div className="flex justify-center mb-6 animate-scale-in">
-            <Logo size="lg" className="animate-bounce-slow" />
+          <div className="flex justify-center mb-8 animate-scale-in">
+            <Logo size="xl" className="animate-bounce-slow" />
           </div>
-
-          {/* Main Title */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 animate-slide-up tracking-tight">
-            <span className="text-foreground">Vacílate</span>
-            <br />
-            <span className="text-primary">Esto</span>
-          </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>

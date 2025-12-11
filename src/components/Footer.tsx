@@ -42,11 +42,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#hero" className="flex items-center gap-3 mb-4">
-              <Logo size="sm" />
-              <span className="font-bold text-xl text-background">
-                Vacílate Esto
-              </span>
+            <a href="#hero" className="inline-block mb-4">
+              <Logo size="default" className="brightness-0 invert" />
             </a>
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
               El podcast más viral de Venezuela 🇻🇪 Que nunca se queda quieto, ¡estamos en todo! ✨👋

@@ -34,13 +34,8 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3 group">
-            <Logo size="sm" className="group-hover:scale-110 transition-transform duration-300" />
-            <div className="hidden sm:block">
-              <span className="font-bold text-xl text-foreground">
-                Vacílate <span className="text-primary">Esto</span>
-              </span>
-            </div>
+          <a href="#hero" className="flex items-center group">
+            <Logo size="sm" className="group-hover:scale-105 transition-transform duration-300" />
           </a>
 
           {/* Desktop Nav */}
