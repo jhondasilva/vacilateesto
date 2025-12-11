@@ -2,43 +2,61 @@ const scheduleData = [
   {
     day: "Lunes",
     events: [
-      { time: "8:00 PM", title: "Podcast en Vivo", platform: "YouTube" },
+      { time: "8:00 AM", title: "Short Podcast", platform: "TikTok" },
+      { time: "12:00 PM", title: "Cuentos", platform: "WhatsApp" },
+      { time: "6:00 PM", title: "Comiendo", platform: "Instagram" },
+      { time: "8:00 PM", title: "Podcast", platform: "YouTube" },
     ],
   },
   {
     day: "Martes",
     events: [
+      { time: "8:00 AM", title: "Short Podcast", platform: "Instagram" },
+      { time: "12:00 PM", title: "Newsletter", platform: "Email" },
       { time: "7:00 PM", title: "Streaming", platform: "Twitch" },
     ],
   },
   {
     day: "Miércoles",
     events: [
-      { time: "8:00 PM", title: "Podcast en Vivo", platform: "YouTube" },
+      { time: "8:00 AM", title: "Short Podcast", platform: "TikTok" },
+      { time: "12:00 PM", title: "Cuentos", platform: "WhatsApp" },
+      { time: "6:00 PM", title: "Me Traje", platform: "Instagram" },
+      { time: "8:00 PM", title: "Podcast", platform: "YouTube" },
     ],
   },
   {
     day: "Jueves",
     events: [
+      { time: "8:00 AM", title: "Short Podcast", platform: "Facebook" },
+      { time: "12:00 PM", title: "Radio", platform: "Radio" },
       { time: "7:00 PM", title: "Comiendo", platform: "TikTok" },
     ],
   },
   {
     day: "Viernes",
     events: [
+      { time: "8:00 AM", title: "Short Podcast", platform: "TikTok" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Instagram" },
       { time: "8:00 PM", title: "Streaming", platform: "Twitch" },
     ],
   },
   {
     day: "Sábado",
     events: [
-      { time: "12:00 PM", title: "Me Traje", platform: "Instagram" },
+      { time: "10:00 AM", title: "Me Traje", platform: "TikTok" },
+      { time: "12:00 PM", title: "Comiendo", platform: "Instagram" },
+      { time: "4:00 PM", title: "Juegos", platform: "App Store" },
+      { time: "8:00 PM", title: "Eventos", platform: "Eventos" },
     ],
   },
   {
     day: "Domingo",
     events: [
-      { time: "6:00 PM", title: "Cuentos", platform: "WhatsApp" },
+      { time: "10:00 AM", title: "Short Podcast", platform: "YouTube" },
+      { time: "12:00 PM", title: "Cuentos", platform: "WhatsApp" },
+      { time: "6:00 PM", title: "Podcast", platform: "Spotify" },
+      { time: "8:00 PM", title: "Radio", platform: "Radio" },
     ],
   },
 ];
