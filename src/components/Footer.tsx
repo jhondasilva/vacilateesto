@@ -83,13 +83,17 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand */}
+        {/* Logo Section - Full Width */}
+        <div className="text-center mb-12">
+          <a href="#hero" className="inline-block">
+            <Logo size="xl" className="brightness-0 invert" />
+          </a>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {/* Brand Info */}
           <div className="lg:col-span-2">
-            <a href="#hero" className="inline-block mb-4">
-              <Logo size="xl" className="brightness-0 invert" />
-            </a>
-            <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
+            <p className="text-background/70 text-sm mb-4 max-w-lg leading-relaxed">
               Vacílate Esto es una marca de{" "}
               <a 
                 href="https://www.lawebfigitalagency.com" 
@@ -166,7 +170,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-background/50 text-sm">
-            © {currentYear} Vacílate Esto. Todos los derechos reservados.
+            © 2026 Vacílate Esto. Todos los derechos reservados.
           </p>
           <p className="text-background/50 text-sm">
             Hecho con ❤️ en Venezuela
