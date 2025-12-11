@@ -129,25 +129,30 @@ const PodcastEnLaCumbre = () => {
           </div>
         </section>
 
-        {/* Ruta Section */}
+        {/* Roraima Section */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h3 className="text-3xl font-bold text-foreground mb-6">
-                Ruta hacia el Pico Naiguatá
+              <h3 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
+                <MapPin className="w-8 h-8 text-primary" />
+                Podcast en Roraima
               </h3>
               <p className="text-muted-foreground mb-4">
-                La ruta al Pico Naiguatá arranca en el Puesto de Guardaparques La Julia y sube por trece 
-                hitos naturales e históricos: Mirador del Edén, Piedra del Muñeco, Dos Banderas, Rancho Grande, 
-                Las Toyotas y La Explanada, hasta alcanzar el Anfiteatro y las formaciones finales antes de la cima.
+                Roraima es la segunda cumbre del proyecto. El tepuy más emblemático de Venezuela, 
+                con sus <strong className="text-primary">2.810 metros</strong> de altura, representa 
+                un reto único: una meseta ancestral donde el tiempo parece detenerse.
               </p>
               <p className="text-muted-foreground mb-4">
-                Desde allí se continúa hacia las Piedras del Diablo y La Arepa para llegar a los 
-                <strong className="text-primary"> 2.765 msnm</strong> del techo de Caracas.
+                La expedición hacia la cima del Roraima es una travesía de varios días atravesando 
+                la Gran Sabana, cruzando ríos y ascendiendo por la famosa rampa natural que conecta 
+                con la cima del tepuy.
               </p>
+              <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
+                "Roraima es donde el cielo toca la tierra y las historias se vuelven leyenda."
+              </blockquote>
               <p className="text-muted-foreground">
-                Es una travesía de tres días que combina bosque nublado, pendientes exigentes, vistas al 
-                Caribe y a Caracas, y un final cargado de altura y simbolismo.
+                En la cima, entre formaciones rocosas milenarias y paisajes de otro mundo, 
+                grabaremos un episodio que captura la esencia mística de este lugar sagrado para los Pemón.
               </p>
             </div>
           </div>
