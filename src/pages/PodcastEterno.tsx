@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Clock, Users, Trophy, Mic, Play, Star, Calendar, Quote } from "lucide-react";
+import { Clock, Users, Trophy, Mic, Play, Calendar, Quote } from "lucide-react";
 
 const PodcastEterno = () => {
   const episodes = [
@@ -34,12 +34,6 @@ const PodcastEterno = () => {
     { icon: Trophy, value: "1", label: "Récord mundial", suffix: "º" },
   ];
 
-  const highlights = [
-    "Lele Pons - Creadora digital venezolana",
-    "Nacho - Cantante venezolano",
-    "Oscar D'León - Salsero legendario",
-    "Edcar Caro - Creador español",
-  ];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -97,12 +91,6 @@ const PodcastEterno = () => {
           "name": "Caracas, Venezuela",
           "address": { "@type": "PostalAddress", "addressCountry": "VE", "addressLocality": "Caracas" }
         },
-        "contributor": [
-          { "@type": "Person", "name": "Lele Pons", "description": "Creadora digital venezolana" },
-          { "@type": "Person", "name": "Nacho", "description": "Cantante venezolano" },
-          { "@type": "Person", "name": "Oscar D'León", "description": "Salsero legendario venezolano" },
-          { "@type": "Person", "name": "Edcar Caro", "description": "Creador de contenido español" }
-        ],
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5",
@@ -414,29 +402,6 @@ const PodcastEterno = () => {
             </div>
           </section>
 
-          {/* Highlights Section */}
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-foreground">
-                  Invitados de Lujo
-                </h2>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {highlights.map((guest, index) => (
-                    <div key={index} className="p-4 bg-muted/30 rounded-xl border border-border text-center">
-                      <Star className="w-6 h-6 text-primary mx-auto mb-2" />
-                      <p className="text-sm font-medium text-foreground">{guest}</p>
-                    </div>
-                  ))}
-                </div>
-                
-                <p className="text-center text-muted-foreground mt-6">
-                  Y más de 30 invitados adicionales de Venezuela, Colombia, México y España.
-                </p>
-              </div>
-            </div>
-          </section>
 
           {/* Episodes Section */}
           <section className="py-16 bg-foreground text-background">
