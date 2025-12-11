@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
-
 const platforms = [
   {
     name: "YouTube",
@@ -85,22 +82,6 @@ const PlatformsSection = () => {
               </span>
             </a>
           ))}
-        </div>
-
-        {/* WhatsApp CTA */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-8 bg-background rounded-3xl border border-border shadow-card">
-            <div className="w-16 h-16 rounded-full bg-[#25D366] flex items-center justify-center">
-              <MessageCircle className="w-8 h-8 text-white" />
-            </div>
-            <div className="text-center sm:text-left">
-              <p className="text-foreground font-bold text-lg">¿Tienes alguna pregunta?</p>
-              <p className="text-muted-foreground">Escríbenos y responderemos lo antes posible</p>
-            </div>
-            <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white">
-              Chatear Ahora
-            </Button>
-          </div>
         </div>
       </div>
     </section>
