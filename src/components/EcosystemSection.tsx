@@ -235,7 +235,7 @@ const EcosystemSection = () => {
                 <div className="w-1.5 h-1.5 rounded-full bg-[#7DE8E8] mb-1" />
                 <div className="w-0.5 h-8 bg-[#7DE8E8]/50 mb-2" />
                 <div className="flex flex-col items-center gap-1.5">
-                  {item.platforms.slice(0, 3).map((platform) => (
+                  {item.platforms.map((platform) => (
                     <div
                       key={platform.name}
                       className="w-8 h-8 rounded-full bg-background flex items-center justify-center shadow-sm"
@@ -244,9 +244,6 @@ const EcosystemSection = () => {
                       <PlatformIcon icon={platform.icon} color={platform.color} size="sm" />
                     </div>
                   ))}
-                  {item.platforms.length > 3 && (
-                    <span className="text-[10px] text-background/50">+{item.platforms.length - 3}</span>
-                  )}
                 </div>
               </div>
             ))}
@@ -263,7 +260,7 @@ const EcosystemSection = () => {
                   <span className="text-primary font-bold text-[9px] uppercase">{item.name}</span>
                 </div>
                 <div className="flex flex-wrap justify-center gap-1">
-                  {item.platforms.slice(0, 4).map((platform) => (
+                  {item.platforms.map((platform) => (
                     <div
                       key={platform.name}
                       className="w-7 h-7 rounded-full bg-background flex items-center justify-center"
