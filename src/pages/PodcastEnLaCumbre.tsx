@@ -585,23 +585,165 @@ const PodcastEnLaCumbre = () => {
             </div>
           </section>
 
-          {/* Press Section */}
-          <section className="py-16 bg-primary/10" aria-labelledby="press-heading">
-            <div className="container mx-auto px-4 text-center">
-              <Newspaper className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-              <h2 id="press-heading" className="text-3xl font-bold text-foreground mb-4">Prensa y Medios</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-                Descubre la historia detrás de Podcast en la Cumbre, el reto de JuanSofa y JhonSnacks 
-                para llevar identidad, humor y aventura a las cimas más emblemáticas del país.
-              </p>
-              <a
-                href="https://podcastenlacumbre.zapier.app/formulario"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 transition-colors"
-              >
-                Descargar Nota de Prensa
-              </a>
+          {/* Nota de Prensa Section */}
+          <section className="py-16 bg-background" aria-labelledby="nota-prensa-heading">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-12">
+                  <Newspaper className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
+                  <h2 id="nota-prensa-heading" className="text-3xl font-bold text-foreground mb-4">
+                    Nota de Prensa
+                  </h2>
+                  <p className="text-xl text-primary font-semibold">
+                    Podcast en la Cumbre: una travesía venezolana hacia lo más alto del país
+                  </p>
+                </div>
+
+                <div className="prose prose-lg max-w-none space-y-6">
+                  <p className="text-muted-foreground text-lg leading-relaxed">
+                    En tiempos donde el ruido abunda, solo las voces con verdadero propósito hacen cumbre. 
+                    Así que vacílate esto: <strong className="text-foreground">JuanSofa y JhonSnacks</strong> junto 
+                    a El Patio Content Studio apuestan, una vez más, por crear marca país ahora desde lo más 
+                    alto con "Podcast en la Cumbre".
+                  </p>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    Un viaje para demostrar que Venezuela tiene historias de altura que merecen contarse con 
+                    orgullo, ya que reflejan lo que nos define como venezolanos: <strong className="text-primary">¡estamos 
+                    a la altura de cada desafío!</strong>
+                  </p>
+
+                  <div className="bg-muted/30 rounded-2xl p-8 my-8">
+                    <h3 className="text-xl font-bold text-foreground mb-4">Una narrativa de altura</h3>
+                    <p className="text-muted-foreground mb-4">
+                      El proyecto, que abarca las tres cumbres más altas y simbólicas de Venezuela — Naiguatá, 
+                      Roraima y Pico Bolívar — estará protagonizado por gente de altura. Personas que inspiran, 
+                      construyen y transforman nuestro camino hasta llegar a la cumbre, y no por la distancia, 
+                      sino por su ADN de altitud Made in Venezuela.
+                    </p>
+                    <p className="text-muted-foreground">
+                      Vamos en busca de voces que han hecho de la altura su forma de vida, porque entendemos 
+                      que <strong className="text-foreground">estar a la altura no es llegar, es sostenerse</strong>. 
+                      Este es un podcast que enaltece a todos los que creen que siempre se puede subir un poco más.
+                    </p>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-foreground mb-6">Tres cumbres que enaltecen nuestra historia</h3>
+                  
+                  <div className="grid md:grid-cols-3 gap-6 my-8">
+                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
+                      <h4 className="font-bold text-foreground mb-2">Pico Naiguatá</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Desde el techo de Caracas, el primer podcast será un homenaje a una ciudad con 
+                        historias y gente de altura.
+                      </p>
+                    </div>
+                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
+                      <h4 className="font-bold text-foreground mb-2">Monte Roraima</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Considerado uno de los paisajes más místicos del continente, será escenario de 
+                        una transmisión sin precedentes: el primer podcast grabado y transmitido desde su punto más alto.
+                      </p>
+                    </div>
+                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
+                      <h4 className="font-bold text-foreground mb-2">Pico Bolívar</h4>
+                      <p className="text-sm text-muted-foreground">
+                        El cierre del ciclo. La cumbre más alta del país donde culmina esta trilogía con 
+                        una visión épica de los venezolanos de altura.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-foreground text-background rounded-2xl p-8 my-8">
+                    <h3 className="text-xl font-bold mb-4">Mucho más que un podcast</h3>
+                    <p className="text-background/80 mb-6">
+                      Además de los episodios grabados en cada cumbre, Podcast en la Cumbre generará una 
+                      experiencia audiovisual con marcas de altura:
+                    </p>
+                    <ul className="grid md:grid-cols-2 gap-3 text-background/90">
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Streaming en vivo durante los ascensos
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Historias previas y contenido desde el campamento
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Reels, shorts y microdocumentales
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Fotografía de altura con calidad editorial
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Encuentros con comunidades originarias
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-primary">✦</span>
+                        Anécdotas, reflexiones y humor con conciencia
+                      </li>
+                    </ul>
+                  </div>
+
+                  <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
+                    "En la cima no hay likes ni etiquetas. Solo hay aire y en ella reconocemos lo lejos 
+                    que hemos llegado, siempre con la frente en alto."
+                  </blockquote>
+                </div>
+
+                {/* Contact Info */}
+                <div className="mt-12 text-center bg-primary/10 rounded-2xl p-8">
+                  <h3 className="text-xl font-bold text-foreground mb-6">Para solicitudes de prensa</h3>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a 
+                      href="mailto:vacilateestopodcast@gmail.com" 
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                    >
+                      <span className="text-xl">📩</span>
+                      vacilateestopodcast@gmail.com
+                    </a>
+                    <div className="flex items-center gap-4">
+                      <a 
+                        href="https://www.instagram.com/vacilateestopodcast/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-foreground hover:text-primary transition-colors"
+                      >
+                        @vacilateestopodcast
+                      </a>
+                      <a 
+                        href="https://www.instagram.com/juansofa/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-foreground hover:text-primary transition-colors"
+                      >
+                        @juansofa
+                      </a>
+                      <a 
+                        href="https://www.instagram.com/jhonsnacks/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-foreground hover:text-primary transition-colors"
+                      >
+                        @jhonsnacks
+                      </a>
+                    </div>
+                  </div>
+                  <div className="mt-8">
+                    <a
+                      href="https://podcastenlacumbre.zapier.app/formulario"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 transition-colors"
+                    >
+                      Descargar Nota de Prensa Completa
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </main>
