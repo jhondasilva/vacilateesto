@@ -3,7 +3,7 @@ const scheduleData = [
     day: "Lunes",
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
     ],
   },
   {
@@ -11,7 +11,7 @@ const scheduleData = [
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "10:00 AM", title: "Streaming", platform: "Twitch" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "6:00 PM", title: "Comiendo", platform: "TikTok/Instagram" },
     ],
   },
@@ -19,7 +19,7 @@ const scheduleData = [
     day: "Miércoles",
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "12:00 PM", title: "Newsletter", platform: "Email" },
     ],
   },
@@ -27,7 +27,7 @@ const scheduleData = [
     day: "Jueves",
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "8:00 PM", title: "Podcast", platform: "YouTube/Spotify" },
     ],
   },
@@ -35,7 +35,7 @@ const scheduleData = [
     day: "Viernes",
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "6:00 PM", title: "Me Traje", platform: "TikTok/Instagram" },
     ],
   },
@@ -43,7 +43,7 @@ const scheduleData = [
     day: "Sábado",
     events: [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "6:00 PM", title: "Podcast Radio", platform: "Circuito Líder" },
       { time: "8:00 PM", title: "Eventos", platform: "Eventos" },
     ],
@@ -52,7 +52,7 @@ const scheduleData = [
     day: "Domingo",
     events: [
       { time: "10:00 AM", title: "Short Podcast", platform: "Varios" },
-      { time: "12:00 PM", title: "Cuentos", platform: "WS/Insta/Threads" },
+      { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "6:00 PM", title: "Podcast Radio", platform: "Circuito Líder" },
       { time: "10:00 PM", title: "Podcast TV", platform: "Televen" },
     ],
