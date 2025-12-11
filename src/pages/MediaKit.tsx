@@ -580,7 +580,7 @@ const MediaKit = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a 
-                    href="mailto:hola@vacilateesto.com"
+                    href="mailto:jhon@hacemosloquenosgusta.com"
                     className="inline-flex"
                   >
                     <Button size="lg" className="group w-full sm:w-auto">
