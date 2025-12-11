@@ -282,149 +282,289 @@ export const generateMediaKitPdf = async () => {
   addNewPage();
   drawHeader("MÉTRICAS POR PLATAFORMA", "Nuestra Presencia Digital");
 
-  // Platform cards
+  // Platform cards with visual progress circles
   const platforms = audienceData.platforms;
-  const cardWidth = (pageWidth - margin * 2 - 20) / 3;
+  const cardWidth = (pageWidth - margin * 2 - 16) / 3;
   let cardX = margin;
   let cardY = y;
 
-  platforms.forEach((platform, index) => {
+  // Helper to draw a circular progress indicator
+  const drawCircularProgress = (cx: number, cy: number, radius: number, percentage: number, color: [number, number, number]) => {
+    // Background circle
+    doc.setDrawColor(230, 230, 230);
+    doc.setLineWidth(2);
+    doc.circle(cx, cy, radius, "S");
+    
+    // Progress arc - simplified as filled wedge
+    doc.setFillColor(...color);
+    const segments = Math.floor((percentage / 100) * 12);
+    for (let i = 0; i < segments; i++) {
+      const angle = (i / 12) * 2 * Math.PI - Math.PI / 2;
+      const nextAngle = ((i + 1) / 12) * 2 * Math.PI - Math.PI / 2;
+      const x1 = cx + Math.cos(angle) * radius;
+      const y1 = cy + Math.sin(angle) * radius;
+      const x2 = cx + Math.cos(nextAngle) * radius;
+      const y2 = cy + Math.sin(nextAngle) * radius;
+      doc.setDrawColor(...color);
+      doc.setLineWidth(2.5);
+      doc.line(x1, y1, x2, y2);
+    }
+  };
+
+  // Platform data with numeric values for visualization
+  const platformsWithValues = [
+    { name: "TikTok", followers: "1.82M", growth: "+7.18%", value: 1820000, icon: "▶" },
+    { name: "Instagram", followers: "278.19K", growth: "+20.66%", value: 278190, icon: "📷" },
+    { name: "Facebook", followers: "210.68K", growth: "+11.8%", value: 210680, icon: "f" },
+    { name: "YouTube", followers: "113K", growth: "+1.8%", value: 113000, icon: "▶" },
+    { name: "Threads", followers: "58.06K", growth: "+13.69%", value: 58060, icon: "@" },
+  ];
+
+  const maxFollowers = 1820000;
+
+  platformsWithValues.forEach((platform, index) => {
     if (index === 3) {
-      cardX = margin + cardWidth / 2 + 5;
-      cardY = y + 35;
+      cardX = margin + cardWidth / 2 + 4;
+      cardY = y + 45;
     }
     if (index === 4) {
-      cardX = margin + cardWidth * 1.5 + 15;
+      cardX = margin + cardWidth * 1.5 + 12;
     }
 
-    doc.setFillColor(...LIGHT_GRAY);
-    doc.roundedRect(cardX, cardY, cardWidth, 30, 3, 3, "F");
+    // Card with gradient effect
+    doc.setFillColor(250, 250, 250);
+    doc.roundedRect(cardX, cardY, cardWidth, 40, 4, 4, "F");
     
-    doc.setTextColor(...DARK_COLOR);
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "normal");
-    doc.text(platform.name, cardX + 5, cardY + 8);
+    // Top accent line
+    doc.setFillColor(...PRIMARY_COLOR);
+    doc.rect(cardX, cardY, cardWidth, 3, "F");
     
-    doc.setFontSize(14);
+    // Platform icon circle
+    doc.setFillColor(...DARK_COLOR);
+    doc.circle(cardX + 12, cardY + 18, 6, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
     doc.setFont("helvetica", "bold");
-    doc.text(platform.followers, cardX + 5, cardY + 18);
+    doc.text(platform.icon, cardX + 12, cardY + 20, { align: "center" });
     
-    doc.setTextColor(34, 197, 94);
-    doc.setFontSize(9);
-    doc.text(platform.growth, cardX + 5, cardY + 25);
+    // Platform name
+    doc.setTextColor(...DARK_COLOR);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text(platform.name, cardX + 22, cardY + 14);
     
-    cardX += cardWidth + 10;
+    // Followers
+    doc.setFontSize(14);
+    doc.text(platform.followers, cardX + 22, cardY + 24);
+    
+    // Growth badge
+    doc.setFillColor(220, 252, 231);
+    doc.roundedRect(cardX + 22, cardY + 28, 25, 8, 2, 2, "F");
+    doc.setTextColor(22, 163, 74);
+    doc.setFontSize(7);
+    doc.text(platform.growth, cardX + 34.5, cardY + 33, { align: "center" });
+    
+    // Mini progress bar
+    const barWidth = cardWidth - 10;
+    const progressPercent = (platform.value / maxFollowers) * 100;
+    doc.setFillColor(230, 230, 230);
+    doc.roundedRect(cardX + 5, cardY + 38, barWidth, 2, 1, 1, "F");
+    doc.setFillColor(...PRIMARY_COLOR);
+    doc.roundedRect(cardX + 5, cardY + 38, (barWidth * progressPercent) / 100, 2, 1, 1, "F");
+    
+    cardX += cardWidth + 8;
   });
 
-  y = cardY + 50;
+  y = cardY + 60;
 
-  // Impressions section
+  // Impressions section with visual bars
   drawSectionTitle("Impresiones Totales");
   
   const impressionData = [
-    { platform: "Facebook", value: audienceData.impressions.facebook, growth: audienceData.impressions.facebookGrowth },
-    { platform: "Instagram", value: audienceData.impressions.instagram, growth: audienceData.impressions.instagramGrowth },
-    { platform: "TikTok", value: audienceData.impressions.tiktok, growth: audienceData.impressions.tiktokGrowth },
-    { platform: "YouTube", value: audienceData.impressions.youtube, growth: "" },
-    { platform: "LinkedIn", value: audienceData.impressions.linkedin, growth: audienceData.impressions.linkedinGrowth },
+    { platform: "Facebook", value: "44.79M", growth: "+64.94%", numValue: 44.79, color: [66, 103, 178] as [number, number, number] },
+    { platform: "Instagram", value: "22.74M", growth: "+88.36%", numValue: 22.74, color: [225, 48, 108] as [number, number, number] },
+    { platform: "TikTok", value: "19.88M", growth: "+336.6%", numValue: 19.88, color: [0, 0, 0] as [number, number, number] },
+    { platform: "YouTube", value: "1.95M", growth: "", numValue: 1.95, color: [255, 0, 0] as [number, number, number] },
+    { platform: "LinkedIn", value: "224.69K", growth: "+486.67%", numValue: 0.22, color: [0, 119, 181] as [number, number, number] },
   ];
 
+  const maxImpressions = 44.79;
+  const barMaxWidth = 80;
+
   impressionData.forEach((item) => {
+    // Platform name
     doc.setTextColor(...DARK_COLOR);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text(item.platform, margin, y);
+    doc.text(item.platform, margin, y + 2);
     
+    // Progress bar background
+    const barX = margin + 35;
+    doc.setFillColor(240, 240, 240);
+    doc.roundedRect(barX, y - 2, barMaxWidth, 6, 3, 3, "F");
+    
+    // Progress bar fill with platform color
+    const fillWidth = (item.numValue / maxImpressions) * barMaxWidth;
+    doc.setFillColor(...item.color);
+    doc.roundedRect(barX, y - 2, fillWidth, 6, 3, 3, "F");
+    
+    // Value
+    doc.setTextColor(...DARK_COLOR);
     doc.setFont("helvetica", "bold");
-    doc.text(item.value, pageWidth / 2, y);
+    doc.text(item.value, barX + barMaxWidth + 5, y + 2);
     
+    // Growth badge
     if (item.growth) {
-      doc.setTextColor(34, 197, 94);
-      doc.text(item.growth, pageWidth / 2 + 30, y);
+      doc.setFillColor(220, 252, 231);
+      doc.roundedRect(pageWidth - margin - 28, y - 3, 28, 8, 2, 2, "F");
+      doc.setTextColor(22, 163, 74);
+      doc.setFontSize(7);
+      doc.text(item.growth, pageWidth - margin - 14, y + 2, { align: "center" });
     }
     
-    y += 8;
+    y += 12;
   });
 
-  y += 10;
+  y += 8;
 
-  // Interactions section
+  // Interactions section with visual bars
   drawSectionTitle("Interacciones Totales");
   
   const interactionData = [
-    { platform: "Facebook", value: audienceData.interactions.facebook },
-    { platform: "Threads", value: audienceData.interactions.threads },
-    { platform: "Instagram", value: audienceData.interactions.instagram },
-    { platform: "YouTube", value: audienceData.interactions.youtube },
-    { platform: "LinkedIn", value: audienceData.interactions.linkedin },
+    { platform: "Facebook", value: "3.4M", numValue: 3.4, color: [66, 103, 178] as [number, number, number] },
+    { platform: "Threads", value: "1.32M", numValue: 1.32, color: [0, 0, 0] as [number, number, number] },
+    { platform: "Instagram", value: "427.99K", numValue: 0.43, color: [225, 48, 108] as [number, number, number] },
+    { platform: "YouTube", value: "71.44K", numValue: 0.07, color: [255, 0, 0] as [number, number, number] },
+    { platform: "LinkedIn", value: "6,456", numValue: 0.006, color: [0, 119, 181] as [number, number, number] },
   ];
 
+  const maxInteractions = 3.4;
+
   interactionData.forEach((item) => {
+    // Platform name
     doc.setTextColor(...DARK_COLOR);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text(item.platform, margin, y);
+    doc.text(item.platform, margin, y + 2);
     
+    // Progress bar background
+    const barX = margin + 35;
+    doc.setFillColor(240, 240, 240);
+    doc.roundedRect(barX, y - 2, barMaxWidth, 6, 3, 3, "F");
+    
+    // Progress bar fill
+    const fillWidth = Math.max((item.numValue / maxInteractions) * barMaxWidth, 2);
+    doc.setFillColor(...item.color);
+    doc.roundedRect(barX, y - 2, fillWidth, 6, 3, 3, "F");
+    
+    // Value
+    doc.setTextColor(...DARK_COLOR);
     doc.setFont("helvetica", "bold");
-    doc.text(item.value, pageWidth / 2, y);
+    doc.text(item.value, barX + barMaxWidth + 5, y + 2);
     
-    y += 8;
+    y += 12;
   });
 
   // ==================== PAGE 3: DEMOGRAPHICS ====================
   addNewPage();
   drawHeader("DEMOGRAFÍA", "¿De Dónde Es Nuestra Audiencia?");
 
-  // Countries
+  // Countries with enhanced visual bars
   drawSectionTitle("Top 10 Países");
   
+  const countryColors: [number, number, number][] = [
+    [239, 68, 68],   // Venezuela - Primary red
+    [234, 88, 12],   // Spain - Orange
+    [59, 130, 246],  // USA - Blue
+    [34, 197, 94],   // Mexico - Green
+    [168, 85, 247],  // Colombia - Purple
+    [236, 72, 153],  // Chile - Pink
+    [6, 182, 212],   // Argentina - Cyan
+    [245, 158, 11],  // Peru - Amber
+    [139, 92, 246],  // Ecuador - Violet
+    [20, 184, 166],  // Dom Rep - Teal
+  ];
+  
   audienceData.demographics.countries.forEach((country, index) => {
-    const num = (index + 1).toString();
-    doc.setTextColor(...PRIMARY_COLOR);
+    // Rank badge
+    doc.setFillColor(...(index === 0 ? PRIMARY_COLOR : LIGHT_GRAY));
+    doc.circle(margin + 5, y, 5, "F");
+    doc.setTextColor(index === 0 ? 255 : 60, index === 0 ? 255 : 60, index === 0 ? 255 : 60);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.text((index + 1).toString(), margin + 5, y + 1.5, { align: "center" });
+    
+    // Country name
+    doc.setTextColor(...DARK_COLOR);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(country.name, margin + 14, y + 1);
+    
+    // Enhanced progress bar
+    const barWidth = 70;
+    const barX = pageWidth / 2 - 10;
+    const barHeight = 8;
+    
+    // Bar background with rounded ends
+    doc.setFillColor(240, 240, 240);
+    doc.roundedRect(barX, y - 4, barWidth, barHeight, 4, 4, "F");
+    
+    // Filled portion with gradient effect
+    const fillWidth = Math.max((parseFloat(country.percentage) / 50) * barWidth, 3);
+    doc.setFillColor(...countryColors[index]);
+    doc.roundedRect(barX, y - 4, fillWidth, barHeight, 4, 4, "F");
+    
+    // Highlight on bar
+    doc.setFillColor(255, 255, 255, 0.3);
+    doc.roundedRect(barX + 1, y - 3, fillWidth - 2, 2, 1, 1, "F");
+    
+    // Percentage value
+    doc.setTextColor(...DARK_COLOR);
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
-    doc.text(num, margin, y);
+    doc.text(country.percentage, pageWidth - margin - 5, y + 1, { align: "right" });
     
-    doc.setTextColor(...DARK_COLOR);
-    doc.setFont("helvetica", "normal");
-    doc.text(country.name, margin + 10, y);
-    
-    doc.setFont("helvetica", "bold");
-    doc.text(country.percentage, pageWidth - margin - 20, y);
-    
-    // Progress bar
-    const barWidth = 60;
-    const barX = pageWidth / 2;
-    doc.setFillColor(...LIGHT_GRAY);
-    doc.roundedRect(barX, y - 3, barWidth, 4, 2, 2, "F");
-    
-    const fillWidth = (parseFloat(country.percentage) / 50) * barWidth;
-    doc.setFillColor(...PRIMARY_COLOR);
-    doc.roundedRect(barX, y - 3, fillWidth, 4, 2, 2, "F");
-    
-    y += 9;
+    y += 12;
   });
 
-  y += 10;
+  y += 8;
 
-  // Regions
+  // Regions with enhanced visuals
   drawSectionTitle("Top Regiones");
   
   audienceData.demographics.regions.forEach((region, index) => {
-    const num = (index + 1).toString();
-    doc.setTextColor(...ACCENT_COLOR);
+    // Rank badge with accent color
+    doc.setFillColor(...(index === 0 ? ACCENT_COLOR : LIGHT_GRAY));
+    doc.circle(margin + 5, y, 5, "F");
+    doc.setTextColor(index === 0 ? 20 : 60, index === 0 ? 20 : 60, index === 0 ? 20 : 60);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.text((index + 1).toString(), margin + 5, y + 1.5, { align: "center" });
+    
+    // Region name
+    doc.setTextColor(...DARK_COLOR);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(region.name, margin + 14, y + 1);
+    
+    // Progress bar
+    const barWidth = 70;
+    const barX = pageWidth / 2 - 10;
+    
+    doc.setFillColor(240, 240, 240);
+    doc.roundedRect(barX, y - 4, barWidth, 8, 4, 4, "F");
+    
+    const fillWidth = Math.max((parseFloat(region.percentage) / 20) * barWidth, 3);
+    doc.setFillColor(...ACCENT_COLOR);
+    doc.roundedRect(barX, y - 4, fillWidth, 8, 4, 4, "F");
+    
+    // Percentage value
+    doc.setTextColor(...DARK_COLOR);
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
-    doc.text(num, margin, y);
+    doc.text(region.percentage, pageWidth - margin - 5, y + 1, { align: "right" });
     
-    doc.setTextColor(...DARK_COLOR);
-    doc.setFont("helvetica", "normal");
-    doc.text(region.name, margin + 10, y);
-    
-    doc.setFont("helvetica", "bold");
-    doc.text(region.percentage, pageWidth - margin - 20, y);
-    
-    y += 9;
+    y += 12;
   });
 
   // ==================== PAGE 4: CONTENT FORMATS ====================
