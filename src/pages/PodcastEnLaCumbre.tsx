@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Mountain, Users, MapPin, Newspaper } from "lucide-react";
+import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
 
 const PodcastEnLaCumbre = () => {
   return (
@@ -15,19 +16,15 @@ const PodcastEnLaCumbre = () => {
           </div>
           
           <div className="container mx-auto px-4 relative z-10 text-center">
-            {/* Mountain Icon */}
-            <div className="flex justify-center mb-6">
-              <svg viewBox="0 0 200 80" className="w-64 h-24 text-background" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="10,70 40,30 60,50 90,15 120,45 150,20 180,70" />
-              </svg>
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <img 
+                src={logoCumbre} 
+                alt="Podcast en la Cumbre" 
+                className="w-full max-w-md h-auto"
+              />
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold text-background mb-4">
-              PODCAST EN
-            </h1>
-            <h2 className="text-5xl md:text-7xl font-black text-primary mb-8">
-              LA CUMBRE
-            </h2>
             <p className="text-background/80 text-lg max-w-3xl mx-auto">
               Una travesía audiovisual de siete meses para mostrar a Venezuela desde sus alturas 
               —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, humor y reflexión.
