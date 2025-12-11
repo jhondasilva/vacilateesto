@@ -20,7 +20,9 @@ import {
   Calendar,
   CheckCircle2,
   ArrowRight,
-  Download
+  Download,
+  Tv,
+  Smartphone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -83,12 +85,22 @@ const audienceData = {
 
 const contentFormats = [
   {
-    title: "Podcast Principal",
+    title: "Vacílate Esto Cuentos",
+    subtitle: "Shorts Diarios",
+    description: "Cuentos y anécdotas de aproximadamente un minuto que salen todos los días. Contenido viral que conecta con la audiencia a través de historias cortas y entretenidas.",
+    icon: Smartphone,
+    color: "bg-[#7DE8E8]",
+    stats: "Diario · ~1 min",
+    platforms: "Facebook, Instagram, TikTok, YouTube Shorts",
+  },
+  {
+    title: "Podcast Largo",
     subtitle: "Vacílate Esto",
-    description: "Nuestro formato estrella donde exploramos historias, leyendas, datos curiosos y cultura venezolana. Episodios semanales que generan conversación y engagement.",
+    description: "Nuestro formato estrella de análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana. Episodios semanales de ~45 minutos que generan conversación.",
     icon: Mic,
     color: "bg-primary",
-    stats: "200+ episodios",
+    stats: "Semanal · ~45 min",
+    platforms: "Radio Circuito Líder, Televen TV, YouTube, Spotify",
   },
   {
     title: "Vacílate Esto Comiendo",
@@ -401,9 +413,14 @@ const MediaKit = () => {
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                       {format.description}
                     </p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted text-xs font-medium text-foreground">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted text-xs font-medium text-foreground mb-3">
                       {format.stats}
                     </div>
+                    {format.platforms && (
+                      <p className="text-xs text-muted-foreground mt-2">
+                        <span className="font-semibold text-foreground/70">Plataformas:</span> {format.platforms}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
