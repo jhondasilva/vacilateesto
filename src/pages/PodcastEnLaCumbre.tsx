@@ -294,13 +294,13 @@ const PodcastEnLaCumbre = () => {
                   {
                     name: "JuanSofa",
                     fullName: "Juan Carlos Martínez",
-                    role: "Co-host, narrador y motor creativo",
+                    role: "Co Host",
                     description: "El que arranca las conversaciones profundas, mete reflexiones entre chistes."
                   },
                   {
                     name: "JhonSnacks",
                     fullName: "Jhon Da Silva",
-                    role: "Co-host",
+                    role: "Co Host - Improvisador creativo nato",
                     description: "Improvisador nato, el que suelta la frase que rompe la tensión cuando el cansancio aprieta."
                   },
                   {
