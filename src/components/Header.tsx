@@ -43,7 +43,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-4">
             {navLinks.map((link) => (
               link.external ? (
                 <a
@@ -51,7 +51,7 @@ const Header = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-xs whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -59,7 +59,7 @@ const Header = () => {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-xs whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -68,8 +68,8 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden lg:block">
-            <Button variant="default" size="default">
+          <div className="hidden xl:block">
+            <Button variant="default" size="sm">
               Escuchar Ahora
             </Button>
           </div>
@@ -77,7 +77,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="xl:hidden p-2 text-foreground hover:text-primary transition-colors"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -85,8 +85,8 @@ const Header = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden overflow-hidden transition-all duration-500 ${
-            isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          className={`xl:hidden overflow-hidden transition-all duration-500 ${
+            isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <nav className="flex flex-col gap-4 py-6 border-t border-border">
