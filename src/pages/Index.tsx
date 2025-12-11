@@ -17,12 +17,12 @@ const Index = () => {
       <main>
         <HeroBanner />
         <HeroSection />
-        <SpotifySection />
         <EpisodesSection />
         <HostsSection />
         <EcosystemSection />
         <AgendaSection />
         <SocialReelsSection />
+        <SpotifySection />
         <NewsletterSection />
       </main>
       <Footer />
