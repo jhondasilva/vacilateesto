@@ -14,14 +14,15 @@ const SpotifySection = () => {
         <div className="max-w-4xl mx-auto px-2">
           <div className="rounded-xl overflow-hidden shadow-elevated bg-card">
             <iframe
-              src="https://open.spotify.com/embed/show/2b2AeZVRxEFkNy1KKYkQG1?utm_source=generator"
+              src="https://open.spotify.com/embed/show/2b2AeZVRxEFkNy1KKYkQG1?utm_source=generator&theme=0"
               width="100%"
               height="352"
+              allowFullScreen
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
-              title="Spotify Player - Podcast"
+              title="Spotify Player - Vacílate Esto Podcast"
               className="w-full border-0"
-              style={{ minHeight: "352px" }}
+              style={{ borderRadius: "12px", minHeight: "352px" }}
             />
           </div>
         </div>
