@@ -172,11 +172,11 @@ const EcosystemSection = () => {
         {/* Ecosystem Bar */}
         <div className="relative">
           {/* Main Bar */}
-          <div className="bg-primary rounded-full py-4 px-6 flex items-center justify-center overflow-x-auto">
-            <div className="flex items-center gap-4 md:gap-8 min-w-max">
+          <div className="bg-primary rounded-full py-3 px-4 flex items-center justify-center">
+            <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
               {ecosystemItems.map((item) => (
                 <div key={item.name} className="text-center">
-                  <span className="text-primary-foreground font-bold text-xs md:text-sm uppercase tracking-wide whitespace-nowrap">
+                  <span className="text-primary-foreground font-bold text-[10px] md:text-xs uppercase tracking-wide whitespace-nowrap">
                     {item.name}
                   </span>
                 </div>
