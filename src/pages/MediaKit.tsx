@@ -24,7 +24,9 @@ import {
   Tv,
   Smartphone,
   MapPin,
-  Star
+  Star,
+  Footprints,
+  MessageCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -145,11 +147,27 @@ const contentFormats = [
     stats: "Contenido curado",
   },
   {
+    title: "Caminado",
+    subtitle: "Formato Aventura",
+    description: "Un formato más aventurero de nuestro ecosistema, donde nos atrevemos a caminar partes de nuestro país y registramos todo el recorrido.",
+    icon: Footprints,
+    color: "bg-primary",
+    stats: "Exploraciones a pie",
+  },
+  {
+    title: "Canales de Difusión",
+    subtitle: "Comunidad VIP",
+    description: "Canales exclusivos en Instagram y WhatsApp con contenidos especiales para nuestras comunidades más fieles. Acceso directo y cercano con nuestra audiencia.",
+    icon: MessageCircle,
+    color: "bg-[#7DE8E8]",
+    stats: "Instagram y WhatsApp",
+  },
+  {
     title: "Proyectos Especiales",
     subtitle: "Producciones Únicas",
     description: "Proyectos con identidad propia que nacen del ecosistema Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.",
     icon: Star,
-    color: "bg-[#7DE8E8]",
+    color: "bg-primary",
     stats: "3 proyectos realizados",
   },
 ];
