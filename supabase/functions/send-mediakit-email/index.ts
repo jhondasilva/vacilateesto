@@ -13,6 +13,47 @@ interface SendMediaKitRequest {
   pdfBase64: string;
 }
 
+// HTML escape function to prevent XSS/injection attacks
+function escapeHtml(text: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+// Input validation function
+function validateInput(data: SendMediaKitRequest): { valid: boolean; error?: string } {
+  // Check required fields
+  if (!data.email || typeof data.email !== 'string') {
+    return { valid: false, error: "Email is required and must be a string" };
+  }
+  if (!data.pdfBase64 || typeof data.pdfBase64 !== 'string') {
+    return { valid: false, error: "PDF data is required" };
+  }
+
+  // Validate email length
+  if (data.email.length > 255) {
+    return { valid: false, error: "Email must be less than 255 characters" };
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(data.email)) {
+    return { valid: false, error: "Invalid email format" };
+  }
+
+  // Validate PDF size (max 10MB base64)
+  if (data.pdfBase64.length > 14000000) {
+    return { valid: false, error: "PDF file is too large" };
+  }
+
+  return { valid: true };
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -20,19 +61,23 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email, pdfBase64 }: SendMediaKitRequest = await req.json();
+    const requestData = await req.json();
+    const { email, pdfBase64 } = requestData as SendMediaKitRequest;
 
-    console.log(`Sending Media Kit PDF to: ${email}`);
-
-    if (!email || !pdfBase64) {
-      throw new Error("Email and PDF data are required");
+    // Validate input
+    const validation = validateInput({ email, pdfBase64 });
+    if (!validation.valid) {
+      console.log("Validation failed:", validation.error);
+      return new Response(
+        JSON.stringify({ error: validation.error }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      throw new Error("Invalid email format");
-    }
+    console.log(`Sending Media Kit PDF to: ${escapeHtml(email)}`);
 
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -112,7 +157,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in send-mediakit-email function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An error occurred while processing your request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
