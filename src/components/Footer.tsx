@@ -13,23 +13,6 @@ const Footer = () => {
 
   const footerLinks = [
     {
-      title: "Contenido",
-      links: [
-        { label: "Podcast", href: "#episodes" },
-        { label: "Shorts", href: "https://www.youtube.com/@Vacilateestopodcast/shorts" },
-        { label: "Live", href: "https://www.youtube.com/@Vacilateestopodcast/streams" },
-        { label: "Playlists", href: "https://www.youtube.com/@Vacilateestopodcast/playlists" },
-      ],
-    },
-    {
-      title: "Comunidad",
-      links: [
-        { label: "Sobre Nosotros", href: "#hosts" },
-        { label: "Instagram", href: "https://www.instagram.com/vacilateestopodcast/" },
-        { label: "Facebook", href: "https://www.facebook.com/vacilatestopodcast/" },
-      ],
-    },
-    {
       title: "Legal",
       links: [
         { label: "Privacidad", href: "#" },
