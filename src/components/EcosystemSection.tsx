@@ -49,6 +49,13 @@ const ecosystemItems = [
     ],
   },
   {
+    name: "Me Traje",
+    platforms: [
+      { name: "TikTok", icon: "tiktok", color: "#000000" },
+      { name: "YouTube", icon: "youtube", color: "#FF0000" },
+    ],
+  },
+  {
     name: "Eventos",
     platforms: [
       { name: "Eventos", icon: "events", color: "#FF6B6B" },
