@@ -47,6 +47,64 @@
     </video:video>
   </url>
   
+  <!-- El Podcast Eterno - Récord Mundial -->
+  <url>
+    <loc>https://www.vacilateesto.com/podcast-eterno</loc>
+    <lastmod>2022-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/w03pnnz_IM4/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>El Podcast Eterno - Parte 1: El Inicio de la Hazaña</video:title>
+      <video:description>Primera parte de la transmisión del podcast más largo del mundo. 40 horas de streaming en vivo para romper el récord mundial.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=w03pnnz_IM4</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/w03pnnz_IM4</video:player_loc>
+      <video:duration>36000</video:duration>
+      <video:publication_date>2022-07-28</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>podcast eterno</video:tag>
+      <video:tag>récord mundial podcast</video:tag>
+      <video:tag>40 horas streaming</video:tag>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/nU4O-Ex5tqs/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>El Podcast Eterno - Parte 2: Invitados de Lujo</video:title>
+      <video:description>Segunda parte con invitados especiales incluyendo Danny Ocean, Luis Carlos Díaz y más.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=nU4O-Ex5tqs</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/nU4O-Ex5tqs</video:player_loc>
+      <video:duration>36000</video:duration>
+      <video:publication_date>2022-07-28</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>podcast venezuela</video:tag>
+      <video:tag>Danny Ocean</video:tag>
+      <video:tag>streaming venezuela</video:tag>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/QQ0PHDE-rYs/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>El Podcast Eterno - Parte 3: La Madrugada Más Larga</video:title>
+      <video:description>Tercera parte: reflexiones, humor y contenido que marcó historia durante la madrugada.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=QQ0PHDE-rYs</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/QQ0PHDE-rYs</video:player_loc>
+      <video:duration>36000</video:duration>
+      <video:publication_date>2022-07-29</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>podcast madrugada</video:tag>
+      <video:tag>streaming largo</video:tag>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/_zzvpXLJryE/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>El Podcast Eterno - Parte 4: El Cierre Épico</video:title>
+      <video:description>Cuarta y última parte: superamos las 40 horas y logramos el récord mundial del podcast más largo del mundo.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=_zzvpXLJryE</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/_zzvpXLJryE</video:player_loc>
+      <video:duration>36000</video:duration>
+      <video:publication_date>2022-07-30</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>récord guinness</video:tag>
+      <video:tag>podcast más largo mundo</video:tag>
+    </video:video>
+  </url>
+  
   <!-- Media Kit -->
   <url>
     <loc>https://www.vacilateesto.com/media-kit</loc>
