@@ -48,8 +48,8 @@ const Footer = () => {
               <Logo size="default" className="brightness-0 invert" />
             </a>
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
-              El podcast más viral de Venezuela 🇻🇪 que nunca se queda quieto. 
-              Conversaciones sin filtro, historias increíbles y el contenido más auténtico. 
+              Ecosistema de contenidos de Fun Educaitment 🇻🇪 que nunca se queda quieto. 
+              Una marca que mezcla entretenimiento y educación con el contenido más auténtico. 
               ¡Estamos en todo! ✨👋
             </p>
             
