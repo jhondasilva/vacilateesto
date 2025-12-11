@@ -44,7 +44,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <a href="#hero" className="flex items-center gap-3 mb-4">
               <Logo size="sm" />
-              <span className="font-handwritten text-2xl text-background">
+              <span className="font-bold text-xl text-background">
                 Vacílate Esto
               </span>
             </a>

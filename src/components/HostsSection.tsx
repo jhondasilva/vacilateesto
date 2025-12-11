@@ -63,7 +63,7 @@ const HostsSection = () => {
                   
                   {/* Name on image */}
                   <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="font-handwritten text-4xl text-background mb-1">
+                    <h3 className="font-bold text-3xl text-background mb-1">
                       {host.name}
                     </h3>
                     <p className="text-primary font-semibold text-sm">

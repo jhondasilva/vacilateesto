@@ -37,7 +37,7 @@ const Header = () => {
           <a href="#hero" className="flex items-center gap-3 group">
             <Logo size="sm" className="group-hover:scale-110 transition-transform duration-300" />
             <div className="hidden sm:block">
-              <span className="font-handwritten text-3xl text-foreground">
+              <span className="font-bold text-xl text-foreground">
                 Vacílate <span className="text-primary">Esto</span>
               </span>
             </div>
