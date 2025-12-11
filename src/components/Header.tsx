@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Nosotros", href: "/#hosts" },
   { label: "Media Kit", href: "/media-kit" },
   { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },
+  { label: "Podcast Eterno", href: "/podcast-eterno" },
   { label: "Pelotica de Goma", href: "https://www.peloticadegoma.com", external: true },
   { label: "Creativahub", href: "https://creativahub.vacilateesto.com", external: true },
   { label: "Vacílalo", href: "https://vacilalo.vacilateesto.com", external: true },
