@@ -55,27 +55,27 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 max-w-md mx-auto mt-16 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
-              <div className="flex items-center justify-center mb-2">
-                <Users className="w-5 h-5 text-primary" />
+          <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-md mx-auto mt-12 sm:mt-16 animate-fade-in px-2" style={{ animationDelay: "0.6s" }}>
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-1 sm:mb-2">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               </div>
-              <div className="text-2xl md:text-3xl font-bold text-foreground">113K+</div>
-              <div className="text-xs text-muted-foreground mt-1">Suscriptores</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">113K+</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Suscriptores</div>
             </div>
-            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
-              <div className="flex items-center justify-center mb-2">
-                <Video className="w-5 h-5 text-primary" />
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-1 sm:mb-2">
+                <Video className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               </div>
-              <div className="text-2xl md:text-3xl font-bold text-foreground">1.3K+</div>
-              <div className="text-xs text-muted-foreground mt-1">Videos</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">1.3K+</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Videos</div>
             </div>
-            <div className="text-center p-4 rounded-2xl bg-card shadow-card">
-              <div className="flex items-center justify-center mb-2">
-                <Star className="w-5 h-5 text-primary" />
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+              <div className="flex items-center justify-center mb-1 sm:mb-2">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               </div>
-              <div className="text-2xl md:text-3xl font-bold text-foreground">4.9</div>
-              <div className="text-xs text-muted-foreground mt-1">Rating</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">4.9</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Rating</div>
             </div>
           </div>
         </div>
