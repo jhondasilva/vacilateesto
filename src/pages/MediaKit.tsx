@@ -53,8 +53,8 @@ const audienceData = {
   },
   interactions: {
     facebook: "3.4M",
-    instagram: "1.32M",
-    tiktok: "427.99K",
+    instagram: "427.99K",
+    threads: "1.32M",
     youtube: "71.44K",
     linkedin: "6,456",
   },
@@ -299,8 +299,8 @@ const MediaKit = () => {
                   <div className="space-y-4">
                     {[
                       { platform: "Facebook", value: audienceData.interactions.facebook },
+                      { platform: "Threads", value: audienceData.interactions.threads },
                       { platform: "Instagram", value: audienceData.interactions.instagram },
-                      { platform: "TikTok", value: audienceData.interactions.tiktok },
                       { platform: "YouTube", value: audienceData.interactions.youtube },
                       { platform: "LinkedIn", value: audienceData.interactions.linkedin },
                     ].map((item, idx) => (
