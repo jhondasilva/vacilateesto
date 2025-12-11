@@ -1,7 +1,20 @@
 import { Play, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const SocialReelsSection = () => {
+  useEffect(() => {
+    // Load TikTok embed script
+    const script = document.createElement("script");
+    script.src = "https://www.tiktok.com/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <section className="py-20 bg-gradient-to-b from-background to-accent/30 relative overflow-hidden">
       {/* Background decoration */}
@@ -25,48 +38,34 @@ const SocialReelsSection = () => {
           </p>
         </div>
 
-        {/* Social Cards Grid */}
+        {/* Embeds Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-          {/* TikTok Card */}
-          <a 
-            href="https://www.tiktok.com/@vacilateestopodcast" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="group"
-          >
-            <div className="relative h-[400px] rounded-3xl overflow-hidden bg-foreground shadow-elevated transition-transform duration-500 group-hover:scale-[1.02]">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground to-foreground/90">
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-10 left-10 w-20 h-20 border-2 border-background/30 rounded-full" />
-                  <div className="absolute bottom-20 right-10 w-32 h-32 border-2 border-background/20 rounded-full" />
-                  <div className="absolute top-1/2 left-1/4 w-16 h-16 border-2 border-background/20 rounded-full" />
-                </div>
-              </div>
-              
-              {/* Content */}
-              <div className="relative h-full flex flex-col items-center justify-center p-8 text-center">
-                {/* TikTok Icon */}
-                <div className="w-24 h-24 rounded-full bg-background/10 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <svg viewBox="0 0 24 24" className="w-12 h-12 text-background" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                  </svg>
-                </div>
-
-                <h3 className="text-2xl font-bold text-background mb-2">TikTok</h3>
-                <p className="text-background/70 text-sm mb-2">@vacilateestopodcast</p>
-                <p className="text-background/60 text-sm mb-6 max-w-xs">
-                  Videos cortos, clips virales y los mejores momentos del ecosistema
-                </p>
-
-                {/* CTA */}
-                <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-background/10 text-background group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <span className="font-semibold">Ver TikToks</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </div>
-          </a>
+          {/* TikTok Embed */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+              TikTok
+            </h3>
+            <blockquote 
+              className="tiktok-embed rounded-2xl overflow-hidden" 
+              cite="https://www.tiktok.com/@vacilateesto/video/7344078628344335621" 
+              data-video-id="7344078628344335621" 
+              style={{ maxWidth: "325px", minWidth: "280px" }}
+            >
+              <section>
+                <a 
+                  target="_blank" 
+                  title="@vacilateesto" 
+                  href="https://www.tiktok.com/@vacilateesto?refer=embed"
+                  rel="noopener noreferrer"
+                >
+                  @vacilateesto
+                </a>
+              </section>
+            </blockquote>
+          </div>
 
           {/* Instagram Card */}
           <a 
@@ -75,7 +74,7 @@ const SocialReelsSection = () => {
             rel="noopener noreferrer"
             className="group"
           >
-            <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-elevated transition-transform duration-500 group-hover:scale-[1.02]">
+            <div className="relative h-[500px] rounded-3xl overflow-hidden shadow-elevated transition-transform duration-500 group-hover:scale-[1.02]">
               {/* Instagram Gradient Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
                 <div className="absolute inset-0 opacity-20">
