@@ -32,10 +32,10 @@ const HeroSection = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-6 animate-slide-up">
-            <span className="font-handwritten text-foreground">Vacílate</span>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 animate-slide-up tracking-tight">
+            <span className="text-foreground">Vacílate</span>
             <br />
-            <span className="font-handwritten text-primary">Esto</span>
+            <span className="text-primary">Esto</span>
           </h1>
 
           {/* Subtitle */}
