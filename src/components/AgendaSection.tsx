@@ -50,7 +50,6 @@ const scheduleData = [
       { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
       { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
       { time: "6:00 PM", title: "Podcast Radio", platform: "Circuito Líder" },
-      { time: "8:00 PM", title: "Eventos", platform: "Eventos" },
     ],
   },
   {
