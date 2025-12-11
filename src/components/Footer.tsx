@@ -1,5 +1,6 @@
 import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch, Linkedin } from "lucide-react";
 import Logo from "@/components/Logo";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Custom TikTok icon since lucide doesn't have one
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -116,21 +117,28 @@ const Footer = () => {
             </div>
             
             {/* Social Links */}
-            <div className="flex items-center gap-3 flex-wrap">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  title={social.label}
-                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center text-background/70 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+            <TooltipProvider delayDuration={100}>
+              <div className="flex items-center gap-3 flex-wrap">
+                {socialLinks.map((social) => (
+                  <Tooltip key={social.label}>
+                    <TooltipTrigger asChild>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={social.label}
+                        className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center text-background/70 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                      >
+                        <social.icon className="w-5 h-5" />
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="bg-foreground text-background border-none">
+                      <p className="font-medium">{social.label}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
           </div>
 
           {/* Links */}
