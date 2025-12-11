@@ -46,7 +46,7 @@ const SocialReelsSection = () => {
         </div>
 
         {/* Embeds Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
           {/* TikTok Embed */}
           <div className="flex flex-col items-center">
             <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
@@ -56,10 +56,10 @@ const SocialReelsSection = () => {
               TikTok
             </h3>
             <blockquote 
-              className="tiktok-embed rounded-2xl overflow-hidden" 
+              className="tiktok-embed rounded-2xl overflow-hidden w-full max-w-[325px]" 
               cite="https://www.tiktok.com/@vacilateesto/video/7344078628344335621" 
               data-video-id="7344078628344335621" 
-              style={{ maxWidth: "325px", minWidth: "280px" }}
+              style={{ minWidth: "280px" }}
             >
               <section>
                 <a 
@@ -83,19 +83,18 @@ const SocialReelsSection = () => {
               Instagram
             </h3>
             <blockquote
-              className="instagram-media rounded-2xl overflow-hidden"
+              className="instagram-media rounded-2xl overflow-hidden w-full max-w-[325px]"
               data-instgrm-permalink="https://www.instagram.com/p/C-TlbjTh5mj/"
               data-instgrm-version="14"
               style={{ 
                 background: "#FFF", 
                 border: "0", 
-                borderRadius: "3px", 
+                borderRadius: "12px", 
                 boxShadow: "0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15)", 
                 margin: "1px", 
-                maxWidth: "325px", 
                 minWidth: "280px", 
                 padding: "0", 
-                width: "calc(100% - 2px)" 
+                width: "100%" 
               }}
             >
               <a 

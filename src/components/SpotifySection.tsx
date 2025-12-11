@@ -11,7 +11,7 @@ const SpotifySection = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto px-2">
           <div className="rounded-xl overflow-hidden shadow-elevated bg-card">
             <iframe
               src="https://open.spotify.com/embed/show/2b2AeZVRxEFkNy1KKYkQG1?utm_source=generator"
@@ -21,6 +21,7 @@ const SpotifySection = () => {
               loading="lazy"
               title="Spotify Player - Podcast"
               className="w-full border-0"
+              style={{ minHeight: "352px" }}
             />
           </div>
         </div>
