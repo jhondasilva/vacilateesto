@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { generateMediaKitPdf } from "@/utils/generateMediaKitPdf";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -701,7 +702,12 @@ const MediaKit = () => {
                 <ContactForm />
 
                 <div className="mt-8 text-center">
-                  <Button variant="outline" size="lg" className="group">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="group"
+                    onClick={() => generateMediaKitPdf()}
+                  >
                     <Download className="w-5 h-5 mr-2" />
                     Descargar Media Kit PDF
                   </Button>
