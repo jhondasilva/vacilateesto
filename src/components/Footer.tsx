@@ -35,6 +35,25 @@ const ThreadsIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Custom Spotify icon
+const SpotifyIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M8 15c3-1 6-1 8 1" />
+    <path d="M7 12c4-1 7-1 10 1" />
+    <path d="M6 9c5-1 9-1 12 1" />
+  </svg>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -43,6 +62,7 @@ const Footer = () => {
     { icon: ThreadsIcon, href: "https://www.threads.com/@vacilateestopodcast", label: "Threads" },
     { icon: Youtube, href: "https://www.youtube.com/@Vacilateestopodcast", label: "YouTube" },
     { icon: TikTokIcon, href: "https://www.tiktok.com/@vacilateesto/", label: "TikTok" },
+    { icon: SpotifyIcon, href: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1?si=f0ce3d6e27a241a1", label: "Spotify" },
     { icon: Facebook, href: "https://www.facebook.com/vacilatestopodcast/", label: "Facebook" },
     { icon: Twitch, href: "https://www.twitch.tv/vacilateesto", label: "Twitch" },
     { icon: Globe, href: "https://www.vacilateesto.com", label: "Website" },
