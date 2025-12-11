@@ -8,7 +8,7 @@ const navLinks = [
   { label: "Inicio", href: "/" },
   { label: "Episodios", href: "/#episodes" },
   { label: "Nosotros", href: "/#hosts" },
-  { label: "En la Cumbre", href: "/podcast-en-la-cumbre" },
+  { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },
   { label: "Contacto", href: "/#contact" },
 ];
 
