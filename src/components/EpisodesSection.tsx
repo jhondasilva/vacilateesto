@@ -4,38 +4,42 @@ import { Button } from "@/components/ui/button";
 const episodes = [
   {
     id: 1,
-    title: "La flecha positiva de las redes: El motivador adicional",
-    description: "Exploramos el poder de la motivación en las redes sociales y cómo puede transformar vidas.",
-    views: "4 views",
-    date: "Hace 1 hora",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    title: "Vacílate Esto 20 de julio de 2025",
+    description: "El episodio más reciente del ecosistema de Fun Educaitment que nunca se queda quieto.",
+    views: "Nuevo",
+    date: "Julio 2025",
+    videoId: "IYVb9IPgerc",
+    image: "https://img.youtube.com/vi/IYVb9IPgerc/maxresdefault.jpg",
     isNew: true,
   },
   {
     id: 2,
-    title: "RORAIMA: 2.000 MILLONES de años de ancestralidad",
-    description: "Un viaje épico por uno de los lugares más antiguos y místicos del planeta.",
-    views: "53K views",
-    date: "Hace 2 semanas",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    title: "Vacílate Esto 18 de mayo de 2025",
+    description: "Contenido fresco con las mejores conversaciones y aventuras del equipo.",
+    views: "50K views",
+    date: "Mayo 2025",
+    videoId: "rbN27-i-qhw",
+    image: "https://img.youtube.com/vi/rbN27-i-qhw/maxresdefault.jpg",
     isNew: false,
   },
   {
     id: 3,
-    title: "Ancient vs. Digital Communities: What Really Defines a Community",
-    description: "Viajamos a 1400 metros sobre el nivel del mar para reflexionar sobre las comunidades.",
-    views: "50K views",
-    date: "Hace 3 semanas",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
+    title: "NORANEKO: El MEJOR RAMEN de VENEZUELA 🍜✨",
+    description: "JuanSofa & JhonSnacks prueban el que podría ser el mejor ramen de Venezuela.",
+    views: "73K views",
+    date: "2024",
+    videoId: "3LMk_9LwRwM",
+    image: "https://img.youtube.com/vi/3LMk_9LwRwM/maxresdefault.jpg",
     isNew: false,
   },
   {
     id: 4,
-    title: "Descubriendo selvas y tepuyes con los Brewer",
-    description: "Una aventura increíble explorando los tesoros naturales de Venezuela.",
-    views: "73K views",
-    date: "Hace 1 mes",
-    image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&q=80",
+    title: "How to recognize and escape manipulation? | Psychology Exposed",
+    description: "Descubre cómo reconocer las señales de manipulación y protegerte de dinámicas tóxicas.",
+    views: "45K views",
+    date: "2024",
+    videoId: "C886Do_Mhpk",
+    image: "https://img.youtube.com/vi/C886Do_Mhpk/maxresdefault.jpg",
     isNew: false,
   },
 ];
@@ -58,9 +62,12 @@ const EpisodesSection = () => {
         {/* Episodes Grid */}
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {episodes.map((episode, index) => (
-            <article
+            <a
               key={episode.id}
-              className="group bg-background rounded-3xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-elevated"
+              href={`https://www.youtube.com/watch?v=${episode.videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-background rounded-3xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-elevated block"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Image */}
@@ -74,9 +81,9 @@ const EpisodesSection = () => {
                 
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                     <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
-                  </button>
+                  </div>
                 </div>
 
                 {/* New Badge */}
@@ -112,7 +119,7 @@ const EpisodesSection = () => {
                   </div>
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 
