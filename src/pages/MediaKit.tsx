@@ -48,7 +48,6 @@ const audienceData = {
     tiktok: "19.88M",
     tiktokGrowth: "+336.6%",
     youtube: "1.95M",
-    youtubeGrowth: "-81.41%",
     linkedin: "224.69K",
     linkedinGrowth: "+486.67%",
   },
@@ -277,7 +276,7 @@ const MediaKit = () => {
                       { platform: "Facebook", value: audienceData.impressions.facebook, growth: audienceData.impressions.facebookGrowth },
                       { platform: "Instagram", value: audienceData.impressions.instagram, growth: audienceData.impressions.instagramGrowth },
                       { platform: "TikTok", value: audienceData.impressions.tiktok, growth: audienceData.impressions.tiktokGrowth },
-                      { platform: "YouTube", value: audienceData.impressions.youtube, growth: audienceData.impressions.youtubeGrowth },
+                      { platform: "YouTube", value: audienceData.impressions.youtube, growth: "" },
                       { platform: "LinkedIn", value: audienceData.impressions.linkedin, growth: audienceData.impressions.linkedinGrowth },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
