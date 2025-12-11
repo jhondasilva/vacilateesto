@@ -116,7 +116,7 @@ const Footer = () => {
             </div>
             
             {/* Social Links */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -124,6 +124,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
+                  title={social.label}
                   className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center text-background/70 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
