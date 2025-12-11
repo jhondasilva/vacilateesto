@@ -1,4 +1,4 @@
-import { Instagram, Youtube, MapPin, Facebook, Globe } from "lucide-react";
+import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Footer = () => {
@@ -8,6 +8,7 @@ const Footer = () => {
     { icon: Instagram, href: "https://www.instagram.com/vacilateestopodcast/", label: "Instagram" },
     { icon: Youtube, href: "https://www.youtube.com/@Vacilateestopodcast", label: "YouTube" },
     { icon: Facebook, href: "https://www.facebook.com/vacilatestopodcast/", label: "Facebook" },
+    { icon: Twitch, href: "https://www.twitch.tv/vacilateesto", label: "Twitch" },
     { icon: Globe, href: "https://www.vacilateesto.com", label: "Website" },
   ];
 
