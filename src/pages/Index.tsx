@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import TikTokSection from "@/components/TikTokSection";
+import SocialReelsSection from "@/components/SocialReelsSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
 import PlatformsSection from "@/components/PlatformsSection";
@@ -13,7 +13,7 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <TikTokSection />
+        <SocialReelsSection />
         <EpisodesSection />
         <HostsSection />
         <PlatformsSection />
