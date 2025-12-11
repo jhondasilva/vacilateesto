@@ -119,7 +119,7 @@ const Footer = () => {
             © {currentYear} Vacílate Esto. Todos los derechos reservados.
           </p>
           <p className="text-background/50 text-sm">
-            Hecho con ❤️ para nuestra comunidad
+            Hecho con ❤️ en Venezuela
           </p>
         </div>
       </div>
