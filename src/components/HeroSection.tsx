@@ -23,7 +23,7 @@ const HeroSection = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-sm font-medium text-foreground">El podcast más viral de Venezuela 🇻🇪</span>
+            <span className="text-sm font-medium text-foreground">Ecosistema de Fun Educaitment 🇻🇪</span>
           </div>
 
           {/* Logo */}
@@ -33,9 +33,9 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>
-            ¡Que nunca se queda quieto! Conversaciones sin filtro, 
-            historias increíbles y el contenido más auténtico de Venezuela. 
-            Estamos en todo ✨👋
+            ¡Que nunca se queda quieto! Somos una marca de contenido que mezcla 
+            entretenimiento y educación. Podcast, shorts, lives y mucho más. 
+            ¡Estamos en todo! ✨👋
           </p>
 
           {/* CTA Buttons */}
