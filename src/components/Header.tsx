@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Episodios", href: "/#episodes" },
   { label: "Nosotros", href: "/#hosts" },
   { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },
+  { label: "Pelotica de Goma", href: "https://www.peloticadegoma.com", external: true },
   { label: "Contacto", href: "/#contact" },
 ];
 
@@ -42,13 +43,25 @@ const Header = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
-              >
-                {link.label}
-              </Link>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -76,14 +89,27 @@ const Header = () => {
         >
           <nav className="flex flex-col gap-4 py-6 border-t border-border">
             {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
             <Button variant="default" size="lg" className="mt-4">
               Escuchar Ahora
