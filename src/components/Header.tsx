@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 
 const navLinks = [
-  { label: "Inicio", href: "#hero" },
-  { label: "Episodios", href: "#episodes" },
-  { label: "Nosotros", href: "#hosts" },
-  { label: "Plataformas", href: "#platforms" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Inicio", href: "/" },
+  { label: "Episodios", href: "/#episodes" },
+  { label: "Nosotros", href: "/#hosts" },
+  { label: "En la Cumbre", href: "/podcast-en-la-cumbre" },
+  { label: "Contacto", href: "/#contact" },
 ];
 
 const Header = () => {
@@ -34,20 +35,20 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#hero" className="flex items-center group">
+          <Link to="/" className="flex items-center group">
             <Logo size="sm" className="group-hover:scale-105 transition-transform duration-300" />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -75,14 +76,14 @@ const Header = () => {
         >
           <nav className="flex flex-col gap-4 py-6 border-t border-border">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Button variant="default" size="lg" className="mt-4">
               Escuchar Ahora
