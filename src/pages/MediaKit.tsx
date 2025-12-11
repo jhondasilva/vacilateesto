@@ -27,7 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
-// Datos de audiencia del PDF
+// Datos de audiencia - Fuente: Metricool (01 ene - 30 nov 2025)
 const audienceData = {
   totalFollowers: "3.5M+",
   totalImpressions: "89.6M",
@@ -245,7 +245,7 @@ const MediaKit = () => {
                   Nuestra Presencia Digital
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Datos actualizados enero - noviembre 2025
+                  Datos: 01 enero - 30 noviembre 2025 · <span className="font-semibold">Fuente: Metricool</span>
                 </p>
               </div>
 
@@ -327,7 +327,7 @@ const MediaKit = () => {
                   ¿De Dónde Es Nuestra Audiencia?
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Una comunidad global con fuerte presencia en Venezuela y la diáspora
+                  Una comunidad global con fuerte presencia en Venezuela y la diáspora · <span className="font-semibold">Fuente: Metricool</span>
                 </p>
               </div>
 
@@ -439,7 +439,7 @@ const MediaKit = () => {
                   Contenido que Genera Impacto
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Nuestras publicaciones con mejor rendimiento en 2025
+                  Nuestras publicaciones con mejor rendimiento · <span className="font-semibold">Fuente: Metricool</span>
                 </p>
               </div>
 
