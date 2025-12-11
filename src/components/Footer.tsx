@@ -72,6 +72,12 @@ const Footer = () => {
 
   const footerLinks = [
     {
+      title: "Recursos",
+      links: [
+        { label: "Media Kit", href: "/media-kit" },
+      ],
+    },
+    {
       title: "Legal",
       links: [
         { label: "Privacidad", href: "/privacidad" },
