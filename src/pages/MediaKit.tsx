@@ -408,7 +408,7 @@ const PdfActions = () => {
           onClick={() => setShowEmailInput(!showEmailInput)}
         >
           <Send className="w-5 h-5 mr-2" />
-          Enviar PDF por Email
+          Enviar Media Kit por Mail
         </Button>
       </div>
 
