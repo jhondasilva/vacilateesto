@@ -40,19 +40,24 @@ const PodcastEnLaCumbre = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div>
-                <h3 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-                  <Mountain className="w-8 h-8 text-primary" />
-                  Podcast En La Cumbre
-                </h3>
-                <p className="text-muted-foreground mb-4">
-                  Liderado por JuanSofa y JhonSnacks, el proyecto documenta cada paso con streaming en vivo, 
-                  podcast, reels, microdocumentales y fotografía editorial.
-                </p>
-                <p className="text-muted-foreground mb-4">
-                  <strong className="text-foreground">Tres cumbres, tres historias, un mismo mensaje:</strong> 
-                  {" "}Aquí hay país, aquí hay historias, aquí hay altura.
-                </p>
-              </div>
+              <h3 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
+                <Mountain className="w-8 h-8 text-primary" />
+                Podcast En La Cumbre
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Podcast en la Cumbre es una travesía audiovisual de siete meses para mostrar a Venezuela 
+                desde sus alturas —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, 
+                humor y reflexión.
+              </p>
+              <p className="text-muted-foreground mb-4">
+                Liderado por JuanSofa y JhonSnacks, el proyecto documenta cada paso con streaming en vivo, 
+                podcast, reels, microdocumentales y fotografía editorial.
+              </p>
+              <p className="text-muted-foreground">
+                <strong className="text-foreground">Tres cumbres, tres historias, un mismo mensaje:</strong> 
+                {" "}Aquí hay país, aquí hay historias, aquí hay altura.
+              </p>
+            </div>
               <div className="bg-muted/30 rounded-2xl p-8 border border-border">
                 <h4 className="text-xl font-bold text-foreground mb-4">Manifiesto</h4>
                 <p className="text-muted-foreground mb-4">
