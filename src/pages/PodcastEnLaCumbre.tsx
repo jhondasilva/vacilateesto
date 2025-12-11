@@ -32,6 +32,43 @@ const PodcastEnLaCumbre = () => {
           </div>
         </section>
 
+        {/* Episodios Section */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h3 className="text-3xl font-bold text-foreground text-center mb-12">
+              Episodios
+            </h3>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Video 1 */}
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/NZWSKJvOdXg"
+                  title="Podcast en la Cumbre - Episodio 1"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+              {/* Video 2 */}
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/NdrcKpsD0UU"
+                  title="Podcast en la Cumbre - Episodio 2"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* About Section */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
@@ -64,43 +101,6 @@ const PodcastEnLaCumbre = () => {
                   Es un recordatorio de que Venezuela tiene historias, paisajes y gente "a la altura", 
                   y que subir —física y simbólicamente— es un acto de orgullo y carácter.
                 </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Videos Section */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h3 className="text-3xl font-bold text-foreground text-center mb-12">
-              Videos del Proyecto
-            </h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {/* Video 1 */}
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/NZWSKJvOdXg"
-                  title="Podcast en la Cumbre - Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-              {/* Video 2 */}
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/NdrcKpsD0UU"
-                  title="Podcast en la Cumbre - Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
               </div>
             </div>
           </div>
