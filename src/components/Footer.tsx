@@ -87,7 +87,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="#hero" className="inline-block mb-4">
-              <Logo size="default" className="brightness-0 invert" />
+              <Logo size="xl" className="brightness-0 invert" />
             </a>
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
               Vacílate Esto es una marca de{" "}
