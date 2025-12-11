@@ -34,20 +34,24 @@ const HeroSection = () => {
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>
             ¡Que nunca se queda quieto! Conversaciones sin filtro, 
-            historias increíbles y el contenido más auténtico. 
+            historias increíbles y el contenido más auténtico de Venezuela. 
             Estamos en todo ✨👋
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <Button variant="hero" size="xl" className="group">
-              <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" />
-              Último Episodio
-            </Button>
-            <Button variant="heroOutline" size="xl" className="group">
-              <Headphones className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Ver en YouTube
-            </Button>
+            <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="xl" className="group">
+                <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" />
+                Último Episodio
+              </Button>
+            </a>
+            <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">
+              <Button variant="heroOutline" size="xl" className="group">
+                <Headphones className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Ver en YouTube
+              </Button>
+            </a>
           </div>
 
           {/* Stats */}
