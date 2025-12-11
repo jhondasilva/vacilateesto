@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const scheduleData = [
   {
     day: "Lunes",
@@ -46,10 +44,6 @@ const scheduleData = [
 ];
 
 const AgendaSection = () => {
-  const [activeDay, setActiveDay] = useState("Lunes");
-
-  const activeEvents = scheduleData.find((d) => d.day === activeDay)?.events || [];
-
   return (
     <section className="py-20 bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -69,56 +63,31 @@ const AgendaSection = () => {
           </p>
         </div>
 
-        {/* Days Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {scheduleData.map((item) => (
-            <button
-              key={item.day}
-              onClick={() => setActiveDay(item.day)}
-              className={`px-4 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
-                activeDay === item.day
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {item.day}
-            </button>
-          ))}
-        </div>
-
-        {/* Schedule Display */}
-        <div className="max-w-4xl mx-auto">
-          {/* Desktop View - Full Week */}
-          <div className="hidden lg:grid grid-cols-7 gap-3">
+        {/* Weekly Schedule Grid */}
+        <div className="max-w-6xl mx-auto">
+          {/* Desktop/Tablet View */}
+          <div className="hidden md:grid grid-cols-7 gap-3">
             {scheduleData.map((dayData) => (
               <div
                 key={dayData.day}
-                className={`rounded-xl p-4 transition-all duration-300 ${
-                  activeDay === dayData.day
-                    ? "bg-primary/10 border-2 border-primary"
-                    : "bg-muted/50 border-2 border-transparent"
-                }`}
+                className="bg-muted/30 rounded-xl p-4 border border-border/50 hover:border-primary/50 transition-all duration-300"
               >
-                <h3
-                  className={`text-center font-bold mb-3 text-sm ${
-                    activeDay === dayData.day ? "text-primary" : "text-foreground"
-                  }`}
-                >
+                <h3 className="text-center font-bold mb-4 text-sm text-primary bg-primary/10 rounded-full py-2">
                   {dayData.day}
                 </h3>
-                <div className="space-y-2">
+                <div className="space-y-3 min-h-[120px]">
                   {dayData.events.map((event, idx) => (
                     <div
                       key={idx}
-                      className="bg-background rounded-lg p-3 shadow-sm"
+                      className="bg-background rounded-lg p-3 shadow-sm border border-border/30"
                     >
-                      <p className="text-[10px] text-muted-foreground font-medium">
+                      <p className="text-[10px] text-primary font-semibold">
                         {event.time}
                       </p>
-                      <p className="text-xs font-bold text-foreground leading-tight">
+                      <p className="text-xs font-bold text-foreground leading-tight mt-1">
                         {event.title}
                       </p>
-                      <p className="text-[10px] text-primary mt-1">
+                      <p className="text-[10px] text-muted-foreground mt-1">
                         {event.platform}
                       </p>
                     </div>
@@ -128,34 +97,37 @@ const AgendaSection = () => {
             ))}
           </div>
 
-          {/* Mobile/Tablet View - Active Day */}
-          <div className="lg:hidden">
-            <div className="bg-primary/10 rounded-2xl p-6 border-2 border-primary">
-              <h3 className="text-center font-bold text-xl text-primary mb-6">
-                {activeDay}
-              </h3>
-              <div className="space-y-4">
-                {activeEvents.map((event, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-background rounded-xl p-5 shadow-md flex items-center gap-4"
-                  >
-                    <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <span className="text-primary font-bold text-sm text-center leading-tight">
-                        {event.time}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-foreground text-lg">
-                        {event.title}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        En {event.platform}
-                      </p>
-                    </div>
+          {/* Mobile View - Horizontal Scroll */}
+          <div className="md:hidden overflow-x-auto pb-4">
+            <div className="flex gap-3 min-w-max px-2">
+              {scheduleData.map((dayData) => (
+                <div
+                  key={dayData.day}
+                  className="bg-muted/30 rounded-xl p-4 border border-border/50 w-36 flex-shrink-0"
+                >
+                  <h3 className="text-center font-bold mb-3 text-xs text-primary bg-primary/10 rounded-full py-1.5">
+                    {dayData.day}
+                  </h3>
+                  <div className="space-y-2">
+                    {dayData.events.map((event, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-background rounded-lg p-2.5 shadow-sm border border-border/30"
+                      >
+                        <p className="text-[9px] text-primary font-semibold">
+                          {event.time}
+                        </p>
+                        <p className="text-[11px] font-bold text-foreground leading-tight mt-0.5">
+                          {event.title}
+                        </p>
+                        <p className="text-[9px] text-muted-foreground mt-0.5">
+                          {event.platform}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
