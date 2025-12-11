@@ -2,7 +2,7 @@ import headerBanner from "@/assets/header-banner.png";
 
 const HeroBanner = () => {
   return (
-    <section className="w-full pt-20">
+    <section className="w-full">
       <div className="w-full">
         <img
           src={headerBanner}
