@@ -13,6 +13,7 @@ const ecosystemItems = [
   {
     name: "Short Podcast",
     platforms: [
+      { name: "YouTube", icon: "youtube", color: "#FF0000" },
       { name: "Pocket Casts", icon: "pocket", color: "#F43E37" },
       { name: "TikTok", icon: "tiktok", color: "#000000" },
       { name: "Instagram", icon: "instagram", color: "#E4405F" },
