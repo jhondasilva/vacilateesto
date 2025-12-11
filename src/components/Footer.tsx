@@ -48,9 +48,25 @@ const Footer = () => {
               <Logo size="default" className="brightness-0 invert" />
             </a>
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
-              Ecosistema de contenidos de Fun Educaitment 🇻🇪 que nunca se queda quieto. 
-              Una marca que mezcla entretenimiento y educación con el contenido más auténtico. 
-              ¡Estamos en todo! ✨👋
+              Vacílate Esto es una marca de{" "}
+              <a 
+                href="https://www.elpatiocontentstudio.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                El Patio Content Studio
+              </a>
+              , una unidad de{" "}
+              <a 
+                href="https://www.lawebfigitalagency.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                La Web Figital Agency
+              </a>
+              . Ecosistema de Fun Educaitment 🇻🇪 que nunca se queda quieto. ✨👋
             </p>
             
             <div className="flex items-center gap-2 text-background/60 text-sm mb-6">
