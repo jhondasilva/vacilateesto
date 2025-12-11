@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
-import SpotifySection from "@/components/SpotifySection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
 import EcosystemSection from "@/components/EcosystemSection";
@@ -35,7 +34,6 @@ const Index = () => {
             <PeloticaSection />
             <RutaRamenSection />
             <AgendaSection />
-            <SpotifySection />
             <NewsletterSection />
           </article>
         </main>
