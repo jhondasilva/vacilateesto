@@ -152,8 +152,8 @@ const EcosystemSection = () => {
     <section className="py-24 bg-foreground relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4">
             Descubre Nuestro Ecosistema
           </h2>
           <p className="text-background/70 text-lg max-w-xl mx-auto">
@@ -161,72 +161,104 @@ const EcosystemSection = () => {
           </p>
         </div>
 
-        {/* Logo Center */}
-        <div className="flex justify-center mb-8">
+        {/* Logo Center with connecting line */}
+        <div className="flex justify-center mb-0">
           <div className="flex flex-col items-center">
             <Logo size="lg" className="brightness-0 invert" />
-            <div className="w-0.5 h-12 bg-primary mt-4" />
+            <div className="w-0.5 h-8 bg-primary mt-2" />
           </div>
         </div>
 
-        {/* Ecosystem Bar */}
-        <div className="relative">
-          {/* Main Bar */}
-          <div className="bg-primary rounded-full py-3 px-4 flex items-center justify-center">
-            <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
+        {/* Desktop View */}
+        <div className="hidden md:block">
+          {/* Ecosystem Bar */}
+          <div className="relative">
+            {/* Main Bar */}
+            <div className="bg-primary rounded-full py-3 px-6">
+              <div className="flex items-center justify-between">
+                {ecosystemItems.map((item, index) => (
+                  <div key={item.name} className="text-center flex-1 relative">
+                    <span className="text-primary-foreground font-bold text-[10px] lg:text-xs uppercase tracking-wide">
+                      {item.name}
+                    </span>
+                    {/* Dot indicator on bar */}
+                    <div className="absolute -bottom-[18px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#7DE8E8]" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Connection Lines and Platforms Grid */}
+            <div className="mt-6 grid grid-cols-9 gap-2">
               {ecosystemItems.map((item) => (
-                <div key={item.name} className="text-center">
-                  <span className="text-primary-foreground font-bold text-[10px] md:text-xs uppercase tracking-wide whitespace-nowrap">
-                    {item.name}
-                  </span>
+                <div key={item.name} className="flex flex-col items-center">
+                  {/* Vertical connecting line */}
+                  <div className="w-0.5 bg-background/40 mb-3" style={{ height: `${Math.max(item.platforms.length * 48, 48)}px` }} />
+                  
+                  {/* Platforms stacked vertically */}
+                  <div className="flex flex-col items-center gap-2">
+                    {item.platforms.map((platform, pIndex) => (
+                      <div
+                        key={platform.name}
+                        className="relative flex flex-col items-center"
+                      >
+                        {/* Horizontal line to icon */}
+                        {pIndex === 0 && (
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-0.5 h-3 bg-background/40" />
+                        )}
+                        <div
+                          className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-background flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg"
+                          title={platform.name}
+                        >
+                          <div className="scale-75 lg:scale-100">
+                            <PlatformIcon icon={platform.icon} color={platform.color} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Connection Lines and Platforms */}
-          <div className="mt-8 grid grid-cols-3 md:grid-cols-9 gap-4">
-            {ecosystemItems.map((item) => (
-              <div key={item.name} className="flex flex-col items-center">
-                {/* Connection dot */}
-                <div className="w-2 h-2 rounded-full bg-[#7DE8E8] mb-2" />
-                <div className="w-0.5 h-6 bg-background/30 mb-4" />
-                
-                {/* Platforms */}
-                <div className="flex flex-col items-center gap-3">
-                  {item.platforms.map((platform) => (
-                    <div
-                      key={platform.name}
-                      className="w-12 h-12 rounded-full bg-background flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg"
-                      title={platform.name}
-                    >
-                      <PlatformIcon icon={platform.icon} color={platform.color} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Mobile Simplified View */}
-        <div className="mt-16 md:hidden">
+        {/* Mobile View */}
+        <div className="md:hidden">
+          {/* Main Bar Mobile */}
+          <div className="bg-primary rounded-2xl py-4 px-4 mb-8">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {ecosystemItems.map((item) => (
+                <span key={item.name} className="text-primary-foreground font-bold text-[10px] uppercase tracking-wide px-2 py-1">
+                  {item.name}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile Grid */}
           <div className="grid grid-cols-2 gap-4">
             {ecosystemItems.map((item) => (
-              <div key={item.name} className="bg-background/10 rounded-2xl p-4">
-                <h4 className="text-primary font-bold text-sm mb-3 text-center">{item.name}</h4>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {item.platforms.map((platform) => (
-                    <div
-                      key={platform.name}
-                      className="w-10 h-10 rounded-full bg-background flex items-center justify-center"
-                      title={platform.name}
-                    >
-                      <div className="scale-75">
-                        <PlatformIcon icon={platform.icon} color={platform.color} />
+              <div key={item.name} className="relative">
+                {/* Card */}
+                <div className="bg-background/10 rounded-2xl p-4 border border-background/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#7DE8E8]" />
+                    <h4 className="text-primary font-bold text-xs uppercase">{item.name}</h4>
+                  </div>
+                  <div className="flex flex-wrap justify-start gap-2">
+                    {item.platforms.map((platform) => (
+                      <div
+                        key={platform.name}
+                        className="w-9 h-9 rounded-full bg-background flex items-center justify-center shadow-md"
+                        title={platform.name}
+                      >
+                        <div className="scale-[0.6]">
+                          <PlatformIcon icon={platform.icon} color={platform.color} />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
