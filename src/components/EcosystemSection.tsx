@@ -37,8 +37,6 @@ const ecosystemItems = [
     name: "Streaming",
     platforms: [
       { name: "TikTok", icon: "tiktok", color: "#000000" },
-      { name: "Facebook", icon: "facebook", color: "#1877F2" },
-      { name: "YouTube", icon: "youtube", color: "#FF0000" },
       { name: "Twitch", icon: "twitch", color: "#9146FF" },
     ],
   },
