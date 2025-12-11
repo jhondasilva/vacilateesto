@@ -36,8 +36,8 @@ const audienceData = {
   platforms: [
     { name: "TikTok", followers: "1.82M", growth: "+7.18%", icon: Play },
     { name: "Instagram", followers: "278.19K", growth: "+20.66%", icon: Instagram },
-    { name: "YouTube", followers: "210.68K", growth: "+11.8%", icon: Youtube },
-    { name: "Facebook", followers: "113K", growth: "+1.8%", icon: Facebook },
+    { name: "Facebook", followers: "210.68K", growth: "+11.8%", icon: Facebook },
+    { name: "YouTube", followers: "113K", growth: "+1.8%", icon: Youtube },
     { name: "Threads", followers: "58.06K", growth: "+13.69%", icon: FileText },
   ],
   impressions: {
