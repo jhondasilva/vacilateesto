@@ -7,11 +7,6 @@ const ecosystemItems = [
       { name: "Spotify", icon: "spotify", color: "#1DB954" },
       { name: "YouTube", icon: "youtube", color: "#FF0000" },
       { name: "Pocket Casts", icon: "pocket", color: "#F43E37" },
-      { name: "TikTok", icon: "tiktok", color: "#000000" },
-      { name: "Instagram", icon: "instagram", color: "#E4405F" },
-      { name: "Facebook", icon: "facebook", color: "#1877F2" },
-      { name: "Twitch", icon: "twitch", color: "#9146FF" },
-      { name: "WhatsApp", icon: "whatsapp", color: "#25D366" },
     ],
   },
   {
