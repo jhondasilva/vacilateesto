@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
 // Datos de audiencia
 const audienceData = {
@@ -108,12 +109,42 @@ const GRAY_COLOR: [number, number, number] = [100, 100, 100];
 const LIGHT_GRAY: [number, number, number] = [245, 245, 245];
 const ACCENT_COLOR: [number, number, number] = [125, 232, 232]; // Turquoise
 
+// Helper function to load image as base64
+const loadImageAsBase64 = (src: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+      } else {
+        reject(new Error("Could not get canvas context"));
+      }
+    };
+    img.onerror = reject;
+    img.src = src;
+  });
+};
+
 export const generateMediaKitPdf = async () => {
   const doc = new jsPDF("p", "mm", "a4");
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 20;
   let y = 0;
+
+  // Load logo
+  let logoBase64: string | null = null;
+  try {
+    logoBase64 = await loadImageAsBase64(logoVacilate);
+  } catch (e) {
+    console.warn("Could not load logo:", e);
+  }
 
   const addNewPage = () => {
     doc.addPage();
@@ -176,25 +207,32 @@ export const generateMediaKitPdf = async () => {
 
   // MediaKit 2026 badge
   doc.setFillColor(PRIMARY_COLOR[0], PRIMARY_COLOR[1], PRIMARY_COLOR[2], 0.3);
-  doc.roundedRect(pageWidth / 2 - 30, 40, 60, 12, 6, 6, "F");
+  doc.roundedRect(pageWidth / 2 - 30, 35, 60, 12, 6, 6, "F");
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
-  doc.text("MEDIAKIT 2026", pageWidth / 2, 48, { align: "center" });
+  doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
 
-  // Main title
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(40);
-  doc.setFont("helvetica", "bold");
-  doc.text("VACÍLATE ESTO", pageWidth / 2, 85, { align: "center" });
+  // Logo image
+  if (logoBase64) {
+    const logoWidth = 80;
+    const logoHeight = 25;
+    doc.addImage(logoBase64, "PNG", (pageWidth - logoWidth) / 2, 55, logoWidth, logoHeight);
+  } else {
+    // Fallback text if logo doesn't load
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(40);
+    doc.setFont("helvetica", "bold");
+    doc.text("VACÍLATE ESTO", pageWidth / 2, 75, { align: "center" });
+  }
 
   // Subtitle
   doc.setTextColor(...PRIMARY_COLOR);
-  doc.setFontSize(20);
-  doc.text("El Ecosistema de Contenido", pageWidth / 2, 100, { align: "center" });
-  doc.setFontSize(28);
+  doc.setFontSize(18);
+  doc.text("El Ecosistema de Contenido", pageWidth / 2, 92, { align: "center" });
+  doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
-  doc.text("Fun Educaitment", pageWidth / 2, 115, { align: "center" });
+  doc.text("Fun Educaitment", pageWidth / 2, 105, { align: "center" });
 
   // Description
   doc.setTextColor(200, 200, 200);
@@ -202,7 +240,7 @@ export const generateMediaKitPdf = async () => {
   doc.setFont("helvetica", "normal");
   const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores a través de contenido auténtico y entretenido.";
   const descLines = doc.splitTextToSize(desc, pageWidth - 60);
-  doc.text(descLines, pageWidth / 2, 135, { align: "center" });
+  doc.text(descLines, pageWidth / 2, 125, { align: "center" });
 
   // Stats boxes
   const stats = [
@@ -216,7 +254,7 @@ export const generateMediaKitPdf = async () => {
   const boxGap = 8;
   const totalBoxWidth = (boxWidth * 4) + (boxGap * 3);
   let boxX = (pageWidth - totalBoxWidth) / 2;
-  const boxY = 170;
+  const boxY = 155;
 
   stats.forEach((stat) => {
     doc.setFillColor(40, 40, 40);
