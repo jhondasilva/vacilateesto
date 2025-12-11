@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -7,25 +8,51 @@
   <!-- Homepage - El Mejor Podcast de Venezuela -->
   <url>
     <loc>https://www.vacilateesto.com/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  
+  <!-- Podcast en la Cumbre - Proyecto Principal -->
+  <url>
+    <loc>https://www.vacilateesto.com/podcast-en-la-cumbre</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/NZWSKJvOdXg/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Podcast en la Cumbre - Episodio Naiguatá</video:title>
+      <video:description>Primer episodio de Podcast en la Cumbre grabado en el Pico Naiguatá a 2.765 metros, el techo de Caracas, Venezuela.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=NZWSKJvOdXg</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/NZWSKJvOdXg</video:player_loc>
+      <video:duration>5400</video:duration>
+      <video:publication_date>2025-09-01</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>podcast venezuela</video:tag>
+      <video:tag>pico naiguata</video:tag>
+      <video:tag>montañismo venezuela</video:tag>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/NdrcKpsD0UU/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Podcast en la Cumbre - Episodio Roraima</video:title>
+      <video:description>Expedición al Monte Roraima grabando podcast a 2.810 metros. 2.000 millones de años de ancestralidad venezolana.</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=NdrcKpsD0UU</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/NdrcKpsD0UU</video:player_loc>
+      <video:duration>3689</video:duration>
+      <video:publication_date>2025-11-01</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>monte roraima</video:tag>
+      <video:tag>tepuy venezuela</video:tag>
+      <video:tag>podcast aventura</video:tag>
+    </video:video>
   </url>
   
   <!-- Media Kit -->
   <url>
     <loc>https://www.vacilateesto.com/media-kit</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  
-  <!-- Podcast en la Cumbre -->
-  <url>
-    <loc>https://www.vacilateesto.com/podcast-en-la-cumbre</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   
   <!-- Privacy Policy -->

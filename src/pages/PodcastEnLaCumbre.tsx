@@ -21,6 +21,7 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 );
 
 const PodcastEnLaCumbre = () => {
+  // Enhanced structured data for SEO and AI
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -28,56 +29,126 @@ const PodcastEnLaCumbre = () => {
         "@type": "PodcastSeries",
         "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast",
         "name": "Podcast en la Cumbre",
-        "description": "Travesía audiovisual de siete meses grabando podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá, Monte Roraima y Pico Bolívar.",
+        "alternateName": ["Podcast En La Cumbre Venezuela", "Vacílate Esto En La Cumbre"],
+        "description": "Podcast en la Cumbre es una travesía audiovisual de siete meses grabando podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (4.978m). Un proyecto de Vacílate Esto que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas.",
         "url": "https://www.vacilateesto.com/podcast-en-la-cumbre",
-        "inLanguage": "es",
-        "genre": ["Aventura", "Documental", "Entretenimiento", "Viajes"],
+        "image": "https://www.vacilateesto.com/og-image.png",
+        "inLanguage": "es-VE",
+        "genre": ["Aventura", "Documental", "Entretenimiento", "Viajes", "Montañismo", "Cultura Venezolana"],
+        "keywords": "podcast venezuela, podcast montaña, pico naiguata, monte roraima, pico bolivar, aventura venezuela, montañismo venezuela, podcast latinoamerica, mejor podcast venezuela",
         "author": [
           {
             "@type": "Person",
             "name": "Juan Carlos Martínez",
-            "alternateName": "JuanSofa"
+            "alternateName": "JuanSofa",
+            "url": "https://www.instagram.com/juansofa/",
+            "jobTitle": "Co-Host y Creador de Contenido"
           },
           {
             "@type": "Person",
             "name": "Jhon Da Silva",
-            "alternateName": "JhonSnacks"
+            "alternateName": "JhonSnacks",
+            "url": "https://www.instagram.com/jhonsnacks/",
+            "jobTitle": "Co-Host y Creador de Contenido"
           }
         ],
         "publisher": {
           "@type": "Organization",
-          "name": "Vacílate Esto"
+          "name": "Vacílate Esto",
+          "url": "https://www.vacilateesto.com",
+          "parentOrganization": {
+            "@type": "Organization",
+            "name": "El Patio Content Studio"
+          }
         },
+        "productionCompany": {
+          "@type": "Organization",
+          "name": "El Patio Content Studio",
+          "parentOrganization": {
+            "@type": "Organization",
+            "name": "La Web Figital Agency",
+            "url": "https://www.lawebfigitalagency.com"
+          }
+        },
+        "contentLocation": [
+          {
+            "@type": "Place",
+            "name": "Pico Naiguatá",
+            "description": "El techo de Caracas a 2.765 metros de altura",
+            "geo": { "@type": "GeoCoordinates", "latitude": "10.5333", "longitude": "-66.8833", "elevation": "2765" },
+            "containedInPlace": { "@type": "Country", "name": "Venezuela" }
+          },
+          {
+            "@type": "Place",
+            "name": "Monte Roraima",
+            "description": "Tepuy ancestral de 2.000 millones de años a 2.810 metros",
+            "geo": { "@type": "GeoCoordinates", "latitude": "5.1436", "longitude": "-60.7625", "elevation": "2810" },
+            "containedInPlace": { "@type": "Country", "name": "Venezuela" }
+          },
+          {
+            "@type": "Place",
+            "name": "Pico Bolívar",
+            "description": "La montaña más alta de Venezuela a 4.978 metros",
+            "geo": { "@type": "GeoCoordinates", "latitude": "8.5419", "longitude": "-71.0469", "elevation": "4978" },
+            "containedInPlace": { "@type": "Country", "name": "Venezuela" }
+          }
+        ],
         "containsSeason": {
           "@type": "PodcastSeason",
           "seasonNumber": 1,
           "numberOfEpisodes": 3,
+          "startDate": "2025-08",
+          "endDate": "2026-02",
           "episode": [
             {
               "@type": "PodcastEpisode",
-              "name": "Podcast en Naiguatá",
+              "name": "Podcast en Naiguatá - El Techo de Caracas",
               "episodeNumber": 1,
-              "description": "Grabación en la cima del Pico Naiguatá a 2.765 metros, el techo de Caracas."
+              "description": "Primer episodio grabado en la cima del Pico Naiguatá a 2.765 metros, el techo de Caracas. Una expedición de 20 personas subiendo con micrófonos, cámaras y humor venezolano.",
+              "duration": "PT1H30M",
+              "datePublished": "2025-09",
+              "url": "https://www.youtube.com/watch?v=NZWSKJvOdXg"
             },
             {
               "@type": "PodcastEpisode",
-              "name": "Podcast en Roraima",
+              "name": "Podcast en Roraima - 2.000 Millones de Años de Ancestralidad",
               "episodeNumber": 2,
-              "description": "Expedición al tepuy más emblemático de Venezuela a 2.810 metros de altura."
+              "description": "Expedición al Monte Roraima, el tepuy más emblemático de Venezuela a 2.810 metros. Un viaje al origen del tiempo geológico y la cultura Pemón.",
+              "duration": "PT1H1M29S",
+              "datePublished": "2025-11",
+              "url": "https://www.youtube.com/watch?v=NdrcKpsD0UU"
             }
           ]
-        }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "137000",
+          "bestRating": "5"
+        },
+        "interactionStatistic": [
+          { "@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": "2600000" },
+          { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": "137000" }
+        ]
       },
       {
         "@type": "WebPage",
         "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre",
         "url": "https://www.vacilateesto.com/podcast-en-la-cumbre",
-        "name": "Podcast en la Cumbre | Aventura en las Montañas de Venezuela",
-        "description": "Travesía audiovisual grabando podcasts en Naiguatá, Roraima y Pico Bolívar. Aventura, humor y reflexión desde las alturas de Venezuela.",
+        "name": "Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela",
+        "description": "Travesía audiovisual grabando podcasts en las montañas más emblemáticas de Venezuela: Naiguatá, Roraima y Pico Bolívar. Aventura, humor y reflexión desde las alturas con JuanSofa y JhonSnacks.",
+        "inLanguage": "es-VE",
         "isPartOf": {
           "@type": "WebSite",
           "name": "Vacílate Esto",
           "url": "https://www.vacilateesto.com"
+        },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.vacilateesto.com" },
+            { "@type": "ListItem", "position": 2, "name": "Podcast en la Cumbre", "item": "https://www.vacilateesto.com/podcast-en-la-cumbre" }
+          ]
         }
       },
       {
@@ -88,7 +159,7 @@ const PodcastEnLaCumbre = () => {
             "name": "¿Qué es Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Es una travesía audiovisual de siete meses para grabar podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (4.978m)."
+              "text": "Podcast en la Cumbre es una travesía audiovisual de siete meses para grabar podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (4.978m). Es un proyecto de Vacílate Esto producido por El Patio Content Studio que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas."
             }
           },
           {
@@ -96,18 +167,64 @@ const PodcastEnLaCumbre = () => {
             "name": "¿Quiénes son los hosts de Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva) lideran el proyecto como co-hosts, combinando aventura, humor y reflexión en cada episodio."
+              "text": "JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva) son los co-hosts del proyecto. Son creadores de contenido venezolanos que lideran Vacílate Esto, combinando aventura, humor y reflexión en cada episodio desde las montañas más altas de Venezuela."
             }
           },
           {
             "@type": "Question",
-            "name": "¿Cuáles son las montañas del proyecto?",
+            "name": "¿Cuáles son las montañas del proyecto Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El proyecto incluye tres cumbres icónicas de Venezuela: Pico Naiguatá (2.765m) el techo de Caracas, Monte Roraima (2.810m) el tepuy más emblemático, y Pico Bolívar (4.978m) la montaña más alta del país."
+              "text": "El proyecto incluye tres cumbres icónicas de Venezuela: Pico Naiguatá (2.765m) conocido como el techo de Caracas, Monte Roraima (2.810m) el tepuy más emblemático con 2.000 millones de años de antigüedad, y Pico Bolívar (4.978m) la montaña más alta de Venezuela."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Dónde puedo ver los episodios de Podcast en la Cumbre?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Los episodios completos de Podcast en la Cumbre están disponibles en YouTube en el canal de Vacílate Esto. También puedes encontrar contenido adicional en Instagram, TikTok y Facebook bajo @vacilateestopodcast."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuál es el manifiesto de Podcast en la Cumbre?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El manifiesto del proyecto afirma que 'Altura no es solo un destino, es una manera de vivir'. Es un recordatorio de que Venezuela tiene historias, paisajes y gente 'a la altura', sin envidiarle nada a nadie. El mantra es: 'Desde arriba, todo tiene sentido'."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuántas visualizaciones tiene Podcast en la Cumbre?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Podcast en la Cumbre ha generado más de 2.6 millones de visualizaciones y 137,000 interacciones en todas las plataformas, con una tasa de engagement del 6.6% entre agosto y noviembre de 2025."
             }
           }
         ]
+      },
+      {
+        "@type": "VideoObject",
+        "name": "Podcast en la Cumbre - Episodio Naiguatá",
+        "description": "Primer episodio de Podcast en la Cumbre grabado en el Pico Naiguatá a 2.765 metros, el techo de Caracas, Venezuela.",
+        "thumbnailUrl": "https://img.youtube.com/vi/NZWSKJvOdXg/maxresdefault.jpg",
+        "uploadDate": "2025-09-01",
+        "duration": "PT1H30M",
+        "contentUrl": "https://www.youtube.com/watch?v=NZWSKJvOdXg",
+        "embedUrl": "https://www.youtube.com/embed/NZWSKJvOdXg",
+        "interactionStatistic": { "@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": "50000" }
+      },
+      {
+        "@type": "VideoObject",
+        "name": "Podcast en la Cumbre - Episodio Roraima",
+        "description": "Expedición al Monte Roraima grabando podcast a 2.810 metros. 2.000 millones de años de ancestralidad venezolana.",
+        "thumbnailUrl": "https://img.youtube.com/vi/NdrcKpsD0UU/maxresdefault.jpg",
+        "uploadDate": "2025-11-01",
+        "duration": "PT1H1M29S",
+        "contentUrl": "https://www.youtube.com/watch?v=NdrcKpsD0UU",
+        "embedUrl": "https://www.youtube.com/embed/NdrcKpsD0UU",
+        "interactionStatistic": { "@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": "30000" }
       }
     ]
   };
@@ -122,29 +239,38 @@ const PodcastEnLaCumbre = () => {
   return (
     <>
       <Helmet>
-        <title>Podcast en la Cumbre | Aventura en las Montañas de Venezuela</title>
-        <meta name="description" content="Travesía audiovisual grabando podcasts en Naiguatá (2.765m), Roraima (2.810m) y Pico Bolívar. Aventura, humor y reflexión desde las alturas de Venezuela con JuanSofa y JhonSnacks." />
-        <meta name="keywords" content="podcast venezuela, podcast montaña, pico naiguata, monte roraima, pico bolivar, aventura venezuela, JuanSofa, JhonSnacks, podcast en la cumbre, vacilate esto, montañismo venezuela" />
+        <title>Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela 🇻🇪</title>
+        <meta name="title" content="Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela" />
+        <meta name="description" content="Podcast en la Cumbre es la travesía audiovisual de Vacílate Esto grabando podcasts en las montañas más emblemáticas de Venezuela: Naiguatá (2.765m), Roraima (2.810m) y Pico Bolívar (4.978m). Aventura, humor y reflexión con JuanSofa y JhonSnacks." />
+        <meta name="keywords" content="podcast en la cumbre, podcast venezuela, podcast montaña venezuela, pico naiguata podcast, monte roraima podcast, pico bolivar, aventura venezuela, JuanSofa, JhonSnacks, vacilate esto, montañismo venezuela, mejor podcast aventura, podcast latinoamerica, podcasts venezolanos, tepuy roraima" />
+        <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="language" content="Spanish" />
+        <meta name="geo.region" content="VE" />
+        <meta name="geo.country" content="Venezuela" />
+        <meta name="geo.placename" content="Caracas, Venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/podcast-en-la-cumbre" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Podcast en la Cumbre | Aventura en las Montañas de Venezuela" />
-        <meta property="og:description" content="Travesía audiovisual de 7 meses grabando podcasts en Naiguatá, Roraima y Pico Bolívar. Tres cumbres, tres historias, un mismo mensaje." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.vacilateesto.com/podcast-en-la-cumbre" />
-        <meta property="og:locale" content="es_VE" />
         <meta property="og:site_name" content="Vacílate Esto" />
+        <meta property="og:title" content="Podcast en la Cumbre | Aventura en las Montañas de Venezuela 🇻🇪" />
+        <meta property="og:description" content="Travesía audiovisual de 7 meses grabando podcasts en Naiguatá, Roraima y Pico Bolívar. Tres cumbres, tres historias, un mismo mensaje: Aquí hay altura, aquí hay país." />
+        <meta property="og:url" content="https://www.vacilateesto.com/podcast-en-la-cumbre" />
+        <meta property="og:image" content="https://www.vacilateesto.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="es_VE" />
+        <meta property="og:locale:alternate" content="es_ES" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Podcast en la Cumbre | Aventura en Venezuela" />
-        <meta name="twitter:description" content="Grabando podcasts en las cumbres más emblemáticas de Venezuela: Naiguatá, Roraima y Pico Bolívar." />
-        
-        {/* Additional SEO */}
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <meta name="author" content="Vacílate Esto" />
-        <meta name="geo.region" content="VE" />
-        <meta name="geo.placename" content="Venezuela" />
+        <meta name="twitter:site" content="@vacilateesto" />
+        <meta name="twitter:creator" content="@vacilateesto" />
+        <meta name="twitter:title" content="Podcast en la Cumbre | Aventura en Venezuela 🏔️" />
+        <meta name="twitter:description" content="Grabando podcasts en las cumbres más emblemáticas de Venezuela: Naiguatá, Roraima y Pico Bolívar. Por JuanSofa y JhonSnacks." />
+        <meta property="twitter:image" content="https://www.vacilateesto.com/og-image.png" />
         
         {/* Structured Data */}
         <script type="application/ld+json">
