@@ -1,12 +1,14 @@
-import { Instagram, Youtube, MapPin } from "lucide-react";
+import { Instagram, Youtube, MapPin, Facebook, Globe } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Instagram, href: "https://instagram.com/vacilateesto", label: "Instagram" },
-    { icon: Youtube, href: "https://youtube.com/@Vacilateestopodcast", label: "YouTube" },
+    { icon: Instagram, href: "https://www.instagram.com/vacilateestopodcast/", label: "Instagram" },
+    { icon: Youtube, href: "https://www.youtube.com/@Vacilateestopodcast", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/vacilatestopodcast/", label: "Facebook" },
+    { icon: Globe, href: "https://www.vacilateesto.com", label: "Website" },
   ];
 
   const footerLinks = [
@@ -14,17 +16,17 @@ const Footer = () => {
       title: "Contenido",
       links: [
         { label: "Podcast", href: "#episodes" },
-        { label: "Shorts", href: "#" },
-        { label: "Live", href: "#" },
-        { label: "Playlists", href: "#" },
+        { label: "Shorts", href: "https://www.youtube.com/@Vacilateestopodcast/shorts" },
+        { label: "Live", href: "https://www.youtube.com/@Vacilateestopodcast/streams" },
+        { label: "Playlists", href: "https://www.youtube.com/@Vacilateestopodcast/playlists" },
       ],
     },
     {
       title: "Comunidad",
       links: [
         { label: "Sobre Nosotros", href: "#hosts" },
-        { label: "Contacto", href: "#contact" },
-        { label: "WhatsApp", href: "#" },
+        { label: "Instagram", href: "https://www.instagram.com/vacilateestopodcast/" },
+        { label: "Facebook", href: "https://www.facebook.com/vacilatestopodcast/" },
       ],
     },
     {
@@ -46,7 +48,9 @@ const Footer = () => {
               <Logo size="default" className="brightness-0 invert" />
             </a>
             <p className="text-background/70 text-sm mb-4 max-w-sm leading-relaxed">
-              El podcast más viral de Venezuela 🇻🇪 Que nunca se queda quieto, ¡estamos en todo! ✨👋
+              El podcast más viral de Venezuela 🇻🇪 que nunca se queda quieto. 
+              Conversaciones sin filtro, historias increíbles y el contenido más auténtico. 
+              ¡Estamos en todo! ✨👋
             </p>
             
             <div className="flex items-center gap-2 text-background/60 text-sm mb-6">
@@ -80,6 +84,8 @@ const Footer = () => {
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="text-background/60 hover:text-primary transition-colors text-sm"
                     >
                       {link.label}

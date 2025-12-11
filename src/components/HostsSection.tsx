@@ -1,4 +1,4 @@
-import { Instagram, Youtube } from "lucide-react";
+import { Instagram, Youtube, Facebook } from "lucide-react";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 
@@ -6,21 +6,23 @@ const hosts = [
   {
     name: "Jhon Da Silva",
     role: "Co-Host & Co-Fundador",
-    description: "Con su estilo único y energía inconfundible, Jhon aporta la chispa creativa al podcast. Su visión y pasión por contar historias auténticas ha llevado a Vacílate Esto a conectar con miles de personas.",
+    description: "Con su estilo único, energía inconfundible y visión creativa, Jhon aporta la chispa que hace de cada episodio una experiencia memorable. Su pasión por contar historias auténticas ha conectado a Vacílate Esto con miles de personas en toda Venezuela y el mundo.",
     image: jhonDaSilva,
     socials: {
-      instagram: "https://instagram.com/vacilateesto",
-      youtube: "https://youtube.com/@Vacilateestopodcast",
+      instagram: "https://www.instagram.com/vacilateestopodcast/",
+      youtube: "https://www.youtube.com/@Vacilateestopodcast",
+      facebook: "https://www.facebook.com/vacilatestopodcast/",
     },
   },
   {
     name: "Juan Carlos Martínez",
     role: "Co-Host & Co-Fundador",
-    description: "La mente estratégica detrás del micrófono. Juan Carlos combina profundidad y humor en cada conversación, creando el equilibrio perfecto que define el estilo del podcast.",
+    description: "La mente estratégica y la voz reflexiva del podcast. Juan Carlos combina profundidad, humor e inteligencia en cada conversación, creando el equilibrio perfecto que define el estilo único de Vacílate Esto. Juntos, no se quedan quietos.",
     image: juanCarlosMartinez,
     socials: {
-      instagram: "https://instagram.com/vacilateesto",
-      youtube: "https://youtube.com/@Vacilateestopodcast",
+      instagram: "https://www.instagram.com/vacilateestopodcast/",
+      youtube: "https://www.youtube.com/@Vacilateestopodcast",
+      facebook: "https://www.facebook.com/vacilatestopodcast/",
     },
   },
 ];
@@ -39,7 +41,8 @@ const HostsSection = () => {
             Los Hosts
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Las voces y rostros detrás de las aventuras que te compartimos cada semana.
+            Las voces y rostros detrás de las aventuras que te compartimos cada semana. 
+            ¡El podcast que nunca se queda quieto!
           </p>
         </div>
 
@@ -95,6 +98,14 @@ const HostsSection = () => {
                       className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                     >
                       <Youtube className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={host.socials.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                    >
+                      <Facebook className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
