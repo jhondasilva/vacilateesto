@@ -6,6 +6,7 @@ import SocialReelsSection from "@/components/SocialReelsSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
 import EcosystemSection from "@/components/EcosystemSection";
+import PeloticaSection from "@/components/PeloticaSection";
 import AgendaSection from "@/components/AgendaSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
@@ -20,6 +21,7 @@ const Index = () => {
         <EpisodesSection />
         <HostsSection />
         <EcosystemSection />
+        <PeloticaSection />
         <AgendaSection />
         <SocialReelsSection />
         <SpotifySection />
