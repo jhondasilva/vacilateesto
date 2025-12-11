@@ -24,7 +24,7 @@ const HeroSection = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-sm font-medium text-foreground">El Mejor Podcast de Venezuela 🇻🇪</span>
+            <span className="text-sm font-medium text-foreground">Uno de los Mejores Podcast de Venezuela 🇻🇪</span>
           </div>
 
           {/* Logo with SEO-friendly heading */}
