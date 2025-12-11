@@ -1,8 +1,24 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Mountain, Users, MapPin, Newspaper } from "lucide-react";
+import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles } from "lucide-react";
 import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
+
+// Custom TikTok icon
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 const PodcastEnLaCumbre = () => {
   const structuredData = {
@@ -96,6 +112,13 @@ const PodcastEnLaCumbre = () => {
     ]
   };
 
+  const platformStats = [
+    { platform: "Instagram", icon: Instagram, posts: 79, views: "1.6M", interactions: "75.8K", rate: "8.5%" },
+    { platform: "Facebook", icon: Facebook, posts: 73, views: "603K", interactions: "32.3K", rate: "4.7%" },
+    { platform: "TikTok", icon: TikTokIcon, posts: 35, views: "257K", interactions: "29K", rate: "10.1%" },
+    { platform: "YouTube", icon: Youtube, posts: 25, views: "119K", interactions: "2.3K", rate: "2.0%" },
+  ];
+
   return (
     <>
       <Helmet>
@@ -151,42 +174,320 @@ const PodcastEnLaCumbre = () => {
             </div>
           </section>
 
+          {/* Manifiesto Section */}
+          <section className="py-16 bg-foreground text-background" aria-labelledby="manifiesto-heading">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <Quote className="w-12 h-12 text-primary mx-auto mb-6" aria-hidden="true" />
+                <h2 id="manifiesto-heading" className="text-3xl md:text-4xl font-bold mb-8">Manifiesto</h2>
+                
+                <div className="space-y-6 text-background/90 text-lg leading-relaxed">
+                  <p className="text-2xl font-bold text-primary">
+                    Altura no es solo un destino. Es una manera de vivir.
+                  </p>
+                  
+                  <p>
+                    Queremos recordarle al mundo de qué estamos hechos. Porque mientras algunos dudan 
+                    de lo que somos, nosotros seguimos subiendo la barra.
+                  </p>
+                  
+                  <p>
+                    No con arrogancia, sino con la certeza de que <strong className="text-primary">¡tenemos con qué!</strong> Porque 
+                    este país tiene historias, paisajes, marcas y, sobre todo, gente a la altura, 
+                    sin envidiarle nada a nadie.
+                  </p>
+                  
+                  <p>
+                    Desde Vacílate Esto, hoy decidimos subir. Porque creemos que el camino cambia la mirada. 
+                    Y porque contar lo que somos, desde lo alto, es un acto de orgullo.
+                  </p>
+                  
+                  <p className="text-xl font-semibold">
+                    Venezuela no es solo un territorio. Es carácter. Es talento. Es dignidad.
+                  </p>
+                  
+                  <div className="pt-6 border-t border-background/20">
+                    <p className="text-xl font-bold text-primary mb-4">Una afirmación:</p>
+                    <div className="flex flex-wrap justify-center gap-4 text-lg">
+                      <span className="px-4 py-2 bg-background/10 rounded-full">🏔️ Aquí hay altura</span>
+                      <span className="px-4 py-2 bg-background/10 rounded-full">📖 Aquí hay historias</span>
+                      <span className="px-4 py-2 bg-background/10 rounded-full">🇻🇪 Aquí hay país</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-12 p-6 bg-background/5 rounded-2xl border border-background/10">
+                  <h3 className="text-xl font-bold text-primary mb-3">Mantra</h3>
+                  <p className="text-2xl font-bold italic">
+                    "Desde arriba, todo tiene sentido."
+                  </p>
+                  <p className="text-background/70 mt-4">
+                    Desde arriba entendemos por qué seguimos. Desde arriba vemos lo que nos une. 
+                    Desde arriba, recordamos que Venezuela no se rinde: respira hondo, y sigue.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Resultados Section */}
+          <section className="py-16 bg-primary/5" aria-labelledby="resultados-heading">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
+                <h2 id="resultados-heading" className="text-3xl font-bold text-foreground mb-4">
+                  Resultados del Proyecto
+                </h2>
+                <p className="text-muted-foreground">Agosto - Noviembre 2025 | Orgánico + Pago</p>
+              </div>
+
+              {/* Global Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">212</div>
+                  <div className="text-sm text-muted-foreground">Publicaciones</div>
+                </div>
+                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">2.6M</div>
+                  <div className="text-sm text-muted-foreground">Vistas Totales</div>
+                </div>
+                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">137K</div>
+                  <div className="text-sm text-muted-foreground">Interacciones</div>
+                </div>
+                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">6.6%</div>
+                  <div className="text-sm text-muted-foreground">Tasa de Engagement</div>
+                </div>
+              </div>
+
+              {/* Platform Stats */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                {platformStats.map((stat) => (
+                  <div key={stat.platform} className="bg-background rounded-2xl p-6 shadow-card">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <stat.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-foreground">{stat.platform}</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground">Posts</span>
+                        <span className="font-semibold text-foreground">{stat.posts}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                          <Eye className="w-3 h-3" /> Vistas
+                        </span>
+                        <span className="font-semibold text-foreground">{stat.views}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                          <Heart className="w-3 h-3" /> Interacciones
+                        </span>
+                        <span className="font-semibold text-foreground">{stat.interactions}</span>
+                      </div>
+                      <div className="pt-2 border-t border-border">
+                        <div className="flex justify-between">
+                          <span className="text-sm text-muted-foreground">Engagement</span>
+                          <span className="font-bold text-primary">{stat.rate}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Community Stats */}
+              <div className="mt-12 max-w-2xl mx-auto">
+                <div className="bg-background rounded-2xl p-8 shadow-card text-center">
+                  <Users className="w-10 h-10 text-primary mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-foreground mb-6">Comunidad Total</h3>
+                  <div className="grid grid-cols-2 gap-8">
+                    <div>
+                      <div className="text-4xl font-bold text-foreground mb-2">277.9K</div>
+                      <div className="text-sm text-muted-foreground">Seguidores Totales</div>
+                    </div>
+                    <div>
+                      <div className="text-4xl font-bold text-primary mb-2">+9.1K</div>
+                      <div className="text-sm text-muted-foreground">Nuevos Seguidores</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Episodios Section */}
           <section className="py-16 bg-muted/30" aria-labelledby="episodios-heading">
             <div className="container mx-auto px-4">
-              <h1 id="episodios-heading" className="text-3xl font-bold text-foreground text-center mb-12" itemProp="name">
+              <h2 id="episodios-heading" className="text-3xl font-bold text-foreground text-center mb-12" itemProp="name">
                 Episodios de Podcast en la Cumbre
-              </h1>
+              </h2>
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <article className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/NZWSKJvOdXg"
-                    title="Podcast en la Cumbre Episodio 1 - Pico Naiguatá Venezuela"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                    loading="lazy"
-                  />
+                <article className="space-y-4">
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/NZWSKJvOdXg"
+                      title="Podcast en la Cumbre Episodio 1 - Pico Naiguatá Venezuela"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">Episodio 1: Pico Naiguatá</h3>
+                  <p className="text-muted-foreground text-sm">
+                    El techo de Caracas a 2.765 metros. Una expedición de 20 personas subiendo con 
+                    micrófonos, cámaras y el humor que no se enfría ni con neblina.
+                  </p>
                 </article>
-                <article className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/NdrcKpsD0UU"
-                    title="Podcast en la Cumbre Episodio 2 - Detrás de cámaras Naiguatá"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                    loading="lazy"
-                  />
+                <article className="space-y-4">
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/NdrcKpsD0UU"
+                      title="Podcast en la Cumbre Episodio 2 - Monte Roraima Venezuela"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">Episodio 2: Monte Roraima</h3>
+                  <p className="text-muted-foreground text-sm">
+                    2.000 millones de años de ancestralidad. El tepuy más emblemático de Venezuela 
+                    a 2.810 metros donde el tiempo parece detenerse.
+                  </p>
                 </article>
               </div>
             </div>
           </section>
+
+          {/* Naiguata Deep Dive */}
+          <article className="py-16 bg-background" aria-labelledby="naiguata-heading">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <MapPin className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h2 id="naiguata-heading" className="text-3xl font-bold text-foreground">
+                      Pico Naiguatá
+                    </h2>
+                    <p className="text-primary font-semibold">2.765 metros | El Techo de Caracas</p>
+                  </div>
+                </div>
+                
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-muted-foreground mb-4">
+                    Grabar un podcast en el Naiguatá... subir y ganárselo. Nos fuimos 20 personas —equipo central, 
+                    guías, porteadores, producción— con mochilas llenas de micrófonos, cámaras, comida, capas 
+                    térmicas y ese humor que no se enfría ni con neblina.
+                  </p>
+                  <p className="text-muted-foreground mb-4">
+                    Subimos por La Julia, cruzamos miradores, peñones y subidas que parecían castigos de gimnasio. 
+                    Llegamos a la cima de Caracas a <strong className="text-foreground">2.765 metros sobre el nivel del mar</strong>, 
+                    donde la ciudad se ve como un mapa y el mar asoma tímido detrás de la cordillera.
+                  </p>
+                </div>
+
+                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                  "Aquí estamos… más cerca del cielo y de quiénes somos como venezolanos."
+                </blockquote>
+
+                <p className="text-muted-foreground">
+                  Ese día entendimos que subir una montaña es fácil… lo difícil es bajarse después de ver todo desde arriba.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          {/* Roraima Deep Dive */}
+          <article className="py-16 bg-muted/30" aria-labelledby="roraima-heading">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Mountain className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h2 id="roraima-heading" className="text-3xl font-bold text-foreground">
+                      Monte Roraima
+                    </h2>
+                    <p className="text-primary font-semibold">2.810 metros | 2.000 Millones de Años de Ancestralidad</p>
+                  </div>
+                </div>
+
+                <div className="bg-background rounded-2xl p-6 mb-8 shadow-card">
+                  <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    La Escala del Tiempo
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="w-3 h-3 rounded-full bg-primary"></div>
+                      <div>
+                        <div className="font-semibold text-foreground">Macizo Guayanés</div>
+                        <div className="text-sm text-muted-foreground">1.700 - 2.000 millones de años</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="w-3 h-3 rounded-full bg-primary/70"></div>
+                      <div>
+                        <div className="font-semibold text-foreground">Vida Multicelular</div>
+                        <div className="text-sm text-muted-foreground">600 millones de años</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="w-3 h-3 rounded-full bg-primary/50"></div>
+                      <div>
+                        <div className="font-semibold text-foreground">Los Dinosaurios</div>
+                        <div className="text-sm text-muted-foreground">240 - 66 millones de años</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="w-3 h-3 rounded-full bg-primary/30"></div>
+                      <div>
+                        <div className="font-semibold text-foreground">Historia de Venezuela</div>
+                        <div className="text-sm text-muted-foreground">Apenas 200 años</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-muted-foreground mb-4">
+                    El tepuy más emblemático de Venezuela representa un reto único: una meseta ancestral 
+                    donde el tiempo parece detenerse. La expedición hacia la cima es una travesía de varios 
+                    días atravesando la Gran Sabana, cruzando ríos y ascendiendo por la famosa rampa natural.
+                  </p>
+                  <p className="text-muted-foreground mb-4">
+                    Al abordar temas de geología, biología y cultura Pemón, el podcast se aleja del humor 
+                    ligero para tocar fibras educativas. El Roraima nos recordó que frente a la eternidad 
+                    de la piedra, los problemas actuales son un parpadeo.
+                  </p>
+                </div>
+
+                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                  "El mundo diciéndole a los seres humanos: ustedes son los que están de paso."
+                </blockquote>
+
+                <p className="text-muted-foreground">
+                  En la cima, entre formaciones rocosas milenarias y paisajes de otro mundo, 
+                  capturamos la esencia mística de este lugar sagrado para los Pemón. El territorio permanece, 
+                  y por ende, la identidad que emana de él es indestructible.
+                </p>
+              </div>
+            </div>
+          </article>
 
           {/* About Section */}
           <section className="py-16 bg-background" aria-labelledby="about-heading">
@@ -203,8 +504,8 @@ const PodcastEnLaCumbre = () => {
                     humor y reflexión.
                   </p>
                   <p className="text-muted-foreground mb-4">
-                    Liderado por <strong>JuanSofa</strong> y <strong>JhonSnacks</strong>, el proyecto documenta cada paso con streaming en vivo, 
-                    podcast, reels, microdocumentales y fotografía editorial.
+                    Liderado por <strong>JuanSofa</strong> y <strong>JhonSnacks</strong>, el proyecto documenta 
+                    cada paso con streaming en vivo, podcast, reels, microdocumentales y fotografía editorial.
                   </p>
                   <p className="text-muted-foreground">
                     <strong className="text-foreground">Tres cumbres, tres historias, un mismo mensaje:</strong> 
@@ -212,78 +513,24 @@ const PodcastEnLaCumbre = () => {
                   </p>
                 </div>
                 <aside className="bg-muted/30 rounded-2xl p-8 border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-4">Manifiesto del Proyecto</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">Propósito</h3>
                   <p className="text-muted-foreground mb-4">
-                    El manifiesto de Podcast en la Cumbre afirma que la altura es una forma de vivir y mirar el mundo.
+                    Contar que seguimos aquí. Y que seguimos subiendo.
                   </p>
-                  <p className="text-muted-foreground">
-                    Es un recordatorio de que Venezuela tiene historias, paisajes y gente "a la altura", 
-                    y que subir —física y simbólicamente— es un acto de orgullo y carácter.
+                  <p className="text-muted-foreground mb-4">
+                    Este proyecto existe para recordarnos —a nosotros y al mundo— que Venezuela no se rinde, 
+                    se reinventa. Que tenemos montañas, sí, pero también caminos.
+                  </p>
+                  <p className="text-foreground font-semibold">
+                    La altura venezolana no se mide en metros, sino en alma.
                   </p>
                 </aside>
               </div>
             </div>
           </section>
 
-          {/* Naiguata Section */}
-          <article className="py-16 bg-background" aria-labelledby="naiguata-heading">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 id="naiguata-heading" className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-                  <MapPin className="w-8 h-8 text-primary" aria-hidden="true" />
-                  Podcast en Pico Naiguatá (2.765m)
-                </h2>
-                <p className="text-muted-foreground mb-4">
-                  Grabar un podcast en el Naiguatá… subir y ganárselo. Nos fuimos 20 personas —equipo central, 
-                  guías, porteadores, producción— con mochilas llenas de micrófonos, cámaras, comida, capas 
-                  térmicas y ese humor que no se enfría ni con neblina.
-                </p>
-                <p className="text-muted-foreground mb-4">
-                  Subimos por La Julia, cruzamos miradores, peñones y subidas que parecían castigos de gimnasio. 
-                  Llegamos a la cima de Caracas a <strong>2.765 metros sobre el nivel del mar</strong>, donde la ciudad se ve como un mapa y el mar 
-                  asoma tímido detrás de la cordillera.
-                </p>
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
-                  "Aquí estamos… más cerca del cielo y de quiénes somos como venezolanos."
-                </blockquote>
-                <p className="text-muted-foreground">
-                  Ese día entendimos que subir una montaña es fácil… lo difícil es bajarse después de ver todo desde arriba.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          {/* Roraima Section */}
-          <article className="py-16 bg-muted/30" aria-labelledby="roraima-heading">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 id="roraima-heading" className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-                  <MapPin className="w-8 h-8 text-primary" aria-hidden="true" />
-                  Podcast en Monte Roraima (2.810m)
-                </h2>
-                <p className="text-muted-foreground mb-4">
-                  Roraima es la segunda cumbre del proyecto. El tepuy más emblemático de Venezuela, 
-                  con sus <strong className="text-primary">2.810 metros</strong> de altura, representa 
-                  un reto único: una meseta ancestral donde el tiempo parece detenerse.
-                </p>
-                <p className="text-muted-foreground mb-4">
-                  La expedición hacia la cima del Roraima es una travesía de varios días atravesando 
-                  la Gran Sabana, cruzando ríos y ascendiendo por la famosa rampa natural que conecta 
-                  con la cima del tepuy.
-                </p>
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
-                  "Roraima es donde el cielo toca la tierra y las historias se vuelven leyenda."
-                </blockquote>
-                <p className="text-muted-foreground">
-                  En la cima, entre formaciones rocosas milenarias y paisajes de otro mundo, 
-                  grabaremos un episodio que captura la esencia mística de este lugar sagrado para los Pemón.
-                </p>
-              </div>
-            </div>
-          </article>
-
           {/* Team Section */}
-          <section className="py-16 bg-background" aria-labelledby="team-heading">
+          <section className="py-16 bg-muted/30" aria-labelledby="team-heading">
             <div className="container mx-auto px-4">
               <h2 id="team-heading" className="text-3xl font-bold text-foreground text-center mb-12 flex items-center justify-center gap-3">
                 <Users className="w-8 h-8 text-primary" aria-hidden="true" />
@@ -321,7 +568,7 @@ const PodcastEnLaCumbre = () => {
                 ].map((member) => (
                   <article
                     key={member.name}
-                    className="bg-muted/30 rounded-xl p-6 border border-border hover:border-primary/50 transition-colors"
+                    className="bg-background rounded-xl p-6 border border-border hover:border-primary/50 transition-colors shadow-card"
                     role="listitem"
                     itemScope
                     itemType="https://schema.org/Person"
