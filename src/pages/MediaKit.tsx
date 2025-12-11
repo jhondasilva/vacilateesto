@@ -22,7 +22,8 @@ import {
   ArrowRight,
   Download,
   Tv,
-  Smartphone
+  Smartphone,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -124,6 +125,15 @@ const contentFormats = [
     icon: Radio,
     color: "bg-[#7DE8E8]",
     stats: "Shows en vivo",
+  },
+  {
+    title: "Rutas",
+    subtitle: "Exploraciones Temáticas",
+    description: "Series de exploración donde recorremos lugares con un tema específico. Como la Ruta del Ramen, donde probamos y evaluamos los mejores restaurantes de ramen en la ciudad.",
+    icon: MapPin,
+    color: "bg-[#7DE8E8]",
+    stats: "Series temáticas",
+    platforms: "TikTok, Instagram, YouTube",
   },
   {
     title: "Newsletter",
