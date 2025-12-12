@@ -79,7 +79,7 @@ const HeroSection = () => {
               </Button>
             </a>
             <a 
-              href="https://peloticadegoma.com/" 
+              href="https://www.peloticadegoma.com" 
               target="_blank" 
               rel="noopener noreferrer"
             >
