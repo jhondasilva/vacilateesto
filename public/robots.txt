@@ -11,6 +11,12 @@ Sitemap: https://www.vacilateesto.com/sitemap.xml
 User-agent: Googlebot
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 
@@ -20,6 +26,13 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Social Media Bots
 User-agent: Twitterbot
 Allow: /
 
@@ -33,6 +46,37 @@ User-agent: WhatsApp
 Allow: /
 
 User-agent: TelegramBot
+Allow: /
+
+User-agent: Pinterest
+Allow: /
+
+# AI Search and LLM Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 # Crawl-delay for respectful crawling

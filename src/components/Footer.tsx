@@ -176,7 +176,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-background/50 text-sm">
-            © 2026 Vacílate Esto. Todos los derechos reservados.
+            © {currentYear} Vacílate Esto. Todos los derechos reservados.
           </p>
           <p className="text-background/50 text-sm">
             Hecho con ❤️ en Venezuela
