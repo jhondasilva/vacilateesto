@@ -70,12 +70,12 @@ const HeroSection = () => {
           <nav className="flex flex-wrap items-center justify-center gap-3 mt-6 animate-fade-in" style={{ animationDelay: "0.5s" }} aria-label="Nuestros proyectos">
             <a href="/podcast-en-la-cumbre">
               <Button variant="outline" size="default" className="group">
-                🏔️ Podcast en la Cumbre
+                Podcast en la Cumbre
               </Button>
             </a>
             <a href="/podcast-eterno">
               <Button variant="outline" size="default" className="group">
-                ⏱️ Podcast Eterno
+                Podcast Eterno
               </Button>
             </a>
             <a 
@@ -84,7 +84,7 @@ const HeroSection = () => {
               rel="noopener noreferrer"
             >
               <Button variant="outline" size="default" className="group">
-                🔴 Pelotica de Goma
+                Pelotica de Goma
               </Button>
             </a>
           </nav>
