@@ -6,14 +6,14 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-background pt-20 pb-8 md:pb-0"
       aria-label="Vacílate Esto - El mejor podcast de Venezuela"
     >
       {/* Background Decorations */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#7DE8E8]/10 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-20 right-10 w-48 md:w-72 h-48 md:h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 left-10 w-64 md:w-96 h-64 md:h-96 bg-[#7DE8E8]/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -34,7 +34,7 @@ const HeroSection = () => {
           </div>
 
           {/* Subtitle with SEO keywords */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10 animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.2s" }}>
             ¡El podcast venezolano que nunca se queda quieto! Somos una marca de contenido que mezcla 
             entretenimiento y educación. Podcast, shorts, lives y mucho más. 
             ¡El mejor podcast hecho en Venezuela! ✨👋

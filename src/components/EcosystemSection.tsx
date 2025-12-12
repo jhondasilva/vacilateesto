@@ -164,17 +164,17 @@ const EcosystemSection = () => {
   const maxPlatforms = Math.max(...ecosystemItems.map(item => item.platforms.length));
 
   return (
-    <section className="py-20 bg-foreground relative overflow-hidden">
+    <section className="py-16 md:py-20 bg-foreground relative overflow-hidden" aria-labelledby="ecosystem-title">
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-3">
+        <header className="text-center mb-8 md:mb-10">
+          <h2 id="ecosystem-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-3">
             Descubre Nuestro Ecosistema
           </h2>
-          <p className="text-background/60 text-base max-w-lg mx-auto">
+          <p className="text-background/60 text-sm md:text-base max-w-lg mx-auto px-2">
             Una marca de Fun Educaitment presente en múltiples plataformas
           </p>
-        </div>
+        </header>
 
         {/* Logo Center with connecting line */}
         <div className="flex justify-center">

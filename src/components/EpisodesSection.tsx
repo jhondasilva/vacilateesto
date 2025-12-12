@@ -46,18 +46,18 @@ const episodes = [
 
 const EpisodesSection = () => {
   return (
-    <section id="episodes" className="py-24 bg-muted/30 relative overflow-hidden">
+    <section id="episodes" className="py-16 md:py-24 bg-muted/30 relative overflow-hidden" aria-labelledby="episodes-title">
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <header className="text-center mb-10 md:mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">Lo Más Reciente</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground">
+          <h2 id="episodes-title" className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground">
             Últimos Episodios
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
             No te pierdas nuestras aventuras y conversaciones más recientes.
           </p>
-        </div>
+        </header>
 
         {/* Episodes Grid */}
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -74,7 +74,9 @@ const EpisodesSection = () => {
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={episode.image}
-                  alt={episode.title}
+                  alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
