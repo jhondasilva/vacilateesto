@@ -296,3 +296,32 @@
     min-height: -webkit-fill-available;
   }
 }
+
+/* Safe area utilities for PWA */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Smooth transitions for mobile */
+@media (max-width: 768px) {
+  .transition-all {
+    transition-duration: 150ms;
+  }
+}
+
+/* Prevent pull-to-refresh on PWA */
+html {
+  overscroll-behavior-y: contain;
+}
+
+/* Better touch feedback */
+@media (hover: none) {
+  button:active, a:active, [role="button"]:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
