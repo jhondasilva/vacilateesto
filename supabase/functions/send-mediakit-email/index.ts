@@ -46,8 +46,8 @@ function validateInput(data: SendMediaKitRequest): { valid: boolean; error?: str
     return { valid: false, error: "Invalid email format" };
   }
 
-  // Validate PDF size (max 10MB base64)
-  if (data.pdfBase64.length > 14000000) {
+  // Validate PDF size (max 25MB base64 - Resend allows up to 40MB)
+  if (data.pdfBase64.length > 35000000) {
     return { valid: false, error: "PDF file is too large" };
   }
 
