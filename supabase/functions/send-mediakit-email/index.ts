@@ -55,14 +55,30 @@ function validateInput(data: SendMediaKitRequest): { valid: boolean; error?: str
 }
 
 const handler = async (req: Request): Promise<Response> => {
+  console.log("send-mediakit-email function called");
+  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    if (!RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      return new Response(
+        JSON.stringify({ error: "Email service not configured" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
     const requestData = await req.json();
     const { email, pdfBase64 } = requestData as SendMediaKitRequest;
+    
+    console.log(`Received request for email: ${email}`);
+    console.log(`PDF base64 length: ${pdfBase64?.length || 0}`);
 
     // Validate input
     const validation = validateInput({ email, pdfBase64 });
