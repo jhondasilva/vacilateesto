@@ -457,7 +457,7 @@ const PodcastEnLaCumbre = () => {
                     <iframe
                       width="100%"
                       height="100%"
-                      src="https://www.youtube.com/embed/NZWSKJvOdXg"
+                      src="https://www.youtube.com/embed/NdrcKpsD0UU"
                       title="Podcast en la Cumbre Episodio 1 - Pico Naiguatá Venezuela"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -477,7 +477,7 @@ const PodcastEnLaCumbre = () => {
                     <iframe
                       width="100%"
                       height="100%"
-                      src="https://www.youtube.com/embed/NdrcKpsD0UU"
+                      src="https://www.youtube.com/embed/NZWSKJvOdXg"
                       title="Podcast en la Cumbre Episodio 2 - Monte Roraima Venezuela"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
