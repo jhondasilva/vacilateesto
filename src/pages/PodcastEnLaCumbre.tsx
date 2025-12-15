@@ -823,40 +823,28 @@ const PodcastEnLaCumbre = () => {
                 {/* Contact Info */}
                 <div className="mt-12 text-center bg-primary/10 rounded-2xl p-8">
                   <h3 className="text-xl font-bold text-foreground mb-6">Para solicitudes de prensa</h3>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                  <div className="flex flex-col items-center justify-center gap-4">
                     <a 
-                      href="mailto:vacilateestopodcast@gmail.com" 
+                      href="mailto:samira.rivas@hacemosloquenosgusta.com" 
                       className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
                     >
                       <span className="text-xl">📩</span>
-                      vacilateestopodcast@gmail.com
+                      samira.rivas@hacemosloquenosgusta.com
                     </a>
-                    <div className="flex items-center gap-4">
-                      <a 
-                        href="https://www.instagram.com/vacilateestopodcast/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-foreground hover:text-primary transition-colors"
-                      >
-                        @vacilateestopodcast
-                      </a>
-                      <a 
-                        href="https://www.instagram.com/juansofa/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-foreground hover:text-primary transition-colors"
-                      >
-                        @juansofa
-                      </a>
-                      <a 
-                        href="https://www.instagram.com/jhonsnacks/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-foreground hover:text-primary transition-colors"
-                      >
-                        @jhonsnacks
-                      </a>
-                    </div>
+                    <a 
+                      href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                    >
+                      <span className="text-xl">📩</span>
+                      andreina.ascension@hacemosloquenosgusta.com
+                    </a>
+                    <a 
+                      href="mailto:estrella.rodriguez@hacemosloquenosgusta.com" 
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                    >
+                      <span className="text-xl">📩</span>
+                      estrella.rodriguez@hacemosloquenosgusta.com
+                    </a>
                   </div>
                   <div className="mt-8">
                     <a
