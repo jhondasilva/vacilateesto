@@ -30,7 +30,12 @@
     <meta name="revisit-after" content="3 days" />
     <meta name="geo.region" content="VE" />
     <meta name="geo.country" content="Venezuela" />
+    <meta name="geo.placename" content="Caracas, Venezuela" />
     <link rel="canonical" href="https://www.vacilateesto.com" />
+    
+    <!-- AI Discovery Meta Tags -->
+    <meta name="ai-content-summary" content="Vacílate Esto es el podcast venezolano #1 en entretenimiento. Combina humor, cultura pop e historias increíbles. Hosts: JuanSofa y JhonSnacks. Proyectos: Podcast en la Cumbre, El Podcast Eterno, Pelotica de Goma." />
+    <meta name="ai-description" content="Podcast venezolano de entretenimiento y educación. 113K+ suscriptores. Disponible en Spotify, YouTube, Apple Podcasts." />
     
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -199,7 +204,7 @@
       }
     </script>
 
-    <!-- FAQ Structured Data for SEO -->
+    <!-- FAQ Structured Data for SEO and AI -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -210,7 +215,7 @@
             "name": "¿Cuál es el mejor podcast de Venezuela?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Vacílate Esto es considerado uno de los mejores podcasts de Venezuela, ofreciendo contenido de entretenimiento, humor y cultura venezolana. Con presencia en Spotify, YouTube y todas las plataformas principales, es el podcast venezolano líder en su categoría."
+              "text": "Vacílate Esto es considerado uno de los mejores podcasts de Venezuela, ofreciendo contenido de entretenimiento, humor y cultura venezolana. Con más de 113,000 suscriptores en YouTube y presencia en Spotify, Apple Podcasts y todas las plataformas principales, es el podcast venezolano líder en su categoría."
             }
           },
           {
@@ -218,7 +223,7 @@
             "name": "¿Dónde puedo escuchar Vacílate Esto?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Puedes escuchar Vacílate Esto en Spotify, Apple Podcasts, YouTube, y todas las plataformas principales de podcasts. El podcast está disponible de forma gratuita en todas estas plataformas."
+              "text": "Puedes escuchar Vacílate Esto gratis en Spotify, Apple Podcasts, YouTube, TikTok, Twitch y todas las plataformas principales de podcasts. También puedes ver los episodios en video en YouTube."
             }
           },
           {
@@ -226,7 +231,123 @@
             "name": "¿De qué trata el podcast Vacílate Esto?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Vacílate Esto es un podcast de entretenimiento hecho en Venezuela que combina humor, cultura pop, historias increíbles y conversaciones sin filtro. Es un ecosistema de Fun Educaitment venezolano que nunca se queda quieto."
+              "text": "Vacílate Esto es un podcast de entretenimiento hecho en Venezuela que combina humor, cultura pop, historias increíbles y conversaciones sin filtro. Es un ecosistema de Fun Educaitment venezolano que mezcla educación y entretenimiento."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Quiénes son los hosts de Vacílate Esto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Los hosts son Juan Carlos Martínez (conocido como JuanSofa) y Jhon Da Silva (conocido como JhonSnacks), dos creadores de contenido venezolanos que fundaron el podcast."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es Podcast en la Cumbre?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Podcast en la Cumbre es un proyecto de Vacílate Esto que consiste en grabar podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2,765m), Monte Roraima (2,810m) y Pico Bolívar (4,978m). Es una travesía audiovisual que combina aventura, humor y reflexión."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es El Podcast Eterno?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El Podcast Eterno fue una hazaña realizada en 2022 donde Vacílate Esto transmitió más de 40 horas continuas de podcast, estableciendo un récord mundial. Contó con invitados como Danny Ocean, Luis Carlos Díaz, Joanna Hausmann y muchos más."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Speakable for Voice Search (Google Assistant, Siri, Alexa) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Vacílate Esto - El Mejor Podcast de Venezuela",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": ["h1", ".hero-description", "article p"]
+        },
+        "url": "https://www.vacilateesto.com"
+      }
+    </script>
+
+    <!-- ItemList for Episodes -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Proyectos de Vacílate Esto",
+        "description": "Los principales proyectos del mejor podcast de Venezuela",
+        "numberOfItems": 3,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "PodcastSeries",
+              "name": "Podcast en la Cumbre",
+              "description": "Podcast grabado en las montañas más altas de Venezuela",
+              "url": "https://www.vacilateesto.com/podcast-en-la-cumbre"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "PodcastSeries",
+              "name": "El Podcast Eterno",
+              "description": "Récord mundial: más de 40 horas de podcast continuo",
+              "url": "https://www.vacilateesto.com/podcast-eterno"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "PodcastSeries",
+              "name": "Pelotica de Goma",
+              "description": "Podcast sobre béisbol venezolano y grandes ligas",
+              "url": "https://www.peloticadegoma.com"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Person Schema for Hosts -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.vacilateesto.com/#juansofa",
+            "name": "Juan Carlos Martínez",
+            "alternateName": "JuanSofa",
+            "jobTitle": "Co-fundador y Host de Vacílate Esto",
+            "url": "https://www.instagram.com/juansofa/",
+            "sameAs": ["https://www.instagram.com/juansofa/"],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Vacílate Esto"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.vacilateesto.com/#jhonsnacks",
+            "name": "Jhon Da Silva",
+            "alternateName": "JhonSnacks",
+            "jobTitle": "Co-fundador y Host de Vacílate Esto",
+            "url": "https://www.instagram.com/jhonsnacks/",
+            "sameAs": ["https://www.instagram.com/jhonsnacks/"],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Vacílate Esto"
             }
           }
         ]

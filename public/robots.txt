@@ -7,6 +7,10 @@ Allow: /
 # Sitemap
 Sitemap: https://www.vacilateesto.com/sitemap.xml
 
+# LLMs.txt for AI crawlers
+# https://llmstxt.org/
+LLMs: https://www.vacilateesto.com/llms.txt
+
 # Allow all major search engines with full access
 User-agent: Googlebot
 Allow: /
@@ -51,7 +55,7 @@ Allow: /
 User-agent: Pinterest
 Allow: /
 
-# AI Search and LLM Crawlers
+# AI Search and LLM Crawlers - Full Access Granted
 User-agent: GPTBot
 Allow: /
 
@@ -67,6 +71,9 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
@@ -77,6 +84,36 @@ User-agent: Bytespider
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: AppleBot
+Allow: /
+
+User-agent: AppleBot-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: FacebookBot
 Allow: /
 
 # Crawl-delay for respectful crawling
