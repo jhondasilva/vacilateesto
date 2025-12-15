@@ -166,6 +166,10 @@ export const generateMediaKitPdf = async () => {
       doc.text(subtitle, margin, 35);
     }
     
+    // White background for content area
+    doc.setFillColor(255, 255, 255);
+    doc.rect(0, 45, pageWidth, pageHeight - 45, "F");
+    
     y = 60;
   };
 
@@ -195,52 +199,52 @@ export const generateMediaKitPdf = async () => {
   };
 
   // ==================== PAGE 1: COVER ====================
-  // Full page hero background
-  doc.setFillColor(...DARK_COLOR);
+  // White background
+  doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, pageWidth, pageHeight, "F");
 
-  // Decorative circles
-  doc.setFillColor(PRIMARY_COLOR[0], PRIMARY_COLOR[1], PRIMARY_COLOR[2], 0.2);
+  // Decorative circles with light colors
+  doc.setFillColor(PRIMARY_COLOR[0], PRIMARY_COLOR[1], PRIMARY_COLOR[2], 0.1);
   doc.circle(pageWidth - 30, 50, 60, "F");
-  doc.setFillColor(ACCENT_COLOR[0], ACCENT_COLOR[1], ACCENT_COLOR[2], 0.15);
+  doc.setFillColor(ACCENT_COLOR[0], ACCENT_COLOR[1], ACCENT_COLOR[2], 0.1);
   doc.circle(30, pageHeight - 60, 80, "F");
 
   // MediaKit 2026 badge
-  doc.setFillColor(PRIMARY_COLOR[0], PRIMARY_COLOR[1], PRIMARY_COLOR[2], 0.3);
+  doc.setFillColor(PRIMARY_COLOR[0], PRIMARY_COLOR[1], PRIMARY_COLOR[2], 0.15);
   doc.roundedRect(pageWidth / 2 - 30, 35, 60, 12, 6, 6, "F");
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
   doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
 
-  // Logo image
+  // Logo image - maintaining aspect ratio (logo is wider than tall)
   if (logoBase64) {
-    const logoWidth = 80;
-    const logoHeight = 25;
+    const logoWidth = 100;
+    const logoHeight = 40; // Better aspect ratio for the logo
     doc.addImage(logoBase64, "PNG", (pageWidth - logoWidth) / 2, 55, logoWidth, logoHeight);
   } else {
     // Fallback text if logo doesn't load
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(...PRIMARY_COLOR);
     doc.setFontSize(40);
     doc.setFont("helvetica", "bold");
-    doc.text("VACÍLATE ESTO", pageWidth / 2, 75, { align: "center" });
+    doc.text("VACÍLATE ESTO", pageWidth / 2, 80, { align: "center" });
   }
 
   // Subtitle
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(18);
-  doc.text("El Ecosistema de Contenido", pageWidth / 2, 92, { align: "center" });
+  doc.text("El Ecosistema de Contenido", pageWidth / 2, 110, { align: "center" });
   doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
-  doc.text("Fun Educaitment", pageWidth / 2, 105, { align: "center" });
+  doc.text("Fun Educaitment", pageWidth / 2, 125, { align: "center" });
 
   // Description
-  doc.setTextColor(200, 200, 200);
+  doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
   const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores a través de contenido auténtico y entretenido.";
   const descLines = doc.splitTextToSize(desc, pageWidth - 60);
-  doc.text(descLines, pageWidth / 2, 125, { align: "center" });
+  doc.text(descLines, pageWidth / 2, 145, { align: "center" });
 
   // Stats boxes
   const stats = [
@@ -254,18 +258,18 @@ export const generateMediaKitPdf = async () => {
   const boxGap = 8;
   const totalBoxWidth = (boxWidth * 4) + (boxGap * 3);
   let boxX = (pageWidth - totalBoxWidth) / 2;
-  const boxY = 155;
+  const boxY = 175;
 
   stats.forEach((stat) => {
-    doc.setFillColor(40, 40, 40);
+    doc.setFillColor(...LIGHT_GRAY);
     doc.roundedRect(boxX, boxY, boxWidth, 35, 4, 4, "F");
     
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(...DARK_COLOR);
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
     doc.text(stat.value, boxX + boxWidth / 2, boxY + 15, { align: "center" });
     
-    doc.setTextColor(150, 150, 150);
+    doc.setTextColor(...GRAY_COLOR);
     doc.setFontSize(7);
     doc.setFont("helvetica", "normal");
     doc.text(stat.label, boxX + boxWidth / 2, boxY + 25, { align: "center" });
@@ -274,7 +278,7 @@ export const generateMediaKitPdf = async () => {
   });
 
   // Footer
-  doc.setTextColor(100, 100, 100);
+  doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(8);
   doc.text("Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
 
@@ -771,11 +775,11 @@ export const generateMediaKitPdfBase64 = async (): Promise<string> => {
   const ACCENT: [number, number, number] = [125, 232, 232];
 
   // ==================== SIMPLIFIED PDF FOR EMAIL ====================
-  // Cover page
-  doc.setFillColor(...DARK);
+  // Cover page - White background
+  doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, pageWidth, pageHeight, "F");
 
-  doc.setFillColor(PRIMARY[0], PRIMARY[1], PRIMARY[2], 0.3);
+  doc.setFillColor(PRIMARY[0], PRIMARY[1], PRIMARY[2], 0.15);
   doc.roundedRect(pageWidth / 2 - 30, 35, 60, 12, 6, 6, "F");
   doc.setTextColor(...PRIMARY);
   doc.setFontSize(10);
@@ -783,25 +787,26 @@ export const generateMediaKitPdfBase64 = async (): Promise<string> => {
   doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
 
   if (logoBase64) {
-    doc.addImage(logoBase64, "PNG", (pageWidth - 80) / 2, 55, 80, 25);
+    // Better aspect ratio for logo
+    doc.addImage(logoBase64, "PNG", (pageWidth - 100) / 2, 55, 100, 40);
   } else {
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(...PRIMARY);
     doc.setFontSize(36);
-    doc.text("VACÍLATE ESTO", pageWidth / 2, 75, { align: "center" });
+    doc.text("VACÍLATE ESTO", pageWidth / 2, 80, { align: "center" });
   }
 
   doc.setTextColor(...PRIMARY);
   doc.setFontSize(18);
-  doc.text("El Ecosistema de Contenido", pageWidth / 2, 92, { align: "center" });
+  doc.text("El Ecosistema de Contenido", pageWidth / 2, 110, { align: "center" });
   doc.setFontSize(24);
-  doc.text("Fun Educaitment", pageWidth / 2, 105, { align: "center" });
+  doc.text("Fun Educaitment", pageWidth / 2, 125, { align: "center" });
 
-  doc.setTextColor(200, 200, 200);
+  doc.setTextColor(100, 100, 100);
   doc.setFontSize(11);
   const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores.";
-  doc.text(desc, pageWidth / 2, 125, { align: "center", maxWidth: pageWidth - 60 });
+  doc.text(desc, pageWidth / 2, 145, { align: "center", maxWidth: pageWidth - 60 });
 
-  // Stats
+  // Stats with light background
   const stats = [
     { value: "3.5M+", label: "Seguidores" },
     { value: "89.6M", label: "Impresiones" },
@@ -811,15 +816,15 @@ export const generateMediaKitPdfBase64 = async (): Promise<string> => {
   
   let boxX = (pageWidth - 184) / 2;
   stats.forEach((stat) => {
-    doc.setFillColor(40, 40, 40);
-    doc.roundedRect(boxX, 155, 38, 35, 4, 4, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setFillColor(245, 245, 245);
+    doc.roundedRect(boxX, 165, 38, 35, 4, 4, "F");
+    doc.setTextColor(20, 20, 20);
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.text(stat.value, boxX + 19, 170, { align: "center" });
-    doc.setTextColor(150, 150, 150);
+    doc.text(stat.value, boxX + 19, 180, { align: "center" });
+    doc.setTextColor(100, 100, 100);
     doc.setFontSize(7);
-    doc.text(stat.label, boxX + 19, 180, { align: "center" });
+    doc.text(stat.label, boxX + 19, 190, { align: "center" });
     boxX += 46;
   });
 
@@ -827,32 +832,32 @@ export const generateMediaKitPdfBase64 = async (): Promise<string> => {
   doc.setFontSize(8);
   doc.text("Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
 
-  // Page 2: Contact
+  // Page 2: Contact - White background
   addNewPage();
-  doc.setFillColor(...DARK);
+  doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, pageWidth, pageHeight, "F");
 
   doc.setTextColor(...PRIMARY);
   doc.setFontSize(12);
   doc.text("CONTACTO", pageWidth / 2, 60, { align: "center" });
 
-  doc.setTextColor(255, 255, 255);
+  doc.setTextColor(20, 20, 20);
   doc.setFontSize(28);
   doc.text("¿Listo para Conectar", pageWidth / 2, 85, { align: "center" });
   doc.text("con Nuestra Audiencia?", pageWidth / 2, 100, { align: "center" });
 
-  doc.setFillColor(40, 40, 40);
-  doc.roundedRect(pageWidth / 2 - 60, 120, 120, 40, 5, 5, "F");
-  doc.setTextColor(255, 255, 255);
+  doc.setFillColor(245, 245, 245);
+  doc.roundedRect(pageWidth / 2 - 70, 120, 140, 45, 5, 5, "F");
+  doc.setTextColor(20, 20, 20);
   doc.setFontSize(10);
-  doc.text("Email:", pageWidth / 2, 135, { align: "center" });
+  doc.text("Email:", pageWidth / 2, 138, { align: "center" });
   doc.setTextColor(...PRIMARY);
   doc.setFontSize(12);
-  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 150, { align: "center" });
+  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 153, { align: "center" });
 
-  doc.setTextColor(150, 150, 150);
+  doc.setTextColor(100, 100, 100);
   doc.setFontSize(10);
-  doc.text("www.vacilateesto.com", pageWidth / 2, 180, { align: "center" });
+  doc.text("www.vacilateesto.com", pageWidth / 2, 190, { align: "center" });
 
   doc.setTextColor(100, 100, 100);
   doc.setFontSize(8);
