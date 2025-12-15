@@ -69,12 +69,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden xl:block">
-            <Button variant="default" size="sm">
-              Escuchar Ahora
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -115,9 +109,6 @@ const Header = () => {
                 </Link>
               )
             ))}
-            <Button variant="default" size="lg" className="mt-4">
-              Escuchar Ahora
-            </Button>
           </nav>
         </div>
       </div>
