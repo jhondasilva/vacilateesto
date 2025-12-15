@@ -9,6 +9,7 @@ import PodcastEterno from "./pages/PodcastEterno";
 import MediaKit from "./pages/MediaKit";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
+import InstallApp from "./pages/InstallApp";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/media-kit" element={<MediaKit />} />
           <Route path="/privacidad" element={<PrivacyPolicy />} />
           <Route path="/terminos" element={<TermsOfUse />} />
+          <Route path="/instalar" element={<InstallApp />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
