@@ -5,9 +5,10 @@ import HeroSection from "@/components/HeroSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
 import EcosystemSection from "@/components/EcosystemSection";
+import PlatformsSection from "@/components/PlatformsSection";
+import AgendaSection from "@/components/AgendaSection";
 import PeloticaSection from "@/components/PeloticaSection";
 import RutaRamenSection from "@/components/RutaRamenSection";
-import AgendaSection from "@/components/AgendaSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
 
@@ -31,6 +32,7 @@ const Index = () => {
             <EpisodesSection />
             <HostsSection />
             <EcosystemSection />
+            <PlatformsSection />
             <AgendaSection />
             <PeloticaSection />
             <RutaRamenSection />
