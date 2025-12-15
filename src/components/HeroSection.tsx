@@ -42,51 +42,51 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <nav className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }} aria-label="Acciones principales">
-            <a 
-              href="https://www.youtube.com/@Vacilateestopodcast" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Ver Vacílate Esto en YouTube - Uno de los mejores podcasts de Venezuela"
-            >
-              <Button variant="hero" size="xl" className="group">
+            <Button asChild variant="hero" size="xl" className="group">
+              <a 
+                href="https://www.youtube.com/@Vacilateestopodcast" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Ver Vacílate Esto en YouTube - Uno de los mejores podcasts de Venezuela"
+              >
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" aria-hidden="true" />
                 Ver en YouTube
-              </Button>
-            </a>
-            <a 
-              href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Escuchar Vacílate Esto en Spotify - Mejor podcast venezolano"
-            >
-              <Button variant="heroOutline" size="xl" className="group">
+              </a>
+            </Button>
+            <Button asChild variant="heroOutline" size="xl" className="group">
+              <a 
+                href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Escuchar Vacílate Esto en Spotify - Mejor podcast venezolano"
+              >
                 <Headphones className="w-5 h-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
                 Escuchar en Spotify
-              </Button>
-            </a>
+              </a>
+            </Button>
           </nav>
 
           {/* Secondary Links */}
           <nav className="flex flex-wrap items-center justify-center gap-3 mt-6 animate-fade-in" style={{ animationDelay: "0.5s" }} aria-label="Nuestros proyectos">
-            <a href="/podcast-en-la-cumbre">
-              <Button variant="outline" size="default" className="group">
+            <Button asChild variant="outline" size="default" className="group">
+              <a href="/podcast-en-la-cumbre">
                 Podcast en la Cumbre
-              </Button>
-            </a>
-            <a href="/podcast-eterno">
-              <Button variant="outline" size="default" className="group">
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="default" className="group">
+              <a href="/podcast-eterno">
                 Podcast Eterno
-              </Button>
-            </a>
-            <a 
-              href="https://www.peloticadegoma.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" size="default" className="group">
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="default" className="group">
+              <a 
+                href="https://www.peloticadegoma.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 Pelotica de Goma
-              </Button>
-            </a>
+              </a>
+            </Button>
           </nav>
 
           {/* Stats with semantic markup */}
