@@ -31,9 +31,9 @@ const Index = () => {
             <EpisodesSection />
             <HostsSection />
             <EcosystemSection />
+            <AgendaSection />
             <PeloticaSection />
             <RutaRamenSection />
-            <AgendaSection />
             <NewsletterSection />
           </article>
         </main>
