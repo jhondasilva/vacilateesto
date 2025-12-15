@@ -21,6 +21,25 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 );
 
 const PodcastEnLaCumbre = () => {
+  // Function to download both press releases
+  const handleDownloadPressReleases = () => {
+    const files = [
+      '/press/Podcast_en_la_Cumbre_NOTA_DE_PRENSA.pdf',
+      '/press/Nota_de_Prensa_Vacilate_Esto_conquista_la_cima.pdf'
+    ];
+    
+    files.forEach((file, index) => {
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = file;
+        link.download = file.split('/').pop() || 'nota-de-prensa.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, index * 500);
+    });
+  };
+
   // Enhanced structured data for SEO and AI
   const structuredData = {
     "@context": "https://schema.org",
@@ -847,14 +866,12 @@ const PodcastEnLaCumbre = () => {
                     </a>
                   </div>
                   <div className="mt-8">
-                    <a
-                      href="https://podcastenlacumbre.zapier.app/formulario"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={handleDownloadPressReleases}
                       className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 transition-colors"
                     >
-                      Descargar Nota de Prensa Completa
-                    </a>
+                      Descargar Notas de Prensa
+                    </button>
                   </div>
                 </div>
               </div>
