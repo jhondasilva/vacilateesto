@@ -125,7 +125,7 @@ const contentFormats = [
   {
     title: "Metraje",
     subtitle: "Documental",
-    description: "Nos traemos a expertos y lugareños que nos hablen de experiencias, anécdotas, mitos y leyendas de distintos lugares. Podemos dar una vuelta por la ciudad, una aventura en carretera o una exploración inesperada.",
+    description: "Jhon lleva a Juan o Juan lleva a Jhon a un lugar fuera del estudio y le explica por qué le lleva a ese lugar. Sirve de excusa para mostrarle a la comunidad de Vacílate Esto lugares insólitos y sus historias.",
     icon: Film,
     color: "bg-primary",
     stats: "Formato aventura",

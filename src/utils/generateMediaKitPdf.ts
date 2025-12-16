@@ -82,7 +82,7 @@ const contentFormats = [
     title: "Metraje", 
     subtitle: "Documental", 
     stats: "Formato aventura",
-    description: "Expertos y lugareños nos hablan de experiencias, anécdotas, mitos y leyendas de distintos lugares.",
+    description: "Jhon lleva a Juan o Juan lleva a Jhon a un lugar fuera del estudio y le explica por qué le lleva a ese lugar. Sirve de excusa para mostrarle a la comunidad lugares insólitos y sus historias.",
     platforms: "YouTube, Facebook"
   },
   { 
