@@ -35,7 +35,8 @@ import {
   Star,
   Footprints,
   MessageCircle,
-  Trophy
+  Trophy,
+  Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -137,6 +138,14 @@ const contentFormats = [
     icon: Radio,
     color: "bg-[#7DE8E8]",
     stats: "Shows en vivo",
+  },
+  {
+    title: "Streaming",
+    subtitle: "TikTok Live",
+    description: "Transmisiones en vivo en TikTok desde la grabación de nuestro podcast, fútbol en vivo o proyectos especiales como Roraima. Contenido interactivo que conecta en tiempo real con nuestra comunidad.",
+    icon: Video,
+    color: "bg-primary",
+    stats: "En directo",
   },
   {
     title: "Rutas",

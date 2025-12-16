@@ -93,6 +93,13 @@ const contentFormats = [
     platforms: "Instagram, YouTube, TikTok"
   },
   { 
+    title: "Streaming", 
+    subtitle: "TikTok Live", 
+    stats: "En directo",
+    description: "Transmisiones en vivo en TikTok desde la grabación del podcast, fútbol en vivo o proyectos especiales como Roraima.",
+    platforms: "TikTok"
+  },
+  { 
     title: "Rutas", 
     subtitle: "Exploraciones Temáticas", 
     stats: "Series temáticas",
