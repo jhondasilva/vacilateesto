@@ -11,7 +11,6 @@ import PeloticaSection from "@/components/PeloticaSection";
 import RutaRamenSection from "@/components/RutaRamenSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
-import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 const Index = () => {
   return (
@@ -41,7 +40,6 @@ const Index = () => {
           </article>
         </main>
         <Footer />
-        <PWAInstallPrompt />
       </div>
     </>
   );
