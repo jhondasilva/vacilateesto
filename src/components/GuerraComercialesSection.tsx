@@ -33,11 +33,11 @@ const GuerraComercialesSection = () => {
             <Trophy className="w-4 h-4" />
             Proyecto Especial 2025
           </div>
-          <div className="inline-block mb-8">
+          <div className="flex justify-center mb-8">
             <img 
               src={logoGuerraComerciales} 
               alt="Campeonato de Comerciales de Venezuela" 
-              className="max-w-xs md:max-w-sm mx-auto rounded-2xl shadow-lg"
+              className="max-w-xs md:max-w-sm rounded-2xl shadow-lg"
             />
           </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
