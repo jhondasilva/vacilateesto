@@ -1,4 +1,5 @@
 import { Instagram, Youtube, MapPin, Facebook, Globe, Twitch, Linkedin } from "lucide-react";
+import { useEffect } from "react";
 import Logo from "@/components/Logo";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -57,6 +58,24 @@ const SpotifyIcon = ({ className }: { className?: string }) => (
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Metricool Analytics Script
+  useEffect(() => {
+    const loadScript = (callback: () => void) => {
+      const head = document.getElementsByTagName("head")[0];
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://tracker.metricool.com/resources/be.js";
+      script.onload = callback;
+      head.appendChild(script);
+    };
+
+    loadScript(() => {
+      if ((window as any).beTracker) {
+        (window as any).beTracker.t({ hash: "ea27a283da270adea7c04cfa40488e8e" });
+      }
+    });
+  }, []);
 
   const socialLinks = [
     { icon: Instagram, href: "https://www.instagram.com/vacilateestopodcast/", label: "Instagram" },
