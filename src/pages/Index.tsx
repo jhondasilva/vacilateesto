@@ -8,6 +8,7 @@ import EcosystemSection from "@/components/EcosystemSection";
 import PlatformsSection from "@/components/PlatformsSection";
 import AgendaSection from "@/components/AgendaSection";
 import PeloticaSection from "@/components/PeloticaSection";
+import GuerraComercialesSection from "@/components/GuerraComercialesSection";
 import RutaRamenSection from "@/components/RutaRamenSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
@@ -35,6 +36,7 @@ const Index = () => {
             <PlatformsSection />
             <AgendaSection />
             <PeloticaSection />
+            <GuerraComercialesSection />
             <RutaRamenSection />
             <NewsletterSection />
           </article>
