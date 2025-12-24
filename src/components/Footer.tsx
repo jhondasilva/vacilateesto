@@ -59,22 +59,33 @@ const SpotifyIcon = ({ className }: { className?: string }) => (
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  // Metricool Analytics Script
+  // Analytics Scripts (Google Analytics + Metricool)
   useEffect(() => {
-    const loadScript = (callback: () => void) => {
-      const head = document.getElementsByTagName("head")[0];
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://tracker.metricool.com/resources/be.js";
-      script.onload = callback;
-      head.appendChild(script);
+    // Google Analytics 4
+    const gtagScript = document.createElement("script");
+    gtagScript.async = true;
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-8C1W3N2FBE";
+    document.head.appendChild(gtagScript);
+
+    gtagScript.onload = () => {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      function gtag(...args: any[]) {
+        (window as any).dataLayer.push(args);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-8C1W3N2FBE');
     };
 
-    loadScript(() => {
+    // Metricool
+    const metricoolScript = document.createElement("script");
+    metricoolScript.type = "text/javascript";
+    metricoolScript.src = "https://tracker.metricool.com/resources/be.js";
+    metricoolScript.onload = () => {
       if ((window as any).beTracker) {
         (window as any).beTracker.t({ hash: "ea27a283da270adea7c04cfa40488e8e" });
       }
-    });
+    };
+    document.head.appendChild(metricoolScript);
   }, []);
 
   const socialLinks = [
