@@ -1,5 +1,7 @@
 import { Trophy, Users, Eye, Heart, Share2, MessageCircle, Bookmark, TrendingUp, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoGuerraComerciales from "@/assets/logo-guerra-comerciales.png";
+
 const GuerraComercialesSection = () => {
   const stats = [
     { icon: Eye, value: "1.35M", label: "Impresiones totales" },
@@ -25,15 +27,17 @@ const GuerraComercialesSection = () => {
   return (
     <section id="guerra-comerciales" className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header con Logo */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Trophy className="w-4 h-4" />
             Proyecto Especial 2025
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Guerra de Comerciales
-          </h2>
+          <img 
+            src={logoGuerraComerciales} 
+            alt="Campeonato de Comerciales de Venezuela" 
+            className="max-w-md md:max-w-lg mx-auto mb-6"
+          />
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             El campeonato nacional que enfrentó a los comerciales más icónicos de Venezuela 
             en un torneo estilo Mundial de Fútbol durante un mes completo.
