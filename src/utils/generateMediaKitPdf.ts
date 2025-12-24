@@ -100,6 +100,13 @@ const contentFormats = [
     platforms: "TikTok"
   },
   { 
+    title: "Guerra de Comerciales", 
+    subtitle: "Campeonato Nacional", 
+    stats: "40K+ votos",
+    description: "Torneo estilo Mundial de Fútbol con los comerciales más icónicos de Venezuela. 1.35M impresiones.",
+    platforms: "Instagram, TikTok"
+  },
+  { 
     title: "Rutas", 
     subtitle: "Exploraciones Temáticas", 
     stats: "Series temáticas",
