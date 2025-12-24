@@ -33,11 +33,13 @@ const GuerraComercialesSection = () => {
             <Trophy className="w-4 h-4" />
             Proyecto Especial 2025
           </div>
-          <img 
-            src={logoGuerraComerciales} 
-            alt="Campeonato de Comerciales de Venezuela" 
-            className="max-w-md md:max-w-lg mx-auto mb-6"
-          />
+          <div className="inline-block mb-8">
+            <img 
+              src={logoGuerraComerciales} 
+              alt="Campeonato de Comerciales de Venezuela" 
+              className="max-w-xs md:max-w-sm mx-auto rounded-2xl shadow-lg"
+            />
+          </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             El campeonato nacional que enfrentó a los comerciales más icónicos de Venezuela 
             en un torneo estilo Mundial de Fútbol durante un mes completo.
