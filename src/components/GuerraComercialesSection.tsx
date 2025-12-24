@@ -1,5 +1,5 @@
-import { Trophy, Users, Eye, Heart, Share2, MessageCircle, Bookmark, TrendingUp } from "lucide-react";
-
+import { Trophy, Users, Eye, Heart, Share2, MessageCircle, Bookmark, TrendingUp, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 const GuerraComercialesSection = () => {
   const stats = [
     { icon: Eye, value: "1.35M", label: "Impresiones totales" },
@@ -143,14 +143,25 @@ const GuerraComercialesSection = () => {
           </div>
         </div>
 
-        {/* Conclusiones */}
+        {/* Conclusiones y Descarga */}
         <div className="mt-12 text-center">
-          <p className="text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-muted-foreground max-w-3xl mx-auto mb-8">
             El torneo logró una visibilidad sin precedentes para Vacílate Esto, alcanzando a más de 
             <span className="text-primary font-bold"> 800,000 personas únicas</span> entre ambas plataformas. 
             TikTok funcionó como el "pulmón de alcance" mientras Instagram fue la "cancha de juego" 
             donde se consolidó la comunidad.
           </p>
+          <Button asChild size="lg" className="gap-2">
+            <a 
+              href="/press/Reporte_Guerra_de_Comerciales_2025.pdf" 
+              download="Reporte_Guerra_de_Comerciales_2025.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download className="w-5 h-5" />
+              Descargar Reporte Completo
+            </a>
+          </Button>
         </div>
       </div>
     </section>
