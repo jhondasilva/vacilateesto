@@ -40,22 +40,59 @@ const GuerraComercialesSection = () => {
           </p>
         </div>
 
-        {/* Campeón */}
-        <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-3xl p-8 md:p-12 mb-12 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,200,0,0.1),transparent_70%)]" />
-          <div className="relative">
-            <Trophy className="w-16 h-16 text-primary mx-auto mb-4" />
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              🏆 Campeón Absoluto
-            </h3>
-            <p className="text-4xl md:text-6xl font-black text-primary mb-4">
-              Coven Caucho
-            </p>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Venció en la Gran Final a Plumrose, superando a gigantes como Polar Ice, 
-              Harina P.A.N., Nestlé y M.A.S. gracias a la movilización masiva de su comunidad.
+        {/* Los Finalistas - Videos */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {/* Campeón - Coven Caucho */}
+          <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl p-6 border-2 border-primary relative overflow-hidden">
+            <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+              <Trophy className="w-4 h-4" />
+              Campeón
+            </div>
+            <h3 className="text-2xl font-bold text-foreground mb-4">🏆 Coven Caucho</h3>
+            <div className="aspect-video rounded-xl overflow-hidden mb-4">
+              <iframe
+                src="https://www.youtube.com/embed/bP3VsF2LUyg"
+                title="Comercial Coven Caucho - Campeón Guerra de Comerciales"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              El comercial que conquistó a Venezuela con su jingle icónico y la movilización masiva de su comunidad.
             </p>
           </div>
+
+          {/* Subcampeón - Plumrose */}
+          <div className="bg-gradient-to-br from-muted/50 to-muted/20 rounded-3xl p-6 border border-border/50 relative overflow-hidden">
+            <div className="absolute top-4 right-4 bg-muted-foreground/20 text-muted-foreground px-3 py-1 rounded-full text-sm font-bold">
+              🥈 Subcampeón
+            </div>
+            <h3 className="text-2xl font-bold text-foreground mb-4">Plumrose</h3>
+            <div className="aspect-video rounded-xl overflow-hidden mb-4">
+              <iframe
+                src="https://www.youtube.com/embed/WkNxe8ClC5s"
+                title="Comercial Plumrose - Subcampeón Guerra de Comerciales"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              El emotivo comercial navideño que llegó a la Gran Final representando la nostalgia venezolana.
+            </p>
+          </div>
+        </div>
+
+        {/* Resultado Final */}
+        <div className="bg-card rounded-2xl p-6 mb-12 text-center border border-border/50">
+          <p className="text-muted-foreground mb-2">La Gran Final</p>
+          <p className="text-2xl md:text-3xl font-bold text-foreground">
+            <span className="text-primary">Coven Caucho</span> venció a <span className="text-muted-foreground">Plumrose</span>
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Superando a gigantes como Polar Ice, Harina P.A.N., Nestlé y M.A.S.
+          </p>
         </div>
 
         {/* Stats principales */}
