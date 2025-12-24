@@ -103,7 +103,7 @@ const contentFormats = [
     title: "Guerra de Comerciales", 
     subtitle: "Campeonato Nacional", 
     stats: "40K+ votos",
-    description: "Torneo estilo Mundial de Fútbol con los comerciales más icónicos de Venezuela. 1.35M impresiones.",
+    description: "Torneo estilo Mundial de Fútbol con los comerciales más icónicos de Venezuela. Covencaucho campeón.",
     platforms: "Instagram, TikTok"
   },
   { 

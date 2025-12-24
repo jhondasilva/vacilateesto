@@ -42,17 +42,17 @@ const GuerraComercialesSection = () => {
 
         {/* Los Finalistas - Videos */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {/* Campeón - Coven Caucho */}
+          {/* Campeón - Covencaucho */}
           <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl p-6 border-2 border-primary relative overflow-hidden">
             <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
               <Trophy className="w-4 h-4" />
               Campeón
             </div>
-            <h3 className="text-2xl font-bold text-foreground mb-4">🏆 Coven Caucho</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-4">🏆 Covencaucho</h3>
             <div className="aspect-video rounded-xl overflow-hidden mb-4">
               <iframe
                 src="https://www.youtube.com/embed/bP3VsF2LUyg"
-                title="Comercial Coven Caucho - Campeón Guerra de Comerciales"
+                title="Comercial Covencaucho - Campeón Guerra de Comerciales"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
@@ -88,7 +88,7 @@ const GuerraComercialesSection = () => {
         <div className="bg-card rounded-2xl p-6 mb-12 text-center border border-border/50">
           <p className="text-muted-foreground mb-2">La Gran Final</p>
           <p className="text-2xl md:text-3xl font-bold text-foreground">
-            <span className="text-primary">Coven Caucho</span> venció a <span className="text-muted-foreground">Plumrose</span>
+            <span className="text-primary">Covencaucho</span> venció a <span className="text-muted-foreground">Plumrose</span>
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             Superando a gigantes como Polar Ice, Harina P.A.N., Nestlé y M.A.S.

@@ -68,7 +68,7 @@ const contentFormats = [
   {
     title: "Guerra de Comerciales",
     subtitle: "Campeonato Nacional",
-    description: "Torneo estilo Mundial de Fútbol donde enfrentamos los comerciales más icónicos de Venezuela. 40,773 votos, 1.35M impresiones y Coven Caucho como campeón absoluto.",
+    description: "Torneo estilo Mundial de Fútbol donde enfrentamos los comerciales más icónicos de Venezuela. 40,773 votos, 1.35M impresiones y Covencaucho como campeón absoluto.",
     icon: Trophy,
     color: "bg-primary",
     stats: "40K+ votos",
