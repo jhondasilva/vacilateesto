@@ -66,6 +66,15 @@ const contentFormats = [
     stats: "En directo",
   },
   {
+    title: "Guerra de Comerciales",
+    subtitle: "Campeonato Nacional",
+    description: "Torneo estilo Mundial de Fútbol donde enfrentamos los comerciales más icónicos de Venezuela. 40,773 votos, 1.35M impresiones y Coven Caucho como campeón absoluto.",
+    icon: Trophy,
+    color: "bg-primary",
+    stats: "40K+ votos",
+    platforms: "Instagram, TikTok",
+  },
+  {
     title: "Rutas",
     subtitle: "Exploraciones Temáticas",
     description: "Series de exploración donde recorremos lugares con un tema específico. Como la Ruta del Ramen, donde probamos y evaluamos los mejores restaurantes de ramen en la ciudad.",
