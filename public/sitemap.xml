@@ -8,9 +8,25 @@
   <!-- Homepage - El Mejor Podcast de Venezuela -->
   <url>
     <loc>https://www.vacilateesto.com/</loc>
-    <lastmod>2025-12-15</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  
+  <!-- Vacílate El Mundial 2026 - Proyecto Especial -->
+  <url>
+    <loc>https://www.vacilateesto.com/#vacilate-el-mundial</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  
+  <!-- Campeonato de Comerciales 2025 -->
+  <url>
+    <loc>https://www.vacilateesto.com/#guerra-comerciales</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   
   <!-- Install App Page -->
