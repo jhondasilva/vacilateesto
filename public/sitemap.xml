@@ -13,9 +13,9 @@
     <priority>1.0</priority>
   </url>
   
-  <!-- Vacílate El Mundial 2026 - Proyecto Especial -->
+  <!-- Vacílate El Mundial 2026 - Página Dedicada -->
   <url>
-    <loc>https://www.vacilateesto.com/#vacilate-el-mundial</loc>
+    <loc>https://www.vacilateesto.com/vacilate-el-mundial</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
