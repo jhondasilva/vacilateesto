@@ -476,8 +476,67 @@ const MediaKit = () => {
   return (
     <>
       <Helmet>
-        <title>Media Kit | Vacílate Esto Podcast</title>
-        <meta name="description" content="Conoce las métricas y oportunidades de colaboración con Vacílate Esto, el ecosistema de contenido más grande de Venezuela con más de 3.5 millones de seguidores." />
+        <title>Media Kit 2026 | Vacílate Esto - Colabora con el Podcast #1 de Venezuela</title>
+        <meta name="description" content="Media Kit oficial de Vacílate Esto. 3.5M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
+        <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Media Kit 2026 | Vacílate Esto Podcast" />
+        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
+        <meta property="og:url" content="https://www.vacilateesto.com/media-kit" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
+        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
+        
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Media Kit Vacílate Esto 2026",
+            "description": "Media Kit oficial con métricas, formatos de contenido y oportunidades de patrocinio del podcast #1 de Venezuela.",
+            "url": "https://www.vacilateesto.com/media-kit",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "Vacílate Esto",
+              "description": "Ecosistema de Fun Educaitment venezolano con más de 3.5 millones de seguidores.",
+              "numberOfEmployees": "2",
+              "founder": [
+                { "@type": "Person", "name": "Juan Carlos Martínez" },
+                { "@type": "Person", "name": "Jhon Da Silva" }
+              ],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "1300"
+              }
+            },
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Vacílate El Mundial 2026",
+                "description": "Patrocinio para cobertura multiplataforma del Mundial de Fútbol 2026 en México, USA y Canadá. Contenido de febrero a julio 2026.",
+                "category": "Patrocinio Especial"
+              },
+              {
+                "@type": "Offer",
+                "name": "Campeonato de Comerciales",
+                "description": "Torneo interactivo de comerciales icónicos venezolanos. 40K+ votos, 1.35M impresiones.",
+                "category": "Branded Content"
+              },
+              {
+                "@type": "Offer",
+                "name": "Brand Placement Intensivo",
+                "description": "30 shorts con brand placement, 4 podcasts largos, historias y newsletters semanales.",
+                "category": "Plan de Patrocinio"
+              }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-background">
