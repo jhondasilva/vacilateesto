@@ -1,4 +1,4 @@
-# Vacílate Esto - El Mejor Podcast de Venezuela
+# Vacílate Esto - El Mejor Podcast de Venezuela | Ecosistema de Entretenimiento #1
 # https://www.vacilateesto.com
 
 User-agent: *

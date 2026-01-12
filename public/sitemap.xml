@@ -5,18 +5,18 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Homepage - El Mejor Podcast de Venezuela -->
+  <!-- Homepage - El Mejor Podcast de Venezuela y Ecosistema de Entretenimiento -->
   <url>
     <loc>https://www.vacilateesto.com/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- Vacílate El Mundial 2026 - Página Dedicada -->
+  <!-- Vacílate El Mundial 2026 - Proyecto Especial -->
   <url>
     <loc>https://www.vacilateesto.com/vacilate-el-mundial</loc>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>

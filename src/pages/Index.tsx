@@ -19,65 +19,175 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Vacílate Esto | Ecosistema de Entretenimiento #1 de Venezuela 🇻🇪 Fútbol, Gastronomía, Historia</title>
-        <meta name="description" content="Vacílate Esto es la marca de entretenimiento y contenidos #1 de Venezuela. Un ecosistema completo de Fun Educaitment: podcast, shorts, lives, docuseries. Fútbol, gastronomía, historia, leyendas y mitos urbanos. Vacílate El Mundial 2026 y más." />
-        <meta name="keywords" content="vacilate esto, entretenimiento venezuela, contenido venezolano, mundial 2026, fun educaitment, futbol, gastronomia, historia, leyendas, mitos urbanos, podcast venezuela" />
+        <title>Vacílate Esto | El Mejor Podcast de Venezuela 🇻🇪 Entretenimiento, Fútbol, Gastronomía e Historia</title>
+        <meta name="description" content="Vacílate Esto: el mejor podcast de Venezuela y ecosistema de entretenimiento #1. Fun Educaitment con fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores. Escúchanos en Spotify, YouTube y todas las plataformas. Vacílate El Mundial 2026." />
+        <meta name="keywords" content="podcast venezuela, mejor podcast venezolano, vacilate esto, podcast español, entretenimiento venezuela, mundial 2026, fun educaitment, podcast futbol, podcast gastronomia, podcast historia, leyendas venezuela, mitos urbanos, juansofa, jhonsnacks" />
         <link rel="canonical" href="https://www.vacilateesto.com" />
+        
+        {/* Robots */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        
+        {/* Geo tags */}
+        <meta name="geo.region" content="VE" />
+        <meta name="geo.placename" content="Venezuela" />
+        <meta name="content-language" content="es-VE" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Vacílate Esto | Ecosistema de Entretenimiento #1 de Venezuela" />
-        <meta property="og:description" content="La marca de entretenimiento venezolana #1. Ecosistema de Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores." />
+        <meta property="og:site_name" content="Vacílate Esto" />
+        <meta property="og:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
+        <meta property="og:description" content="El podcast venezolano #1 y ecosistema de entretenimiento. Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores." />
         <meta property="og:url" content="https://www.vacilateesto.com" />
+        <meta property="og:locale" content="es_VE" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto | Ecosistema de Entretenimiento de Venezuela" />
-        <meta name="twitter:description" content="La marca de entretenimiento venezolana #1. Fun Educaitment: fútbol, gastronomía, historia y mitos urbanos. 2M+ seguidores." />
+        <meta name="twitter:site" content="@vacilateesto" />
+        <meta name="twitter:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
+        <meta name="twitter:description" content="El podcast venezolano #1. Fun Educaitment: fútbol, gastronomía, historia y mitos urbanos. 2M+ seguidores." />
         
-        {/* JSON-LD Structured Data */}
+        {/* JSON-LD Structured Data - Organization */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
+            "@id": "https://www.vacilateesto.com/#organization",
             "name": "Vacílate Esto",
-            "description": "Ecosistema de entretenimiento y contenidos venezolano #1. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
+            "alternateName": ["Vacilate Esto", "Vacílate Esto Podcast", "VE Podcast"],
+            "description": "El mejor podcast de Venezuela y ecosistema de entretenimiento #1. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
             "url": "https://www.vacilateesto.com",
+            "logo": "https://www.vacilateesto.com/favicon.png",
+            "image": "https://www.vacilateesto.com/favicon.png",
+            "foundingDate": "2020",
+            "foundingLocation": {
+              "@type": "Place",
+              "name": "Caracas, Venezuela"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Venezuela"
+            },
             "inLanguage": "es-VE",
             "founder": [
               {
                 "@type": "Person",
                 "name": "Juan Carlos Martínez",
-                "alternateName": "JuanSofa"
+                "alternateName": "JuanSofa",
+                "sameAs": "https://www.instagram.com/juansofa"
               },
               {
                 "@type": "Person", 
                 "name": "Jhon Da Silva",
-                "alternateName": "JhonSnacks"
+                "alternateName": "JhonSnacks",
+                "sameAs": "https://www.instagram.com/jhonsnacks"
               }
+            ],
+            "sameAs": [
+              "https://www.youtube.com/@Vacilateestopodcast",
+              "https://www.instagram.com/vacilateestopodcast",
+              "https://www.tiktok.com/@vacilateesto",
+              "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
+              "https://www.twitch.tv/vacilateesto"
             ],
             "parentOrganization": {
               "@type": "Organization",
               "name": "El Patio Content Studio"
             },
-            "knowsAbout": ["Entertainment", "Sports", "Food", "History", "Culture", "Venezuelan Content"],
-            "hasPart": [
+            "knowsAbout": ["Podcast", "Entertainment", "Sports", "Football", "Food", "Gastronomy", "History", "Venezuelan Culture", "Urban Legends"]
+          })}
+        </script>
+        
+        {/* JSON-LD Structured Data - PodcastSeries */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "PodcastSeries",
+            "@id": "https://www.vacilateesto.com/#podcast",
+            "name": "Vacílate Esto Podcast",
+            "description": "El mejor podcast de Venezuela. Entretenimiento divertido sobre fútbol, gastronomía, historia, leyendas y mitos urbanos. Fun Educaitment hecho en Venezuela.",
+            "url": "https://www.vacilateesto.com",
+            "webFeed": "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
+            "inLanguage": "es-VE",
+            "author": {
+              "@id": "https://www.vacilateesto.com/#organization"
+            },
+            "genre": ["Entertainment", "Sports", "Food", "History", "Culture"],
+            "keywords": "podcast venezuela, entretenimiento, futbol, gastronomia, historia, leyendas, mitos urbanos",
+            "countryOfOrigin": {
+              "@type": "Country",
+              "name": "Venezuela"
+            },
+            "potentialAction": {
+              "@type": "ListenAction",
+              "target": [
+                {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
+                  "actionPlatform": "https://schema.org/DesktopWebPlatform"
+                },
+                {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.youtube.com/@Vacilateestopodcast",
+                  "actionPlatform": "https://schema.org/DesktopWebPlatform"
+                }
+              ]
+            }
+          })}
+        </script>
+        
+        {/* JSON-LD Structured Data - WebSite with SearchAction */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Vacílate Esto",
+            "alternateName": "El Mejor Podcast de Venezuela",
+            "url": "https://www.vacilateesto.com",
+            "description": "Sitio oficial de Vacílate Esto, el mejor podcast de Venezuela y ecosistema de entretenimiento #1.",
+            "inLanguage": "es-VE",
+            "publisher": {
+              "@id": "https://www.vacilateesto.com/#organization"
+            }
+          })}
+        </script>
+        
+        {/* JSON-LD Structured Data - FAQPage */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
               {
-                "@type": "CreativeWork",
-                "name": "Vacílate El Mundial 2026",
-                "description": "Contenido multiplataforma sobre el Mundial de Fútbol 2026 en México, USA y Canadá. Fun Educaitment aplicado al fútbol.",
-                "startDate": "2026-02",
-                "endDate": "2026-07"
+                "@type": "Question",
+                "name": "¿Cuál es el mejor podcast de Venezuela?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Vacílate Esto es considerado el mejor podcast de Venezuela, liderando en entretenimiento con más de 2 millones de seguidores. Es un ecosistema completo de Fun Educaitment que combina fútbol, gastronomía, historia, leyendas y mitos urbanos."
+                }
               },
               {
-                "@type": "CreativeWork",
-                "name": "Campeonato de Comerciales",
-                "description": "Torneo que celebra los comerciales más icónicos de Venezuela con votación de la comunidad."
+                "@type": "Question",
+                "name": "¿De qué trata el podcast Vacílate Esto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Vacílate Esto es un ecosistema de entretenimiento venezolano que incluye podcast, shorts, lives y docuseries. Combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos bajo el concepto Fun Educaitment."
+                }
               },
               {
-                "@type": "CreativeWork",
-                "name": "Podcast en la Cumbre",
-                "description": "Podcast grabado en las cumbres más emblemáticas de Venezuela."
+                "@type": "Question",
+                "name": "¿Dónde puedo escuchar Vacílate Esto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Vacílate Esto está disponible gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch y todas las plataformas principales de podcast. También se transmite en FM Center en Venezuela."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Quiénes son los hosts de Vacílate Esto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Los hosts son Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), dos creadores de contenido venezolanos que fundaron Vacílate Esto para combinar entretenimiento y educación."
+                }
               }
             ]
           })}
