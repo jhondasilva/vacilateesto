@@ -68,12 +68,12 @@ const contentFormats = [
 ];
 
 const timeline = [
-  { month: "Febrero 2026", event: "Inicio de la cobertura pre-Mundial", status: "upcoming" },
-  { month: "Marzo 2026", event: "Contenido de equipos y jugadores", status: "upcoming" },
-  { month: "Abril 2026", event: "Historias de las sedes", status: "upcoming" },
-  { month: "Mayo 2026", event: "Gastronomía mundialista", status: "upcoming" },
-  { month: "Junio 2026", event: "Cobertura del Mundial en vivo", status: "highlight" },
-  { month: "Julio 2026", event: "Final y cierre épico", status: "highlight" },
+  { month: "Febrero 2026", event: "Inicio cobertura pre-Mundial desde Venezuela", status: "upcoming" },
+  { month: "Marzo 2026", event: "Contenido equipos, jugadores e historias", status: "upcoming" },
+  { month: "Abril 2026", event: "Historias de las sedes + gastronomía", status: "upcoming" },
+  { month: "Mayo 2026", event: "Houston: Hub Diáspora Venezolana", status: "upcoming" },
+  { month: "Junio 2026", event: "Costa Este + México: Mundial en vivo", status: "highlight" },
+  { month: "Julio 2026", event: "México: Final y cierre épico", status: "highlight" },
 ];
 
 const hosts = [
@@ -273,6 +273,39 @@ const VacilateElMundial = () => {
                 ))}
               </div>
 
+              {/* The Roadtrip */}
+              <div className="mb-16">
+                <h3 className="text-2xl font-bold text-center mb-8">
+                  La Gran Expedición 2026
+                </h3>
+                <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
+                    <div className="text-4xl mb-3">🇺🇸</div>
+                    <h4 className="font-bold text-lg mb-2">Houston</h4>
+                    <div className="text-sm text-[#9000ff] font-medium mb-2">Hub Diáspora</div>
+                    <p className="text-sm text-muted-foreground">
+                      El corazón de la comunidad venezolana en USA. Conexión directa con nuestra audiencia.
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
+                    <div className="text-4xl mb-3">⚽</div>
+                    <h4 className="font-bold text-lg mb-2">Costa Este</h4>
+                    <div className="text-sm text-[#ee506f] font-medium mb-2">Hub Fútbol</div>
+                    <p className="text-sm text-muted-foreground">
+                      Nueva York, Miami. La pasión del fútbol europeo y latinoamericano se encuentra.
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
+                    <div className="text-4xl mb-3">🇲🇽</div>
+                    <h4 className="font-bold text-lg mb-2">México</h4>
+                    <div className="text-sm text-[#9000ff] font-medium mb-2">Inauguración + Final</div>
+                    <p className="text-sm text-muted-foreground">
+                      El epicentro del caos latino. Gastronomía, cultura y fútbol en estado puro.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* The Challenge */}
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <div className="bg-card rounded-3xl p-8 border border-border">
@@ -294,6 +327,28 @@ const VacilateElMundial = () => {
                     La conversación real vivirá 24/7 en el móvil. Antes, durante y después del partido. 
                     TikTok, Instagram, memes, debates... el fútbol nunca para.
                   </p>
+                </div>
+              </div>
+              
+              {/* Integration Box */}
+              <div className="mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-3xl p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
+                <h3 className="text-xl font-bold text-center mb-6">Integración Total del Ecosistema</h3>
+                <div className="grid md:grid-cols-3 gap-6 text-center">
+                  <div>
+                    <div className="text-2xl mb-2">🍫</div>
+                    <div className="font-semibold mb-1">Chocolates LATE</div>
+                    <p className="text-xs text-muted-foreground">Sampling internacional y reacciones globales al cacao venezolano</p>
+                  </div>
+                  <div>
+                    <div className="text-2xl mb-2">📱</div>
+                    <div className="font-semibold mb-1">La Quiniela</div>
+                    <p className="text-xs text-muted-foreground">Data desde el estadio que la TV no muestra</p>
+                  </div>
+                  <div>
+                    <div className="text-2xl mb-2">🤝</div>
+                    <div className="font-semibold mb-1">B2B</div>
+                    <p className="text-xs text-muted-foreground">Activaciones con marcas conectando con la diáspora</p>
+                  </div>
                 </div>
               </div>
             </div>
