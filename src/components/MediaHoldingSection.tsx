@@ -10,7 +10,11 @@ import {
   Cookie,
   Shirt,
   ExternalLink,
-  ArrowRight
+  ArrowRight,
+  Video,
+  BarChart3,
+  Coins,
+  RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -176,27 +180,51 @@ const MediaHoldingSection = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6 text-center">
-            <div className="p-4">
-              <div className="text-3xl mb-2">📺</div>
-              <div className="font-semibold mb-1">Contenido</div>
+          <div className="grid md:grid-cols-3 gap-6 text-center relative">
+            {/* Flechas decorativas */}
+            <div className="hidden md:flex absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 text-primary/30">
+              <ArrowRight className="w-8 h-8" />
+            </div>
+            <div className="hidden md:flex absolute top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2 text-primary/30">
+              <ArrowRight className="w-8 h-8" />
+            </div>
+            
+            <div className="p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Video className="w-7 h-7 text-primary-foreground" />
+              </div>
+              <div className="font-bold text-lg mb-2">Contenido</div>
               <div className="text-sm text-muted-foreground">
                 Genera audiencia y confianza masiva
               </div>
             </div>
-            <div className="p-4">
-              <div className="text-3xl mb-2">📊</div>
-              <div className="font-semibold mb-1">Data</div>
+            
+            <div className="p-6 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl border border-accent/30 hover:border-accent/50 transition-all duration-300 hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-br from-accent to-accent/70 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <BarChart3 className="w-7 h-7 text-accent-foreground" />
+              </div>
+              <div className="font-bold text-lg mb-2">Data</div>
               <div className="text-sm text-muted-foreground">
                 Construye relación directa con el fan
               </div>
             </div>
-            <div className="p-4">
-              <div className="text-3xl mb-2">💰</div>
-              <div className="font-semibold mb-1">Monetización</div>
+            
+            <div className="p-6 bg-gradient-to-br from-green-500/20 to-green-500/5 rounded-2xl border border-green-500/30 hover:border-green-500/50 transition-all duration-300 hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Coins className="w-7 h-7 text-white" />
+              </div>
+              <div className="font-bold text-lg mb-2">Monetización</div>
               <div className="text-sm text-muted-foreground">
                 Financia más y mejor contenido
               </div>
+            </div>
+          </div>
+          
+          {/* Indicador circular */}
+          <div className="flex justify-center mt-6">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+              <RefreshCw className="w-4 h-4 animate-spin" style={{ animationDuration: '3s' }} />
+              <span>Ciclo continuo de crecimiento</span>
             </div>
           </div>
         </div>
