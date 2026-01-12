@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section
       id="hero"
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-background pt-20 pb-8 md:pb-0"
-      aria-label="Vacílate Esto - El mejor podcast de Venezuela"
+      aria-label="Vacílate Esto - Ecosistema de Entretenimiento de Venezuela"
     >
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
@@ -24,20 +24,20 @@ const HeroSection = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-sm font-medium text-foreground">Uno de los Mejores Podcast de Venezuela 🇻🇪</span>
+            <span className="text-sm font-medium text-foreground">Ecosistema de Entretenimiento #1 de Venezuela 🇻🇪</span>
           </div>
 
           {/* Logo with SEO-friendly heading */}
           <div className="flex justify-center mb-8 animate-scale-in">
-            <h1 className="sr-only">Vacílate Esto - El Mejor Podcast Hecho en Venezuela</h1>
+            <h1 className="sr-only">Vacílate Esto - Ecosistema de Entretenimiento y Contenidos de Venezuela</h1>
             <Logo size="xl" className="animate-bounce-slow" />
           </div>
 
           {/* Subtitle with SEO keywords */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10 animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.2s" }}>
-            ¡El podcast venezolano que nunca se queda quieto! Somos una marca de contenido que mezcla 
-            entretenimiento y educación. Podcast, shorts, lives y mucho más. 
-            ¡El mejor podcast hecho en Venezuela! ✨👋
+            ¡El ecosistema de entretenimiento venezolano que nunca se queda quieto! Somos una marca de contenido que mezcla 
+            entretenimiento y educación. Podcast, shorts, lives, docuseries y mucho más. 
+            Fútbol, gastronomía, historia, leyendas y mitos urbanos. ✨👋
           </p>
 
           {/* CTA Buttons */}

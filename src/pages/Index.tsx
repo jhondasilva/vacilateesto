@@ -18,32 +18,32 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Vacílate Esto | El Mejor Podcast de Venezuela 🇻🇪 Fútbol, Gastronomía, Historia y Mundial 2026</title>
-        <meta name="description" content="El podcast venezolano #1 en entretenimiento divertido. Vacílate Esto combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos. Descubre Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más." />
-        <meta name="keywords" content="podcast venezuela, vacilate esto, mundial 2026, podcast español, entretenimiento venezolano, futbol venezuela, gastronomia, historia, leyendas, mitos urbanos, fun educaitment" />
+        <title>Vacílate Esto | Ecosistema de Entretenimiento #1 de Venezuela 🇻🇪 Fútbol, Gastronomía, Historia</title>
+        <meta name="description" content="Vacílate Esto es la marca de entretenimiento y contenidos #1 de Venezuela. Un ecosistema completo de Fun Educaitment: podcast, shorts, lives, docuseries. Fútbol, gastronomía, historia, leyendas y mitos urbanos. Vacílate El Mundial 2026 y más." />
+        <meta name="keywords" content="vacilate esto, entretenimiento venezuela, contenido venezolano, mundial 2026, fun educaitment, futbol, gastronomia, historia, leyendas, mitos urbanos, podcast venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
-        <meta property="og:description" content="El podcast venezolano #1. Fútbol, gastronomía, historia, leyendas y mitos urbanos. Mundial 2026, Campeonato de Comerciales y más. 2M+ seguidores." />
+        <meta property="og:title" content="Vacílate Esto | Ecosistema de Entretenimiento #1 de Venezuela" />
+        <meta property="og:description" content="La marca de entretenimiento venezolana #1. Ecosistema de Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores." />
         <meta property="og:url" content="https://www.vacilateesto.com" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
-        <meta name="twitter:description" content="El podcast venezolano #1. Fútbol, gastronomía, historia y mitos urbanos. Mundial 2026 y más. 2M+ seguidores." />
+        <meta name="twitter:title" content="Vacílate Esto | Ecosistema de Entretenimiento de Venezuela" />
+        <meta name="twitter:description" content="La marca de entretenimiento venezolana #1. Fun Educaitment: fútbol, gastronomía, historia y mitos urbanos. 2M+ seguidores." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "PodcastSeries",
+            "@type": "Organization",
             "name": "Vacílate Esto",
-            "description": "El podcast venezolano #1 en entretenimiento divertido. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
+            "description": "Ecosistema de entretenimiento y contenidos venezolano #1. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
             "url": "https://www.vacilateesto.com",
             "inLanguage": "es-VE",
-            "author": [
+            "founder": [
               {
                 "@type": "Person",
                 "name": "Juan Carlos Martínez",
@@ -85,9 +85,9 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main role="main" aria-label="Contenido principal del podcast Vacílate Esto">
-          <article itemScope itemType="https://schema.org/PodcastSeries">
+          <article itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Vacílate Esto" />
-            <meta itemProp="description" content="El mejor podcast de Venezuela. Entretenimiento divertido sobre fútbol, gastronomía, historia, leyendas y mitos urbanos." />
+            <meta itemProp="description" content="Ecosistema de entretenimiento y contenidos #1 de Venezuela. Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos." />
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />
