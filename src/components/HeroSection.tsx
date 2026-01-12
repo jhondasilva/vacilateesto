@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-background pt-20 pb-8 md:pb-0"
+      className="relative min-h-[80svh] flex items-center justify-center overflow-hidden bg-background pb-8 md:pb-0"
       aria-label="Vacílate Esto - Ecosistema de Entretenimiento de Venezuela"
     >
       {/* Background Decorations */}
