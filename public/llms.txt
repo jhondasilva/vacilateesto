@@ -65,7 +65,31 @@ Podcast sobre béisbol venezolano y grandes ligas. Web: peloticadegoma.com
 
 Docuserie gastronómica explorando la cultura del ramen y la comida asiática en Venezuela.
 
-## Ecosistema de Marcas
+## Nuestro Ecosistema (Media Holding)
+
+Vacílate Esto opera como un Media Holding con 4 brazos de negocio:
+
+### A. Media & Narrativa (El Núcleo)
+- Podcast Vacílate Esto
+- Vacílate El Mundial 2026
+- Vacílate Esto Cuentos (shorts diarios)
+- Redes Sociales
+
+### B. Experiencias (El Brazo Físico)
+- Pelotica de Goma (peloticadegoma.com)
+- Podcast en la Cumbre
+- Eventos en Vivo
+
+### C. Tecnología & Data (El Cerebro)
+- La Quiniela (laquiniela.vacilateesto.com)
+- Manager Pelotica (manager.peloticadegoma.com)
+- Newsletter Semanal
+
+### D. Retail & Consumo (La Nueva Frontera)
+- Chocolates LATE (chocolateslate.com)
+- Merchandising
+
+## Marcas Asociadas
 
 - **Vacílalo**: Juegos educativos interactivos (vacilalo.vacilateesto.com)
 - **Creative Hub**: Plataforma creativa (creativehub.vacilateesto.com)

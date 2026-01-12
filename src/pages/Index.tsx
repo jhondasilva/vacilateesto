@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
+import MediaHoldingSection from "@/components/MediaHoldingSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import HostsSection from "@/components/HostsSection";
 import EcosystemSection from "@/components/EcosystemSection";
@@ -55,11 +56,11 @@ const Index = () => {
                 "alternateName": "JhonSnacks"
               }
             ],
-            "publisher": {
+            "parentOrganization": {
               "@type": "Organization",
               "name": "El Patio Content Studio"
             },
-            "genre": ["Entertainment", "Sports", "Food", "History", "Culture"],
+            "knowsAbout": ["Entertainment", "Sports", "Food", "History", "Culture", "Venezuelan Content"],
             "hasPart": [
               {
                 "@type": "CreativeWork",
@@ -91,6 +92,8 @@ const Index = () => {
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />
+            <MediaHoldingSection />
+            <VacilateElMundialSection />
             <EpisodesSection />
             <HostsSection />
             <EcosystemSection />
@@ -98,7 +101,6 @@ const Index = () => {
             <AgendaSection />
             <PeloticaSection />
             <GuerraComercialesSection />
-            <VacilateElMundialSection />
             <RutaRamenSection />
             <NewsletterSection />
           </article>
