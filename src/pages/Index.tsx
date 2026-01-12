@@ -18,21 +18,21 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Vacílate Esto | El Mejor Podcast de Venezuela 🇻🇪 Humor, Entretenimiento y Mundial 2026</title>
-        <meta name="description" content="El podcast venezolano #1 en entretenimiento. Vacílate Esto combina humor, cultura pop e historias increíbles. Descubre Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más. Escúchanos en Spotify y YouTube." />
-        <meta name="keywords" content="podcast venezuela, vacilate esto, mundial 2026, podcast español, entretenimiento venezolano, humor venezuela, campeonato comerciales, podcast cumbre, fun educaitment" />
+        <title>Vacílate Esto | El Mejor Podcast de Venezuela 🇻🇪 Fútbol, Gastronomía, Historia y Mundial 2026</title>
+        <meta name="description" content="El podcast venezolano #1 en entretenimiento divertido. Vacílate Esto combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos. Descubre Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más." />
+        <meta name="keywords" content="podcast venezuela, vacilate esto, mundial 2026, podcast español, entretenimiento venezolano, futbol venezuela, gastronomia, historia, leyendas, mitos urbanos, fun educaitment" />
         <link rel="canonical" href="https://www.vacilateesto.com" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
-        <meta property="og:description" content="El podcast venezolano #1. Humor, cultura pop, Mundial 2026, Campeonato de Comerciales y más. 2M+ seguidores." />
+        <meta property="og:description" content="El podcast venezolano #1. Fútbol, gastronomía, historia, leyendas y mitos urbanos. Mundial 2026, Campeonato de Comerciales y más. 2M+ seguidores." />
         <meta property="og:url" content="https://www.vacilateesto.com" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vacílate Esto | El Mejor Podcast de Venezuela" />
-        <meta name="twitter:description" content="El podcast venezolano #1. Humor, cultura pop, Mundial 2026 y más. 2M+ seguidores." />
+        <meta name="twitter:description" content="El podcast venezolano #1. Fútbol, gastronomía, historia y mitos urbanos. Mundial 2026 y más. 2M+ seguidores." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -40,7 +40,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "PodcastSeries",
             "name": "Vacílate Esto",
-            "description": "El podcast venezolano #1 en entretenimiento. Fun Educaitment que combina humor, cultura pop e historias increíbles.",
+            "description": "El podcast venezolano #1 en entretenimiento divertido. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
             "url": "https://www.vacilateesto.com",
             "inLanguage": "es-VE",
             "author": [
@@ -59,7 +59,7 @@ const Index = () => {
               "@type": "Organization",
               "name": "El Patio Content Studio"
             },
-            "genre": ["Entertainment", "Comedy", "Culture"],
+            "genre": ["Entertainment", "Sports", "Food", "History", "Culture"],
             "hasPart": [
               {
                 "@type": "CreativeWork",
@@ -87,7 +87,7 @@ const Index = () => {
         <main role="main" aria-label="Contenido principal del podcast Vacílate Esto">
           <article itemScope itemType="https://schema.org/PodcastSeries">
             <meta itemProp="name" content="Vacílate Esto" />
-            <meta itemProp="description" content="El mejor podcast de Venezuela. Humor, cultura y entretenimiento hecho en Venezuela." />
+            <meta itemProp="description" content="El mejor podcast de Venezuela. Entretenimiento divertido sobre fútbol, gastronomía, historia, leyendas y mitos urbanos." />
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />

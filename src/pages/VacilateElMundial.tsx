@@ -87,7 +87,7 @@ const hosts = [
   {
     name: "Juan Carlos Martínez",
     role: "El Escéptico",
-    description: "Sigue la vibra, el humor y la calle que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
+    description: "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
     image: juanCarlosMartinez,
     instagram: "@juansofa",
   },
