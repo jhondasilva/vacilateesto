@@ -48,18 +48,36 @@ const Header = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden xl:flex items-center gap-4">
-            {navLinks.map((link) => (
-              link.external ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-xs whitespace-nowrap"
-                >
-                  {link.label}
-                </a>
-              ) : (
+            {navLinks.map((link) => {
+              const isHashLink = link.href.includes('#') && !link.external;
+              
+              if (link.external) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-xs whitespace-nowrap"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              
+              if (isHashLink) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-xs whitespace-nowrap"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              
+              return (
                 <Link
                   key={link.label}
                   to={link.href}
@@ -67,8 +85,8 @@ const Header = () => {
                 >
                   {link.label}
                 </Link>
-              )
-            ))}
+              );
+            })}
           </nav>
 
 
@@ -88,19 +106,38 @@ const Header = () => {
           }`}
         >
           <nav className="flex flex-col gap-4 py-6 border-t border-border">
-            {navLinks.map((link) => (
-              link.external ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              ) : (
+            {navLinks.map((link) => {
+              const isHashLink = link.href.includes('#') && !link.external;
+              
+              if (link.external) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              
+              if (isHashLink) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              
+              return (
                 <Link
                   key={link.label}
                   to={link.href}
@@ -109,8 +146,8 @@ const Header = () => {
                 >
                   {link.label}
                 </Link>
-              )
-            ))}
+              );
+            })}
           </nav>
         </div>
       </div>
