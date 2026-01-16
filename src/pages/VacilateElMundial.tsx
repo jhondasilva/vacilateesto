@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WorldCupCountdown from "@/components/WorldCupCountdown";
 import { Button } from "@/components/ui/button";
 import {
   Globe,
@@ -237,10 +238,15 @@ const VacilateElMundial = () => {
                   La Magia del Mundial se vive en el Feed
                 </h1>
                 
-                <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
+                <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10">
                   Contenido multiplataforma presente en Instagram, YouTube, TikTok y radio. 
                   Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
                 </p>
+
+                {/* Countdown Timer */}
+                <div className="mb-10">
+                  <WorldCupCountdown />
+                </div>
                 
                 {/* CTA Principal - La Quiniela */}
                 <a 
