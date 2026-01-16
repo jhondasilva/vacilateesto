@@ -242,6 +242,21 @@ const VacilateElMundial = () => {
                   Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
                 </p>
                 
+                {/* CTA Principal - La Quiniela */}
+                <a 
+                  href="https://laquiniela.vacilateesto.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-2xl text-black font-bold text-lg shadow-2xl shadow-[#00d9ff]/40 hover:shadow-[#00d9ff]/60 hover:scale-105 transition-all duration-300 mb-6 animate-pulse hover:animate-none"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
+                  <span className="relative flex items-center gap-3">
+                    <Gamepad2 className="w-6 h-6" />
+                    <span>🔥 ¡Juega La Quiniela GRATIS!</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </a>
+
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link to="/media-kit">
                     <Button size="lg" className="bg-white text-[#9000ff] hover:bg-white/90">
