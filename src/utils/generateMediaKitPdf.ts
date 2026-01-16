@@ -664,7 +664,152 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text("Total Impresiones: 6.75M+", margin + 10, y + 22);
   doc.text("Total Interacciones: 576K+", pageWidth / 2, y + 22);
 
-  // ==================== PAGE 6: SPONSORSHIP PLANS ====================
+  // ==================== PAGE 6: VACÍLATE EL MUNDIAL 2026 ====================
+  addNewPage();
+  drawHeader("VACÍLATE EL MUNDIAL 2026", "Proyecto Especial · Febrero - Julio 2026");
+
+  // Intro
+  doc.setTextColor(...DARK_COLOR);
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  const vemIntro = "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Contenido multiplataforma que combina Fun Educaitment, gastronomía y cobertura en vivo desde México, USA y Canadá.";
+  const vemIntroLines = doc.splitTextToSize(vemIntro, pageWidth - margin * 2);
+  doc.text(vemIntroLines, margin, y);
+  y += 20;
+
+  // Stats
+  const vemStats = [
+    { value: "2M+", label: "Audiencia Lista" },
+    { value: "5", label: "Plataformas" },
+    { value: "6", label: "Meses Cobertura" },
+    { value: "3", label: "Países" },
+  ];
+  
+  const vemBoxWidth = 38;
+  const vemBoxGap = 8;
+  const vemTotalBoxWidth = (vemBoxWidth * 4) + (vemBoxGap * 3);
+  let vemBoxX = (pageWidth - vemTotalBoxWidth) / 2;
+
+  vemStats.forEach((stat) => {
+    doc.setFillColor(...LIGHT_GRAY);
+    doc.roundedRect(vemBoxX, y, vemBoxWidth, 28, 4, 4, "F");
+    
+    doc.setTextColor(...PRIMARY_COLOR);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(stat.value, vemBoxX + vemBoxWidth / 2, y + 12, { align: "center" });
+    
+    doc.setTextColor(...GRAY_COLOR);
+    doc.setFontSize(7);
+    doc.setFont("helvetica", "normal");
+    doc.text(stat.label, vemBoxX + vemBoxWidth / 2, y + 20, { align: "center" });
+    
+    vemBoxX += vemBoxWidth + vemBoxGap;
+  });
+  y += 38;
+
+  drawSectionTitle("La Gran Expedición");
+  
+  const expeditionStops = [
+    { city: "Houston", subtitle: "Base USA", desc: "Centro de operaciones en Estados Unidos" },
+    { city: "Costa Este", subtitle: "Hub Fútbol", desc: "Nueva York, Miami - Pasión futbolera" },
+    { city: "México", subtitle: "Inauguración + Final", desc: "El epicentro del Mundial 2026" },
+  ];
+
+  const stopWidth = (pageWidth - margin * 2 - 16) / 3;
+  let stopX = margin;
+
+  expeditionStops.forEach((stop, index) => {
+    doc.setFillColor(...LIGHT_GRAY);
+    doc.roundedRect(stopX, y, stopWidth, 35, 4, 4, "F");
+    
+    const stopColor = index === 0 ? PRIMARY_COLOR : (index === 1 ? ACCENT_COLOR : [34, 197, 94] as [number, number, number]);
+    doc.setFillColor(...stopColor);
+    doc.rect(stopX, y, stopWidth, 3, "F");
+    
+    doc.setTextColor(...DARK_COLOR);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text(stop.city, stopX + 8, y + 14);
+    
+    doc.setTextColor(...PRIMARY_COLOR);
+    doc.setFontSize(8);
+    doc.text(stop.subtitle, stopX + 8, y + 21);
+    
+    doc.setTextColor(...GRAY_COLOR);
+    doc.setFontSize(7);
+    doc.setFont("helvetica", "normal");
+    doc.text(stop.desc, stopX + 8, y + 28);
+    
+    stopX += stopWidth + 8;
+  });
+  y += 45;
+
+  drawSectionTitle("Formatos de Contenido VEM");
+  
+  const vemFormats = [
+    { title: "El Gol y la Comida", desc: "Gastronomía de México, USA y Canadá celebrando cada gol" },
+    { title: "Vacílalo News", desc: "Noticias del Mundial con ironía y data insólita" },
+    { title: "Desde el Estadio", desc: "Cobertura en vivo, zonas de hinchas y cánticos" },
+    { title: "La Quiniela", desc: "App de predicciones deportivas en tiempo real" },
+  ];
+
+  vemFormats.forEach((format, index) => {
+    const isEven = index % 2 === 0;
+    const formatColor = isEven ? PRIMARY_COLOR : ACCENT_COLOR;
+    doc.setFillColor(...formatColor);
+    doc.circle(margin + 4, y + 2, 3, "F");
+    
+    doc.setTextColor(...DARK_COLOR);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text(format.title, margin + 12, y + 4);
+    
+    doc.setTextColor(...GRAY_COLOR);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(format.desc, margin + 60, y + 4);
+    
+    y += 12;
+  });
+
+  y += 10;
+
+  // Timeline
+  drawSectionTitle("Cronograma 2026");
+  
+  const timeline = [
+    { month: "Feb", event: "Inicio cobertura pre-Mundial" },
+    { month: "Mar", event: "Contenido equipos e historias" },
+    { month: "Abr", event: "Historias de sedes + gastronomía" },
+    { month: "May", event: "Houston: Base de operaciones" },
+    { month: "Jun", event: "Costa Este + México: En vivo" },
+    { month: "Jul", event: "Final y cierre épico" },
+  ];
+
+  const timelineWidth = (pageWidth - margin * 2) / 6;
+  let timeX = margin;
+
+  timeline.forEach((item, index) => {
+    const isHighlight = index >= 4;
+    const timelineColor = isHighlight ? PRIMARY_COLOR : LIGHT_GRAY;
+    doc.setFillColor(...timelineColor);
+    doc.roundedRect(timeX, y, timelineWidth - 3, 25, 3, 3, "F");
+    
+    doc.setTextColor(isHighlight ? 255 : DARK_COLOR[0], isHighlight ? 255 : DARK_COLOR[1], isHighlight ? 255 : DARK_COLOR[2]);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.text(item.month, timeX + (timelineWidth - 3) / 2, y + 9, { align: "center" });
+    
+    doc.setFontSize(6);
+    doc.setFont("helvetica", "normal");
+    const eventLines = doc.splitTextToSize(item.event, timelineWidth - 6);
+    doc.text(eventLines[0] || "", timeX + (timelineWidth - 3) / 2, y + 17, { align: "center" });
+    
+    timeX += timelineWidth;
+  });
+
+  // ==================== PAGE 7: SPONSORSHIP PLANS ====================
   addNewPage();
   drawHeader("TRABAJA CON NOSOTROS", "Planes de Patrocinio");
 
