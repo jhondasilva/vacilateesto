@@ -26,6 +26,12 @@ import {
   Heart,
   Star,
   Flag,
+  Gamepad2,
+  BarChart3,
+  Award,
+  Flame,
+  ExternalLink,
+  CheckCircle,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
@@ -98,6 +104,44 @@ const sponsorBenefits = [
   { icon: Target, title: "Audiencia Segmentada", description: "Fans del fútbol y audiencia generalista" },
   { icon: TrendingUp, title: "Engagement Alto", description: "Contenido que genera conversación y viralidad" },
   { icon: Star, title: "Branded Content", description: "Integración natural de marca en el contenido" },
+];
+
+const quinielaStats = [
+  { value: "10K+", label: "Participantes", icon: Users },
+  { value: "50K+", label: "Predicciones", icon: BarChart3 },
+  { value: "95%", label: "Precisión Top", icon: Target },
+  { value: "🔥", label: "En Vivo", icon: Flame },
+];
+
+const topPredictions = [
+  { 
+    match: "Argentina vs Francia", 
+    prediction: "Argentina 2-1", 
+    accuracy: "87%",
+    participants: "2.3K",
+    hot: true 
+  },
+  { 
+    match: "Brasil vs Alemania", 
+    prediction: "Brasil 3-2", 
+    accuracy: "72%",
+    participants: "1.8K",
+    hot: false 
+  },
+  { 
+    match: "México vs España", 
+    prediction: "Empate 1-1", 
+    accuracy: "65%",
+    participants: "3.1K",
+    hot: true 
+  },
+];
+
+const quinielaFeatures = [
+  { icon: Gamepad2, title: "Predicciones en Tiempo Real", description: "Haz tus pronósticos antes y durante los partidos" },
+  { icon: Award, title: "Rankings y Premios", description: "Compite con otros fans y gana premios exclusivos" },
+  { icon: BarChart3, title: "Estadísticas Avanzadas", description: "Analiza tendencias y mejora tus predicciones" },
+  { icon: Users, title: "Comunidad Activa", description: "Debate y comparte con miles de fanáticos" },
 ];
 
 const VacilateElMundial = () => {
@@ -349,6 +393,170 @@ const VacilateElMundial = () => {
                     <div className="font-semibold mb-1">B2B</div>
                     <p className="text-xs text-muted-foreground">Activaciones con marcas conectando con la diáspora</p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* La Quiniela Section */}
+          <section className="py-20 md:py-28 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-10 left-10 w-64 h-64 bg-[#00d9ff] rounded-full blur-3xl" />
+              <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#9000ff] rounded-full blur-3xl" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl opacity-30" />
+            </div>
+            
+            {/* Soccer ball pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-20 right-20 text-8xl">⚽</div>
+              <div className="absolute bottom-40 left-20 text-6xl">⚽</div>
+              <div className="absolute top-1/3 right-1/4 text-5xl">⚽</div>
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00d9ff]/20 border border-[#00d9ff]/40 mb-6 backdrop-blur-sm">
+                  <Gamepad2 className="w-5 h-5 text-[#00d9ff]" />
+                  <span className="text-sm font-bold text-[#00d9ff] uppercase tracking-wider">Juego Interactivo</span>
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                  La Quiniela del Mundial
+                </h2>
+                <p className="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+                  Predice los resultados, compite con la comunidad y demuestra que sabes más de fútbol que nadie. 
+                  ¡Miles de fanáticos ya están jugando!
+                </p>
+                
+                {/* CTA Principal */}
+                <a 
+                  href="https://laquiniela.vacilateesto.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex"
+                >
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-[#00d9ff] to-[#00a8cc] hover:opacity-90 text-black font-bold text-lg px-8 py-6 h-auto shadow-lg shadow-[#00d9ff]/30 hover:shadow-xl hover:shadow-[#00d9ff]/40 transition-all duration-300 hover:scale-105"
+                  >
+                    <Trophy className="w-6 h-6 mr-2" />
+                    Jugar La Quiniela
+                    <ExternalLink className="w-5 h-5 ml-2" />
+                  </Button>
+                </a>
+              </div>
+
+              {/* Stats de la Quiniela */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto">
+                {quinielaStats.map((stat, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:border-[#00d9ff]/50 transition-all duration-300 hover:scale-105"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d9ff]/30 to-[#00a8cc]/30 flex items-center justify-center mx-auto mb-3">
+                      {stat.value === "🔥" ? (
+                        <span className="text-2xl">{stat.value}</span>
+                      ) : (
+                        <stat.icon className="w-6 h-6 text-[#00d9ff]" />
+                      )}
+                    </div>
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-white/70">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Top Predictions */}
+              <div className="mb-16">
+                <h3 className="text-2xl font-bold text-white text-center mb-8 flex items-center justify-center gap-3">
+                  <Flame className="w-6 h-6 text-orange-400" />
+                  Predicciones Más Populares
+                  <Flame className="w-6 h-6 text-orange-400" />
+                </h3>
+                
+                <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {topPredictions.map((pred, index) => (
+                    <div 
+                      key={index}
+                      className={`relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border ${pred.hot ? 'border-orange-400/50' : 'border-white/20'} hover:border-[#00d9ff]/50 transition-all duration-300`}
+                    >
+                      {pred.hot && (
+                        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                          <Flame className="w-3 h-3" />
+                          HOT
+                        </div>
+                      )}
+                      
+                      <div className="text-white/60 text-sm mb-2">{pred.match}</div>
+                      <div className="text-2xl font-bold text-white mb-4">{pred.prediction}</div>
+                      
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2 text-green-400">
+                          <CheckCircle className="w-4 h-4" />
+                          <span>{pred.accuracy} precisión</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-white/60">
+                          <Users className="w-4 h-4" />
+                          <span>{pred.participants}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+                {quinielaFeatures.map((feature, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/10 hover:border-white/30 transition-all duration-300"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff]/30 to-[#ee506f]/30 flex items-center justify-center mx-auto mb-4">
+                      <feature.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="font-bold text-white mb-2">{feature.title}</h4>
+                    <p className="text-sm text-white/60">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Secondary CTA */}
+              <div className="text-center">
+                <p className="text-white/70 mb-6">
+                  ¿Crees que puedes predecir el futuro del fútbol? Únete y demuéstralo.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <a 
+                    href="https://laquiniela.vacilateesto.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      size="lg" 
+                      className="bg-white text-[#1a1a2e] hover:bg-white/90 font-bold"
+                    >
+                      <Gamepad2 className="w-5 h-5 mr-2" />
+                      Crear Mi Cuenta Gratis
+                    </Button>
+                  </a>
+                  <a 
+                    href="https://laquiniela.vacilateesto.com/rankings" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="border-white/40 text-white hover:bg-white/10"
+                    >
+                      <Award className="w-5 h-5 mr-2" />
+                      Ver Rankings
+                    </Button>
+                  </a>
                 </div>
               </div>
             </div>
