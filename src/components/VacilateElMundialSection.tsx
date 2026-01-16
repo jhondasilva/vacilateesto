@@ -15,7 +15,7 @@ const VacilateElMundialSection = () => {
     },
     {
       icon: UtensilsCrossed,
-      title: "El Gol y el Taco",
+      title: "El Gol y la Comida",
       description: "Exploramos los sabores de México, USA y Canadá mientras celebramos cada gol"
     },
     {
