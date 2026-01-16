@@ -209,10 +209,10 @@ const VacilateElMundial = () => {
         
         <main>
           {/* Hero Section */}
-          <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#9000ff] via-[#9000ff]/90 to-[#ee506f]">
+          <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-gradient-to-br from-[#9000ff] via-[#9000ff]/90 to-[#ee506f]">
             <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl" />
-              <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl" />
+              <div className="absolute top-10 md:top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-white rounded-full blur-3xl" />
+              <div className="absolute bottom-10 md:bottom-20 right-5 md:right-10 w-64 md:w-96 h-64 md:h-96 bg-[#ee506f] rounded-full blur-3xl" />
             </div>
             
             {/* Decorative country icons */}
@@ -230,28 +230,28 @@ const VacilateElMundial = () => {
 
             <div className="container mx-auto px-4 relative z-10">
               <div className="text-center max-w-4xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 border border-white/30 mb-8 backdrop-blur-sm">
-                  <Calendar className="w-4 h-4 text-white" />
-                  <span className="text-sm font-semibold text-white">Febrero - Julio 2026</span>
+                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-white/20 border border-white/30 mb-6 md:mb-8 backdrop-blur-sm">
+                  <Calendar className="w-3.5 md:w-4 h-3.5 md:h-4 text-white" />
+                  <span className="text-xs md:text-sm font-semibold text-white">Febrero - Julio 2026</span>
                 </div>
                 
                 <img 
                   src={logoVacilateElMundial} 
                   alt="Vacílate El Mundial 2026" 
-                  className="h-40 md:h-56 w-auto mx-auto mb-8 drop-shadow-2xl"
+                  className="h-28 sm:h-36 md:h-56 w-auto mx-auto mb-6 md:mb-8 drop-shadow-2xl"
                 />
                 
-                <h1 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 px-2">
                   La Magia del Mundial se vive en el Feed
                 </h1>
                 
-                <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10">
+                <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-6 md:mb-10 px-2">
                   Contenido multiplataforma presente en Instagram, YouTube, TikTok y radio. 
                   Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
                 </p>
 
                 {/* Countdown Timer */}
-                <div className="mb-10">
+                <div className="mb-6 md:mb-10">
                   <WorldCupCountdown />
                 </div>
                 
@@ -260,26 +260,26 @@ const VacilateElMundial = () => {
                   href="https://laquiniela.vacilateesto.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-2xl text-black font-bold text-lg shadow-2xl shadow-[#00d9ff]/40 hover:shadow-[#00d9ff]/60 hover:scale-105 transition-all duration-300 mb-6 animate-pulse hover:animate-none"
+                  className="group relative inline-flex items-center gap-2 md:gap-3 px-5 md:px-8 py-3 md:py-4 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-xl md:rounded-2xl text-black font-bold text-sm md:text-lg shadow-2xl shadow-[#00d9ff]/40 hover:shadow-[#00d9ff]/60 hover:scale-105 transition-all duration-300 mb-4 md:mb-6 animate-pulse hover:animate-none"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
-                  <span className="relative flex items-center gap-3">
-                    <Gamepad2 className="w-6 h-6" />
-                    <span>🔥 ¡Juega La Quiniela GRATIS!</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-xl md:rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
+                  <span className="relative flex items-center gap-2 md:gap-3">
+                    <Gamepad2 className="w-5 md:w-6 h-5 md:h-6" />
+                    <span className="text-sm md:text-base">🔥 ¡Juega La Quiniela GRATIS!</span>
+                    <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </a>
 
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
                   <Link to="/media-kit#contacto">
-                    <Button size="lg" className="bg-white text-[#9000ff] hover:bg-white/90">
-                      <Trophy className="w-5 h-5 mr-2" />
+                    <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
+                      <Trophy className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                       Quiero Patrocinar
                     </Button>
                   </Link>
                   <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20">
-                      <Instagram className="w-5 h-5 mr-2" />
+                    <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
+                      <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                       Síguenos
                     </Button>
                   </a>
