@@ -71,7 +71,6 @@ const businessArms = [
     gradient: "from-[#f59e0b] to-[#ef4444]",
     bgGradient: "from-[#f59e0b]/10 to-[#ef4444]/10",
     products: [
-      { name: "Chocolates LATE", link: "https://www.chocolateslate.com", external: true },
       { name: "Merchandising", link: null },
     ]
   },
