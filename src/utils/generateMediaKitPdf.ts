@@ -182,12 +182,13 @@ const topPosts = [
   { date: "07 May 2025", description: "La historia de constancia y éxito...", impressions: "685.74K", interactions: "88.78K" },
 ];
 
-// Colors
-const PRIMARY_COLOR: [number, number, number] = [239, 68, 68];
+// Colors - Brand colors matching the website
+const PRIMARY_COLOR: [number, number, number] = [144, 0, 255]; // #9000ff - Purple
+const SECONDARY_COLOR: [number, number, number] = [238, 80, 111]; // #ee506f - Pink/Rose
 const DARK_COLOR: [number, number, number] = [20, 20, 20];
 const GRAY_COLOR: [number, number, number] = [100, 100, 100];
 const LIGHT_GRAY: [number, number, number] = [245, 245, 245];
-const ACCENT_COLOR: [number, number, number] = [125, 232, 232];
+const ACCENT_COLOR: [number, number, number] = [0, 217, 255]; // #00d9ff - Cyan accent
 
 // Helper function to load image as base64
 const loadImageAsBase64 = (src: string): Promise<string> => {
