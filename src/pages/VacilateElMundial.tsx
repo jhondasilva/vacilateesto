@@ -79,7 +79,7 @@ const timeline = [
   { month: "Febrero 2026", event: "Inicio cobertura pre-Mundial desde Venezuela", status: "upcoming" },
   { month: "Marzo 2026", event: "Contenido equipos, jugadores e historias", status: "upcoming" },
   { month: "Abril 2026", event: "Historias de las sedes + gastronomía", status: "upcoming" },
-  { month: "Mayo 2026", event: "Houston: Hub Diáspora Venezolana", status: "upcoming" },
+  { month: "Mayo 2026", event: "Houston: Base de operaciones USA", status: "upcoming" },
   { month: "Junio 2026", event: "Costa Este + México: Mundial en vivo", status: "highlight" },
   { month: "Julio 2026", event: "México: Final y cierre épico", status: "highlight" },
 ];
@@ -419,9 +419,9 @@ const VacilateElMundial = () => {
                       <Star className="w-6 h-6 text-blue-700" />
                     </div>
                     <h4 className="font-bold text-lg mb-2">Houston</h4>
-                    <div className="text-sm text-[#9000ff] font-medium mb-2">Hub Diáspora</div>
+                    <div className="text-sm text-[#9000ff] font-medium mb-2">Base USA</div>
                     <p className="text-sm text-muted-foreground">
-                      El corazón de la comunidad venezolana en USA. Conexión directa con nuestra audiencia.
+                      Centro de operaciones en Estados Unidos. Conexión directa con nuestra audiencia.
                     </p>
                   </div>
                   <div className="bg-card rounded-3xl p-6 border border-border text-center">
@@ -505,7 +505,7 @@ const VacilateElMundial = () => {
                     </div>
                     <div className="font-bold text-lg mb-2">B2B & Marcas</div>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Activaciones con marcas conectando con la diáspora venezolana
+                      Activaciones con marcas conectando con nuestra audiencia global
                     </p>
                     <div className="inline-flex items-center gap-2 text-xs font-medium text-[#9000ff]">
                       <Target className="w-3.5 h-3.5" />
