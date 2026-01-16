@@ -81,7 +81,7 @@ const timeline = [
   { month: "Abril 2026", event: "Historias de las sedes + gastronomía", status: "upcoming" },
   { month: "Mayo 2026", event: "Houston: Base de operaciones USA", status: "upcoming" },
   { month: "Junio 2026", event: "Costa Este + México: Mundial en vivo", status: "highlight" },
-  { month: "Julio 2026", event: "México: Final y cierre épico", status: "highlight" },
+  { month: "Julio 2026", event: "Final y cierre épico", status: "highlight" },
 ];
 
 const hosts = [
