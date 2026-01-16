@@ -56,7 +56,7 @@ const platforms = [
 
 const contentFormats = [
   {
-    title: "El Gol y el Taco",
+    title: "El Gol y la Comida",
     description: "Probamos la comida típica de las sedes (México, USA, Canadá). El contexto perfecto para el maridaje natural con la cultura. Cada platillo, una historia. Cada historia, una experiencia.",
     icon: UtensilsCrossed,
     gradient: "from-orange-500 to-red-500",

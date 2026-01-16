@@ -68,7 +68,7 @@ El proyecto más ambicioso de uno de los podcasts favoritos de Venezuela. Conten
 - México: Inauguración y final del Mundial
 
 **Formatos de contenido**:
-- **El Gol y el Taco**: Gastronomía de México, USA y Canadá celebrando cada gol
+- **El Gol y la Comida**: Gastronomía de México, USA y Canadá celebrando cada gol
 - **Vacílalo News**: Noticias del Mundial con ironía y data insólita
 - **Desde el Estadio**: Cobertura en vivo, zonas de hinchas y cánticos
 
