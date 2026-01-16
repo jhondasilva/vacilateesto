@@ -377,12 +377,7 @@ const VacilateElMundial = () => {
               {/* Integration Box */}
               <div className="mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-3xl p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
                 <h3 className="text-xl font-bold text-center mb-6">Integración Total del Ecosistema</h3>
-                <div className="grid md:grid-cols-3 gap-6 text-center">
-                  <div>
-                    <div className="text-2xl mb-2">🍫</div>
-                    <div className="font-semibold mb-1">Chocolates LATE</div>
-                    <p className="text-xs text-muted-foreground">Sampling internacional y reacciones globales al cacao venezolano</p>
-                  </div>
+                <div className="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
                   <div>
                     <div className="text-2xl mb-2">📱</div>
                     <div className="font-semibold mb-1">La Quiniela</div>
