@@ -214,11 +214,17 @@ const VacilateElMundial = () => {
               <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl" />
             </div>
             
-            {/* Decorative flags */}
-            <div className="absolute top-32 right-20 hidden lg:flex gap-4 opacity-30">
-              <span className="text-6xl">🇲🇽</span>
-              <span className="text-6xl">🇺🇸</span>
-              <span className="text-6xl">🇨🇦</span>
+            {/* Decorative country icons */}
+            <div className="absolute top-32 right-20 hidden lg:flex gap-6 opacity-40">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center shadow-lg">
+                <span className="text-xs font-bold text-green-800">MX</span>
+              </div>
+              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center shadow-lg">
+                <Star className="w-5 h-5 text-blue-700" />
+              </div>
+              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-red-600 via-white to-red-600 flex items-center justify-center shadow-lg">
+                <span className="text-xs font-bold text-red-700">CA</span>
+              </div>
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
@@ -429,7 +435,9 @@ const VacilateElMundial = () => {
                 </h3>
                 <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                   <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="text-4xl mb-3">🇺🇸</div>
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center mx-auto mb-3 shadow-lg">
+                      <Star className="w-6 h-6 text-blue-700" />
+                    </div>
                     <h4 className="font-bold text-lg mb-2">Houston</h4>
                     <div className="text-sm text-[#9000ff] font-medium mb-2">Hub Diáspora</div>
                     <p className="text-sm text-muted-foreground">
@@ -437,7 +445,9 @@ const VacilateElMundial = () => {
                     </p>
                   </div>
                   <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="text-4xl mb-3">⚽</div>
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-3 shadow-lg">
+                      <Trophy className="w-6 h-6 text-white" />
+                    </div>
                     <h4 className="font-bold text-lg mb-2">Costa Este</h4>
                     <div className="text-sm text-[#ee506f] font-medium mb-2">Hub Fútbol</div>
                     <p className="text-sm text-muted-foreground">
@@ -445,7 +455,9 @@ const VacilateElMundial = () => {
                     </p>
                   </div>
                   <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="text-4xl mb-3">🇲🇽</div>
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center mx-auto mb-3 shadow-lg">
+                      <MapPin className="w-6 h-6 text-green-700" />
+                    </div>
                     <h4 className="font-bold text-lg mb-2">México</h4>
                     <div className="text-sm text-[#9000ff] font-medium mb-2">Inauguración + Final</div>
                     <p className="text-sm text-muted-foreground">

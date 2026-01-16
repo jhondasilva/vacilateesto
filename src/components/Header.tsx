@@ -105,7 +105,7 @@ const Header = () => {
             isMobileMenuOpen ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <nav className="flex flex-col gap-4 py-6 border-t border-border">
+          <nav className="flex flex-col gap-4 py-6 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
             {navLinks.map((link) => {
               const isHashLink = link.href.includes('#') && !link.external;
               
