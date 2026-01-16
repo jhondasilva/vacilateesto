@@ -103,7 +103,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Media Kit Vacílate Esto <onboarding@resend.dev>",
-        to: ["jhon@hacemosloquenosgusta.com"],
+        to: ["jhon@hacemosloquenosgusta.com", "andreina.ascension@hacemosloquenosgusta.com"],
         subject: `Nueva solicitud de Media Kit - ${safeCompany}`,
         html: `
           <h1>Nueva solicitud de contacto - Media Kit</h1>
