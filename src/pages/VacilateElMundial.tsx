@@ -289,18 +289,18 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Stats Section */}
-          <section className="py-16 bg-card border-b border-border">
+          <section className="py-10 md:py-16 bg-card border-b border-border">
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-3">
-                      <stat.icon className="w-7 h-7 text-[#9000ff]" />
+                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-2 md:mb-3">
+                      <stat.icon className="w-5 md:w-7 h-5 md:h-7 text-[#9000ff]" />
                     </div>
-                    <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#9000ff] to-[#ee506f] bg-clip-text text-transparent">
+                    <div className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#9000ff] to-[#ee506f] bg-clip-text text-transparent">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                    <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -308,24 +308,24 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Audiovisuales Section */}
-          <section className="py-20 md:py-28 bg-gradient-to-b from-background to-card/50">
+          <section className="py-12 md:py-28 bg-gradient-to-b from-background to-card/50">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ee506f]/10 text-sm font-medium mb-6 border border-[#ee506f]/30">
-                  <Play className="w-4 h-4 text-[#ee506f]" />
+              <div className="text-center mb-8 md:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#ee506f]/30">
+                  <Play className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
                   Contenido Audiovisual
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">
                   Mira el Proyecto en Acción
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
                   Videos, reels y contenido exclusivo de Vacílate El Mundial 2026
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto items-start">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto items-start">
                 {/* Video 1 - Instagram Embed */}
-                <div className="bg-card rounded-3xl overflow-hidden border border-border p-4">
+                <div className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
                   <InstagramEmbed 
                     postUrl="https://www.instagram.com/reel/DTdyOqAiT-F/" 
                     className="w-full"
@@ -355,38 +355,38 @@ const VacilateElMundial = () => {
               </div>
 
               {/* CTA */}
-              <div className="text-center mt-10">
+              <div className="text-center mt-6 md:mt-10">
                 <a 
                   href="https://www.instagram.com/vacilateestopodcast" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-bold rounded-full hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-bold text-sm md:text-base rounded-full hover:opacity-90 transition-opacity"
                 >
-                  <Instagram className="w-5 h-5" />
+                  <Instagram className="w-4 md:w-5 h-4 md:h-5" />
                   Ver más en Instagram
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3.5 md:w-4 h-3.5 md:h-4" />
                 </a>
               </div>
             </div>
           </section>
 
           {/* What is VEM */}
-          <section className="py-20 md:py-28">
+          <section className="py-12 md:py-28">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#9000ff]/10 text-sm font-medium mb-6 border border-[#9000ff]/30">
-                  <Zap className="w-4 h-4 text-[#ee506f]" />
+              <div className="max-w-4xl mx-auto text-center mb-10 md:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#9000ff]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#9000ff]/30">
+                  <Zap className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
                   Fun Educaitment
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 px-2">
                   ¿Qué es Vacílate El Mundial?
                 </h2>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-base md:text-xl text-muted-foreground mb-4 md:mb-8 px-2">
                   No somos creadores buscando audiencia desde cero. Somos una 
                   <span className="text-[#9000ff] font-semibold"> comunidad masiva de seguidores </span> 
                   listos para amplificar tu marca desde el día uno.
                 </p>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-sm md:text-lg text-muted-foreground px-2">
                   Nuestro enfoque es el <strong>Fun Educaitment</strong>: mezclamos diversión, educación y entretenimiento. 
                   Traemos datos insólitos, anécdotas legendarias e historias de los mundiales, jugadores, países y equipos 
                   que te harán ver el fútbol con otros ojos.
@@ -394,53 +394,53 @@ const VacilateElMundial = () => {
               </div>
 
               {/* Platforms */}
-              <div className="flex flex-wrap justify-center gap-4 mb-16">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-16">
                 {platforms.map((platform, index) => (
                   <div 
                     key={index}
-                    className="flex items-center gap-3 px-5 py-3 rounded-full bg-card border border-border"
+                    className="flex items-center gap-2 md:gap-3 px-3 md:px-5 py-2 md:py-3 rounded-full bg-card border border-border"
                   >
-                    <div className={`w-8 h-8 rounded-full ${platform.color} flex items-center justify-center`}>
-                      <platform.icon className="w-4 h-4 text-white" />
+                    <div className={`w-6 md:w-8 h-6 md:h-8 rounded-full ${platform.color} flex items-center justify-center`}>
+                      <platform.icon className="w-3 md:w-4 h-3 md:h-4 text-white" />
                     </div>
-                    <span className="font-medium">{platform.name}</span>
+                    <span className="font-medium text-xs md:text-base">{platform.name}</span>
                   </div>
                 ))}
               </div>
 
               {/* The Roadtrip */}
-              <div className="mb-16">
-                <h3 className="text-2xl font-bold text-center mb-8">
+              <div className="mb-10 md:mb-16">
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">
                   La Gran Expedición 2026
                 </h3>
-                <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center mx-auto mb-3 shadow-lg">
-                      <Star className="w-6 h-6 text-blue-700" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
+                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
+                      <Star className="w-5 md:w-6 h-5 md:h-6 text-blue-700" />
                     </div>
-                    <h4 className="font-bold text-lg mb-2">Houston</h4>
-                    <div className="text-sm text-[#9000ff] font-medium mb-2">Base USA</div>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Houston</h4>
+                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Base USA</div>
+                    <p className="text-xs md:text-sm text-muted-foreground">
                       Centro de operaciones en Estados Unidos. Conexión directa con nuestra audiencia.
                     </p>
                   </div>
-                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-3 shadow-lg">
-                      <Trophy className="w-6 h-6 text-white" />
+                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
+                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
+                      <Trophy className="w-5 md:w-6 h-5 md:h-6 text-white" />
                     </div>
-                    <h4 className="font-bold text-lg mb-2">Costa Este</h4>
-                    <div className="text-sm text-[#ee506f] font-medium mb-2">Hub Fútbol</div>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Costa Este</h4>
+                    <div className="text-xs md:text-sm text-[#ee506f] font-medium mb-1 md:mb-2">Hub Fútbol</div>
+                    <p className="text-xs md:text-sm text-muted-foreground">
                       Nueva York, Miami. La pasión del fútbol europeo y latinoamericano se encuentra.
                     </p>
                   </div>
-                  <div className="bg-card rounded-3xl p-6 border border-border text-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center mx-auto mb-3 shadow-lg">
-                      <MapPin className="w-6 h-6 text-green-700" />
+                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
+                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
+                      <MapPin className="w-5 md:w-6 h-5 md:h-6 text-green-700" />
                     </div>
-                    <h4 className="font-bold text-lg mb-2">México</h4>
-                    <div className="text-sm text-[#9000ff] font-medium mb-2">Inauguración + Final</div>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">México</h4>
+                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Inauguración + Final</div>
+                    <p className="text-xs md:text-sm text-muted-foreground">
                       El epicentro del caos latino. Gastronomía, cultura y fútbol en estado puro.
                     </p>
                   </div>
@@ -448,23 +448,23 @@ const VacilateElMundial = () => {
               </div>
 
               {/* The Challenge */}
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div className="bg-card rounded-3xl p-8 border border-border">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-4">
-                    <Tv className="w-6 h-6 text-blue-500" />
+              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
+                <div className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border">
+                  <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-3 md:mb-4">
+                    <Tv className="w-5 md:w-6 h-5 md:h-6 text-blue-500" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">La Pantalla Grande</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">La Pantalla Grande</h3>
+                  <p className="text-sm md:text-base text-muted-foreground">
                     La audiencia verá los 90 minutos del partido oficial en la TV. 
                     El momento del gol, la emoción del juego, la transmisión tradicional.
                   </p>
                 </div>
-                <div className="bg-card rounded-3xl p-8 border border-border">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mb-4">
-                    <Smartphone className="w-6 h-6 text-[#9000ff]" />
+                <div className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border">
+                  <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mb-3 md:mb-4">
+                    <Smartphone className="w-5 md:w-6 h-5 md:h-6 text-[#9000ff]" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">La Pantalla Chica</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">La Pantalla Chica</h3>
+                  <p className="text-sm md:text-base text-muted-foreground">
                     La conversación real vivirá 24/7 en el móvil. Antes, durante y después del partido. 
                     TikTok, Instagram, memes, debates... el fútbol nunca para.
                   </p>
@@ -472,43 +472,43 @@ const VacilateElMundial = () => {
               </div>
               
               {/* Integration Box */}
-              <div className="mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-3xl p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
-                <h3 className="text-xl font-bold text-center mb-6">Integración Total del Ecosistema</h3>
-                <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              <div className="mt-10 md:mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-2xl md:rounded-3xl p-5 md:p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
+                <h3 className="text-lg md:text-xl font-bold text-center mb-4 md:mb-6">Integración Total del Ecosistema</h3>
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto">
                   <a 
                     href="https://laquiniela.vacilateesto.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="group bg-gradient-to-br from-[#00d9ff]/10 to-[#00a8cc]/10 rounded-2xl p-6 border border-[#00d9ff]/30 hover:border-[#00d9ff]/60 transition-all duration-300 hover:scale-105 text-center"
+                    className="group bg-gradient-to-br from-[#00d9ff]/10 to-[#00a8cc]/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-[#00d9ff]/30 hover:border-[#00d9ff]/60 transition-all duration-300 hover:scale-105 text-center"
                   >
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Gamepad2 className="w-7 h-7 text-white" />
+                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform">
+                      <Gamepad2 className="w-6 md:w-7 h-6 md:h-7 text-white" />
                     </div>
-                    <div className="font-bold text-lg mb-2 flex items-center justify-center gap-2">
+                    <div className="font-bold text-base md:text-lg mb-1 md:mb-2 flex items-center justify-center gap-2">
                       La Quiniela
-                      <ExternalLink className="w-4 h-4 text-[#00d9ff] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ExternalLink className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#00d9ff] opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3">
                       Predice resultados en tiempo real y compite con miles de fanáticos
                     </p>
                     <div className="inline-flex items-center gap-2 text-xs font-medium text-[#00d9ff]">
-                      <Trophy className="w-3.5 h-3.5" />
+                      <Trophy className="w-3 md:w-3.5 h-3 md:h-3.5" />
                       ¡Juega ahora gratis!
                     </div>
                   </a>
                   <Link 
                     to="/media-kit#contacto"
-                    className="bg-card/50 rounded-2xl p-6 border border-border text-center hover:border-[#9000ff]/50 transition-all duration-300 hover:scale-[1.02] block"
+                    className="bg-card/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-border text-center hover:border-[#9000ff]/50 transition-all duration-300 hover:scale-[1.02] block"
                   >
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-4">
-                      <Users className="w-7 h-7 text-[#9000ff]" />
+                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-3 md:mb-4">
+                      <Users className="w-6 md:w-7 h-6 md:h-7 text-[#9000ff]" />
                     </div>
-                    <div className="font-bold text-lg mb-2">B2B & Marcas</div>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <div className="font-bold text-base md:text-lg mb-1 md:mb-2">B2B & Marcas</div>
+                    <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3">
                       Activaciones con marcas conectando con nuestra audiencia global
                     </p>
                     <div className="inline-flex items-center gap-2 text-xs font-medium text-[#9000ff]">
-                      <Target className="w-3.5 h-3.5" />
+                      <Target className="w-3 md:w-3.5 h-3 md:h-3.5" />
                       Quiero Patrocinar
                     </div>
                   </Link>
@@ -518,32 +518,31 @@ const VacilateElMundial = () => {
           </section>
 
           {/* La Quiniela Section */}
-          <section className="py-20 md:py-28 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
+          <section className="py-12 md:py-28 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-10 left-10 w-64 h-64 bg-[#00d9ff] rounded-full blur-3xl" />
-              <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#9000ff] rounded-full blur-3xl" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl opacity-30" />
+              <div className="absolute top-10 left-5 md:left-10 w-32 md:w-64 h-32 md:h-64 bg-[#00d9ff] rounded-full blur-3xl" />
+              <div className="absolute bottom-10 right-5 md:right-10 w-40 md:w-80 h-40 md:h-80 bg-[#9000ff] rounded-full blur-3xl" />
             </div>
             
-            {/* Soccer ball pattern */}
-            <div className="absolute inset-0 opacity-5">
+            {/* Soccer ball pattern - hidden on mobile */}
+            <div className="absolute inset-0 opacity-5 hidden md:block">
               <div className="absolute top-20 right-20 text-8xl">⚽</div>
               <div className="absolute bottom-40 left-20 text-6xl">⚽</div>
               <div className="absolute top-1/3 right-1/4 text-5xl">⚽</div>
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00d9ff]/20 border border-[#00d9ff]/40 mb-6 backdrop-blur-sm">
-                  <Gamepad2 className="w-5 h-5 text-[#00d9ff]" />
-                  <span className="text-sm font-bold text-[#00d9ff] uppercase tracking-wider">Juego Interactivo</span>
+              <div className="text-center mb-8 md:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full bg-[#00d9ff]/20 border border-[#00d9ff]/40 mb-4 md:mb-6 backdrop-blur-sm">
+                  <Gamepad2 className="w-4 md:w-5 h-4 md:h-5 text-[#00d9ff]" />
+                  <span className="text-xs md:text-sm font-bold text-[#00d9ff] uppercase tracking-wider">Juego Interactivo</span>
                 </div>
                 
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                <h2 className="text-2xl md:text-5xl font-black text-white mb-3 md:mb-4 px-2">
                   La Quiniela del Mundial
                 </h2>
-                <p className="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+                <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-6 md:mb-8 px-2">
                   Predice los resultados, compite con la comunidad y demuestra que sabes más de fútbol que nadie. 
                   ¡Miles de fanáticos ya están jugando!
                 </p>
@@ -557,68 +556,68 @@ const VacilateElMundial = () => {
                 >
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-[#00d9ff] to-[#00a8cc] hover:opacity-90 text-black font-bold text-lg px-8 py-6 h-auto shadow-lg shadow-[#00d9ff]/30 hover:shadow-xl hover:shadow-[#00d9ff]/40 transition-all duration-300 hover:scale-105"
+                    className="bg-gradient-to-r from-[#00d9ff] to-[#00a8cc] hover:opacity-90 text-black font-bold text-sm md:text-lg px-5 md:px-8 py-3 md:py-6 h-auto shadow-lg shadow-[#00d9ff]/30 hover:shadow-xl hover:shadow-[#00d9ff]/40 transition-all duration-300 hover:scale-105"
                   >
-                    <Trophy className="w-6 h-6 mr-2" />
+                    <Trophy className="w-5 md:w-6 h-5 md:h-6 mr-2" />
                     Jugar La Quiniela
-                    <ExternalLink className="w-5 h-5 ml-2" />
+                    <ExternalLink className="w-4 md:w-5 h-4 md:h-5 ml-2" />
                   </Button>
                 </a>
               </div>
 
               {/* Stats de la Quiniela */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-16 max-w-4xl mx-auto">
                 {quinielaStats.map((stat, index) => (
                   <div 
                     key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:border-[#00d9ff]/50 transition-all duration-300 hover:scale-105"
+                    className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-white/20 hover:border-[#00d9ff]/50 transition-all duration-300 hover:scale-105"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d9ff]/30 to-[#00a8cc]/30 flex items-center justify-center mx-auto mb-3">
+                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-[#00d9ff]/30 to-[#00a8cc]/30 flex items-center justify-center mx-auto mb-2 md:mb-3">
                       {stat.value === "🔥" ? (
-                        <span className="text-2xl">{stat.value}</span>
+                        <span className="text-xl md:text-2xl">{stat.value}</span>
                       ) : (
-                        <stat.icon className="w-6 h-6 text-[#00d9ff]" />
+                        <stat.icon className="w-5 md:w-6 h-5 md:h-6 text-[#00d9ff]" />
                       )}
                     </div>
-                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
+                    <div className="text-xl md:text-3xl font-black text-white mb-0.5 md:mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-white/70">{stat.label}</div>
+                    <div className="text-xs md:text-sm text-white/70">{stat.label}</div>
                   </div>
                 ))}
               </div>
 
               {/* Top Predictions */}
-              <div className="mb-16">
-                <h3 className="text-2xl font-bold text-white text-center mb-8 flex items-center justify-center gap-3">
-                  <Flame className="w-6 h-6 text-orange-400" />
+              <div className="mb-10 md:mb-16">
+                <h3 className="text-lg md:text-2xl font-bold text-white text-center mb-6 md:mb-8 flex items-center justify-center gap-2 md:gap-3">
+                  <Flame className="w-5 md:w-6 h-5 md:h-6 text-orange-400" />
                   Predicciones Más Populares
-                  <Flame className="w-6 h-6 text-orange-400" />
+                  <Flame className="w-5 md:w-6 h-5 md:h-6 text-orange-400" />
                 </h3>
                 
-                <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
                   {topPredictions.map((pred, index) => (
                     <div 
                       key={index}
-                      className={`relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border ${pred.hot ? 'border-orange-400/50' : 'border-white/20'} hover:border-[#00d9ff]/50 transition-all duration-300`}
+                      className={`relative bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border ${pred.hot ? 'border-orange-400/50' : 'border-white/20'} hover:border-[#00d9ff]/50 transition-all duration-300`}
                     >
                       {pred.hot && (
-                        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                          <Flame className="w-3 h-3" />
+                        <div className="absolute -top-2 md:-top-3 -right-2 md:-right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] md:text-xs font-bold px-2 md:px-3 py-0.5 md:py-1 rounded-full flex items-center gap-1">
+                          <Flame className="w-2.5 md:w-3 h-2.5 md:h-3" />
                           HOT
                         </div>
                       )}
                       
-                      <div className="text-white/60 text-sm mb-2">{pred.match}</div>
-                      <div className="text-2xl font-bold text-white mb-4">{pred.prediction}</div>
+                      <div className="text-white/60 text-xs md:text-sm mb-1 md:mb-2">{pred.match}</div>
+                      <div className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">{pred.prediction}</div>
                       
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-2 text-green-400">
-                          <CheckCircle className="w-4 h-4" />
+                      <div className="flex items-center justify-between text-xs md:text-sm">
+                        <div className="flex items-center gap-1.5 md:gap-2 text-green-400">
+                          <CheckCircle className="w-3.5 md:w-4 h-3.5 md:h-4" />
                           <span>{pred.accuracy} precisión</span>
                         </div>
                         <div className="flex items-center gap-1 text-white/60">
-                          <Users className="w-4 h-4" />
+                          <Users className="w-3.5 md:w-4 h-3.5 md:h-4" />
                           <span>{pred.participants}</span>
                         </div>
                       </div>
@@ -628,37 +627,37 @@ const VacilateElMundial = () => {
               </div>
 
               {/* Features Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto mb-8 md:mb-12">
                 {quinielaFeatures.map((feature, index) => (
                   <div 
                     key={index}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/10 hover:border-white/30 transition-all duration-300"
+                    className="bg-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-white/10 hover:border-white/30 transition-all duration-300"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff]/30 to-[#ee506f]/30 flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="w-7 h-7 text-white" />
+                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff]/30 to-[#ee506f]/30 flex items-center justify-center mx-auto mb-2 md:mb-4">
+                      <feature.icon className="w-5 md:w-7 h-5 md:h-7 text-white" />
                     </div>
-                    <h4 className="font-bold text-white mb-2">{feature.title}</h4>
-                    <p className="text-sm text-white/60">{feature.description}</p>
+                    <h4 className="font-bold text-white text-xs md:text-base mb-1 md:mb-2">{feature.title}</h4>
+                    <p className="text-[10px] md:text-sm text-white/60 leading-tight">{feature.description}</p>
                   </div>
                 ))}
               </div>
 
               {/* Secondary CTA */}
               <div className="text-center">
-                <p className="text-white/70 mb-6">
+                <p className="text-white/70 text-sm md:text-base mb-4 md:mb-6 px-2">
                   ¿Crees que puedes predecir el futuro del fútbol? Únete y demuéstralo.
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
                   <a 
                     href="https://laquiniela.vacilateesto.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
                     <Button 
-                      size="lg" 
-                      className="bg-white text-[#1a1a2e] hover:bg-white/90 font-bold"
+                      size="default" 
+                      className="bg-white text-[#1a1a2e] hover:bg-white/90 font-bold w-full sm:w-auto text-sm md:text-base"
                     >
-                      <Gamepad2 className="w-5 h-5 mr-2" />
+                      <Gamepad2 className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                       Crear Mi Cuenta Gratis
                     </Button>
                   </a>
@@ -668,11 +667,11 @@ const VacilateElMundial = () => {
                     rel="noopener noreferrer"
                   >
                     <Button 
-                      size="lg" 
+                      size="default" 
                       variant="outline" 
-                      className="border-white/40 text-white hover:bg-white/10"
+                      className="border-white/40 text-white hover:bg-white/10 w-full sm:w-auto text-sm md:text-base"
                     >
-                      <Award className="w-5 h-5 mr-2" />
+                      <Award className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                       Ver Rankings
                     </Button>
                   </a>
@@ -682,36 +681,36 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Hosts */}
-          <section className="py-20 bg-muted/30">
+          <section className="py-12 md:py-20 bg-muted/30">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <div className="text-center mb-8 md:mb-16">
+                <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
                   Dos Voces, Un Universo
                 </h2>
-                <p className="text-xl text-muted-foreground">
+                <p className="text-base md:text-xl text-muted-foreground">
                   El equilibrio perfecto entre credibilidad y entretenimiento
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
                 {hosts.map((host, index) => (
                   <article 
                     key={index}
-                    className="bg-card rounded-3xl p-8 border border-border text-center"
+                    className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border text-center"
                   >
                     <img 
                       src={host.image} 
                       alt={host.name}
-                      className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-[#9000ff]/30"
+                      className="w-24 md:w-32 h-24 md:h-32 rounded-full mx-auto mb-4 md:mb-6 object-cover border-4 border-[#9000ff]/30"
                     />
-                    <h3 className="text-2xl font-bold mb-1">{host.name}</h3>
-                    <div className="text-[#ee506f] font-semibold mb-4">{host.role}</div>
-                    <p className="text-muted-foreground mb-4">{host.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-1">{host.name}</h3>
+                    <div className="text-[#ee506f] font-semibold text-sm md:text-base mb-3 md:mb-4">{host.role}</div>
+                    <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">{host.description}</p>
                     <a 
                       href={`https://instagram.com/${host.instagram.replace('@', '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[#9000ff] hover:underline"
+                      className="inline-flex items-center gap-2 text-[#9000ff] hover:underline text-sm md:text-base"
                     >
                       <Instagram className="w-4 h-4" />
                       {host.instagram}
@@ -720,7 +719,7 @@ const VacilateElMundial = () => {
                 ))}
               </div>
               
-              <p className="text-center text-muted-foreground max-w-2xl mx-auto mt-8">
+              <p className="text-center text-sm md:text-base text-muted-foreground max-w-2xl mx-auto mt-6 md:mt-8 px-2">
                 Juntos crean el equilibrio perfecto entre credibilidad y entretenimiento, 
                 alcanzando desde el hincha más apasionado hasta el espectador casual que se suma a la fiesta del fútbol.
               </p>
@@ -728,29 +727,29 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Content Formats */}
-          <section className="py-20 md:py-28">
+          <section className="py-12 md:py-28">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <div className="text-center mb-8 md:mb-16">
+                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">
                   Estrategia de Contenido
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
                   Acompañamos al fanático en todo el viaje del Mundial, integrando contenido 
                   de forma orgánica en la cultura del viaje, la comida y la celebración.
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
                 {contentFormats.map((format, index) => (
                   <article 
                     key={index}
-                    className="group bg-card rounded-3xl p-8 border border-border hover:border-[#9000ff]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#9000ff]/10"
+                    className="group bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border hover:border-[#9000ff]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#9000ff]/10"
                   >
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${format.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                      <format.icon className="w-8 h-8 text-white" />
+                    <div className={`w-12 md:w-16 h-12 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${format.gradient} flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform`}>
+                      <format.icon className="w-6 md:w-8 h-6 md:h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{format.title}</h3>
-                    <p className="text-muted-foreground">{format.description}</p>
+                    <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">{format.title}</h3>
+                    <p className="text-sm md:text-base text-muted-foreground">{format.description}</p>
                   </article>
                 ))}
               </div>
@@ -758,25 +757,25 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Timeline */}
-          <section className="py-20 bg-gradient-to-br from-[#9000ff]/5 to-[#ee506f]/5">
+          <section className="py-12 md:py-20 bg-gradient-to-br from-[#9000ff]/5 to-[#ee506f]/5">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <div className="text-center mb-8 md:mb-16">
+                <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
                   Calendario 2026
                 </h2>
-                <p className="text-xl text-muted-foreground">
+                <p className="text-base md:text-xl text-muted-foreground">
                   6 meses de contenido continuo
                 </p>
               </div>
               
               <div className="max-w-3xl mx-auto">
                 <div className="relative">
-                  <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#9000ff] to-[#ee506f]" />
+                  <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#9000ff] to-[#ee506f]" />
                   
                   {timeline.map((item, index) => (
                     <div 
                       key={index}
-                      className={`relative flex items-center gap-6 mb-8 ${
+                      className={`relative flex items-center gap-4 md:gap-6 mb-6 md:mb-8 ${
                         index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                       }`}
                     >
@@ -789,17 +788,17 @@ const VacilateElMundial = () => {
                         )}
                       </div>
                       
-                      <div className={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full -translate-x-1/2 ${
+                      <div className={`absolute left-3 md:left-1/2 w-3 md:w-4 h-3 md:h-4 rounded-full -translate-x-1/2 ${
                         item.status === 'highlight' 
-                          ? 'bg-[#ee506f] ring-4 ring-[#ee506f]/30' 
+                          ? 'bg-[#ee506f] ring-2 md:ring-4 ring-[#ee506f]/30' 
                           : 'bg-[#9000ff]'
                       }`} />
                       
-                      <div className={`flex-1 ${index % 2 === 1 ? 'md:text-right' : 'md:text-left'} ml-10 md:ml-0`}>
+                      <div className={`flex-1 ${index % 2 === 1 ? 'md:text-right' : 'md:text-left'} ml-8 md:ml-0`}>
                         {(index % 2 === 1 || true) && (
-                          <div className={`p-4 rounded-2xl md:hidden ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
-                            <div className="font-bold text-[#9000ff]">{item.month}</div>
-                            <div className="text-muted-foreground">{item.event}</div>
+                          <div className={`p-3 md:p-4 rounded-xl md:rounded-2xl md:hidden ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
+                            <div className="font-bold text-sm md:text-base text-[#9000ff]">{item.month}</div>
+                            <div className="text-xs md:text-base text-muted-foreground">{item.event}</div>
                           </div>
                         )}
                         <div className={`hidden md:block p-4 rounded-2xl ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
@@ -819,39 +818,39 @@ const VacilateElMundial = () => {
           </section>
 
           {/* Sponsor Benefits */}
-          <section className="py-20 md:py-28">
+          <section className="py-12 md:py-28">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ee506f]/10 text-sm font-medium mb-6 border border-[#ee506f]/30">
-                  <Trophy className="w-4 h-4 text-[#ee506f]" />
+              <div className="text-center mb-8 md:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#ee506f]/30">
+                  <Trophy className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
                   Oportunidades de Patrocinio
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 px-2">
                   ¿Por qué patrocinar Vacílate El Mundial?
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
                   No interrumpimos la experiencia, la potenciamos. Tu marca integrada de forma 
                   natural en el contenido que la audiencia ama.
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-8 md:mb-12">
                 {sponsorBenefits.map((benefit, index) => (
-                  <div key={index} className="text-center p-6">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-4">
-                      <benefit.icon className="w-7 h-7 text-white" />
+                  <div key={index} className="text-center p-3 md:p-6">
+                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-2 md:mb-4">
+                      <benefit.icon className="w-5 md:w-7 h-5 md:h-7 text-white" />
                     </div>
-                    <h3 className="font-bold mb-2">{benefit.title}</h3>
-                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    <h3 className="font-bold text-sm md:text-base mb-1 md:mb-2">{benefit.title}</h3>
+                    <p className="text-xs md:text-sm text-muted-foreground">{benefit.description}</p>
                   </div>
                 ))}
               </div>
               
               <div className="text-center">
                 <Link to="/media-kit#contacto">
-                  <Button size="lg" className="bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90">
+                  <Button size="default" className="bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90 text-sm md:text-base">
                     Quiero Patrocinar
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="w-4 md:w-5 h-4 md:h-5 ml-2" />
                   </Button>
                 </Link>
               </div>
@@ -859,25 +858,25 @@ const VacilateElMundial = () => {
           </section>
 
           {/* CTA */}
-          <section className="py-20 bg-gradient-to-r from-[#9000ff] to-[#ee506f]">
+          <section className="py-12 md:py-20 bg-gradient-to-r from-[#9000ff] to-[#ee506f]">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 px-2">
                 ¿Listo para el Mundial 2026?
               </h2>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+              <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto mb-6 md:mb-8 px-2">
                 Únete a nuestra comunidad y vive el Mundial desde ángulos que nunca imaginaste. 
                 La magia del fútbol está en el feed.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
                 <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-white text-[#9000ff] hover:bg-white/90">
-                    <Instagram className="w-5 h-5 mr-2" />
+                  <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
+                    <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                     Seguir en Instagram
                   </Button>
                 </a>
                 <a href="https://www.tiktok.com/@vacilateesto" target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20">
-                    <Play className="w-5 h-5 mr-2" />
+                  <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
+                    <Play className="w-4 md:w-5 h-4 md:h-5 mr-2" />
                     Seguir en TikTok
                   </Button>
                 </a>
