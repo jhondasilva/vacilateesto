@@ -12,8 +12,15 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import InstallApp from "./pages/InstallApp";
 import NotFound from "./pages/NotFound";
+import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
 const queryClient = new QueryClient();
+
+// Component that handles domain-based redirections
+const DomainRedirectHandler = ({ children }: { children: React.ReactNode }) => {
+  useDomainRedirect();
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -21,18 +28,20 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
-          <Route path="/podcast-eterno" element={<PodcastEterno />} />
-          <Route path="/vacilate-el-mundial" element={<VacilateElMundial />} />
-          <Route path="/media-kit" element={<MediaKit />} />
-          <Route path="/privacidad" element={<PrivacyPolicy />} />
-          <Route path="/terminos" element={<TermsOfUse />} />
-          <Route path="/instalar" element={<InstallApp />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <DomainRedirectHandler>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
+            <Route path="/podcast-eterno" element={<PodcastEterno />} />
+            <Route path="/vacilate-el-mundial" element={<VacilateElMundial />} />
+            <Route path="/media-kit" element={<MediaKit />} />
+            <Route path="/privacidad" element={<PrivacyPolicy />} />
+            <Route path="/terminos" element={<TermsOfUse />} />
+            <Route path="/instalar" element={<InstallApp />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </DomainRedirectHandler>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
