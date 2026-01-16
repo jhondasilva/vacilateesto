@@ -275,9 +275,10 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
 
   if (logoBase64) {
-    const logoWidth = 100;
-    const logoHeight = 40;
-    doc.addImage(logoBase64, "PNG", (pageWidth - logoWidth) / 2, 55, logoWidth, logoHeight);
+    // Logo with proper aspect ratio (taller, not landscape)
+    const logoWidth = 70;
+    const logoHeight = 70;
+    doc.addImage(logoBase64, "PNG", (pageWidth - logoWidth) / 2, 50, logoWidth, logoHeight);
   } else {
     doc.setTextColor(...PRIMARY_COLOR);
     doc.setFontSize(40);
@@ -287,17 +288,17 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(18);
-  doc.text("El Ecosistema de Contenido", pageWidth / 2, 110, { align: "center" });
+  doc.text("El Ecosistema de Contenido", pageWidth / 2, 130, { align: "center" });
   doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
-  doc.text("Fun Educaitment", pageWidth / 2, 125, { align: "center" });
+  doc.text("Fun Educaitment", pageWidth / 2, 145, { align: "center" });
 
   doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
   const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores a través de contenido auténtico y entretenido.";
   const descLines = doc.splitTextToSize(desc, pageWidth - 60);
-  doc.text(descLines, pageWidth / 2, 145, { align: "center" });
+  doc.text(descLines, pageWidth / 2, 160, { align: "center" });
 
   const stats = [
     { value: "3.5M+", label: "Seguidores" },
@@ -891,16 +892,17 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text("Contáctanos para crear una estrategia personalizada", pageWidth / 2, 125, { align: "center" });
 
   doc.setFillColor(40, 40, 40);
-  doc.roundedRect(pageWidth / 2 - 70, 145, 140, 50, 5, 5, "F");
+  doc.roundedRect(pageWidth / 2 - 85, 145, 170, 65, 5, 5, "F");
   
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
-  doc.text("Email:", pageWidth / 2, 162, { align: "center" });
+  doc.text("Emails de contacto:", pageWidth / 2, 162, { align: "center" });
   
   doc.setTextColor(...PRIMARY_COLOR);
-  doc.setFontSize(12);
-  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 177, { align: "center" });
+  doc.setFontSize(11);
+  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 178, { align: "center" });
+  doc.text("andreina.ascension@hacemosloquenosgusta.com", pageWidth / 2, 192, { align: "center" });
 
   doc.setTextColor(150, 150, 150);
   doc.setFontSize(10);
