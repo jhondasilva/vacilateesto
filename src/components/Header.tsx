@@ -99,11 +99,11 @@ const Header = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`xl:hidden overflow-hidden transition-all duration-500 ${
-            isMobileMenuOpen ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0"
+          className={`xl:hidden transition-all duration-500 ${
+            isMobileMenuOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
-          <nav className="flex flex-col gap-4 py-6 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
+          <nav className="flex flex-col gap-3 py-4 px-2 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
             {navLinks.map((link) => {
               const isHashLink = link.href.includes('#') && !link.external;
               
