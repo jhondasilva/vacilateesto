@@ -48,37 +48,37 @@ const WorldCupCountdown = () => {
   return (
     <div className="relative">
       {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff]/20 via-[#9000ff]/20 to-[#ee506f]/20 rounded-2xl blur-xl" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff]/20 via-[#9000ff]/20 to-[#ee506f]/20 rounded-xl blur-lg" />
       
-      <div className="relative bg-black/30 backdrop-blur-md rounded-2xl border border-white/20 p-6 max-w-lg mx-auto">
+      <div className="relative bg-black/30 backdrop-blur-md rounded-xl border border-white/20 px-5 py-4 max-w-md mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Flame className="w-5 h-5 text-[#ee506f] animate-pulse" />
-          <span className="text-sm font-bold text-white/90 uppercase tracking-wider">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Flame className="w-4 h-4 text-[#ee506f] animate-pulse" />
+          <span className="text-xs font-bold text-white/90 uppercase tracking-wider">
             Cuenta Regresiva
           </span>
-          <Flame className="w-5 h-5 text-[#ee506f] animate-pulse" />
+          <Flame className="w-4 h-4 text-[#ee506f] animate-pulse" />
         </div>
 
         {/* Countdown Grid */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2">
           {timeUnits.map((unit, index) => (
             <div key={index} className="text-center">
-              <div className="relative group">
+              <div className="relative">
                 {/* Number box */}
-                <div className="bg-gradient-to-br from-white/20 to-white/5 rounded-xl p-3 border border-white/10 group-hover:border-[#00d9ff]/50 transition-colors">
-                  <span className="text-3xl md:text-4xl font-bold text-white tabular-nums">
+                <div className="bg-gradient-to-br from-white/20 to-white/5 rounded-lg px-2 py-1.5 border border-white/10">
+                  <span className="text-xl md:text-2xl font-bold text-white tabular-nums">
                     {String(unit.value).padStart(2, "0")}
                   </span>
                 </div>
                 {/* Decorative dot */}
                 {index < 3 && (
-                  <span className="absolute -right-2 top-1/2 -translate-y-1/2 text-white/50 text-2xl hidden md:block">
+                  <span className="absolute -right-1.5 top-1/2 -translate-y-1/2 text-white/50 text-lg hidden md:block">
                     :
                   </span>
                 )}
               </div>
-              <span className="text-xs text-white/70 mt-2 block font-medium uppercase tracking-wide">
+              <span className="text-[10px] text-white/70 mt-1 block font-medium uppercase tracking-wide">
                 {unit.label}
               </span>
             </div>
@@ -86,9 +86,9 @@ const WorldCupCountdown = () => {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-center gap-2 mt-4 text-white/60">
-          <Calendar className="w-4 h-4" />
-          <span className="text-xs font-medium">11 de Junio, 2026 • Partido Inaugural</span>
+        <div className="flex items-center justify-center gap-1.5 mt-3 text-white/60">
+          <Calendar className="w-3 h-3" />
+          <span className="text-[10px] font-medium">11 Jun 2026 • Partido Inaugural</span>
         </div>
       </div>
     </div>
