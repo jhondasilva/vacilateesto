@@ -270,7 +270,7 @@ const VacilateElMundial = () => {
                 </a>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link to="/media-kit">
+                  <Link to="/media-kit#contacto">
                     <Button size="lg" className="bg-white text-[#9000ff] hover:bg-white/90">
                       <Trophy className="w-5 h-5 mr-2" />
                       Quiero Patrocinar
@@ -516,7 +516,10 @@ const VacilateElMundial = () => {
                       ¡Juega ahora gratis!
                     </div>
                   </a>
-                  <div className="bg-card/50 rounded-2xl p-6 border border-border text-center">
+                  <Link 
+                    to="/media-kit#contacto"
+                    className="bg-card/50 rounded-2xl p-6 border border-border text-center hover:border-[#9000ff]/50 transition-all duration-300 hover:scale-[1.02] block"
+                  >
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-4">
                       <Users className="w-7 h-7 text-[#9000ff]" />
                     </div>
@@ -524,11 +527,11 @@ const VacilateElMundial = () => {
                     <p className="text-sm text-muted-foreground mb-3">
                       Activaciones con marcas conectando con la diáspora venezolana
                     </p>
-                    <div className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                    <div className="inline-flex items-center gap-2 text-xs font-medium text-[#9000ff]">
                       <Target className="w-3.5 h-3.5" />
-                      Oportunidades de patrocinio
+                      Quiero Patrocinar
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -865,9 +868,9 @@ const VacilateElMundial = () => {
               </div>
               
               <div className="text-center">
-                <Link to="/media-kit">
+                <Link to="/media-kit#contacto">
                   <Button size="lg" className="bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90">
-                    Ver Media Kit Completo
+                    Quiero Patrocinar
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
