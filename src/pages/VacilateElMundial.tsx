@@ -377,16 +377,40 @@ const VacilateElMundial = () => {
               {/* Integration Box */}
               <div className="mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-3xl p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
                 <h3 className="text-xl font-bold text-center mb-6">Integración Total del Ecosistema</h3>
-                <div className="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
-                  <div>
-                    <div className="text-2xl mb-2">📱</div>
-                    <div className="font-semibold mb-1">La Quiniela</div>
-                    <p className="text-xs text-muted-foreground">Data desde el estadio que la TV no muestra</p>
-                  </div>
-                  <div>
-                    <div className="text-2xl mb-2">🤝</div>
-                    <div className="font-semibold mb-1">B2B</div>
-                    <p className="text-xs text-muted-foreground">Activaciones con marcas conectando con la diáspora</p>
+                <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                  <a 
+                    href="https://laquiniela.vacilateesto.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group bg-gradient-to-br from-[#00d9ff]/10 to-[#00a8cc]/10 rounded-2xl p-6 border border-[#00d9ff]/30 hover:border-[#00d9ff]/60 transition-all duration-300 hover:scale-105 text-center"
+                  >
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Gamepad2 className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="font-bold text-lg mb-2 flex items-center justify-center gap-2">
+                      La Quiniela
+                      <ExternalLink className="w-4 h-4 text-[#00d9ff] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Predice resultados en tiempo real y compite con miles de fanáticos
+                    </p>
+                    <div className="inline-flex items-center gap-2 text-xs font-medium text-[#00d9ff]">
+                      <Trophy className="w-3.5 h-3.5" />
+                      ¡Juega ahora gratis!
+                    </div>
+                  </a>
+                  <div className="bg-card/50 rounded-2xl p-6 border border-border text-center">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-4">
+                      <Users className="w-7 h-7 text-[#9000ff]" />
+                    </div>
+                    <div className="font-bold text-lg mb-2">B2B & Marcas</div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Activaciones con marcas conectando con la diáspora venezolana
+                    </p>
+                    <div className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                      <Target className="w-3.5 h-3.5" />
+                      Oportunidades de patrocinio
+                    </div>
                   </div>
                 </div>
               </div>
