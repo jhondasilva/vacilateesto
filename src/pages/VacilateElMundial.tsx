@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WorldCupCountdown from "@/components/WorldCupCountdown";
+import InstagramEmbed from "@/components/InstagramEmbed";
 import { Button } from "@/components/ui/button";
 import {
   Globe,
@@ -322,35 +323,14 @@ const VacilateElMundial = () => {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {/* Video 1 */}
-                <a 
-                  href="https://www.instagram.com/p/DTdyOqAiT-F/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group relative bg-card rounded-3xl overflow-hidden border border-border hover:border-[#ee506f]/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#ee506f]/10"
-                >
-                  <div className="aspect-[9/16] bg-gradient-to-br from-[#9000ff]/20 via-[#ee506f]/20 to-[#00d9ff]/20 flex items-center justify-center relative">
-                    {/* Play overlay */}
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                    <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8 text-[#ee506f] ml-1" fill="currentColor" />
-                    </div>
-                    
-                    {/* Instagram badge */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white text-xs font-bold">
-                      <Instagram className="w-3.5 h-3.5" />
-                      Reel
-                    </div>
-                    
-                    {/* Decorative elements */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <p className="text-white font-bold text-lg mb-1">Vacílate El Mundial</p>
-                      <p className="text-white/70 text-sm">Contenido exclusivo del proyecto</p>
-                    </div>
-                  </div>
-                </a>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto items-start">
+                {/* Video 1 - Instagram Embed */}
+                <div className="bg-card rounded-3xl overflow-hidden border border-border p-4">
+                  <InstagramEmbed 
+                    postUrl="https://www.instagram.com/reel/DTdyOqAiT-F/" 
+                    className="w-full"
+                  />
+                </div>
 
                 {/* Placeholder for more videos */}
                 <div className="hidden md:flex aspect-[9/16] bg-card rounded-3xl border-2 border-dashed border-border items-center justify-center">
