@@ -9,7 +9,7 @@ import { LogOut, Loader2, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
-import logoFifa from "@/assets/logo-mundial-2026.webp";
+import logoFifa from "@/assets/logo-mundial-2026.png";
 
 const Gira = () => {
   const navigate = useNavigate();
