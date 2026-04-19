@@ -75,23 +75,34 @@ export const TripCalendar = ({ cities, activities }: Props) => {
     return cities.map(c => fromISO(c.start_date)).sort((a, b) => a.getTime() - b.getTime())[0];
   }, [cities]);
 
-  const [weekStart, setWeekStart] = useState<Date>(() => {
-    // align to Monday
-    const d = new Date();
-    return d;
-  });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const [weekStart, setWeekStart] = useState<Date>(() => new Date());
 
   // initialize once to earliest week monday
   useMemo(() => {
     const d = new Date(earliest);
-    const dow = d.getDay(); // 0..6 sun..sat
+    const dow = d.getDay();
     const offset = dow === 0 ? -6 : 1 - dow;
     d.setDate(d.getDate() + offset);
     setWeekStart(d);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [earliest.getTime()]);
 
-  const days = useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)), [weekStart]);
+  // On mobile align to single day = earliest
+  useEffect(() => {
+    if (isMobile) setWeekStart(new Date(earliest));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile]);
+
+  const numDays = isMobile ? 1 : 7;
+  const days = useMemo(() => Array.from({ length: numDays }, (_, i) => addDays(weekStart, i)), [weekStart, numDays]);
 
   // Build events per day
   const cityById = useMemo(() => {
