@@ -23,6 +23,8 @@ export type City = {
   nights: number | null;
   hotel_cost_usd: number | null;
   hotel_price_range: string | null;
+  booking_url: string | null;
+  nightly_rate_usd: number | null;
 };
 
 export type Activity = {
@@ -256,10 +258,18 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                     {STATUS_LABELS[city.accommodation_status]}
                   </span>
                 </div>
-                {city.hotel_price_range && (
-                  <p className="text-muted-foreground text-xs">{city.hotel_price_range}{city.nights ? ` · ${city.nights} noches` : ""}</p>
+                {(city.nightly_rate_usd || city.hotel_price_range) && (
+                  <p className="text-muted-foreground text-xs">
+                    {city.nightly_rate_usd ? `~$${Math.round(city.nightly_rate_usd)}/noche · 2 pax` : city.hotel_price_range}
+                    {city.nights ? ` · ${city.nights} noches` : ""}
+                  </p>
                 )}
                 {city.accommodation_address && <p className="text-muted-foreground text-xs">{city.accommodation_address}</p>}
+                {city.booking_url && (
+                  <a href={city.booking_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline mt-1">
+                    Ver en Booking →
+                  </a>
+                )}
                 {city.accommodation_notes && <p className="text-muted-foreground text-xs italic mt-1">{city.accommodation_notes}</p>}
               </div>
             ) : (
