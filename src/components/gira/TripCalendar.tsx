@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { City, Activity } from "./CityCard";
