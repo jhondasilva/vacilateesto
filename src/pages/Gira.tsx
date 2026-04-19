@@ -166,6 +166,10 @@ const Gira = () => {
                     onRefresh={loadData}
                   />
                 ))}
+                <AddCityForm
+                  nextPosition={(cities[cities.length - 1]?.position ?? 0) + 1}
+                  onCreated={loadData}
+                />
               </div>
             )}
           </TabsContent>
