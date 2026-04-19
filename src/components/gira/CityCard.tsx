@@ -221,7 +221,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
   );
 
   return (
-    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
+    <div id={`city-${city.id}`} className="scroll-mt-32 bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
       <div className="w-full p-5 flex items-center justify-between text-left group gap-3">
         <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-4 flex-1 min-w-0 text-left">
           <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0">
