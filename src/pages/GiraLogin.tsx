@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { lovable } from "@/integrations/lovable";
 import { useGiraAuth } from "@/hooks/useGiraAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Plane } from "lucide-react";
+import { Lock, Loader2, Plane } from "lucide-react";
 import { toast } from "sonner";
 
 const GiraLogin = () => {
@@ -20,7 +20,7 @@ const GiraLogin = () => {
 
   const handleGoogle = async () => {
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/gira",
+      redirect_uri: window.location.origin + "/gira/login",
     });
     if (result.error) {
       toast.error("No se pudo iniciar sesión");
@@ -44,7 +44,12 @@ const GiraLogin = () => {
         </div>
 
         <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8">
-          {session && isAllowed === false ? (
+          {loading ? (
+            <div className="space-y-4 text-center">
+              <Loader2 className="w-10 h-10 mx-auto text-primary animate-spin" />
+              <p className="text-white/60 text-sm">Verificando acceso…</p>
+            </div>
+          ) : session && isAllowed === false ? (
             <div className="space-y-4 text-center">
               <Lock className="w-10 h-10 mx-auto text-red-400" />
               <h2 className="text-xl font-bold">Acceso restringido</h2>
