@@ -224,24 +224,24 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
 
   return (
     <div id={`city-${city.id}`} className="scroll-mt-32 bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
-      <div className="w-full p-5 flex items-center justify-between text-left group gap-3">
-        <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-4 flex-1 min-w-0 text-left">
-          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0">
+      <div className="w-full p-3 sm:p-5 flex items-center justify-between text-left group gap-2 sm:gap-3">
+        <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0 text-left">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0 text-sm sm:text-base">
             {city.position}
           </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-xl font-bold text-foreground">{city.city}</h3>
-              {city.country && <span className="text-muted-foreground text-sm">• {city.country}</span>}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <h3 className="text-base sm:text-xl font-bold text-foreground leading-tight">{city.city}</h3>
+              {city.country && <span className="text-muted-foreground text-[11px] sm:text-sm">• {city.country}</span>}
             </div>
-            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1 flex-wrap">
+            <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-foreground mt-1 flex-wrap">
               <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{formatRange(city.start_date, city.end_date)}</span>
               {city.nights ? <span className="flex items-center gap-1"><Moon className="w-3 h-3" />{city.nights} {city.nights === 1 ? "noche" : "noches"}</span> : null}
               {cityCostTotal > 0 && <span className="text-primary font-semibold">{fmtUsd(cityCostTotal)}</span>}
             </div>
           </div>
         </button>
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           <button
             onClick={deleteCity}
             title="Eliminar ciudad"
@@ -256,7 +256,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
       </div>
 
       {expanded && (
-        <div className="px-5 pb-5 space-y-5 border-t border-border pt-5">
+        <div className="px-3 sm:px-5 pb-4 sm:pb-5 space-y-4 sm:space-y-5 border-t border-border pt-4 sm:pt-5">
           {/* Alojamiento */}
           <div>
             <div className="flex items-center justify-between mb-2">

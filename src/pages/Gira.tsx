@@ -220,9 +220,9 @@ const Gira = () => {
 };
 
 const Stat = ({ label, value, valueText, highlight }: { label: string; value?: number; valueText?: string; highlight?: boolean }) => (
-  <div className={`bg-card border rounded-xl p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
-    <p className={`text-2xl font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
-    <p className="text-xs text-muted-foreground mt-1">{label}</p>
+  <div className={`bg-card border rounded-xl p-3 sm:p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <p className={`text-lg sm:text-2xl font-bold leading-tight ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
+    <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1">{label}</p>
   </div>
 );
 
