@@ -14,6 +14,7 @@ type Sponsor = {
   amount_usd_bcv: number;
   status: string;
   notes: string | null;
+  commission_pct: number;
 };
 
 type Settings = { id: string; bcv_to_usd_rate: number };
@@ -36,7 +37,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const [editingRate, setEditingRate] = useState(false);
   const [rateDraft, setRateDraft] = useState("0.60");
   const [showForm, setShowForm] = useState(false);
-  const [draft, setDraft] = useState({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "" });
+  const [draft, setDraft] = useState({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "", commission_pct: "10" });
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const load = async () => {
@@ -66,7 +67,10 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   // ===== Ingresos (USD BCV → USD reales con tasa) =====
   const rate = settings?.bcv_to_usd_rate ?? 0.60;
   const totalSponsoredBcv = sponsors.reduce((s, x) => s + Number(x.amount_usd_bcv || 0), 0);
-  const totalSponsoredReal = totalSponsoredBcv * rate;
+  const totalCommissionBcv = sponsors.reduce((s, x) => s + Number(x.amount_usd_bcv || 0) * (Number(x.commission_pct ?? 10) / 100), 0);
+  const totalNetBcv = totalSponsoredBcv - totalCommissionBcv;
+  const totalSponsoredReal = totalNetBcv * rate;
+  const totalCommissionReal = totalCommissionBcv * rate;
   const balance = totalSponsoredReal - totalUsd;
 
   const saveRate = async () => {
@@ -88,20 +92,21 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
       amount_usd_bcv: parseFloat(draft.amount_usd_bcv) || 0,
       status: draft.status,
       notes: draft.notes || null,
+      commission_pct: parseFloat(draft.commission_pct) || 10,
     };
     const { error } = editingId
       ? await supabase.from("trip_sponsors").update(payload).eq("id", editingId)
       : await supabase.from("trip_sponsors").insert(payload);
     if (error) return toast.error("Error");
     toast.success(editingId ? "Actualizado" : "Patrocinador añadido");
-    setDraft({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "" });
+    setDraft({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "", commission_pct: "10" });
     setShowForm(false);
     setEditingId(null);
     void load();
   };
 
   const editSponsor = (s: Sponsor) => {
-    setDraft({ name: s.name, category: s.category ?? "", amount_usd_bcv: String(s.amount_usd_bcv), status: s.status, notes: s.notes ?? "" });
+    setDraft({ name: s.name, category: s.category ?? "", amount_usd_bcv: String(s.amount_usd_bcv), status: s.status, notes: s.notes ?? "", commission_pct: String(s.commission_pct ?? 10) });
     setEditingId(s.id);
     setShowForm(true);
   };
@@ -126,7 +131,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
       {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         <KPI icon={TrendingDown} label="Gastos totales (USD real)" value={fmt(totalUsd)} tone="destructive" />
-        <KPI icon={TrendingUp} label="Patrocinios (USD real)" value={fmt(totalSponsoredReal)} tone="success" sub={`${fmt(totalSponsoredBcv)} BCV × ${rate}`} />
+        <KPI icon={TrendingUp} label="Patrocinios netos (USD real)" value={fmt(totalSponsoredReal)} tone="success" sub={`Bruto ${fmt(totalSponsoredBcv)} BCV − comisión ${fmt(totalCommissionBcv)}`} />
         <KPI icon={Wallet} label="Balance" value={fmt(balance)} tone={balance >= 0 ? "success" : "destructive"} />
         <KPI icon={TrendingUp} label="Cobertura" value={`${totalUsd > 0 ? Math.round((totalSponsoredReal / totalUsd) * 100) : 0}%`} tone="primary" />
       </div>
@@ -195,7 +200,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
             <h3 className="font-bold text-foreground">Patrocinios e ingresos (USD BCV)</h3>
             <p className="text-xs text-muted-foreground mt-1">Lo que levantó el proyecto. Convertido a USD real con la tasa configurada.</p>
           </div>
-          <Button size="sm" onClick={() => { setEditingId(null); setDraft({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "" }); setShowForm(!showForm); }}>
+          <Button size="sm" onClick={() => { setEditingId(null); setDraft({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "", commission_pct: "10" }); setShowForm(!showForm); }}>
             <Plus className="w-3 h-3 mr-1" /> Añadir
           </Button>
         </div>
@@ -210,6 +215,11 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 <option value="proposal">Propuesta</option>
                 <option value="committed">Comprometido</option>
                 <option value="paid">Pagado</option>
+              </select>
+              <select value={draft.commission_pct} onChange={e => setDraft({ ...draft, commission_pct: e.target.value })} className="bg-background border border-input rounded-md px-3 py-2 text-sm">
+                <option value="8">Comisión 8%</option>
+                <option value="10">Comisión 10%</option>
+                <option value="0">Sin comisión</option>
               </select>
             </div>
             <Textarea placeholder="Notas (contacto, condiciones, contraprestaciones)" value={draft.notes} onChange={e => setDraft({ ...draft, notes: e.target.value })} />
@@ -228,16 +238,22 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 <th className="text-left px-5 py-3 font-semibold hidden sm:table-cell">Categoría</th>
                 <th className="text-left px-5 py-3 font-semibold">Estado</th>
                 <th className="text-right px-5 py-3 font-semibold">USD BCV</th>
+                <th className="text-right px-5 py-3 font-semibold">Comis.</th>
+                <th className="text-right px-5 py-3 font-semibold">Neto BCV</th>
                 <th className="text-right px-5 py-3 font-semibold">USD real</th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
             <tbody>
               {sponsors.length === 0 && (
-                <tr><td colSpan={6} className="px-5 py-8 text-center text-muted-foreground italic">Aún no hay patrocinadores. Añade el primero.</td></tr>
+                <tr><td colSpan={8} className="px-5 py-8 text-center text-muted-foreground italic">Aún no hay patrocinadores. Añade el primero.</td></tr>
               )}
               {sponsors.map((s) => {
                 const st = SPONSOR_STATUS[s.status] ?? SPONSOR_STATUS.committed;
+                const pct = Number(s.commission_pct ?? 10);
+                const gross = Number(s.amount_usd_bcv);
+                const commission = gross * (pct / 100);
+                const net = gross - commission;
                 return (
                   <tr key={s.id} className="border-t border-border group">
                     <td className="px-5 py-3 text-foreground font-medium">
@@ -246,8 +262,10 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                     </td>
                     <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">{s.category || "—"}</td>
                     <td className="px-5 py-3"><span className={`text-[10px] px-2 py-0.5 rounded-full border ${st.cls}`}>{st.label}</span></td>
-                    <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(Number(s.amount_usd_bcv))}</td>
-                    <td className="px-5 py-3 text-right text-primary font-semibold">{fmt(Number(s.amount_usd_bcv) * rate)}</td>
+                    <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(gross)}</td>
+                    <td className="px-5 py-3 text-right text-rose-600 text-xs">−{fmt(commission)}<span className="opacity-60"> ({pct}%)</span></td>
+                    <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(net)}</td>
+                    <td className="px-5 py-3 text-right text-primary font-semibold">{fmt(net * rate)}</td>
                     <td className="px-5 py-3 text-right">
                       <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button onClick={() => editSponsor(s)} className="text-muted-foreground hover:text-primary p-1"><Edit2 className="w-3.5 h-3.5" /></button>
@@ -261,6 +279,8 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 <tr className="border-t-2 border-primary bg-primary/5">
                   <td className="px-5 py-4 text-foreground font-black uppercase" colSpan={3}>Total levantado</td>
                   <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalSponsoredBcv)}</td>
+                  <td className="px-5 py-4 text-right text-rose-600 font-black">−{fmt(totalCommissionBcv)}</td>
+                  <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalNetBcv)}</td>
                   <td className="px-5 py-4 text-right text-primary font-black text-lg">{fmt(totalSponsoredReal)}</td>
                   <td></td>
                 </tr>
