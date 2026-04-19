@@ -61,9 +61,16 @@ export type Database = {
           activity_date: string | null
           activity_time: string | null
           activity_type: string
+          airline: string | null
+          arrival_time: string | null
+          cabin_class: string | null
           city_id: string
+          cost_usd: number | null
           created_at: string
+          departure_time: string | null
           description: string | null
+          duration: string | null
+          flight_number: string | null
           id: string
           location: string | null
           metadata: Json | null
@@ -76,9 +83,16 @@ export type Database = {
           activity_date?: string | null
           activity_time?: string | null
           activity_type: string
+          airline?: string | null
+          arrival_time?: string | null
+          cabin_class?: string | null
           city_id: string
+          cost_usd?: number | null
           created_at?: string
+          departure_time?: string | null
           description?: string | null
+          duration?: string | null
+          flight_number?: string | null
           id?: string
           location?: string | null
           metadata?: Json | null
@@ -91,9 +105,16 @@ export type Database = {
           activity_date?: string | null
           activity_time?: string | null
           activity_type?: string
+          airline?: string | null
+          arrival_time?: string | null
+          cabin_class?: string | null
           city_id?: string
+          cost_usd?: number | null
           created_at?: string
+          departure_time?: string | null
           description?: string | null
+          duration?: string | null
+          flight_number?: string | null
           id?: string
           location?: string | null
           metadata?: Json | null
@@ -122,7 +143,10 @@ export type Database = {
           country: string | null
           created_at: string
           end_date: string
+          hotel_cost_usd: number | null
+          hotel_price_range: string | null
           id: string
+          nights: number | null
           position: number
           start_date: string
           updated_at: string
@@ -137,7 +161,10 @@ export type Database = {
           country?: string | null
           created_at?: string
           end_date: string
+          hotel_cost_usd?: number | null
+          hotel_price_range?: string | null
           id?: string
+          nights?: number | null
           position: number
           start_date: string
           updated_at?: string
@@ -152,7 +179,10 @@ export type Database = {
           country?: string | null
           created_at?: string
           end_date?: string
+          hotel_cost_usd?: number | null
+          hotel_price_range?: string | null
           id?: string
+          nights?: number | null
           position?: number
           start_date?: string
           updated_at?: string

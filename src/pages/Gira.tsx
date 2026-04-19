@@ -99,12 +99,22 @@ const Gira = () => {
             Coordinación de viajes, hoteles, partidos y producción para la cobertura del Mundial 2026.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <Stat label="Ciudades" value={cities.length} />
-          <Stat label="Días de gira" value={42} />
-          <Stat label="Actividades" value={activities.length} />
-          <Stat label="Comentarios" value={comments.length} />
-        </div>
+        {(() => {
+          const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+          const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
+          const otherCost = activities.filter(a => a.activity_type !== "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+          const total = flightsCost + hotelsCost + otherCost;
+          const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+          return (
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <Stat label="Ciudades" value={cities.length} />
+              <Stat label="Días de gira" value={42} />
+              <Stat label="Vuelos" valueText={fmt(flightsCost)} />
+              <Stat label="Hospedaje" valueText={fmt(hotelsCost)} />
+              <Stat label="Total estimado" valueText={fmt(total)} highlight />
+            </div>
+          );
+        })()}
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
@@ -156,9 +166,9 @@ const Gira = () => {
   );
 };
 
-const Stat = ({ label, value }: { label: string; value: number }) => (
-  <div className="bg-card border border-border rounded-xl p-4 shadow-[var(--shadow-soft)]">
-    <p className="text-2xl font-bold text-foreground">{value}</p>
+const Stat = ({ label, value, valueText, highlight }: { label: string; value?: number; valueText?: string; highlight?: boolean }) => (
+  <div className={`bg-card border rounded-xl p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <p className={`text-2xl font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
     <p className="text-xs text-muted-foreground mt-1">{label}</p>
   </div>
 );
