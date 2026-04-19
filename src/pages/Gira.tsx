@@ -138,31 +138,45 @@ const Gira = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 pt-4">
-        <div className="flex items-center gap-2 mb-4">
-          <MapPin className="w-5 h-5 text-primary" />
-          <h2 className="text-2xl font-bold">Ruta completa</h2>
-        </div>
+        <Tabs defaultValue="ruta" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="ruta"><MapPin className="w-4 h-4 mr-1.5" /> Ruta completa</TabsTrigger>
+            <TabsTrigger value="finanzas"><Wallet className="w-4 h-4 mr-1.5" /> Resumen financiero</TabsTrigger>
+          </TabsList>
 
-        {loadingData ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-6 h-6 text-primary animate-spin" />
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {cities.map((city) => (
-              <CityCard
-                key={city.id}
-                city={city}
-                activities={activities.filter((a) => a.city_id === city.id)}
-                comments={comments}
-                currentUserId={user!.id}
-                currentUserName={displayName || user!.email!}
-                currentUserEmail={user!.email!}
-                onRefresh={loadData}
-              />
-            ))}
-          </div>
-        )}
+          <TabsContent value="ruta">
+            {loadingData ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-6 h-6 text-primary animate-spin" />
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {cities.map((city) => (
+                  <CityCard
+                    key={city.id}
+                    city={city}
+                    activities={activities.filter((a) => a.city_id === city.id)}
+                    comments={comments}
+                    currentUserId={user!.id}
+                    currentUserName={displayName || user!.email!}
+                    currentUserEmail={user!.email!}
+                    onRefresh={loadData}
+                  />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="finanzas">
+            {loadingData ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-6 h-6 text-primary animate-spin" />
+              </div>
+            ) : (
+              <FinancialSummary cities={cities} activities={activities} />
+            )}
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
