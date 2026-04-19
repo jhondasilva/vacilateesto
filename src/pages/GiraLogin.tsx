@@ -7,7 +7,7 @@ import { Lock, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
-import logoFifa from "@/assets/logo-mundial-2026.png";
+import logoFifa from "@/assets/logo-mundial-2026.webp";
 
 const GiraLogin = () => {
   const { session, isAllowed, loading } = useGiraAuth();
