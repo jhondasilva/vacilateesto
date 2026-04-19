@@ -263,7 +263,7 @@ export const TripCalendar = ({ cities, activities }: Props) => {
 
       {/* Time grid */}
       <div className="overflow-auto max-h-[70vh]">
-        <div className="grid relative" style={{ gridTemplateColumns: "60px repeat(7, minmax(0,1fr))" }}>
+        <div className="grid relative" style={{ gridTemplateColumns: gridCols }}>
           {/* Hour labels */}
           <div className="border-r border-border bg-muted/10">
             {HOURS.map(h => (
