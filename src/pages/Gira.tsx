@@ -213,4 +213,22 @@ const Stat = ({ label, value, valueText, highlight }: { label: string; value?: n
   </div>
 );
 
+const FLAGS: Record<string, string> = {
+  "México": "🇲🇽",
+  "Mexico": "🇲🇽",
+  "USA": "🇺🇸",
+  "Estados Unidos": "🇺🇸",
+  "Francia": "🇫🇷",
+  "France": "🇫🇷",
+  "Canadá": "🇨🇦",
+  "Canada": "🇨🇦",
+  "Venezuela": "🇻🇪",
+};
+const countryFlag = (country: string | null) => (country && FLAGS[country]) || "📍";
+const formatShortDate = (iso: string) => {
+  const d = new Date(iso + "T00:00:00");
+  const months = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  return `${d.getDate()} ${months[d.getMonth()]}`;
+};
+
 export default Gira;
