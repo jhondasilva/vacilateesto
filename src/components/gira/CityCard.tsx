@@ -156,6 +156,16 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
     onRefresh();
   };
 
+  const deleteCity = async () => {
+    if (!confirm(`¿Eliminar "${city.city}" y todas sus actividades/comentarios?`)) return;
+    await supabase.from("trip_comments").delete().eq("city_id", city.id);
+    await supabase.from("trip_activities").delete().eq("city_id", city.id);
+    const { error } = await supabase.from("trip_cities").delete().eq("id", city.id);
+    if (error) return toast.error("No se pudo eliminar la ciudad");
+    toast.success(`${city.city} eliminada`);
+    onRefresh();
+  };
+
   const addActivity = async () => {
     if (!newActivity.title.trim()) return toast.error("Falta título");
     const { error } = await supabase.from("trip_activities").insert({
@@ -203,15 +213,12 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
 
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full p-5 flex items-center justify-between text-left group"
-      >
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary">
+      <div className="w-full p-5 flex items-center justify-between text-left group gap-3">
+        <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-4 flex-1 min-w-0 text-left">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0">
             {city.position}
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-xl font-bold text-foreground">{city.city}</h3>
               {city.country && <span className="text-muted-foreground text-sm">• {city.country}</span>}
@@ -222,9 +229,20 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
               {cityCostTotal > 0 && <span className="text-primary font-semibold">{fmtUsd(cityCostTotal)}</span>}
             </div>
           </div>
+        </button>
+        <div className="flex items-center gap-1 shrink-0">
+          <button
+            onClick={deleteCity}
+            title="Eliminar ciudad"
+            className="p-2 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+          <button onClick={() => setExpanded(!expanded)} className="p-2 rounded-md text-muted-foreground hover:bg-muted">
+            <ChevronDown className={`w-5 h-5 transition-transform ${expanded ? "rotate-180" : ""}`} />
+          </button>
         </div>
-        <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`} />
-      </button>
+      </div>
 
       {expanded && (
         <div className="px-5 pb-5 space-y-5 border-t border-border pt-5">
