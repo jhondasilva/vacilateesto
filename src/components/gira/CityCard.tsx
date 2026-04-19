@@ -158,10 +158,12 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
     onRefresh();
   };
 
-  const deleteActivity = async (id: string) => {
-    const { error } = await supabase.from("trip_activities").delete().eq("id", id);
+  const deleteActivity = async (act: Activity) => {
+    const label = ACTIVITY_LABELS[act.activity_type] ?? "actividad";
+    if (!confirm(`¿Eliminar este ${label.toLowerCase()}: "${act.title}"?`)) return;
+    const { error } = await supabase.from("trip_activities").delete().eq("id", act.id);
     if (error) return toast.error("Error");
-    toast.success("Actividad eliminada");
+    toast.success(`${label} eliminado`);
     onRefresh();
   };
 
@@ -386,7 +388,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                       )}
                       {act.description && <p className="text-muted-foreground text-xs italic mt-1">{act.description}</p>}
                     </div>
-                    <button onClick={() => deleteActivity(act.id)} className="opacity-0 group-hover/act:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
+                    <button onClick={() => deleteActivity(act)} title="Eliminar" className="opacity-0 group-hover/act:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
