@@ -73,6 +73,30 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const totalCommissionReal = totalCommissionBcv * rate;
   const balance = totalSponsoredReal - totalUsd;
 
+  // ===== Desglose de comisiones por categoría =====
+  const commissionByCategory = sponsors.reduce((acc, s) => {
+    const cat = (s.category && s.category.trim()) || "Sin categoría";
+    const gross = Number(s.amount_usd_bcv || 0);
+    const pct = Number(s.commission_pct ?? 10);
+    const commission = gross * (pct / 100);
+    if (!acc[cat]) acc[cat] = { gross: 0, commission: 0, count: 0, pctSum: 0 };
+    acc[cat].gross += gross;
+    acc[cat].commission += commission;
+    acc[cat].count += 1;
+    acc[cat].pctSum += pct;
+    return acc;
+  }, {} as Record<string, { gross: number; commission: number; count: number; pctSum: number }>);
+  const categoryRows = Object.entries(commissionByCategory)
+    .map(([category, v]) => ({
+      category,
+      count: v.count,
+      gross: v.gross,
+      commission: v.commission,
+      net: v.gross - v.commission,
+      avgPct: v.pctSum / v.count,
+    }))
+    .sort((a, b) => b.commission - a.commission);
+
   const saveRate = async () => {
     if (!settings) return;
     const v = parseFloat(rateDraft);
@@ -192,6 +216,62 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
           </table>
         </div>
       </div>
+
+      {/* Desglose de comisiones por categoría */}
+      {categoryRows.length > 0 && (
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+          <div className="px-5 py-4 border-b border-border bg-muted/30">
+            <h3 className="font-bold text-foreground">Comisiones por categoría de cliente</h3>
+            <p className="text-xs text-muted-foreground mt-1">Cuánto se va en comercialización por tipo de patrocinador.</p>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/40 text-muted-foreground text-xs uppercase tracking-wider">
+                <tr>
+                  <th className="text-left px-5 py-3 font-semibold">Categoría</th>
+                  <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">#</th>
+                  <th className="text-right px-5 py-3 font-semibold">Bruto BCV</th>
+                  <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">% prom.</th>
+                  <th className="text-right px-5 py-3 font-semibold">Comisión</th>
+                  <th className="text-right px-5 py-3 font-semibold">Neto BCV</th>
+                  <th className="text-right px-5 py-3 font-semibold">Neto USD real</th>
+                </tr>
+              </thead>
+              <tbody>
+                {categoryRows.map((r) => {
+                  const share = totalCommissionBcv > 0 ? (r.commission / totalCommissionBcv) * 100 : 0;
+                  return (
+                    <tr key={r.category} className="border-t border-border">
+                      <td className="px-5 py-3 text-foreground font-medium">
+                        {r.category}
+                        <div className="mt-1.5 h-1 w-full max-w-[160px] bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-primary" style={{ width: `${share}%` }} />
+                        </div>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">{share.toFixed(1)}% de la comisión total</p>
+                      </td>
+                      <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">{r.count}</td>
+                      <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(r.gross)}</td>
+                      <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">{r.avgPct.toFixed(1)}%</td>
+                      <td className="px-5 py-3 text-right text-rose-600 font-semibold">−{fmt(r.commission)}</td>
+                      <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(r.net)}</td>
+                      <td className="px-5 py-3 text-right text-primary font-semibold">{fmt(r.net * rate)}</td>
+                    </tr>
+                  );
+                })}
+                <tr className="border-t-2 border-primary bg-primary/5">
+                  <td className="px-5 py-4 text-foreground font-black uppercase">Total</td>
+                  <td className="px-5 py-4 text-right text-foreground font-black hidden sm:table-cell">{sponsors.length}</td>
+                  <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalSponsoredBcv)}</td>
+                  <td className="px-5 py-4 hidden sm:table-cell"></td>
+                  <td className="px-5 py-4 text-right text-rose-600 font-black">−{fmt(totalCommissionBcv)}</td>
+                  <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalNetBcv)}</td>
+                  <td className="px-5 py-4 text-right text-primary font-black text-lg">{fmt(totalSponsoredReal)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* Patrocinios */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
