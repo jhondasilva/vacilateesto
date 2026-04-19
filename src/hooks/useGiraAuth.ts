@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -15,18 +15,51 @@ export const useGiraAuth = (): GiraAuthState => {
   const [loading, setLoading] = useState(true);
   const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
     let mounted = true;
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const resolveSession = async (nextSession: Session | null) => {
+      const requestId = ++requestIdRef.current;
+
       if (!mounted) return;
-      setSession(newSession);
+      setSession(nextSession);
+
+      if (!nextSession?.user) {
+        setIsAllowed(false);
+        setDisplayName(null);
+        setLoading(false);
+        return;
+      }
+
+      setDisplayName(
+        nextSession.user.user_metadata?.full_name ??
+          nextSession.user.user_metadata?.name ??
+          nextSession.user.email ??
+          null,
+      );
+      setLoading(true);
+
+      const { data, error } = await supabase.rpc("is_allowed_user");
+      if (!mounted || requestId !== requestIdRef.current) return;
+
+      console.log("[useGiraAuth] access check", {
+        email: nextSession.user.email,
+        allowed: data,
+        error,
+      });
+
+      setIsAllowed(error ? false : data === true);
+      setLoading(false);
+    };
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      void resolveSession(nextSession);
     });
 
     supabase.auth.getSession().then(({ data }) => {
-      if (!mounted) return;
-      setSession(data.session);
+      void resolveSession(data.session);
     });
 
     return () => {
@@ -34,47 +67,6 @@ export const useGiraAuth = (): GiraAuthState => {
       sub.subscription.unsubscribe();
     };
   }, []);
-
-  useEffect(() => {
-    let active = true;
-
-    const checkAccess = async () => {
-      if (!session?.user) {
-        if (!active) return;
-        setIsAllowed(false);
-        setDisplayName(null);
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      setIsAllowed(null);
-
-      const { data, error } = await supabase.rpc("is_allowed_user");
-      if (!active) return;
-
-      console.log("[useGiraAuth] access check", {
-        email: session.user.email,
-        allowed: data,
-        error,
-      });
-
-      setIsAllowed(error ? false : !!data);
-      setDisplayName(
-        session.user.user_metadata?.full_name ??
-          session.user.user_metadata?.name ??
-          session.user.email ??
-          null,
-      );
-      setLoading(false);
-    };
-
-    void checkAccess();
-
-    return () => {
-      active = false;
-    };
-  }, [session]);
 
   return {
     session,

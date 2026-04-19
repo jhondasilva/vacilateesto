@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { useGiraAuth } from "@/hooks/useGiraAuth";
@@ -16,19 +16,13 @@ const Gira = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingData, setLoadingData] = useState(true);
 
-  useEffect(() => {
-    if (loading) return;
-    if (!session || isAllowed === false) {
-      navigate("/gira/login", { replace: true });
-    }
-  }, [session, isAllowed, loading, navigate]);
-
   const loadData = useCallback(async () => {
     const [citiesRes, activitiesRes, commentsRes] = await Promise.all([
       supabase.from("trip_cities").select("*").order("position"),
       supabase.from("trip_activities").select("*").order("position"),
       supabase.from("trip_comments").select("*").order("created_at", { ascending: false }),
     ]);
+
     if (citiesRes.data) setCities(citiesRes.data as City[]);
     if (activitiesRes.data) setActivities(activitiesRes.data as Activity[]);
     if (commentsRes.data) setComments(commentsRes.data as Comment[]);
@@ -36,8 +30,10 @@ const Gira = () => {
   }, []);
 
   useEffect(() => {
-    if (session && isAllowed) loadData();
-  }, [session, isAllowed, loadData]);
+    if (!loading && session && isAllowed) {
+      void loadData();
+    }
+  }, [session, isAllowed, loading, loadData]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -45,7 +41,19 @@ const Gira = () => {
     navigate("/gira/login", { replace: true });
   };
 
-  if (loading || !session || !isAllowed) {
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      </div>
+    );
+  }
+
+  if (!session || isAllowed === false) {
+    return <Navigate to="/gira/login" replace />;
+  }
+
+  if (!isAllowed) {
     return (
       <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-primary animate-spin" />
@@ -60,7 +68,6 @@ const Gira = () => {
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
 
-      {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0f]/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -84,7 +91,6 @@ const Gira = () => {
         </div>
       </header>
 
-      {/* Hero stats */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Stat label="Ciudades" value={cities.length} />
@@ -94,7 +100,6 @@ const Gira = () => {
         </div>
       </section>
 
-      {/* Timeline preview */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 overflow-x-auto">
           <div className="flex items-center gap-2 min-w-max">
@@ -113,7 +118,6 @@ const Gira = () => {
         </div>
       </section>
 
-      {/* Cities */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 pt-4">
         <div className="flex items-center gap-2 mb-4">
           <MapPin className="w-5 h-5 text-primary" />
