@@ -37,13 +37,14 @@ export const useGiraAuth = (): GiraAuthState => {
       return;
     }
 
-    const email = session.user.email.toLowerCase();
+    const email = session.user.email.toLowerCase().trim();
     supabase
       .from("allowed_users")
-      .select("display_name")
-      .eq("email", email)
+      .select("display_name, email")
+      .ilike("email", email)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        console.log("[useGiraAuth] whitelist check", { email, data, error });
         setIsAllowed(!!data);
         setDisplayName(data?.display_name ?? null);
       });
