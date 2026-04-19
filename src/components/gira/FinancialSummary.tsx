@@ -373,11 +373,12 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   );
 };
 
-const KPI = ({ icon: Icon, label, value, sub, tone }: { icon: typeof Wallet; label: string; value: string; sub?: string; tone: "primary" | "success" | "destructive" }) => {
+const KPI = ({ icon: Icon, label, value, sub, tone }: { icon: typeof Wallet; label: string; value: string; sub?: string; tone: "primary" | "success" | "destructive" | "info" }) => {
   const tones = {
     primary: "border-primary/30 bg-primary/5 text-primary",
     success: "border-emerald-200 bg-emerald-50 text-emerald-700",
     destructive: "border-rose-200 bg-rose-50 text-rose-700",
+    info: "border-blue-200 bg-blue-50 text-blue-700",
   };
   return (
     <div className={`border rounded-2xl p-4 shadow-[var(--shadow-soft)] ${tones[tone]}`}>
