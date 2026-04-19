@@ -434,4 +434,5 @@ export const CityCard = forwardRef<HTMLDivElement, Props>(({ city, activities, c
       )}
     </div>
   );
-};
+});
+CityCard.displayName = "CityCard";
