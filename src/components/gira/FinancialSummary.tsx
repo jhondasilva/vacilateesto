@@ -73,6 +73,30 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const totalCommissionReal = totalCommissionBcv * rate;
   const balance = totalSponsoredReal - totalUsd;
 
+  // ===== Desglose de comisiones por categoría =====
+  const commissionByCategory = sponsors.reduce((acc, s) => {
+    const cat = (s.category && s.category.trim()) || "Sin categoría";
+    const gross = Number(s.amount_usd_bcv || 0);
+    const pct = Number(s.commission_pct ?? 10);
+    const commission = gross * (pct / 100);
+    if (!acc[cat]) acc[cat] = { gross: 0, commission: 0, count: 0, pctSum: 0 };
+    acc[cat].gross += gross;
+    acc[cat].commission += commission;
+    acc[cat].count += 1;
+    acc[cat].pctSum += pct;
+    return acc;
+  }, {} as Record<string, { gross: number; commission: number; count: number; pctSum: number }>);
+  const categoryRows = Object.entries(commissionByCategory)
+    .map(([category, v]) => ({
+      category,
+      count: v.count,
+      gross: v.gross,
+      commission: v.commission,
+      net: v.gross - v.commission,
+      avgPct: v.pctSum / v.count,
+    }))
+    .sort((a, b) => b.commission - a.commission);
+
   const saveRate = async () => {
     if (!settings) return;
     const v = parseFloat(rateDraft);
