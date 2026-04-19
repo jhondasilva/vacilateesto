@@ -121,21 +121,38 @@ const Gira = () => {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div className="bg-card border border-border rounded-2xl p-4 shadow-[var(--shadow-soft)]">
-          <div className="flex flex-wrap gap-x-1 gap-y-3 justify-center sm:justify-start">
-            {cities.map((c, idx) => (
-              <div key={c.id} className="flex items-center gap-1">
-                <div className="flex flex-col items-center text-center w-[72px] sm:w-[84px]">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary shrink-0">
-                    {c.position}
+        <div className="bg-gradient-to-br from-card to-muted/30 border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">Itinerario completo</h2>
+            <span className="text-[11px] text-muted-foreground">Click en una ciudad para abrirla ↓</span>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+            {cities.map((c) => {
+              const flag = countryFlag(c.country);
+              const dateLabel = formatShortDate(c.start_date);
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => {
+                    const el = document.getElementById(`city-${c.id}`);
+                    window.dispatchEvent(new CustomEvent("gira:open-city", { detail: { cityId: c.id } }));
+                    setTimeout(() => el?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+                  }}
+                  className="group relative bg-card border border-border hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all rounded-xl p-2.5 text-left"
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-[10px] font-bold text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      {c.position}
+                    </span>
+                    <span className="text-base leading-none">{flag}</span>
                   </div>
-                  <span className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 font-medium leading-tight px-0.5 break-words">
+                  <p className="text-[12px] font-bold text-foreground leading-tight truncate" title={c.city}>
                     {c.city}
-                  </span>
-                </div>
-                {idx < cities.length - 1 && <div className="w-3 sm:w-4 h-px bg-border self-start mt-4" />}
-              </div>
-            ))}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{dateLabel}</p>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
