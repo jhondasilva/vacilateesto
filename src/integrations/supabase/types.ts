@@ -139,6 +139,7 @@ export type Database = {
           accommodation_name: string | null
           accommodation_notes: string | null
           accommodation_status: string
+          booking_url: string | null
           city: string
           country: string | null
           created_at: string
@@ -146,6 +147,7 @@ export type Database = {
           hotel_cost_usd: number | null
           hotel_price_range: string | null
           id: string
+          nightly_rate_usd: number | null
           nights: number | null
           position: number
           start_date: string
@@ -157,6 +159,7 @@ export type Database = {
           accommodation_name?: string | null
           accommodation_notes?: string | null
           accommodation_status?: string
+          booking_url?: string | null
           city: string
           country?: string | null
           created_at?: string
@@ -164,6 +167,7 @@ export type Database = {
           hotel_cost_usd?: number | null
           hotel_price_range?: string | null
           id?: string
+          nightly_rate_usd?: number | null
           nights?: number | null
           position: number
           start_date: string
@@ -175,6 +179,7 @@ export type Database = {
           accommodation_name?: string | null
           accommodation_notes?: string | null
           accommodation_status?: string
+          booking_url?: string | null
           city?: string
           country?: string | null
           created_at?: string
@@ -182,6 +187,7 @@ export type Database = {
           hotel_cost_usd?: number | null
           hotel_price_range?: string | null
           id?: string
+          nightly_rate_usd?: number | null
           nights?: number | null
           position?: number
           start_date?: string
