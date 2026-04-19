@@ -260,6 +260,7 @@ export type Database = {
         Row: {
           amount_usd_bcv: number
           category: string | null
+          commission_pct: number
           created_at: string
           id: string
           name: string
@@ -270,6 +271,7 @@ export type Database = {
         Insert: {
           amount_usd_bcv?: number
           category?: string | null
+          commission_pct?: number
           created_at?: string
           id?: string
           name: string
@@ -280,6 +282,7 @@ export type Database = {
         Update: {
           amount_usd_bcv?: number
           category?: string | null
+          commission_pct?: number
           created_at?: string
           id?: string
           name?: string
