@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ interface Props {
   onCreated: () => void;
 }
 
-export const AddCityForm = forwardRef<HTMLDivElement, Props>(({ nextPosition, onCreated }, _ref) => {
+export const AddCityForm = ({ nextPosition, onCreated }: Props) => {
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [draft, setDraft] = useState({
@@ -97,5 +97,4 @@ export const AddCityForm = forwardRef<HTMLDivElement, Props>(({ nextPosition, on
       </div>
     </div>
   );
-});
-AddCityForm.displayName = "AddCityForm";
+};
