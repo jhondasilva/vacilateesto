@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { City, Activity } from "./CityCard";
@@ -75,23 +75,34 @@ export const TripCalendar = ({ cities, activities }: Props) => {
     return cities.map(c => fromISO(c.start_date)).sort((a, b) => a.getTime() - b.getTime())[0];
   }, [cities]);
 
-  const [weekStart, setWeekStart] = useState<Date>(() => {
-    // align to Monday
-    const d = new Date();
-    return d;
-  });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const [weekStart, setWeekStart] = useState<Date>(() => new Date());
 
   // initialize once to earliest week monday
   useMemo(() => {
     const d = new Date(earliest);
-    const dow = d.getDay(); // 0..6 sun..sat
+    const dow = d.getDay();
     const offset = dow === 0 ? -6 : 1 - dow;
     d.setDate(d.getDate() + offset);
     setWeekStart(d);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [earliest.getTime()]);
 
-  const days = useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)), [weekStart]);
+  // On mobile align to single day = earliest
+  useEffect(() => {
+    if (isMobile) setWeekStart(new Date(earliest));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile]);
+
+  const numDays = isMobile ? 1 : 7;
+  const days = useMemo(() => Array.from({ length: numDays }, (_, i) => addDays(weekStart, i)), [weekStart, numDays]);
 
   // Build events per day
   const cityById = useMemo(() => {
@@ -165,41 +176,49 @@ export const TripCalendar = ({ cities, activities }: Props) => {
     return map;
   }, [activities, cities, cityById]);
 
-  const goPrev = () => setWeekStart(addDays(weekStart, -7));
-  const goNext = () => setWeekStart(addDays(weekStart, 7));
+  const goPrev = () => setWeekStart(addDays(weekStart, -numDays));
+  const goNext = () => setWeekStart(addDays(weekStart, numDays));
   const goToday = () => {
     const d = new Date();
-    const dow = d.getDay();
-    const offset = dow === 0 ? -6 : 1 - dow;
-    d.setDate(d.getDate() + offset);
+    if (!isMobile) {
+      const dow = d.getDay();
+      const offset = dow === 0 ? -6 : 1 - dow;
+      d.setDate(d.getDate() + offset);
+    }
     setWeekStart(d);
   };
   const goEarliest = () => {
     const d = new Date(earliest);
-    const dow = d.getDay();
-    const offset = dow === 0 ? -6 : 1 - dow;
-    d.setDate(d.getDate() + offset);
+    if (!isMobile) {
+      const dow = d.getDay();
+      const offset = dow === 0 ? -6 : 1 - dow;
+      d.setDate(d.getDate() + offset);
+    }
     setWeekStart(d);
   };
 
-  const monthLabel = `${MONTHS_FULL[days[0].getMonth()]} ${days[0].getFullYear()}${
-    days[0].getMonth() !== days[6].getMonth() ? ` – ${MONTHS_FULL[days[6].getMonth()]}` : ""
-  }`;
+  const lastDay = days[days.length - 1];
+  const monthLabel = isMobile
+    ? `${days[0].getDate()} ${MONTHS_FULL[days[0].getMonth()]} ${days[0].getFullYear()}`
+    : `${MONTHS_FULL[days[0].getMonth()]} ${days[0].getFullYear()}${
+        days[0].getMonth() !== lastDay.getMonth() ? ` – ${MONTHS_FULL[lastDay.getMonth()]}` : ""
+      }`;
 
   const todayISO = toISO(new Date());
+  const gridCols = isMobile ? "44px 1fr" : `60px repeat(${numDays}, minmax(0,1fr))`;
 
   return (
     <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border bg-muted/30">
-        <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" onClick={goPrev}><ChevronLeft className="w-4 h-4" /></Button>
-          <Button size="sm" variant="outline" onClick={goNext}><ChevronRight className="w-4 h-4" /></Button>
-          <Button size="sm" variant="ghost" onClick={goToday}>Hoy</Button>
-          <Button size="sm" variant="ghost" onClick={goEarliest}><CalIcon className="w-3.5 h-3.5 mr-1" /> Inicio gira</Button>
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-border bg-muted/30">
+        <div className="flex items-center gap-1 sm:gap-2 order-1">
+          <Button size="sm" variant="outline" onClick={goPrev} className="h-8 w-8 p-0"><ChevronLeft className="w-4 h-4" /></Button>
+          <Button size="sm" variant="outline" onClick={goNext} className="h-8 w-8 p-0"><ChevronRight className="w-4 h-4" /></Button>
+          <Button size="sm" variant="ghost" onClick={goToday} className="h-8 px-2 text-xs">Hoy</Button>
+          <Button size="sm" variant="ghost" onClick={goEarliest} className="h-8 px-2 text-xs hidden sm:inline-flex"><CalIcon className="w-3.5 h-3.5 mr-1" /> Inicio</Button>
         </div>
-        <h3 className="text-base sm:text-lg font-bold capitalize">{monthLabel}</h3>
-        <div className="flex flex-wrap items-center gap-2 text-[11px]">
+        <h3 className="text-sm sm:text-lg font-bold capitalize order-2 sm:order-2 flex-1 text-center sm:flex-none sm:text-left">{monthLabel}</h3>
+        <div className="hidden md:flex flex-wrap items-center gap-2 text-[11px] order-3">
           {Object.entries(TYPE_STYLES).filter(([k]) => !["food","other"].includes(k)).map(([k, s]) => {
             const Icon = s.icon;
             return (
@@ -212,7 +231,7 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       </div>
 
       {/* Header: day columns */}
-      <div className="grid border-b border-border" style={{ gridTemplateColumns: "60px repeat(7, minmax(0,1fr))" }}>
+      <div className="grid border-b border-border" style={{ gridTemplateColumns: gridCols }}>
         <div className="border-r border-border bg-muted/20" />
         {days.map((d) => {
           const iso = toISO(d);
@@ -244,7 +263,7 @@ export const TripCalendar = ({ cities, activities }: Props) => {
 
       {/* Time grid */}
       <div className="overflow-auto max-h-[70vh]">
-        <div className="grid relative" style={{ gridTemplateColumns: "60px repeat(7, minmax(0,1fr))" }}>
+        <div className="grid relative" style={{ gridTemplateColumns: gridCols }}>
           {/* Hour labels */}
           <div className="border-r border-border bg-muted/10">
             {HOURS.map(h => (

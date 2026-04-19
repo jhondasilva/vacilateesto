@@ -71,35 +71,36 @@ const Gira = () => {
       </Helmet>
 
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/85 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <img src={logoVacilate} alt="Vacílate Esto" className="h-9 w-auto hidden sm:block" loading="lazy" />
             <div className="hidden sm:block w-px h-8 bg-border" />
-            <img src={logoMundial} alt="Vacílate El Mundial" className="h-10 w-auto" loading="lazy" />
+            <img src={logoMundial} alt="Vacílate El Mundial" className="h-8 sm:h-10 w-auto" loading="lazy" />
             <div className="hidden md:block w-px h-8 bg-border" />
             <img src={logoFifa} alt="Mundial 2026" className="h-10 w-auto hidden md:block" loading="lazy" />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <div className="hidden sm:block text-right">
               <p className="text-xs text-muted-foreground">Conectado como</p>
               <p className="text-sm font-medium">{displayName || user?.email}</p>
             </div>
-            <Button onClick={handleSignOut} variant="ghost" size="sm">
+            <span className="sm:hidden text-[11px] font-medium truncate max-w-[110px]">{displayName || user?.email}</span>
+            <Button onClick={handleSignOut} variant="ghost" size="sm" className="shrink-0">
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
         </div>
       </header>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
-        <div className="mb-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-1">
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 pt-5 sm:pt-8 pb-3 sm:pb-4">
+        <div className="mb-4 sm:mb-6">
+          <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-1">
             Producción 2026 • Acceso privado
           </p>
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight">
             Plan de gira <span className="text-primary">Vacílate El Mundial</span>
           </h1>
-          <p className="text-muted-foreground mt-2 max-w-2xl">
+          <p className="text-xs sm:text-base text-muted-foreground mt-2 max-w-2xl">
             Coordinación de viajes, hoteles, partidos y producción para la cobertura del Mundial 2026.
           </p>
         </div>
@@ -110,7 +111,7 @@ const Gira = () => {
           const total = flightsCost + hotelsCost + otherCost;
           const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
           return (
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
               <Stat label="Ciudades" value={cities.length} />
               <Stat label="Días de gira" value={42} />
               <Stat label="Vuelos" valueText={fmt(flightsCost)} />
@@ -121,13 +122,13 @@ const Gira = () => {
         })()}
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div className="bg-gradient-to-br from-card to-muted/30 border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">Itinerario completo</h2>
-            <span className="text-[11px] text-muted-foreground">Click en una ciudad para abrirla ↓</span>
+      <section className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
+        <div className="bg-gradient-to-br from-card to-muted/30 border border-border rounded-2xl p-3 sm:p-5 shadow-[var(--shadow-soft)]">
+          <div className="flex items-center justify-between mb-3 gap-2">
+            <h2 className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">Itinerario completo</h2>
+            <span className="text-[10px] sm:text-[11px] text-muted-foreground hidden xs:block">Tap ciudad ↓</span>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2">
             {cities.map((c) => {
               const flag = countryFlag(c.country);
               const dateLabel = formatShortDate(c.start_date);
@@ -139,18 +140,18 @@ const Gira = () => {
                     window.dispatchEvent(new CustomEvent("gira:open-city", { detail: { cityId: c.id } }));
                     setTimeout(() => el?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
                   }}
-                  className="group relative bg-card border border-border hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all rounded-xl p-2.5 text-left"
+                  className="group relative bg-card border border-border hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all rounded-xl p-2 sm:p-2.5 text-left active:scale-95"
                 >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-[10px] font-bold text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <div className="flex items-center justify-between mb-1 sm:mb-1.5">
+                    <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                       {c.position}
                     </span>
-                    <span className="text-base leading-none">{flag}</span>
+                    <span className="text-sm sm:text-base leading-none">{flag}</span>
                   </div>
-                  <p className="text-[12px] font-bold text-foreground leading-tight truncate" title={c.city}>
+                  <p className="text-[11px] sm:text-[12px] font-bold text-foreground leading-tight truncate" title={c.city}>
                     {c.city}
                   </p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">{dateLabel}</p>
+                  <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-0.5">{dateLabel}</p>
                 </button>
               );
             })}
@@ -158,12 +159,12 @@ const Gira = () => {
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 pt-4">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 pb-20 pt-3 sm:pt-4">
         <Tabs defaultValue="ruta" className="w-full">
-          <TabsList className="mb-4">
-            <TabsTrigger value="ruta"><MapPin className="w-4 h-4 mr-1.5" /> Ruta completa</TabsTrigger>
-            <TabsTrigger value="finanzas"><Wallet className="w-4 h-4 mr-1.5" /> Resumen financiero</TabsTrigger>
-            <TabsTrigger value="calendario"><CalendarDays className="w-4 h-4 mr-1.5" /> Calendario</TabsTrigger>
+          <TabsList className="mb-4 grid grid-cols-3 w-full sm:flex sm:w-auto h-auto">
+            <TabsTrigger value="ruta" className="text-xs sm:text-sm py-2"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Ruta completa</span><span className="sm:hidden">Ruta</span></TabsTrigger>
+            <TabsTrigger value="finanzas" className="text-xs sm:text-sm py-2"><Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Resumen financiero</span><span className="sm:hidden">Finanzas</span></TabsTrigger>
+            <TabsTrigger value="calendario" className="text-xs sm:text-sm py-2"><CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Calendario</TabsTrigger>
           </TabsList>
 
           <TabsContent value="ruta">
@@ -219,9 +220,9 @@ const Gira = () => {
 };
 
 const Stat = ({ label, value, valueText, highlight }: { label: string; value?: number; valueText?: string; highlight?: boolean }) => (
-  <div className={`bg-card border rounded-xl p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
-    <p className={`text-2xl font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
-    <p className="text-xs text-muted-foreground mt-1">{label}</p>
+  <div className={`bg-card border rounded-xl p-3 sm:p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <p className={`text-lg sm:text-2xl font-bold leading-tight ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
+    <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1">{label}</p>
   </div>
 );
 
