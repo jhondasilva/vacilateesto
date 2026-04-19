@@ -23,6 +23,8 @@ export type City = {
   nights: number | null;
   hotel_cost_usd: number | null;
   hotel_price_range: string | null;
+  booking_url: string | null;
+  nightly_rate_usd: number | null;
 };
 
 export type Activity = {
