@@ -12,6 +12,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import InstallApp from "./pages/InstallApp";
 import NotFound from "./pages/NotFound";
+import Gira from "./pages/Gira";
+import GiraLogin from "./pages/GiraLogin";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/terminos" element={<TermsOfUse />} />
             <Route path="/instalar" element={<InstallApp />} />
+            <Route path="/gira/login" element={<GiraLogin />} />
+            <Route path="/gira" element={<Gira />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
