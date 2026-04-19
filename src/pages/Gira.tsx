@@ -22,6 +22,7 @@ const Gira = () => {
       supabase.from("trip_activities").select("*").order("position"),
       supabase.from("trip_comments").select("*").order("created_at", { ascending: false }),
     ]);
+
     if (citiesRes.data) setCities(citiesRes.data as City[]);
     if (activitiesRes.data) setActivities(activitiesRes.data as Activity[]);
     if (commentsRes.data) setComments(commentsRes.data as Comment[]);
@@ -29,7 +30,9 @@ const Gira = () => {
   }, []);
 
   useEffect(() => {
-    if (!loading && session && isAllowed) loadData();
+    if (!loading && session && isAllowed) {
+      void loadData();
+    }
   }, [session, isAllowed, loading, loadData]);
 
   const handleSignOut = async () => {
@@ -65,7 +68,6 @@ const Gira = () => {
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
 
-      {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#0a0a0f]/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -89,7 +91,6 @@ const Gira = () => {
         </div>
       </header>
 
-      {/* Hero stats */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Stat label="Ciudades" value={cities.length} />
@@ -99,7 +100,6 @@ const Gira = () => {
         </div>
       </section>
 
-      {/* Timeline preview */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 overflow-x-auto">
           <div className="flex items-center gap-2 min-w-max">
@@ -118,7 +118,6 @@ const Gira = () => {
         </div>
       </section>
 
-      {/* Cities */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 pt-4">
         <div className="flex items-center gap-2 mb-4">
           <MapPin className="w-5 h-5 text-primary" />
