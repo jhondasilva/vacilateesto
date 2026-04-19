@@ -166,9 +166,9 @@ const Gira = () => {
   );
 };
 
-const Stat = ({ label, value }: { label: string; value: number }) => (
-  <div className="bg-card border border-border rounded-xl p-4 shadow-[var(--shadow-soft)]">
-    <p className="text-2xl font-bold text-foreground">{value}</p>
+const Stat = ({ label, value, valueText, highlight }: { label: string; value?: number; valueText?: string; highlight?: boolean }) => (
+  <div className={`bg-card border rounded-xl p-4 shadow-[var(--shadow-soft)] ${highlight ? "border-primary/40 bg-primary/5" : "border-border"}`}>
+    <p className={`text-2xl font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{valueText ?? value}</p>
     <p className="text-xs text-muted-foreground mt-1">{label}</p>
   </div>
 );
