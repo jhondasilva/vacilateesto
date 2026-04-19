@@ -63,9 +63,9 @@ const ACTIVITY_LABELS: Record<string, string> = {
 };
 
 const STATUS_STYLES: Record<string, string> = {
-  confirmed: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-  pending: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  proposal: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+  confirmed: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  pending: "bg-amber-100 text-amber-700 border-amber-200",
+  proposal: "bg-sky-100 text-sky-700 border-sky-200",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -172,45 +172,44 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
   };
 
   return (
-    <div className="bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden hover:border-primary/30 transition-all">
-      {/* Header */}
+    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full p-5 flex items-center justify-between text-left group"
       >
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-[#7DE8E8]/20 border border-primary/30 flex items-center justify-center font-bold text-primary">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary">
             {city.position}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-xl font-bold text-white">{city.city}</h3>
-              {city.country && <span className="text-white/40 text-sm">• {city.country}</span>}
+              <h3 className="text-xl font-bold text-foreground">{city.city}</h3>
+              {city.country && <span className="text-muted-foreground text-sm">• {city.country}</span>}
             </div>
-            <div className="flex items-center gap-3 text-xs text-white/50 mt-1">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
               <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{formatRange(city.start_date, city.end_date)}</span>
               {city.vibe && <span className="hidden sm:inline">• {city.vibe}</span>}
             </div>
           </div>
         </div>
-        <ChevronDown className={`w-5 h-5 text-white/40 transition-transform ${expanded ? "rotate-180" : ""}`} />
+        <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`} />
       </button>
 
       {expanded && (
-        <div className="px-5 pb-5 space-y-5 border-t border-white/5 pt-5">
+        <div className="px-5 pb-5 space-y-5 border-t border-border pt-5">
           {/* Alojamiento */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="flex items-center gap-2 text-sm font-semibold text-white/80">
-                <Hotel className="w-4 h-4" /> Alojamiento
+              <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Hotel className="w-4 h-4 text-primary" /> Alojamiento
               </h4>
               {!editing ? (
-                <Button size="sm" variant="ghost" onClick={() => setEditing(true)} className="h-7 text-white/60 hover:text-white">
+                <Button size="sm" variant="ghost" onClick={() => setEditing(true)} className="h-7">
                   <Edit2 className="w-3 h-3 mr-1" /> Editar
                 </Button>
               ) : (
                 <div className="flex gap-1">
-                  <Button size="sm" variant="ghost" onClick={() => { setDraft(city); setEditing(false); }} className="h-7 text-white/60">
+                  <Button size="sm" variant="ghost" onClick={() => { setDraft(city); setEditing(false); }} className="h-7">
                     <X className="w-3 h-3" />
                   </Button>
                   <Button size="sm" onClick={saveCity} className="h-7">
@@ -220,27 +219,27 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
               )}
             </div>
             {!editing ? (
-              <div className="bg-white/5 rounded-lg p-3 space-y-1">
+              <div className="bg-muted/40 rounded-lg p-3 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-white font-medium">{city.accommodation_name || <span className="text-white/30 italic">Sin asignar</span>}</p>
+                  <p className="text-foreground font-medium">{city.accommodation_name || <span className="text-muted-foreground italic">Sin asignar</span>}</p>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full border ${STATUS_STYLES[city.accommodation_status]}`}>
                     {STATUS_LABELS[city.accommodation_status]}
                   </span>
                 </div>
-                {city.accommodation_address && <p className="text-white/50 text-xs">{city.accommodation_address}</p>}
-                {city.accommodation_notes && <p className="text-white/60 text-xs italic mt-1">{city.accommodation_notes}</p>}
+                {city.accommodation_address && <p className="text-muted-foreground text-xs">{city.accommodation_address}</p>}
+                {city.accommodation_notes && <p className="text-muted-foreground text-xs italic mt-1">{city.accommodation_notes}</p>}
               </div>
             ) : (
-              <div className="space-y-2 bg-white/5 rounded-lg p-3">
-                <Input placeholder="Hotel / Airbnb" value={draft.accommodation_name ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_name: e.target.value })} className="bg-white/5 border-white/10 text-white" />
-                <Input placeholder="Dirección" value={draft.accommodation_address ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_address: e.target.value })} className="bg-white/5 border-white/10 text-white" />
-                <select value={draft.accommodation_status} onChange={(e) => setDraft({ ...draft, accommodation_status: e.target.value })} className="w-full bg-white/5 border border-white/10 text-white rounded-md px-3 py-2 text-sm">
+              <div className="space-y-2 bg-muted/40 rounded-lg p-3">
+                <Input placeholder="Hotel / Airbnb" value={draft.accommodation_name ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_name: e.target.value })} />
+                <Input placeholder="Dirección" value={draft.accommodation_address ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_address: e.target.value })} />
+                <select value={draft.accommodation_status} onChange={(e) => setDraft({ ...draft, accommodation_status: e.target.value })} className="w-full bg-background border border-input text-foreground rounded-md px-3 py-2 text-sm">
                   <option value="pending">Pendiente</option>
                   <option value="proposal">Propuesta</option>
                   <option value="confirmed">Confirmado</option>
                 </select>
-                <Textarea placeholder="Notas (vibe, comentarios)" value={draft.accommodation_notes ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_notes: e.target.value })} className="bg-white/5 border-white/10 text-white" />
-                <Input placeholder="Vibe / contexto general" value={draft.vibe ?? ""} onChange={(e) => setDraft({ ...draft, vibe: e.target.value })} className="bg-white/5 border-white/10 text-white" />
+                <Textarea placeholder="Notas (vibe, comentarios)" value={draft.accommodation_notes ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_notes: e.target.value })} />
+                <Input placeholder="Vibe / contexto general" value={draft.vibe ?? ""} onChange={(e) => setDraft({ ...draft, vibe: e.target.value })} />
               </div>
             )}
           </div>
@@ -248,7 +247,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
           {/* Actividades */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="text-sm font-semibold text-white/80">Actividades & Logística</h4>
+              <h4 className="text-sm font-semibold text-foreground">Actividades & Logística</h4>
               <Button size="sm" variant="ghost" onClick={() => setShowActivityForm(!showActivityForm)} className="h-7 text-primary hover:text-primary">
                 <Plus className="w-3 h-3 mr-1" /> Añadir
               </Button>
@@ -257,46 +256,46 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
             {showActivityForm && (
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 mb-3 space-y-2">
                 <div className="grid grid-cols-2 gap-2">
-                  <select value={newActivity.type} onChange={(e) => setNewActivity({ ...newActivity, type: e.target.value })} className="bg-white/5 border border-white/10 text-white rounded-md px-3 py-2 text-sm">
+                  <select value={newActivity.type} onChange={(e) => setNewActivity({ ...newActivity, type: e.target.value })} className="bg-background border border-input text-foreground rounded-md px-3 py-2 text-sm">
                     <option value="flight">Vuelo</option>
                     <option value="match">Partido</option>
                     <option value="food">Gastronomía</option>
                     <option value="production">Producción</option>
                     <option value="milestone">Hito</option>
                   </select>
-                  <Input type="time" value={newActivity.time} onChange={(e) => setNewActivity({ ...newActivity, time: e.target.value })} className="bg-white/5 border-white/10 text-white" />
+                  <Input type="time" value={newActivity.time} onChange={(e) => setNewActivity({ ...newActivity, time: e.target.value })} />
                 </div>
-                <Input placeholder="Título" value={newActivity.title} onChange={(e) => setNewActivity({ ...newActivity, title: e.target.value })} className="bg-white/5 border-white/10 text-white" />
-                <Input type="date" value={newActivity.date} onChange={(e) => setNewActivity({ ...newActivity, date: e.target.value })} className="bg-white/5 border-white/10 text-white" />
-                <Input placeholder="Lugar / detalles" value={newActivity.location} onChange={(e) => setNewActivity({ ...newActivity, location: e.target.value })} className="bg-white/5 border-white/10 text-white" />
+                <Input placeholder="Título" value={newActivity.title} onChange={(e) => setNewActivity({ ...newActivity, title: e.target.value })} />
+                <Input type="date" value={newActivity.date} onChange={(e) => setNewActivity({ ...newActivity, date: e.target.value })} />
+                <Input placeholder="Lugar / detalles" value={newActivity.location} onChange={(e) => setNewActivity({ ...newActivity, location: e.target.value })} />
                 <Button size="sm" onClick={addActivity} className="w-full">Crear</Button>
               </div>
             )}
 
             <div className="space-y-2">
-              {activities.length === 0 && <p className="text-white/30 text-xs italic">Sin actividades aún</p>}
+              {activities.length === 0 && <p className="text-muted-foreground text-xs italic">Sin actividades aún</p>}
               {activities.map((act) => {
                 const Icon = ACTIVITY_ICONS[act.activity_type] ?? MapPin;
                 return (
-                  <div key={act.id} className="bg-white/5 rounded-lg p-3 flex items-start gap-3 group/act">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <div key={act.id} className="bg-muted/40 rounded-lg p-3 flex items-start gap-3 group/act">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Icon className="w-4 h-4 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <p className="text-white font-medium text-sm">{act.title}</p>
+                        <p className="text-foreground font-medium text-sm">{act.title}</p>
                         <button onClick={() => cycleStatus(act)} className={`text-[10px] px-2 py-0.5 rounded-full border ${STATUS_STYLES[act.status]} hover:opacity-80`}>
                           {STATUS_LABELS[act.status]}
                         </button>
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-white/50 mt-0.5 flex-wrap">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5 flex-wrap">
                         <span>{ACTIVITY_LABELS[act.activity_type]}</span>
                         {act.activity_date && <span>• {format(parseISO(act.activity_date), "d MMM", { locale: es })}</span>}
                         {act.activity_time && <span>• {act.activity_time}</span>}
                         {act.location && <span className="truncate">• {act.location}</span>}
                       </div>
                     </div>
-                    <button onClick={() => deleteActivity(act.id)} className="opacity-0 group-hover/act:opacity-100 transition-opacity text-white/40 hover:text-red-400">
+                    <button onClick={() => deleteActivity(act.id)} className="opacity-0 group-hover/act:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -307,24 +306,24 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
 
           {/* Comentarios */}
           <div>
-            <h4 className="flex items-center gap-2 text-sm font-semibold text-white/80 mb-2">
-              <MessageSquare className="w-4 h-4" /> Comentarios {cityComments.length > 0 && <span className="text-white/40">({cityComments.length})</span>}
+            <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground mb-2">
+              <MessageSquare className="w-4 h-4 text-primary" /> Comentarios {cityComments.length > 0 && <span className="text-muted-foreground">({cityComments.length})</span>}
             </h4>
             <div className="space-y-2 mb-3">
               {cityComments.map((c) => (
-                <div key={c.id} className="bg-white/5 rounded-lg p-3 group/c">
+                <div key={c.id} className="bg-muted/40 rounded-lg p-3 group/c">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-semibold text-primary">{c.author_name || c.author_email}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-white/30">{format(parseISO(c.created_at), "d MMM, HH:mm", { locale: es })}</span>
+                      <span className="text-[10px] text-muted-foreground">{format(parseISO(c.created_at), "d MMM, HH:mm", { locale: es })}</span>
                       {c.user_id === currentUserId && (
-                        <button onClick={() => deleteComment(c.id)} className="opacity-0 group-hover/c:opacity-100 text-white/40 hover:text-red-400">
+                        <button onClick={() => deleteComment(c.id)} className="opacity-0 group-hover/c:opacity-100 text-muted-foreground hover:text-destructive">
                           <Trash2 className="w-3 h-3" />
                         </button>
                       )}
                     </div>
                   </div>
-                  <p className="text-white/80 text-sm">{c.content}</p>
+                  <p className="text-foreground/80 text-sm">{c.content}</p>
                 </div>
               ))}
             </div>
@@ -334,7 +333,6 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addComment()}
-                className="bg-white/5 border-white/10 text-white"
               />
               <Button onClick={addComment} size="sm">Enviar</Button>
             </div>
