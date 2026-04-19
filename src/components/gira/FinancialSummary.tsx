@@ -157,7 +157,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
         <KPI icon={TrendingDown} label="Gastos totales (USD real)" value={fmt(totalUsd)} tone="destructive" />
         <KPI icon={TrendingUp} label="Patrocinios netos (USD real)" value={fmt(totalSponsoredReal)} tone="success" sub={`Bruto ${fmt(totalSponsoredBcv)} BCV − comisión ${fmt(totalCommissionBcv)}`} />
         <KPI icon={Wallet} label="Balance" value={fmt(balance)} tone={balance >= 0 ? "success" : "destructive"} />
-        <KPI icon={TrendingUp} label="Cobertura" value={`${totalUsd > 0 ? Math.round((totalSponsoredReal / totalUsd) * 100) : 0}%`} tone="primary" />
+        <KPI icon={TrendingUp} label="Rentabilidad" value={`${totalUsd > 0 ? Math.round(((totalSponsoredReal - totalUsd) / totalUsd) * 100) : 0}%`} tone="info" sub={`Ingresos ${fmt(totalSponsoredReal)} / Gastos ${fmt(totalUsd)}`} />
       </div>
 
       {/* Tasa de cambio */}
