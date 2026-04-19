@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import { CityCard, type City, type Activity, type Comment } from "@/components/gira/CityCard";
 import { FinancialSummary } from "@/components/gira/FinancialSummary";
 import { AddCityForm } from "@/components/gira/AddCityForm";
+import { TripCalendar } from "@/components/gira/TripCalendar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { LogOut, Loader2, MapPin, Wallet } from "lucide-react";
+import { LogOut, Loader2, MapPin, Wallet, CalendarDays } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
@@ -162,6 +163,7 @@ const Gira = () => {
           <TabsList className="mb-4">
             <TabsTrigger value="ruta"><MapPin className="w-4 h-4 mr-1.5" /> Ruta completa</TabsTrigger>
             <TabsTrigger value="finanzas"><Wallet className="w-4 h-4 mr-1.5" /> Resumen financiero</TabsTrigger>
+            <TabsTrigger value="calendario"><CalendarDays className="w-4 h-4 mr-1.5" /> Calendario</TabsTrigger>
           </TabsList>
 
           <TabsContent value="ruta">
@@ -198,6 +200,16 @@ const Gira = () => {
               </div>
             ) : (
               <FinancialSummary cities={cities} activities={activities} />
+            )}
+          </TabsContent>
+
+          <TabsContent value="calendario">
+            {loadingData ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-6 h-6 text-primary animate-spin" />
+              </div>
+            ) : (
+              <TripCalendar cities={cities} activities={activities} />
             )}
           </TabsContent>
         </Tabs>
