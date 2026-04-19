@@ -1,0 +1,1 @@
+ALTER TABLE public.trip_sponsors ADD COLUMN commission_pct numeric NOT NULL DEFAULT 10;
