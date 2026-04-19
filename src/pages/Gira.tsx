@@ -120,17 +120,19 @@ const Gira = () => {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div className="bg-card border border-border rounded-2xl p-4 overflow-x-auto shadow-[var(--shadow-soft)]">
-          <div className="flex items-center gap-2 min-w-max">
+        <div className="bg-card border border-border rounded-2xl p-4 shadow-[var(--shadow-soft)]">
+          <div className="flex flex-wrap gap-x-1 gap-y-3 justify-center sm:justify-start">
             {cities.map((c, idx) => (
-              <div key={c.id} className="flex items-center gap-2">
-                <div className="flex flex-col items-center text-center min-w-[80px]">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary">
+              <div key={c.id} className="flex items-center gap-1">
+                <div className="flex flex-col items-center text-center w-[72px] sm:w-[84px]">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                     {c.position}
                   </div>
-                  <span className="text-[10px] text-muted-foreground mt-1 font-medium truncate max-w-[80px]">{c.city}</span>
+                  <span className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 font-medium leading-tight px-0.5 break-words">
+                    {c.city}
+                  </span>
                 </div>
-                {idx < cities.length - 1 && <div className="w-6 h-px bg-border" />}
+                {idx < cities.length - 1 && <div className="w-3 sm:w-4 h-px bg-border self-start mt-4" />}
               </div>
             ))}
           </div>
