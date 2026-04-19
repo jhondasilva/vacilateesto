@@ -17,34 +17,42 @@ export const useGiraAuth = (): GiraAuthState => {
   const [displayName, setDisplayName] = useState<string | null>(null);
 
   useEffect(() => {
+    let mounted = true;
+
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      if (!mounted) return;
       setSession(newSession);
-      if (!newSession) {
-        setIsAllowed(false);
-        setDisplayName(null);
-        setLoading(false);
-      }
     });
 
     supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
       setSession(data.session);
-      setLoading(false);
     });
 
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
+    let active = true;
+
     const checkAccess = async () => {
       if (!session?.user) {
+        if (!active) return;
         setIsAllowed(false);
         setDisplayName(null);
+        setLoading(false);
         return;
       }
 
+      setLoading(true);
       setIsAllowed(null);
 
       const { data, error } = await supabase.rpc("is_allowed_user");
+      if (!active) return;
+
       console.log("[useGiraAuth] access check", {
         email: session.user.email,
         allowed: data,
@@ -58,9 +66,14 @@ export const useGiraAuth = (): GiraAuthState => {
           session.user.email ??
           null,
       );
+      setLoading(false);
     };
 
     void checkAccess();
+
+    return () => {
+      active = false;
+    };
   }, [session]);
 
   return {
