@@ -156,6 +156,16 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
     onRefresh();
   };
 
+  const deleteCity = async () => {
+    if (!confirm(`¿Eliminar "${city.city}" y todas sus actividades/comentarios?`)) return;
+    await supabase.from("trip_comments").delete().eq("city_id", city.id);
+    await supabase.from("trip_activities").delete().eq("city_id", city.id);
+    const { error } = await supabase.from("trip_cities").delete().eq("id", city.id);
+    if (error) return toast.error("No se pudo eliminar la ciudad");
+    toast.success(`${city.city} eliminada`);
+    onRefresh();
+  };
+
   const addActivity = async () => {
     if (!newActivity.title.trim()) return toast.error("Falta título");
     const { error } = await supabase.from("trip_activities").insert({
