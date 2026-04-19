@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { useGiraAuth } from "@/hooks/useGiraAuth";
@@ -16,13 +16,6 @@ const Gira = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingData, setLoadingData] = useState(true);
 
-  useEffect(() => {
-    if (loading) return;
-    if (!session || isAllowed === false) {
-      navigate("/gira/login", { replace: true });
-    }
-  }, [session, isAllowed, loading, navigate]);
-
   const loadData = useCallback(async () => {
     const [citiesRes, activitiesRes, commentsRes] = await Promise.all([
       supabase.from("trip_cities").select("*").order("position"),
@@ -36,8 +29,8 @@ const Gira = () => {
   }, []);
 
   useEffect(() => {
-    if (session && isAllowed) loadData();
-  }, [session, isAllowed, loadData]);
+    if (!loading && session && isAllowed) loadData();
+  }, [session, isAllowed, loading, loadData]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -45,13 +38,26 @@ const Gira = () => {
     navigate("/gira/login", { replace: true });
   };
 
-  if (loading || !session || !isAllowed) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     );
   }
+
+  if (!session || isAllowed === false) {
+    return <Navigate to="/gira/login" replace />;
+  }
+
+  if (!isAllowed) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      </div>
+    );
+  }
+}
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
