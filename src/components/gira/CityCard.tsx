@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -111,18 +111,14 @@ const formatRange = (start: string, end: string) => {
 export const CityCard = ({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh }: Props) => {
   const [expanded, setExpanded] = useState(city.position <= 2);
 
-  // Listen to global "open city" events fired from the timeline
-  if (typeof window !== "undefined") {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useState(() => {
-      const handler = (e: Event) => {
-        const detail = (e as CustomEvent).detail as { cityId: string };
-        if (detail?.cityId === city.id) setExpanded(true);
-      };
-      window.addEventListener("gira:open-city", handler);
-      return () => window.removeEventListener("gira:open-city", handler);
-    });
-  }
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { cityId: string };
+      if (detail?.cityId === city.id) setExpanded(true);
+    };
+    window.addEventListener("gira:open-city", handler);
+    return () => window.removeEventListener("gira:open-city", handler);
+  }, [city.id]);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(city);
   const [newComment, setNewComment] = useState("");
