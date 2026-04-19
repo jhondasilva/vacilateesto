@@ -6,6 +6,7 @@ import { useGiraAuth } from "@/hooks/useGiraAuth";
 import { Button } from "@/components/ui/button";
 import { CityCard, type City, type Activity, type Comment } from "@/components/gira/CityCard";
 import { FinancialSummary } from "@/components/gira/FinancialSummary";
+import { AddCityForm } from "@/components/gira/AddCityForm";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { LogOut, Loader2, MapPin, Wallet } from "lucide-react";
 import { toast } from "sonner";
