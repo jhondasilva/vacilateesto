@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -108,7 +108,7 @@ const formatRange = (start: string, end: string) => {
   return `${format(s, "d", { locale: es })}–${format(e, "d 'de' MMM", { locale: es })}`;
 };
 
-export const CityCard = ({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh }: Props) => {
+export const CityCard = forwardRef<HTMLDivElement, Props>(({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh }, _ref) => {
   const [expanded, setExpanded] = useState(city.position <= 2);
 
   useEffect(() => {
@@ -434,4 +434,5 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
       )}
     </div>
   );
-};
+});
+CityCard.displayName = "CityCard";
