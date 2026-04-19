@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -110,6 +110,15 @@ const formatRange = (start: string, end: string) => {
 
 export const CityCard = ({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh }: Props) => {
   const [expanded, setExpanded] = useState(city.position <= 2);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { cityId: string };
+      if (detail?.cityId === city.id) setExpanded(true);
+    };
+    window.addEventListener("gira:open-city", handler);
+    return () => window.removeEventListener("gira:open-city", handler);
+  }, [city.id]);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(city);
   const [newComment, setNewComment] = useState("");
@@ -212,7 +221,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
   );
 
   return (
-    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
+    <div id={`city-${city.id}`} className="scroll-mt-32 bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
       <div className="w-full p-5 flex items-center justify-between text-left group gap-3">
         <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-4 flex-1 min-w-0 text-left">
           <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0">
