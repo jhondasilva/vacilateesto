@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X } from "lucide-react";
+import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,6 +20,9 @@ export type City = {
   accommodation_status: string;
   accommodation_notes: string | null;
   vibe: string | null;
+  nights: number | null;
+  hotel_cost_usd: number | null;
+  hotel_price_range: string | null;
 };
 
 export type Activity = {
@@ -33,6 +36,13 @@ export type Activity = {
   location: string | null;
   status: string;
   position: number;
+  cost_usd: number | null;
+  airline: string | null;
+  flight_number: string | null;
+  departure_time: string | null;
+  arrival_time: string | null;
+  duration: string | null;
+  cabin_class: string | null;
 };
 
 export type Comment = {
@@ -52,6 +62,7 @@ const ACTIVITY_ICONS: Record<string, typeof Plane> = {
   food: Utensils,
   production: Camera,
   milestone: MapPin,
+  expense: Receipt,
 };
 
 const ACTIVITY_LABELS: Record<string, string> = {
@@ -60,6 +71,7 @@ const ACTIVITY_LABELS: Record<string, string> = {
   food: "Gastronomía",
   production: "Producción",
   milestone: "Hito",
+  expense: "Gasto",
 };
 
 const STATUS_STYLES: Record<string, string> = {
@@ -73,6 +85,9 @@ const STATUS_LABELS: Record<string, string> = {
   pending: "Pendiente",
   proposal: "Propuesta",
 };
+
+const fmtUsd = (n: number | null | undefined) =>
+  n == null ? null : `$${Math.round(Number(n)).toLocaleString("en-US")}`;
 
 interface Props {
   city: City;
@@ -101,6 +116,10 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
 
   const cityComments = comments.filter((c) => c.city_id === city.id && !c.activity_id);
 
+  const cityCostTotal =
+    (Number(city.hotel_cost_usd) || 0) +
+    activities.reduce((sum, a) => sum + (Number(a.cost_usd) || 0), 0);
+
   const saveCity = async () => {
     const { error } = await supabase
       .from("trip_cities")
@@ -110,6 +129,9 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
         accommodation_status: draft.accommodation_status,
         accommodation_notes: draft.accommodation_notes,
         vibe: draft.vibe,
+        hotel_cost_usd: draft.hotel_cost_usd,
+        nights: draft.nights,
+        hotel_price_range: draft.hotel_price_range,
       })
       .eq("id", city.id);
     if (error) return toast.error("No se pudo guardar");
@@ -171,6 +193,12 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
     onRefresh();
   };
 
+  // Sort activities: flights first, then matches, then expenses, then others
+  const typeOrder: Record<string, number> = { flight: 0, match: 1, production: 2, food: 3, milestone: 4, expense: 5 };
+  const sortedActivities = [...activities].sort(
+    (a, b) => (typeOrder[a.activity_type] ?? 9) - (typeOrder[b.activity_type] ?? 9) || a.position - b.position
+  );
+
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
       <button
@@ -182,13 +210,14 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
             {city.position}
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-xl font-bold text-foreground">{city.city}</h3>
               {city.country && <span className="text-muted-foreground text-sm">• {city.country}</span>}
             </div>
-            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1 flex-wrap">
               <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{formatRange(city.start_date, city.end_date)}</span>
-              {city.vibe && <span className="hidden sm:inline">• {city.vibe}</span>}
+              {city.nights ? <span className="flex items-center gap-1"><Moon className="w-3 h-3" />{city.nights} {city.nights === 1 ? "noche" : "noches"}</span> : null}
+              {cityCostTotal > 0 && <span className="text-primary font-semibold">{fmtUsd(cityCostTotal)}</span>}
             </div>
           </div>
         </div>
@@ -202,6 +231,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
             <div className="flex items-center justify-between mb-2">
               <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
                 <Hotel className="w-4 h-4 text-primary" /> Alojamiento
+                {city.hotel_cost_usd ? <span className="text-primary text-xs">{fmtUsd(city.hotel_cost_usd)}</span> : null}
               </h4>
               {!editing ? (
                 <Button size="sm" variant="ghost" onClick={() => setEditing(true)} className="h-7">
@@ -220,12 +250,15 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
             </div>
             {!editing ? (
               <div className="bg-muted/40 rounded-lg p-3 space-y-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-foreground font-medium">{city.accommodation_name || <span className="text-muted-foreground italic">Sin asignar</span>}</p>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full border ${STATUS_STYLES[city.accommodation_status]}`}>
                     {STATUS_LABELS[city.accommodation_status]}
                   </span>
                 </div>
+                {city.hotel_price_range && (
+                  <p className="text-muted-foreground text-xs">{city.hotel_price_range}{city.nights ? ` · ${city.nights} noches` : ""}</p>
+                )}
                 {city.accommodation_address && <p className="text-muted-foreground text-xs">{city.accommodation_address}</p>}
                 {city.accommodation_notes && <p className="text-muted-foreground text-xs italic mt-1">{city.accommodation_notes}</p>}
               </div>
@@ -233,6 +266,11 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
               <div className="space-y-2 bg-muted/40 rounded-lg p-3">
                 <Input placeholder="Hotel / Airbnb" value={draft.accommodation_name ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_name: e.target.value })} />
                 <Input placeholder="Dirección" value={draft.accommodation_address ?? ""} onChange={(e) => setDraft({ ...draft, accommodation_address: e.target.value })} />
+                <div className="grid grid-cols-2 gap-2">
+                  <Input type="number" placeholder="Costo USD" value={draft.hotel_cost_usd ?? ""} onChange={(e) => setDraft({ ...draft, hotel_cost_usd: e.target.value ? Number(e.target.value) : null })} />
+                  <Input type="number" placeholder="Noches" value={draft.nights ?? ""} onChange={(e) => setDraft({ ...draft, nights: e.target.value ? Number(e.target.value) : null })} />
+                </div>
+                <Input placeholder="Rango precio (ej: $200-$250)" value={draft.hotel_price_range ?? ""} onChange={(e) => setDraft({ ...draft, hotel_price_range: e.target.value })} />
                 <select value={draft.accommodation_status} onChange={(e) => setDraft({ ...draft, accommodation_status: e.target.value })} className="w-full bg-background border border-input text-foreground rounded-md px-3 py-2 text-sm">
                   <option value="pending">Pendiente</option>
                   <option value="proposal">Propuesta</option>
@@ -247,7 +285,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
           {/* Actividades */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="text-sm font-semibold text-foreground">Actividades & Logística</h4>
+              <h4 className="text-sm font-semibold text-foreground">Vuelos, partidos & gastos</h4>
               <Button size="sm" variant="ghost" onClick={() => setShowActivityForm(!showActivityForm)} className="h-7 text-primary hover:text-primary">
                 <Plus className="w-3 h-3 mr-1" /> Añadir
               </Button>
@@ -262,6 +300,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                     <option value="food">Gastronomía</option>
                     <option value="production">Producción</option>
                     <option value="milestone">Hito</option>
+                    <option value="expense">Gasto</option>
                   </select>
                   <Input type="time" value={newActivity.time} onChange={(e) => setNewActivity({ ...newActivity, time: e.target.value })} />
                 </div>
@@ -273,9 +312,10 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
             )}
 
             <div className="space-y-2">
-              {activities.length === 0 && <p className="text-muted-foreground text-xs italic">Sin actividades aún</p>}
-              {activities.map((act) => {
+              {sortedActivities.length === 0 && <p className="text-muted-foreground text-xs italic">Sin actividades aún</p>}
+              {sortedActivities.map((act) => {
                 const Icon = ACTIVITY_ICONS[act.activity_type] ?? MapPin;
+                const isFlight = act.activity_type === "flight";
                 return (
                   <div key={act.id} className="bg-muted/40 rounded-lg p-3 flex items-start gap-3 group/act">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -284,9 +324,12 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <p className="text-foreground font-medium text-sm">{act.title}</p>
-                        <button onClick={() => cycleStatus(act)} className={`text-[10px] px-2 py-0.5 rounded-full border ${STATUS_STYLES[act.status]} hover:opacity-80`}>
-                          {STATUS_LABELS[act.status]}
-                        </button>
+                        <div className="flex items-center gap-2">
+                          {act.cost_usd ? <span className="text-primary font-semibold text-xs">{fmtUsd(act.cost_usd)}</span> : null}
+                          <button onClick={() => cycleStatus(act)} className={`text-[10px] px-2 py-0.5 rounded-full border ${STATUS_STYLES[act.status]} hover:opacity-80`}>
+                            {STATUS_LABELS[act.status]}
+                          </button>
+                        </div>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5 flex-wrap">
                         <span>{ACTIVITY_LABELS[act.activity_type]}</span>
@@ -294,6 +337,17 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                         {act.activity_time && <span>• {act.activity_time}</span>}
                         {act.location && <span className="truncate">• {act.location}</span>}
                       </div>
+                      {isFlight && (act.airline || act.flight_number || act.departure_time) && (
+                        <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] bg-background border border-border rounded-md p-2">
+                          {act.airline && <div><span className="text-muted-foreground">Aerolínea</span><br/><span className="text-foreground font-medium">{act.airline}</span></div>}
+                          {act.flight_number && <div><span className="text-muted-foreground">Vuelo</span><br/><span className="text-foreground font-medium">{act.flight_number}</span></div>}
+                          {act.departure_time && <div><span className="text-muted-foreground">Salida</span><br/><span className="text-foreground font-medium">{act.departure_time}</span></div>}
+                          {act.arrival_time && <div><span className="text-muted-foreground">Llegada</span><br/><span className="text-foreground font-medium">{act.arrival_time}</span></div>}
+                          {act.duration && <div><span className="text-muted-foreground">Duración</span><br/><span className="text-foreground font-medium">{act.duration}</span></div>}
+                          {act.cabin_class && <div><span className="text-muted-foreground">Clase</span><br/><span className="text-foreground font-medium">{act.cabin_class}</span></div>}
+                        </div>
+                      )}
+                      {act.description && <p className="text-muted-foreground text-xs italic mt-1">{act.description}</p>}
                     </div>
                     <button onClick={() => deleteActivity(act.id)} className="opacity-0 group-hover/act:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
                       <Trash2 className="w-3.5 h-3.5" />
