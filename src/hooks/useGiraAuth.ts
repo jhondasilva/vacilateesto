@@ -17,9 +17,13 @@ export const useGiraAuth = (): GiraAuthState => {
   const [displayName, setDisplayName] = useState<string | null>(null);
 
   useEffect(() => {
-    // Listener PRIMERO (regla Lovable)
     const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
+      if (!newSession) {
+        setIsAllowed(false);
+        setDisplayName(null);
+        setLoading(false);
+      }
     });
 
     supabase.auth.getSession().then(({ data }) => {
@@ -31,23 +35,32 @@ export const useGiraAuth = (): GiraAuthState => {
   }, []);
 
   useEffect(() => {
-    if (!session?.user?.email) {
-      setIsAllowed(session === null ? false : null);
-      setDisplayName(null);
-      return;
-    }
+    const checkAccess = async () => {
+      if (!session?.user) {
+        setIsAllowed(false);
+        setDisplayName(null);
+        return;
+      }
 
-    const email = session.user.email.toLowerCase().trim();
-    supabase
-      .from("allowed_users")
-      .select("display_name, email")
-      .ilike("email", email)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        console.log("[useGiraAuth] whitelist check", { email, data, error });
-        setIsAllowed(!!data);
-        setDisplayName(data?.display_name ?? null);
+      setIsAllowed(null);
+
+      const { data, error } = await supabase.rpc("is_allowed_user");
+      console.log("[useGiraAuth] access check", {
+        email: session.user.email,
+        allowed: data,
+        error,
       });
+
+      setIsAllowed(error ? false : !!data);
+      setDisplayName(
+        session.user.user_metadata?.full_name ??
+          session.user.user_metadata?.name ??
+          session.user.email ??
+          null,
+      );
+    };
+
+    void checkAccess();
   }, [session]);
 
   return {
