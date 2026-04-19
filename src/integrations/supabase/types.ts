@@ -238,6 +238,57 @@ export type Database = {
           },
         ]
       }
+      trip_settings: {
+        Row: {
+          bcv_to_usd_rate: number
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          bcv_to_usd_rate?: number
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          bcv_to_usd_rate?: number
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trip_sponsors: {
+        Row: {
+          amount_usd_bcv: number
+          category: string | null
+          created_at: string
+          id: string
+          name: string
+          notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount_usd_bcv?: number
+          category?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount_usd_bcv?: number
+          category?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
