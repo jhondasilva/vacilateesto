@@ -14,7 +14,7 @@ const GiraLogin = () => {
 
   const handleGoogle = async () => {
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/gira/login",
+      redirect_uri: window.location.origin,
     });
     if (result.error) toast.error("No se pudo iniciar sesión");
   };
