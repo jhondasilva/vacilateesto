@@ -339,14 +339,17 @@ export const TripCalendar = ({ cities, activities }: Props) => {
                   return (
                     <div
                       key={ev.id}
-                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default`}
+                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
                       style={{ top: safeTop, height }}
-                      title={`${ev.title}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
+                      title={`${ev.title}${ev.isContinuation ? " (continuación)" : ""}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
                     >
                       <div className="flex items-start gap-1">
                         <Icon className="w-3 h-3 mt-0.5 flex-shrink-0" />
                         <div className="min-w-0 flex-1">
-                          <p className="text-[11px] font-bold leading-tight truncate">{ev.title}</p>
+                          <p className="text-[11px] font-bold leading-tight truncate">
+                            {ev.isContinuation && <span className="text-[8px] uppercase tracking-wider opacity-70 mr-1">↳ cont.</span>}
+                            {ev.title}
+                          </p>
                           {height > 32 && (
                             <p className="text-[9px] opacity-80 leading-tight truncate">
                               {minToLabel(ev.startMin)}{ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""}
