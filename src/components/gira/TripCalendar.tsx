@@ -19,6 +19,8 @@ type CalEvent = {
   subtitle?: string;
   isAllDay?: boolean;
   isContinuation?: boolean;
+  overlapColumn?: number;
+  overlapCount?: number;
 };
 
 const HOUR_HEIGHT = 48; // px per hour
