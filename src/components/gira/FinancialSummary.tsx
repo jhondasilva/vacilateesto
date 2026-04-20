@@ -213,18 +213,18 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 <tr key={r.concept} className="border-t border-border">
                   <td className="px-5 py-3 text-foreground font-medium">{r.concept}</td>
                   <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">{r.detail}</td>
-                  <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(r.value)}</td>
+                  <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(r.value)}</td>
                 </tr>
               ))}
               <tr className="border-t border-border bg-muted/30">
                 <td className="px-5 py-3 text-foreground font-medium">Fondo de Imprevistos (10%)</td>
                 <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">Margen de seguridad sobre logística</td>
-                <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(contingency)}</td>
+                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(contingency)}</td>
               </tr>
               <tr className="border-t-2 border-primary bg-primary/5">
                 <td className="px-5 py-4 text-foreground font-black uppercase">Inversión Total Estimada</td>
                 <td className="px-5 py-4 hidden sm:table-cell"></td>
-                <td className="px-5 py-4 text-right text-primary font-black text-lg">{fmt(totalUsd)} USD</td>
+                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(totalUsd)} USD</td>
               </tr>
             </tbody>
           </table>
