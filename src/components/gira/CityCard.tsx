@@ -218,11 +218,16 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
     onRefresh();
   };
 
-  // Sort activities: flights first, then matches, then expenses, then others
-  const typeOrder: Record<string, number> = { flight: 0, match: 1, production: 2, food: 3, milestone: 4, expense: 5 };
-  const sortedActivities = [...activities].sort(
-    (a, b) => (typeOrder[a.activity_type] ?? 9) - (typeOrder[b.activity_type] ?? 9) || a.position - b.position
-  );
+  // Sort activities chronologically by date (asc), then by time, then by position
+  const sortedActivities = [...activities].sort((a, b) => {
+    const dateA = a.activity_date || "9999-12-31";
+    const dateB = b.activity_date || "9999-12-31";
+    if (dateA !== dateB) return dateA.localeCompare(dateB);
+    const timeA = a.activity_time || a.departure_time || "99:99";
+    const timeB = b.activity_time || b.departure_time || "99:99";
+    if (timeA !== timeB) return timeA.localeCompare(timeB);
+    return a.position - b.position;
+  });
 
   return (
     <div id={`city-${city.id}`} className="scroll-mt-32 bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 transition-all shadow-[var(--shadow-soft)]">
