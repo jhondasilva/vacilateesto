@@ -11,14 +11,16 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
 import logoFifa from "@/assets/logo-mundial-2026.png";
 
-type Mode = "signin" | "signup";
-
 const GiraLogin = () => {
   const { session, isAllowed, loading } = useGiraAuth();
-  const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [needsSetup, setNeedsSetup] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  const trySignIn = async (mail: string, pass: string) => {
+    return supabase.auth.signInWithPassword({ email: mail, password: pass });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,23 +30,29 @@ const GiraLogin = () => {
     }
     setSubmitting(true);
     try {
-      if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/gira` },
+      if (needsSetup) {
+        // Setear contraseña vía edge function admin (valida allowed_users server-side)
+        const { data, error } = await supabase.functions.invoke("admin-set-password", {
+          body: { email, password },
         });
-        if (error) {
-          toast.error(error.message);
+        if (error || (data as { error?: string })?.error) {
+          toast.error((data as { error?: string })?.error ?? error?.message ?? "No se pudo crear");
           return;
         }
-        toast.success("Cuenta creada");
+        const { error: signInErr } = await trySignIn(email, password);
+        if (signInErr) {
+          toast.error(signInErr.message);
+          return;
+        }
+        toast.success("Contraseña creada");
+      } else {
+        const { error } = await trySignIn(email, password);
+        if (error) {
+          // Credenciales inválidas → puede ser primera vez, pasar a modo "crear contraseña"
+          setNeedsSetup(true);
+          toast.info("Primera vez — define tu contraseña y vuelve a enviar");
+          return;
+        }
       }
     } finally {
       setSubmitting(false);
@@ -93,10 +101,12 @@ const GiraLogin = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <h2 className="text-xl font-bold text-center">
-                {mode === "signin" ? "Inicia sesión" : "Crear cuenta"}
+                {needsSetup ? "Crear contraseña" : "Inicia sesión"}
               </h2>
               <p className="text-muted-foreground text-sm text-center">
-                Solo Juan y Jhon tienen acceso a este espacio.
+                {needsSetup
+                  ? "Define una contraseña para tu cuenta autorizada."
+                  : "Solo Juan y Jhon tienen acceso a este espacio."}
               </p>
 
               <div className="space-y-2">
@@ -117,7 +127,7 @@ const GiraLogin = () => {
                 <Input
                   id="password"
                   type="password"
-                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                  autoComplete={needsSetup ? "new-password" : "current-password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -128,18 +138,18 @@ const GiraLogin = () => {
 
               <Button type="submit" className="w-full" size="lg" disabled={submitting}>
                 {submitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                {mode === "signin" ? "Entrar" : "Crear cuenta"}
+                {needsSetup ? "Crear contraseña y entrar" : "Entrar"}
               </Button>
 
-              <button
-                type="button"
-                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {mode === "signin"
-                  ? "¿Primera vez? Crear contraseña"
-                  : "Ya tengo cuenta — iniciar sesión"}
-              </button>
+              {needsSetup && (
+                <button
+                  type="button"
+                  onClick={() => setNeedsSetup(false)}
+                  className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Ya tengo contraseña — volver a iniciar sesión
+                </button>
+              )}
             </form>
           )}
         </div>
