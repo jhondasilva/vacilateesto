@@ -160,7 +160,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   const totalNights = cities.reduce((s, c) => s + (Number(c.nights) || 0), 0);
   const expenseRows = [
-    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Premium Economy + regreso Copa`, value: flightsCost },
+    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
     { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
     { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días + BBQ Houston + content ordering", value: foodCost },
