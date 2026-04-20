@@ -357,8 +357,10 @@ export const TripCalendar = ({ cities, activities }: Props) => {
                 {events.map((ev) => {
                   const s = styleFor(ev.type);
                   const Icon = s.icon;
-                  const top = ((ev.startMin - START_HOUR * 60) / 60) * HOUR_HEIGHT;
-                  const heightRaw = ((ev.endMin - ev.startMin) / 60) * HOUR_HEIGHT;
+                  const visibleStart = Math.max(ev.startMin, START_HOUR * 60);
+                  const visibleEnd = Math.min(ev.endMin, END_HOUR * 60);
+                  const top = ((visibleStart - START_HOUR * 60) / 60) * HOUR_HEIGHT;
+                  const heightRaw = ((Math.max(visibleEnd, visibleStart) - visibleStart) / 60) * HOUR_HEIGHT;
                   const height = Math.max(heightRaw, 26);
                   const safeTop = Math.max(top, 0);
                   const overlapCount = Math.max(ev.overlapCount ?? 1, 1);
