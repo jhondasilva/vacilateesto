@@ -18,6 +18,7 @@ type CalEvent = {
   date: string; // YYYY-MM-DD
   subtitle?: string;
   isAllDay?: boolean;
+  isContinuation?: boolean;
 };
 
 const HOUR_HEIGHT = 48; // px per hour
@@ -148,9 +149,15 @@ export const TripCalendar = ({ cities, activities }: Props) => {
 
       let startMin = dep ?? at ?? null;
       let endMin: number | null = null;
+      let overnight = false;
 
       if (a.activity_type === "flight" && dep != null && arr != null) {
-        endMin = arr >= dep ? arr : arr + 24 * 60; // overnight cap
+        if (arr >= dep) {
+          endMin = arr;
+        } else {
+          endMin = arr + 24 * 60; // crosses midnight
+          overnight = true;
+        }
       } else if (startMin != null) {
         endMin = startMin + (a.activity_type === "match" ? 120 : 60);
       }
@@ -159,17 +166,46 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       if (startMin == null) startMin = 0;
       if (endMin == null) endMin = 0;
 
-      (map[date] ||= []).push({
-        id: a.id,
-        title: a.title,
-        type: a.activity_type,
-        startMin,
-        endMin: Math.min(endMin, 24 * 60 - 1),
-        city: city?.city ?? "",
-        date,
-        subtitle: a.location || a.airline || undefined,
-        isAllDay,
-      });
+      if (overnight && endMin > 24 * 60) {
+        // Day 1: from departure to end of day
+        (map[date] ||= []).push({
+          id: a.id,
+          title: a.title,
+          type: a.activity_type,
+          startMin,
+          endMin: 24 * 60 - 1,
+          city: city?.city ?? "",
+          date,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay: false,
+        });
+        // Day 2: from 00:00 to actual arrival
+        const nextDay = toISO(addDays(fromISO(date), 1));
+        (map[nextDay] ||= []).push({
+          id: `${a.id}-cont`,
+          title: a.title,
+          type: a.activity_type,
+          startMin: 0,
+          endMin: endMin - 24 * 60,
+          city: city?.city ?? "",
+          date: nextDay,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay: false,
+          isContinuation: true,
+        });
+      } else {
+        (map[date] ||= []).push({
+          id: a.id,
+          title: a.title,
+          type: a.activity_type,
+          startMin,
+          endMin: Math.min(endMin, 24 * 60 - 1),
+          city: city?.city ?? "",
+          date,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay,
+        });
+      }
     });
 
     Object.values(map).forEach(arr => arr.sort((a, b) => a.startMin - b.startMin));
