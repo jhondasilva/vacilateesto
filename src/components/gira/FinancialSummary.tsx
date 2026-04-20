@@ -126,7 +126,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
       amount_usd_bcv: parseFloat(draft.amount_usd_bcv) || 0,
       status: draft.status,
       notes: draft.notes || null,
-      commission_pct: parseFloat(draft.commission_pct) || 10,
+      commission_pct: (() => { const n = parseFloat(draft.commission_pct); return isNaN(n) ? 10 : Math.max(0, Math.min(100, n)); })(),
     };
     const { error } = editingId
       ? await supabase.from("trip_sponsors").update(payload).eq("id", editingId)
