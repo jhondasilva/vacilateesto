@@ -11,14 +11,16 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
 import logoFifa from "@/assets/logo-mundial-2026.png";
 
-type Mode = "signin" | "signup";
-
 const GiraLogin = () => {
   const { session, isAllowed, loading } = useGiraAuth();
-  const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [needsSetup, setNeedsSetup] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  const trySignIn = async (mail: string, pass: string) => {
+    return supabase.auth.signInWithPassword({ email: mail, password: pass });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,23 +30,29 @@ const GiraLogin = () => {
     }
     setSubmitting(true);
     try {
-      if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/gira` },
+      if (needsSetup) {
+        // Setear contraseña vía edge function admin (valida allowed_users server-side)
+        const { data, error } = await supabase.functions.invoke("admin-set-password", {
+          body: { email, password },
         });
-        if (error) {
-          toast.error(error.message);
+        if (error || (data as { error?: string })?.error) {
+          toast.error((data as { error?: string })?.error ?? error?.message ?? "No se pudo crear");
           return;
         }
-        toast.success("Cuenta creada");
+        const { error: signInErr } = await trySignIn(email, password);
+        if (signInErr) {
+          toast.error(signInErr.message);
+          return;
+        }
+        toast.success("Contraseña creada");
+      } else {
+        const { error } = await trySignIn(email, password);
+        if (error) {
+          // Credenciales inválidas → puede ser primera vez, pasar a modo "crear contraseña"
+          setNeedsSetup(true);
+          toast.info("Primera vez — define tu contraseña y vuelve a enviar");
+          return;
+        }
       }
     } finally {
       setSubmitting(false);
