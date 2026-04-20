@@ -361,11 +361,15 @@ export const TripCalendar = ({ cities, activities }: Props) => {
                   const heightRaw = ((ev.endMin - ev.startMin) / 60) * HOUR_HEIGHT;
                   const height = Math.max(heightRaw, 26);
                   const safeTop = Math.max(top, 0);
+                  const overlapCount = Math.max(ev.overlapCount ?? 1, 1);
+                  const overlapColumn = ev.overlapColumn ?? 0;
+                  const width = overlapCount > 1 ? `calc((100% - 8px) / ${overlapCount})` : "calc(100% - 8px)";
+                  const left = overlapCount > 1 ? `calc(4px + (${overlapColumn} * ((100% - 8px) / ${overlapCount})))` : "4px";
                   return (
                     <div
                       key={ev.id}
-                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
-                      style={{ top: safeTop, height }}
+                      className={`absolute rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
+                      style={{ top: safeTop, height, left, width }}
                       title={`${ev.title}${ev.isContinuation ? " (continuación)" : ""}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
                     >
                       <div className="flex items-start gap-1">
