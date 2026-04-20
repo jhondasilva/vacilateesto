@@ -19,6 +19,8 @@ type CalEvent = {
   subtitle?: string;
   isAllDay?: boolean;
   isContinuation?: boolean;
+  overlapColumn?: number;
+  overlapCount?: number;
 };
 
 const HOUR_HEIGHT = 48; // px per hour
@@ -208,7 +210,30 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       }
     });
 
-    Object.values(map).forEach(arr => arr.sort((a, b) => a.startMin - b.startMin));
+    Object.values(map).forEach(arr => {
+      arr.sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
+
+      const timedEvents = arr.filter(e => !e.isAllDay);
+      const active: CalEvent[] = [];
+
+      timedEvents.forEach((event) => {
+        for (let i = active.length - 1; i >= 0; i -= 1) {
+          if (active[i].endMin <= event.startMin) active.splice(i, 1);
+        }
+
+        const usedColumns = new Set(active.map(e => e.overlapColumn ?? 0));
+        let column = 0;
+        while (usedColumns.has(column)) column += 1;
+
+        event.overlapColumn = column;
+        const groupSize = active.length + 1;
+        event.overlapCount = groupSize;
+        active.forEach(e => {
+          e.overlapCount = Math.max(e.overlapCount ?? 1, groupSize);
+        });
+        active.push(event);
+      });
+    });
     return map;
   }, [activities, cities, cityById]);
 
@@ -332,15 +357,21 @@ export const TripCalendar = ({ cities, activities }: Props) => {
                 {events.map((ev) => {
                   const s = styleFor(ev.type);
                   const Icon = s.icon;
-                  const top = ((ev.startMin - START_HOUR * 60) / 60) * HOUR_HEIGHT;
-                  const heightRaw = ((ev.endMin - ev.startMin) / 60) * HOUR_HEIGHT;
+                  const visibleStart = Math.max(ev.startMin, START_HOUR * 60);
+                  const visibleEnd = Math.min(ev.endMin, END_HOUR * 60);
+                  const top = ((visibleStart - START_HOUR * 60) / 60) * HOUR_HEIGHT;
+                  const heightRaw = ((Math.max(visibleEnd, visibleStart) - visibleStart) / 60) * HOUR_HEIGHT;
                   const height = Math.max(heightRaw, 26);
                   const safeTop = Math.max(top, 0);
+                  const overlapCount = Math.max(ev.overlapCount ?? 1, 1);
+                  const overlapColumn = ev.overlapColumn ?? 0;
+                  const width = overlapCount > 1 ? `calc((100% - 8px) / ${overlapCount})` : "calc(100% - 8px)";
+                  const left = overlapCount > 1 ? `calc(4px + (${overlapColumn} * ((100% - 8px) / ${overlapCount})))` : "4px";
                   return (
                     <div
                       key={ev.id}
-                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
-                      style={{ top: safeTop, height }}
+                      className={`absolute rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
+                      style={{ top: safeTop, height, left, width }}
                       title={`${ev.title}${ev.isContinuation ? " (continuación)" : ""}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
                     >
                       <div className="flex items-start gap-1">
