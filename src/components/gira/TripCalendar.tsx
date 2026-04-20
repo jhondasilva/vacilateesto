@@ -210,7 +210,30 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       }
     });
 
-    Object.values(map).forEach(arr => arr.sort((a, b) => a.startMin - b.startMin));
+    Object.values(map).forEach(arr => {
+      arr.sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
+
+      const timedEvents = arr.filter(e => !e.isAllDay);
+      const active: CalEvent[] = [];
+
+      timedEvents.forEach((event) => {
+        for (let i = active.length - 1; i >= 0; i -= 1) {
+          if (active[i].endMin <= event.startMin) active.splice(i, 1);
+        }
+
+        const usedColumns = new Set(active.map(e => e.overlapColumn ?? 0));
+        let column = 0;
+        while (usedColumns.has(column)) column += 1;
+
+        event.overlapColumn = column;
+        const groupSize = active.length + 1;
+        event.overlapCount = groupSize;
+        active.forEach(e => {
+          e.overlapCount = Math.max(e.overlapCount ?? 1, groupSize);
+        });
+        active.push(event);
+      });
+    });
     return map;
   }, [activities, cities, cityById]);
 
