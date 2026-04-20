@@ -56,11 +56,21 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   // ===== Cálculo de gastos (USD reales) =====
   const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+  const flightsCount = activities.filter(a => a.activity_type === "flight").length;
   const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
-  const transportCost = activities.filter(a => a.activity_type === "expense" && /transporte|amtrak|tren/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
-  const foodCost = activities.filter(a => a.activity_type === "expense" && /comida|bbq|banquete/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0) + 6600 + 360 + 500; // + USA/CAN comida + México arranque + content ordering (no están como actividades)
-  const operationsCost = 1050; // seguro, eSims, lavandería, ETIAS
-  const subtotal = flightsCost + hotelsCost + transportCost + foodCost + operationsCost;
+  const transportCost = activities.filter(a => a.activity_type === "expense" && /transporte|amtrak|tren|uber/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0) || 3230;
+  const foodFromActivities = activities.filter(a => a.activity_type === "expense" && /comida|bbq|banquete|alimentaci/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+  // Comidas: $80/día x 2 pax x 42 días = $6,720 + $600 BBQ Houston + $360 arranque CDMX + $500 content ordering
+  const foodCost = foodFromActivities + 6720 + 600 + 360 + 500;
+  // Internet: WiFi a bordo $40/vuelo x 2 pax x #vuelos
+  const inflightWifiCost = 40 * 2 * flightsCount;
+  // eSIMs/datos celular: $50/mes x 2 pax x 1.5 meses (mid-junio a fin julio) = $150
+  const eSimCost = 150;
+  // Seguro de viaje internacional: $200/persona x 2 = $400
+  const insuranceCost = 400;
+  // Operatividad: lavandería + ETIAS + propinas + tarjetas SIM físicas backup
+  const operationsCost = 650;
+  const subtotal = flightsCost + hotelsCost + transportCost + foodCost + inflightWifiCost + eSimCost + insuranceCost + operationsCost;
   const contingency = subtotal * 0.10;
   const totalUsd = subtotal + contingency;
 
@@ -142,12 +152,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
     void load();
   };
 
+  const totalNights = cities.reduce((s, c) => s + (Number(c.nights) || 0), 0);
   const expenseRows = [
-    { concept: "Vuelos (Blindados)", detail: "Premium Economy + Regreso Business (Copa)", value: flightsCost },
-    { concept: "Hospedaje (28 noches)", detail: "4 estrellas (excluyendo noches de vuelo)", value: hotelsCost },
-    { concept: "Transporte Terrestre", detail: "Uber XL/Black + Tren Amtrak + Cannes Extra", value: transportCost || 3230 },
-    { concept: "Alimentación & BBQ", detail: "Diarios + $600 BBQ Houston", value: foodCost || 9740 },
-    { concept: "Operatividad & Seguro", detail: "Seguro ($400) + eSIMs + Laundry + ETIAS", value: operationsCost },
+    { concept: "Vuelos", detail: `${flightsCount} segmentos · Premium Economy + regreso Copa`, value: flightsCost },
+    { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
+    { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
+    { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días + BBQ Houston + content ordering", value: foodCost },
+    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${flightsCount} vuelos`, value: inflightWifiCost },
+    { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
+    { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
+    { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
   ];
 
   return (
