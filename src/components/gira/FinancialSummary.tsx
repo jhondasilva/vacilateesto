@@ -56,14 +56,20 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   // ===== Cálculo de gastos (USD reales) =====
   const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
-  const flightsCount = activities.filter(a => a.activity_type === "flight").length;
   const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
   const transportCost = activities.filter(a => a.activity_type === "expense" && /transporte|amtrak|tren|uber/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0) || 3230;
   const foodFromActivities = activities.filter(a => a.activity_type === "expense" && /comida|bbq|banquete|alimentaci/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
   // Comidas: $80/día x 2 pax x 42 días = $6,720 + $600 BBQ Houston + $360 arranque CDMX + $500 content ordering
   const foodCost = foodFromActivities + 6720 + 600 + 360 + 500;
-  // Internet: WiFi a bordo $40/vuelo x 2 pax x #vuelos
-  const inflightWifiCost = 40 * 2 * flightsCount;
+  // Internet: WiFi a bordo $40/vuelo x 2 pax SOLO en vuelos de más de 3 horas
+  const parseDurationHours = (d: string | null | undefined): number => {
+    if (!d) return 0;
+    const h = d.match(/(\d+)\s*h/i);
+    const m = d.match(/(\d+)\s*m/i);
+    return (h ? Number(h[1]) : 0) + (m ? Number(m[1]) / 60 : 0);
+  };
+  const longFlightsCount = activities.filter(a => a.activity_type === "flight" && parseDurationHours(a.duration) > 3).length;
+  const inflightWifiCost = 40 * 2 * longFlightsCount;
   // eSIMs/datos celular: $50/mes x 2 pax x 1.5 meses (mid-junio a fin julio) = $150
   const eSimCost = 150;
   // Seguro de viaje internacional: $200/persona x 2 = $400
@@ -154,11 +160,11 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   const totalNights = cities.reduce((s, c) => s + (Number(c.nights) || 0), 0);
   const expenseRows = [
-    { concept: "Vuelos", detail: `${flightsCount} segmentos · Premium Economy + regreso Copa`, value: flightsCost },
+    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Premium Economy + regreso Copa`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
     { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
     { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días + BBQ Houston + content ordering", value: foodCost },
-    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${flightsCount} vuelos`, value: inflightWifiCost },
+    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${longFlightsCount} vuelos >3h`, value: inflightWifiCost },
     { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
     { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
     { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
