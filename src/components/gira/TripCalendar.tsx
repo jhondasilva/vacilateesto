@@ -18,6 +18,7 @@ type CalEvent = {
   date: string; // YYYY-MM-DD
   subtitle?: string;
   isAllDay?: boolean;
+  isContinuation?: boolean;
 };
 
 const HOUR_HEIGHT = 48; // px per hour
@@ -148,9 +149,15 @@ export const TripCalendar = ({ cities, activities }: Props) => {
 
       let startMin = dep ?? at ?? null;
       let endMin: number | null = null;
+      let overnight = false;
 
       if (a.activity_type === "flight" && dep != null && arr != null) {
-        endMin = arr >= dep ? arr : arr + 24 * 60; // overnight cap
+        if (arr >= dep) {
+          endMin = arr;
+        } else {
+          endMin = arr + 24 * 60; // crosses midnight
+          overnight = true;
+        }
       } else if (startMin != null) {
         endMin = startMin + (a.activity_type === "match" ? 120 : 60);
       }
@@ -159,17 +166,46 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       if (startMin == null) startMin = 0;
       if (endMin == null) endMin = 0;
 
-      (map[date] ||= []).push({
-        id: a.id,
-        title: a.title,
-        type: a.activity_type,
-        startMin,
-        endMin: Math.min(endMin, 24 * 60 - 1),
-        city: city?.city ?? "",
-        date,
-        subtitle: a.location || a.airline || undefined,
-        isAllDay,
-      });
+      if (overnight && endMin > 24 * 60) {
+        // Day 1: from departure to end of day
+        (map[date] ||= []).push({
+          id: a.id,
+          title: a.title,
+          type: a.activity_type,
+          startMin,
+          endMin: 24 * 60 - 1,
+          city: city?.city ?? "",
+          date,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay: false,
+        });
+        // Day 2: from 00:00 to actual arrival
+        const nextDay = toISO(addDays(fromISO(date), 1));
+        (map[nextDay] ||= []).push({
+          id: `${a.id}-cont`,
+          title: a.title,
+          type: a.activity_type,
+          startMin: 0,
+          endMin: endMin - 24 * 60,
+          city: city?.city ?? "",
+          date: nextDay,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay: false,
+          isContinuation: true,
+        });
+      } else {
+        (map[date] ||= []).push({
+          id: a.id,
+          title: a.title,
+          type: a.activity_type,
+          startMin,
+          endMin: Math.min(endMin, 24 * 60 - 1),
+          city: city?.city ?? "",
+          date,
+          subtitle: a.location || a.airline || undefined,
+          isAllDay,
+        });
+      }
     });
 
     Object.values(map).forEach(arr => arr.sort((a, b) => a.startMin - b.startMin));
@@ -303,14 +339,17 @@ export const TripCalendar = ({ cities, activities }: Props) => {
                   return (
                     <div
                       key={ev.id}
-                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default`}
+                      className={`absolute left-1 right-1 rounded-md border ${s.border} ${s.bg} ${s.text} px-1.5 py-1 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-default ${ev.isContinuation ? "border-dashed opacity-90" : ""}`}
                       style={{ top: safeTop, height }}
-                      title={`${ev.title}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
+                      title={`${ev.title}${ev.isContinuation ? " (continuación)" : ""}${ev.subtitle ? " • " + ev.subtitle : ""} (${minToLabel(ev.startMin)}${ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""})`}
                     >
                       <div className="flex items-start gap-1">
                         <Icon className="w-3 h-3 mt-0.5 flex-shrink-0" />
                         <div className="min-w-0 flex-1">
-                          <p className="text-[11px] font-bold leading-tight truncate">{ev.title}</p>
+                          <p className="text-[11px] font-bold leading-tight truncate">
+                            {ev.isContinuation && <span className="text-[8px] uppercase tracking-wider opacity-70 mr-1">↳ cont.</span>}
+                            {ev.title}
+                          </p>
                           {height > 32 && (
                             <p className="text-[9px] opacity-80 leading-tight truncate">
                               {minToLabel(ev.startMin)}{ev.endMin > ev.startMin ? `–${minToLabel(ev.endMin)}` : ""}
