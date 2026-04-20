@@ -109,11 +109,13 @@ const Gira = () => {
           const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
           const otherCost = activities.filter(a => a.activity_type !== "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
           const total = flightsCost + hotelsCost + otherCost;
+          const matchesCount = activities.filter(a => a.activity_type === "match").length;
           const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
           return (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
               <Stat label="Ciudades" value={cities.length} />
               <Stat label="Días de gira" value={42} />
+              <Stat label="Partidos" value={matchesCount} />
               <Stat label="Vuelos" valueText={fmt(flightsCost)} />
               <Stat label="Hospedaje" valueText={fmt(hotelsCost)} />
               <Stat label="Total estimado" valueText={fmt(total)} highlight />
