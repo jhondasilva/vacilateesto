@@ -268,7 +268,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                       <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">{r.avgPct.toFixed(1)}%</td>
                       <td className="px-5 py-3 text-right text-rose-600 font-semibold">−{fmt(r.commission)}</td>
                       <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(r.net)}</td>
-                      <td className="px-5 py-3 text-right text-primary font-semibold">{fmt(r.net * rate)}</td>
+                      <td className="px-5 py-3 text-right text-blue-600 font-semibold">{fmt(r.net * rate)}</td>
                     </tr>
                   );
                 })}
@@ -279,7 +279,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                   <td className="px-5 py-4 hidden sm:table-cell"></td>
                   <td className="px-5 py-4 text-right text-rose-600 font-black">−{fmt(totalCommissionBcv)}</td>
                   <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalNetBcv)}</td>
-                  <td className="px-5 py-4 text-right text-primary font-black text-lg">{fmt(totalSponsoredReal)}</td>
+                  <td className="px-5 py-4 text-right text-blue-600 font-black text-lg">{fmt(totalSponsoredReal)}</td>
                 </tr>
               </tbody>
             </table>
@@ -359,7 +359,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                     <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(gross)}</td>
                     <td className="px-5 py-3 text-right text-rose-600 text-xs">−{fmt(commission)}<span className="opacity-60"> ({pct}%)</span></td>
                     <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(net)}</td>
-                    <td className="px-5 py-3 text-right text-primary font-semibold">{fmt(net * rate)}</td>
+                    <td className="px-5 py-3 text-right text-blue-600 font-semibold">{fmt(net * rate)}</td>
                     <td className="px-5 py-3 text-right">
                       <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button onClick={() => editSponsor(s)} className="text-muted-foreground hover:text-primary p-1"><Edit2 className="w-3.5 h-3.5" /></button>
@@ -375,7 +375,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                   <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalSponsoredBcv)}</td>
                   <td className="px-5 py-4 text-right text-rose-600 font-black">−{fmt(totalCommissionBcv)}</td>
                   <td className="px-5 py-4 text-right text-foreground font-black">{fmt(totalNetBcv)}</td>
-                  <td className="px-5 py-4 text-right text-primary font-black text-lg">{fmt(totalSponsoredReal)}</td>
+                  <td className="px-5 py-4 text-right text-blue-600 font-black text-lg">{fmt(totalSponsoredReal)}</td>
                   <td></td>
                 </tr>
               )}
