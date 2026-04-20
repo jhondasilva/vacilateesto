@@ -217,7 +217,10 @@ export const TripCalendar = ({ cities, activities }: Props) => {
           <Button size="sm" variant="ghost" onClick={goToday} className="h-8 px-2 text-xs">Hoy</Button>
           <Button size="sm" variant="ghost" onClick={goEarliest} className="h-8 px-2 text-xs hidden sm:inline-flex"><CalIcon className="w-3.5 h-3.5 mr-1" /> Inicio</Button>
         </div>
-        <h3 className="text-sm sm:text-lg font-bold capitalize order-2 sm:order-2 flex-1 text-center sm:flex-none sm:text-left">{monthLabel}</h3>
+        <h3 className="text-sm sm:text-lg font-bold capitalize order-2 sm:order-2 flex-1 text-center sm:flex-none sm:text-left">
+          {monthLabel}
+          <span className="ml-2 text-[10px] sm:text-[11px] font-medium text-muted-foreground uppercase tracking-wider">· hora local</span>
+        </h3>
         <div className="hidden md:flex flex-wrap items-center gap-2 text-[11px] order-3">
           {Object.entries(TYPE_STYLES).filter(([k]) => !["food","other"].includes(k)).map(([k, s]) => {
             const Icon = s.icon;
