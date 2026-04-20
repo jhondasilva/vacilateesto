@@ -101,10 +101,12 @@ const GiraLogin = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <h2 className="text-xl font-bold text-center">
-                {mode === "signin" ? "Inicia sesión" : "Crear cuenta"}
+                {needsSetup ? "Crear contraseña" : "Inicia sesión"}
               </h2>
               <p className="text-muted-foreground text-sm text-center">
-                Solo Juan y Jhon tienen acceso a este espacio.
+                {needsSetup
+                  ? "Define una contraseña para tu cuenta autorizada."
+                  : "Solo Juan y Jhon tienen acceso a este espacio."}
               </p>
 
               <div className="space-y-2">
@@ -125,7 +127,7 @@ const GiraLogin = () => {
                 <Input
                   id="password"
                   type="password"
-                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                  autoComplete={needsSetup ? "new-password" : "current-password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -136,18 +138,18 @@ const GiraLogin = () => {
 
               <Button type="submit" className="w-full" size="lg" disabled={submitting}>
                 {submitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                {mode === "signin" ? "Entrar" : "Crear cuenta"}
+                {needsSetup ? "Crear contraseña y entrar" : "Entrar"}
               </Button>
 
-              <button
-                type="button"
-                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {mode === "signin"
-                  ? "¿Primera vez? Crear contraseña"
-                  : "Ya tengo cuenta — iniciar sesión"}
-              </button>
+              {needsSetup && (
+                <button
+                  type="button"
+                  onClick={() => setNeedsSetup(false)}
+                  className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Ya tengo contraseña — volver a iniciar sesión
+                </button>
+              )}
             </form>
           )}
         </div>
