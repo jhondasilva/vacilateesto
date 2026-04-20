@@ -143,6 +143,8 @@ export type Database = {
           city: string
           country: string | null
           created_at: string
+          distance_to_airport_km: number | null
+          distance_to_stadium_km: number | null
           end_date: string
           hotel_cost_usd: number | null
           hotel_price_range: string | null
@@ -163,6 +165,8 @@ export type Database = {
           city: string
           country?: string | null
           created_at?: string
+          distance_to_airport_km?: number | null
+          distance_to_stadium_km?: number | null
           end_date: string
           hotel_cost_usd?: number | null
           hotel_price_range?: string | null
@@ -183,6 +187,8 @@ export type Database = {
           city?: string
           country?: string | null
           created_at?: string
+          distance_to_airport_km?: number | null
+          distance_to_stadium_km?: number | null
           end_date?: string
           hotel_cost_usd?: number | null
           hotel_price_range?: string | null

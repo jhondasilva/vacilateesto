@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon } from "lucide-react";
+import { ChevronDown, MapPin, Calendar, Hotel, Plane, Trophy, Utensils, Camera, MessageSquare, Plus, Trash2, Edit2, Check, X, Receipt, Moon, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,6 +25,8 @@ export type City = {
   hotel_price_range: string | null;
   booking_url: string | null;
   nightly_rate_usd: number | null;
+  distance_to_stadium_km: number | null;
+  distance_to_airport_km: number | null;
 };
 
 export type Activity = {
@@ -294,6 +296,20 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                   </p>
                 )}
                 {city.accommodation_address && <p className="text-muted-foreground text-xs">{city.accommodation_address}</p>}
+                {(city.distance_to_stadium_km != null || city.distance_to_airport_km != null) && (
+                  <div className="flex flex-wrap gap-1.5 mt-1.5">
+                    {city.distance_to_stadium_km != null && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                        <Trophy className="w-3 h-3" /> {city.distance_to_stadium_km < 1 ? `${Math.round(city.distance_to_stadium_km * 1000)} m` : `${city.distance_to_stadium_km} km`} estadio
+                      </span>
+                    )}
+                    {city.distance_to_airport_km != null && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-muted text-foreground border border-border">
+                        <Plane className="w-3 h-3" /> {city.distance_to_airport_km} km aeropuerto
+                      </span>
+                    )}
+                  </div>
+                )}
                 {city.booking_url && (
                   <a href={city.booking_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline mt-1">
                     Ver en Booking →
