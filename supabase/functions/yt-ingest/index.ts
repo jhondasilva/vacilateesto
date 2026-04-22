@@ -145,7 +145,6 @@ Deno.serve(async (req) => {
   }
   try {
     if (!YOUTUBE_API_KEY) throw new Error("YOUTUBE_API_KEY missing");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY missing");
 
     const body = await req.json().catch(() => ({}));
     const limit = Math.min(parseInt(body.limit || "10", 10), 50);
