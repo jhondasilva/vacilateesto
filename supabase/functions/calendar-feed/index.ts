@@ -89,6 +89,15 @@ Deno.serve(async (_req) => {
     const acts = actsRes.data ?? [];
     const cityMap = new Map(cities.map((c: any) => [c.id, c]));
 
+    const settingsRes = await supabase
+      .from("calendar_settings")
+      .select("name,color,description")
+      .limit(1)
+      .maybeSingle();
+    const calName = settingsRes.data?.name ?? "Vacílate El Mundial";
+    const calColor = settingsRes.data?.color ?? "#E91E63";
+    const calDesc = settingsRes.data?.description ?? "Gira Vacílate El Mundial 2026 — Feed en vivo";
+
     const now = stamp();
     const lines: string[] = [
       "BEGIN:VCALENDAR",
@@ -96,8 +105,12 @@ Deno.serve(async (_req) => {
       "PRODID:-//Vacilate El Mundial//Gira 2026//ES",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
-      "X-WR-CALNAME:Mundial",
-      "X-WR-CALDESC:Gira Vacílate El Mundial 2026 — Feed en vivo",
+      fold(`X-WR-CALNAME:${esc(calName)}`),
+      fold(`X-WR-CALDESC:${esc(calDesc)}`),
+      fold(`NAME:${esc(calName)}`),
+      fold(`DESCRIPTION:${esc(calDesc)}`),
+      `X-APPLE-CALENDAR-COLOR:${calColor}`,
+      `COLOR:${calColor}`,
       "X-WR-TIMEZONE:America/New_York",
       "REFRESH-INTERVAL;VALUE=DURATION:PT6H",
       "X-PUBLISHED-TTL:PT6H",
