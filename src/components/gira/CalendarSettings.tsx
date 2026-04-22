@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,10 +18,43 @@ const PRESETS = [
 
 type Settings = { id: string; name: string; color: string; description: string };
 
+type Platform = "ios" | "ipados" | "macos" | "android" | "windows-outlook" | "windows" | "linux" | "other";
+
+const detectPlatform = (): Platform => {
+  if (typeof navigator === "undefined") return "other";
+  const ua = navigator.userAgent;
+  const uaLower = ua.toLowerCase();
+  // iPadOS 13+ se identifica como Mac; distinguir por touch points
+  const isIPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  if (isIPad) return "ipados";
+  if (/iPhone|iPod/.test(ua)) return "ios";
+  if (/Android/.test(ua)) return "android";
+  if (/Mac/.test(ua)) return "macos";
+  if (/Windows/.test(ua)) {
+    if (uaLower.includes("outlook") || uaLower.includes("officelivecon")) return "windows-outlook";
+    return "windows";
+  }
+  if (/Linux|X11/.test(ua)) return "linux";
+  return "other";
+};
+
+const PLATFORM_INFO: Record<Platform, { label: string; client: string; steps: string }> = {
+  ios:            { label: "iPhone",        client: "Apple Calendar", steps: "Toca «Suscribirme» y luego «Suscribirse» en el diálogo de iOS. Verás el calendario en la app Calendario." },
+  ipados:         { label: "iPad",          client: "Apple Calendar", steps: "Toca «Suscribirme» y confirma en el diálogo de iPadOS." },
+  macos:          { label: "Mac",           client: "Apple Calendar", steps: "Se abrirá Calendario.app pidiendo confirmar la suscripción." },
+  android:        { label: "Android",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web para confirmar la suscripción. Después aparece en la app de Calendar." },
+  "windows-outlook": { label: "Outlook",    client: "Outlook",        steps: "Se abrirá Outlook con la opción de suscribirse al calendario por internet." },
+  windows:        { label: "Windows",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web. También puedes pegar la URL en Outlook → Agregar calendario → Suscribirse desde web." },
+  linux:          { label: "Linux",         client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte." },
+  other:          { label: "tu navegador",  client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte al feed." },
+};
+
 export const CalendarSettings = () => {
   const [data, setData] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const platform = useMemo(detectPlatform, []);
+  const platformInfo = PLATFORM_INFO[platform];
 
   useEffect(() => {
     void (async () => {
@@ -53,28 +86,15 @@ export const CalendarSettings = () => {
     toast.success("URL del feed copiada");
   };
 
-  const detectPlatform = (): "ios" | "android" | "mac" | "other" => {
-    const ua = navigator.userAgent;
-    if (/iPhone|iPad|iPod/i.test(ua)) return "ios";
-    if (/Android/i.test(ua)) return "android";
-    if (/Mac/i.test(ua)) return "mac";
-    return "other";
-  };
-
   const installCalendar = () => {
-    const platform = detectPlatform();
-    if (platform === "ios" || platform === "mac") {
-      // iOS/macOS: webcal:// abre Apple Calendar y se suscribe
+    if (platform === "ios" || platform === "ipados" || platform === "macos" || platform === "windows-outlook") {
+      // Apple/Outlook respetan webcal:// y abren su cliente nativo
       window.location.href = WEBCAL_URL;
-      toast.success("Abriendo Apple Calendar…");
-    } else if (platform === "android") {
-      // Android: Google Calendar app no soporta suscripción directa. Abrir Google Calendar web en una nueva pestaña.
-      window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
-      toast.success("Abriendo Google Calendar para suscribirte…");
+      toast.success(`Abriendo ${platformInfo.client}…`);
     } else {
-      // Desktop / desconocido: Google Calendar web
+      // Android / Windows / Linux / otros → Google Calendar web (la app de Android no soporta suscripción directa)
       window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
-      toast.success("Abriendo Google Calendar…");
+      toast.success(`Abriendo ${platformInfo.client}…`);
     }
   };
 
@@ -112,13 +132,16 @@ export const CalendarSettings = () => {
             <Download className="w-4 h-4 text-primary" /> Instalar en tu calendario
           </h3>
           <p className="text-[11px] text-muted-foreground mt-1">
-            Suscripción en vivo: cualquier cambio se sincroniza solo. Detectamos tu dispositivo automáticamente.
+            Detectamos <span className="font-semibold text-foreground">{platformInfo.label}</span> →
+            te suscribiremos vía <span className="font-semibold text-foreground">{platformInfo.client}</span>.
+            Cualquier cambio en la gira se sincroniza solo.
           </p>
         </div>
         <Button onClick={installCalendar} className="w-full" size="lg">
           <Download className="w-4 h-4 mr-2" />
-          Suscribirme al calendario
+          Suscribirme con {platformInfo.client}
         </Button>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">{platformInfo.steps}</p>
         <div className="grid grid-cols-3 gap-2">
           <Button asChild variant="outline" size="sm" className="text-[11px]">
             <a href={WEBCAL_URL}>
