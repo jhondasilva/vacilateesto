@@ -34,13 +34,29 @@ function isoDurationToSeconds(iso: string): number {
 }
 
 async function getUploadsPlaylistId(): Promise<string> {
-  const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`;
-  const r = await fetch(url);
-  const j = await r.json();
-  if (!r.ok) throw new Error(`channels.list failed: ${JSON.stringify(j)}`);
-  const id = j.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-  if (!id) throw new Error("uploads playlist not found");
-  return id;
+  const tryUrls = [
+    `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=@${CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`,
+    `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`,
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(CHANNEL_HANDLE)}&maxResults=1&key=${YOUTUBE_API_KEY}`,
+  ];
+  for (let i = 0; i < tryUrls.length; i++) {
+    const r = await fetch(tryUrls[i]);
+    const j = await r.json();
+    console.log(`channels attempt ${i}:`, r.status, JSON.stringify(j).slice(0, 300));
+    if (!r.ok) continue;
+    let id = j.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    if (!id && j.items?.[0]?.id?.channelId) {
+      // search returned a channelId — fetch its uploads playlist
+      const channelId = j.items[0].id.channelId;
+      const r2 = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`,
+      );
+      const j2 = await r2.json();
+      id = j2.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    }
+    if (id) return id;
+  }
+  throw new Error("uploads playlist not found for channel");
 }
 
 async function listAllVideoIds(playlistId: string, max = 1000): Promise<string[]> {
