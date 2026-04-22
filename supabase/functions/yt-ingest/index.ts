@@ -92,43 +92,9 @@ async function fetchVideoDetails(videoIds: string[]): Promise<any[]> {
   return out;
 }
 
-// Try to fetch transcript from YouTube's timedtext endpoint (auto-generated captions)
-async function fetchTranscript(
-  videoId: string,
-): Promise<Array<{ start: number; dur: number; text: string }> | null> {
-  // First, get the watch page to discover available caption tracks
-  try {
-    const watchUrl = `https://www.youtube.com/watch?v=${videoId}&hl=es`;
-    const watchRes = await fetch(watchUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
-      },
-    });
-    const html = await watchRes.text();
-    const m = html.match(/"captionTracks":(\[.*?\])/);
-    if (!m) return null;
-    const tracks = JSON.parse(m[1]);
-    // Prefer Spanish, fallback to first
-    const track =
-      tracks.find((t: any) => /^es/i.test(t.languageCode)) || tracks[0];
-    if (!track?.baseUrl) return null;
-    const ttUrl = track.baseUrl + "&fmt=json3";
-    const ttRes = await fetch(ttUrl);
-    if (!ttRes.ok) return null;
-    const tt = await ttRes.json();
-    const events = (tt.events || []).filter((e: any) => e.segs);
-    return events.map((e: any) => ({
-      start: (e.tStartMs || 0) / 1000,
-      dur: (e.dDurationMs || 0) / 1000,
-      text: (e.segs || []).map((s: any) => s.utf8 || "").join("").replace(/\n/g, " ").trim(),
-    })).filter((c: any) => c.text);
-  } catch (e) {
-    console.error("transcript fetch error", videoId, e);
-    return null;
-  }
-}
+// Transcripts are produced by the local Python worker (scripts/youtube-search/ingest.py),
+// which uses Lovable AI Gemini to transcribe the audio and uploads chunks directly to the DB.
+// This edge function only refreshes catalog metadata.
 
 // Group transcript cues into ~60s chunks with 10s overlap
 function chunkTranscript(
