@@ -190,58 +190,9 @@ async function processVideo(v: any, kind: "podcast" | "short"): Promise<string> 
     );
   if (upErr) throw upErr;
 
-  // Skip if already indexed
-  const { data: existing } = await supabase
-    .from("yt_videos")
-    .select("indexed_at")
-    .eq("video_id", videoId)
-    .maybeSingle();
-  if (existing?.indexed_at) return "skipped (already indexed)";
-
-  // Fetch transcript
-  const cues = await fetchTranscript(videoId);
-  if (!cues || cues.length === 0) {
-    await logIngest(videoId, "no_transcript", "no captions available");
-    return "no transcript";
-  }
-
-  const chunks = chunkTranscript(cues);
-  if (chunks.length === 0) {
-    await logIngest(videoId, "empty_chunks", "transcript yielded no chunks");
-    return "no chunks";
-  }
-
-  // Embed in batches of 50
-  const rows: any[] = [];
-  for (let i = 0; i < chunks.length; i += 50) {
-    const slice = chunks.slice(i, i + 50);
-    const embeddings = await embedTexts(slice.map((c) => c.text));
-    slice.forEach((c, idx) => {
-      rows.push({
-        video_id: videoId,
-        chunk_index: i + idx,
-        start_seconds: c.start,
-        end_seconds: c.end,
-        text: c.text,
-        embedding: embeddings[idx] as any,
-      });
-    });
-  }
-
-  // Replace any prior chunks for this video
-  await supabase.from("yt_transcript_chunks").delete().eq("video_id", videoId);
-  const { error: insErr } = await supabase
-    .from("yt_transcript_chunks")
-    .insert(rows);
-  if (insErr) throw insErr;
-
-  await supabase
-    .from("yt_videos")
-    .update({ indexed_at: new Date().toISOString() })
-    .eq("video_id", videoId);
-
-  await logIngest(videoId, "indexed", `${rows.length} chunks`);
-  return `indexed ${rows.length} chunks`;
+  // Catalog only — transcription is handled by the local Python worker.
+  await logIngest(videoId, "catalog_updated", `${kind} metadata refreshed`);
+  return "catalog updated";
 }
 
 Deno.serve(async (req) => {
