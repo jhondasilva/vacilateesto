@@ -8,3 +8,12 @@ verify_jwt = false
 
 [functions.calendar-feed]
 verify_jwt = false
+
+[functions.yt-search]
+verify_jwt = false
+
+[functions.yt-ingest]
+verify_jwt = false
+
+[functions.yt-cron]
+verify_jwt = false
