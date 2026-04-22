@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Calendar, Copy, Loader2, Save, Download, Smartphone, Apple, Globe } from "lucide-react";
+import { Calendar, Copy, Loader2, Save, Download, Globe } from "lucide-react";
 
 const FEED_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/calendar-feed`;
-// webcal:// makes iOS/macOS/Outlook auto-suscribe (instead of one-time download)
-const WEBCAL_URL = FEED_URL.replace(/^https?:\/\//, "webcal://");
 const GOOGLE_ADD_URL = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(FEED_URL)}`;
+const GOOGLE_SETTINGS_URL = "https://calendar.google.com/calendar/u/0/r/settings/calendars";
 
 const PRESETS = [
   "#E91E63", "#9C27B0", "#3F51B5", "#03A9F4",
@@ -18,43 +17,10 @@ const PRESETS = [
 
 type Settings = { id: string; name: string; color: string; description: string };
 
-type Platform = "ios" | "ipados" | "macos" | "android" | "windows-outlook" | "windows" | "linux" | "other";
-
-const detectPlatform = (): Platform => {
-  if (typeof navigator === "undefined") return "other";
-  const ua = navigator.userAgent;
-  const uaLower = ua.toLowerCase();
-  // iPadOS 13+ se identifica como Mac; distinguir por touch points
-  const isIPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  if (isIPad) return "ipados";
-  if (/iPhone|iPod/.test(ua)) return "ios";
-  if (/Android/.test(ua)) return "android";
-  if (/Mac/.test(ua)) return "macos";
-  if (/Windows/.test(ua)) {
-    if (uaLower.includes("outlook") || uaLower.includes("officelivecon")) return "windows-outlook";
-    return "windows";
-  }
-  if (/Linux|X11/.test(ua)) return "linux";
-  return "other";
-};
-
-const PLATFORM_INFO: Record<Platform, { label: string; client: string; steps: string }> = {
-  ios:            { label: "iPhone",        client: "Apple Calendar", steps: "Toca «Suscribirme» y luego «Suscribirse» en el diálogo de iOS. Verás el calendario en la app Calendario." },
-  ipados:         { label: "iPad",          client: "Apple Calendar", steps: "Toca «Suscribirme» y confirma en el diálogo de iPadOS." },
-  macos:          { label: "Mac",           client: "Apple Calendar", steps: "Se abrirá Calendario.app pidiendo confirmar la suscripción." },
-  android:        { label: "Android",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web para confirmar la suscripción. Después aparece en la app de Calendar." },
-  "windows-outlook": { label: "Outlook",    client: "Outlook",        steps: "Se abrirá Outlook con la opción de suscribirse al calendario por internet." },
-  windows:        { label: "Windows",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web. También puedes pegar la URL en Outlook → Agregar calendario → Suscribirse desde web." },
-  linux:          { label: "Linux",         client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte." },
-  other:          { label: "tu navegador",  client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte al feed." },
-};
-
 export const CalendarSettings = () => {
   const [data, setData] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const platform = useMemo(detectPlatform, []);
-  const platformInfo = PLATFORM_INFO[platform];
 
   useEffect(() => {
     void (async () => {
@@ -87,25 +53,8 @@ export const CalendarSettings = () => {
   };
 
   const installCalendar = () => {
-    if (platform === "ios" || platform === "ipados" || platform === "macos" || platform === "windows-outlook") {
-      // Apple/Outlook respetan webcal:// y abren su cliente nativo
-      window.location.href = WEBCAL_URL;
-      toast.success(`Abriendo ${platformInfo.client}…`);
-    } else {
-      // Android / Windows / Linux / otros → Google Calendar web (la app de Android no soporta suscripción directa)
-      window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
-      toast.success(`Abriendo ${platformInfo.client}…`);
-    }
-  };
-
-  const downloadIcs = () => {
-    const a = document.createElement("a");
-    a.href = FEED_URL;
-    a.download = "vacilate-el-mundial.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    toast.success("Descargando .ics");
+    window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
+    toast.success("Abriendo Google Calendar…");
   };
 
   if (loading) {
@@ -129,34 +78,22 @@ export const CalendarSettings = () => {
       <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
         <div>
           <h3 className="text-sm font-bold flex items-center gap-2">
-            <Download className="w-4 h-4 text-primary" /> Instalar en tu calendario
+            <Download className="w-4 h-4 text-primary" /> Suscribirme en Google Calendar
           </h3>
           <p className="text-[11px] text-muted-foreground mt-1">
-            Detectamos <span className="font-semibold text-foreground">{platformInfo.label}</span> →
-            te suscribiremos vía <span className="font-semibold text-foreground">{platformInfo.client}</span>.
-            Cualquier cambio en la gira se sincroniza solo.
+            Te llevamos a <span className="font-semibold text-foreground">Google Calendar</span> para confirmar la suscripción.
+            El calendario aparecerá también en la app de Google Calendar de tu teléfono. Cualquier cambio en la gira se sincroniza solo (Google refresca cada 6–24h).
           </p>
         </div>
         <Button onClick={installCalendar} className="w-full" size="lg">
-          <Download className="w-4 h-4 mr-2" />
-          Suscribirme con {platformInfo.client}
+          <Globe className="w-4 h-4 mr-2" />
+          Suscribirme con Google Calendar
         </Button>
-        <p className="text-[11px] text-muted-foreground leading-relaxed">{platformInfo.steps}</p>
-        <div className="grid grid-cols-3 gap-2">
-          <Button asChild variant="outline" size="sm" className="text-[11px]">
-            <a href={WEBCAL_URL}>
-              <Apple className="w-3.5 h-3.5 mr-1" /> Apple
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="sm" className="text-[11px]">
-            <a href={GOOGLE_ADD_URL} target="_blank" rel="noopener noreferrer">
-              <Globe className="w-3.5 h-3.5 mr-1" /> Google
-            </a>
-          </Button>
-          <Button onClick={downloadIcs} variant="outline" size="sm" className="text-[11px]">
-            <Smartphone className="w-3.5 h-3.5 mr-1" /> .ics
-          </Button>
-        </div>
+        <Button asChild variant="outline" size="sm" className="w-full text-[11px]">
+          <a href={GOOGLE_SETTINGS_URL} target="_blank" rel="noopener noreferrer">
+            Cambiar color/nombre en Google Calendar
+          </a>
+        </Button>
       </div>
 
       <div className="space-y-2">
@@ -208,7 +145,7 @@ export const CalendarSettings = () => {
           </div>
         </div>
         <p className="text-[11px] text-muted-foreground">
-          Apple Calendar respeta el color. Google Calendar lo deja escoger manualmente al suscribirse.
+          Google Calendar permite escoger el color al suscribirse desde los ajustes del calendario.
         </p>
       </div>
 
