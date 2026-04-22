@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Calendar, Copy, Loader2, Save } from "lucide-react";
+import { Calendar, Copy, Loader2, Save, Download, Smartphone, Apple, Globe } from "lucide-react";
 
 const FEED_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/calendar-feed`;
+// webcal:// makes iOS/macOS/Outlook auto-suscribe (instead of one-time download)
+const WEBCAL_URL = FEED_URL.replace(/^https?:\/\//, "webcal://");
+const GOOGLE_ADD_URL = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(FEED_URL)}`;
 
 const PRESETS = [
   "#E91E63", "#9C27B0", "#3F51B5", "#03A9F4",
@@ -50,6 +53,41 @@ export const CalendarSettings = () => {
     toast.success("URL del feed copiada");
   };
 
+  const detectPlatform = (): "ios" | "android" | "mac" | "other" => {
+    const ua = navigator.userAgent;
+    if (/iPhone|iPad|iPod/i.test(ua)) return "ios";
+    if (/Android/i.test(ua)) return "android";
+    if (/Mac/i.test(ua)) return "mac";
+    return "other";
+  };
+
+  const installCalendar = () => {
+    const platform = detectPlatform();
+    if (platform === "ios" || platform === "mac") {
+      // iOS/macOS: webcal:// abre Apple Calendar y se suscribe
+      window.location.href = WEBCAL_URL;
+      toast.success("Abriendo Apple Calendar…");
+    } else if (platform === "android") {
+      // Android: Google Calendar app no soporta suscripción directa. Abrir Google Calendar web en una nueva pestaña.
+      window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
+      toast.success("Abriendo Google Calendar para suscribirte…");
+    } else {
+      // Desktop / desconocido: Google Calendar web
+      window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
+      toast.success("Abriendo Google Calendar…");
+    }
+  };
+
+  const downloadIcs = () => {
+    const a = document.createElement("a");
+    a.href = FEED_URL;
+    a.download = "vacilate-el-mundial.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast.success("Descargando .ics");
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-10">
@@ -65,6 +103,37 @@ export const CalendarSettings = () => {
       <div className="flex items-center gap-2">
         <Calendar className="w-5 h-5 text-primary" />
         <h2 className="text-base sm:text-lg font-bold">Configuración del calendario público</h2>
+      </div>
+
+      {/* Install / subscribe block */}
+      <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
+        <div>
+          <h3 className="text-sm font-bold flex items-center gap-2">
+            <Download className="w-4 h-4 text-primary" /> Instalar en tu calendario
+          </h3>
+          <p className="text-[11px] text-muted-foreground mt-1">
+            Suscripción en vivo: cualquier cambio se sincroniza solo. Detectamos tu dispositivo automáticamente.
+          </p>
+        </div>
+        <Button onClick={installCalendar} className="w-full" size="lg">
+          <Download className="w-4 h-4 mr-2" />
+          Suscribirme al calendario
+        </Button>
+        <div className="grid grid-cols-3 gap-2">
+          <Button asChild variant="outline" size="sm" className="text-[11px]">
+            <a href={WEBCAL_URL}>
+              <Apple className="w-3.5 h-3.5 mr-1" /> Apple
+            </a>
+          </Button>
+          <Button asChild variant="outline" size="sm" className="text-[11px]">
+            <a href={GOOGLE_ADD_URL} target="_blank" rel="noopener noreferrer">
+              <Globe className="w-3.5 h-3.5 mr-1" /> Google
+            </a>
+          </Button>
+          <Button onClick={downloadIcs} variant="outline" size="sm" className="text-[11px]">
+            <Smartphone className="w-3.5 h-3.5 mr-1" /> .ics
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-2">
