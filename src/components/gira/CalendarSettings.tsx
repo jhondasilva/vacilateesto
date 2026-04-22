@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,25 +53,8 @@ export const CalendarSettings = () => {
   };
 
   const installCalendar = () => {
-    if (platform === "ios" || platform === "ipados" || platform === "macos" || platform === "windows-outlook") {
-      // Apple/Outlook respetan webcal:// y abren su cliente nativo
-      window.location.href = WEBCAL_URL;
-      toast.success(`Abriendo ${platformInfo.client}…`);
-    } else {
-      // Android / Windows / Linux / otros → Google Calendar web (la app de Android no soporta suscripción directa)
-      window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
-      toast.success(`Abriendo ${platformInfo.client}…`);
-    }
-  };
-
-  const downloadIcs = () => {
-    const a = document.createElement("a");
-    a.href = FEED_URL;
-    a.download = "vacilate-el-mundial.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    toast.success("Descargando .ics");
+    window.open(GOOGLE_ADD_URL, "_blank", "noopener,noreferrer");
+    toast.success("Abriendo Google Calendar…");
   };
 
   if (loading) {
@@ -95,34 +78,22 @@ export const CalendarSettings = () => {
       <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
         <div>
           <h3 className="text-sm font-bold flex items-center gap-2">
-            <Download className="w-4 h-4 text-primary" /> Instalar en tu calendario
+            <Download className="w-4 h-4 text-primary" /> Suscribirme en Google Calendar
           </h3>
           <p className="text-[11px] text-muted-foreground mt-1">
-            Detectamos <span className="font-semibold text-foreground">{platformInfo.label}</span> →
-            te suscribiremos vía <span className="font-semibold text-foreground">{platformInfo.client}</span>.
-            Cualquier cambio en la gira se sincroniza solo.
+            Te llevamos a <span className="font-semibold text-foreground">Google Calendar</span> para confirmar la suscripción.
+            El calendario aparecerá también en la app de Google Calendar de tu teléfono. Cualquier cambio en la gira se sincroniza solo (Google refresca cada 6–24h).
           </p>
         </div>
         <Button onClick={installCalendar} className="w-full" size="lg">
-          <Download className="w-4 h-4 mr-2" />
-          Suscribirme con {platformInfo.client}
+          <Globe className="w-4 h-4 mr-2" />
+          Suscribirme con Google Calendar
         </Button>
-        <p className="text-[11px] text-muted-foreground leading-relaxed">{platformInfo.steps}</p>
-        <div className="grid grid-cols-3 gap-2">
-          <Button asChild variant="outline" size="sm" className="text-[11px]">
-            <a href={WEBCAL_URL}>
-              <Apple className="w-3.5 h-3.5 mr-1" /> Apple
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="sm" className="text-[11px]">
-            <a href={GOOGLE_ADD_URL} target="_blank" rel="noopener noreferrer">
-              <Globe className="w-3.5 h-3.5 mr-1" /> Google
-            </a>
-          </Button>
-          <Button onClick={downloadIcs} variant="outline" size="sm" className="text-[11px]">
-            <Smartphone className="w-3.5 h-3.5 mr-1" /> .ics
-          </Button>
-        </div>
+        <Button asChild variant="outline" size="sm" className="w-full text-[11px]">
+          <a href={GOOGLE_SETTINGS_URL} target="_blank" rel="noopener noreferrer">
+            Cambiar color/nombre en Google Calendar
+          </a>
+        </Button>
       </div>
 
       <div className="space-y-2">
