@@ -145,7 +145,7 @@ export const CalendarSettings = () => {
           </div>
         </div>
         <p className="text-[11px] text-muted-foreground">
-          Apple Calendar respeta el color. Google Calendar lo deja escoger manualmente al suscribirse.
+          Google Calendar permite escoger el color al suscribirse desde los ajustes del calendario.
         </p>
       </div>
 
