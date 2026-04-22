@@ -331,12 +331,147 @@ export type Database = {
         }
         Relationships: []
       }
+      yt_ingest_log: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          metadata: Json | null
+          status: string
+          video_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          metadata?: Json | null
+          status: string
+          video_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          metadata?: Json | null
+          status?: string
+          video_id?: string | null
+        }
+        Relationships: []
+      }
+      yt_transcript_chunks: {
+        Row: {
+          chunk_index: number
+          created_at: string
+          embedding: string | null
+          end_seconds: number
+          id: string
+          start_seconds: number
+          text: string
+          video_id: string
+        }
+        Insert: {
+          chunk_index: number
+          created_at?: string
+          embedding?: string | null
+          end_seconds: number
+          id?: string
+          start_seconds: number
+          text: string
+          video_id: string
+        }
+        Update: {
+          chunk_index?: number
+          created_at?: string
+          embedding?: string | null
+          end_seconds?: number
+          id?: string
+          start_seconds?: number
+          text?: string
+          video_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "yt_transcript_chunks_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "yt_videos"
+            referencedColumns: ["video_id"]
+          },
+        ]
+      }
+      yt_videos: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          id: string
+          indexed_at: string | null
+          kind: string
+          published_at: string | null
+          thumbnail_url: string | null
+          title: string
+          transcript_hash: string | null
+          updated_at: string
+          video_id: string
+          view_count: number | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          indexed_at?: string | null
+          kind: string
+          published_at?: string | null
+          thumbnail_url?: string | null
+          title: string
+          transcript_hash?: string | null
+          updated_at?: string
+          video_id: string
+          view_count?: number | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          indexed_at?: string | null
+          kind?: string
+          published_at?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          transcript_hash?: string | null
+          updated_at?: string
+          video_id?: string
+          view_count?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       is_allowed_user: { Args: never; Returns: boolean }
+      yt_search_chunks: {
+        Args: {
+          filter_kind?: string
+          match_count?: number
+          query_embedding: string
+        }
+        Returns: {
+          chunk_id: string
+          end_seconds: number
+          kind: string
+          published_at: string
+          similarity: number
+          start_seconds: number
+          text: string
+          thumbnail_url: string
+          title: string
+          video_id: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
