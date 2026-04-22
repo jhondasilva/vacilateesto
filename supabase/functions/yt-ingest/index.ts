@@ -93,56 +93,6 @@ async function fetchVideoDetails(videoIds: string[]): Promise<any[]> {
 // which uses Lovable AI Gemini to transcribe the audio and uploads chunks directly to the DB.
 // This edge function only refreshes catalog metadata.
 
-// Group transcript cues into ~60s chunks with 10s overlap
-function chunkTranscript(
-  cues: Array<{ start: number; dur: number; text: string }>,
-) {
-  const chunks: Array<{ start: number; end: number; text: string }> = [];
-  if (cues.length === 0) return chunks;
-  const totalEnd = cues[cues.length - 1].start + cues[cues.length - 1].dur;
-  let windowStart = 0;
-  while (windowStart < totalEnd) {
-    const windowEnd = windowStart + CHUNK_SECONDS;
-    const inWin = cues.filter(
-      (c) => c.start + c.dur > windowStart && c.start < windowEnd,
-    );
-    if (inWin.length > 0) {
-      const text = inWin.map((c) => c.text).join(" ").replace(/\s+/g, " ").trim();
-      if (text.length > 20) {
-        chunks.push({
-          start: Math.max(windowStart, inWin[0].start),
-          end: Math.min(windowEnd, inWin[inWin.length - 1].start + inWin[inWin.length - 1].dur),
-          text,
-        });
-      }
-    }
-    windowStart += CHUNK_SECONDS - CHUNK_OVERLAP_SECONDS;
-  }
-  return chunks;
-}
-
-async function embedTexts(texts: string[]): Promise<number[][]> {
-  // Lovable AI embeddings — request 1536 dims to match our column
-  const r = await fetch("https://ai.gateway.lovable.dev/v1/embeddings", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: EMBEDDING_MODEL,
-      input: texts,
-      dimensions: EMBEDDING_DIMS,
-    }),
-  });
-  if (!r.ok) {
-    const t = await r.text();
-    throw new Error(`embeddings failed [${r.status}]: ${t}`);
-  }
-  const j = await r.json();
-  return j.data.map((d: any) => d.embedding);
-}
-
 async function logIngest(
   videoId: string | null,
   status: string,
