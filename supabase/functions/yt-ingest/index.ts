@@ -16,9 +16,6 @@ const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const CHANNEL_HANDLE = "Vacilateestopodcast";
 const EMBEDDING_MODEL = "google/text-embedding-004";
 const EMBEDDING_DIMS = 1536;
-const CHUNK_SECONDS = 60;
-const CHUNK_OVERLAP_SECONDS = 10;
-
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
