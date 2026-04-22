@@ -9,13 +9,10 @@ const corsHeaders = {
 };
 
 const YOUTUBE_API_KEY = Deno.env.get("YOUTUBE_API_KEY")!;
-const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY")!;
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const CHANNEL_HANDLE = "Vacilateestopodcast";
-const EMBEDDING_MODEL = "google/text-embedding-004";
-const EMBEDDING_DIMS = 1536;
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
