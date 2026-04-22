@@ -16,6 +16,46 @@ const TZ_CITY: Record<string, string> = {
   "Caracas": "America/Caracas",
 };
 
+// VTIMEZONE blocks — required so Apple Calendar / Outlook respect TZID and
+// every event renders in the LOCAL time of its city, regardless of the
+// viewer's device timezone.
+const VTIMEZONE_BLOCKS: Record<string, string[]> = {
+  "America/New_York": [
+    "BEGIN:VTIMEZONE","TZID:America/New_York",
+    "BEGIN:DAYLIGHT","TZOFFSETFROM:-0500","TZOFFSETTO:-0400","TZNAME:EDT","DTSTART:19700308T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU","END:DAYLIGHT",
+    "BEGIN:STANDARD","TZOFFSETFROM:-0400","TZOFFSETTO:-0500","TZNAME:EST","DTSTART:19701101T020000","RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+  "America/Chicago": [
+    "BEGIN:VTIMEZONE","TZID:America/Chicago",
+    "BEGIN:DAYLIGHT","TZOFFSETFROM:-0600","TZOFFSETTO:-0500","TZNAME:CDT","DTSTART:19700308T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU","END:DAYLIGHT",
+    "BEGIN:STANDARD","TZOFFSETFROM:-0500","TZOFFSETTO:-0600","TZNAME:CST","DTSTART:19701101T020000","RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+  "America/Los_Angeles": [
+    "BEGIN:VTIMEZONE","TZID:America/Los_Angeles",
+    "BEGIN:DAYLIGHT","TZOFFSETFROM:-0800","TZOFFSETTO:-0700","TZNAME:PDT","DTSTART:19700308T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU","END:DAYLIGHT",
+    "BEGIN:STANDARD","TZOFFSETFROM:-0700","TZOFFSETTO:-0800","TZNAME:PST","DTSTART:19701101T020000","RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+  "America/Mexico_City": [
+    "BEGIN:VTIMEZONE","TZID:America/Mexico_City",
+    "BEGIN:STANDARD","TZOFFSETFROM:-0600","TZOFFSETTO:-0600","TZNAME:CST","DTSTART:19700101T000000","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+  "America/Caracas": [
+    "BEGIN:VTIMEZONE","TZID:America/Caracas",
+    "BEGIN:STANDARD","TZOFFSETFROM:-0400","TZOFFSETTO:-0400","TZNAME:VET","DTSTART:19700101T000000","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+  "Europe/Paris": [
+    "BEGIN:VTIMEZONE","TZID:Europe/Paris",
+    "BEGIN:DAYLIGHT","TZOFFSETFROM:+0100","TZOFFSETTO:+0200","TZNAME:CEST","DTSTART:19700329T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU","END:DAYLIGHT",
+    "BEGIN:STANDARD","TZOFFSETFROM:+0200","TZOFFSETTO:+0100","TZNAME:CET","DTSTART:19701025T030000","RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU","END:STANDARD",
+    "END:VTIMEZONE",
+  ],
+};
+
 const EMOJI: Record<string, string> = {
   flight: "✈️", match: "⚽", meal: "🍽", food: "🍽",
   content: "🎙", expense: "🚕", other: "📍",
@@ -89,6 +129,15 @@ Deno.serve(async (_req) => {
     const acts = actsRes.data ?? [];
     const cityMap = new Map(cities.map((c: any) => [c.id, c]));
 
+    // Sort cities chronologically to infer the destination of a flight as
+    // the next city in the itinerary after the flight's origin city.
+    const orderedCities = [...cities].sort((a: any, b: any) =>
+      (a.start_date ?? "").localeCompare(b.start_date ?? "") || (a.position ?? 0) - (b.position ?? 0)
+    );
+    const cityOrderIndex = new Map<string, number>(
+      orderedCities.map((c: any, i: number) => [c.id, i])
+    );
+
     const settingsRes = await supabase
       .from("calendar_settings")
       .select("name,color,description")
@@ -115,6 +164,17 @@ Deno.serve(async (_req) => {
       "REFRESH-INTERVAL;VALUE=DURATION:PT6H",
       "X-PUBLISHED-TTL:PT6H",
     ];
+
+    // Inject every VTIMEZONE used by the trip so clients render local times correctly.
+    const usedTzs = new Set<string>(["America/New_York"]);
+    for (const c of cities as any[]) {
+      const tz = TZ_CITY[c.city];
+      if (tz) usedTzs.add(tz);
+    }
+    for (const tz of usedTzs) {
+      const block = VTIMEZONE_BLOCKS[tz];
+      if (block) lines.push(...block);
+    }
 
     // Hotels
     for (const c of cities as any[]) {
@@ -143,7 +203,7 @@ Deno.serve(async (_req) => {
     for (const a of acts as any[]) {
       if (!a.activity_date) continue;
       const cityRow: any = cityMap.get(a.city_id);
-      const tz = TZ_CITY[cityRow?.city] ?? "America/New_York";
+      const originTz = TZ_CITY[cityRow?.city] ?? "America/New_York";
       const atype = a.activity_type ?? "other";
       const summary = `${EMOJI[atype] ?? "📍"} ${a.title ?? ""}`;
       const parts: string[] = [];
@@ -155,14 +215,28 @@ Deno.serve(async (_req) => {
       const ev: string[] = ["BEGIN:VEVENT", `UID:act-${a.id}@vacilateelmundial`, `DTSTAMP:${now}`];
 
       if (atype === "flight" && a.departure_time) {
+        // For flights, departure uses origin city TZ and arrival uses destination
+        // city TZ — so each leg displays in true local time on every device.
+        let destTz = originTz;
+        const idx = cityOrderIndex.get(a.city_id);
+        if (typeof idx === "number" && idx + 1 < orderedCities.length) {
+          const nextCity: any = orderedCities[idx + 1];
+          destTz = TZ_CITY[nextCity?.city] ?? originTz;
+        }
+        // Allow explicit override via metadata.destination_city (e.g. "Cannes")
+        const metaDest = (a.metadata as any)?.destination_city;
+        if (metaDest && TZ_CITY[metaDest]) destTz = TZ_CITY[metaDest];
+
         const dep = localDT(a.activity_date, a.departure_time);
         let arr = localDT(a.activity_date, a.arrival_time ?? a.departure_time);
+        // Crossing midnight LOCALLY at destination is harder to detect across TZs;
+        // approximate by checking if arrival HHMM < departure HHMM in the same date.
         if (arr <= dep) arr = addMinutes(arr, 24 * 60);
-        ev.push(`DTSTART;TZID=${tz}:${dep}`, `DTEND;TZID=${tz}:${arr}`);
+        ev.push(`DTSTART;TZID=${originTz}:${dep}`, `DTEND;TZID=${destTz}:${arr}`);
       } else if (a.activity_time) {
         const start = localDT(a.activity_date, a.activity_time);
         const end = addMinutes(start, atype === "match" ? 120 : 60);
-        ev.push(`DTSTART;TZID=${tz}:${start}`, `DTEND;TZID=${tz}:${end}`);
+        ev.push(`DTSTART;TZID=${originTz}:${start}`, `DTEND;TZID=${originTz}:${end}`);
       } else {
         const sd = a.activity_date.replace(/-/g, "");
         const ed = addDays(a.activity_date, 1);
