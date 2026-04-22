@@ -293,6 +293,7 @@ Deno.serve(async (req) => {
 
     const playlistId = await getUploadsPlaylistId();
     const allIds = await listAllVideoIds(playlistId, 1000);
+    console.log(`playlist ${playlistId} → ${allIds.length} ids`);
 
     let toFetch = allIds;
     if (onlyNew) {
