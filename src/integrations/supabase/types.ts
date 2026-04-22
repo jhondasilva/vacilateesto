@@ -35,6 +35,33 @@ export type Database = {
         }
         Relationships: []
       }
+      calendar_settings: {
+        Row: {
+          color: string
+          description: string
+          id: string
+          name: string
+          singleton: boolean
+          updated_at: string
+        }
+        Insert: {
+          color?: string
+          description?: string
+          id?: string
+          name?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          description?: string
+          id?: string
+          name?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           email: string

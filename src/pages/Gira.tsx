@@ -8,8 +8,9 @@ import { CityCard, type City, type Activity, type Comment } from "@/components/g
 import { FinancialSummary } from "@/components/gira/FinancialSummary";
 import { AddCityForm } from "@/components/gira/AddCityForm";
 import { TripCalendar } from "@/components/gira/TripCalendar";
+import { CalendarSettings } from "@/components/gira/CalendarSettings";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { LogOut, Loader2, MapPin, Wallet, CalendarDays } from "lucide-react";
+import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
@@ -163,10 +164,11 @@ const Gira = () => {
 
       <main className="max-w-7xl mx-auto px-3 sm:px-6 pb-20 pt-3 sm:pt-4">
         <Tabs defaultValue="ruta" className="w-full">
-          <TabsList className="mb-4 grid grid-cols-3 w-full sm:flex sm:w-auto h-auto">
+          <TabsList className="mb-4 grid grid-cols-4 w-full sm:flex sm:w-auto h-auto">
             <TabsTrigger value="ruta" className="text-xs sm:text-sm py-2"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Ruta completa</span><span className="sm:hidden">Ruta</span></TabsTrigger>
             <TabsTrigger value="finanzas" className="text-xs sm:text-sm py-2"><Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Resumen financiero</span><span className="sm:hidden">Finanzas</span></TabsTrigger>
             <TabsTrigger value="calendario" className="text-xs sm:text-sm py-2"><CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Calendario</TabsTrigger>
+            <TabsTrigger value="ajustes" className="text-xs sm:text-sm py-2"><SettingsIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Feed</span><span className="sm:hidden">Feed</span></TabsTrigger>
           </TabsList>
 
           <TabsContent value="ruta">
@@ -214,6 +216,10 @@ const Gira = () => {
             ) : (
               <TripCalendar cities={cities} activities={activities} />
             )}
+          </TabsContent>
+
+          <TabsContent value="ajustes">
+            <CalendarSettings />
           </TabsContent>
         </Tabs>
       </main>
