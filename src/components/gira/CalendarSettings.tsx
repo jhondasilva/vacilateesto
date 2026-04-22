@@ -4,12 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Calendar, Copy, Loader2, Save, Download, Smartphone, Apple, Globe } from "lucide-react";
+import { Calendar, Copy, Loader2, Save, Download, Globe } from "lucide-react";
 
 const FEED_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/calendar-feed`;
-// webcal:// makes iOS/macOS/Outlook auto-suscribe (instead of one-time download)
-const WEBCAL_URL = FEED_URL.replace(/^https?:\/\//, "webcal://");
 const GOOGLE_ADD_URL = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(FEED_URL)}`;
+const GOOGLE_SETTINGS_URL = "https://calendar.google.com/calendar/u/0/r/settings/calendars";
 
 const PRESETS = [
   "#E91E63", "#9C27B0", "#3F51B5", "#03A9F4",
@@ -18,43 +17,10 @@ const PRESETS = [
 
 type Settings = { id: string; name: string; color: string; description: string };
 
-type Platform = "ios" | "ipados" | "macos" | "android" | "windows-outlook" | "windows" | "linux" | "other";
-
-const detectPlatform = (): Platform => {
-  if (typeof navigator === "undefined") return "other";
-  const ua = navigator.userAgent;
-  const uaLower = ua.toLowerCase();
-  // iPadOS 13+ se identifica como Mac; distinguir por touch points
-  const isIPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  if (isIPad) return "ipados";
-  if (/iPhone|iPod/.test(ua)) return "ios";
-  if (/Android/.test(ua)) return "android";
-  if (/Mac/.test(ua)) return "macos";
-  if (/Windows/.test(ua)) {
-    if (uaLower.includes("outlook") || uaLower.includes("officelivecon")) return "windows-outlook";
-    return "windows";
-  }
-  if (/Linux|X11/.test(ua)) return "linux";
-  return "other";
-};
-
-const PLATFORM_INFO: Record<Platform, { label: string; client: string; steps: string }> = {
-  ios:            { label: "iPhone",        client: "Apple Calendar", steps: "Toca «Suscribirme» y luego «Suscribirse» en el diálogo de iOS. Verás el calendario en la app Calendario." },
-  ipados:         { label: "iPad",          client: "Apple Calendar", steps: "Toca «Suscribirme» y confirma en el diálogo de iPadOS." },
-  macos:          { label: "Mac",           client: "Apple Calendar", steps: "Se abrirá Calendario.app pidiendo confirmar la suscripción." },
-  android:        { label: "Android",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web para confirmar la suscripción. Después aparece en la app de Calendar." },
-  "windows-outlook": { label: "Outlook",    client: "Outlook",        steps: "Se abrirá Outlook con la opción de suscribirse al calendario por internet." },
-  windows:        { label: "Windows",       client: "Google Calendar", steps: "Te llevamos a Google Calendar web. También puedes pegar la URL en Outlook → Agregar calendario → Suscribirse desde web." },
-  linux:          { label: "Linux",         client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte." },
-  other:          { label: "tu navegador",  client: "Google Calendar", steps: "Te llevamos a Google Calendar web para suscribirte al feed." },
-};
-
 export const CalendarSettings = () => {
   const [data, setData] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const platform = useMemo(detectPlatform, []);
-  const platformInfo = PLATFORM_INFO[platform];
 
   useEffect(() => {
     void (async () => {
