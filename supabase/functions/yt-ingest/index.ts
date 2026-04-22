@@ -315,10 +315,12 @@ Deno.serve(async (req) => {
     }
 
     const details = await fetchVideoDetails(toFetch);
+    console.log(`details fetched: ${details.length}, toFetch: ${toFetch.length}`);
     const results: any[] = [];
     for (const v of details) {
       const dur = isoDurationToSeconds(v.contentDetails?.duration || "PT0S");
       const kind: "podcast" | "short" = dur > 0 && dur <= 180 ? "short" : "podcast";
+      console.log(`video ${v.id} duration=${dur}s kind=${kind}`);
       if (kind === "short" && !includeShorts) continue;
       try {
         const msg = await processVideo(v, kind);
