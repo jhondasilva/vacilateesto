@@ -16,18 +16,10 @@ const SCRIPT_VERSION = "2026.04.23.2";
 const SCRIPT_URL =
   "https://raw.githubusercontent.com/lovable-dev/__placeholder__/main/ingest.py";
 
-// We embed the script directly so there's no external dependency.
-// To update: edit the SCRIPT_SOURCE constant below and bump SCRIPT_VERSION.
-const SCRIPT_SOURCE = await (async () => {
-  // Read from a sibling file at deploy time. Deno edge functions can read
-  // files bundled with the function.
-  try {
-    const url = new URL("./ingest.py", import.meta.url);
-    return await Deno.readTextFile(url);
-  } catch (_e) {
-    return "# ingest.py source not bundled. See repo.";
-  }
-})();
+// The ingest.py source is fetched at build time via a static import so that
+// edge-runtime bundles it together with the function (Deno.readTextFile of
+// adjacent files does not work in deployed edge functions).
+import SCRIPT_SOURCE from "./ingest.py" with { type: "text" };
 
 Deno.serve((req) => {
   if (req.method === "OPTIONS") {
