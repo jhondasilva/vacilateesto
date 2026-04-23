@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.yt-cron]
 verify_jwt = false
+
+[functions.script-version]
+verify_jwt = false
