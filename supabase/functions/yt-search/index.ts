@@ -18,6 +18,19 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
+/** Race a promise against a hard timeout; returns fallback if it loses. */
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((resolve) =>
+      setTimeout(() => {
+        console.warn(`withTimeout: hit ${ms}ms, using fallback`);
+        resolve(fallback);
+      }, ms),
+    ),
+  ]);
+}
+
 /**
  * Expand a natural-language query into a few keyword variants in Spanish
  * (so Postgres FTS catches synonyms / declensions). Falls back to the
@@ -211,7 +224,8 @@ Deno.serve(async (req) => {
       kind === "podcast" || kind === "short" ? kind : null;
 
     // 1. Expand the query with Gemini → multiple FTS searches
-    const variants = await expandQuery(cleanQuery);
+    //    Hard cap at 6s so a hanging gateway can't kill the whole request.
+    const variants = await withTimeout(expandQuery(cleanQuery), 6000, [cleanQuery]);
     const seenChunks = new Map<string, any>();
     const ftsResults = await Promise.all(
       variants.map((v) =>
@@ -239,14 +253,19 @@ Deno.serve(async (req) => {
       .sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0))
       .slice(0, 30);
 
-    // 2. Re-rank with Gemini for semantic precision
-    const rerankedIds = await rerank(
-      cleanQuery,
-      candidates.map((c) => ({
-        chunk_id: c.chunk_id,
-        text: c.text,
-        title: c.title,
-      })),
+    // 2. Re-rank with Gemini for semantic precision (hard cap 12s, fallback to FTS order)
+    const fallbackOrder = candidates.map((c) => c.chunk_id);
+    const rerankedIds = await withTimeout(
+      rerank(
+        cleanQuery,
+        candidates.map((c) => ({
+          chunk_id: c.chunk_id,
+          text: c.text,
+          title: c.title,
+        })),
+      ),
+      12000,
+      fallbackOrder,
     );
     const idToRow = new Map(candidates.map((c) => [c.chunk_id, c]));
     const ordered = rerankedIds
