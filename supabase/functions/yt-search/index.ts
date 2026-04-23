@@ -213,15 +213,19 @@ Deno.serve(async (req) => {
     // 1. Expand the query with Gemini → multiple FTS searches
     const variants = await expandQuery(cleanQuery);
     const seenChunks = new Map<string, any>();
-    for (const v of variants) {
-      const { data, error } = await supabase.rpc("yt_search_chunks_fts", {
-        query_text: v,
-        match_count: matchCount,
-        filter_kind: filterKind,
-      });
+    const ftsResults = await Promise.all(
+      variants.map((v) =>
+        supabase.rpc("yt_search_chunks_fts", {
+          query_text: v,
+          match_count: matchCount,
+          filter_kind: filterKind,
+        }),
+      ),
+    );
+    ftsResults.forEach(({ data, error }, i) => {
       if (error) {
-        console.error("FTS error for variant", v, error);
-        continue;
+        console.error("FTS error for variant", variants[i], error);
+        return;
       }
       for (const row of data || []) {
         const existing = seenChunks.get(row.chunk_id);
@@ -229,7 +233,7 @@ Deno.serve(async (req) => {
           seenChunks.set(row.chunk_id, row);
         }
       }
-    }
+    });
 
     const candidates = Array.from(seenChunks.values())
       .sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0))
