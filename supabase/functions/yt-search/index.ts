@@ -39,7 +39,7 @@ async function expandQuery(query: string): Promise<string[]> {
             {
               role: "system",
               content:
-                "Devolvés variantes de búsqueda en español venezolano para encontrar contenido en transcripciones de podcasts. Incluí sinónimos, modismos y palabras relacionadas. Solo usá la herramienta.",
+                "Devuelves variantes de búsqueda en español venezolano para encontrar contenido en transcripciones de podcasts. Incluye sinónimos, modismos y palabras relacionadas. Solo usa la herramienta.",
             },
             { role: "user", content: query },
           ],
@@ -121,7 +121,7 @@ async function rerank(
             {
               role: "system",
               content:
-                "Reordenás fragmentos de transcripción según relevancia a una consulta. Devolvés SOLO los índices más relevantes en orden, usando la herramienta.",
+                "Reordenas fragmentos de transcripción según relevancia a una consulta. Devuelves SOLO los índices más relevantes en orden, usando la herramienta.",
             },
             {
               role: "user",
