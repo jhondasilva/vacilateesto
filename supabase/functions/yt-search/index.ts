@@ -18,6 +18,19 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
+/** Race a promise against a hard timeout; returns fallback if it loses. */
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((resolve) =>
+      setTimeout(() => {
+        console.warn(`withTimeout: hit ${ms}ms, using fallback`);
+        resolve(fallback);
+      }, ms),
+    ),
+  ]);
+}
+
 /**
  * Expand a natural-language query into a few keyword variants in Spanish
  * (so Postgres FTS catches synonyms / declensions). Falls back to the
