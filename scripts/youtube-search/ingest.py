@@ -402,8 +402,11 @@ def process_one(v: dict, tmp_root: Path) -> str:
         all_segments: List[dict] = []
         for idx, (path, start) in enumerate(slices):
             print(f"   📝 transcribing slice {idx+1}/{len(slices)}…")
-            segs = transcribe_slice(path, start)
-            all_segments.extend(segs)
+            try:
+                segs = transcribe_slice(path, start)
+                all_segments.extend(segs)
+            except Exception as se:
+                print(f"   ⚠️  slice {idx+1} falló ({se}) — continuando con los demás")
             path.unlink(missing_ok=True)
         audio.unlink(missing_ok=True)
 
