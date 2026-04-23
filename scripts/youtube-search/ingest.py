@@ -49,8 +49,6 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
 CHANNEL_HANDLE = "Vacilateestopodcast"
 TRANSCRIBE_MODEL = "google/gemini-2.5-flash"
-EMBEDDING_MODEL = "google/text-embedding-004"
-EMBEDDING_DIMS = 1536
 CHUNK_SECONDS = 60
 CHUNK_OVERLAP_SECONDS = 10
 # Gemini accepts inline audio up to ~20MB. We split into 15-min slices @ 32kbps mono ≈ 3.6MB each.
@@ -308,18 +306,6 @@ def chunk_segments(segments: List[dict]) -> List[dict]:
     return chunks
 
 
-def embed_batch(texts: List[str]) -> List[List[float]]:
-    r = requests.post(
-        "https://ai.gateway.lovable.dev/v1/embeddings",
-        headers={"Authorization": f"Bearer {LOVABLE_API_KEY}", "Content-Type": "application/json"},
-        json={"model": EMBEDDING_MODEL, "input": texts, "dimensions": EMBEDDING_DIMS},
-        timeout=120,
-    )
-    if not r.ok:
-        raise RuntimeError(f"embed failed [{r.status_code}]: {r.text[:300]}")
-    return [d["embedding"] for d in r.json()["data"]]
-
-
 # ---------- Supabase ----------
 
 def upsert_video(v: dict, kind: str):
@@ -348,22 +334,17 @@ def already_indexed(video_id: str) -> bool:
 def save_chunks(video_id: str, chunks: List[dict]):
     # replace existing
     sb.table("yt_transcript_chunks").delete().eq("video_id", video_id).execute()
-    rows = []
-    # embed in batches of 50
-    for i in range(0, len(chunks), 50):
-        batch = chunks[i : i + 50]
-        embs = embed_batch([c["text"] for c in batch])
-        for j, c in enumerate(batch):
-            rows.append(
-                {
-                    "video_id": video_id,
-                    "chunk_index": i + j,
-                    "start_seconds": c["start"],
-                    "end_seconds": c["end"],
-                    "text": c["text"],
-                    "embedding": embs[j],
-                }
-            )
+    # No embeddings: full-text search en Postgres se encarga de la búsqueda
+    rows = [
+        {
+            "video_id": video_id,
+            "chunk_index": i,
+            "start_seconds": c["start"],
+            "end_seconds": c["end"],
+            "text": c["text"],
+        }
+        for i, c in enumerate(chunks)
+    ]
     # insert in batches of 200 to avoid payload limits
     for i in range(0, len(rows), 200):
         sb.table("yt_transcript_chunks").insert(rows[i : i + 200]).execute()
@@ -415,7 +396,7 @@ def process_one(v: dict, tmp_root: Path) -> str:
             return "no segments"
 
         chunks = chunk_segments(all_segments)
-        print(f"   ✂️  {len(chunks)} chunk(s) → embeddings…")
+        print(f"   ✂️  {len(chunks)} chunk(s) → guardando…")
         save_chunks(vid, chunks)
         print(f"   ✅ done — {len(chunks)} chunks indexed")
         return f"indexed {len(chunks)}"

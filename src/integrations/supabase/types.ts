@@ -367,6 +367,7 @@ export type Database = {
           id: string
           start_seconds: number
           text: string
+          text_tsv: unknown
           video_id: string
         }
         Insert: {
@@ -377,6 +378,7 @@ export type Database = {
           id?: string
           start_seconds: number
           text: string
+          text_tsv?: unknown
           video_id: string
         }
         Update: {
@@ -387,6 +389,7 @@ export type Database = {
           id?: string
           start_seconds?: number
           text?: string
+          text_tsv?: unknown
           video_id?: string
         }
         Relationships: [
@@ -465,6 +468,21 @@ export type Database = {
           kind: string
           published_at: string
           similarity: number
+          start_seconds: number
+          text: string
+          thumbnail_url: string
+          title: string
+          video_id: string
+        }[]
+      }
+      yt_search_chunks_fts: {
+        Args: { filter_kind?: string; match_count?: number; query_text: string }
+        Returns: {
+          chunk_id: string
+          end_seconds: number
+          kind: string
+          published_at: string
+          rank: number
           start_seconds: number
           text: string
           thumbnail_url: string
