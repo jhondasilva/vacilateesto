@@ -227,6 +227,7 @@ def transcribe_slice(slice_path: Path, slice_start: float) -> List[dict]:
         ],
         "response_format": {"type": "json_object"},
     }
+    last_content = ""
     for attempt in range(3):
         r = requests.post(
             "https://ai.gateway.lovable.dev/v1/chat/completions",
@@ -243,14 +244,31 @@ def transcribe_slice(slice_path: Path, slice_start: float) -> List[dict]:
             raise RuntimeError("Lovable AI: créditos agotados. Recarga en Settings → Workspace → Usage.")
         r.raise_for_status()
         content = r.json()["choices"][0]["message"]["content"]
+        last_content = content
         try:
             data = json.loads(content)
         except json.JSONDecodeError:
-            # try to extract JSON from text
+            # try to extract JSON from markdown wrapper
             m = re.search(r"\{.*\}", content, re.S)
-            if not m:
+            if m:
+                try:
+                    data = json.loads(m.group(0))
+                except json.JSONDecodeError:
+                    print(f"     ⚠️  JSON inválido (intento {attempt+1}/3), rescatando segmentos…")
+                    if attempt < 2:
+                        time.sleep(2)
+                        continue
+                    # last attempt: salvage individual segment objects via regex
+                    segs_raw = re.findall(
+                        r'\{\s*"start"\s*:\s*([\d.]+)\s*,\s*"end"\s*:\s*([\d.]+)\s*,\s*"text"\s*:\s*"((?:[^"\\]|\\.)*)"\s*\}',
+                        content,
+                    )
+                    data = {"segments": [{"start": float(s), "end": float(e), "text": t} for s, e, t in segs_raw]}
+                    print(f"     🛟 rescatados {len(data['segments'])} segmento(s)")
+            else:
+                if attempt < 2:
+                    continue
                 raise
-            data = json.loads(m.group(0))
         segs = data.get("segments", [])
         return [
             {
