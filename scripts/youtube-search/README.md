@@ -80,6 +80,19 @@ python ingest.py --video-id ABC123XYZ
 Solo vuelve a correr el mismo comando. El script salta automáticamente los
 videos ya indexados (campo `indexed_at` en la tabla `yt_videos`).
 
+### Auto-actualización
+
+Cada vez que corres `python ingest.py`, el script verifica contra el endpoint
+`script-version` de Lovable Cloud si hay una versión nueva. Si la hay:
+
+1. Descarga el código actualizado.
+2. Guarda un backup en `ingest.py.bak`.
+3. Sobrescribe `ingest.py`.
+4. Reinicia el comando con la versión nueva.
+
+No tienes que hacer nada manual. Para saltarte el chequeo (debug):
+`INGEST_SKIP_UPDATE=1 python ingest.py …`
+
 ## Cómo funciona
 
 ```
