@@ -16,10 +16,10 @@ const SCRIPT_VERSION = "2026.04.23.2";
 const SCRIPT_URL =
   "https://raw.githubusercontent.com/lovable-dev/__placeholder__/main/ingest.py";
 
-// The ingest.py source is fetched at build time via a static import so that
-// edge-runtime bundles it together with the function (Deno.readTextFile of
-// adjacent files does not work in deployed edge functions).
-import SCRIPT_SOURCE from "./ingest.py" with { type: "text" };
+// The ingest.py source is generated as a TS module so that the edge runtime
+// bundles it with the function. To refresh: re-run the build script that
+// regenerates ingest_source.ts from scripts/youtube-search/ingest.py.
+import { INGEST_PY as SCRIPT_SOURCE } from "./ingest_source.ts";
 
 Deno.serve((req) => {
   if (req.method === "OPTIONS") {
