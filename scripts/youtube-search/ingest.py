@@ -49,8 +49,6 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
 CHANNEL_HANDLE = "Vacilateestopodcast"
 TRANSCRIBE_MODEL = "google/gemini-2.5-flash"
-EMBEDDING_MODEL = "google/text-embedding-004"
-EMBEDDING_DIMS = 1536
 CHUNK_SECONDS = 60
 CHUNK_OVERLAP_SECONDS = 10
 # Gemini accepts inline audio up to ~20MB. We split into 15-min slices @ 32kbps mono ≈ 3.6MB each.
