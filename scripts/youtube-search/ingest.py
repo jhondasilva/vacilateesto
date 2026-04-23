@@ -323,7 +323,7 @@ def upsert_video(v: dict, kind: str):
 
 
 def already_indexed(video_id: str) -> bool:
-    r = sb.table("yt_videos").select("indexed_at").eq("video_id", video_id).maybeSingle().execute()
+    r = sb.table("yt_videos").select("indexed_at").eq("video_id", video_id).maybe_single().execute()
     return bool(r.data and r.data.get("indexed_at"))
 
 
