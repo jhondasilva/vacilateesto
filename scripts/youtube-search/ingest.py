@@ -42,6 +42,45 @@ from supabase import create_client, Client
 
 load_dotenv()
 
+# ---------- Auto-update ----------
+# Bump esto cada vez que cambie el script. La edge function `script-version`
+# expone su propio número; si no coinciden, nos auto-descargamos la versión
+# nueva, la escribimos sobre este archivo, y reiniciamos.
+SCRIPT_VERSION = "2026.04.23.2"
+VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
+
+
+def self_update_check() -> None:
+    """Compara versión local vs remota; si hay nueva, reemplaza el archivo y reinicia."""
+    if os.environ.get("INGEST_SKIP_UPDATE") == "1":
+        return
+    try:
+        r = requests.get(VERSION_ENDPOINT, timeout=10)
+        if r.status_code != 200:
+            return
+        data = r.json()
+        remote_version = data.get("version")
+        remote_source = data.get("source")
+        if not remote_version or not remote_source:
+            return
+        if remote_version == SCRIPT_VERSION:
+            return
+        print(f"⬇️  Nueva versión disponible: {SCRIPT_VERSION} → {remote_version}. Actualizando…")
+        script_path = Path(__file__).resolve()
+        backup = script_path.with_suffix(".py.bak")
+        shutil.copy2(script_path, backup)
+        script_path.write_text(remote_source, encoding="utf-8")
+        print(f"✅ Script actualizado. Backup en {backup.name}. Reiniciando…")
+        # Re-ejecutamos el mismo comando con la versión nueva, evitando loop infinito.
+        env = os.environ.copy()
+        env["INGEST_SKIP_UPDATE"] = "1"
+        os.execvpe(sys.executable, [sys.executable, str(script_path), *sys.argv[1:]], env)
+    except Exception as e:
+        print(f"⚠️  No se pudo verificar versión ({e}). Sigo con la versión local.")
+
+
+self_update_check()
+
 YOUTUBE_API_KEY = os.environ["YOUTUBE_API_KEY"]
 LOVABLE_API_KEY = os.environ["LOVABLE_API_KEY"]
 SUPABASE_URL = os.environ["SUPABASE_URL"]
