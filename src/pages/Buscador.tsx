@@ -154,9 +154,9 @@ const Buscador = () => {
                 <Sparkles className="w-4 h-4" />
                 Búsqueda con IA
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-5 leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 leading-[1.15] px-2">
                 Encuentra el{" "}
-                <span className="bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent inline-block pb-1">
                   momento exacto
                 </span>
               </h1>
