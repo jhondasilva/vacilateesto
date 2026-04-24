@@ -46,7 +46,7 @@ load_dotenv()
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
 # nueva, la escribimos sobre este archivo, y reiniciamos.
-SCRIPT_VERSION = "2026.04.23.2"
+SCRIPT_VERSION = "2026.04.24.1"
 VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
 
 
