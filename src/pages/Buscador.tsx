@@ -167,7 +167,7 @@ const Buscador = () => {
                 </span>
               </h1>
               <p className="text-muted-foreground text-base md:text-xl max-w-2xl mx-auto">
-                Buscá cualquier tema en los episodios y shorts. Te llevamos al{" "}
+                Busca cualquier tema en los episodios y shorts. Te llevamos al{" "}
                 <span className="font-semibold text-foreground">segundo exacto</span> donde lo dijimos.
               </p>
             </div>
@@ -205,7 +205,7 @@ const Buscador = () => {
               {!submittedQuery && (
                 <div className="mt-5 flex flex-wrap gap-2 justify-center">
                   <span className="text-xs text-muted-foreground self-center mr-1">
-                    Probá:
+                    Prueba:
                   </span>
                   {SUGGESTIONS.slice(0, 4).map((s) => (
                     <button
