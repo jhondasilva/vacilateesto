@@ -148,19 +148,19 @@ const Buscador = () => {
             className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-accent/40 blur-3xl -z-10"
           />
 
-          <div className="container mx-auto px-4 pt-16 pb-10 md:pt-24 md:pb-14 max-w-4xl">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs md:text-sm font-bold uppercase tracking-wider mb-6 border border-primary/20">
-                <Sparkles className="w-4 h-4" />
+          <div className="container mx-auto px-4 pt-10 pb-8 md:pt-24 md:pb-14 max-w-4xl">
+            <div className="text-center mb-6 md:mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 text-primary text-[10px] md:text-sm font-bold uppercase tracking-wider mb-4 md:mb-6 border border-primary/20">
+                <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
                 Búsqueda con IA
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 leading-[1.15] px-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4 md:mb-5 leading-[1.15]">
                 Encuentra el{" "}
                 <span className="bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent inline-block pb-1">
                   momento exacto
                 </span>
               </h1>
-              <p className="text-muted-foreground text-base md:text-xl max-w-2xl mx-auto">
+              <p className="text-muted-foreground text-sm sm:text-base md:text-xl max-w-2xl mx-auto px-2">
                 Busca cualquier tema en los episodios y shorts. Te llevamos al{" "}
                 <span className="font-semibold text-foreground">segundo exacto</span> donde lo dijimos.
               </p>
@@ -168,28 +168,29 @@ const Buscador = () => {
 
             <form onSubmit={handleSubmit} className="relative">
               <div className="relative flex items-center rounded-2xl bg-card border-2 border-border focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all shadow-lg overflow-hidden">
-                <Search className="absolute left-5 w-5 h-5 text-muted-foreground pointer-events-none z-10" />
+                <Search className="absolute left-4 md:left-5 w-4 h-4 md:w-5 md:h-5 text-muted-foreground pointer-events-none z-10" />
                 <Input
                   autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={placeholder}
-                  className="pl-14 pr-2 h-16 md:h-[72px] text-base md:text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none placeholder:text-muted-foreground/70"
+                  className="pl-11 md:pl-14 pr-2 h-14 md:h-[72px] text-sm md:text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none placeholder:text-muted-foreground/70"
                 />
                 <Button
                   type="submit"
                   size="lg"
                   disabled={loading || query.trim().length < 3}
-                  className="m-2 h-12 md:h-14 px-5 md:px-8 text-base font-bold shrink-0"
+                  className="m-1.5 md:m-2 h-11 md:h-14 px-4 md:px-8 text-sm md:text-base font-bold shrink-0"
+                  aria-label="Buscar"
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
                       <span className="hidden sm:inline">Buscando…</span>
                     </>
                   ) : (
                     <>
-                      <Search className="w-5 h-5" />
+                      <Search className="w-4 h-4 md:w-5 md:h-5" />
                       <span className="hidden sm:inline">Buscar</span>
                     </>
                   )}
