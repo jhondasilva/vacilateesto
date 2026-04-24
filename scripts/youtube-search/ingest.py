@@ -46,7 +46,7 @@ load_dotenv()
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
 # nueva, la escribimos sobre este archivo, y reiniciamos.
-SCRIPT_VERSION = "2026.04.23.2"
+SCRIPT_VERSION = "2026.04.24.1"
 VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
 
 
@@ -159,18 +159,23 @@ def download_audio(video_id: str, out_dir: Path) -> Path:
     if final.exists():
         return final
     print(f"  ⬇️  yt-dlp downloading {video_id}…")
-    subprocess.run(
-        [
-            "yt-dlp",
-            "-q",
-            "-f",
-            "bestaudio[ext=m4a]/bestaudio",
-            "-o",
-            str(raw),
-            f"https://www.youtube.com/watch?v={video_id}",
-        ],
-        check=True,
-    )
+    # YouTube increasingly blocks unauthenticated downloads ("Sign in to confirm
+    # you're not a bot"). Pass cookies from a local browser to bypass it.
+    # Configure with:  YTDLP_COOKIES_FROM_BROWSER=chrome   (or safari/firefox/brave/edge)
+    # Or point at a cookies.txt file: YTDLP_COOKIES_FILE=/path/to/cookies.txt
+    cmd = ["yt-dlp", "-q", "-f", "bestaudio[ext=m4a]/bestaudio"]
+    cookies_browser = os.environ.get("YTDLP_COOKIES_FROM_BROWSER", "").strip()
+    cookies_file = os.environ.get("YTDLP_COOKIES_FILE", "").strip()
+    if cookies_file:
+        cmd += ["--cookies", cookies_file]
+    elif cookies_browser:
+        cmd += ["--cookies-from-browser", cookies_browser]
+    cmd += [
+        "-o",
+        str(raw),
+        f"https://www.youtube.com/watch?v={video_id}",
+    ]
+    subprocess.run(cmd, check=True)
     print(f"  🔧 ffmpeg re-encoding to 32kbps mono…")
     subprocess.run(
         [
