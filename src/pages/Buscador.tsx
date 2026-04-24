@@ -154,16 +154,10 @@ const Buscador = () => {
                 <Sparkles className="w-4 h-4" />
                 Búsqueda con IA
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-5 leading-[1.05]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-5 leading-[1.1]">
                 Encuentra el{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent">
-                    momento exacto
-                  </span>
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-1 h-3 bg-primary/15 -z-0 rounded"
-                  />
+                <span className="bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent">
+                  momento exacto
                 </span>
               </h1>
               <p className="text-muted-foreground text-base md:text-xl max-w-2xl mx-auto">
@@ -174,13 +168,13 @@ const Buscador = () => {
 
             <form onSubmit={handleSubmit} className="relative">
               <div className="relative flex items-center rounded-2xl bg-card border-2 border-border focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all shadow-lg overflow-hidden">
-                <Search className="absolute left-5 w-5 h-5 text-muted-foreground pointer-events-none" />
+                <Search className="absolute left-5 w-5 h-5 text-muted-foreground pointer-events-none z-10" />
                 <Input
                   autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={placeholder}
-                  className="pl-14 pr-2 h-16 md:h-[72px] text-base md:text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none"
+                  className="pl-14 pr-2 h-16 md:h-[72px] text-base md:text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none placeholder:text-muted-foreground/70"
                 />
                 <Button
                   type="submit"
