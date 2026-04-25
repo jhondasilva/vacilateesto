@@ -38,7 +38,7 @@ const StickerHeader = ({
 }: StickerHeaderProps) => {
   const alignClasses = align === "center" ? "text-center mx-auto items-center" : "text-left items-start";
   return (
-    <header className={cn("flex flex-col mb-12 md:mb-16", alignClasses, className)}>
+    <header className={cn("flex flex-col mb-10 md:mb-16", alignClasses, className)}>
       <div
         className={cn(
           "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 mb-5 self-start",
@@ -51,7 +51,7 @@ const StickerHeader = ({
       </div>
       <h2
         className={cn(
-          "font-display font-black tracking-[-0.04em] leading-[0.88] text-4xl sm:text-5xl md:text-6xl lg:text-7xl",
+          "font-display font-black tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl",
           onDark ? "text-background" : "text-foreground"
         )}
       >
@@ -62,7 +62,7 @@ const StickerHeader = ({
       {description && (
         <p
           className={cn(
-            "font-body text-base md:text-lg max-w-2xl leading-relaxed mt-5",
+            "font-body text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mt-4 sm:mt-5",
             align === "center" && "mx-auto",
             onDark ? "text-background/70" : "text-muted-foreground"
           )}

@@ -47,14 +47,14 @@ const GuerraComercialesSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header with logo + headline */}
-        <div className="grid lg:grid-cols-12 gap-8 items-center mb-16">
+        <div className="grid lg:grid-cols-12 gap-10 sm:gap-8 items-center mb-12 md:mb-16">
           <div className="lg:col-span-5 relative">
-            <div className="relative max-w-sm mx-auto">
+            <div className="relative max-w-[280px] sm:max-w-sm mx-auto">
               <div className="absolute -top-3 right-0 z-30 bg-foreground text-background rounded-full px-3 py-1.5 rotate-6 border-2 border-foreground">
                 <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Proyecto 2025</span>
               </div>
 
-              <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 shadow-[10px_10px_0_hsl(var(--primary))] -rotate-2 hover:rotate-0 hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
+              <div className="relative bg-background rounded-3xl border-2 border-foreground p-5 sm:p-6 sticker-shadow-lg-primary -rotate-2 hover:rotate-0 hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
                 <img
                   src={logoGuerraComerciales}
                   alt="Campeonato de Comerciales de Venezuela"
@@ -63,7 +63,7 @@ const GuerraComercialesSection = () => {
                 />
               </div>
 
-              <div className="absolute -bottom-4 -left-4 z-30 bg-accent text-accent-foreground rounded-2xl px-3 py-2 -rotate-6 border-2 border-foreground shadow-[5px_5px_0_hsl(var(--foreground))]">
+              <div className="absolute -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 z-30 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 -rotate-6 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[5px_5px_0_hsl(var(--foreground))]">
                 <div className="flex items-center gap-1.5">
                   <Trophy className="w-4 h-4" />
                   <span className="font-display font-black text-sm uppercase tracking-tight">Coven Wins</span>
@@ -77,20 +77,20 @@ const GuerraComercialesSection = () => {
               <Trophy className="w-3.5 h-3.5" />
               <span className="font-display font-black text-[10px] uppercase tracking-widest">Campeonato Nacional</span>
             </div>
-            <h2 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+            <h2 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5 sm:mb-6">
               guerra de
               <span className="block"><span className="text-gradient italic">comerciales</span>.</span>
             </h2>
-            <p className="font-body text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mr-0 mx-auto">
+            <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mr-0 mx-auto">
               El campeonato nacional que enfrentó a los comerciales más icónicos de Venezuela en un torneo estilo Mundial de Fútbol durante un mes completo. ✦
             </p>
           </div>
         </div>
 
         {/* Finalists */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-6 md:gap-8 mb-12">
           {/* Champion */}
-          <div className="relative bg-background rounded-3xl p-6 border-2 border-foreground shadow-[10px_10px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
+          <div className="relative bg-background rounded-3xl p-5 sm:p-6 border-2 border-foreground sticker-shadow-lg-primary hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
             <div className="absolute -top-3 -right-3 z-20 bg-primary text-primary-foreground rounded-full px-3 py-1.5 rotate-6 border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))]">
               <div className="flex items-center gap-1 font-display font-black text-[10px] uppercase tracking-widest">
                 <Trophy className="w-3 h-3" />
@@ -107,7 +107,7 @@ const GuerraComercialesSection = () => {
           </div>
 
           {/* Runner-up */}
-          <div className="relative bg-background rounded-3xl p-6 border-2 border-foreground shadow-[10px_10px_0_hsl(var(--accent))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
+          <div className="relative bg-background rounded-3xl p-5 sm:p-6 border-2 border-foreground sticker-shadow-lg-accent hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300">
             <div className="absolute -top-3 -right-3 z-20 bg-accent text-accent-foreground rounded-full px-3 py-1.5 -rotate-6 border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))]">
               <span className="font-display font-black text-[10px] uppercase tracking-widest">🥈 Subcampeón</span>
             </div>
@@ -122,9 +122,9 @@ const GuerraComercialesSection = () => {
         </div>
 
         {/* Final result */}
-        <div className="relative bg-foreground text-background rounded-3xl p-8 mb-12 text-center border-2 border-foreground shadow-[8px_8px_0_hsl(var(--primary))]">
+        <div className="relative bg-foreground text-background rounded-3xl p-6 sm:p-8 mb-12 text-center border-2 border-foreground sticker-shadow-primary">
           <p className="font-display font-black text-[10px] uppercase tracking-widest text-background/60 mb-2">★ La Gran Final</p>
-          <p className="font-display font-black text-3xl md:text-5xl tracking-tight">
+          <p className="font-display font-black text-2xl sm:text-3xl md:text-5xl tracking-tight">
             <span className="text-primary">Covencaucho</span> <span className="text-background/40 italic">venció a</span> <span className="text-accent">Plumrose</span>
           </p>
           <p className="text-sm text-background/60 mt-3">
@@ -133,33 +133,30 @@ const GuerraComercialesSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-background rounded-2xl p-6 text-center border-2 border-foreground hover:-translate-y-1 transition-all"
-              style={{
-                boxShadow: `5px 5px 0 hsl(var(--${index % 2 === 0 ? "primary" : "accent"}))`,
-                transform: `rotate(${(index % 2 === 0 ? -1 : 1) * 1}deg)`,
-              }}
+              className={`bg-background rounded-2xl p-4 sm:p-6 text-center border-2 border-foreground hover:-translate-y-1 transition-all sticker-card-rotate sticker-shadow-${index % 2 === 0 ? "primary" : "accent"}`}
+              style={{ transform: `rotate(${(index % 2 === 0 ? -1 : 1) * 1}deg)` }}
             >
-              <stat.icon className="w-7 h-7 text-foreground mx-auto mb-3" />
-              <p className="font-display font-black text-3xl md:text-4xl text-foreground mb-1 tracking-tight">{stat.value}</p>
+              <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-foreground mx-auto mb-2 sm:mb-3" />
+              <p className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-foreground mb-1 tracking-tight">{stat.value}</p>
               <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{stat.label}</p>
             </div>
           ))}
         </div>
 
         {/* Timeline */}
-        <div className="relative bg-background rounded-3xl p-8 mb-12 border-2 border-foreground shadow-[8px_8px_0_hsl(var(--foreground))]">
-          <div className="absolute -top-4 left-8 bg-foreground text-background px-4 py-1.5 rounded-full border-2 border-foreground">
+        <div className="relative bg-background rounded-3xl p-5 sm:p-8 mb-12 border-2 border-foreground sticker-shadow-foreground">
+          <div className="absolute -top-4 left-4 sm:left-8 bg-foreground text-background px-3 py-1.5 sm:px-4 rounded-full border-2 border-foreground">
             <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Cronología del Torneo</span>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mt-3">
             {timeline.map((item, index) => (
               <div
                 key={index}
-                className="text-center p-4 bg-background rounded-2xl border-2 border-foreground"
+                className="text-center p-3 sm:p-4 bg-background rounded-2xl border-2 border-foreground"
                 style={{ boxShadow: `3px 3px 0 hsl(var(--${index % 2 === 0 ? "primary" : "accent"}))` }}
               >
                 <p className="font-display font-black text-[10px] text-primary uppercase tracking-widest mb-1">{item.date}</p>
@@ -171,15 +168,14 @@ const GuerraComercialesSection = () => {
         </div>
 
         {/* Platform stats */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
           {[
             { name: "Instagram", total: "31.2K", stats: instagramStats, color: "primary" },
             { name: "TikTok", total: "11.4K", stats: tiktokStats, color: "accent" },
           ].map((platform) => (
             <div
               key={platform.name}
-              className="bg-background rounded-3xl p-7 border-2 border-foreground"
-              style={{ boxShadow: `8px 8px 0 hsl(var(--${platform.color}))` }}
+              className={`bg-background rounded-3xl p-5 sm:p-6 md:p-7 border-2 border-foreground sticker-shadow-${platform.color}`}
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-12 h-12 rounded-2xl border-2 border-foreground flex items-center justify-center shadow-[3px_3px_0_hsl(var(--foreground))] ${platform.color === "primary" ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"}`}>

@@ -59,18 +59,17 @@ const HostsSection = () => {
           description="Las voces y rostros detrás de las aventuras que te compartimos cada semana. ¡La marca de Fun Educaitment que nunca se queda quieta!"
         />
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto">
           {hosts.map((host) => (
             <article
               key={host.name}
-              className="group relative bg-background rounded-3xl overflow-hidden border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1"
+              className={`group relative bg-background rounded-3xl overflow-hidden border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 sticker-card-rotate sticker-shadow-lg-${host.accent}`}
               style={{
-                boxShadow: `10px 10px 0 hsl(var(--${host.accent}))`,
                 transform: `rotate(${host.rotate}deg)`,
               }}
             >
               {/* Sticker badge */}
-              <div className="absolute -top-3 left-6 z-20 bg-foreground text-background rounded-full px-3 py-1.5 -rotate-2 border-2 border-foreground">
+              <div className="absolute -top-3 left-4 sm:left-6 z-20 bg-foreground text-background rounded-full px-3 py-1.5 -rotate-2 border-2 border-foreground">
                 <span className="font-display font-black text-[10px] uppercase tracking-widest">{host.sticker}</span>
               </div>
 
@@ -84,16 +83,16 @@ const HostsSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
 
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5">
                   <p className="font-display font-black text-[10px] uppercase tracking-widest text-background/70 mb-1">{host.role}</p>
-                  <h3 className="font-display font-black text-3xl md:text-4xl text-background tracking-tight leading-none">
+                  <h3 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-background tracking-tight leading-none">
                     {host.name}
                   </h3>
                   <p className="text-accent font-display font-black text-sm uppercase tracking-widest mt-1">@{host.nickname}</p>
                 </div>
               </div>
 
-              <div className="p-6 md:p-8">
+              <div className="p-5 sm:p-6 md:p-8">
                 <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6">
                   {host.description}
                 </p>

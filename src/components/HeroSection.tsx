@@ -44,13 +44,13 @@ const HeroSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 container mx-auto px-4 relative z-10 pt-10 md:pt-14 pb-12">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+      <div className="flex-1 container mx-auto px-4 relative z-10 pt-8 md:pt-14 pb-10 md:pb-12">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
           {/* LEFT — type-as-hero */}
           <div className="lg:col-span-7 relative">
             {/* Floating sticker: ON AIR */}
-            <div className="absolute -top-4 left-0 md:-left-6 z-20 bg-primary text-primary-foreground rounded-full px-4 py-2 shadow-[0_8px_24px_hsl(var(--primary)/0.4)] -rotate-6 hover:rotate-0 transition-transform duration-300 border-2 border-foreground">
-              <div className="flex items-center gap-2 font-display font-black text-xs uppercase tracking-widest">
+            <div className="absolute -top-2 sm:-top-4 left-0 md:-left-6 z-20 bg-primary text-primary-foreground rounded-full px-3 py-1.5 sm:px-4 sm:py-2 shadow-[0_8px_24px_hsl(var(--primary)/0.4)] -rotate-6 hover:rotate-0 transition-transform duration-300 border-2 border-foreground">
+              <div className="flex items-center gap-2 font-display font-black text-[10px] sm:text-xs uppercase tracking-widest">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-background opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-background" />
@@ -60,32 +60,32 @@ const HeroSection = () => {
             </div>
 
             {/* Floating sticker: NEW */}
-            <div className="absolute -top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-3 py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[6px_6px_0_hsl(var(--foreground))]">
+            <div className="absolute top-0 sm:-top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1 sm:px-3 sm:py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))]">
               <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo Episodio</span>
             </div>
 
-            <h1 className="font-display font-black tracking-[-0.04em] leading-[0.82] mt-12 md:mt-16">
-              <span className="block text-foreground text-[18vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem]">
+            <h1 className="font-display font-black tracking-[-0.04em] leading-[0.82] mt-14 sm:mt-16 md:mt-20">
+              <span className="block text-foreground text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem]">
                 vací
               </span>
-              <span className="block text-[18vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
+              <span className="block text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
                 <span className="text-gradient italic">late</span>
                 <span className="text-foreground">.</span>
               </span>
-              <span className="block text-foreground text-[18vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
+              <span className="block text-foreground text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
                 esto
               </span>
             </h1>
 
             {/* Subtitle + CTAs */}
-            <div className="mt-8 max-w-xl">
-              <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+            <div className="mt-6 sm:mt-8 max-w-xl">
+              <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
                 El <span className="font-bold text-foreground">ecosistema de Fun Educaitment</span> que mezcla podcast, shorts, lives y docuseries.
                 Fútbol, gastronomía, leyendas y mitos urbanos — desde Venezuela para el mundo. ✦
               </p>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Button asChild size="xl" className="group rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
+                <Button asChild size="xl" className="group rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
                   <a
                     href="https://www.youtube.com/@Vacilateestopodcast"
                     target="_blank"
@@ -134,9 +134,9 @@ const HeroSection = () => {
 
           {/* RIGHT — set photo with stickers */}
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] max-w-[440px] mx-auto">
+            <div className="relative aspect-[4/5] max-w-[300px] sm:max-w-[380px] md:max-w-[440px] mx-auto">
               {/* Spinning sticker badge */}
-              <div className="absolute -top-6 -left-6 z-30 w-24 h-24 md:w-28 md:h-28 animate-spin-slow">
+              <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 z-30 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 animate-spin-slow">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <defs>
                     <path
@@ -150,11 +150,11 @@ const HeroSection = () => {
                     </textPath>
                   </text>
                 </svg>
-                <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-primary" aria-hidden="true" />
+                <Sparkles className="absolute inset-0 m-auto w-6 h-6 sm:w-8 sm:h-8 text-primary" aria-hidden="true" />
               </div>
 
               {/* Polaroid-ish frame */}
-              <div className="relative w-full h-full bg-background rounded-3xl border-2 border-foreground shadow-[12px_12px_0_hsl(var(--primary))] hover:shadow-[16px_16px_0_hsl(var(--accent))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 rotate-2 hover:rotate-0 overflow-hidden">
+              <div className="relative w-full h-full bg-background rounded-3xl border-2 border-foreground shadow-[6px_6px_0_hsl(var(--primary))] sm:shadow-[10px_10px_0_hsl(var(--primary))] lg:shadow-[12px_12px_0_hsl(var(--primary))] hover:shadow-[16px_16px_0_hsl(var(--accent))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 rotate-2 hover:rotate-0 overflow-hidden">
                 <img
                   src={studioSet}
                   alt="Estudio de Vacílate Esto con luces neón rosa y cyan"
@@ -170,7 +170,7 @@ const HeroSection = () => {
               </div>
 
               {/* Floating rating sticker */}
-              <div className="absolute -bottom-4 -right-4 z-30 bg-background border-2 border-foreground rounded-2xl px-3 py-2 shadow-[6px_6px_0_hsl(var(--foreground))] -rotate-6 hover:rotate-0 transition-transform">
+              <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 z-30 bg-background border-2 border-foreground rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))] -rotate-6 hover:rotate-0 transition-transform">
                 <div className="flex items-center gap-1.5">
                   <Star className="w-4 h-4 text-primary" fill="currentColor" />
                   <span className="font-display font-black text-sm">4.9</span>
@@ -180,7 +180,7 @@ const HeroSection = () => {
 
               {/* Floating squiggle */}
               <svg
-                className="absolute -top-8 right-8 z-20 w-20 h-20 text-accent animate-wiggle"
+                className="hidden sm:block absolute -top-8 right-8 z-20 w-20 h-20 text-accent animate-wiggle"
                 viewBox="0 0 100 100"
                 fill="none"
                 stroke="currentColor"
@@ -192,7 +192,7 @@ const HeroSection = () => {
               </svg>
 
               {/* Stats sticker */}
-              <div className="absolute top-1/2 -left-8 md:-left-12 z-30 bg-foreground text-background rounded-2xl px-3 py-2.5 -rotate-12 hover:rotate-0 transition-transform border-2 border-foreground">
+              <div className="absolute top-1/2 -left-4 sm:-left-8 md:-left-12 z-30 bg-foreground text-background rounded-2xl px-2.5 py-2 sm:px-3 sm:py-2.5 -rotate-12 hover:rotate-0 transition-transform border-2 border-foreground">
                 <div className="font-display font-black text-2xl leading-none">113K+</div>
                 <div className="text-[9px] uppercase tracking-widest text-background/70 font-bold mt-0.5">Suscriptores</div>
               </div>

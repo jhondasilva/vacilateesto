@@ -75,11 +75,8 @@ const ShortsSection = () => {
                     href={`https://www.youtube.com/shorts/${s.video_id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative aspect-[9/16] rounded-3xl overflow-hidden border-2 border-foreground transition-all duration-300 hover:-translate-y-1 block bg-muted"
-                    style={{
-                      boxShadow: `6px 6px 0 hsl(var(--${accentColor}))`,
-                      transform: `rotate(${rotation}deg)`,
-                    }}
+                    className={`group relative aspect-[9/16] rounded-3xl overflow-hidden border-2 border-foreground transition-all duration-300 hover:-translate-y-1 block bg-muted sticker-card-rotate sticker-shadow-${accentColor}`}
+                    style={{ transform: `rotate(${rotation}deg)` }}
                   >
                     <img
                       src={s.thumbnail_url || `https://img.youtube.com/vi/${s.video_id}/hqdefault.jpg`}

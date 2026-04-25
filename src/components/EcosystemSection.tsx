@@ -42,26 +42,23 @@ const EcosystemSection = () => {
           description="Múltiples formatos para conectar con nuestra audiencia de diferentes maneras."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {contentFormats.map((format, index) => {
             const isAccent = format.color === "accent";
             const rotation = (index % 3 === 0 ? -1 : index % 3 === 1 ? 0 : 1) * 1;
             return (
               <article
                 key={index}
-                className="group relative bg-background rounded-3xl p-7 border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1"
-                style={{
-                  boxShadow: `6px 6px 0 hsl(var(--${format.color}))`,
-                  transform: `rotate(${rotation}deg)`,
-                }}
+                className={`group relative bg-background rounded-3xl p-5 sm:p-6 md:p-7 border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 sticker-card-rotate sticker-shadow-${format.color}`}
+                style={{ transform: `rotate(${rotation}deg)` }}
               >
                 <div
-                  className={`w-14 h-14 ${isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"} rounded-2xl border-2 border-foreground flex items-center justify-center mb-5 group-hover:rotate-6 transition-transform duration-300 shadow-[4px_4px_0_hsl(var(--foreground))]`}
+                  className={`w-12 h-12 sm:w-14 sm:h-14 ${isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"} rounded-2xl border-2 border-foreground flex items-center justify-center mb-4 sm:mb-5 group-hover:rotate-6 transition-transform duration-300 shadow-[3px_3px_0_hsl(var(--foreground))] sm:shadow-[4px_4px_0_hsl(var(--foreground))]`}
                 >
-                  <format.icon className="w-7 h-7" aria-hidden="true" />
+                  <format.icon className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
                 </div>
                 <div className="font-display font-black text-[10px] text-foreground mb-1.5 uppercase tracking-widest opacity-60">{format.subtitle}</div>
-                <h3 className="font-display font-black text-xl md:text-2xl text-foreground mb-3 tracking-tight leading-tight uppercase">{format.title}</h3>
+                <h3 className="font-display font-black text-lg sm:text-xl md:text-2xl text-foreground mb-3 tracking-tight leading-tight uppercase">{format.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {format.description}
                 </p>
