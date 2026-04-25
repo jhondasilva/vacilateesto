@@ -851,11 +851,11 @@ const MediaKit = () => {
                 onDark
               />
 
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto sticker-grid-safe">
+              <div className="grid gap-6 sm:gap-8 max-w-md mx-auto sticker-grid-safe">
                 {sponsorshipPlans.map((plan, index) => (
                   <div 
                     key={index}
-                    className={`relative rounded-3xl p-6 sm:p-8 border-2 border-background sticker-card-rotate ${index === 0 ? "sticker-tilt-l-sm" : "sticker-tilt-r-sm"} ${
+                    className={`relative rounded-3xl p-6 sm:p-8 border-2 border-background sticker-card-rotate sticker-tilt-r-sm ${
                       plan.highlighted 
                         ? 'bg-primary text-primary-foreground shadow-[6px_6px_0_hsl(var(--background))] sm:shadow-[10px_10px_0_hsl(var(--background))]' 
                         : 'bg-background text-foreground shadow-[6px_6px_0_hsl(var(--accent))] sm:shadow-[10px_10px_0_hsl(var(--accent))]'
