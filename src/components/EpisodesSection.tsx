@@ -102,16 +102,7 @@ const EpisodesSection = () => {
                     href={`https://www.youtube.com/watch?v=${episode.video_id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block bg-background rounded-3xl overflow-hidden border-2 border-foreground hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300"
-                    style={{
-                      boxShadow: `8px 8px 0 hsl(var(--${accentColor}))`,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `12px 12px 0 hsl(var(--${accentColor === "primary" ? "accent" : "primary"}))`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = `8px 8px 0 hsl(var(--${accentColor}))`;
-                    }}
+                    className={`group block bg-background rounded-3xl overflow-hidden border-2 border-foreground hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 sticker-shadow-lg-${accentColor}`}
                   >
                     <div className="relative aspect-video overflow-hidden border-b-2 border-foreground">
                       <img
@@ -141,8 +132,8 @@ const EpisodesSection = () => {
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <h3 className="font-display font-black text-lg md:text-xl mb-3 line-clamp-2 text-foreground tracking-tight leading-tight group-hover:text-primary transition-colors">
+                    <div className="p-5 sm:p-6">
+                      <h3 className="font-display font-black text-base sm:text-lg md:text-xl mb-3 line-clamp-2 text-foreground tracking-tight leading-tight group-hover:text-primary transition-colors">
                         {episode.title}
                       </h3>
                       <div className="flex items-center justify-between gap-4 text-xs">
