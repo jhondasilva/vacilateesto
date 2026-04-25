@@ -279,7 +279,7 @@ const Buscador = () => {
                 <Search className="w-7 h-7 text-muted-foreground" />
               </div>
               <p className="text-xl font-bold mb-2">No encontramos nada para "{submittedQuery}"</p>
-              <p className="text-muted-foreground">Probá con otras palabras o quitá los filtros.</p>
+              <p className="text-muted-foreground">Prueba con otras palabras o quita los filtros.</p>
             </div>
           )}
 

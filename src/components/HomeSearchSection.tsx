@@ -77,13 +77,12 @@ const HomeSearchSection = () => {
             id="search-title"
             className="font-display font-black text-foreground mb-2 tracking-[-0.04em] leading-[0.85] text-[2.5rem] sm:text-6xl md:text-7xl"
           >
-            ¿de qué <span className="text-gradient italic">hablamos</span>
+            ¿cuándo <span className="text-gradient italic">hablamos</span>
             <span className="block">sobre <span className="text-foreground">eso</span>?</span>
           </h2>
 
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg mt-5 sm:mt-6 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed">
-            Buscá cualquier tema dentro de todos nuestros podcasts y saltá al
-            minuto exacto donde lo conversamos. ✦
+            Busca el tema y encuentra el episodio y el minuto exacto donde lo conversamos. ✦
           </p>
 
           {/* Search form — neo-brutalist */}
@@ -112,7 +111,7 @@ const HomeSearchSection = () => {
           {/* Suggestions — chip stickers */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
             <span className="text-xs uppercase tracking-widest font-bold text-muted-foreground mr-1">
-              Probá con:
+              Prueba con:
             </span>
             {SUGGESTIONS.map((s, i) => (
               <button
