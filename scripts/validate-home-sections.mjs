@@ -452,12 +452,19 @@ const html = `<!doctype html>
     ul.issues li.err { color: #fca5a5; }
     ul.issues li.warn { color: #fcd34d; }
     .muted { color: #555566; }
+    .ilinks { display: flex; flex-direction: column; gap: 4px; min-width: 180px; }
+    .ilink { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; border: 1px solid transparent; white-space: nowrap; }
+    .ilink.prod { background: rgba(74, 222, 128, .08); color: #86efac; border-color: #14532d; }
+    .ilink.preview { background: rgba(147, 197, 253, .08); color: #bfdbfe; border-color: #1e3a8a; }
+    .ilink.canonical { background: rgba(251, 191, 36, .08); color: #fcd34d; border-color: #78350f; }
+    .ilink:hover { text-decoration: none; filter: brightness(1.2); }
     footer { margin-top: 24px; color: #6b6b7a; font-size: 12px; }
   </style>
 </head>
 <body>
   <h1>Reporte SEO de secciones del home</h1>
   <p class="sub">Generado el ${escapeHtml(generatedAt)} · Dominio canónico: <code>${escapeHtml(CANONICAL_ORIGIN)}</code> · Estado global: <strong>${overallStatus.toUpperCase()}</strong></p>
+  <p class="sub">Preview: <code>${escapeHtml(PREVIEW_ORIGIN)}</code> (sobreescribible con <code>LOVABLE_PREVIEW_URL</code> en CI)</p>
 
   <div class="summary">
     <div class="card"><div class="k">Secciones</div><div class="v">${totalSections}</div></div>
@@ -478,6 +485,7 @@ const html = `<!doctype html>
         <th>itemType</th>
         <th>itemProp name</th>
         <th>itemProp url</th>
+        <th>Inspeccionar</th>
         <th>Issues</th>
       </tr>
     </thead>
