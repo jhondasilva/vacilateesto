@@ -75,7 +75,7 @@ const PodcastEterno = () => {
           "url": "https://www.vacilateesto.com",
           "logo": "https://www.vacilateesto.com/og-image.png"
         },
-        "productionCompany": {
+        "producer": {
           "@type": "Organization",
           "name": "El Patio Content Studio",
           "parentOrganization": {

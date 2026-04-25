@@ -82,7 +82,7 @@ const PodcastEnLaCumbre = () => {
             "name": "El Patio Content Studio"
           }
         },
-        "productionCompany": {
+        "producer": {
           "@type": "Organization",
           "name": "El Patio Content Studio",
           "parentOrganization": {
@@ -114,7 +114,7 @@ const PodcastEnLaCumbre = () => {
             "containedInPlace": { "@type": "Country", "name": "Venezuela" }
           }
         ],
-        "containsSeason": {
+        "season": {
           "@type": "PodcastSeason",
           "seasonNumber": 1,
           "numberOfEpisodes": 3,
