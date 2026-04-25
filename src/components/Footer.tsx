@@ -187,18 +187,23 @@ const Footer = () => {
             <div key={section.title}>
               <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-background">{section.title}</h4>
               <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-background/60 hover:text-primary transition-colors text-sm"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {section.links.map((link) => {
+                  const isPdf = link.href.toLowerCase().endsWith(".pdf");
+                  const isExternal = link.href.startsWith("http") || isPdf;
+                  return (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        {...(isPdf ? { download: "" } : {})}
+                        className="text-background/60 hover:text-primary transition-colors text-sm"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
