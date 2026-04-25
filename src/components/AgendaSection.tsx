@@ -48,7 +48,7 @@ const TICKER = ["PROGRAMACIÓN SEMANAL", "★", "7 DÍAS", "✦", "MULTIPLATAFOR
 
 const AgendaSection = () => {
   return (
-    <section className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="agenda-title">
+    <section id="agenda" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="agenda-title">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-20 left-10 w-[28rem] h-[28rem] bg-primary/10 rounded-full blur-[140px]" />
         <div className="absolute bottom-20 right-10 w-[32rem] h-[32rem] bg-accent/10 rounded-full blur-[140px]" />

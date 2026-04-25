@@ -8,7 +8,7 @@
   <!-- Homepage - El Mejor Podcast de Venezuela y Ecosistema de Entretenimiento -->
   <url>
     <loc>https://www.vacilateesto.com/</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -16,9 +16,33 @@
   <!-- Vacílate El Mundial 2026 - Proyecto Especial -->
   <url>
     <loc>https://www.vacilateesto.com/vacilate-el-mundial</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+  </url>
+
+  <!-- Media Kit Vacílate El Mundial 2026 (PDF) -->
+  <url>
+    <loc>https://www.vacilateesto.com/downloads/VacilateElMundial-MediaKit-2026.pdf</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Media Kit Vacílate Esto 2026 (PDF) -->
+  <url>
+    <loc>https://www.vacilateesto.com/downloads/VacilateEsto-MediaKit-2026.pdf</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Buscador del Podcast -->
+  <url>
+    <loc>https://www.vacilateesto.com/buscador</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Campeonato de Comerciales 2025 -->

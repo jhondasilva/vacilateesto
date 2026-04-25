@@ -265,6 +265,11 @@ const VacilateElMundial = () => {
           content="mundial 2026, fifa world cup 2026, mundial mexico usa canada, podcast mundial, cobertura mundial 2026, vacilate esto mundial"
         />
         <link rel="canonical" href="https://www.vacilateesto.com/vacilate-el-mundial" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
+        <meta name="geo.region" content="VE" />
+        <meta name="geo.country" content="Venezuela" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 15 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElMundial-MediaKit-2026.pdf" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Mundial en el Feed" />
         <meta
@@ -272,12 +277,75 @@ const VacilateElMundial = () => {
           content="Contenido multiplataforma sobre el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir el Mundial."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-mundial" />
+        <meta property="og:site_name" content="Vacílate Esto" />
+        <meta property="og:image" content="https://www.vacilateesto.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="es_VE" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@vacilateesto" />
         <meta name="twitter:title" content="Vacílate El Mundial 2026" />
         <meta
           name="twitter:description"
           content="El Mundial 2026 visto desde ángulos inesperados. Fun Educaitment por Vacílate Esto."
         />
+        <meta name="twitter:image" content="https://www.vacilateesto.com/og-image.png" />
+
+        {/* JSON-LD - SportsEvent (Mundial FIFA 2026 coverage) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            "name": "Vacílate El Mundial 2026 - Cobertura Mundial FIFA 2026",
+            "description": "Cobertura multiplataforma del Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 15 ciudades sede.",
+            "startDate": "2026-06-11",
+            "endDate": "2026-07-19",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+            "url": "https://www.vacilateesto.com/vacilate-el-mundial",
+            "image": "https://www.vacilateesto.com/og-image.png",
+            "location": [
+              { "@type": "Country", "name": "México" },
+              { "@type": "Country", "name": "United States" },
+              { "@type": "Country", "name": "Canada" }
+            ],
+            "organizer": {
+              "@type": "Organization",
+              "name": "Vacílate Esto",
+              "url": "https://www.vacilateesto.com"
+            },
+            "performer": [
+              { "@type": "Person", "name": "Juan Carlos Martínez (JuanSofa)" },
+              { "@type": "Person", "name": "Jhon Da Silva (JhonSnacks)" }
+            ]
+          })}
+        </script>
+
+        {/* JSON-LD - CreativeWork (Media Kit descargable) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "DigitalDocument",
+            "name": "Media Kit Vacílate El Mundial 2026",
+            "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Mundial 2026.",
+            "encodingFormat": "application/pdf",
+            "url": "https://www.vacilateesto.com/downloads/VacilateElMundial-MediaKit-2026.pdf",
+            "inLanguage": "es-VE",
+            "publisher": { "@type": "Organization", "name": "Vacílate Esto" }
+          })}
+        </script>
+
+        {/* JSON-LD - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.vacilateesto.com" },
+              { "@type": "ListItem", "position": 2, "name": "Vacílate El Mundial 2026", "item": "https://www.vacilateesto.com/vacilate-el-mundial" }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-background">

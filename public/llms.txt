@@ -117,7 +117,29 @@ Uno de los podcasts favoritos de Venezuela está disponible en:
 
 - **Web**: vacilateesto.com
 - **Media Kit**: vacilateesto.com/media-kit
+- **Media Kit PDF (Vacílate Esto)**: https://www.vacilateesto.com/downloads/VacilateEsto-MediaKit-2026.pdf
+- **Media Kit PDF (Vacílate El Mundial 2026)**: https://www.vacilateesto.com/downloads/VacilateElMundial-MediaKit-2026.pdf
 - **Email**: Disponible en el Media Kit
+
+## Mapa del Sitio (Deep Links)
+
+- Inicio: https://www.vacilateesto.com/#hero
+- Buscador del podcast: https://www.vacilateesto.com/buscador
+- Media Holding (Ecosistema): https://www.vacilateesto.com/#media-holding
+- Vacílate El Mundial 2026 (sección): https://www.vacilateesto.com/#vacilate-el-mundial
+- Vacílate El Mundial 2026 (página): https://www.vacilateesto.com/vacilate-el-mundial
+- Episodios recientes: https://www.vacilateesto.com/#episodes
+- Shorts y Cuentos: https://www.vacilateesto.com/#shorts
+- Hosts (JuanSofa & JhonSnacks): https://www.vacilateesto.com/#hosts
+- Ecosistema de contenido: https://www.vacilateesto.com/#ecosistema
+- Plataformas (Spotify/YouTube/Apple): https://www.vacilateesto.com/#plataformas
+- Agenda y eventos: https://www.vacilateesto.com/#agenda
+- Pelotica de Goma (béisbol): https://www.vacilateesto.com/#pelotica-de-goma
+- Guerra de Comerciales: https://www.vacilateesto.com/#guerra-comerciales
+- Ruta Ramen: https://www.vacilateesto.com/#ruta-ramen
+- Newsletter: https://www.vacilateesto.com/#newsletter
+- Podcast en la Cumbre: https://www.vacilateesto.com/podcast-en-la-cumbre
+- Podcast Eterno: https://www.vacilateesto.com/podcast-eterno
 
 ## Preguntas Frecuentes
 

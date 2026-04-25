@@ -7,7 +7,7 @@ const TICKER = ["PELOTICA DE GOMA", "★", "FENÓMENO GLOBAL 🌎", "✦", "DESD
 
 const PeloticaSection = () => {
   return (
-    <section className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="pelotica-title">
+    <section id="pelotica-de-goma" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="pelotica-title">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -right-20 top-1/3 w-[28rem] h-[28rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute -left-20 bottom-1/4 w-[28rem] h-[28rem] bg-accent/12 rounded-full blur-[140px]" />
