@@ -37,14 +37,17 @@ const ShortsSection = () => {
   }, []);
 
   return (
-    <section id="shorts" className="py-16 md:py-24 bg-background relative overflow-hidden" aria-labelledby="shorts-title">
+    <section id="shorts" className="py-20 md:py-28 bg-background relative overflow-hidden" aria-labelledby="shorts-title">
+      {/* Cyan accent glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+
       <div className="container mx-auto px-4 relative z-10">
-        <header className="text-center mb-10 md:mb-14">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Shorts Diarios</span>
-          <h2 id="shorts-title" className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground">
+        <header className="text-center mb-12 md:mb-16">
+          <span className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-[0.2em]">Shorts Diarios</span>
+          <h2 id="shorts-title" className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground tracking-tight">
             Últimos Shorts
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
+          <p className="font-body text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
             Cuentos y anécdotas en formato corto, todos los días.
           </p>
         </header>
@@ -66,7 +69,7 @@ const ShortsSection = () => {
                   href={`https://www.youtube.com/shorts/${s.video_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative aspect-[9/16] rounded-2xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-500 hover:shadow-elevated block bg-muted"
+                  className="group relative aspect-[9/16] rounded-2xl overflow-hidden border border-border hover:border-accent/50 transition-all duration-500 hover:shadow-elevated hover:-translate-y-1 block bg-muted"
                 >
                   <img
                     src={s.thumbnail_url || `https://img.youtube.com/vi/${s.video_id}/hqdefault.jpg`}
@@ -78,7 +81,7 @@ const ShortsSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/10 to-transparent" />
 
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform glow-primary">
                       <Play className="w-5 h-5 text-primary-foreground ml-0.5" fill="currentColor" />
                     </div>
                   </div>
@@ -89,7 +92,7 @@ const ShortsSection = () => {
                   </div>
 
                   <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <h3 className="text-white text-sm font-semibold line-clamp-2 leading-snug">
+                    <h3 className="font-display text-white text-sm font-semibold line-clamp-2 leading-snug tracking-tight">
                       {s.title}
                     </h3>
                   </div>

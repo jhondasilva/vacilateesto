@@ -60,14 +60,16 @@ const EpisodesSection = () => {
   }, []);
 
   return (
-    <section id="episodes" className="py-16 md:py-24 bg-muted/30 relative overflow-hidden" aria-labelledby="episodes-title">
+    <section id="episodes" className="py-20 md:py-28 bg-muted/40 relative overflow-hidden" aria-labelledby="episodes-title">
+      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-accent/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="container mx-auto px-4 relative z-10">
-        <header className="text-center mb-10 md:mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Lo Más Reciente</span>
-          <h2 id="episodes-title" className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground">
+        <header className="text-center mb-12 md:mb-16">
+          <span className="text-primary font-semibold text-xs sm:text-sm uppercase tracking-[0.2em]">Lo Más Reciente</span>
+          <h2 id="episodes-title" className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground tracking-tight">
             Últimos Episodios
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
+          <p className="font-body text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
             No te pierdas nuestras aventuras y conversaciones más recientes.
           </p>
         </header>
@@ -90,7 +92,7 @@ const EpisodesSection = () => {
                   href={`https://www.youtube.com/watch?v=${episode.video_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-background rounded-3xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-elevated block"
+                  className="group bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-500 hover:shadow-elevated hover:-translate-y-1 block"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="relative aspect-video overflow-hidden">
@@ -124,7 +126,7 @@ const EpisodesSection = () => {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 text-foreground">
+                    <h3 className="font-display font-bold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 text-foreground tracking-tight">
                       {episode.title}
                     </h3>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">

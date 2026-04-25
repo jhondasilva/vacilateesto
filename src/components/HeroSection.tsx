@@ -11,20 +11,22 @@ const HeroSection = () => {
     >
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute top-20 right-10 w-48 md:w-72 h-48 md:h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 left-10 w-64 md:w-96 h-64 md:h-96 bg-[#7DE8E8]/10 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
+        {/* Studio neon glows */}
+        <div className="absolute top-20 -left-20 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary/15 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-10 -right-20 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-accent/20 rounded-full blur-3xl animate-float-delayed" />
+        {/* Subtle dot grid like the studio ceiling */}
+        <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent border border-primary/20 mb-8 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-soft mb-8 animate-fade-in">
             <span className="relative flex h-2 w-2" aria-hidden="true">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-sm font-medium text-foreground">Ecosistema de Entretenimiento #1 de Venezuela 🇻🇪</span>
+            <span className="text-xs sm:text-sm font-medium text-foreground tracking-wide">Ecosistema de Entretenimiento #1 de Venezuela 🇻🇪</span>
           </div>
 
           {/* Logo with SEO-friendly heading */}
@@ -34,7 +36,7 @@ const HeroSection = () => {
           </div>
 
           {/* Subtitle with SEO keywords */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10 animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.2s" }}>
+          <p className="font-body text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10 animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.2s" }}>
             ¡El ecosistema de entretenimiento venezolano que nunca se queda quieto! Somos una marca de contenido que mezcla 
             entretenimiento y educación. Podcast, shorts, lives, docuseries y mucho más. 
             Fútbol, gastronomía, historia, leyendas y mitos urbanos. ✨👋
@@ -96,25 +98,25 @@ const HeroSection = () => {
             role="region"
             aria-label="Estadísticas del podcast venezolano"
           >
-            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card border border-border/50 shadow-card hover:shadow-elevated hover:-translate-y-0.5 transition-all">
               <div className="flex items-center justify-center mb-1 sm:mb-2">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
               </div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">113K+</div>
+              <div className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">113K+</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Suscriptores</div>
             </div>
-            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card border border-border/50 shadow-card hover:shadow-elevated hover:-translate-y-0.5 transition-all">
               <div className="flex items-center justify-center mb-1 sm:mb-2">
-                <Video className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
+                <Video className="w-4 h-4 sm:w-5 sm:h-5 text-accent" aria-hidden="true" />
               </div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">1.3K+</div>
+              <div className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">1.3K+</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Videos</div>
             </div>
-            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card shadow-card">
+            <div className="text-center p-3 sm:p-4 rounded-2xl bg-card border border-border/50 shadow-card hover:shadow-elevated hover:-translate-y-0.5 transition-all">
               <div className="flex items-center justify-center mb-1 sm:mb-2">
                 <Star className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
               </div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">4.9</div>
+              <div className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">4.9</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground mt-1">Rating</div>
             </div>
           </div>
