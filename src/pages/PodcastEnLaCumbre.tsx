@@ -692,12 +692,17 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Team Section */}
-          <section className="py-16 bg-muted/30" aria-labelledby="team-heading">
+          <section className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="team-heading">
             <div className="container mx-auto px-4">
-              <h2 id="team-heading" className="text-3xl font-bold text-foreground text-center mb-12 flex items-center justify-center gap-3">
-                <Users className="w-8 h-8 text-primary" aria-hidden="true" />
-                Equipo de Producción
-              </h2>
+              <div id="team-heading" className="sr-only">Equipo de Producción</div>
+              <StickerHeader
+                badge="Quiénes somos"
+                badgeIcon={Users}
+                badgeVariant="dark"
+                title="Equipo de"
+                highlight="producción"
+                align="center"
+              />
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" role="list">
                 {[
                   {
