@@ -103,7 +103,9 @@ const seenItemPropValues = {
   url: new Map(),
 };
 
-for (const rel of SECTION_FILES) {
+for (const sectionDef of SECTIONS) {
+  const rel = sectionDef.file;
+  const canonicalKind = sectionDef.canonicalKind || "home-anchor";
   const abs = resolve(ROOT, rel);
   if (!existsSync(abs)) {
     errors.push(`[missing-file] No se encontró ${rel}`);
@@ -176,7 +178,7 @@ for (const rel of SECTION_FILES) {
     }
   }
 
-  // 5. itemProp="url" debe ser canónica: https + dominio oficial + hash == id de la sección.
+  // 5. itemProp="url" debe ser canónica.
   const urlValue = (props.url || [])[0];
   if (urlValue) {
     let parsed = null;
@@ -188,15 +190,10 @@ for (const rel of SECTION_FILES) {
       );
     }
     if (parsed) {
-      const expectedOrigin = CANONICAL_ORIGIN;
+      // Reglas comunes a todos los kinds.
       if (parsed.protocol !== "https:") {
         errors.push(
           `[url-protocol] ${rel} (#${id}): itemProp="url" debe usar https → "${urlValue}"`,
-        );
-      }
-      if (parsed.origin !== expectedOrigin) {
-        errors.push(
-          `[url-origin] ${rel} (#${id}): itemProp="url" debe usar el dominio canónico ${expectedOrigin} → "${urlValue}"`,
         );
       }
       if (parsed.search) {
@@ -204,27 +201,68 @@ for (const rel of SECTION_FILES) {
           `[url-query] ${rel} (#${id}): itemProp="url" no debe contener query string → "${urlValue}"`,
         );
       }
-      // El path debe ser "/" (home) ya que las secciones viven en el home.
-      if (parsed.pathname !== "/" && parsed.pathname !== "") {
-        errors.push(
-          `[url-path] ${rel} (#${id}): itemProp="url" debe apuntar al home "/" (recibido pathname="${parsed.pathname}") → "${urlValue}"`,
-        );
-      }
-      // El hash debe coincidir exactamente con el id de la sección.
-      const hash = parsed.hash.replace(/^#/, "");
-      if (!hash) {
-        errors.push(
-          `[url-hash-missing] ${rel} (#${id}): itemProp="url" debe terminar con "#${id}" → "${urlValue}"`,
-        );
-      } else if (hash !== id) {
-        errors.push(
-          `[url-hash-mismatch] ${rel} (#${id}): itemProp="url" hash="#${hash}" no coincide con id="${id}" → "${urlValue}"`,
-        );
-      }
-      // Trailing slash sucio antes del hash (p.ej. "/#x" está OK, "//#x" no).
       if (parsed.pathname.includes("//")) {
         errors.push(
           `[url-double-slash] ${rel} (#${id}): itemProp="url" tiene "//" en el path → "${urlValue}"`,
+        );
+      }
+
+      if (canonicalKind === "home-anchor") {
+        if (parsed.origin !== CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-origin] ${rel} (#${id}): itemProp="url" debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname !== "/" && parsed.pathname !== "") {
+          errors.push(
+            `[url-path] ${rel} (#${id}): canonical home-anchor debe apuntar a "/" (recibido "${parsed.pathname}") → "${urlValue}"`,
+          );
+        }
+        const hash = parsed.hash.replace(/^#/, "");
+        if (!hash) {
+          errors.push(
+            `[url-hash-missing] ${rel} (#${id}): itemProp="url" debe terminar con "#${id}" → "${urlValue}"`,
+          );
+        } else if (hash !== id) {
+          errors.push(
+            `[url-hash-mismatch] ${rel} (#${id}): hash "#${hash}" no coincide con id="${id}" → "${urlValue}"`,
+          );
+        }
+      } else if (canonicalKind === "internal-page") {
+        if (parsed.origin !== CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-origin] ${rel} (#${id}): canonical internal-page debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
+          );
+        }
+        if (!parsed.pathname || parsed.pathname === "/") {
+          errors.push(
+            `[url-path] ${rel} (#${id}): canonical internal-page debe tener un path no vacío → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
+          errors.push(
+            `[url-trailing-slash] ${rel} (#${id}): canonical internal-page no debe terminar en "/" → "${urlValue}"`,
+          );
+        }
+        if (parsed.hash) {
+          warnings.push(
+            `[url-hash-on-page] ${rel} (#${id}): canonical internal-page no suele incluir hash → "${urlValue}"`,
+          );
+        }
+      } else if (canonicalKind === "external") {
+        if (parsed.origin === CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-external] ${rel} (#${id}): canonical external no debería apuntar al dominio principal → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
+          warnings.push(
+            `[url-trailing-slash] ${rel} (#${id}): canonical external termina en "/" → "${urlValue}"`,
+          );
+        }
+      } else {
+        errors.push(
+          `[canonical-kind] ${rel} (#${id}): canonicalKind desconocido "${canonicalKind}"`,
         );
       }
     }
