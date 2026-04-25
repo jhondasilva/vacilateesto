@@ -3,16 +3,16 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
 // Datos de audiencia
 const audienceData = {
-  totalFollowers: "3.5M+",
+  totalFollowers: "1.84M",
   totalImpressions: "89.6M",
   totalInteractions: "5.2M",
   totalPublications: "6,705",
   platforms: [
-    { name: "TikTok", followers: "1.82M", growth: "+7.18%" },
-    { name: "Instagram", followers: "278.19K", growth: "+20.66%" },
-    { name: "Facebook", followers: "210.68K", growth: "+11.8%" },
-    { name: "YouTube", followers: "113K", growth: "+1.8%" },
-    { name: "Threads", followers: "58.06K", growth: "+13.69%" },
+    { name: "TikTok", followers: "1.16M", growth: "+3.88%" },
+    { name: "Instagram", followers: "284.94K", growth: "+23.59%" },
+    { name: "Facebook", followers: "214.03K", growth: "+13.58%" },
+    { name: "YouTube", followers: "119K", growth: "+7.21%" },
+    { name: "Threads", followers: "61.23K", growth: "+19.88%" },
   ],
   impressions: {
     facebook: "44.79M",
