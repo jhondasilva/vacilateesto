@@ -8,6 +8,8 @@
  *   2. aria-labelledby que apunte a un id existente dentro del mismo archivo
  *   3. itemScope + itemType (Schema.org)
  *   4. <meta itemProp="name" />, "description" y "url" sin valores duplicados
+ *   5. itemProp="url" canónica: HTTPS, dominio canónico oficial,
+ *      hash que coincide con el id de la sección, sin query/trailing slash sucio.
  *
  * Falla el build (exit 1) si encuentra errores.
  * Se ejecuta automáticamente vía `npm run build` (prebuild).
@@ -20,24 +22,34 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
 // Componentes que aportan secciones enlazables al home (orden de Index.tsx).
-const SECTION_FILES = [
-  "src/components/HeroSection.tsx",
-  "src/components/HomeSearchSection.tsx",
-  "src/components/MediaHoldingSection.tsx",
-  "src/components/VacilateElMundialSection.tsx",
-  "src/components/EpisodesSection.tsx",
-  "src/components/ShortsSection.tsx",
-  "src/components/HostsSection.tsx",
-  "src/components/EcosystemSection.tsx",
-  "src/components/PlatformsSection.tsx",
-  "src/components/AgendaSection.tsx",
-  "src/components/PeloticaSection.tsx",
-  "src/components/GuerraComercialesSection.tsx",
-  "src/components/RutaRamenSection.tsx",
-  "src/components/NewsletterSection.tsx",
+// Para cada sección se puede declarar `canonicalKind`:
+//   - "home-anchor" (default): la URL debe ser https://www.vacilateesto.com/#<id>
+//   - "internal-page": la URL debe ser https://www.vacilateesto.com/<path>
+//   - "external": la URL puede apuntar a otro dominio oficial del ecosistema
+//     (en este caso se valida https + ausencia de query, sin chequear hash).
+const SECTIONS = [
+  { file: "src/components/HeroSection.tsx" },
+  { file: "src/components/HomeSearchSection.tsx" },
+  { file: "src/components/MediaHoldingSection.tsx" },
+  { file: "src/components/VacilateElMundialSection.tsx", canonicalKind: "internal-page" },
+  { file: "src/components/EpisodesSection.tsx" },
+  { file: "src/components/ShortsSection.tsx" },
+  { file: "src/components/HostsSection.tsx" },
+  { file: "src/components/EcosystemSection.tsx" },
+  { file: "src/components/PlatformsSection.tsx" },
+  { file: "src/components/AgendaSection.tsx" },
+  { file: "src/components/PeloticaSection.tsx", canonicalKind: "external" },
+  { file: "src/components/GuerraComercialesSection.tsx" },
+  { file: "src/components/RutaRamenSection.tsx" },
+  { file: "src/components/NewsletterSection.tsx" },
 ];
+const SECTION_FILES = SECTIONS.map((s) => s.file);
 
 const REQUIRED_ITEMPROPS = ["name", "description", "url"];
+
+// Dominio canónico oficial del sitio (debe coincidir con <link rel="canonical">
+// y con sitemap.xml). Cualquier itemProp="url" del home debe usar exactamente este origin.
+const CANONICAL_ORIGIN = "https://www.vacilateesto.com";
 
 /**
  * Encuentra el primer <section ...> top-level con id="..." en el archivo.
@@ -91,7 +103,9 @@ const seenItemPropValues = {
   url: new Map(),
 };
 
-for (const rel of SECTION_FILES) {
+for (const sectionDef of SECTIONS) {
+  const rel = sectionDef.file;
+  const canonicalKind = sectionDef.canonicalKind || "home-anchor";
   const abs = resolve(ROOT, rel);
   if (!existsSync(abs)) {
     errors.push(`[missing-file] No se encontró ${rel}`);
@@ -161,6 +175,96 @@ for (const rel of SECTION_FILES) {
       );
     } else {
       bucket.set(value, rel);
+    }
+  }
+
+  // 5. itemProp="url" debe ser canónica.
+  const urlValue = (props.url || [])[0];
+  if (urlValue) {
+    let parsed = null;
+    try {
+      parsed = new URL(urlValue);
+    } catch {
+      errors.push(
+        `[url-invalid] ${rel} (#${id}): itemProp="url" no es una URL válida → "${urlValue}"`,
+      );
+    }
+    if (parsed) {
+      // Reglas comunes a todos los kinds.
+      if (parsed.protocol !== "https:") {
+        errors.push(
+          `[url-protocol] ${rel} (#${id}): itemProp="url" debe usar https → "${urlValue}"`,
+        );
+      }
+      if (parsed.search) {
+        errors.push(
+          `[url-query] ${rel} (#${id}): itemProp="url" no debe contener query string → "${urlValue}"`,
+        );
+      }
+      if (parsed.pathname.includes("//")) {
+        errors.push(
+          `[url-double-slash] ${rel} (#${id}): itemProp="url" tiene "//" en el path → "${urlValue}"`,
+        );
+      }
+
+      if (canonicalKind === "home-anchor") {
+        if (parsed.origin !== CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-origin] ${rel} (#${id}): itemProp="url" debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname !== "/" && parsed.pathname !== "") {
+          errors.push(
+            `[url-path] ${rel} (#${id}): canonical home-anchor debe apuntar a "/" (recibido "${parsed.pathname}") → "${urlValue}"`,
+          );
+        }
+        const hash = parsed.hash.replace(/^#/, "");
+        if (!hash) {
+          errors.push(
+            `[url-hash-missing] ${rel} (#${id}): itemProp="url" debe terminar con "#${id}" → "${urlValue}"`,
+          );
+        } else if (hash !== id) {
+          errors.push(
+            `[url-hash-mismatch] ${rel} (#${id}): hash "#${hash}" no coincide con id="${id}" → "${urlValue}"`,
+          );
+        }
+      } else if (canonicalKind === "internal-page") {
+        if (parsed.origin !== CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-origin] ${rel} (#${id}): canonical internal-page debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
+          );
+        }
+        if (!parsed.pathname || parsed.pathname === "/") {
+          errors.push(
+            `[url-path] ${rel} (#${id}): canonical internal-page debe tener un path no vacío → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
+          errors.push(
+            `[url-trailing-slash] ${rel} (#${id}): canonical internal-page no debe terminar en "/" → "${urlValue}"`,
+          );
+        }
+        if (parsed.hash) {
+          warnings.push(
+            `[url-hash-on-page] ${rel} (#${id}): canonical internal-page no suele incluir hash → "${urlValue}"`,
+          );
+        }
+      } else if (canonicalKind === "external") {
+        if (parsed.origin === CANONICAL_ORIGIN) {
+          errors.push(
+            `[url-external] ${rel} (#${id}): canonical external no debería apuntar al dominio principal → "${urlValue}"`,
+          );
+        }
+        if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
+          warnings.push(
+            `[url-trailing-slash] ${rel} (#${id}): canonical external termina en "/" → "${urlValue}"`,
+          );
+        }
+      } else {
+        errors.push(
+          `[canonical-kind] ${rel} (#${id}): canonicalKind desconocido "${canonicalKind}"`,
+        );
+      }
     }
   }
 }
