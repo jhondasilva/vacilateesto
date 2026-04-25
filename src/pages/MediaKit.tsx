@@ -545,7 +545,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ★ 3.5M+
+              ★ 1.84M
             </div>
             <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
               ◆ Media Kit
@@ -570,14 +570,14 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores 
+                  Conectamos marcas con una comunidad apasionada de más de 1.84 millones de seguidores 
                   a través de contenido auténtico y entretenido.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "3.5M+", label: "Seguidores Totales", icon: Users },
+                    { value: "1.84M", label: "Comunidad Total", icon: Users },
                     { value: "89.6M", label: "Impresiones Anuales", icon: Eye },
                     { value: "5.2M", label: "Interacciones", icon: Heart },
                     { value: "6,705", label: "Publicaciones", icon: FileText },
@@ -596,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 3.5M+ SEGUIDORES", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              items={["★ 1.84M COMUNIDAD", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -607,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool"
+                description="Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
