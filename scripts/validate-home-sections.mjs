@@ -110,21 +110,43 @@ for (const sectionDef of SECTIONS) {
   const rel = sectionDef.file;
   const canonicalKind = sectionDef.canonicalKind || "home-anchor";
   const abs = resolve(ROOT, rel);
+  const result = {
+    file: rel,
+    canonicalKind,
+    id: null,
+    ariaLabelledBy: null,
+    itemType: null,
+    itemProps: { name: null, description: null, url: null },
+    errors: [],
+    warnings: [],
+  };
+  const addError = (msg) => {
+    errors.push(msg);
+    result.errors.push(msg);
+  };
+  const addWarning = (msg) => {
+    warnings.push(msg);
+    result.warnings.push(msg);
+  };
+
   if (!existsSync(abs)) {
-    errors.push(`[missing-file] No se encontró ${rel}`);
+    addError(`[missing-file] No se encontró ${rel}`);
+    sectionResults.push(result);
     continue;
   }
   const source = readFileSync(abs, "utf8");
   const section = extractSectionTagAttrs(source);
   if (!section) {
-    errors.push(`[no-section] ${rel}: no se encontró <section id="..."> top-level`);
+    addError(`[no-section] ${rel}: no se encontró <section id="..."> top-level`);
+    sectionResults.push(result);
     continue;
   }
   const { attrs, id } = section;
+  result.id = id;
 
   // 1. id único
   if (seenIds.has(id)) {
-    errors.push(
+    addError(
       `[dup-id] id="${id}" duplicado en ${rel} (también en ${seenIds.get(id)})`,
     );
   } else {
@@ -133,8 +155,9 @@ for (const sectionDef of SECTIONS) {
 
   // 2. aria-labelledby presente y referenciando un id existente en el archivo
   const aria = attrValue(attrs, "aria-labelledby");
+  result.ariaLabelledBy = aria;
   if (!aria) {
-    errors.push(`[aria] ${rel}: <section id="${id}"> sin aria-labelledby`);
+    addError(`[aria] ${rel}: <section id="${id}"> sin aria-labelledby`);
   } else {
     // Aceptamos:
     //   - id="X"  (HTML literal)
@@ -142,7 +165,7 @@ for (const sectionDef of SECTIONS) {
     const literalRe = new RegExp(`\\bid=["']${aria}["']`);
     const propRe = new RegExp(`\\b[A-Za-z]+Id=["']${aria}["']`);
     if (!literalRe.test(source) && !propRe.test(source)) {
-      errors.push(
+      addError(
         `[aria-target] ${rel}: aria-labelledby="${aria}" no apunta a ningún id en el archivo`,
       );
     }
@@ -150,13 +173,14 @@ for (const sectionDef of SECTIONS) {
 
   // 3. itemScope + itemType
   if (!hasBareAttr(attrs, "itemScope")) {
-    errors.push(`[itemScope] ${rel}: <section id="${id}"> sin itemScope`);
+    addError(`[itemScope] ${rel}: <section id="${id}"> sin itemScope`);
   }
   const itemType = attrValue(attrs, "itemType");
+  result.itemType = itemType;
   if (!itemType) {
-    errors.push(`[itemType] ${rel}: <section id="${id}"> sin itemType`);
+    addError(`[itemType] ${rel}: <section id="${id}"> sin itemType`);
   } else if (!itemType.startsWith("https://schema.org/")) {
-    warnings.push(
+    addWarning(
       `[itemType-url] ${rel}: itemType="${itemType}" debería empezar con https://schema.org/`,
     );
   }
@@ -166,14 +190,15 @@ for (const sectionDef of SECTIONS) {
   for (const key of REQUIRED_ITEMPROPS) {
     const values = props[key] || [];
     if (values.length === 0) {
-      errors.push(`[itemProp-missing] ${rel} (#${id}): falta <meta itemProp="${key}" />`);
+      addError(`[itemProp-missing] ${rel} (#${id}): falta <meta itemProp="${key}" />`);
       continue;
     }
     // tomamos el primer valor como el "oficial" de la sección
     const value = values[0];
+    result.itemProps[key] = value;
     const bucket = seenItemPropValues[key];
     if (bucket.has(value)) {
-      errors.push(
+      addError(
         `[itemProp-dup] ${rel} (#${id}): itemProp="${key}" valor duplicado con ${bucket.get(value)} → "${value}"`,
       );
     } else {
@@ -188,88 +213,89 @@ for (const sectionDef of SECTIONS) {
     try {
       parsed = new URL(urlValue);
     } catch {
-      errors.push(
+      addError(
         `[url-invalid] ${rel} (#${id}): itemProp="url" no es una URL válida → "${urlValue}"`,
       );
     }
     if (parsed) {
       // Reglas comunes a todos los kinds.
       if (parsed.protocol !== "https:") {
-        errors.push(
+        addError(
           `[url-protocol] ${rel} (#${id}): itemProp="url" debe usar https → "${urlValue}"`,
         );
       }
       if (parsed.search) {
-        errors.push(
+        addError(
           `[url-query] ${rel} (#${id}): itemProp="url" no debe contener query string → "${urlValue}"`,
         );
       }
       if (parsed.pathname.includes("//")) {
-        errors.push(
+        addError(
           `[url-double-slash] ${rel} (#${id}): itemProp="url" tiene "//" en el path → "${urlValue}"`,
         );
       }
 
       if (canonicalKind === "home-anchor") {
         if (parsed.origin !== CANONICAL_ORIGIN) {
-          errors.push(
+          addError(
             `[url-origin] ${rel} (#${id}): itemProp="url" debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
           );
         }
         if (parsed.pathname !== "/" && parsed.pathname !== "") {
-          errors.push(
+          addError(
             `[url-path] ${rel} (#${id}): canonical home-anchor debe apuntar a "/" (recibido "${parsed.pathname}") → "${urlValue}"`,
           );
         }
         const hash = parsed.hash.replace(/^#/, "");
         if (!hash) {
-          errors.push(
+          addError(
             `[url-hash-missing] ${rel} (#${id}): itemProp="url" debe terminar con "#${id}" → "${urlValue}"`,
           );
         } else if (hash !== id) {
-          errors.push(
+          addError(
             `[url-hash-mismatch] ${rel} (#${id}): hash "#${hash}" no coincide con id="${id}" → "${urlValue}"`,
           );
         }
       } else if (canonicalKind === "internal-page") {
         if (parsed.origin !== CANONICAL_ORIGIN) {
-          errors.push(
+          addError(
             `[url-origin] ${rel} (#${id}): canonical internal-page debe usar ${CANONICAL_ORIGIN} → "${urlValue}"`,
           );
         }
         if (!parsed.pathname || parsed.pathname === "/") {
-          errors.push(
+          addError(
             `[url-path] ${rel} (#${id}): canonical internal-page debe tener un path no vacío → "${urlValue}"`,
           );
         }
         if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
-          errors.push(
+          addError(
             `[url-trailing-slash] ${rel} (#${id}): canonical internal-page no debe terminar en "/" → "${urlValue}"`,
           );
         }
         if (parsed.hash) {
-          warnings.push(
+          addWarning(
             `[url-hash-on-page] ${rel} (#${id}): canonical internal-page no suele incluir hash → "${urlValue}"`,
           );
         }
       } else if (canonicalKind === "external") {
         if (parsed.origin === CANONICAL_ORIGIN) {
-          errors.push(
+          addError(
             `[url-external] ${rel} (#${id}): canonical external no debería apuntar al dominio principal → "${urlValue}"`,
           );
         }
         if (parsed.pathname.length > 1 && parsed.pathname.endsWith("/")) {
-          warnings.push(
+          addWarning(
             `[url-trailing-slash] ${rel} (#${id}): canonical external termina en "/" → "${urlValue}"`,
           );
         }
       } else {
-        errors.push(
+        addError(
           `[canonical-kind] ${rel} (#${id}): canonicalKind desconocido "${canonicalKind}"`,
         );
       }
     }
   }
+  sectionResults.push(result);
 }
 
 const RESET = "\x1b[0m";
