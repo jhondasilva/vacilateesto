@@ -5,6 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import MediaHoldingSection from "@/components/MediaHoldingSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import ShortsSection from "@/components/ShortsSection";
+import HomeSearchSection from "@/components/HomeSearchSection";
 import HostsSection from "@/components/HostsSection";
 import EcosystemSection from "@/components/EcosystemSection";
 import PlatformsSection from "@/components/PlatformsSection";
@@ -203,6 +204,7 @@ const Index = () => {
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />
+            <HomeSearchSection />
             <MediaHoldingSection />
             <VacilateElMundialSection />
             <EpisodesSection />

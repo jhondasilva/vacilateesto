@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useSearchParams } from "react-router-dom";
 import { Search, Play, Loader2, Sparkles, Clock, Mic, Film } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
@@ -71,6 +72,7 @@ const Buscador = () => {
   const [results, setResults] = useState<SearchResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const runSearch = async (q: string, k: typeof filter) => {
     if (!q || q.trim().length < 3) return;
@@ -106,8 +108,19 @@ const Buscador = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
+  // Read ?q= from URL on mount and auto-search
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q && q.trim().length >= 2) {
+      setQuery(q);
+      runSearch(q, filter);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (query.trim()) setSearchParams({ q: query.trim() }, { replace: true });
     runSearch(query, filter);
   };
 
