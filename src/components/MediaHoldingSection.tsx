@@ -47,26 +47,23 @@ const MediaHoldingSection = () => {
         />
 
         {/* Business arms grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-12 md:mb-16">
           {businessArms.map((arm, index) => {
             const isAccent = arm.color === "accent";
             const rotation = (index % 2 === 0 ? -1 : 1) * 1;
             return (
               <article
                 key={arm.id}
-                className="group relative bg-background rounded-3xl p-7 border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1"
-                style={{
-                  boxShadow: `8px 8px 0 hsl(var(--${arm.color}))`,
-                  transform: `rotate(${rotation}deg)`,
-                }}
+                className={`group relative bg-background rounded-3xl p-5 sm:p-6 md:p-7 border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 sticker-card-rotate sticker-shadow-${arm.color}`}
+                style={{ transform: `rotate(${rotation}deg)` }}
               >
-                <div className={`w-14 h-14 rounded-2xl border-2 border-foreground flex items-center justify-center mb-5 group-hover:rotate-6 transition-transform shadow-[4px_4px_0_hsl(var(--foreground))] ${isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
-                  <arm.icon className="w-7 h-7" aria-hidden="true" />
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl border-2 border-foreground flex items-center justify-center mb-4 sm:mb-5 group-hover:rotate-6 transition-transform shadow-[3px_3px_0_hsl(var(--foreground))] sm:shadow-[4px_4px_0_hsl(var(--foreground))] ${isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
+                  <arm.icon className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
                 </div>
                 <div className="font-display font-black text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
                   {arm.subtitle}
                 </div>
-                <h3 className="font-display font-black text-xl text-foreground mb-3 tracking-tight uppercase">{arm.title}</h3>
+                <h3 className="font-display font-black text-lg sm:text-xl text-foreground mb-3 tracking-tight uppercase">{arm.title}</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed mb-5">
                   {arm.description}
                 </p>
@@ -101,19 +98,19 @@ const MediaHoldingSection = () => {
         </div>
 
         {/* Flywheel card */}
-        <div className="relative bg-background rounded-3xl p-8 md:p-12 border-2 border-foreground shadow-[10px_10px_0_hsl(var(--foreground))] max-w-5xl mx-auto">
-          <div className="absolute -top-4 left-8 bg-foreground text-background px-4 py-1.5 rounded-full border-2 border-foreground">
+        <div className="relative bg-background rounded-3xl p-6 sm:p-8 md:p-12 border-2 border-foreground sticker-shadow-lg-foreground max-w-5xl mx-auto">
+          <div className="absolute -top-4 left-4 sm:left-8 bg-foreground text-background px-3 py-1.5 sm:px-4 rounded-full border-2 border-foreground">
             <span className="font-display font-black text-[10px] uppercase tracking-widest">★ El Flywheel Vacílate</span>
           </div>
 
-          <div className="text-center mb-10 mt-2">
-            <h3 className="font-display font-black text-3xl md:text-4xl tracking-tight uppercase mb-3">Negocio Circular</h3>
-            <p className="font-body text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-center mb-8 sm:mb-10 mt-2">
+            <h3 className="font-display font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase mb-3">Negocio Circular</h3>
+            <p className="font-body text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               Nuestro negocio ya no es lineal, es circular. El éxito de una unidad alimenta a la otra.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6 relative">
+          <div className="grid sm:grid-cols-3 gap-4 sm:gap-5 md:gap-6 relative">
             {[
               { icon: Video, title: "Contenido", desc: "Genera audiencia y confianza masiva", color: "primary" },
               { icon: BarChart3, title: "Data", desc: "Construye relación directa con el fan", color: "accent" },
@@ -121,7 +118,7 @@ const MediaHoldingSection = () => {
             ].map((step, i) => (
               <div
                 key={i}
-                className={`p-6 rounded-2xl border-2 border-foreground bg-background shadow-[5px_5px_0_hsl(var(--${step.color}))] hover:-translate-y-1 transition-transform`}
+                className={`p-5 sm:p-6 rounded-2xl border-2 border-foreground bg-background sticker-card-rotate hover:-translate-y-1 transition-transform sticker-shadow-${step.color}`}
                 style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1}deg)` }}
               >
                 <div className={`w-14 h-14 rounded-2xl border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] ${step.color === "accent" ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
