@@ -251,6 +251,56 @@
   .animate-scale-in {
     animation: scaleIn 0.5s ease-out forwards;
   }
+
+  /* === Sticker Pack responsive helpers === */
+  /* Apply rotation only on sm+ to prevent layout overflow on mobile */
+  .sticker-tilt-xs { transform: rotate(0deg); }
+  @media (min-width: 640px) {
+    .sticker-tilt-l  { transform: rotate(-1.5deg); }
+    .sticker-tilt-r  { transform: rotate(1.5deg); }
+    .sticker-tilt-l-sm { transform: rotate(-1deg); }
+    .sticker-tilt-r-sm { transform: rotate(1deg); }
+    .sticker-tilt-l-lg { transform: rotate(-2deg); }
+    .sticker-tilt-r-lg { transform: rotate(2deg); }
+  }
+
+  /* Hard offset shadows that scale with viewport.
+     Use these instead of inline shadow-[Npx_Npx_0_color] for responsive cards. */
+  .sticker-shadow-primary   { box-shadow: 4px 4px 0 hsl(var(--primary)); }
+  .sticker-shadow-accent    { box-shadow: 4px 4px 0 hsl(var(--accent)); }
+  .sticker-shadow-foreground{ box-shadow: 4px 4px 0 hsl(var(--foreground)); }
+  @media (min-width: 640px) {
+    .sticker-shadow-primary   { box-shadow: 6px 6px 0 hsl(var(--primary)); }
+    .sticker-shadow-accent    { box-shadow: 6px 6px 0 hsl(var(--accent)); }
+    .sticker-shadow-foreground{ box-shadow: 6px 6px 0 hsl(var(--foreground)); }
+  }
+  @media (min-width: 1024px) {
+    .sticker-shadow-primary   { box-shadow: 8px 8px 0 hsl(var(--primary)); }
+    .sticker-shadow-accent    { box-shadow: 8px 8px 0 hsl(var(--accent)); }
+    .sticker-shadow-foreground{ box-shadow: 8px 8px 0 hsl(var(--foreground)); }
+  }
+
+  /* Bigger variant for hero/feature cards */
+  .sticker-shadow-lg-primary    { box-shadow: 5px 5px 0 hsl(var(--primary)); }
+  .sticker-shadow-lg-accent     { box-shadow: 5px 5px 0 hsl(var(--accent)); }
+  .sticker-shadow-lg-foreground { box-shadow: 5px 5px 0 hsl(var(--foreground)); }
+  @media (min-width: 640px) {
+    .sticker-shadow-lg-primary    { box-shadow: 8px 8px 0 hsl(var(--primary)); }
+    .sticker-shadow-lg-accent     { box-shadow: 8px 8px 0 hsl(var(--accent)); }
+    .sticker-shadow-lg-foreground { box-shadow: 8px 8px 0 hsl(var(--foreground)); }
+  }
+  @media (min-width: 1024px) {
+    .sticker-shadow-lg-primary    { box-shadow: 12px 12px 0 hsl(var(--primary)); }
+    .sticker-shadow-lg-accent     { box-shadow: 12px 12px 0 hsl(var(--accent)); }
+    .sticker-shadow-lg-foreground { box-shadow: 12px 12px 0 hsl(var(--foreground)); }
+  }
+
+  /* Reserve right gutter so cards with hard-offset shadows don't visually
+     touch the viewport edge on mobile, where overflow-x is hidden. */
+  .sticker-grid-safe {
+    padding-right: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
 }
 
 @keyframes float {
@@ -327,6 +377,18 @@
 @media (max-width: 768px) {
   .transition-all {
     transition-duration: 150ms;
+  }
+}
+
+/* === Sticker Pack mobile fine-tuning === */
+@media (max-width: 640px) {
+  /* Disable card rotations on mobile to keep grids clean & avoid clipping */
+  .sticker-card-rotate {
+    transform: none !important;
+  }
+  /* Hide hover-translate effects that feel janky on touch */
+  .sticker-no-hover-mobile:hover {
+    transform: none !important;
   }
 }
 
