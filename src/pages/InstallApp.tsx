@@ -62,19 +62,25 @@ const InstallApp = () => {
       <div className="min-h-screen bg-background">
         <Header />
         
-        <main className="pt-24 pb-16">
+        <main className="pt-24 pb-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center">
-              {/* Hero */}
+              {/* Hero — Sticker Pack Y2K */}
               <div className="mb-12">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-background border-2 border-foreground rounded-full mb-6 shadow-[4px_4px_0_hsl(var(--primary))] rotate-[-2deg]">
+                  <Smartphone className="w-4 h-4" />
+                  <span className="font-display font-black text-xs uppercase tracking-widest">Instalar app</span>
+                </div>
+                <div className="w-24 h-24 mx-auto mb-6 rounded-3xl bg-primary border-4 border-foreground flex items-center justify-center shadow-[8px_8px_0_hsl(var(--foreground))] rotate-[-3deg]">
                   <Smartphone className="w-12 h-12 text-primary-foreground" />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                  Instala Vacílate Esto
+                <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[12vw] sm:text-5xl md:text-6xl lg:text-7xl text-foreground mb-4">
+                  Instala{" "}
+                  <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Vacílate Esto</span>
+                  .
                 </h1>
-                <p className="text-xl text-muted-foreground">
-                  Accede al mejor podcast de Venezuela directamente desde tu pantalla de inicio
+                <p className="font-body text-base md:text-xl text-muted-foreground">
+                  Accede al mejor podcast de Venezuela directamente desde tu pantalla de inicio.
                 </p>
               </div>
 

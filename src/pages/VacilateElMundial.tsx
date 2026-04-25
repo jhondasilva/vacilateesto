@@ -208,11 +208,18 @@ const VacilateElMundial = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
-          <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-gradient-to-br from-[#9000ff] via-[#9000ff]/90 to-[#ee506f]">
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-10 md:top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-white rounded-full blur-3xl" />
-              <div className="absolute bottom-10 md:bottom-20 right-5 md:right-10 w-64 md:w-96 h-64 md:h-96 bg-[#ee506f] rounded-full blur-3xl" />
+          {/* Hero Section — Sticker Pack Y2K */}
+          <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-foreground text-background border-b-4 border-foreground">
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute top-10 md:top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-primary rounded-full blur-3xl" />
+              <div className="absolute bottom-10 md:bottom-20 right-5 md:right-10 w-64 md:w-96 h-64 md:h-96 bg-accent rounded-full blur-3xl" />
+            </div>
+            {/* Floating stickers */}
+            <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ★ FIFA 2026
+            </div>
+            <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ◆ MX · USA · CA
             </div>
             
             {/* Decorative country icons */}
@@ -230,22 +237,24 @@ const VacilateElMundial = () => {
 
             <div className="container mx-auto px-4 relative z-10">
               <div className="text-center max-w-4xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-white/20 border border-white/30 mb-6 md:mb-8 backdrop-blur-sm">
-                  <Calendar className="w-3.5 md:w-4 h-3.5 md:h-4 text-white" />
-                  <span className="text-xs md:text-sm font-semibold text-white">Febrero - Julio 2026</span>
+                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-primary-foreground border-2 border-background mb-6 md:mb-8 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
+                  <Calendar className="w-3.5 md:w-4 h-3.5 md:h-4" />
+                  <span className="font-display font-black text-[10px] md:text-xs uppercase tracking-widest">Febrero — Julio 2026</span>
                 </div>
                 
                 <img 
                   src={logoVacilateElMundial} 
                   alt="Vacílate El Mundial 2026" 
-                  className="h-28 sm:h-36 md:h-56 w-auto mx-auto mb-6 md:mb-8 drop-shadow-2xl"
+                  className="h-28 sm:h-36 md:h-56 w-auto mx-auto mb-6 md:mb-8 drop-shadow-[8px_8px_0_hsl(var(--primary))]"
                 />
                 
-                <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 px-2">
-                  La Magia del Mundial se vive en el Feed
+                <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[8vw] sm:text-4xl md:text-6xl text-background mb-4 md:mb-6 px-2">
+                  La Magia del Mundial{" "}
+                  <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">se vive en el Feed</span>
+                  .
                 </h1>
                 
-                <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-6 md:mb-10 px-2">
+                <p className="font-body text-base sm:text-lg md:text-xl text-background/85 max-w-3xl mx-auto mb-6 md:mb-10 px-2">
                   Contenido multiplataforma presente en Instagram, YouTube, TikTok y radio. 
                   Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
                 </p>

@@ -321,18 +321,26 @@ const PodcastEterno = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main>
-          {/* Hero Section */}
-          <section className="relative pt-24 pb-16 bg-foreground text-background overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent" />
+          {/* Hero Section — Sticker Pack Y2K */}
+          <section className="relative pt-28 pb-20 bg-foreground text-background overflow-hidden border-b-4 border-foreground">
+            {/* Decorative stickers */}
+            <div aria-hidden className="absolute top-24 left-8 hidden md:block rotate-[-12deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ★ 40 horas
+            </div>
+            <div aria-hidden className="absolute top-32 right-10 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ▲ Récord Mundial
+            </div>
+
             <div className="container mx-auto px-4 relative z-10">
-              <div className="max-w-4xl mx-auto text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-6">
-                  <Trophy className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-primary">Récord Mundial 2022</span>
+              <div className="max-w-5xl mx-auto text-center">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-background rounded-full mb-6 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
+                  <Trophy className="w-4 h-4" />
+                  <span className="font-display font-black text-xs uppercase tracking-widest">Récord Mundial 2022</span>
                 </div>
                 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-                  El Podcast <span className="text-primary">Eterno</span>
+                <h1 className="font-display font-black tracking-[-0.05em] leading-[0.85] text-[18vw] sm:text-[12vw] md:text-[10rem] lg:text-[12rem] mb-8">
+                  El Podcast{" "}
+                  <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Eterno</span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-background/80 mb-8 max-w-2xl mx-auto">

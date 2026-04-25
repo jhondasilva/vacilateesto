@@ -543,32 +543,40 @@ const MediaKit = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
-          <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-foreground via-foreground to-foreground/90">
+          {/* Hero Section — Sticker Pack Y2K */}
+          <section className="relative pt-32 pb-20 overflow-hidden bg-foreground border-b-4 border-foreground">
             {/* Background decorations */}
-            <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 opacity-20">
               <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-              <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#7DE8E8] rounded-full blur-3xl" />
+              <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl" />
+            </div>
+            {/* Floating stickers */}
+            <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ★ 3.5M+
+            </div>
+            <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
+              ◆ Media Kit
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
               <div className="text-center max-w-4xl mx-auto">
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/20 border border-primary/30 mb-8">
-                  <span className="text-sm font-semibold text-primary">MediaKit 2026</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground border-2 border-background mb-8 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
+                  <span className="font-display font-black text-xs uppercase tracking-widest">MediaKit 2026</span>
                 </div>
                 
                 <img 
                   src={logoVacilate} 
                   alt="Vacílate Esto" 
-                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-2xl brightness-0 invert"
+                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-[8px_8px_0_hsl(var(--primary))] brightness-0 invert"
                 />
                 
-                <h1 className="text-4xl md:text-6xl font-black text-background mb-6">
-                  El Ecosistema de Contenido
-                  <span className="block text-primary mt-2">Fun Educaitment</span>
+                <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[10vw] sm:text-5xl md:text-7xl text-background mb-6">
+                  El Ecosistema de Contenido{" "}
+                  <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Fun Educaitment</span>
+                  .
                 </h1>
                 
-                <p className="text-xl text-background/70 mb-10 max-w-2xl mx-auto">
+                <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
                   Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores 
                   a través de contenido auténtico y entretenido.
                 </p>
