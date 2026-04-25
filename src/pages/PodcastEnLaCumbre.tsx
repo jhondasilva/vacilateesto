@@ -136,7 +136,7 @@ const PodcastEnLaCumbre = () => {
                 "embedUrl": "https://www.youtube.com/embed/NdrcKpsD0UU",
                 "uploadDate": "2025-09-01"
               },
-              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#series" }
+              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast" }
             },
             {
               "@type": "PodcastEpisode",
@@ -153,7 +153,7 @@ const PodcastEnLaCumbre = () => {
                 "embedUrl": "https://www.youtube.com/embed/NZWSKJvOdXg",
                 "uploadDate": "2025-11-01"
               },
-              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#series" }
+              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast" }
             }
           ]
         },
