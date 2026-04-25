@@ -29,8 +29,8 @@ type SearchResult = SearchChunk & { chunks: SearchChunk[] };
 const SUGGESTIONS = [
   "la mejor arepa de Caracas",
   "el gol de Salomón Rondón",
-  "leyenda del Silbón",
-  "cuando hablaron de Roraima",
+  "la leyenda del Silbón",
+  "cuando hablamos de Roraima",
   "el perro caliente",
 ];
 
@@ -134,7 +134,7 @@ const Buscador = () => {
         <title>Buscador de momentos | Vacílate Esto</title>
         <meta
           name="description"
-          content="Busca cualquier tema en los más de 200 episodios y 600 shorts de Vacílate Esto. Encuentra el momento exacto y mira el video desde ese segundo."
+          content="Busca cualquier tema en los más de 200 episodios y 600 shorts de Vacílate Esto. Encuentra el minuto exacto donde lo conversamos y míralo en YouTube."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/buscador" />
       </Helmet>
@@ -173,8 +173,8 @@ const Buscador = () => {
                 .
               </h1>
               <p className="font-body text-muted-foreground text-sm sm:text-base md:text-xl max-w-2xl mx-auto px-2">
-                Busca cualquier tema en los episodios y shorts. Te llevamos al{" "}
-                <span className="font-semibold text-foreground">minuto exacto</span> donde lo conversamos.
+                Escribe cualquier tema y te llevamos al{" "}
+                <span className="font-semibold text-foreground">minuto exacto</span> del episodio o el short donde lo conversamos.
               </p>
             </div>
 
@@ -193,7 +193,7 @@ const Buscador = () => {
                   size="lg"
                   disabled={loading || query.trim().length < 3}
                   className="m-1.5 md:m-2 h-11 md:h-14 px-4 md:px-8 text-sm md:text-base font-bold shrink-0"
-                  aria-label="Buscar"
+                  aria-label="Buscar momento en los episodios"
                 >
                   {loading ? (
                     <>
