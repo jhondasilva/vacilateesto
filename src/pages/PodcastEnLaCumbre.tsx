@@ -649,38 +649,41 @@ const PodcastEnLaCumbre = () => {
           </article>
 
           {/* About Section */}
-          <section className="py-16 bg-background" aria-labelledby="about-heading">
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="about-heading">
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                 <div>
-                  <h2 id="about-heading" className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-                    <Mountain className="w-8 h-8 text-primary" aria-hidden="true" />
-                    ¿Qué es Podcast En La Cumbre?
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-foreground text-background border-2 border-foreground rounded-full mb-5">
+                    <Mountain className="w-3.5 h-3.5" />
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">El proyecto</span>
+                  </div>
+                  <h2 id="about-heading" className="font-display font-black tracking-[-0.04em] leading-[0.9] text-3xl sm:text-4xl md:text-5xl text-foreground mb-6">
+                    ¿Qué es Podcast en la <span className="italic text-gradient">Cumbre</span>?
                   </h2>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/70 font-body leading-relaxed mb-4">
                     Podcast en la Cumbre es una travesía audiovisual de siete meses para mostrar a Venezuela 
                     desde sus alturas —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, 
                     humor y reflexión.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/70 font-body leading-relaxed mb-4">
                     Liderado por <strong>JuanSofa</strong> y <strong>JhonSnacks</strong>, el proyecto documenta 
                     cada paso con streaming en vivo, podcast, reels, microdocumentales y fotografía editorial.
                   </p>
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground/70 font-body leading-relaxed">
                     <strong className="text-foreground">Tres cumbres, tres historias, un mismo mensaje:</strong> 
                     {" "}Aquí hay país, aquí hay historias, aquí hay altura.
                   </p>
                 </div>
-                <aside className="bg-muted/30 rounded-2xl p-8 border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-4">Propósito</h3>
-                  <p className="text-muted-foreground mb-4">
+                <aside className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3">Propósito</p>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] mb-5">
                     Contar que seguimos aquí. Y que seguimos subiendo.
-                  </p>
-                  <p className="text-muted-foreground mb-4">
+                  </h3>
+                  <p className="text-background/80 font-body leading-relaxed mb-4">
                     Este proyecto existe para recordarnos —a nosotros y al mundo— que Venezuela no se rinde, 
                     se reinventa. Que tenemos montañas, sí, pero también caminos.
                   </p>
-                  <p className="text-foreground font-semibold">
+                  <p className="font-display font-black text-lg italic text-primary">
                     La altura venezolana no se mide en metros, sino en alma.
                   </p>
                 </aside>
