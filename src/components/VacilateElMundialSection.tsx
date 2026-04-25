@@ -36,7 +36,7 @@ const VacilateElMundialSection = () => {
       </div>
 
       {/* Top marquee */}
-      <div className="relative z-10 border-y-2 border-foreground bg-primary text-primary-foreground overflow-hidden py-2 mb-12 md:mb-16 -mt-20 md:-mt-28 mb-12 md:mb-16">
+      <div className="relative z-10 border-y-2 border-foreground bg-primary text-primary-foreground overflow-hidden py-2 -mt-20 md:-mt-28 mb-12 md:mb-16">
         <div className="flex whitespace-nowrap animate-marquee">
           {[...TICKER, ...TICKER, ...TICKER, ...TICKER].map((item, i) => (
             <span
