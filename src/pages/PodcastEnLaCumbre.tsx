@@ -781,8 +781,8 @@ const PodcastEnLaCumbre = () => {
                     a la altura de cada desafío!</strong>
                   </p>
 
-                  <div className="bg-muted/30 rounded-2xl p-8 my-8">
-                    <h3 className="text-xl font-bold text-foreground mb-4">Una narrativa de altura</h3>
+                  <div className="bg-muted/30 border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-primary">
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] text-foreground mb-4">Una narrativa de altura</h3>
                     <p className="text-muted-foreground mb-4">
                       El proyecto, que abarca las tres cumbres más altas y simbólicas de Venezuela — Naiguatá, 
                       Roraima y Pico Bolívar — estará protagonizado por gente de altura. Personas que inspiran, 
@@ -796,34 +796,34 @@ const PodcastEnLaCumbre = () => {
                     </p>
                   </div>
 
-                  <h3 className="text-xl font-bold text-foreground mb-6">Tres cumbres que enaltecen nuestra historia</h3>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] text-foreground mb-6">Tres cumbres que enaltecen nuestra historia</h3>
                   
                   <div className="grid md:grid-cols-3 gap-6 my-8">
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Pico Naiguatá</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-l-sm sticker-card-rotate">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Naiguatá</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         Desde el techo de Caracas, el primer podcast será un homenaje a una ciudad con 
                         historias y gente de altura.
                       </p>
                     </div>
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Monte Roraima</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-accent">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Monte Roraima</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         Considerado uno de los paisajes más místicos del continente, será escenario de 
                         una transmisión sin precedentes: el primer podcast grabado y transmitido desde su punto más alto.
                       </p>
                     </div>
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Pico Bolívar</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Bolívar</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         El cierre del ciclo. La cumbre más alta del país donde culmina esta trilogía con 
                         una visión épica de los venezolanos de altura.
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-foreground text-background rounded-2xl p-8 my-8">
-                    <h3 className="text-xl font-bold mb-4">Mucho más que un podcast</h3>
+                  <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-accent">
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Mucho más que un podcast</h3>
                     <p className="text-background/80 mb-6">
                       Además de los episodios grabados en cada cumbre, Podcast en la Cumbre generará una 
                       experiencia audiovisual con marcas de altura:
@@ -856,33 +856,34 @@ const PodcastEnLaCumbre = () => {
                     </ul>
                   </div>
 
-                  <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
+                  <blockquote className="my-8 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-accent sticker-tilt-l-sm sticker-card-rotate">
                     "En la cima no hay likes ni etiquetas. Solo hay aire y en ella reconocemos lo lejos 
                     que hemos llegado, siempre con la frente en alto."
                   </blockquote>
                 </div>
 
                 {/* Contact Info */}
-                <div className="mt-12 text-center bg-primary/10 rounded-2xl p-8">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Para solicitudes de prensa</h3>
+                <div className="mt-12 text-center bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sticker-shadow-primary">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-2">Contacto</p>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] mb-6">Para solicitudes de prensa</h3>
                   <div className="flex flex-col items-center justify-center gap-4">
                     <a 
                       href="mailto:samira.rivas@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       samira.rivas@hacemosloquenosgusta.com
                     </a>
                     <a 
                       href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       andreina.ascension@hacemosloquenosgusta.com
                     </a>
                     <a 
                       href="mailto:estrella.rodriguez@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       estrella.rodriguez@hacemosloquenosgusta.com
@@ -891,7 +892,7 @@ const PodcastEnLaCumbre = () => {
                   <div className="mt-8">
                     <button
                       onClick={handleDownloadPressReleases}
-                      className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 transition-colors"
+                      className="inline-flex items-center gap-2 px-7 py-4 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest hover:translate-x-[-2px] hover:translate-y-[-2px] transition-transform shadow-[6px_6px_0_hsl(var(--background))] rotate-[-1deg]"
                     >
                       Descargar Notas de Prensa
                     </button>
