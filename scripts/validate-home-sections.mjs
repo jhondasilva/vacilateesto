@@ -22,22 +22,28 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
 // Componentes que aportan secciones enlazables al home (orden de Index.tsx).
-const SECTION_FILES = [
-  "src/components/HeroSection.tsx",
-  "src/components/HomeSearchSection.tsx",
-  "src/components/MediaHoldingSection.tsx",
-  "src/components/VacilateElMundialSection.tsx",
-  "src/components/EpisodesSection.tsx",
-  "src/components/ShortsSection.tsx",
-  "src/components/HostsSection.tsx",
-  "src/components/EcosystemSection.tsx",
-  "src/components/PlatformsSection.tsx",
-  "src/components/AgendaSection.tsx",
-  "src/components/PeloticaSection.tsx",
-  "src/components/GuerraComercialesSection.tsx",
-  "src/components/RutaRamenSection.tsx",
-  "src/components/NewsletterSection.tsx",
+// Para cada sección se puede declarar `canonicalKind`:
+//   - "home-anchor" (default): la URL debe ser https://www.vacilateesto.com/#<id>
+//   - "internal-page": la URL debe ser https://www.vacilateesto.com/<path>
+//   - "external": la URL puede apuntar a otro dominio oficial del ecosistema
+//     (en este caso se valida https + ausencia de query, sin chequear hash).
+const SECTIONS = [
+  { file: "src/components/HeroSection.tsx" },
+  { file: "src/components/HomeSearchSection.tsx" },
+  { file: "src/components/MediaHoldingSection.tsx" },
+  { file: "src/components/VacilateElMundialSection.tsx", canonicalKind: "internal-page" },
+  { file: "src/components/EpisodesSection.tsx" },
+  { file: "src/components/ShortsSection.tsx" },
+  { file: "src/components/HostsSection.tsx" },
+  { file: "src/components/EcosystemSection.tsx" },
+  { file: "src/components/PlatformsSection.tsx" },
+  { file: "src/components/AgendaSection.tsx" },
+  { file: "src/components/PeloticaSection.tsx", canonicalKind: "external" },
+  { file: "src/components/GuerraComercialesSection.tsx" },
+  { file: "src/components/RutaRamenSection.tsx" },
+  { file: "src/components/NewsletterSection.tsx" },
 ];
+const SECTION_FILES = SECTIONS.map((s) => s.file);
 
 const REQUIRED_ITEMPROPS = ["name", "description", "url"];
 
