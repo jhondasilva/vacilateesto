@@ -334,13 +334,20 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Manifiesto Section */}
-          <section className="py-16 bg-foreground text-background" aria-labelledby="manifiesto-heading">
+          <StickerMarquee items={["★ Naiguatá 2.765m", "▲ Roraima 2.810m", "● Pico Bolívar 4.978m", "✦ Aquí hay altura"]} variant="primary" />
+          <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="manifiesto-heading">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center">
-                <Quote className="w-12 h-12 text-primary mx-auto mb-6" aria-hidden="true" />
-                <h2 id="manifiesto-heading" className="text-3xl md:text-4xl font-bold mb-8">Manifiesto</h2>
-                
-                <div className="space-y-6 text-background/90 text-lg leading-relaxed">
+              <div className="max-w-4xl mx-auto">
+                <StickerHeader
+                  badge="Manifiesto"
+                  badgeIcon={Quote}
+                  badgeVariant="primary"
+                  title="Altura no es solo un"
+                  highlight="destino"
+                  align="center"
+                  onDark
+                />
+                <div className="bg-background/5 border-2 border-background/30 rounded-2xl p-8 sm:p-10 space-y-6 text-background/90 text-base sm:text-lg leading-relaxed text-center">
                   <p className="text-2xl font-bold text-primary">
                     Altura no es solo un destino. Es una manera de vivir.
                   </p>
@@ -366,21 +373,21 @@ const PodcastEnLaCumbre = () => {
                   </p>
                   
                   <div className="pt-6 border-t border-background/20">
-                    <p className="text-xl font-bold text-primary mb-4">Una afirmación:</p>
-                    <div className="flex flex-wrap justify-center gap-4 text-lg">
-                      <span className="px-4 py-2 bg-background/10 rounded-full">🏔️ Aquí hay altura</span>
-                      <span className="px-4 py-2 bg-background/10 rounded-full">📖 Aquí hay historias</span>
-                      <span className="px-4 py-2 bg-background/10 rounded-full">🇻🇪 Aquí hay país</span>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mb-5">Una afirmación</p>
+                    <div className="flex flex-wrap justify-center gap-3">
+                      <span className="px-4 py-2 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-3deg]">🏔️ Aquí hay altura</span>
+                      <span className="px-4 py-2 bg-accent text-accent-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[2deg]">📖 Aquí hay historias</span>
+                      <span className="px-4 py-2 bg-background text-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-2deg]">🇻🇪 Aquí hay país</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-12 p-6 bg-background/5 rounded-2xl border border-background/10">
-                  <h3 className="text-xl font-bold text-primary mb-3">Mantra</h3>
-                  <p className="text-2xl font-bold italic">
+                <div className="mt-10 bg-primary text-primary-foreground border-2 border-background rounded-2xl p-8 text-center sticker-tilt-r-sm sticker-card-rotate shadow-[8px_8px_0_hsl(var(--background))]">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest mb-3">Mantra</p>
+                  <p className="font-display font-black text-2xl sm:text-3xl italic tracking-[-0.02em]">
                     "Desde arriba, todo tiene sentido."
                   </p>
-                  <p className="text-background/70 mt-4">
+                  <p className="text-primary-foreground/80 mt-4 font-body text-sm sm:text-base">
                     Desde arriba entendemos por qué seguimos. Desde arriba vemos lo que nos une. 
                     Desde arriba, recordamos que Venezuela no se rinde: respira hondo, y sigue.
                   </p>
@@ -390,68 +397,66 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Resultados Section */}
-          <section className="py-16 bg-primary/5" aria-labelledby="resultados-heading">
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="resultados-heading">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-                <h2 id="resultados-heading" className="text-3xl font-bold text-foreground mb-4">
-                  Resultados del Proyecto
-                </h2>
-                <p className="text-muted-foreground">Agosto - Noviembre 2025 | Orgánico + Pago</p>
-              </div>
+              <StickerHeader
+                badge="Agosto - Noviembre 2025"
+                badgeIcon={TrendingUp}
+                badgeVariant="dark"
+                title="Resultados del"
+                highlight="proyecto"
+                description="Orgánico + Pago. Cifras consolidadas en todas las plataformas."
+                align="center"
+              />
 
               {/* Global Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">212</div>
-                  <div className="text-sm text-muted-foreground">Publicaciones</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">2.6M</div>
-                  <div className="text-sm text-muted-foreground">Vistas Totales</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">137K</div>
-                  <div className="text-sm text-muted-foreground">Interacciones</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">6.6%</div>
-                  <div className="text-sm text-muted-foreground">Tasa de Engagement</div>
-                </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-5xl mx-auto mb-12">
+                {[
+                  { value: "212", label: "Publicaciones", tilt: "sticker-tilt-l-sm", shadow: "sticker-shadow-primary" },
+                  { value: "2.6M", label: "Vistas Totales", tilt: "sticker-tilt-r-sm", shadow: "sticker-shadow-accent" },
+                  { value: "137K", label: "Interacciones", tilt: "sticker-tilt-r-sm", shadow: "sticker-shadow-primary" },
+                  { value: "6.6%", label: "Engagement", tilt: "sticker-tilt-l-sm", shadow: "sticker-shadow-accent" },
+                ].map((s) => (
+                  <div key={s.label} className={`bg-background border-2 border-foreground rounded-2xl p-5 sm:p-7 text-center sticker-card-rotate ${s.tilt} ${s.shadow}`}>
+                    <div className="font-display font-black text-3xl md:text-5xl tracking-[-0.04em] text-foreground leading-none mb-3">{s.value}</div>
+                    <div className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/70">{s.label}</div>
+                  </div>
+                ))}
               </div>
 
               {/* Platform Stats */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                {platformStats.map((stat) => (
-                  <div key={stat.platform} className="bg-background rounded-2xl p-6 shadow-card">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <stat.icon className="w-5 h-5 text-primary" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
+                {platformStats.map((stat, i) => (
+                  <div
+                    key={stat.platform}
+                    className={`bg-background border-2 border-foreground rounded-2xl p-5 sm:p-6 sticker-card-rotate ${i % 2 === 0 ? "sticker-tilt-l-sm sticker-shadow-primary" : "sticker-tilt-r-sm sticker-shadow-accent"}`}
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-11 h-11 rounded-xl bg-foreground text-background border-2 border-foreground flex items-center justify-center rotate-[-4deg]">
+                        <stat.icon className="w-5 h-5" />
                       </div>
-                      <h3 className="font-bold text-foreground">{stat.platform}</h3>
+                      <h3 className="font-display font-black text-base uppercase tracking-tight text-foreground">{stat.platform}</h3>
                     </div>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">Posts</span>
-                        <span className="font-semibold text-foreground">{stat.posts}</span>
+                    <div className="space-y-2.5">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60">Posts</span>
+                        <span className="font-display font-black text-foreground">{stat.posts}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60 flex items-center gap-1">
                           <Eye className="w-3 h-3" /> Vistas
                         </span>
-                        <span className="font-semibold text-foreground">{stat.views}</span>
+                        <span className="font-display font-black text-foreground">{stat.views}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60 flex items-center gap-1">
                           <Heart className="w-3 h-3" /> Interacciones
                         </span>
-                        <span className="font-semibold text-foreground">{stat.interactions}</span>
+                        <span className="font-display font-black text-foreground">{stat.interactions}</span>
                       </div>
-                      <div className="pt-2 border-t border-border">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Engagement</span>
-                          <span className="font-bold text-primary">{stat.rate}</span>
-                        </div>
+                      <div className="pt-3 mt-2 border-t-2 border-foreground/20 flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60">Engagement</span>
+                        <span className="font-display font-black text-primary text-lg">{stat.rate}</span>
                       </div>
                     </div>
                   </div>
@@ -460,17 +465,19 @@ const PodcastEnLaCumbre = () => {
 
               {/* Community Stats */}
               <div className="mt-12 max-w-2xl mx-auto">
-                <div className="bg-background rounded-2xl p-8 shadow-card text-center">
-                  <Users className="w-10 h-10 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-foreground mb-6">Comunidad Total</h3>
+                <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sm:p-10 text-center sticker-shadow-primary">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-primary-foreground border-2 border-background mb-5 rotate-[-6deg]">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-display font-black text-xs uppercase tracking-widest mb-6">Comunidad Total</h3>
                   <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <div className="text-4xl font-bold text-foreground mb-2">277.9K</div>
-                      <div className="text-sm text-muted-foreground">Seguidores Totales</div>
+                      <div className="font-display font-black text-4xl md:text-5xl tracking-[-0.04em] mb-2">277.9K</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">Seguidores</div>
                     </div>
                     <div>
-                      <div className="text-4xl font-bold text-primary mb-2">+9.1K</div>
-                      <div className="text-sm text-muted-foreground">Nuevos Seguidores</div>
+                      <div className="font-display font-black text-4xl md:text-5xl tracking-[-0.04em] text-primary mb-2">+9.1K</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">Nuevos</div>
                     </div>
                   </div>
                 </div>
