@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import StickerHeader from "@/components/StickerHeader";
+import StickerMarquee from "@/components/StickerMarquee";
 import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles } from "lucide-react";
 import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
 
@@ -332,13 +334,20 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Manifiesto Section */}
-          <section className="py-16 bg-foreground text-background" aria-labelledby="manifiesto-heading">
+          <StickerMarquee items={["★ Naiguatá 2.765m", "▲ Roraima 2.810m", "● Pico Bolívar 4.978m", "✦ Aquí hay altura"]} variant="primary" />
+          <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="manifiesto-heading">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center">
-                <Quote className="w-12 h-12 text-primary mx-auto mb-6" aria-hidden="true" />
-                <h2 id="manifiesto-heading" className="text-3xl md:text-4xl font-bold mb-8">Manifiesto</h2>
-                
-                <div className="space-y-6 text-background/90 text-lg leading-relaxed">
+              <div className="max-w-4xl mx-auto">
+                <StickerHeader
+                  badge="Manifiesto"
+                  badgeIcon={Quote}
+                  badgeVariant="primary"
+                  title="Altura no es solo un"
+                  highlight="destino"
+                  align="center"
+                  onDark
+                />
+                <div className="bg-background/5 border-2 border-background/30 rounded-2xl p-8 sm:p-10 space-y-6 text-background/90 text-base sm:text-lg leading-relaxed text-center">
                   <p className="text-2xl font-bold text-primary">
                     Altura no es solo un destino. Es una manera de vivir.
                   </p>
@@ -364,21 +373,21 @@ const PodcastEnLaCumbre = () => {
                   </p>
                   
                   <div className="pt-6 border-t border-background/20">
-                    <p className="text-xl font-bold text-primary mb-4">Una afirmación:</p>
-                    <div className="flex flex-wrap justify-center gap-4 text-lg">
-                      <span className="px-4 py-2 bg-background/10 rounded-full">🏔️ Aquí hay altura</span>
-                      <span className="px-4 py-2 bg-background/10 rounded-full">📖 Aquí hay historias</span>
-                      <span className="px-4 py-2 bg-background/10 rounded-full">🇻🇪 Aquí hay país</span>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mb-5">Una afirmación</p>
+                    <div className="flex flex-wrap justify-center gap-3">
+                      <span className="px-4 py-2 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-3deg]">🏔️ Aquí hay altura</span>
+                      <span className="px-4 py-2 bg-accent text-accent-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[2deg]">📖 Aquí hay historias</span>
+                      <span className="px-4 py-2 bg-background text-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-2deg]">🇻🇪 Aquí hay país</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-12 p-6 bg-background/5 rounded-2xl border border-background/10">
-                  <h3 className="text-xl font-bold text-primary mb-3">Mantra</h3>
-                  <p className="text-2xl font-bold italic">
+                <div className="mt-10 bg-primary text-primary-foreground border-2 border-background rounded-2xl p-8 text-center sticker-tilt-r-sm sticker-card-rotate shadow-[8px_8px_0_hsl(var(--background))]">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest mb-3">Mantra</p>
+                  <p className="font-display font-black text-2xl sm:text-3xl italic tracking-[-0.02em]">
                     "Desde arriba, todo tiene sentido."
                   </p>
-                  <p className="text-background/70 mt-4">
+                  <p className="text-primary-foreground/80 mt-4 font-body text-sm sm:text-base">
                     Desde arriba entendemos por qué seguimos. Desde arriba vemos lo que nos une. 
                     Desde arriba, recordamos que Venezuela no se rinde: respira hondo, y sigue.
                   </p>
@@ -388,68 +397,66 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Resultados Section */}
-          <section className="py-16 bg-primary/5" aria-labelledby="resultados-heading">
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="resultados-heading">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-                <h2 id="resultados-heading" className="text-3xl font-bold text-foreground mb-4">
-                  Resultados del Proyecto
-                </h2>
-                <p className="text-muted-foreground">Agosto - Noviembre 2025 | Orgánico + Pago</p>
-              </div>
+              <StickerHeader
+                badge="Agosto - Noviembre 2025"
+                badgeIcon={TrendingUp}
+                badgeVariant="dark"
+                title="Resultados del"
+                highlight="proyecto"
+                description="Orgánico + Pago. Cifras consolidadas en todas las plataformas."
+                align="center"
+              />
 
               {/* Global Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">212</div>
-                  <div className="text-sm text-muted-foreground">Publicaciones</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">2.6M</div>
-                  <div className="text-sm text-muted-foreground">Vistas Totales</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">137K</div>
-                  <div className="text-sm text-muted-foreground">Interacciones</div>
-                </div>
-                <div className="bg-background rounded-2xl p-6 shadow-card text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">6.6%</div>
-                  <div className="text-sm text-muted-foreground">Tasa de Engagement</div>
-                </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-5xl mx-auto mb-12">
+                {[
+                  { value: "212", label: "Publicaciones", tilt: "sticker-tilt-l-sm", shadow: "sticker-shadow-primary" },
+                  { value: "2.6M", label: "Vistas Totales", tilt: "sticker-tilt-r-sm", shadow: "sticker-shadow-accent" },
+                  { value: "137K", label: "Interacciones", tilt: "sticker-tilt-r-sm", shadow: "sticker-shadow-primary" },
+                  { value: "6.6%", label: "Engagement", tilt: "sticker-tilt-l-sm", shadow: "sticker-shadow-accent" },
+                ].map((s) => (
+                  <div key={s.label} className={`bg-background border-2 border-foreground rounded-2xl p-5 sm:p-7 text-center sticker-card-rotate ${s.tilt} ${s.shadow}`}>
+                    <div className="font-display font-black text-3xl md:text-5xl tracking-[-0.04em] text-foreground leading-none mb-3">{s.value}</div>
+                    <div className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/70">{s.label}</div>
+                  </div>
+                ))}
               </div>
 
               {/* Platform Stats */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                {platformStats.map((stat) => (
-                  <div key={stat.platform} className="bg-background rounded-2xl p-6 shadow-card">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <stat.icon className="w-5 h-5 text-primary" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
+                {platformStats.map((stat, i) => (
+                  <div
+                    key={stat.platform}
+                    className={`bg-background border-2 border-foreground rounded-2xl p-5 sm:p-6 sticker-card-rotate ${i % 2 === 0 ? "sticker-tilt-l-sm sticker-shadow-primary" : "sticker-tilt-r-sm sticker-shadow-accent"}`}
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-11 h-11 rounded-xl bg-foreground text-background border-2 border-foreground flex items-center justify-center rotate-[-4deg]">
+                        <stat.icon className="w-5 h-5" />
                       </div>
-                      <h3 className="font-bold text-foreground">{stat.platform}</h3>
+                      <h3 className="font-display font-black text-base uppercase tracking-tight text-foreground">{stat.platform}</h3>
                     </div>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">Posts</span>
-                        <span className="font-semibold text-foreground">{stat.posts}</span>
+                    <div className="space-y-2.5">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60">Posts</span>
+                        <span className="font-display font-black text-foreground">{stat.posts}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60 flex items-center gap-1">
                           <Eye className="w-3 h-3" /> Vistas
                         </span>
-                        <span className="font-semibold text-foreground">{stat.views}</span>
+                        <span className="font-display font-black text-foreground">{stat.views}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60 flex items-center gap-1">
                           <Heart className="w-3 h-3" /> Interacciones
                         </span>
-                        <span className="font-semibold text-foreground">{stat.interactions}</span>
+                        <span className="font-display font-black text-foreground">{stat.interactions}</span>
                       </div>
-                      <div className="pt-2 border-t border-border">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Engagement</span>
-                          <span className="font-bold text-primary">{stat.rate}</span>
-                        </div>
+                      <div className="pt-3 mt-2 border-t-2 border-foreground/20 flex justify-between items-center">
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/60">Engagement</span>
+                        <span className="font-display font-black text-primary text-lg">{stat.rate}</span>
                       </div>
                     </div>
                   </div>
@@ -458,17 +465,19 @@ const PodcastEnLaCumbre = () => {
 
               {/* Community Stats */}
               <div className="mt-12 max-w-2xl mx-auto">
-                <div className="bg-background rounded-2xl p-8 shadow-card text-center">
-                  <Users className="w-10 h-10 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-foreground mb-6">Comunidad Total</h3>
+                <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sm:p-10 text-center sticker-shadow-primary">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-primary-foreground border-2 border-background mb-5 rotate-[-6deg]">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-display font-black text-xs uppercase tracking-widest mb-6">Comunidad Total</h3>
                   <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <div className="text-4xl font-bold text-foreground mb-2">277.9K</div>
-                      <div className="text-sm text-muted-foreground">Seguidores Totales</div>
+                      <div className="font-display font-black text-4xl md:text-5xl tracking-[-0.04em] mb-2">277.9K</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">Seguidores</div>
                     </div>
                     <div>
-                      <div className="text-4xl font-bold text-primary mb-2">+9.1K</div>
-                      <div className="text-sm text-muted-foreground">Nuevos Seguidores</div>
+                      <div className="font-display font-black text-4xl md:text-5xl tracking-[-0.04em] text-primary mb-2">+9.1K</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">Nuevos</div>
                     </div>
                   </div>
                 </div>
@@ -477,14 +486,19 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Episodios Section */}
-          <section className="py-16 bg-muted/30" aria-labelledby="episodios-heading">
+          <section className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="episodios-heading">
             <div className="container mx-auto px-4">
-              <h2 id="episodios-heading" className="text-3xl font-bold text-foreground text-center mb-12" itemProp="name">
-                Episodios de Podcast en la Cumbre
-              </h2>
+              <StickerHeader
+                badge="Episodios"
+                badgeIcon={Mountain}
+                badgeVariant="primary"
+                title="Capítulos en"
+                highlight="altura"
+                align="center"
+              />
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <article className="space-y-4">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <article className="space-y-4 sticker-card-rotate sticker-tilt-l-sm" itemProp="name">
+                  <div className="aspect-video rounded-2xl overflow-hidden border-2 border-foreground sticker-shadow-primary">
                     <iframe
                       width="100%"
                       height="100%"
@@ -497,14 +511,14 @@ const PodcastEnLaCumbre = () => {
                       loading="lazy"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">Episodio 1: Pico Naiguatá</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] text-foreground">Episodio 1: Pico Naiguatá</h3>
+                  <p className="text-foreground/70 text-sm font-body leading-relaxed">
                     El techo de Caracas a 2.765 metros. Una expedición de 20 personas subiendo con 
                     micrófonos, cámaras y el humor que no se enfría ni con neblina.
                   </p>
                 </article>
-                <article className="space-y-4">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <article className="space-y-4 sticker-card-rotate sticker-tilt-r-sm">
+                  <div className="aspect-video rounded-2xl overflow-hidden border-2 border-foreground sticker-shadow-accent">
                     <iframe
                       width="100%"
                       height="100%"
@@ -517,8 +531,8 @@ const PodcastEnLaCumbre = () => {
                       loading="lazy"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">Episodio 2: Monte Roraima</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] text-foreground">Episodio 2: Monte Roraima</h3>
+                  <p className="text-foreground/70 text-sm font-body leading-relaxed">
                     2.000 millones de años de ancestralidad. El tepuy más emblemático de Venezuela 
                     a 2.810 metros donde el tiempo parece detenerse.
                   </p>
@@ -528,39 +542,39 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Naiguata Deep Dive */}
-          <article className="py-16 bg-background" aria-labelledby="naiguata-heading">
+          <article className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="naiguata-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <MapPin className="w-8 h-8 text-primary" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center rotate-[-6deg] sticker-shadow-accent">
+                    <MapPin className="w-7 h-7" />
                   </div>
                   <div>
-                    <h2 id="naiguata-heading" className="text-3xl font-bold text-foreground">
-                      Pico Naiguatá
+                    <h2 id="naiguata-heading" className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.03em] text-foreground leading-none">
+                      Pico <span className="italic text-gradient">Naiguatá</span>
                     </h2>
-                    <p className="text-primary font-semibold">2.765 metros | El Techo de Caracas</p>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-2">2.765 m · El Techo de Caracas</p>
                   </div>
                 </div>
                 
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-muted-foreground mb-4">
+                <div className="bg-muted/30 border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-primary space-y-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Grabar un podcast en el Naiguatá... subir y ganárselo. Nos fuimos 20 personas —equipo central, 
                     guías, porteadores, producción— con mochilas llenas de micrófonos, cámaras, comida, capas 
                     térmicas y ese humor que no se enfría ni con neblina.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Subimos por La Julia, cruzamos miradores, peñones y subidas que parecían castigos de gimnasio. 
                     Llegamos a la cima de Caracas a <strong className="text-foreground">2.765 metros sobre el nivel del mar</strong>, 
                     donde la ciudad se ve como un mapa y el mar asoma tímido detrás de la cordillera.
                   </p>
                 </div>
 
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                <blockquote className="my-8 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-accent sticker-tilt-l-sm sticker-card-rotate">
                   "Aquí estamos… más cerca del cielo y de quiénes somos como venezolanos."
                 </blockquote>
 
-                <p className="text-muted-foreground">
+                <p className="text-foreground/70 font-body leading-relaxed">
                   Ese día entendimos que subir una montaña es fácil… lo difícil es bajarse después de ver todo desde arriba.
                 </p>
               </div>
@@ -568,76 +582,64 @@ const PodcastEnLaCumbre = () => {
           </article>
 
           {/* Roraima Deep Dive */}
-          <article className="py-16 bg-muted/30" aria-labelledby="roraima-heading">
+          <article className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="roraima-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Mountain className="w-8 h-8 text-primary" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center rotate-[6deg] sticker-shadow-primary">
+                    <Mountain className="w-7 h-7" />
                   </div>
                   <div>
-                    <h2 id="roraima-heading" className="text-3xl font-bold text-foreground">
-                      Monte Roraima
+                    <h2 id="roraima-heading" className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.03em] text-foreground leading-none">
+                      Monte <span className="italic text-gradient">Roraima</span>
                     </h2>
-                    <p className="text-primary font-semibold">2.810 metros | 2.000 Millones de Años de Ancestralidad</p>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-2">2.810 m · 2.000M Años de Ancestralidad</p>
                   </div>
                 </div>
 
-                <div className="bg-background rounded-2xl p-6 mb-8 shadow-card">
-                  <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <div className="bg-background border-2 border-foreground rounded-2xl p-6 sm:p-8 mb-8 sticker-shadow-accent">
+                  <h3 className="font-display font-black text-base uppercase tracking-tight text-foreground mb-5 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-primary" />
                     La Escala del Tiempo
                   </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Macizo Guayanés</div>
-                        <div className="text-sm text-muted-foreground">1.700 - 2.000 millones de años</div>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {[
+                      { label: "Macizo Guayanés", value: "1.700 - 2.000 millones de años" },
+                      { label: "Vida Multicelular", value: "600 millones de años" },
+                      { label: "Los Dinosaurios", value: "240 - 66 millones de años" },
+                      { label: "Historia de Venezuela", value: "Apenas 200 años" },
+                    ].map((row, i) => (
+                      <div key={row.label} className="flex items-center gap-3 p-3 bg-muted/50 border-2 border-foreground rounded-xl">
+                        <div className="w-7 h-7 flex-shrink-0 rounded-lg bg-foreground text-background border-2 border-foreground font-display font-black text-[10px] flex items-center justify-center">
+                          {String(i + 1).padStart(2, "0")}
+                        </div>
+                        <div>
+                          <div className="font-display font-black text-sm text-foreground">{row.label}</div>
+                          <div className="text-xs text-foreground/60 font-body">{row.value}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/70"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Vida Multicelular</div>
-                        <div className="text-sm text-muted-foreground">600 millones de años</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/50"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Los Dinosaurios</div>
-                        <div className="text-sm text-muted-foreground">240 - 66 millones de años</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/30"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Historia de Venezuela</div>
-                        <div className="text-sm text-muted-foreground">Apenas 200 años</div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
                 
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-muted-foreground mb-4">
+                <div className="space-y-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     El tepuy más emblemático de Venezuela representa un reto único: una meseta ancestral 
                     donde el tiempo parece detenerse. La expedición hacia la cima es una travesía de varios 
                     días atravesando la Gran Sabana, cruzando ríos y ascendiendo por la famosa rampa natural.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Al abordar temas de geología, biología y cultura Pemón, el podcast se aleja del humor 
                     ligero para tocar fibras educativas. El Roraima nos recordó que frente a la eternidad 
                     de la piedra, los problemas actuales son un parpadeo.
                   </p>
                 </div>
 
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                <blockquote className="my-8 bg-foreground text-background border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
                   "El mundo diciéndole a los seres humanos: ustedes son los que están de paso."
                 </blockquote>
 
-                <p className="text-muted-foreground">
+                <p className="text-foreground/70 font-body leading-relaxed">
                   En la cima, entre formaciones rocosas milenarias y paisajes de otro mundo, 
                   capturamos la esencia mística de este lugar sagrado para los Pemón. El territorio permanece, 
                   y por ende, la identidad que emana de él es indestructible.
@@ -647,38 +649,41 @@ const PodcastEnLaCumbre = () => {
           </article>
 
           {/* About Section */}
-          <section className="py-16 bg-background" aria-labelledby="about-heading">
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="about-heading">
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                 <div>
-                  <h2 id="about-heading" className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-                    <Mountain className="w-8 h-8 text-primary" aria-hidden="true" />
-                    ¿Qué es Podcast En La Cumbre?
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-foreground text-background border-2 border-foreground rounded-full mb-5">
+                    <Mountain className="w-3.5 h-3.5" />
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">El proyecto</span>
+                  </div>
+                  <h2 id="about-heading" className="font-display font-black tracking-[-0.04em] leading-[0.9] text-3xl sm:text-4xl md:text-5xl text-foreground mb-6">
+                    ¿Qué es Podcast en la <span className="italic text-gradient">Cumbre</span>?
                   </h2>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/70 font-body leading-relaxed mb-4">
                     Podcast en la Cumbre es una travesía audiovisual de siete meses para mostrar a Venezuela 
                     desde sus alturas —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, 
                     humor y reflexión.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/70 font-body leading-relaxed mb-4">
                     Liderado por <strong>JuanSofa</strong> y <strong>JhonSnacks</strong>, el proyecto documenta 
                     cada paso con streaming en vivo, podcast, reels, microdocumentales y fotografía editorial.
                   </p>
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground/70 font-body leading-relaxed">
                     <strong className="text-foreground">Tres cumbres, tres historias, un mismo mensaje:</strong> 
                     {" "}Aquí hay país, aquí hay historias, aquí hay altura.
                   </p>
                 </div>
-                <aside className="bg-muted/30 rounded-2xl p-8 border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-4">Propósito</h3>
-                  <p className="text-muted-foreground mb-4">
+                <aside className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3">Propósito</p>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] mb-5">
                     Contar que seguimos aquí. Y que seguimos subiendo.
-                  </p>
-                  <p className="text-muted-foreground mb-4">
+                  </h3>
+                  <p className="text-background/80 font-body leading-relaxed mb-4">
                     Este proyecto existe para recordarnos —a nosotros y al mundo— que Venezuela no se rinde, 
                     se reinventa. Que tenemos montañas, sí, pero también caminos.
                   </p>
-                  <p className="text-foreground font-semibold">
+                  <p className="font-display font-black text-lg italic text-primary">
                     La altura venezolana no se mide en metros, sino en alma.
                   </p>
                 </aside>
@@ -687,12 +692,17 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Team Section */}
-          <section className="py-16 bg-muted/30" aria-labelledby="team-heading">
+          <section className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="team-heading">
             <div className="container mx-auto px-4">
-              <h2 id="team-heading" className="text-3xl font-bold text-foreground text-center mb-12 flex items-center justify-center gap-3">
-                <Users className="w-8 h-8 text-primary" aria-hidden="true" />
-                Equipo de Producción
-              </h2>
+              <div id="team-heading" className="sr-only">Equipo de Producción</div>
+              <StickerHeader
+                badge="Quiénes somos"
+                badgeIcon={Users}
+                badgeVariant="dark"
+                title="Equipo de"
+                highlight="producción"
+                align="center"
+              />
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" role="list">
                 {[
                   {
@@ -725,17 +735,17 @@ const PodcastEnLaCumbre = () => {
                 ].map((member) => (
                   <article
                     key={member.name}
-                    className="bg-background rounded-xl p-6 border border-border hover:border-primary/50 transition-colors shadow-card"
+                    className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary hover:translate-x-[-2px] hover:translate-y-[-2px] transition-transform"
                     role="listitem"
                     itemScope
                     itemType="https://schema.org/Person"
                   >
-                    <h3 className="text-xl font-bold text-primary mb-1" itemProp="name">{member.name}</h3>
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] text-foreground mb-1" itemProp="name">{member.name}</h3>
                     {member.fullName && (
-                      <p className="text-sm text-muted-foreground mb-2" itemProp="alternateName">{member.fullName}</p>
+                      <p className="text-sm text-foreground/60 mb-3 font-body" itemProp="alternateName">{member.fullName}</p>
                     )}
-                    <p className="text-sm font-semibold text-foreground mb-2" itemProp="jobTitle">{member.role}</p>
-                    <p className="text-sm text-muted-foreground" itemProp="description">{member.description}</p>
+                    <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3" itemProp="jobTitle">{member.role}</p>
+                    <p className="text-sm text-foreground/70 font-body leading-relaxed" itemProp="description">{member.description}</p>
                   </article>
                 ))}
               </div>
@@ -743,18 +753,19 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Nota de Prensa Section */}
-          <section className="py-16 bg-background" aria-labelledby="nota-prensa-heading">
+          <section className="py-16 sm:py-24 bg-background" aria-labelledby="nota-prensa-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-12">
-                  <Newspaper className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-                  <h2 id="nota-prensa-heading" className="text-3xl font-bold text-foreground mb-4">
-                    Nota de Prensa
-                  </h2>
-                  <p className="text-xl text-primary font-semibold">
-                    Podcast en la Cumbre: una travesía venezolana hacia lo más alto del país
-                  </p>
-                </div>
+                <div id="nota-prensa-heading" className="sr-only">Nota de Prensa</div>
+                <StickerHeader
+                  badge="Para medios"
+                  badgeIcon={Newspaper}
+                  badgeVariant="primary"
+                  title="Nota de"
+                  highlight="prensa"
+                  description="Podcast en la Cumbre: una travesía venezolana hacia lo más alto del país."
+                  align="center"
+                />
 
                 <div className="prose prose-lg max-w-none space-y-6">
                   <p className="text-muted-foreground text-lg leading-relaxed">
@@ -770,8 +781,8 @@ const PodcastEnLaCumbre = () => {
                     a la altura de cada desafío!</strong>
                   </p>
 
-                  <div className="bg-muted/30 rounded-2xl p-8 my-8">
-                    <h3 className="text-xl font-bold text-foreground mb-4">Una narrativa de altura</h3>
+                  <div className="bg-muted/30 border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-primary">
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] text-foreground mb-4">Una narrativa de altura</h3>
                     <p className="text-muted-foreground mb-4">
                       El proyecto, que abarca las tres cumbres más altas y simbólicas de Venezuela — Naiguatá, 
                       Roraima y Pico Bolívar — estará protagonizado por gente de altura. Personas que inspiran, 
@@ -785,34 +796,34 @@ const PodcastEnLaCumbre = () => {
                     </p>
                   </div>
 
-                  <h3 className="text-xl font-bold text-foreground mb-6">Tres cumbres que enaltecen nuestra historia</h3>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] text-foreground mb-6">Tres cumbres que enaltecen nuestra historia</h3>
                   
                   <div className="grid md:grid-cols-3 gap-6 my-8">
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Pico Naiguatá</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-l-sm sticker-card-rotate">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Naiguatá</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         Desde el techo de Caracas, el primer podcast será un homenaje a una ciudad con 
                         historias y gente de altura.
                       </p>
                     </div>
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Monte Roraima</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-accent">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Monte Roraima</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         Considerado uno de los paisajes más místicos del continente, será escenario de 
                         una transmisión sin precedentes: el primer podcast grabado y transmitido desde su punto más alto.
                       </p>
                     </div>
-                    <div className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary">
-                      <h4 className="font-bold text-foreground mb-2">Pico Bolívar</h4>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
+                      <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Bolívar</h4>
+                      <p className="text-sm text-foreground/70 font-body leading-relaxed">
                         El cierre del ciclo. La cumbre más alta del país donde culmina esta trilogía con 
                         una visión épica de los venezolanos de altura.
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-foreground text-background rounded-2xl p-8 my-8">
-                    <h3 className="text-xl font-bold mb-4">Mucho más que un podcast</h3>
+                  <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-accent">
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Mucho más que un podcast</h3>
                     <p className="text-background/80 mb-6">
                       Además de los episodios grabados en cada cumbre, Podcast en la Cumbre generará una 
                       experiencia audiovisual con marcas de altura:
@@ -845,33 +856,34 @@ const PodcastEnLaCumbre = () => {
                     </ul>
                   </div>
 
-                  <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl">
+                  <blockquote className="my-8 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-accent sticker-tilt-l-sm sticker-card-rotate">
                     "En la cima no hay likes ni etiquetas. Solo hay aire y en ella reconocemos lo lejos 
                     que hemos llegado, siempre con la frente en alto."
                   </blockquote>
                 </div>
 
                 {/* Contact Info */}
-                <div className="mt-12 text-center bg-primary/10 rounded-2xl p-8">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Para solicitudes de prensa</h3>
+                <div className="mt-12 text-center bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sticker-shadow-primary">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-2">Contacto</p>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] mb-6">Para solicitudes de prensa</h3>
                   <div className="flex flex-col items-center justify-center gap-4">
                     <a 
                       href="mailto:samira.rivas@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       samira.rivas@hacemosloquenosgusta.com
                     </a>
                     <a 
                       href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       andreina.ascension@hacemosloquenosgusta.com
                     </a>
                     <a 
                       href="mailto:estrella.rodriguez@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
                       <span className="text-xl">📩</span>
                       estrella.rodriguez@hacemosloquenosgusta.com
@@ -880,7 +892,7 @@ const PodcastEnLaCumbre = () => {
                   <div className="mt-8">
                     <button
                       onClick={handleDownloadPressReleases}
-                      className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 transition-colors"
+                      className="inline-flex items-center gap-2 px-7 py-4 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest hover:translate-x-[-2px] hover:translate-y-[-2px] transition-transform shadow-[6px_6px_0_hsl(var(--background))] rotate-[-1deg]"
                     >
                       Descargar Notas de Prensa
                     </button>
