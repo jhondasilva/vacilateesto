@@ -169,6 +169,60 @@ for (const rel of SECTION_FILES) {
       bucket.set(value, rel);
     }
   }
+
+  // 5. itemProp="url" debe ser canónica: https + dominio oficial + hash == id de la sección.
+  const urlValue = (props.url || [])[0];
+  if (urlValue) {
+    let parsed = null;
+    try {
+      parsed = new URL(urlValue);
+    } catch {
+      errors.push(
+        `[url-invalid] ${rel} (#${id}): itemProp="url" no es una URL válida → "${urlValue}"`,
+      );
+    }
+    if (parsed) {
+      const expectedOrigin = CANONICAL_ORIGIN;
+      if (parsed.protocol !== "https:") {
+        errors.push(
+          `[url-protocol] ${rel} (#${id}): itemProp="url" debe usar https → "${urlValue}"`,
+        );
+      }
+      if (parsed.origin !== expectedOrigin) {
+        errors.push(
+          `[url-origin] ${rel} (#${id}): itemProp="url" debe usar el dominio canónico ${expectedOrigin} → "${urlValue}"`,
+        );
+      }
+      if (parsed.search) {
+        errors.push(
+          `[url-query] ${rel} (#${id}): itemProp="url" no debe contener query string → "${urlValue}"`,
+        );
+      }
+      // El path debe ser "/" (home) ya que las secciones viven en el home.
+      if (parsed.pathname !== "/" && parsed.pathname !== "") {
+        errors.push(
+          `[url-path] ${rel} (#${id}): itemProp="url" debe apuntar al home "/" (recibido pathname="${parsed.pathname}") → "${urlValue}"`,
+        );
+      }
+      // El hash debe coincidir exactamente con el id de la sección.
+      const hash = parsed.hash.replace(/^#/, "");
+      if (!hash) {
+        errors.push(
+          `[url-hash-missing] ${rel} (#${id}): itemProp="url" debe terminar con "#${id}" → "${urlValue}"`,
+        );
+      } else if (hash !== id) {
+        errors.push(
+          `[url-hash-mismatch] ${rel} (#${id}): itemProp="url" hash="#${hash}" no coincide con id="${id}" → "${urlValue}"`,
+        );
+      }
+      // Trailing slash sucio antes del hash (p.ej. "/#x" está OK, "//#x" no).
+      if (parsed.pathname.includes("//")) {
+        errors.push(
+          `[url-double-slash] ${rel} (#${id}): itemProp="url" tiene "//" en el path → "${urlValue}"`,
+        );
+      }
+    }
+  }
 }
 
 const RESET = "\x1b[0m";
