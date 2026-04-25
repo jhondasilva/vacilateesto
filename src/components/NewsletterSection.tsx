@@ -71,7 +71,10 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section id="newsletter" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="newsletter-title">
+    <section id="newsletter" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="newsletter-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="Newsletter de Vacílate Esto" />
+      <meta itemProp="description" content="Suscríbete al newsletter semanal de Vacílate Esto: episodios destacados, datos insólitos, agenda de eventos y contenido exclusivo del ecosistema." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#newsletter" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-10 left-1/4 w-[28rem] h-[28rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute bottom-10 right-1/4 w-[28rem] h-[28rem] bg-accent/12 rounded-full blur-[140px]" />

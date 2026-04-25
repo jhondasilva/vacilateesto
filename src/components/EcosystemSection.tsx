@@ -24,7 +24,10 @@ const TICKER = ["ECOSISTEMA", "★", "12 FORMATOS", "✦", "MULTIPLATAFORMA", "�
 
 const EcosystemSection = () => {
   return (
-    <section id="ecosistema" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="ecosystem-title">
+    <section id="ecosistema" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="ecosystem-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="Ecosistema de contenido Vacílate Esto" />
+      <meta itemProp="description" content="Formatos del ecosistema: Podcast, Cuentos (shorts), Metraje (docuseries), Streaming (lives) y experiencias presenciales. Contenido 24/7 multiplataforma con Fun Educaitment." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#ecosistema" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-20 left-10 w-[32rem] h-[32rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute bottom-20 right-10 w-[36rem] h-[36rem] bg-accent/12 rounded-full blur-[140px]" />

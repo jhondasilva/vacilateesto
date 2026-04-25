@@ -13,7 +13,10 @@ const criteria = ["Caldo", "Noodles", "Proteína", "Toppings", "Presentación"];
 
 const RutaRamenSection = () => {
   return (
-    <section id="ruta-ramen" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="ramen-title">
+    <section id="ruta-ramen" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="ramen-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="La Ruta del Ramen · Serie gastronómica" />
+      <meta itemProp="description" content="Serie de Vacílate Esto recorriendo los mejores ramen de Venezuela: ranking, reseñas y cultura japonesa-venezolana en formato Fun Educaitment." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#ruta-ramen" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -left-20 top-1/4 w-[28rem] h-[28rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute -right-20 bottom-1/4 w-[28rem] h-[28rem] bg-accent/12 rounded-full blur-[140px]" />

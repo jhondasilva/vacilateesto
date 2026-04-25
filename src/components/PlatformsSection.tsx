@@ -56,7 +56,10 @@ const TICKER = ["DISTRIBUCIÓN", "★", "10 CANALES", "✦", "MULTIPLATAFORMA", 
 
 const PlatformsSection = () => {
   return (
-    <section id="plataformas" className="relative overflow-hidden bg-foreground text-background pt-0 pb-20 md:pb-28" aria-labelledby="platforms-title">
+    <section id="plataformas" className="relative overflow-hidden bg-foreground text-background pt-0 pb-20 md:pb-28" aria-labelledby="platforms-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="Plataformas donde escuchar Vacílate Esto" />
+      <meta itemProp="description" content="Escucha y mira Vacílate Esto gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch, Instagram y FM Center (radio en Venezuela)." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#plataformas" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[36rem] h-[36rem] bg-primary/25 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] bg-accent/25 rounded-full blur-[140px]" />

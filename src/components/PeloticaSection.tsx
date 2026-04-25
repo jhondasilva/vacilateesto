@@ -7,7 +7,10 @@ const TICKER = ["PELOTICA DE GOMA", "★", "FENÓMENO GLOBAL 🌎", "✦", "DESD
 
 const PeloticaSection = () => {
   return (
-    <section id="pelotica-de-goma" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="pelotica-title">
+    <section id="pelotica-de-goma" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="pelotica-title" itemScope itemType="https://schema.org/PodcastSeries">
+      <meta itemProp="name" content="Pelotica de Goma · Podcast de béisbol venezolano" />
+      <meta itemProp="description" content="Pelotica de Goma es el podcast del ecosistema Vacílate Esto dedicado al béisbol venezolano: LVBP, Grandes Ligas, peloteros criollos y la pasión por la pelota." />
+      <meta itemProp="url" content="https://www.peloticadegoma.com" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -right-20 top-1/3 w-[28rem] h-[28rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute -left-20 bottom-1/4 w-[28rem] h-[28rem] bg-accent/12 rounded-full blur-[140px]" />
