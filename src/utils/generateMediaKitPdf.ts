@@ -897,12 +897,11 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
-  doc.text("Emails de contacto:", pageWidth / 2, 162, { align: "center" });
+  doc.text("Email de contacto:", pageWidth / 2, 168, { align: "center" });
   
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(11);
-  doc.text("jhon@hacemosloquenosgusta.com", pageWidth / 2, 178, { align: "center" });
-  doc.text("andreina.ascension@hacemosloquenosgusta.com", pageWidth / 2, 192, { align: "center" });
+  doc.text("elpatio@hacemosloquenosgusta.com", pageWidth / 2, 188, { align: "center" });
 
   doc.setTextColor(150, 150, 150);
   doc.setFontSize(10);

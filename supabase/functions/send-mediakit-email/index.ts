@@ -137,7 +137,7 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               <div class="footer">
                 <p>
-                  <a href="mailto:jhon@hacemosloquenosgusta.com">jhon@hacemosloquenosgusta.com</a><br><br>
+                  <a href="mailto:elpatio@hacemosloquenosgusta.com">elpatio@hacemosloquenosgusta.com</a><br><br>
                   © 2026 Vacílate Esto - Todos los derechos reservados
                 </p>
               </div>
