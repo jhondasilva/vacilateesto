@@ -1,54 +1,67 @@
+import { useEffect, useState } from "react";
 import { Play, Clock, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
 
-const episodes = [
-  {
-    id: 1,
-    title: "La flecha positiva de las redes: El motivador adicional",
-    description: "Exploramos el poder de la motivación en las redes sociales y cómo puede transformar vidas.",
-    views: "4 vistas",
-    date: "Hace 2 horas",
-    videoId: "lyxAHHQYQVk",
-    image: "https://img.youtube.com/vi/lyxAHHQYQVk/maxresdefault.jpg",
-    isNew: true,
-  },
-  {
-    id: 2,
-    title: "RORAIMA: 2.000 MILLONES de años de ancestralidad",
-    description: "Un viaje épico por uno de los lugares más antiguos y místicos del planeta con JuanSofa y JhonSnacks.",
-    views: "53K vistas",
-    date: "Hace 2 semanas",
-    videoId: "NZWSKJvOdXg",
-    image: "https://img.youtube.com/vi/NZWSKJvOdXg/maxresdefault.jpg",
-    isNew: false,
-  },
-  {
-    id: 3,
-    title: "Comunidades ancestrales vs. Digitales: ¿Qué define realmente una comunidad?",
-    description: "Reflexionamos sobre qué es lo que realmente define a una comunidad en el mundo moderno.",
-    views: "50K vistas",
-    date: "Hace 3 semanas",
-    videoId: "yceBDe5eF_o",
-    image: "https://img.youtube.com/vi/yceBDe5eF_o/maxresdefault.jpg",
-    isNew: false,
-  },
-  {
-    id: 4,
-    title: "Descubriendo selvas y tepuyes con los Brewer-Carías",
-    description: "Una aventura increíble explorando los tesoros naturales de Venezuela con JhonSnacks y la familia Brewer.",
-    views: "73K vistas",
-    date: "Hace 1 mes",
-    videoId: "cKOW9kR6Sxg",
-    image: "https://img.youtube.com/vi/cKOW9kR6Sxg/maxresdefault.jpg",
-    isNew: false,
-  },
-];
+type Episode = {
+  video_id: string;
+  title: string;
+  published_at: string | null;
+  view_count: number | null;
+  thumbnail_url: string | null;
+};
+
+const formatViews = (n: number | null) => {
+  if (!n || n < 1) return "Nuevo";
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M vistas`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K vistas`;
+  return `${n} vistas`;
+};
+
+const formatRelative = (iso: string | null) => {
+  if (!iso) return "";
+  const diff = Date.now() - new Date(iso).getTime();
+  const h = Math.floor(diff / 3_600_000);
+  if (h < 1) return "Hace minutos";
+  if (h < 24) return `Hace ${h} ${h === 1 ? "hora" : "horas"}`;
+  const d = Math.floor(h / 24);
+  if (d < 7) return `Hace ${d} ${d === 1 ? "día" : "días"}`;
+  const w = Math.floor(d / 7);
+  if (w < 5) return `Hace ${w} ${w === 1 ? "semana" : "semanas"}`;
+  const m = Math.floor(d / 30);
+  if (m < 12) return `Hace ${m} ${m === 1 ? "mes" : "meses"}`;
+  const y = Math.floor(d / 365);
+  return `Hace ${y} ${y === 1 ? "año" : "años"}`;
+};
 
 const EpisodesSection = () => {
+  const [episodes, setEpisodes] = useState<Episode[] | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      const { data, error } = await supabase
+        .from("yt_videos")
+        .select("video_id,title,published_at,view_count,thumbnail_url")
+        .eq("kind", "podcast")
+        .order("published_at", { ascending: false, nullsFirst: false })
+        .limit(4);
+      if (!active) return;
+      if (error || !data) {
+        setEpisodes([]);
+        return;
+      }
+      setEpisodes(data as Episode[]);
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section id="episodes" className="py-16 md:py-24 bg-muted/30 relative overflow-hidden" aria-labelledby="episodes-title">
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
         <header className="text-center mb-10 md:mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">Lo Más Reciente</span>
           <h2 id="episodes-title" className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground">
@@ -59,77 +72,78 @@ const EpisodesSection = () => {
           </p>
         </header>
 
-        {/* Episodes Grid */}
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {episodes.map((episode, index) => (
-            <a
-              key={episode.id}
-              href={`https://www.youtube.com/watch?v=${episode.videoId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-background rounded-3xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-elevated block"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Image */}
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={episode.image}
-                  alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
-                
-                {/* Play Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                    <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
+          {episodes === null
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-background rounded-3xl overflow-hidden border border-border">
+                  <Skeleton className="aspect-video w-full rounded-none" />
+                  <div className="p-6 space-y-3">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-1/3" />
                   </div>
                 </div>
+              ))
+            : episodes.map((episode, index) => (
+                <a
+                  key={episode.video_id}
+                  href={`https://www.youtube.com/watch?v=${episode.video_id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-background rounded-3xl overflow-hidden border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-elevated block"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={episode.thumbnail_url || `https://img.youtube.com/vi/${episode.video_id}/maxresdefault.jpg`}
+                      alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
 
-                {/* New Badge */}
-                {episode.isNew && (
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-primary rounded-full">
-                    <span className="text-xs font-bold text-primary-foreground uppercase">Nuevo</span>
-                  </div>
-                )}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
+                      </div>
+                    </div>
 
-                {/* Duration/Views on image */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs text-white/90">
-                  <div className="flex items-center gap-1 bg-foreground/50 backdrop-blur-sm px-2 py-1 rounded-full">
-                    <Eye className="w-3 h-3" />
-                    {episode.views}
-                  </div>
-                </div>
-              </div>
+                    {index === 0 && (
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-primary rounded-full">
+                        <span className="text-xs font-bold text-primary-foreground uppercase">Nuevo</span>
+                      </div>
+                    )}
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 text-foreground">
-                  {episode.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                  {episode.description}
-                </p>
-                
-                {/* Meta */}
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    {episode.date}
+                    <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs text-white/90">
+                      <div className="flex items-center gap-1 bg-foreground/50 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <Eye className="w-3 h-3" />
+                        {formatViews(episode.view_count)}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </a>
-          ))}
+
+                  <div className="p-6">
+                    <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 text-foreground">
+                      {episode.title}
+                    </h3>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        {formatRelative(episode.published_at)}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
         </div>
 
-        {/* View All Button */}
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            Ver Todos los Episodios
-          </Button>
+          <a href="https://www.youtube.com/@Vacilateestopodcast/videos" target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="lg">
+              Ver Todos los Episodios
+            </Button>
+          </a>
         </div>
       </div>
     </section>
