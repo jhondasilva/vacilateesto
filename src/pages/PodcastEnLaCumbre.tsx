@@ -735,17 +735,17 @@ const PodcastEnLaCumbre = () => {
                 ].map((member) => (
                   <article
                     key={member.name}
-                    className="bg-background rounded-xl p-6 border border-border hover:border-primary/50 transition-colors shadow-card"
+                    className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary hover:translate-x-[-2px] hover:translate-y-[-2px] transition-transform"
                     role="listitem"
                     itemScope
                     itemType="https://schema.org/Person"
                   >
-                    <h3 className="text-xl font-bold text-primary mb-1" itemProp="name">{member.name}</h3>
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] text-foreground mb-1" itemProp="name">{member.name}</h3>
                     {member.fullName && (
-                      <p className="text-sm text-muted-foreground mb-2" itemProp="alternateName">{member.fullName}</p>
+                      <p className="text-sm text-foreground/60 mb-3 font-body" itemProp="alternateName">{member.fullName}</p>
                     )}
-                    <p className="text-sm font-semibold text-foreground mb-2" itemProp="jobTitle">{member.role}</p>
-                    <p className="text-sm text-muted-foreground" itemProp="description">{member.description}</p>
+                    <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3" itemProp="jobTitle">{member.role}</p>
+                    <p className="text-sm text-foreground/70 font-body leading-relaxed" itemProp="description">{member.description}</p>
                   </article>
                 ))}
               </div>
