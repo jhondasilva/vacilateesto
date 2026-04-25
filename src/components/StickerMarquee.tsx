@@ -19,7 +19,7 @@ const StickerMarquee = ({ items, variant = "dark", className, reverse = false, s
   return (
     <div
       className={cn(
-        "relative z-10 border-y-2 border-foreground overflow-hidden py-2",
+        "relative z-10 border-y-2 border-foreground overflow-hidden py-1.5 sm:py-2",
         VARIANTS[variant],
         className
       )}
@@ -31,7 +31,7 @@ const StickerMarquee = ({ items, variant = "dark", className, reverse = false, s
         {repeated.map((item, i) => (
           <span
             key={i}
-            className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase mx-6 inline-flex items-center"
+            className="font-display font-black text-xs sm:text-sm md:text-base tracking-[0.15em] uppercase mx-4 sm:mx-6 inline-flex items-center"
           >
             {item}
           </span>
