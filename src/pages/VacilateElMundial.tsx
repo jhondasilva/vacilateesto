@@ -85,12 +85,12 @@ const contentFormats = [
 ];
 
 const timeline = [
-  { month: "Febrero 2026", event: "Inicio cobertura pre-Mundial desde Venezuela", status: "upcoming" },
-  { month: "Marzo 2026", event: "Contenido equipos, jugadores e historias", status: "upcoming" },
-  { month: "Abril 2026", event: "Historias de las sedes + gastronomía", status: "upcoming" },
-  { month: "Mayo 2026", event: "Houston: Base de operaciones USA", status: "upcoming" },
-  { month: "Junio 2026", event: "Costa Este + México: Mundial en vivo", status: "highlight" },
-  { month: "Julio 2026", event: "Final y cierre épico", status: "highlight" },
+  { month: "Febrero 2026", event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales", status: "upcoming" },
+  { month: "Marzo 2026", event: "Seguimos en redes con contenido de equipos, jugadores e historias", status: "upcoming" },
+  { month: "Abril 2026", event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope", status: "upcoming" },
+  { month: "Mayo 2026", event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas", status: "upcoming" },
+  { month: "Junio 2026", event: "A las sedes del Mundial: cobertura en ruta según itinerario", status: "highlight" },
+  { month: "Julio 2026", event: "La locura total: todo, todo el tiempo, hasta la final", status: "highlight" },
 ];
 
 const hosts = [
