@@ -119,8 +119,12 @@ for (const rel of SECTION_FILES) {
   if (!aria) {
     errors.push(`[aria] ${rel}: <section id="${id}"> sin aria-labelledby`);
   } else {
-    const idRefRe = new RegExp(`\\bid=["']${aria}["']`);
-    if (!idRefRe.test(source)) {
+    // Aceptamos:
+    //   - id="X"  (HTML literal)
+    //   - titleId="X" o cualquier prop *Id="X" (forwarded a un hijo, p.ej. StickerHeader)
+    const literalRe = new RegExp(`\\bid=["']${aria}["']`);
+    const propRe = new RegExp(`\\b[A-Za-z]+Id=["']${aria}["']`);
+    if (!literalRe.test(source) && !propRe.test(source)) {
       errors.push(
         `[aria-target] ${rel}: aria-labelledby="${aria}" no apunta a ningún id en el archivo`,
       );
