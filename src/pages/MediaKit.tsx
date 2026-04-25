@@ -202,19 +202,7 @@ const contentFormats = [
 
 const sponsorshipPlans = [
   {
-    name: "Plan 1",
-    subtitle: "Brand Placement Intensivo",
-    features: [
-      { quantity: "30", description: "Brand Placement Shorts en TikTok e Instagram" },
-      { quantity: "4", description: "Long Podcast en YouTube - Mención de 30 seg" },
-      { quantity: "4", description: "Historias en Instagram - 1 semanal" },
-      { quantity: "4", description: "Presencia en Newsletters - 1 semanal" },
-      { quantity: "1", description: "Short mensual en TikTok e Instagram con historia de marca" },
-    ],
-    highlighted: true,
-  },
-  {
-    name: "Plan 2",
+    name: "Plan Mensual",
     subtitle: "Content Integration",
     features: [
       { quantity: "15", description: "Content Shorts en TikTok e Instagram" },
@@ -223,7 +211,7 @@ const sponsorshipPlans = [
       { quantity: "4", description: "Presencia en Newsletters" },
       { quantity: "1", description: "Short mensual con historia de marca" },
     ],
-    highlighted: false,
+    highlighted: true,
   },
 ];
 
