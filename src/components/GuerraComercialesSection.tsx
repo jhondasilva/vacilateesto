@@ -37,7 +37,10 @@ const timeline = [
 
 const GuerraComercialesSection = () => {
   return (
-    <section id="guerra-comerciales" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28">
+    <section id="guerra-comerciales" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="guerra-comerciales-title" itemScope itemType="https://schema.org/SportsEvent">
+      <meta itemProp="name" content="Guerra de Comerciales · Campeonato Nacional de Comerciales Venezolanos 2025" />
+      <meta itemProp="description" content="El campeonato que enfrentó a los comerciales más icónicos de Venezuela en un torneo estilo Mundial de Fútbol. 64 comerciales, 40K+ votos, 1.35M de impresiones. Ganador 2025: Coven (Covencaucho)." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#guerra-comerciales" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-1/4 -left-20 w-[32rem] h-[32rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute bottom-1/4 -right-20 w-[32rem] h-[32rem] bg-accent/12 rounded-full blur-[140px]" />
@@ -77,7 +80,7 @@ const GuerraComercialesSection = () => {
               <Trophy className="w-3.5 h-3.5" />
               <span className="font-display font-black text-[10px] uppercase tracking-widest">Campeonato Nacional</span>
             </div>
-            <h2 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5 sm:mb-6">
+            <h2 id="guerra-comerciales-title" className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5 sm:mb-6">
               guerra de
               <span className="block"><span className="text-gradient italic">comerciales</span>.</span>
             </h2>
