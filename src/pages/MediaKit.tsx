@@ -42,18 +42,18 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene - 30 nov 2025)
+// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 24 abr 2026)
 const audienceData = {
-  totalFollowers: "3.5M+",
+  totalFollowers: "1.84M",
   totalImpressions: "89.6M",
   totalInteractions: "5.2M",
   totalPublications: "6,705",
   platforms: [
-    { name: "TikTok", followers: "1.82M", growth: "+7.18%", icon: Play },
-    { name: "Instagram", followers: "278.19K", growth: "+20.66%", icon: Instagram },
-    { name: "Facebook", followers: "210.68K", growth: "+11.8%", icon: Facebook },
-    { name: "YouTube", followers: "113K", growth: "+1.8%", icon: Youtube },
-    { name: "Threads", followers: "58.06K", growth: "+13.69%", icon: FileText },
+    { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
+    { name: "Instagram", followers: "284.94K", growth: "+23.59%", icon: Instagram },
+    { name: "Facebook", followers: "214.03K", growth: "+13.58%", icon: Facebook },
+    { name: "YouTube", followers: "119K", growth: "+7.21%", icon: Youtube },
+    { name: "Threads", followers: "61.23K", growth: "+19.88%", icon: FileText },
   ],
   impressions: {
     facebook: "44.79M",
@@ -470,20 +470,20 @@ const MediaKit = () => {
     <>
       <Helmet>
         <title>Media Kit 2026 | Vacílate Esto - Colabora con el Podcast #1 de Venezuela</title>
-        <meta name="description" content="Media Kit oficial de Vacílate Esto. 3.5M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Media Kit 2026 | Vacílate Esto Podcast" />
-        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
+        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
         <meta property="og:url" content="https://www.vacilateesto.com/media-kit" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
-        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
+        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -496,7 +496,7 @@ const MediaKit = () => {
             "mainEntity": {
               "@type": "Organization",
               "name": "Vacílate Esto",
-              "description": "Ecosistema de Fun Educaitment venezolano con más de 3.5 millones de seguidores.",
+              "description": "Ecosistema de Fun Educaitment venezolano con más de 1.84 millones de seguidores.",
               "numberOfEmployees": "2",
               "founder": [
                 { "@type": "Person", "name": "Juan Carlos Martínez" },
@@ -545,7 +545,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ★ 3.5M+
+              ★ 1.84M
             </div>
             <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
               ◆ Media Kit
@@ -570,14 +570,14 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores 
+                  Conectamos marcas con una comunidad apasionada de más de 1.84 millones de seguidores 
                   a través de contenido auténtico y entretenido.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "3.5M+", label: "Seguidores Totales", icon: Users },
+                    { value: "1.84M", label: "Comunidad Total", icon: Users },
                     { value: "89.6M", label: "Impresiones Anuales", icon: Eye },
                     { value: "5.2M", label: "Interacciones", icon: Heart },
                     { value: "6,705", label: "Publicaciones", icon: FileText },
@@ -596,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 3.5M+ SEGUIDORES", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              items={["★ 1.84M COMUNIDAD", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -607,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool"
+                description="Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
