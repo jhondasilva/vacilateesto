@@ -194,6 +194,46 @@ const Index = () => {
             ]
           })}
         </script>
+
+        {/* JSON-LD Structured Data - ItemList of Home sections (sitelinks + AI navigation) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Secciones de Vacílate Esto",
+            "description": "Mapa de las secciones, proyectos y plataformas del ecosistema Vacílate Esto.",
+            "itemListOrder": "https://schema.org/ItemListOrderAscending",
+            "numberOfItems": 14,
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Inicio", "url": "https://www.vacilateesto.com/#hero" },
+              { "@type": "ListItem", "position": 2, "name": "Buscador del podcast", "url": "https://www.vacilateesto.com/#search" },
+              { "@type": "ListItem", "position": 3, "name": "Media Holding · Ecosistema", "url": "https://www.vacilateesto.com/#media-holding" },
+              { "@type": "ListItem", "position": 4, "name": "Vacílate El Mundial 2026", "url": "https://www.vacilateesto.com/#vacilate-el-mundial" },
+              { "@type": "ListItem", "position": 5, "name": "Episodios recientes", "url": "https://www.vacilateesto.com/#episodes" },
+              { "@type": "ListItem", "position": 6, "name": "Shorts y Cuentos", "url": "https://www.vacilateesto.com/#shorts" },
+              { "@type": "ListItem", "position": 7, "name": "Hosts: JuanSofa & JhonSnacks", "url": "https://www.vacilateesto.com/#hosts" },
+              { "@type": "ListItem", "position": 8, "name": "Ecosistema de contenido", "url": "https://www.vacilateesto.com/#ecosistema" },
+              { "@type": "ListItem", "position": 9, "name": "Plataformas (Spotify, YouTube, Apple Podcasts)", "url": "https://www.vacilateesto.com/#plataformas" },
+              { "@type": "ListItem", "position": 10, "name": "Agenda y eventos", "url": "https://www.vacilateesto.com/#agenda" },
+              { "@type": "ListItem", "position": 11, "name": "Pelotica de Goma · Béisbol", "url": "https://www.vacilateesto.com/#pelotica-de-goma" },
+              { "@type": "ListItem", "position": 12, "name": "Guerra de Comerciales", "url": "https://www.vacilateesto.com/#guerra-comerciales" },
+              { "@type": "ListItem", "position": 13, "name": "Ruta Ramen", "url": "https://www.vacilateesto.com/#ruta-ramen" },
+              { "@type": "ListItem", "position": 14, "name": "Newsletter", "url": "https://www.vacilateesto.com/#newsletter" }
+            ]
+          })}
+        </script>
+
+        {/* JSON-LD - SiteNavigationElement (sub-pages and projects for Google + AI crawlers) */}
+        <script type="application/ld+json">
+          {JSON.stringify([
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 1, "name": "Inicio", "url": "https://www.vacilateesto.com/" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 2, "name": "Vacílate El Mundial 2026", "url": "https://www.vacilateesto.com/vacilate-el-mundial" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 3, "name": "Media Kit", "url": "https://www.vacilateesto.com/media-kit" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 4, "name": "Podcast en la Cumbre", "url": "https://www.vacilateesto.com/podcast-en-la-cumbre" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 5, "name": "Podcast Eterno", "url": "https://www.vacilateesto.com/podcast-eterno" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 6, "name": "Buscador del podcast", "url": "https://www.vacilateesto.com/buscador" }
+          ])}
+        </script>
       </Helmet>
       <div className="min-h-screen bg-background">
         <Header />
