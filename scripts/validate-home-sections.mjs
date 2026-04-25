@@ -363,6 +363,38 @@ const statusBadge = (s) => {
   return `<span class="badge ok">OK</span>`;
 };
 
+// URLs base usadas para los enlaces "Inspeccionar".
+// PREVIEW se sobreescribe con la env LOVABLE_PREVIEW_URL si está disponible
+// (útil en CI para apuntar al preview del PR).
+const PREVIEW_ORIGIN =
+  process.env.LOVABLE_PREVIEW_URL?.replace(/\/$/, "") ||
+  "https://vacilateesto.lovable.app";
+
+/**
+ * Construye los enlaces de inspección rápida para una sección.
+ *  - Producción: dominio canónico + #id (o URL canónica si es internal-page/external)
+ *  - Preview: dominio de Lovable + #id
+ *  - Canonical: el itemProp="url" tal cual está declarado
+ */
+const inspectLinks = (s) => {
+  if (!s.id) return `<span class="muted">—</span>`;
+  const prodHref =
+    s.canonicalKind === "home-anchor"
+      ? `${CANONICAL_ORIGIN}/#${s.id}`
+      : s.itemProps.url || `${CANONICAL_ORIGIN}/#${s.id}`;
+  const previewHref = `${PREVIEW_ORIGIN}/#${s.id}`;
+  const canonicalHref = s.itemProps.url;
+  const canonicalLink = canonicalHref
+    ? `<a class="ilink canonical" href="${escapeHtml(canonicalHref)}" target="_blank" rel="noopener" title="URL canónica declarada">canonical ↗</a>`
+    : "";
+  return `
+      <div class="ilinks">
+        <a class="ilink prod" href="${escapeHtml(prodHref)}" target="_blank" rel="noopener" title="Abrir en producción">prod #${escapeHtml(s.id)} ↗</a>
+        <a class="ilink preview" href="${escapeHtml(previewHref)}" target="_blank" rel="noopener" title="Abrir en preview de Lovable">preview ↗</a>
+        ${canonicalLink}
+      </div>`;
+};
+
 const rows = sectionResults
   .map((s) => {
     const issues = [
@@ -378,6 +410,7 @@ const rows = sectionResults
       <td><code>${escapeHtml(s.itemType || "—")}</code></td>
       <td>${escapeHtml(s.itemProps.name || "—")}</td>
       <td><a href="${escapeHtml(s.itemProps.url || "#")}" rel="noopener">${escapeHtml(s.itemProps.url || "—")}</a></td>
+      <td>${inspectLinks(s)}</td>
       <td>${issues ? `<ul class="issues">${issues}</ul>` : `<span class="muted">—</span>`}</td>
     </tr>`;
   })
