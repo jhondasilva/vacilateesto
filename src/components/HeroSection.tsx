@@ -196,10 +196,15 @@ const HeroSection = () => {
                 <path d="M10,50 Q30,10 50,50 T90,50" />
               </svg>
 
-              {/* Stats sticker */}
-              <div className="absolute top-1/2 -left-4 sm:-left-8 md:-left-12 z-30 bg-foreground text-background rounded-2xl px-2.5 py-2 sm:px-3 sm:py-2.5 -rotate-12 hover:rotate-0 transition-transform border-2 border-foreground">
-                <div className="font-display font-black text-2xl leading-none">113K+</div>
-                <div className="text-[9px] uppercase tracking-widest text-background/70 font-bold mt-0.5">Suscriptores</div>
+              {/* Stats sticker — total comunidad agregada (Metricool, ene 2025 – abr 2026) */}
+              <div
+                className="absolute top-1/2 -left-4 sm:-left-8 md:-left-12 z-30 bg-foreground text-background rounded-2xl px-2.5 py-2 sm:px-3 sm:py-2.5 -rotate-12 hover:rotate-0 transition-transform border-2 border-foreground"
+                title="Comunidad total · TikTok + Instagram + Facebook + YouTube + Threads · Fuente: Metricool"
+                aria-label="1.84 millones de seguidores en total entre TikTok, Instagram, Facebook, YouTube y Threads"
+              >
+                <div className="font-display font-black text-2xl leading-none">1.84M+</div>
+                <div className="text-[9px] uppercase tracking-widest text-background/70 font-bold mt-0.5">Seguidores</div>
+                <div className="text-[8px] uppercase tracking-widest text-background/50 font-semibold mt-0.5">5 plataformas</div>
               </div>
             </div>
           </div>
@@ -212,15 +217,15 @@ const HeroSection = () => {
           {Array.from({ length: 6 }).map((_, idx) => (
             <span key={idx} className="inline-flex items-center mx-6">
               <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
-                113K+ Suscriptores
+                1.84M+ Comunidad
               </span>
               <span className="mx-6 text-background/70">✦</span>
               <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
-                1.3K+ Videos
+                89.6M Impresiones
               </span>
               <span className="mx-6 text-background/70">✦</span>
               <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
-                40K+ Votos Guerra de Comerciales
+                5.2M Interacciones
               </span>
               <span className="mx-6 text-background/70">✦</span>
             </span>
