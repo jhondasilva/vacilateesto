@@ -26,6 +26,7 @@ const VacilateElMundialSection = () => {
   return (
     <section
       id="vacilate-el-mundial"
+      aria-labelledby="vem-title"
       itemScope
       itemType="https://schema.org/SportsEvent"
       className="relative overflow-hidden bg-background py-20 md:py-28"
@@ -110,7 +111,7 @@ const VacilateElMundialSection = () => {
               <span className="font-display font-black text-[10px] uppercase tracking-widest">Cobertura Especial</span>
             </div>
 
-            <h2 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] mb-5 sm:mb-6">
+            <h2 id="vem-title" className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] mb-5 sm:mb-6">
               la magia
               <span className="block"><span className="text-gradient italic">del mundial</span></span>
               <span className="block">se vive en el feed.</span>

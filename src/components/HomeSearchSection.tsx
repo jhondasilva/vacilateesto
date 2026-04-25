@@ -36,7 +36,12 @@ const HomeSearchSection = () => {
       id="search"
       className="relative py-20 md:py-28 overflow-hidden bg-background"
       aria-labelledby="search-title"
+      itemScope
+      itemType="https://schema.org/WebPageElement"
     >
+      <meta itemProp="name" content="Buscador del podcast Vacílate Esto" />
+      <meta itemProp="description" content="Busca por palabras dentro de los episodios de Vacílate Esto: encuentra el momento exacto donde se habla de un tema, un invitado o una historia." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#search" />
       {/* Background blobs + dot grid */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-primary/25 rounded-full blur-[140px] animate-float" />
