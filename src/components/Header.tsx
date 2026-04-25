@@ -6,11 +6,11 @@ import Logo from "@/components/Logo";
 
 const navLinks = [
   { label: "Inicio", href: "/" },
-  { label: "Guerra de Comerciales", href: "/#guerra-comerciales" },
   { label: "VEM 2026", href: "/vacilate-el-mundial" },
   { label: "Media Kit", href: "/media-kit" },
   { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },
   { label: "Podcast Eterno", href: "/podcast-eterno" },
+  { label: "Guerra de Comerciales", href: "/#guerra-comerciales" },
   { label: "Pelotica de Goma", href: "https://www.peloticadegoma.com", external: true },
   { label: "Creative Hub", href: "https://creativehub.vacilateesto.com", external: true },
   { label: "Vacílalo", href: "https://vacilalo.vacilateesto.com", external: true },
