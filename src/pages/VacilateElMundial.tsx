@@ -342,34 +342,15 @@ const VacilateElMundial = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto items-start">
-                {/* Video 1 - Instagram Embed */}
-                <div className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
-                  <InstagramEmbed 
-                    postUrl="https://www.instagram.com/reel/DTdyOqAiT-F/" 
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Placeholder for more videos */}
-                <div className="hidden md:flex aspect-[9/16] bg-card rounded-3xl border-2 border-dashed border-border items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-6 h-6 text-muted-foreground" />
-                    </div>
-                    <p className="text-muted-foreground font-medium">Próximamente</p>
-                    <p className="text-xs text-muted-foreground/70 mt-1">Más contenido en camino</p>
+                {[
+                  "https://www.instagram.com/reel/DXFnxq8hJ3B/",
+                  "https://www.instagram.com/reel/DXPcDanBpIF/",
+                  "https://www.instagram.com/reel/DXApnXOBkHA/",
+                ].map((url) => (
+                  <div key={url} className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
+                    <InstagramEmbed postUrl={url} className="w-full" />
                   </div>
-                </div>
-
-                <div className="hidden lg:flex aspect-[9/16] bg-card rounded-3xl border-2 border-dashed border-border items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-6 h-6 text-muted-foreground" />
-                    </div>
-                    <p className="text-muted-foreground font-medium">Próximamente</p>
-                    <p className="text-xs text-muted-foreground/70 mt-1">Más contenido en camino</p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               {/* CTA */}
