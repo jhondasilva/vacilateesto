@@ -155,7 +155,75 @@ const quinielaFeatures = [
   { icon: Users, title: "Comunidad Activa", description: "Debate y comparte con miles de fanáticos" },
 ];
 
+type RouteStop = { n: number; city: string; country: "MX" | "US" | "FR" | "VE"; date: string };
+const routeStops: RouteStop[] = [
+  { n: 1, city: "Ciudad de México", country: "MX", date: "9 jun" },
+  { n: 2, city: "New York", country: "US", date: "12 jun" },
+  { n: 3, city: "Austin", country: "US", date: "14 jun" },
+  { n: 4, city: "Houston", country: "US", date: "16 jun" },
+  { n: 5, city: "Cannes", country: "FR", date: "19 jun" },
+  { n: 6, city: "Miami", country: "US", date: "26 jun" },
+  { n: 7, city: "San Francisco", country: "US", date: "1 jul" },
+  { n: 8, city: "Philadelphia", country: "US", date: "4 jul" },
+  { n: 9, city: "New York", country: "US", date: "5 jul" },
+  { n: 10, city: "Boston", country: "US", date: "7 jul" },
+  { n: 11, city: "Miami", country: "US", date: "10 jul" },
+  { n: 12, city: "Dallas", country: "US", date: "12 jul" },
+  { n: 13, city: "Atlanta", country: "US", date: "15 jul" },
+  { n: 14, city: "New York", country: "US", date: "17 jul" },
+  { n: 15, city: "Caracas", country: "VE", date: "20 jul" },
+];
+const countryLabel: Record<RouteStop["country"], string> = {
+  MX: "México",
+  US: "USA",
+  FR: "Francia",
+  VE: "Venezuela",
+};
+
 const VacilateElMundial = () => {
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const MEDIAKIT_URL = "/media-kit/VacilateElMundial-MediaKit-2026.pdf";
+  const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-mundial";
+
+  const handleSendByEmail = async () => {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({ title: "Email inválido", description: "Introduce un email válido.", variant: "destructive" });
+      return;
+    }
+    try {
+      setSending(true);
+      const res = await fetch(MEDIAKIT_URL);
+      const blob = await res.blob();
+      const reader = new FileReader();
+      const pdfBase64: string = await new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      const { error } = await supabase.functions.invoke("send-mediakit-email", {
+        body: { email, pdfBase64, kit: "mundial" },
+      });
+      if (error) throw error;
+      toast({ title: "¡Enviado!", description: `Media Kit enviado a ${email}` });
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error al enviar", description: "Inténtalo de nuevo en unos segundos.", variant: "destructive" });
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(
+    `Vacílate El Mundial 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
+  )}`;
+
   return (
     <>
       <Helmet>
