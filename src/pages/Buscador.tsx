@@ -95,7 +95,7 @@ const Buscador = () => {
       setResults(data.results || []);
     } catch (e: any) {
       if (ctrl.signal.aborted) return;
-      setError(e?.message || "No pudimos buscar ahora mismo");
+      setError(e?.message || "No pudimos buscar en este momento. Inténtalo de nuevo en un ratico.");
       setResults([]);
     } finally {
       if (!ctrl.signal.aborted) setLoading(false);
@@ -124,7 +124,7 @@ const Buscador = () => {
   };
 
   const placeholder = useMemo(
-    () => `ej: ${SUGGESTIONS[Math.floor(Date.now() / 4000) % SUGGESTIONS.length]}`,
+    () => `Por ejemplo: ${SUGGESTIONS[Math.floor(Date.now() / 4000) % SUGGESTIONS.length]}`,
     [],
   );
 
@@ -174,7 +174,7 @@ const Buscador = () => {
               </h1>
               <p className="font-body text-muted-foreground text-sm sm:text-base md:text-xl max-w-2xl mx-auto px-2">
                 Busca cualquier tema en los episodios y shorts. Te llevamos al{" "}
-                <span className="font-semibold text-foreground">segundo exacto</span> donde lo dijimos.
+                <span className="font-semibold text-foreground">minuto exacto</span> donde lo conversamos.
               </p>
             </div>
 
@@ -212,7 +212,7 @@ const Buscador = () => {
               {!submittedQuery && (
                 <div className="mt-5 flex flex-wrap gap-2 justify-center">
                   <span className="text-xs text-muted-foreground self-center mr-1">
-                    Prueba:
+                    Prueba con:
                   </span>
                   {SUGGESTIONS.slice(0, 4).map((s) => (
                     <button
@@ -278,16 +278,17 @@ const Buscador = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
                 <Search className="w-7 h-7 text-muted-foreground" />
               </div>
-              <p className="text-xl font-bold mb-2">No encontramos nada para "{submittedQuery}"</p>
-              <p className="text-muted-foreground">Prueba con otras palabras o quita los filtros.</p>
+              <p className="text-xl font-bold mb-2">Nada por aquí para "{submittedQuery}"</p>
+              <p className="text-muted-foreground">Prueba con otras palabras o quita los filtros para ver más resultados.</p>
             </div>
           )}
 
           {results && results.length > 0 && (
             <>
               <p className="text-sm text-muted-foreground mb-5 px-1">
+                Encontramos{" "}
                 <span className="font-semibold text-foreground">{results.length}</span>{" "}
-                {results.length === 1 ? "resultado" : "resultados"} para{" "}
+                {results.length === 1 ? "momento" : "momentos"} para{" "}
                 <span className="font-semibold text-foreground">"{submittedQuery}"</span>
               </p>
               <div className="space-y-4">
@@ -353,7 +354,7 @@ const Buscador = () => {
                           <Button asChild size="sm">
                             <a href={url} target="_blank" rel="noopener noreferrer">
                               <Play className="w-4 h-4 fill-current" />
-                              Ver desde {formatTimestamp(r.start_seconds)}
+                              Ir al minuto {formatTimestamp(r.start_seconds)}
                             </a>
                           </Button>
                         </div>
