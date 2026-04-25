@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WorldCupCountdown from "@/components/WorldCupCountdown";
 import InstagramEmbed from "@/components/InstagramEmbed";
+import StickerMarquee from "@/components/StickerMarquee";
+import StickerHeader from "@/components/StickerHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -19,7 +21,6 @@ import {
   Clock,
   Zap,
   Instagram,
-  Youtube,
   Radio,
   Calendar,
   Trophy,
@@ -27,6 +28,7 @@ import {
   TrendingUp,
   Play,
   ArrowRight,
+  ArrowUpRight,
   Smartphone,
   Eye,
   Heart,
@@ -43,70 +45,118 @@ import {
   Send,
   FileText,
   Loader2,
+  Sparkles,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 
+// ───────────────────────── Data ─────────────────────────
+
+const HERO_TICKER = [
+  "VACÍLATE EL MUNDIAL 2026",
+  "★",
+  "MX · USA · CAN",
+  "✦",
+  "FEB — JUL 2026",
+  "★",
+  "FUN EDUCAITMENT",
+  "✦",
+];
+
 const stats = [
-  { value: "2M+", label: "Seguidores Activos", icon: Users },
-  { value: "24/7", label: "Presencia Digital", icon: Clock },
-  { value: "15", label: "Ciudades en ruta", icon: MapPin },
+  { value: "2M+", label: "Seguidores", icon: Users },
+  { value: "24/7", label: "Presencia", icon: Clock },
+  { value: "15", label: "Ciudades", icon: MapPin },
   { value: "4", label: "Países", icon: Globe },
 ];
 
 const platforms = [
-  { name: "Instagram", icon: Instagram, color: "bg-gradient-to-br from-purple-500 to-pink-500" },
-  { name: "YouTube", icon: Youtube, color: "bg-red-600" },
-  { name: "TikTok", icon: Play, color: "bg-black" },
-  { name: "TikTok Live", icon: Tv, color: "bg-[#00f2ea]" },
-  { name: "FM Center", icon: Radio, color: "bg-primary" },
+  { name: "Instagram", icon: Instagram },
+  { name: "TikTok", icon: Play },
+  { name: "YouTube", icon: Play },
+  { name: "TikTok Live", icon: Tv },
+  { name: "FM Center", icon: Radio },
 ];
 
 const contentFormats = [
   {
     title: "El Gol y la Comida",
-    description: "Probamos la comida típica de las sedes (México, USA, Canadá). El contexto perfecto para el maridaje natural con la cultura. Cada platillo, una historia. Cada historia, una experiencia.",
+    description:
+      "Probamos la comida típica de las sedes (México, USA, Canadá). El maridaje natural con la cultura. Cada platillo, una historia.",
     icon: UtensilsCrossed,
-    gradient: "from-orange-500 to-red-500",
+    color: "primary" as const,
+    stats: "Serie gastronómica",
   },
   {
     title: "Vacílalo News",
-    description: "Noticias del Mundial con ironía y data insólita para cortar la sed de información. Los mejores momentos, las polémicas, las curiosidades... todo con nuestro toque único.",
+    description:
+      "Noticias del Mundial con ironía y data insólita. Los mejores momentos, las polémicas y las curiosidades con nuestro toque único.",
     icon: Newspaper,
-    gradient: "from-blue-500 to-cyan-500",
+    color: "accent" as const,
+    stats: "Sátira informativa",
   },
   {
     title: "Desde el Estadio",
-    description: "Cobertura en ruta, zonas de hinchas y cánticos, donde la marea de fanáticos está presente. Sentir la energía del Mundial en vivo.",
+    description:
+      "Cobertura en ruta, zonas de hinchas y cánticos donde la marea de fanáticos está presente. La energía del Mundial en vivo.",
     icon: MapPin,
-    gradient: "from-green-500 to-emerald-500",
+    color: "primary" as const,
+    stats: "On the road",
   },
 ];
 
 const timeline = [
-  { month: "Febrero 2026", event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales", status: "upcoming" },
-  { month: "Marzo 2026", event: "Seguimos en redes con contenido de equipos, jugadores e historias", status: "upcoming" },
-  { month: "Abril 2026", event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope", status: "upcoming" },
-  { month: "Mayo 2026", event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas", status: "upcoming" },
-  { month: "Junio 2026", event: "A las sedes del Mundial: cobertura en ruta según itinerario", status: "highlight" },
-  { month: "Julio 2026", event: "La locura total: todo, todo el tiempo, hasta la final", status: "highlight" },
+  {
+    month: "Febrero 2026",
+    event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales",
+    status: "upcoming",
+  },
+  {
+    month: "Marzo 2026",
+    event: "Seguimos en redes con contenido de equipos, jugadores e historias",
+    status: "upcoming",
+  },
+  {
+    month: "Abril 2026",
+    event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope",
+    status: "upcoming",
+  },
+  {
+    month: "Mayo 2026",
+    event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas",
+    status: "upcoming",
+  },
+  {
+    month: "Junio 2026",
+    event: "A las sedes del Mundial: cobertura en ruta según itinerario",
+    status: "highlight",
+  },
+  {
+    month: "Julio 2026",
+    event: "La locura total: todo, todo el tiempo, hasta la final",
+    status: "highlight",
+  },
 ];
 
 const hosts = [
   {
     name: "Jhon Da Silva",
-    role: "El Fiebruo",
-    description: "Aporta la data dura, la historia y la pasión que todo fanático del fútbol respeta. Su conocimiento profundo del juego retiene al núcleo duro futbolero.",
+    role: "El Fiebrúo",
+    description:
+      "Aporta la data dura, la historia y la pasión que todo fanático del fútbol respeta. Su conocimiento profundo del juego retiene al núcleo duro futbolero.",
     image: jhonDaSilva,
     instagram: "@jhonsnacks",
+    color: "primary" as const,
   },
   {
     name: "Juan Carlos Martínez",
     role: "El Escéptico",
-    description: "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
+    description:
+      "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
     image: juanCarlosMartinez,
     instagram: "@juansofa",
+    color: "accent" as const,
   },
 ];
 
@@ -115,44 +165,6 @@ const sponsorBenefits = [
   { icon: Target, title: "Audiencia Segmentada", description: "Fans del fútbol y audiencia generalista" },
   { icon: TrendingUp, title: "Engagement Alto", description: "Contenido que genera conversación y viralidad" },
   { icon: Star, title: "Branded Content", description: "Integración natural de marca en el contenido" },
-];
-
-const quinielaStats = [
-  { value: "10K+", label: "Participantes", icon: Users },
-  { value: "50K+", label: "Predicciones", icon: BarChart3 },
-  { value: "95%", label: "Precisión Top", icon: Target },
-  { value: "🔥", label: "En Vivo", icon: Flame },
-];
-
-const topPredictions = [
-  { 
-    match: "Argentina vs Francia", 
-    prediction: "Argentina 2-1", 
-    accuracy: "87%",
-    participants: "2.3K",
-    hot: true 
-  },
-  { 
-    match: "Brasil vs Alemania", 
-    prediction: "Brasil 3-2", 
-    accuracy: "72%",
-    participants: "1.8K",
-    hot: false 
-  },
-  { 
-    match: "México vs España", 
-    prediction: "Empate 1-1", 
-    accuracy: "65%",
-    participants: "3.1K",
-    hot: true 
-  },
-];
-
-const quinielaFeatures = [
-  { icon: Gamepad2, title: "Predicciones en Tiempo Real", description: "Haz tus pronósticos antes y durante los partidos" },
-  { icon: Award, title: "Rankings y Premios", description: "Compite con otros fans y gana premios exclusivos" },
-  { icon: BarChart3, title: "Estadísticas Avanzadas", description: "Analiza tendencias y mejora tus predicciones" },
-  { icon: Users, title: "Comunidad Activa", description: "Debate y comparte con miles de fanáticos" },
 ];
 
 type RouteStop = { n: number; city: string; country: "MX" | "US" | "FR" | "VE"; date: string };
@@ -180,6 +192,14 @@ const countryLabel: Record<RouteStop["country"], string> = {
   VE: "Venezuela",
 };
 
+const REELS = [
+  "https://www.instagram.com/reel/DXFnxq8hJ3B/",
+  "https://www.instagram.com/reel/DXPcDanBpIF/",
+  "https://www.instagram.com/reel/DXApnXOBkHA/",
+];
+
+// ───────────────────────── Component ─────────────────────────
+
 const VacilateElMundial = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
@@ -190,7 +210,11 @@ const VacilateElMundial = () => {
 
   const handleSendByEmail = async () => {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast({ title: "Email inválido", description: "Introduce un email válido.", variant: "destructive" });
+      toast({
+        title: "Email inválido",
+        description: "Introduce un email válido.",
+        variant: "destructive",
+      });
       return;
     }
     try {
@@ -214,7 +238,11 @@ const VacilateElMundial = () => {
       setEmail("");
     } catch (err) {
       console.error(err);
-      toast({ title: "Error al enviar", description: "Inténtalo de nuevo en unos segundos.", variant: "destructive" });
+      toast({
+        title: "Error al enviar",
+        description: "Inténtalo de nuevo en unos segundos.",
+        variant: "destructive",
+      });
     } finally {
       setSending(false);
     }
@@ -228,871 +256,853 @@ const VacilateElMundial = () => {
     <>
       <Helmet>
         <title>Vacílate El Mundial 2026 | Cobertura del Mundial FIFA México, USA y Canadá</title>
-        <meta name="description" content="Vacílate El Mundial 2026: Contenido multiplataforma sobre el Mundial de Fútbol FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde México, USA y Canadá. Por Vacílate Esto." />
-        <meta name="keywords" content="mundial 2026, fifa world cup 2026, mundial mexico usa canada, podcast mundial, cobertura mundial 2026, vacilate esto mundial, contenido mundial futbol" />
+        <meta
+          name="description"
+          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 15 ciudades. Por Vacílate Esto."
+        />
+        <meta
+          name="keywords"
+          content="mundial 2026, fifa world cup 2026, mundial mexico usa canada, podcast mundial, cobertura mundial 2026, vacilate esto mundial"
+        />
         <link rel="canonical" href="https://www.vacilateesto.com/vacilate-el-mundial" />
-        
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Mundial en el Feed" />
-        <meta property="og:description" content="Contenido multiplataforma sobre el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir el Mundial." />
+        <meta
+          property="og:description"
+          content="Contenido multiplataforma sobre el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir el Mundial."
+        />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-mundial" />
-        
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vacílate El Mundial 2026" />
-        <meta name="twitter:description" content="El Mundial 2026 visto desde ángulos inesperados. Fun Educaitment por Vacílate Esto." />
-        
-        {/* JSON-LD */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Event",
-            "name": "Vacílate El Mundial 2026",
-            "description": "Proyecto de contenido multiplataforma sobre el Mundial de Fútbol FIFA 2026. Fun Educaitment que combina datos insólitos, gastronomía y cobertura en vivo desde México, USA y Canadá.",
-            "startDate": "2026-02-01",
-            "endDate": "2026-07-31",
-            "eventStatus": "https://schema.org/EventScheduled",
-            "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-            "location": {
-              "@type": "VirtualLocation",
-              "url": "https://www.vacilateesto.com/vacilate-el-mundial"
-            },
-            "organizer": {
-              "@type": "Organization",
-              "name": "Vacílate Esto",
-              "url": "https://www.vacilateesto.com"
-            },
-            "performer": [
-              { "@type": "Person", "name": "Jhon Da Silva" },
-              { "@type": "Person", "name": "Juan Carlos Martínez" }
-            ],
-            "about": {
-              "@type": "SportsEvent",
-              "name": "FIFA World Cup 2026",
-              "location": ["Mexico", "United States", "Canada"]
-            },
-            "offers": {
-              "@type": "Offer",
-              "name": "Patrocinio Vacílate El Mundial",
-              "description": "Oportunidades de patrocinio para el proyecto de cobertura del Mundial 2026"
-            }
-          })}
-        </script>
+        <meta
+          name="twitter:description"
+          content="El Mundial 2026 visto desde ángulos inesperados. Fun Educaitment por Vacílate Esto."
+        />
       </Helmet>
 
       <div className="min-h-screen bg-background">
         <Header />
-        
+
         <main>
-          {/* Hero Section — Sticker Pack Y2K */}
-          <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-foreground text-background border-b-4 border-foreground">
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute top-10 md:top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-primary rounded-full blur-3xl" />
-              <div className="absolute bottom-10 md:bottom-20 right-5 md:right-10 w-64 md:w-96 h-64 md:h-96 bg-accent rounded-full blur-3xl" />
+          {/* ───────────── HERO — Sticker Pack ───────────── */}
+          <section
+            id="hero"
+            className="relative overflow-hidden bg-background pt-20 md:pt-24 pb-16 md:pb-24"
+            aria-label="Vacílate El Mundial 2026"
+          >
+            {/* Background blobs + dot grid */}
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 -left-32 w-[40rem] h-[40rem] bg-primary/30 rounded-full blur-[140px] animate-float" />
+              <div className="absolute -bottom-32 -right-32 w-[40rem] h-[40rem] bg-accent/30 rounded-full blur-[140px] animate-float-delayed" />
+              <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
             </div>
-            {/* Floating stickers */}
-            <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ★ FIFA 2026
+
+            <StickerMarquee items={HERO_TICKER} variant="primary" className="mb-10 md:mb-14" />
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                {/* Logo card */}
+                <div className="lg:col-span-5 order-2 lg:order-1">
+                  <div className="relative max-w-[280px] sm:max-w-sm mx-auto">
+                    {/* Spinning sticker */}
+                    <div className="absolute -top-5 -left-5 sm:-top-6 sm:-left-6 z-30 w-20 h-20 sm:w-24 sm:h-24 animate-spin-slow">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <defs>
+                          <path id="vemHeroPath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+                        </defs>
+                        <text className="fill-foreground font-display font-black" style={{ fontSize: "10px", letterSpacing: "2px" }}>
+                          <textPath href="#vemHeroPath">★ MUNDIAL · 2026 · COBERTURA · ESPECIAL · ★ MUNDIAL ·</textPath>
+                        </text>
+                      </svg>
+                      <Sparkles className="absolute inset-0 m-auto w-6 h-6 sm:w-7 sm:h-7 text-primary" aria-hidden="true" />
+                    </div>
+
+                    <div className="absolute -top-3 right-0 z-30 bg-foreground text-background rounded-full px-3 py-1.5 rotate-6 hover:-rotate-2 transition-transform border-2 border-foreground">
+                      <span className="font-display font-black text-[10px] uppercase tracking-widest">★ FIFA 2026</span>
+                    </div>
+
+                    <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
+                      <img src={logoVacilateElMundial} alt="Vacílate El Mundial 2026" className="w-full h-auto" />
+                      <div className="mt-5 pt-5 border-t-2 border-dashed border-border flex items-center justify-between">
+                        <span className="font-display font-black text-xs uppercase tracking-wider">Feb — Jul</span>
+                        <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">MX · USA · CAN</span>
+                      </div>
+                    </div>
+
+                    <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 z-30 bg-accent text-accent-foreground rounded-2xl px-3 py-2 -rotate-6 hover:rotate-0 transition-transform border-2 border-foreground shadow-[5px_5px_0_hsl(var(--foreground))]">
+                      <div className="font-display font-black text-xl leading-none">2M+</div>
+                      <div className="text-[9px] uppercase tracking-widest font-bold mt-0.5">Seguidores</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Headline + CTAs */}
+                <div className="lg:col-span-7 order-1 lg:order-2 text-center lg:text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground text-background border-2 border-foreground mb-5">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">Cobertura especial · Feb — Jul 2026</span>
+                  </div>
+
+                  <h1 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5rem] mb-5 sm:mb-6">
+                    la magia
+                    <span className="block">
+                      <span className="text-gradient italic">del mundial</span>
+                    </span>
+                    <span className="block">se vive en el feed.</span>
+                  </h1>
+
+                  <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
+                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del Mundial pero desde ángulos
+                    inesperados, al más puro estilo Vacílate Esto. ✦
+                  </p>
+
+                  <div className="mb-6 md:mb-8">
+                    <WorldCupCountdown />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
+                    <a href="#media-kit">
+                      <Button
+                        size="lg"
+                        className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        Ver Media Kit
+                      </Button>
+                    </a>
+                    <a href="#la-ruta">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="bg-background text-foreground border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:bg-foreground hover:text-background hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <MapPin className="w-4 h-4 mr-2" />
+                        La Ruta
+                      </Button>
+                    </a>
+                    <a
+                      href="https://laquiniela.vacilateesto.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="lg"
+                        className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <Gamepad2 className="w-4 h-4 mr-2" />
+                        Jugar Quiniela
+                        <ExternalLink className="w-3.5 h-3.5 ml-2" />
+                      </Button>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ◆ MX · USA · CA
+          </section>
+
+          {/* ───────────── STATS — sticker chips ───────────── */}
+          <section className="relative bg-background py-12 md:py-16 border-y-2 border-foreground">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto">
+                {stats.map((stat, index) => {
+                  const Icon = stat.icon;
+                  const rotation = [-1.5, 0.5, -1, 1.5][index];
+                  return (
+                    <div
+                      key={index}
+                      className="relative bg-background border-2 border-foreground rounded-2xl p-4 md:p-6 text-center sticker-shadow-foreground hover:shadow-[7px_7px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      style={{ transform: `rotate(${rotation}deg)` }}
+                    >
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-3 shadow-[3px_3px_0_hsl(var(--foreground))]">
+                        <Icon className="w-5 h-5 md:w-6 md:h-6" />
+                      </div>
+                      <div className="font-display font-black text-2xl md:text-4xl text-foreground tracking-tight">
+                        {stat.value}
+                      </div>
+                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1 font-bold uppercase tracking-widest">
+                        {stat.label}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            
-            {/* Decorative country icons */}
-            <div className="absolute top-32 right-20 hidden lg:flex gap-6 opacity-40">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center shadow-lg">
-                <span className="text-xs font-bold text-green-800">MX</span>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center shadow-lg">
-                <Star className="w-5 h-5 text-blue-700" />
-              </div>
-              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-red-600 via-white to-red-600 flex items-center justify-center shadow-lg">
-                <span className="text-xs font-bold text-red-700">CA</span>
-              </div>
+          </section>
+
+          {/* ───────────── REELS ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-20 left-10 w-[28rem] h-[28rem] bg-accent/15 rounded-full blur-[120px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
-              <div className="text-center max-w-4xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-primary-foreground border-2 border-background mb-6 md:mb-8 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
-                  <Calendar className="w-3.5 md:w-4 h-3.5 md:h-4" />
-                  <span className="font-display font-black text-[10px] md:text-xs uppercase tracking-widest">Febrero — Julio 2026</span>
-                </div>
-                
-                <img 
-                  src={logoVacilateElMundial} 
-                  alt="Vacílate El Mundial 2026" 
-                  className="h-28 sm:h-36 md:h-56 w-auto mx-auto mb-6 md:mb-8 drop-shadow-[8px_8px_0_hsl(var(--primary))]"
-                />
-                
-                <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[8vw] sm:text-4xl md:text-6xl text-background mb-4 md:mb-6 px-2">
-                  La Magia del Mundial{" "}
-                  <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">se vive en el Feed</span>
-                  .
-                </h1>
-                
-                <p className="font-body text-base sm:text-lg md:text-xl text-background/85 max-w-3xl mx-auto mb-6 md:mb-10 px-2">
-                  Contenido multiplataforma presente en Instagram, YouTube, TikTok y radio. 
-                  Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
-                </p>
+              <StickerHeader
+                badge="Contenido audiovisual"
+                badgeIcon={Play}
+                title="míralo"
+                highlight="en acción"
+                description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
+              />
 
-                {/* Countdown Timer */}
-                <div className="mb-6 md:mb-10">
-                  <WorldCupCountdown />
-                </div>
-                
-                {/* CTA Principal - La Quiniela */}
-                <a 
-                  href="https://laquiniela.vacilateesto.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-2 md:gap-3 px-5 md:px-8 py-3 md:py-4 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-xl md:rounded-2xl text-black font-bold text-sm md:text-lg shadow-2xl shadow-[#00d9ff]/40 hover:shadow-[#00d9ff]/60 hover:scale-105 transition-all duration-300 mb-4 md:mb-6 animate-pulse hover:animate-none"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#00d9ff] via-[#00f5d4] to-[#00d9ff] rounded-xl md:rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
-                  <span className="relative flex items-center gap-2 md:gap-3">
-                    <Gamepad2 className="w-5 md:w-6 h-5 md:h-6" />
-                    <span className="text-sm md:text-base">🔥 ¡Juega La Quiniela GRATIS!</span>
-                    <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </a>
-
-                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
-                  <a href="#media-kit">
-                    <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
-                      <FileText className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Ver Media Kit
-                    </Button>
-                  </a>
-                  <a href="#la-ruta">
-                    <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
-                      <MapPin className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      La Ruta
-                    </Button>
-                  </a>
-                  <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
-                    <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
-                      <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Síguenos
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Stats Section */}
-          <section className="py-10 md:py-16 bg-card border-b border-border">
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-2 md:mb-3">
-                      <stat.icon className="w-5 md:w-7 h-5 md:h-7 text-[#9000ff]" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto items-start">
+                {REELS.map((url, i) => {
+                  const rot = [-1.5, 1, -0.5][i];
+                  return (
+                    <div
+                      key={url}
+                      className="bg-background border-2 border-foreground rounded-3xl overflow-hidden p-3 md:p-4 sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      style={{ transform: `rotate(${rot}deg)` }}
+                    >
+                      <InstagramEmbed postUrl={url} className="w-full" />
                     </div>
-                    <div className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#9000ff] to-[#ee506f] bg-clip-text text-transparent">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Audiovisuales Section */}
-          <section className="py-12 md:py-28 bg-gradient-to-b from-background to-card/50">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-8 md:mb-12">
-                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#ee506f]/30">
-                  <Play className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
-                  Contenido Audiovisual
-                </div>
-                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">
-                  Mira el Proyecto en Acción
-                </h2>
-                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-                  Videos, reels y contenido exclusivo de Vacílate El Mundial 2026
-                </p>
+                  );
+                })}
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto items-start">
-                {[
-                  "https://www.instagram.com/reel/DXFnxq8hJ3B/",
-                  "https://www.instagram.com/reel/DXPcDanBpIF/",
-                  "https://www.instagram.com/reel/DXApnXOBkHA/",
-                ].map((url) => (
-                  <div key={url} className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
-                    <InstagramEmbed postUrl={url} className="w-full" />
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <div className="text-center mt-6 md:mt-10">
-                <a 
-                  href="https://www.instagram.com/vacilateestopodcast" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-bold text-sm md:text-base rounded-full hover:opacity-90 transition-opacity"
-                >
-                  <Instagram className="w-4 md:w-5 h-4 md:h-5" />
-                  Ver más en Instagram
-                  <ExternalLink className="w-3.5 md:w-4 h-3.5 md:h-4" />
+              <div className="text-center mt-10">
+                <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    size="lg"
+                    className="bg-foreground text-background hover:bg-foreground/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--primary))] hover:shadow-[6px_6px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <Instagram className="w-4 h-4 mr-2" />
+                    Ver más en Instagram
+                    <ArrowUpRight className="w-3.5 h-3.5 ml-2" />
+                  </Button>
                 </a>
               </div>
             </div>
           </section>
 
-          {/* What is VEM */}
-          <section className="py-12 md:py-28">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center mb-10 md:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#9000ff]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#9000ff]/30">
-                  <Zap className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
-                  Fun Educaitment
-                </div>
-                <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 px-2">
-                  ¿Qué es Vacílate El Mundial?
-                </h2>
-                <p className="text-base md:text-xl text-muted-foreground mb-4 md:mb-8 px-2">
-                  No somos creadores buscando audiencia desde cero. Somos una 
-                  <span className="text-[#9000ff] font-semibold"> comunidad masiva de seguidores </span> 
-                  listos para amplificar tu marca desde el día uno.
-                </p>
-                <p className="text-sm md:text-lg text-muted-foreground px-2">
-                  Nuestro enfoque es el <strong>Fun Educaitment</strong>: mezclamos diversión, educación y entretenimiento. 
-                  Traemos datos insólitos, anécdotas legendarias e historias de los mundiales, jugadores, países y equipos 
-                  que te harán ver el fútbol con otros ojos.
-                </p>
-              </div>
+          {/* ───────────── ¿QUÉ ES? + plataformas + el desafío ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 right-0 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Fun Educaitment"
+                badgeIcon={Zap}
+                title="qué es"
+                highlight="vacílate el mundial"
+                description="No somos creadores buscando audiencia desde cero. Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
+              />
 
               {/* Platforms */}
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-16">
-                {platforms.map((platform, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-2 md:gap-3 px-3 md:px-5 py-2 md:py-3 rounded-full bg-card border border-border"
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12 md:mb-16">
+                {platforms.map((p, i) => (
+                  <span
+                    key={p.name}
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] text-xs sm:text-sm font-bold uppercase tracking-wider"
+                    style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1.5}deg)` }}
                   >
-                    <div className={`w-6 md:w-8 h-6 md:h-8 rounded-full ${platform.color} flex items-center justify-center`}>
-                      <platform.icon className="w-3 md:w-4 h-3 md:h-4 text-white" />
-                    </div>
-                    <span className="font-medium text-xs md:text-base">{platform.name}</span>
-                  </div>
+                    <p.icon className="w-3.5 h-3.5" />
+                    {p.name}
+                  </span>
                 ))}
               </div>
 
-              {/* La Ruta — 15 paradas */}
-              <div id="la-ruta" className="mb-10 md:mb-16 scroll-mt-24">
-                <div className="text-center mb-6 md:mb-10">
-                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 border border-[#ee506f]/30 mb-3 md:mb-4">
-                    <MapPin className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
-                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">La Ruta</span>
+              {/* La pantalla grande vs chica */}
+              <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto">
+                <article className="relative bg-background rounded-3xl border-2 border-foreground p-6 md:p-8 sticker-shadow-lg-primary hover:-translate-x-1 hover:-translate-y-1 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center mb-4 shadow-[3px_3px_0_hsl(var(--foreground))]">
+                    <Tv className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-black mb-2 md:mb-3">
-                    La Gran Expedición 2026
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto px-2">
-                    <strong>15 paradas · 4 países · 6 meses</strong> cubriendo el Mundial en vivo desde donde pasa la acción.
+                  <h3 className="font-display font-black text-xl md:text-2xl uppercase tracking-tight mb-3">La Pantalla Grande</h3>
+                  <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
+                    La audiencia verá los 90 minutos del partido oficial en la TV. El momento del gol, la emoción del juego,
+                    la transmisión tradicional.
                   </p>
-                </div>
+                </article>
+                <article className="relative bg-background rounded-3xl border-2 border-foreground p-6 md:p-8 sticker-shadow-lg-accent hover:-translate-x-1 hover:-translate-y-1 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center mb-4 shadow-[3px_3px_0_hsl(var(--foreground))]">
+                    <Smartphone className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-display font-black text-xl md:text-2xl uppercase tracking-tight mb-3">La Pantalla Chica</h3>
+                  <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
+                    La conversación real vivirá 24/7 en el móvil. Antes, durante y después del partido. TikTok, Instagram,
+                    memes, debates… el fútbol nunca para.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 max-w-6xl mx-auto">
-                  {routeStops.map((stop) => (
-                    <div
+          {/* ───────────── LA RUTA — 15 paradas ───────────── */}
+          <section
+            id="la-ruta"
+            className="relative bg-background py-16 md:py-24 overflow-hidden scroll-mt-24"
+          >
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-20 right-10 w-[32rem] h-[32rem] bg-accent/15 rounded-full blur-[120px]" />
+              <div className="absolute bottom-20 left-10 w-[28rem] h-[28rem] bg-primary/15 rounded-full blur-[120px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <StickerMarquee
+              items={["LA GRAN EXPEDICIÓN", "★", "15 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
+              variant="dark"
+              className="mb-12 md:mb-16"
+            />
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="La Ruta · 2026"
+                badgeIcon={MapPin}
+                title="la gran"
+                highlight="expedición"
+                description="15 paradas · 4 países · 6 meses cubriendo el Mundial en vivo desde donde pasa la acción."
+              />
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto">
+                {routeStops.map((stop, index) => {
+                  const isAccent = index % 2 === 0;
+                  const rot = (index % 3 === 0 ? -1.5 : index % 3 === 1 ? 0.5 : -0.5);
+                  return (
+                    <article
                       key={stop.n}
-                      className="relative bg-card rounded-2xl border border-border p-4 hover:border-[#9000ff]/50 hover:shadow-lg hover:shadow-[#9000ff]/10 transition-all duration-300 hover:-translate-y-1"
+                      className={`relative bg-background border-2 border-foreground rounded-2xl p-4 sticker-shadow-${
+                        isAccent ? "accent" : "primary"
+                      } hover:shadow-[7px_7px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all`}
+                      style={{ transform: `rotate(${rot}deg)` }}
                     >
-                      <div className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] text-white text-xs font-black flex items-center justify-center border-2 border-background shadow-md">
+                      <div
+                        className={`absolute -top-3 -left-3 w-9 h-9 rounded-full border-2 border-foreground flex items-center justify-center font-display font-black text-sm shadow-[3px_3px_0_hsl(var(--foreground))] ${
+                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                        }`}
+                      >
                         {stop.n}
                       </div>
-                      <div className="flex items-start justify-between mb-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 rounded px-1.5 py-0.5">
+                      <div className="flex items-center justify-between mb-2 mt-1">
+                        <span className="text-[10px] font-display font-black uppercase tracking-widest text-foreground bg-background border-2 border-foreground rounded-full px-2 py-0.5">
                           {countryLabel[stop.country]}
                         </span>
-                        <Flag className="w-3.5 h-3.5 text-[#9000ff]" />
+                        <Flag className="w-3.5 h-3.5 text-foreground" />
                       </div>
-                      <h4 className="font-bold text-sm md:text-base leading-tight mb-1">{stop.city}</h4>
-                      <div className="text-xs text-[#ee506f] font-semibold flex items-center gap-1">
+                      <h4 className="font-display font-black text-base md:text-lg uppercase tracking-tight leading-tight mb-2">
+                        {stop.city}
+                      </h4>
+                      <div className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                         <Calendar className="w-3 h-3" />
                         {stop.date}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* The Challenge */}
-              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                <div className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border">
-                  <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-3 md:mb-4">
-                    <Tv className="w-5 md:w-6 h-5 md:h-6 text-blue-500" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">La Pantalla Grande</h3>
-                  <p className="text-sm md:text-base text-muted-foreground">
-                    La audiencia verá los 90 minutos del partido oficial en la TV. 
-                    El momento del gol, la emoción del juego, la transmisión tradicional.
-                  </p>
-                </div>
-                <div className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border">
-                  <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mb-3 md:mb-4">
-                    <Smartphone className="w-5 md:w-6 h-5 md:h-6 text-[#9000ff]" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">La Pantalla Chica</h3>
-                  <p className="text-sm md:text-base text-muted-foreground">
-                    La conversación real vivirá 24/7 en el móvil. Antes, durante y después del partido. 
-                    TikTok, Instagram, memes, debates... el fútbol nunca para.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Integration Box */}
-              <div className="mt-10 md:mt-16 bg-gradient-to-r from-[#9000ff]/10 to-[#ee506f]/10 rounded-2xl md:rounded-3xl p-5 md:p-8 border border-[#9000ff]/20 max-w-4xl mx-auto">
-                <h3 className="text-lg md:text-xl font-bold text-center mb-4 md:mb-6">Integración Total del Ecosistema</h3>
-                <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto">
-                  <a 
-                    href="https://laquiniela.vacilateesto.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="group bg-gradient-to-br from-[#00d9ff]/10 to-[#00a8cc]/10 rounded-xl md:rounded-2xl p-4 md:p-6 border border-[#00d9ff]/30 hover:border-[#00d9ff]/60 transition-all duration-300 hover:scale-105 text-center"
-                  >
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform">
-                      <Gamepad2 className="w-6 md:w-7 h-6 md:h-7 text-white" />
-                    </div>
-                    <div className="font-bold text-base md:text-lg mb-1 md:mb-2 flex items-center justify-center gap-2">
-                      La Quiniela
-                      <ExternalLink className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#00d9ff] opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3">
-                      Predice resultados en tiempo real y compite con miles de fanáticos
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-xs font-medium text-[#00d9ff]">
-                      <Trophy className="w-3 md:w-3.5 h-3 md:h-3.5" />
-                      ¡Juega ahora gratis!
-                    </div>
-                  </a>
-                  <Link 
-                    to="/media-kit#contacto"
-                    className="bg-card/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-border text-center hover:border-[#9000ff]/50 transition-all duration-300 hover:scale-[1.02] block"
-                  >
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-[#9000ff]/20 to-[#ee506f]/20 flex items-center justify-center mx-auto mb-3 md:mb-4">
-                      <Users className="w-6 md:w-7 h-6 md:h-7 text-[#9000ff]" />
-                    </div>
-                    <div className="font-bold text-base md:text-lg mb-1 md:mb-2">B2B & Marcas</div>
-                    <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3">
-                      Activaciones con marcas conectando con nuestra audiencia global
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-xs font-medium text-[#9000ff]">
-                      <Target className="w-3 md:w-3.5 h-3 md:h-3.5" />
-                      Quiero Patrocinar
-                    </div>
-                  </Link>
-                </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </section>
 
-          {/* Media Kit Section */}
-          <section id="media-kit" className="py-12 md:py-24 bg-foreground text-background scroll-mt-24 border-y-4 border-foreground relative overflow-hidden">
-            <div aria-hidden className="absolute inset-0 opacity-20 pointer-events-none">
-              <div className="absolute top-10 left-10 w-72 h-72 bg-[#9000ff] rounded-full blur-3xl" />
-              <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl" />
+          {/* ───────────── MEDIA KIT ───────────── */}
+          <section
+            id="media-kit"
+            className="relative bg-foreground text-background py-16 md:py-24 overflow-hidden border-y-2 border-foreground scroll-mt-24"
+          >
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-10 left-10 w-[28rem] h-[28rem] bg-primary/30 rounded-full blur-[140px]" />
+              <div className="absolute bottom-10 right-10 w-[32rem] h-[32rem] bg-accent/30 rounded-full blur-[140px]" />
+              <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(hsl(var(--background))_1px,transparent_1px)] [background-size:28px_28px]" />
             </div>
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="max-w-5xl mx-auto">
-                <div className="text-center mb-8 md:mb-12">
-                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-background/10 border border-background/20 mb-4">
-                    <FileText className="w-3.5 md:w-4 h-3.5 md:h-4" />
-                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">Media Kit Mundial 2026</span>
-                  </div>
-                  <h2 className="font-display font-black text-3xl md:text-5xl mb-4">
-                    Llévate el Media Kit
-                  </h2>
-                  <p className="text-base md:text-lg text-background/80 max-w-2xl mx-auto px-2">
-                    Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca.
-                    Descárgalo, recíbelo por email o compártelo por LINE.
-                  </p>
-                </div>
 
-                <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-                  {/* Download */}
-                  <a
-                    href={MEDIAKIT_URL}
-                    download
-                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#00f5d4] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Download className="w-7 h-7 text-black" />
-                    </div>
-                    <h3 className="font-bold text-lg mb-1">Descargar PDF</h3>
-                    <p className="text-sm text-background/70 mb-4">8 páginas · Diseño Sticker Pack</p>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#00f5d4]">
-                      Descargar ahora <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </a>
-
-                  {/* View / Open */}
-                  <a
-                    href={MEDIAKIT_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#9000ff] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Eye className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="font-bold text-lg mb-1">Ver online</h3>
-                    <p className="text-sm text-background/70 mb-4">Ábrelo en tu navegador</p>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#ee506f]">
-                      Abrir PDF <ExternalLink className="w-3.5 h-3.5" />
-                    </span>
-                  </a>
-
-                  {/* Share on LINE */}
-                  <a
-                    href={lineShareUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#06C755] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <div className="w-14 h-14 rounded-2xl bg-[#06C755] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      <Send className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="font-bold text-lg mb-1">Compartir en LINE</h3>
-                    <p className="text-sm text-background/70 mb-4">Envíalo a tu chat o grupo</p>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#06C755]">
-                      Abrir LINE <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </a>
-                </div>
-
-                {/* Email form */}
-                <div className="mt-8 md:mt-10 bg-background/5 backdrop-blur-sm border-2 border-background/20 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-background text-foreground flex items-center justify-center">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-base md:text-lg">Recíbelo por email</h3>
-                      <p className="text-xs md:text-sm text-background/70">Te lo enviamos como adjunto al instante.</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Input
-                      type="email"
-                      placeholder="tu@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="bg-background text-foreground border-0 h-12"
-                      disabled={sending}
-                    />
-                    <Button
-                      onClick={handleSendByEmail}
-                      disabled={sending}
-                      className="h-12 bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90 text-white font-bold whitespace-nowrap"
-                    >
-                      {sending ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Enviando…
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4 mr-2" />
-                          Enviar Media Kit
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-background/60 mt-3">
-                    Contacto oficial: <a href="mailto:elpatio@hacemosloquenosgusta.com" className="underline">elpatio@hacemosloquenosgusta.com</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* La Quiniela Section */}
-          <section className="py-12 md:py-28 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-10 left-5 md:left-10 w-32 md:w-64 h-32 md:h-64 bg-[#00d9ff] rounded-full blur-3xl" />
-              <div className="absolute bottom-10 right-5 md:right-10 w-40 md:w-80 h-40 md:h-80 bg-[#9000ff] rounded-full blur-3xl" />
-            </div>
-            
-            {/* Soccer ball pattern - hidden on mobile */}
-            <div className="absolute inset-0 opacity-5 hidden md:block">
-              <div className="absolute top-20 right-20 text-8xl">⚽</div>
-              <div className="absolute bottom-40 left-20 text-6xl">⚽</div>
-              <div className="absolute top-1/3 right-1/4 text-5xl">⚽</div>
-            </div>
+            <StickerMarquee
+              items={["MEDIA KIT", "★", "DESCARGAR PDF", "✦", "ENVIAR POR EMAIL", "★", "COMPARTIR EN LINE", "✦"]}
+              variant="primary"
+              className="mb-12 md:mb-16 -mt-16 md:-mt-24"
+            />
 
             <div className="container mx-auto px-4 relative z-10">
-              <div className="text-center mb-8 md:mb-12">
-                <div className="inline-flex items-center gap-2 px-3 md:px-5 py-2 md:py-2.5 rounded-full bg-[#00d9ff]/20 border border-[#00d9ff]/40 mb-4 md:mb-6 backdrop-blur-sm">
-                  <Gamepad2 className="w-4 md:w-5 h-4 md:h-5 text-[#00d9ff]" />
-                  <span className="text-xs md:text-sm font-bold text-[#00d9ff] uppercase tracking-wider">Juego Interactivo</span>
-                </div>
-                
-                <h2 className="text-2xl md:text-5xl font-black text-white mb-3 md:mb-4 px-2">
-                  La Quiniela del Mundial
-                </h2>
-                <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-6 md:mb-8 px-2">
-                  Predice los resultados, compite con la comunidad y demuestra que sabes más de fútbol que nadie. 
-                  ¡Miles de fanáticos ya están jugando!
-                </p>
-                
-                {/* CTA Principal */}
-                <a 
-                  href="https://laquiniela.vacilateesto.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex"
+              <StickerHeader
+                badge="Media Kit Mundial 2026"
+                badgeIcon={FileText}
+                badgeVariant="primary"
+                title="llévate el"
+                highlight="media kit"
+                description="Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca."
+                onDark
+              />
+
+              <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+                {/* Download */}
+                <a
+                  href={MEDIAKIT_URL}
+                  download
+                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  style={{ transform: "rotate(-1.5deg)" }}
                 >
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-[#00d9ff] to-[#00a8cc] hover:opacity-90 text-black font-bold text-sm md:text-lg px-5 md:px-8 py-3 md:py-6 h-auto shadow-lg shadow-[#00d9ff]/30 hover:shadow-xl hover:shadow-[#00d9ff]/40 transition-all duration-300 hover:scale-105"
-                  >
-                    <Trophy className="w-5 md:w-6 h-5 md:h-6 mr-2" />
-                    Jugar La Quiniela
-                    <ExternalLink className="w-4 md:w-5 h-4 md:h-5 ml-2" />
-                  </Button>
+                  <div className="w-14 h-14 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
+                    <Download className="w-7 h-7" />
+                  </div>
+                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Descargar PDF</h3>
+                  <p className="font-body text-sm text-muted-foreground mb-4">8 páginas · Sticker pack</p>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-primary">
+                    Descargar <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </a>
+
+                {/* View online */}
+                <a
+                  href={MEDIAKIT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--accent))] hover:shadow-[8px_8px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  style={{ transform: "rotate(0.5deg)" }}
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
+                    <Eye className="w-7 h-7" />
+                  </div>
+                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Ver online</h3>
+                  <p className="font-body text-sm text-muted-foreground mb-4">Ábrelo en tu navegador</p>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-accent">
+                    Abrir PDF <ExternalLink className="w-3.5 h-3.5" />
+                  </span>
+                </a>
+
+                {/* LINE */}
+                <a
+                  href={lineShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  style={{ transform: "rotate(-0.5deg)" }}
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--primary))] group-hover:rotate-6 transition-transform">
+                    <Send className="w-7 h-7" />
+                  </div>
+                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Compartir en LINE</h3>
+                  <p className="font-body text-sm text-muted-foreground mb-4">Envíalo a tu chat o grupo</p>
+                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-foreground">
+                    Abrir LINE <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </a>
               </div>
 
-              {/* Stats de la Quiniela */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-16 max-w-4xl mx-auto">
-                {quinielaStats.map((stat, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-white/20 hover:border-[#00d9ff]/50 transition-all duration-300 hover:scale-105"
-                  >
-                    <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-[#00d9ff]/30 to-[#00a8cc]/30 flex items-center justify-center mx-auto mb-2 md:mb-3">
-                      {stat.value === "🔥" ? (
-                        <span className="text-xl md:text-2xl">{stat.value}</span>
-                      ) : (
-                        <stat.icon className="w-5 md:w-6 h-5 md:h-6 text-[#00d9ff]" />
-                      )}
-                    </div>
-                    <div className="text-xl md:text-3xl font-black text-white mb-0.5 md:mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs md:text-sm text-white/70">{stat.label}</div>
+              {/* Email form */}
+              <div className="mt-10 bg-background text-foreground border-2 border-background rounded-3xl p-6 md:p-8 max-w-2xl mx-auto shadow-[8px_8px_0_hsl(var(--accent))]">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center shadow-[3px_3px_0_hsl(var(--primary))]">
+                    <Mail className="w-5 h-5" />
                   </div>
-                ))}
-              </div>
-
-              {/* Top Predictions */}
-              <div className="mb-10 md:mb-16">
-                <h3 className="text-lg md:text-2xl font-bold text-white text-center mb-6 md:mb-8 flex items-center justify-center gap-2 md:gap-3">
-                  <Flame className="w-5 md:w-6 h-5 md:h-6 text-orange-400" />
-                  Predicciones Más Populares
-                  <Flame className="w-5 md:w-6 h-5 md:h-6 text-orange-400" />
-                </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-                  {topPredictions.map((pred, index) => (
-                    <div 
-                      key={index}
-                      className={`relative bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border ${pred.hot ? 'border-orange-400/50' : 'border-white/20'} hover:border-[#00d9ff]/50 transition-all duration-300`}
-                    >
-                      {pred.hot && (
-                        <div className="absolute -top-2 md:-top-3 -right-2 md:-right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] md:text-xs font-bold px-2 md:px-3 py-0.5 md:py-1 rounded-full flex items-center gap-1">
-                          <Flame className="w-2.5 md:w-3 h-2.5 md:h-3" />
-                          HOT
-                        </div>
-                      )}
-                      
-                      <div className="text-white/60 text-xs md:text-sm mb-1 md:mb-2">{pred.match}</div>
-                      <div className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">{pred.prediction}</div>
-                      
-                      <div className="flex items-center justify-between text-xs md:text-sm">
-                        <div className="flex items-center gap-1.5 md:gap-2 text-green-400">
-                          <CheckCircle className="w-3.5 md:w-4 h-3.5 md:h-4" />
-                          <span>{pred.accuracy} precisión</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-white/60">
-                          <Users className="w-3.5 md:w-4 h-3.5 md:h-4" />
-                          <span>{pred.participants}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Features Grid */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto mb-8 md:mb-12">
-                {quinielaFeatures.map((feature, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white/5 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 text-center border border-white/10 hover:border-white/30 transition-all duration-300"
-                  >
-                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff]/30 to-[#ee506f]/30 flex items-center justify-center mx-auto mb-2 md:mb-4">
-                      <feature.icon className="w-5 md:w-7 h-5 md:h-7 text-white" />
-                    </div>
-                    <h4 className="font-bold text-white text-xs md:text-base mb-1 md:mb-2">{feature.title}</h4>
-                    <p className="text-[10px] md:text-sm text-white/60 leading-tight">{feature.description}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Secondary CTA */}
-              <div className="text-center">
-                <p className="text-white/70 text-sm md:text-base mb-4 md:mb-6 px-2">
-                  ¿Crees que puedes predecir el futuro del fútbol? Únete y demuéstralo.
-                </p>
-                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
-                  <a 
-                    href="https://laquiniela.vacilateesto.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Button 
-                      size="default" 
-                      className="bg-white text-[#1a1a2e] hover:bg-white/90 font-bold w-full sm:w-auto text-sm md:text-base"
-                    >
-                      <Gamepad2 className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Crear Mi Cuenta Gratis
-                    </Button>
-                  </a>
-                  <a 
-                    href="https://laquiniela.vacilateesto.com/rankings" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Button 
-                      size="default" 
-                      variant="outline" 
-                      className="border-white/40 text-white hover:bg-white/10 w-full sm:w-auto text-sm md:text-base"
-                    >
-                      <Award className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Ver Rankings
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Hosts */}
-          <section className="py-12 md:py-20 bg-muted/30">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-8 md:mb-16">
-                <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
-                  Dos Voces, Un Universo
-                </h2>
-                <p className="text-base md:text-xl text-muted-foreground">
-                  El equilibrio perfecto entre credibilidad y entretenimiento
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
-                {hosts.map((host, index) => (
-                  <article 
-                    key={index}
-                    className="bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border text-center"
-                  >
-                    <img 
-                      src={host.image} 
-                      alt={host.name}
-                      className="w-24 md:w-32 h-24 md:h-32 rounded-full mx-auto mb-4 md:mb-6 object-cover border-4 border-[#9000ff]/30"
-                    />
-                    <h3 className="text-xl md:text-2xl font-bold mb-1">{host.name}</h3>
-                    <div className="text-[#ee506f] font-semibold text-sm md:text-base mb-3 md:mb-4">{host.role}</div>
-                    <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">{host.description}</p>
-                    <a 
-                      href={`https://instagram.com/${host.instagram.replace('@', '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[#9000ff] hover:underline text-sm md:text-base"
-                    >
-                      <Instagram className="w-4 h-4" />
-                      {host.instagram}
-                    </a>
-                  </article>
-                ))}
-              </div>
-              
-              <p className="text-center text-sm md:text-base text-muted-foreground max-w-2xl mx-auto mt-6 md:mt-8 px-2">
-                Juntos crean el equilibrio perfecto entre credibilidad y entretenimiento, 
-                alcanzando desde el hincha más apasionado hasta el espectador casual que se suma a la fiesta del fútbol.
-              </p>
-            </div>
-          </section>
-
-          {/* Content Formats */}
-          <section className="py-12 md:py-28">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-8 md:mb-16">
-                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">
-                  Estrategia de Contenido
-                </h2>
-                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-                  Acompañamos al fanático en todo el viaje del Mundial, integrando contenido 
-                  de forma orgánica en la cultura del viaje, la comida y la celebración.
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
-                {contentFormats.map((format, index) => (
-                  <article 
-                    key={index}
-                    className="group bg-card rounded-2xl md:rounded-3xl p-5 md:p-8 border border-border hover:border-[#9000ff]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#9000ff]/10"
-                  >
-                    <div className={`w-12 md:w-16 h-12 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${format.gradient} flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform`}>
-                      <format.icon className="w-6 md:w-8 h-6 md:h-8 text-white" />
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">{format.title}</h3>
-                    <p className="text-sm md:text-base text-muted-foreground">{format.description}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Timeline */}
-          <section className="py-12 md:py-20 bg-gradient-to-br from-[#9000ff]/5 to-[#ee506f]/5">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-8 md:mb-16">
-                <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
-                  Calendario 2026
-                </h2>
-                <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 px-2">
-                  De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del Mundial.
-                </p>
-
-                {/* Ecosistema legend */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-3xl mx-auto">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
-                    <Instagram className="w-3.5 h-3.5 text-[#ee506f]" />
-                    <span className="font-semibold">Redes</span>
-                    <span className="text-muted-foreground">· Reels · Shorts · TikToks</span>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
-                    <Tv className="w-3.5 h-3.5 text-[#9000ff]" />
-                    <span className="font-semibold">Streaming</span>
-                    <span className="text-muted-foreground">· Martes 5:00 PM</span>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
-                    <Radio className="w-3.5 h-3.5 text-[#00d9ff]" />
-                    <span className="font-semibold">Podcast</span>
-                    <span className="text-muted-foreground">· Jueves</span>
+                  <div>
+                    <h3 className="font-display font-black text-base md:text-lg uppercase tracking-tight">Recíbelo por email</h3>
+                    <p className="font-body text-xs md:text-sm text-muted-foreground">Te lo enviamos como adjunto al instante.</p>
                   </div>
                 </div>
-              </div>
-              
-              <div className="max-w-3xl mx-auto">
-                <div className="relative">
-                  <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#9000ff] to-[#ee506f]" />
-                  
-                  {timeline.map((item, index) => (
-                    <div 
-                      key={index}
-                      className={`relative flex items-center gap-4 md:gap-6 mb-6 md:mb-8 ${
-                        index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                      }`}
-                    >
-                      <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'} hidden md:block`}>
-                        {index % 2 === 0 && (
-                          <div className={`p-4 rounded-2xl ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
-                            <div className="font-bold text-[#9000ff]">{item.month}</div>
-                            <div className="text-muted-foreground">{item.event}</div>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className={`absolute left-3 md:left-1/2 w-3 md:w-4 h-3 md:h-4 rounded-full -translate-x-1/2 ${
-                        item.status === 'highlight' 
-                          ? 'bg-[#ee506f] ring-2 md:ring-4 ring-[#ee506f]/30' 
-                          : 'bg-[#9000ff]'
-                      }`} />
-                      
-                      <div className={`flex-1 ${index % 2 === 1 ? 'md:text-right' : 'md:text-left'} ml-8 md:ml-0`}>
-                        {(index % 2 === 1 || true) && (
-                          <div className={`p-3 md:p-4 rounded-xl md:rounded-2xl md:hidden ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
-                            <div className="font-bold text-sm md:text-base text-[#9000ff]">{item.month}</div>
-                            <div className="text-xs md:text-base text-muted-foreground">{item.event}</div>
-                          </div>
-                        )}
-                        <div className={`hidden md:block p-4 rounded-2xl ${item.status === 'highlight' ? 'bg-[#9000ff]/10 border border-[#9000ff]/30' : 'bg-card border border-border'}`}>
-                          {index % 2 === 1 && (
-                            <>
-                              <div className="font-bold text-[#9000ff]">{item.month}</div>
-                              <div className="text-muted-foreground">{item.event}</div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Sponsor Benefits */}
-          <section className="py-12 md:py-28">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-8 md:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 text-xs md:text-sm font-medium mb-4 md:mb-6 border border-[#ee506f]/30">
-                  <Trophy className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
-                  Oportunidades de Patrocinio
-                </div>
-                <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 px-2">
-                  ¿Por qué patrocinar Vacílate El Mundial?
-                </h2>
-                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-                  No interrumpimos la experiencia, la potenciamos. Tu marca integrada de forma 
-                  natural en el contenido que la audiencia ama.
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-8 md:mb-12">
-                {sponsorBenefits.map((benefit, index) => (
-                  <div key={index} className="text-center p-3 md:p-6">
-                    <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-2 md:mb-4">
-                      <benefit.icon className="w-5 md:w-7 h-5 md:h-7 text-white" />
-                    </div>
-                    <h3 className="font-bold text-sm md:text-base mb-1 md:mb-2">{benefit.title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="text-center">
-                <Link to="/media-kit#contacto">
-                  <Button size="default" className="bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90 text-sm md:text-base">
-                    Quiero Patrocinar
-                    <ArrowRight className="w-4 md:w-5 h-4 md:h-5 ml-2" />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="email"
+                    placeholder="tu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-background text-foreground border-2 border-foreground h-12 rounded-full px-5"
+                    disabled={sending}
+                  />
+                  <Button
+                    onClick={handleSendByEmail}
+                    disabled={sending}
+                    className="h-12 bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs whitespace-nowrap shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    {sending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Enviando…
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Enviar Media Kit
+                      </>
+                    )}
                   </Button>
-                </Link>
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  Contacto oficial:{" "}
+                  <a href="mailto:elpatio@hacemosloquenosgusta.com" className="underline font-semibold text-foreground">
+                    elpatio@hacemosloquenosgusta.com
+                  </a>
+                </p>
               </div>
             </div>
           </section>
 
-          {/* CTA */}
-          <section className="py-12 md:py-20 bg-gradient-to-r from-[#9000ff] to-[#ee506f]">
-            <div className="container mx-auto px-4 text-center">
-              <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 px-2">
-                ¿Listo para el Mundial 2026?
+          {/* ───────────── LA QUINIELA ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 -left-32 w-[40rem] h-[40rem] bg-accent/25 rounded-full blur-[140px] animate-float" />
+              <div className="absolute -bottom-32 -right-32 w-[40rem] h-[40rem] bg-primary/25 rounded-full blur-[140px] animate-float-delayed" />
+              <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Juego Interactivo"
+                badgeIcon={Gamepad2}
+                badgeVariant="accent"
+                title="la"
+                highlight="quiniela"
+                description="Predice los resultados, compite con la comunidad y demuestra que sabes más de fútbol que nadie."
+              />
+
+              <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-12 sticker-shadow-lg-foreground max-w-5xl mx-auto">
+                <div className="absolute -top-4 left-4 sm:left-8 bg-accent text-accent-foreground px-4 py-1.5 rounded-full border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))]">
+                  <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Juega gratis</span>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h3 className="font-display font-black text-2xl md:text-4xl uppercase tracking-tight mb-4 leading-tight">
+                      Demuestra que sabes
+                      <span className="block text-gradient italic">más que nadie</span>
+                    </h3>
+                    <p className="font-body text-muted-foreground mb-6 leading-relaxed">
+                      Haz tus pronósticos antes y durante los partidos, compite con miles de fanáticos y gana premios
+                      exclusivos. ¡Miles de fans ya están jugando!
+                    </p>
+                    <a href="https://laquiniela.vacilateesto.com" target="_blank" rel="noopener noreferrer">
+                      <Button
+                        size="lg"
+                        className="bg-foreground text-background hover:bg-foreground/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--accent))] hover:shadow-[6px_6px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <Trophy className="w-4 h-4 mr-2" />
+                        Jugar La Quiniela
+                        <ExternalLink className="w-3.5 h-3.5 ml-2" />
+                      </Button>
+                    </a>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: Gamepad2, title: "En Tiempo Real", desc: "Pronósticos antes y durante los partidos" },
+                      { icon: Award, title: "Rankings", desc: "Compite y gana premios exclusivos" },
+                      { icon: BarChart3, title: "Estadísticas", desc: "Analiza tendencias y mejora" },
+                      { icon: Users, title: "Comunidad", desc: "Debate con miles de fans" },
+                    ].map((f, i) => {
+                      const isAccent = i % 2 === 0;
+                      return (
+                        <div
+                          key={f.title}
+                          className={`bg-background border-2 border-foreground rounded-2xl p-3 sticker-shadow-${
+                            isAccent ? "accent" : "primary"
+                          }`}
+                          style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1}deg)` }}
+                        >
+                          <div
+                            className={`w-9 h-9 rounded-xl border-2 border-foreground flex items-center justify-center mb-2 shadow-[2px_2px_0_hsl(var(--foreground))] ${
+                              isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                            }`}
+                          >
+                            <f.icon className="w-4 h-4" />
+                          </div>
+                          <div className="font-display font-black text-xs uppercase tracking-tight mb-1">{f.title}</div>
+                          <p className="text-[11px] text-muted-foreground leading-tight">{f.desc}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ───────────── HOSTS ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Dos voces, un universo"
+                badgeIcon={Users}
+                title="los"
+                highlight="protagonistas"
+                description="El equilibrio perfecto entre credibilidad y entretenimiento."
+              />
+
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+                {hosts.map((host, index) => {
+                  const rot = index === 0 ? -1.5 : 1.5;
+                  return (
+                    <article
+                      key={host.name}
+                      className={`relative bg-background rounded-3xl border-2 border-foreground p-6 md:p-8 text-center sticker-shadow-lg-${host.color} hover:-translate-x-1 hover:-translate-y-1 transition-all`}
+                      style={{ transform: `rotate(${rot}deg)` }}
+                    >
+                      <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto mb-5">
+                        <div className="absolute inset-0 rounded-full border-2 border-foreground bg-background overflow-hidden shadow-[5px_5px_0_hsl(var(--foreground))]">
+                          <img src={host.image} alt={host.name} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                      <div
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-foreground mb-3 shadow-[3px_3px_0_hsl(var(--foreground))] ${
+                          host.color === "primary"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-accent text-accent-foreground"
+                        }`}
+                      >
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest">{host.role}</span>
+                      </div>
+                      <h3 className="font-display font-black text-xl md:text-2xl uppercase tracking-tight mb-3">
+                        {host.name}
+                      </h3>
+                      <p className="font-body text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
+                        {host.description}
+                      </p>
+                      <a
+                        href={`https://instagram.com/${host.instagram.replace("@", "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] text-xs font-bold uppercase tracking-wider hover:-translate-y-0.5 transition-transform"
+                      >
+                        <Instagram className="w-3.5 h-3.5" />
+                        {host.instagram}
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ───────────── CONTENT FORMATS ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 -right-32 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Estrategia de contenido"
+                badgeIcon={Sparkles}
+                title="formatos"
+                highlight="que conectan"
+                description="Acompañamos al fanático en todo el viaje del Mundial, integrando contenido de forma orgánica en la cultura del viaje, la comida y la celebración."
+              />
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
+                {contentFormats.map((format, index) => {
+                  const isAccent = format.color === "accent";
+                  const rotation = (index % 3 === 0 ? -1 : index % 3 === 1 ? 0 : 1) * 1;
+                  return (
+                    <article
+                      key={format.title}
+                      className={`group relative bg-background rounded-3xl p-6 sm:p-7 border-2 border-foreground transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 sticker-shadow-${format.color}`}
+                      style={{ transform: `rotate(${rotation}deg)` }}
+                    >
+                      <div
+                        className={`w-12 h-12 sm:w-14 sm:h-14 ${
+                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                        } rounded-2xl border-2 border-foreground flex items-center justify-center mb-5 group-hover:rotate-6 transition-transform shadow-[3px_3px_0_hsl(var(--foreground))]`}
+                      >
+                        <format.icon className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden="true" />
+                      </div>
+                      <h3 className="font-display font-black text-lg sm:text-xl md:text-2xl text-foreground mb-3 tracking-tight uppercase leading-tight">
+                        {format.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">{format.description}</p>
+                      <div
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-foreground text-xs font-bold uppercase tracking-wider shadow-[3px_3px_0_hsl(var(--foreground))] ${
+                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                        }`}
+                      >
+                        ★ {format.stats}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ───────────── CALENDARIO 2026 ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden border-t-2 border-foreground">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-20 right-10 w-[32rem] h-[32rem] bg-accent/12 rounded-full blur-[120px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Calendario 2026"
+                badgeIcon={Calendar}
+                title="seis meses"
+                highlight="de locura"
+                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del Mundial."
+              />
+
+              {/* Ecosistema legend */}
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-3xl mx-auto mb-12 md:mb-16">
+                <span
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--primary))] text-xs sm:text-sm font-bold uppercase tracking-wider"
+                  style={{ transform: "rotate(-1.5deg)" }}
+                >
+                  <Instagram className="w-3.5 h-3.5" />
+                  Redes · Reels · Shorts · TikToks
+                </span>
+                <span
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--accent))] text-xs sm:text-sm font-bold uppercase tracking-wider"
+                  style={{ transform: "rotate(1deg)" }}
+                >
+                  <Tv className="w-3.5 h-3.5" />
+                  Streaming · Martes 5:00 PM
+                </span>
+                <span
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] text-xs sm:text-sm font-bold uppercase tracking-wider"
+                  style={{ transform: "rotate(-0.5deg)" }}
+                >
+                  <Radio className="w-3.5 h-3.5" />
+                  Podcast · Jueves
+                </span>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
+                {timeline.map((item, index) => {
+                  const isHighlight = item.status === "highlight";
+                  const rot = (index % 3 === 0 ? -1 : index % 3 === 1 ? 0.5 : -0.5);
+                  return (
+                    <article
+                      key={item.month}
+                      className={`relative bg-background border-2 border-foreground rounded-3xl p-5 md:p-6 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 ${
+                        isHighlight ? "sticker-shadow-lg-primary" : "sticker-shadow-accent"
+                      }`}
+                      style={{ transform: `rotate(${rot}deg)` }}
+                    >
+                      {isHighlight && (
+                        <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-3 py-1 shadow-[3px_3px_0_hsl(var(--foreground))]">
+                          <span className="font-display font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
+                            <Flame className="w-3 h-3" /> Mundial
+                          </span>
+                        </div>
+                      )}
+                      <div
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-foreground mb-3 shadow-[3px_3px_0_hsl(var(--foreground))] ${
+                          isHighlight
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-foreground text-background"
+                        }`}
+                      >
+                        <Calendar className="w-3 h-3" />
+                        <span className="font-display font-black text-[10px] uppercase tracking-widest">{item.month}</span>
+                      </div>
+                      <p className="font-body text-sm md:text-base text-foreground leading-relaxed">{item.event}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* ───────────── PATROCINIO ───────────── */}
+          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-accent/15 rounded-full blur-[140px]" />
+              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <StickerHeader
+                badge="Oportunidades de patrocinio"
+                badgeIcon={Trophy}
+                title="por qué"
+                highlight="patrocinar"
+                description="No interrumpimos la experiencia, la potenciamos. Tu marca integrada de forma natural en el contenido que la audiencia ama."
+              />
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto mb-10">
+                {sponsorBenefits.map((benefit, index) => {
+                  const isAccent = index % 2 === 0;
+                  const rot = (index % 4 === 0 ? -1.5 : index % 4 === 1 ? 1 : index % 4 === 2 ? -0.5 : 1.5);
+                  return (
+                    <article
+                      key={benefit.title}
+                      className={`relative bg-background border-2 border-foreground rounded-3xl p-5 text-center sticker-shadow-${
+                        isAccent ? "accent" : "primary"
+                      } hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all`}
+                      style={{ transform: `rotate(${rot}deg)` }}
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-2xl border-2 border-foreground flex items-center justify-center mx-auto mb-3 shadow-[3px_3px_0_hsl(var(--foreground))] ${
+                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                        }`}
+                      >
+                        <benefit.icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-display font-black text-sm md:text-base uppercase tracking-tight mb-2">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{benefit.description}</p>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <div className="text-center">
+                <a href="#media-kit">
+                  <Button
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Quiero el Media Kit
+                    <ArrowRight className="w-3.5 h-3.5 ml-2" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* ───────────── FINAL CTA ───────────── */}
+          <section className="relative bg-foreground text-background py-16 md:py-24 overflow-hidden border-t-2 border-foreground">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-10 left-10 w-[28rem] h-[28rem] bg-primary/30 rounded-full blur-[140px]" />
+              <div className="absolute bottom-10 right-10 w-[32rem] h-[32rem] bg-accent/30 rounded-full blur-[140px]" />
+              <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(hsl(var(--background))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10 text-center">
+              <h2 className="font-display font-black tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5">
+                listo para el
+                <span className="block">
+                  <span className="text-gradient italic">mundial</span>
+                  <span>.</span>
+                </span>
               </h2>
-              <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto mb-6 md:mb-8 px-2">
-                Únete a nuestra comunidad y vive el Mundial desde ángulos que nunca imaginaste. 
-                La magia del fútbol está en el feed.
+              <p className="font-body text-base md:text-lg text-background/80 max-w-2xl mx-auto mb-8">
+                Únete a nuestra comunidad y vive el Mundial desde ángulos que nunca imaginaste. La magia del fútbol está en
+                el feed.
               </p>
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
                 <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
-                  <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
-                    <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                  <Button
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--background))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <Instagram className="w-4 h-4 mr-2" />
                     Seguir en Instagram
                   </Button>
                 </a>
                 <a href="https://www.tiktok.com/@vacilateesto" target="_blank" rel="noopener noreferrer">
-                  <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
-                    <Play className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                  <Button
+                    size="lg"
+                    className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--background))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <Play className="w-4 h-4 mr-2" />
                     Seguir en TikTok
                   </Button>
                 </a>
+                <Link to="/media-kit">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-background text-foreground hover:bg-background/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Ecosistema Vacílate Esto
+                  </Button>
+                </Link>
               </div>
             </div>
           </section>
