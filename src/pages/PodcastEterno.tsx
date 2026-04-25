@@ -330,14 +330,14 @@ const PodcastEterno = () => {
               ★ 40 horas
             </div>
             <div aria-hidden className="absolute top-32 right-10 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ▲ Récord Mundial
+              ▲ Récord Mundial 2022-2025
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-5xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-background rounded-full mb-6 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
                   <Trophy className="w-4 h-4" />
-                  <span className="font-display font-black text-xs uppercase tracking-widest">Récord Mundial 2022</span>
+                  <span className="font-display font-black text-xs uppercase tracking-widest">Récord Mundial · 2022 — Jun 2025</span>
                 </div>
                 
                 <h1 className="font-display font-black tracking-[-0.05em] leading-[0.85] text-[18vw] sm:text-[12vw] md:text-[10rem] lg:text-[12rem] mb-8">
@@ -346,8 +346,33 @@ const PodcastEterno = () => {
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-background/80 mb-8 max-w-2xl mx-auto">
-                  40 horas de transmisión en vivo que rompieron el récord mundial del podcast más largo del mundo.
+                  40 horas de transmisión en vivo que rompieron el récord mundial del podcast más largo del mundo en 2022.
                 </p>
+
+                {/* Récord destronado por Juancito en Miami — Junio 2025 */}
+                <div className="max-w-2xl mx-auto mb-6 bg-background/10 border-2 border-background/40 rounded-2xl p-5 sm:p-6 backdrop-blur-sm rotate-[-1deg] shadow-[6px_6px_0_hsl(var(--primary))]">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <span className="inline-block bg-accent text-accent-foreground border-2 border-background px-2.5 py-0.5 rounded-full font-display font-black text-[10px] uppercase tracking-widest">
+                      Actualización · Junio 2025
+                    </span>
+                  </div>
+                  <p className="text-base sm:text-lg text-background/90 leading-relaxed">
+                    Fuimos récord mundial hasta que el comediante venezolano{" "}
+                    <a
+                      href="https://www.instagram.com/byjuancito/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-primary underline-offset-4 hover:underline"
+                    >
+                      Juancito (@byjuancito)
+                    </a>{" "}
+                    nos lo tumbó desde Miami con{" "}
+                    <strong className="text-background">43 horas continuas</strong>{" "}
+                    de transmisión desde <em>La Industria Bakery &amp; Café</em>, con más de{" "}
+                    <strong className="text-background">50 invitados</strong> y aprobación para Récord Guinness.{" "}
+                    <span className="italic text-background/70">¡Salud, hermano! 🇻🇪🏆</span>
+                  </p>
+                </div>
                 
                 <div className="flex items-center justify-center gap-2 text-background/60">
                   <Calendar className="w-5 h-5" />
