@@ -14,7 +14,7 @@
  * Falla el build (exit 1) si encuentra errores.
  * Se ejecuta automáticamente vía `npm run build` (prebuild).
  */
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -102,6 +102,9 @@ const seenItemPropValues = {
   description: new Map(),
   url: new Map(),
 };
+
+// Resultado estructurado por sección, usado para emitir el reporte HTML/JSON.
+const sectionResults = [];
 
 for (const sectionDef of SECTIONS) {
   const rel = sectionDef.file;
