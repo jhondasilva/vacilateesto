@@ -49,7 +49,13 @@ const ShortsSection = () => {
           </p>
         </header>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+        <div
+          className={`grid gap-4 md:gap-6 mx-auto ${
+            shorts && shorts.length <= 2
+              ? "grid-cols-1 sm:grid-cols-2 max-w-2xl"
+              : "grid-cols-2 md:grid-cols-4 max-w-5xl"
+          }`}
+        >
           {shorts === null
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="aspect-[9/16] w-full rounded-2xl" />
