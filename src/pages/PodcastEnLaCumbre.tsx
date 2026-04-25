@@ -486,14 +486,19 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Episodios Section */}
-          <section className="py-16 bg-muted/30" aria-labelledby="episodios-heading">
+          <section className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="episodios-heading">
             <div className="container mx-auto px-4">
-              <h2 id="episodios-heading" className="text-3xl font-bold text-foreground text-center mb-12" itemProp="name">
-                Episodios de Podcast en la Cumbre
-              </h2>
+              <StickerHeader
+                badge="Episodios"
+                badgeIcon={Mountain}
+                badgeVariant="primary"
+                title="Capítulos en"
+                highlight="altura"
+                align="center"
+              />
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <article className="space-y-4">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <article className="space-y-4 sticker-card-rotate sticker-tilt-l-sm" itemProp="name">
+                  <div className="aspect-video rounded-2xl overflow-hidden border-2 border-foreground sticker-shadow-primary">
                     <iframe
                       width="100%"
                       height="100%"
@@ -506,14 +511,14 @@ const PodcastEnLaCumbre = () => {
                       loading="lazy"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">Episodio 1: Pico Naiguatá</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] text-foreground">Episodio 1: Pico Naiguatá</h3>
+                  <p className="text-foreground/70 text-sm font-body leading-relaxed">
                     El techo de Caracas a 2.765 metros. Una expedición de 20 personas subiendo con 
                     micrófonos, cámaras y el humor que no se enfría ni con neblina.
                   </p>
                 </article>
-                <article className="space-y-4">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-elevated">
+                <article className="space-y-4 sticker-card-rotate sticker-tilt-r-sm">
+                  <div className="aspect-video rounded-2xl overflow-hidden border-2 border-foreground sticker-shadow-accent">
                     <iframe
                       width="100%"
                       height="100%"
@@ -526,8 +531,8 @@ const PodcastEnLaCumbre = () => {
                       loading="lazy"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">Episodio 2: Monte Roraima</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] text-foreground">Episodio 2: Monte Roraima</h3>
+                  <p className="text-foreground/70 text-sm font-body leading-relaxed">
                     2.000 millones de años de ancestralidad. El tepuy más emblemático de Venezuela 
                     a 2.810 metros donde el tiempo parece detenerse.
                   </p>
@@ -537,39 +542,39 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Naiguata Deep Dive */}
-          <article className="py-16 bg-background" aria-labelledby="naiguata-heading">
+          <article className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="naiguata-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <MapPin className="w-8 h-8 text-primary" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center rotate-[-6deg] sticker-shadow-accent">
+                    <MapPin className="w-7 h-7" />
                   </div>
                   <div>
-                    <h2 id="naiguata-heading" className="text-3xl font-bold text-foreground">
-                      Pico Naiguatá
+                    <h2 id="naiguata-heading" className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.03em] text-foreground leading-none">
+                      Pico <span className="italic text-gradient">Naiguatá</span>
                     </h2>
-                    <p className="text-primary font-semibold">2.765 metros | El Techo de Caracas</p>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-2">2.765 m · El Techo de Caracas</p>
                   </div>
                 </div>
                 
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-muted-foreground mb-4">
+                <div className="bg-muted/30 border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-primary space-y-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Grabar un podcast en el Naiguatá... subir y ganárselo. Nos fuimos 20 personas —equipo central, 
                     guías, porteadores, producción— con mochilas llenas de micrófonos, cámaras, comida, capas 
                     térmicas y ese humor que no se enfría ni con neblina.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Subimos por La Julia, cruzamos miradores, peñones y subidas que parecían castigos de gimnasio. 
                     Llegamos a la cima de Caracas a <strong className="text-foreground">2.765 metros sobre el nivel del mar</strong>, 
                     donde la ciudad se ve como un mapa y el mar asoma tímido detrás de la cordillera.
                   </p>
                 </div>
 
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                <blockquote className="my-8 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-accent sticker-tilt-l-sm sticker-card-rotate">
                   "Aquí estamos… más cerca del cielo y de quiénes somos como venezolanos."
                 </blockquote>
 
-                <p className="text-muted-foreground">
+                <p className="text-foreground/70 font-body leading-relaxed">
                   Ese día entendimos que subir una montaña es fácil… lo difícil es bajarse después de ver todo desde arriba.
                 </p>
               </div>
@@ -577,76 +582,64 @@ const PodcastEnLaCumbre = () => {
           </article>
 
           {/* Roraima Deep Dive */}
-          <article className="py-16 bg-muted/30" aria-labelledby="roraima-heading">
+          <article className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground" aria-labelledby="roraima-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Mountain className="w-8 h-8 text-primary" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center rotate-[6deg] sticker-shadow-primary">
+                    <Mountain className="w-7 h-7" />
                   </div>
                   <div>
-                    <h2 id="roraima-heading" className="text-3xl font-bold text-foreground">
-                      Monte Roraima
+                    <h2 id="roraima-heading" className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.03em] text-foreground leading-none">
+                      Monte <span className="italic text-gradient">Roraima</span>
                     </h2>
-                    <p className="text-primary font-semibold">2.810 metros | 2.000 Millones de Años de Ancestralidad</p>
+                    <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-2">2.810 m · 2.000M Años de Ancestralidad</p>
                   </div>
                 </div>
 
-                <div className="bg-background rounded-2xl p-6 mb-8 shadow-card">
-                  <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <div className="bg-background border-2 border-foreground rounded-2xl p-6 sm:p-8 mb-8 sticker-shadow-accent">
+                  <h3 className="font-display font-black text-base uppercase tracking-tight text-foreground mb-5 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-primary" />
                     La Escala del Tiempo
                   </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Macizo Guayanés</div>
-                        <div className="text-sm text-muted-foreground">1.700 - 2.000 millones de años</div>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {[
+                      { label: "Macizo Guayanés", value: "1.700 - 2.000 millones de años" },
+                      { label: "Vida Multicelular", value: "600 millones de años" },
+                      { label: "Los Dinosaurios", value: "240 - 66 millones de años" },
+                      { label: "Historia de Venezuela", value: "Apenas 200 años" },
+                    ].map((row, i) => (
+                      <div key={row.label} className="flex items-center gap-3 p-3 bg-muted/50 border-2 border-foreground rounded-xl">
+                        <div className="w-7 h-7 flex-shrink-0 rounded-lg bg-foreground text-background border-2 border-foreground font-display font-black text-[10px] flex items-center justify-center">
+                          {String(i + 1).padStart(2, "0")}
+                        </div>
+                        <div>
+                          <div className="font-display font-black text-sm text-foreground">{row.label}</div>
+                          <div className="text-xs text-foreground/60 font-body">{row.value}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/70"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Vida Multicelular</div>
-                        <div className="text-sm text-muted-foreground">600 millones de años</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/50"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Los Dinosaurios</div>
-                        <div className="text-sm text-muted-foreground">240 - 66 millones de años</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                      <div className="w-3 h-3 rounded-full bg-primary/30"></div>
-                      <div>
-                        <div className="font-semibold text-foreground">Historia de Venezuela</div>
-                        <div className="text-sm text-muted-foreground">Apenas 200 años</div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
                 
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-muted-foreground mb-4">
+                <div className="space-y-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     El tepuy más emblemático de Venezuela representa un reto único: una meseta ancestral 
                     donde el tiempo parece detenerse. La expedición hacia la cima es una travesía de varios 
                     días atravesando la Gran Sabana, cruzando ríos y ascendiendo por la famosa rampa natural.
                   </p>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-foreground/80 font-body leading-relaxed">
                     Al abordar temas de geología, biología y cultura Pemón, el podcast se aleja del humor 
                     ligero para tocar fibras educativas. El Roraima nos recordó que frente a la eternidad 
                     de la piedra, los problemas actuales son un parpadeo.
                   </p>
                 </div>
 
-                <blockquote className="border-l-4 border-primary pl-6 my-8 italic text-foreground text-xl bg-primary/5 py-4 pr-4 rounded-r-lg">
+                <blockquote className="my-8 bg-foreground text-background border-2 border-foreground rounded-2xl p-6 sm:p-8 font-display font-black text-xl sm:text-2xl tracking-[-0.02em] leading-tight italic sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
                   "El mundo diciéndole a los seres humanos: ustedes son los que están de paso."
                 </blockquote>
 
-                <p className="text-muted-foreground">
+                <p className="text-foreground/70 font-body leading-relaxed">
                   En la cima, entre formaciones rocosas milenarias y paisajes de otro mundo, 
                   capturamos la esencia mística de este lugar sagrado para los Pemón. El territorio permanece, 
                   y por ende, la identidad que emana de él es indestructible.
