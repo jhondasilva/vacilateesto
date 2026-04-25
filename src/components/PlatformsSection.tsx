@@ -152,23 +152,34 @@ const PlatformIcon = ({ icon, color, size = "md" }: { icon: string; color: strin
 
 const PlatformsSection = () => {
   return (
-    <section className="py-16 md:py-20 bg-foreground relative overflow-hidden" aria-labelledby="platforms-title">
+    <section className="py-20 md:py-28 bg-foreground relative overflow-hidden" aria-labelledby="platforms-title">
+      {/* Studio neon glows on dark */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-0 left-1/4 w-[36rem] h-[36rem] bg-primary/20 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] bg-accent/20 rounded-full blur-[140px]" />
+      </div>
+
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <header className="text-center mb-8 md:mb-10">
-          <h2 id="platforms-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-3 px-2">
-            Nuestras <span className="text-background">Plataformas</span>
+        <header className="text-center mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/10 border border-background/20 backdrop-blur-sm mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="text-xs font-semibold text-background uppercase tracking-[0.2em]">Distribución</span>
+          </div>
+          <h2 id="platforms-title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-background mb-4 px-2 tracking-tight">
+            Nuestras <span className="text-gradient">Plataformas</span>
           </h2>
-          <p className="text-background/60 text-sm md:text-base max-w-lg mx-auto px-2">
+          <div className="neon-divider w-32 mx-auto mb-5" />
+          <p className="text-background/60 text-base md:text-lg max-w-lg mx-auto px-2 leading-relaxed">
             Una marca de Fun Educaitment presente en múltiples plataformas
           </p>
         </header>
 
         {/* Logo Center with connecting line */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <div className="flex flex-col items-center">
             <Logo size="lg" className="brightness-0 invert" />
-            <div className="w-0.5 h-6 bg-primary" />
+            <div className="w-0.5 h-8 bg-gradient-to-b from-primary to-accent" />
           </div>
         </div>
 
@@ -177,21 +188,21 @@ const PlatformsSection = () => {
           <div className="grid grid-cols-10">
             {platformsData.map((item) => (
               <div key={item.name} className="flex flex-col items-center">
-                <div className="bg-primary rounded-full px-3 py-2 mb-0">
+                <div className="bg-primary rounded-full px-3 py-2 mb-0 shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
                   <span className="text-primary-foreground font-bold text-[9px] uppercase tracking-wide whitespace-nowrap">
                     {item.name}
                   </span>
                 </div>
-                <div className="w-2 h-2 rounded-full bg-[#7DE8E8] my-2" />
-                <div 
-                  className="w-0.5 bg-[#7DE8E8]/50"
+                <div className="w-2 h-2 rounded-full bg-accent my-2 shadow-[0_0_10px_hsl(var(--accent))]" />
+                <div
+                  className="w-0.5 bg-accent/50"
                   style={{ height: `${item.platforms.length * 44 + 8}px` }}
                 />
                 <div className="flex flex-col items-center gap-2 mt-2">
                   {item.platforms.map((platform) => (
                     <div
                       key={platform.name}
-                      className="w-9 h-9 rounded-full bg-background flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-md"
+                      className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:scale-110 hover:shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-all duration-300 cursor-pointer shadow-md"
                       title={platform.name}
                     >
                       <PlatformIcon icon={platform.icon} color={platform.color} size="sm" />
@@ -208,13 +219,13 @@ const PlatformsSection = () => {
           <div className="grid grid-cols-5 gap-4">
             {platformsData.map((item) => (
               <div key={item.name} className="flex flex-col items-center">
-                <div className="bg-primary rounded-full px-2 py-1.5 mb-2">
+                <div className="bg-primary rounded-full px-2 py-1.5 mb-2 shadow-[0_0_15px_hsl(var(--primary)/0.4)]">
                   <span className="text-primary-foreground font-bold text-[8px] uppercase tracking-wide whitespace-nowrap">
                     {item.name}
                   </span>
                 </div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#7DE8E8] mb-1" />
-                <div className="w-0.5 h-8 bg-[#7DE8E8]/50 mb-2" />
+                <div className="w-1.5 h-1.5 rounded-full bg-accent mb-1" />
+                <div className="w-0.5 h-8 bg-accent/50 mb-2" />
                 <div className="flex flex-col items-center gap-1.5">
                   {item.platforms.map((platform) => (
                     <div
@@ -232,13 +243,13 @@ const PlatformsSection = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden mt-6">
+        <div className="md:hidden mt-8">
           <div className="grid grid-cols-3 gap-3">
             {platformsData.map((item) => (
-              <div key={item.name} className="flex flex-col items-center bg-background/5 rounded-xl p-3 border border-background/10">
+              <div key={item.name} className="flex flex-col items-center bg-background/5 backdrop-blur-sm rounded-2xl p-3 border border-background/10">
                 <div className="flex items-center gap-1 mb-2">
-                  <div className="w-1 h-1 rounded-full bg-[#7DE8E8]" />
-                  <span className="text-primary font-bold text-[9px] uppercase">{item.name}</span>
+                  <div className="w-1 h-1 rounded-full bg-accent" />
+                  <span className="text-primary font-bold text-[9px] uppercase tracking-wider">{item.name}</span>
                 </div>
                 <div className="flex flex-wrap justify-center gap-1">
                   {item.platforms.map((platform) => (

@@ -19,7 +19,7 @@ const contentFormats = [
     subtitle: "Shorts Diarios",
     description: "Cuentos y anécdotas de aproximadamente un minuto que salen todos los días. Contenido viral que conecta con la audiencia a través de historias cortas y entretenidas.",
     icon: Smartphone,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Diario · ~1 min",
     platforms: "Facebook, Instagram, TikTok, YouTube Shorts",
   },
@@ -37,7 +37,7 @@ const contentFormats = [
     subtitle: "Serie Gastronómica",
     description: "Juan y Jhon se lanzan a probar distintas propuestas gastronómicas, explorando cada detalle, las comidas y las experiencias desde lugares sencillos hasta restaurantes sofisticados.",
     icon: Utensils,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Ruta del Ramen",
   },
   {
@@ -53,7 +53,7 @@ const contentFormats = [
     subtitle: "En Vivo",
     description: "Hacer un podcast es divertido, pero con público es mejor. Transformamos nuestro formato de estudio a una experiencia totalmente en vivo, donde nos relajamos y compartimos con la audiencia.",
     icon: Radio,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Shows en vivo",
   },
   {
@@ -78,7 +78,7 @@ const contentFormats = [
     subtitle: "Exploraciones Temáticas",
     description: "Series de exploración donde recorremos lugares con un tema específico. Como la Ruta del Ramen, donde probamos y evaluamos los mejores restaurantes de ramen en la ciudad.",
     icon: MapPin,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Series temáticas",
     platforms: "TikTok, Instagram, YouTube",
   },
@@ -95,7 +95,7 @@ const contentFormats = [
     subtitle: "Comunidad VIP",
     description: "Canales exclusivos en Instagram y WhatsApp con contenidos especiales para nuestras comunidades más fieles. Acceso directo y cercano con nuestra audiencia.",
     icon: MessageCircle,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Instagram y WhatsApp",
   },
   {
@@ -111,58 +111,77 @@ const contentFormats = [
     subtitle: "Cobertura Especial 2026",
     description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.",
     icon: Trophy,
-    color: "bg-[#7DE8E8]",
+    color: "bg-accent",
     stats: "Feb - Jul 2026",
   },
 ];
 
 const EcosystemSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-background relative overflow-hidden" aria-labelledby="ecosystem-title">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-20 left-10 w-48 md:w-72 h-48 md:h-72 bg-primary rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-64 md:w-96 h-64 md:h-96 bg-[#7DE8E8] rounded-full blur-3xl" />
+    <section className="py-20 md:py-28 bg-background relative overflow-hidden" aria-labelledby="ecosystem-title">
+      {/* Studio neon background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-20 left-10 w-72 md:w-[32rem] h-72 md:h-[32rem] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-20 right-10 w-80 md:w-[36rem] h-80 md:h-[36rem] bg-accent/10 rounded-full blur-[120px]" />
+        {/* Subtle dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <header className="text-center mb-10 md:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <Play className="w-4 h-4 text-primary" aria-hidden="true" />
-            <span className="text-sm font-medium text-foreground">Formatos de Contenido</span>
+        <header className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm mb-4">
+            <Play className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+            <span className="text-xs font-semibold text-primary uppercase tracking-[0.2em]">Formatos de Contenido</span>
           </div>
-          <h2 id="ecosystem-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 px-2">
-            Nuestro Ecosistema de <span className="text-primary">Contenido</span>
+          <h2 id="ecosystem-title" className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 px-2 tracking-tight">
+            Nuestro Ecosistema de <span className="text-gradient">Contenido</span>
           </h2>
-          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto px-2">
+          <div className="neon-divider w-32 mx-auto mb-5" />
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-2 leading-relaxed">
             Múltiples formatos para conectar con nuestra audiencia de diferentes maneras
           </p>
         </header>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {contentFormats.map((format, index) => (
-            <article 
-              key={index}
-              className="group bg-card rounded-2xl md:rounded-3xl p-6 md:p-8 border border-border shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className={`w-12 h-12 md:w-14 md:h-14 ${format.color} rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform`}>
-                <format.icon className="w-6 h-6 md:w-7 md:h-7 text-background" aria-hidden="true" />
-              </div>
-              <div className="text-xs md:text-sm font-medium text-primary mb-1">{format.subtitle}</div>
-              <h3 className="text-lg md:text-xl font-bold text-foreground mb-2 md:mb-3">{format.title}</h3>
-              <p className="text-muted-foreground text-xs md:text-sm leading-relaxed mb-3 md:mb-4">
-                {format.description}
-              </p>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted text-[10px] md:text-xs font-medium text-foreground">
-                {format.stats}
-              </div>
-              {format.platforms && (
-                <p className="text-[10px] md:text-xs text-muted-foreground mt-2 md:mt-3">
-                  {format.platforms}
-                </p>
-              )}
-            </article>
-          ))}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {contentFormats.map((format, index) => {
+            const isAccent = format.color === "bg-accent";
+            const iconTextColor = isAccent ? "text-accent-foreground" : "text-primary-foreground";
+            return (
+              <article
+                key={index}
+                className="group relative bg-card rounded-3xl p-7 md:p-8 border border-border shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                {/* Hover gradient wash */}
+                <div className="absolute inset-0 bg-studio opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true" />
+
+                <div className="relative">
+                  <div className={`w-14 h-14 ${format.color} rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-soft`}>
+                    <format.icon className={`w-7 h-7 ${iconTextColor}`} aria-hidden="true" />
+                  </div>
+                  <div className="text-[11px] md:text-xs font-semibold text-primary mb-1.5 uppercase tracking-wider">{format.subtitle}</div>
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 tracking-tight">{format.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    {format.description}
+                  </p>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted text-xs font-semibold text-foreground">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    {format.stats}
+                  </div>
+                  {format.platforms && (
+                    <p className="text-xs text-muted-foreground mt-3">
+                      {format.platforms}
+                    </p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
