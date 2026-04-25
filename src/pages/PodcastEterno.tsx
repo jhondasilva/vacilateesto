@@ -358,31 +358,51 @@ const PodcastEterno = () => {
           </section>
 
           {/* Stats Section */}
-          <section className="py-16 bg-background">
+          <StickerMarquee items={["★ 40 horas continuas", "▲ 35 invitados", "● 100+ producción", "✦ Récord mundial"]} variant="primary" />
+          <section className="py-16 sm:py-20 bg-background border-b-4 border-foreground">
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center p-6 bg-muted/30 rounded-2xl border border-border">
-                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                    <div className="text-3xl md:text-4xl font-bold text-foreground">
-                      {stat.value}<span className="text-primary">{stat.suffix}</span>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-5xl mx-auto">
+                {stats.map((stat, index) => {
+                  const tilts = ["sticker-tilt-l-sm", "sticker-tilt-r-sm", "sticker-tilt-r-sm", "sticker-tilt-l-sm"];
+                  const accents = [
+                    "sticker-shadow-primary",
+                    "sticker-shadow-accent",
+                    "sticker-shadow-primary",
+                    "sticker-shadow-accent",
+                  ];
+                  return (
+                    <div
+                      key={index}
+                      className={`relative bg-background border-2 border-foreground rounded-2xl p-5 sm:p-7 text-center sticker-card-rotate ${tilts[index]} ${accents[index]}`}
+                    >
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-foreground text-background border-2 border-foreground mb-3">
+                        <stat.icon className="w-5 h-5" />
+                      </div>
+                      <div className="font-display font-black text-4xl md:text-5xl tracking-[-0.04em] text-foreground leading-none">
+                        {stat.value}
+                        <span className="text-primary">{stat.suffix}</span>
+                      </div>
+                      <p className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/70 mt-3">{stat.label}</p>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </section>
 
           {/* Story Section */}
-          <section className="py-16 bg-muted/20">
+          <section className="py-16 sm:py-24 bg-muted/30 border-b-4 border-foreground">
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-foreground">
-                  La Hazaña
-                </h2>
-                
-                <div className="space-y-6 text-foreground/80 text-lg leading-relaxed">
+                <StickerHeader
+                  badge="La Historia"
+                  badgeIcon={Clock}
+                  badgeVariant="dark"
+                  title="La"
+                  highlight="hazaña"
+                  align="center"
+                />
+                <div className="bg-background border-2 border-foreground rounded-2xl p-6 sm:p-10 sticker-shadow-primary space-y-5 text-foreground/80 text-base sm:text-lg leading-relaxed">
                   <p>
                     Los creadores digitales venezolanos <strong className="text-foreground">Juan Carlos Martínez</strong> y <strong className="text-foreground">Jhon Da Silva</strong> se propusieron transmitir en vivo el podcast más largo del mundo, y lo lograron pasadas las 12:01 am del 30 de julio de 2022.
                   </p>
@@ -400,30 +420,39 @@ const PodcastEterno = () => {
           </section>
 
           {/* Quote Section */}
-          <section className="py-16 bg-primary/5">
+          <section className="py-16 sm:py-24 bg-primary border-b-4 border-foreground">
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
-                <Quote className="w-12 h-12 text-primary mx-auto mb-6" />
-                <blockquote className="text-xl md:text-2xl text-foreground italic mb-6">
+              <div className="max-w-3xl mx-auto">
+                <div className="bg-background border-2 border-foreground rounded-3xl p-8 sm:p-12 sticker-shadow-accent text-center sticker-tilt-l-sm sticker-card-rotate">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-foreground text-background border-2 border-foreground mb-5 rotate-[-6deg]">
+                    <Quote className="w-6 h-6" />
+                  </div>
+                  <blockquote className="font-display font-black tracking-[-0.03em] text-2xl sm:text-3xl md:text-4xl text-foreground leading-tight">
                   "Es como sentarse a hablar en una mesa entre panas venezolanos y que les ayudemos a descubrir cosas que luego refieren en una reunión con familiares o amigos. Al final lo que queremos es pasarla bien y reflexionar."
                 </blockquote>
-                <cite className="text-muted-foreground">— Jhon Da Silva</cite>
+                  <cite className="not-italic block mt-6 font-display font-black text-xs uppercase tracking-widest text-foreground/60">— Jhon Da Silva</cite>
+                </div>
               </div>
             </div>
           </section>
 
 
           {/* Episodes Section */}
-          <section className="py-16 bg-foreground text-background">
+          <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-                Revive la <span className="text-primary">Hazaña</span>
-              </h2>
-              
+              <StickerHeader
+                badge="Episodios"
+                badgeIcon={Play}
+                badgeVariant="primary"
+                title="Revive la"
+                highlight="hazaña"
+                align="center"
+                onDark
+              />
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {episodes.map((episode, index) => (
-                  <div key={episode.id} className="group">
-                    <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-background/10">
+                  <article key={episode.id} className={`group sticker-card-rotate ${index % 2 === 0 ? "sticker-tilt-l-sm" : "sticker-tilt-r-sm"}`}>
+                    <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-background/10 border-2 border-background sticker-shadow-primary">
                       <iframe
                         src={`https://www.youtube.com/embed/${episode.id}`}
                         title={episode.title}
@@ -434,38 +463,45 @@ const PodcastEterno = () => {
                       />
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                        <Play className="w-4 h-4 text-primary" />
+                      <div className="w-9 h-9 rounded-lg bg-primary text-primary-foreground border-2 border-background flex items-center justify-center flex-shrink-0 rotate-[-4deg]">
+                        <Play className="w-4 h-4" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg text-background group-hover:text-primary transition-colors">
+                        <h3 className="font-display font-black text-lg sm:text-xl tracking-[-0.02em] text-background group-hover:text-primary transition-colors">
                           {episode.title}
                         </h3>
-                        <p className="text-background/70 text-sm mt-1">
+                        <p className="text-background/70 text-sm mt-1 font-body leading-relaxed">
                           {episode.description}
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
           </section>
 
           {/* Legacy Section */}
-          <section className="py-16 bg-background">
+          <section className="py-16 sm:py-24 bg-background">
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                  El Legado
-                </h2>
-                <p className="text-lg text-muted-foreground mb-8">
+              <div className="max-w-3xl mx-auto">
+                <StickerHeader
+                  badge="Para la historia"
+                  badgeIcon={Trophy}
+                  badgeVariant="accent"
+                  title="El"
+                  highlight="legado"
+                  align="center"
+                />
+                <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 sm:p-12 sticker-shadow-primary text-center">
+                  <p className="text-lg text-background/80 mb-8 font-body leading-relaxed">
                   El Podcast Eterno marcó un hito en la historia del podcasting venezolano y latinoamericano. 
                   Demostró que con pasión, constancia y trabajo en equipo, se pueden lograr hazañas que trascienden fronteras.
                 </p>
-                <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full">
-                  <Trophy className="w-5 h-5 text-primary" />
-                  <span className="font-medium text-foreground">Récord Mundial del Podcast Más Largo</span>
+                  <div className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground border-2 border-background rounded-full rotate-[-2deg]">
+                    <Trophy className="w-5 h-5" />
+                    <span className="font-display font-black text-xs uppercase tracking-widest">Récord Mundial del Podcast Más Largo</span>
+                  </div>
                 </div>
               </div>
             </div>
