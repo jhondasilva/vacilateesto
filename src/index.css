@@ -362,6 +362,15 @@
   body {
     min-height: -webkit-fill-available;
   }
+
+  /* Fix min-h-screen on iOS Safari (URL bar + safe area).
+     Tailwind's min-h-screen uses 100vh which over-allocates on mobile Safari. */
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+  .h-screen {
+    height: 100dvh;
+  }
 }
 
 /* Safe area utilities for PWA */
@@ -402,5 +411,35 @@ html {
   button:active, a:active, [role="button"]:active {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+}
+
+/* === iOS / Android mobile polish === */
+@media (max-width: 768px) {
+  /* Tighten heavy heading letter-spacing on small screens to avoid line breaks */
+  h1 {
+    word-break: keep-all;
+    hyphens: manual;
+  }
+
+  /* Reduce expensive blur effects on mobile to keep scroll at 60fps */
+  .blur-3xl {
+    filter: blur(40px);
+  }
+  .blur-\[140px\] {
+    filter: blur(80px);
+  }
+
+  /* Ensure long words (URLs, hashtags) never break layout */
+  p, li, span, a {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Respect notch on landscape iPhone */
+@media (orientation: landscape) and (max-width: 926px) {
+  body {
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
   }
 }
