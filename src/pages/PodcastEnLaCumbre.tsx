@@ -300,21 +300,33 @@ const PodcastEnLaCumbre = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main itemScope itemType="https://schema.org/Article">
-          {/* Hero Section */}
-          <section className="relative pt-24 pb-8 bg-background overflow-hidden" aria-label="Introducción">
+          {/* Hero Section — Sticker Pack Y2K */}
+          <section className="relative pt-28 pb-12 bg-background overflow-hidden border-b-4 border-foreground" aria-label="Introducción">
+            {/* Decorative floating stickers */}
+            <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-foreground text-background border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--primary))]">
+              ▲ 4.978m
+            </div>
+            <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[12deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
+              ★ Aventura
+            </div>
             <div className="container mx-auto px-4 relative z-10 text-center">
-              <div className="flex justify-center mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-foreground rounded-full mb-6 shadow-[4px_4px_0_hsl(var(--foreground))] rotate-[-2deg]">
+                <Mountain className="w-4 h-4" />
+                <span className="font-display font-black text-xs uppercase tracking-widest">Travesía 2025-2026</span>
+              </div>
+              <div className="flex justify-center mb-6">
                 <img 
                   src={logoCumbre} 
                   alt="Podcast en la Cumbre - Logo del proyecto de podcasts en montañas de Venezuela" 
-                  className="w-full max-w-2xl h-auto"
+                  className="w-full max-w-2xl h-auto drop-shadow-[8px_8px_0_hsl(var(--foreground))]"
                   loading="eager"
                 />
               </div>
               
-              <p className="text-foreground/70 text-base max-w-2xl mx-auto" itemProp="description">
+              <p className="font-body text-foreground/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
                 Una travesía audiovisual de siete meses para mostrar a Venezuela desde sus alturas 
-                —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla aventura, humor y reflexión.
+                —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla{" "}
+                <span className="italic font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">aventura, humor y reflexión.</span>
               </p>
             </div>
           </section>

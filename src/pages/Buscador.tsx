@@ -142,45 +142,45 @@ const Buscador = () => {
       <div className="min-h-screen bg-background">
         <Header />
 
-        {/* HERO */}
-        <section className="relative overflow-hidden border-b border-border pt-24 md:pt-28">
+        {/* HERO — Sticker Pack Y2K */}
+        <section className="relative overflow-hidden border-b-4 border-foreground pt-24 md:pt-28 bg-background">
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.18),transparent_60%)]"
+            className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.15),transparent_60%)]"
           />
           <div
             aria-hidden
-            className="absolute inset-0 -z-10 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:18px_18px]"
+            className="absolute inset-0 -z-10 opacity-[0.05] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:18px_18px]"
           />
-          <div
-            aria-hidden
-            className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl -z-10"
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-accent/40 blur-3xl -z-10"
-          />
+          {/* Floating stickers */}
+          <div aria-hidden className="absolute top-24 left-6 hidden md:block rotate-[-10deg] bg-foreground text-background border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--primary))]">
+            ◆ 200+ episodios
+          </div>
+          <div aria-hidden className="absolute top-32 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
+            ★ 600+ shorts
+          </div>
 
-          <div className="container mx-auto px-4 pt-10 pb-8 md:pt-24 md:pb-14 max-w-4xl">
+          <div className="container mx-auto px-4 pt-10 pb-8 md:pt-20 md:pb-14 max-w-4xl">
             <div className="text-center mb-6 md:mb-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 text-primary text-[10px] md:text-sm font-bold uppercase tracking-wider mb-4 md:mb-6 border border-primary/20">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-foreground text-background border-2 border-foreground text-[10px] md:text-xs font-display font-black uppercase tracking-widest mb-5 md:mb-7 shadow-[4px_4px_0_hsl(var(--primary))] rotate-[-2deg]">
                 <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
                 Búsqueda con IA
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4 md:mb-5 leading-[1.15]">
+              <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[12vw] sm:text-6xl md:text-7xl lg:text-8xl mb-5 md:mb-6">
                 Encuentra el{" "}
-                <span className="bg-gradient-to-r from-primary to-[hsl(15_85%_55%)] bg-clip-text text-transparent inline-block pb-1">
+                <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   momento exacto
                 </span>
+                .
               </h1>
-              <p className="text-muted-foreground text-sm sm:text-base md:text-xl max-w-2xl mx-auto px-2">
+              <p className="font-body text-muted-foreground text-sm sm:text-base md:text-xl max-w-2xl mx-auto px-2">
                 Busca cualquier tema en los episodios y shorts. Te llevamos al{" "}
                 <span className="font-semibold text-foreground">segundo exacto</span> donde lo dijimos.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="relative">
-              <div className="relative flex items-center rounded-2xl bg-card border-2 border-border focus-within:border-primary focus-within:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all shadow-lg overflow-hidden">
+              <div className="relative flex items-center rounded-2xl bg-card border-2 border-foreground focus-within:border-primary transition-all shadow-[6px_6px_0_hsl(var(--foreground))] hover:shadow-[8px_8px_0_hsl(var(--primary))] overflow-hidden">
                 <Search className="absolute left-4 md:left-5 w-4 h-4 md:w-5 md:h-5 text-muted-foreground pointer-events-none z-10" />
                 <Input
                   autoFocus
