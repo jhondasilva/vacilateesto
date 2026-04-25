@@ -18,8 +18,13 @@ const HeroSection = () => {
     <section
       id="hero"
       className="relative min-h-[100svh] flex flex-col overflow-hidden bg-background"
-      aria-label="Vacílate Esto - Ecosistema de Entretenimiento de Venezuela"
+      aria-labelledby="hero-title"
+      itemScope
+      itemType="https://schema.org/WebPageElement"
     >
+      <meta itemProp="name" content="Vacílate Esto · Ecosistema de Entretenimiento de Venezuela" />
+      <meta itemProp="description" content="Inicio de Vacílate Esto: el podcast venezolano #1 y ecosistema de Fun Educaitment con humor, fútbol, gastronomía, historia y mitos urbanos. Hosts: JuanSofa y JhonSnacks. 2M+ seguidores." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#hero" />
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-primary/30 rounded-full blur-[140px] animate-float" />
@@ -64,7 +69,7 @@ const HeroSection = () => {
               <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo Episodio</span>
             </div>
 
-            <h1 className="font-display font-black tracking-[-0.04em] leading-[0.82] mt-14 sm:mt-16 md:mt-20">
+            <h1 id="hero-title" className="font-display font-black tracking-[-0.04em] leading-[0.82] mt-14 sm:mt-16 md:mt-20">
               <span className="block text-foreground text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem]">
                 vací
               </span>
