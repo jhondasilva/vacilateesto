@@ -61,6 +61,8 @@ const EpisodesSection = () => {
 
   return (
     <section id="episodes" className="py-20 md:py-28 bg-muted/40 relative overflow-hidden" aria-labelledby="episodes-title">
+      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-accent/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="container mx-auto px-4 relative z-10">
         <header className="text-center mb-12 md:mb-16">
           <span className="text-primary font-semibold text-xs sm:text-sm uppercase tracking-[0.2em]">Lo Más Reciente</span>
