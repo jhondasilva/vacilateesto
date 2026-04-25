@@ -753,18 +753,19 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Nota de Prensa Section */}
-          <section className="py-16 bg-background" aria-labelledby="nota-prensa-heading">
+          <section className="py-16 sm:py-24 bg-background" aria-labelledby="nota-prensa-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-12">
-                  <Newspaper className="w-12 h-12 text-primary mx-auto mb-4" aria-hidden="true" />
-                  <h2 id="nota-prensa-heading" className="text-3xl font-bold text-foreground mb-4">
-                    Nota de Prensa
-                  </h2>
-                  <p className="text-xl text-primary font-semibold">
-                    Podcast en la Cumbre: una travesía venezolana hacia lo más alto del país
-                  </p>
-                </div>
+                <div id="nota-prensa-heading" className="sr-only">Nota de Prensa</div>
+                <StickerHeader
+                  badge="Para medios"
+                  badgeIcon={Newspaper}
+                  badgeVariant="primary"
+                  title="Nota de"
+                  highlight="prensa"
+                  description="Podcast en la Cumbre: una travesía venezolana hacia lo más alto del país."
+                  align="center"
+                />
 
                 <div className="prose prose-lg max-w-none space-y-6">
                   <p className="text-muted-foreground text-lg leading-relaxed">
