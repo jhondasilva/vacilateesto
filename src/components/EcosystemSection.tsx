@@ -38,6 +38,7 @@ const EcosystemSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="ecosystem-title"
           badge="Formatos de contenido"
           badgeIcon={Play}
           title="nuestro"

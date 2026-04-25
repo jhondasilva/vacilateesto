@@ -69,6 +69,7 @@ const PlatformsSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="platforms-title"
           badge="Plataformas"
           badgeVariant="outline"
           title="dónde nos"

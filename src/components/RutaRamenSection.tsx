@@ -26,6 +26,7 @@ const RutaRamenSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="ramen-title"
           badge="Vacílate Esto Comiendo"
           badgeIcon={Utensils}
           title="ruta del"

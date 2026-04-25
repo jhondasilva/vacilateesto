@@ -42,6 +42,7 @@ const MediaHoldingSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="media-holding-title"
           badge="Más que contenido"
           badgeIcon={Sparkles}
           title="un media"

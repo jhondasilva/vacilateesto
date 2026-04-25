@@ -79,6 +79,7 @@ const EpisodesSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="episodes-title"
           badge="Lo más reciente"
           title="últimos"
           highlight="episodios"
