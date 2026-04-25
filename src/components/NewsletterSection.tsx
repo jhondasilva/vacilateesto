@@ -85,6 +85,7 @@ const NewsletterSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mx-auto">
           <StickerHeader
+        titleId="newsletter-title"
             badge="Newsletter"
             badgeIcon={Sparkles}
             title="mantente al"

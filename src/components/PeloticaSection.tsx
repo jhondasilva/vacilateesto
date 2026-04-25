@@ -20,6 +20,7 @@ const PeloticaSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="pelotica-title"
           badge="Fenómeno Global"
           badgeIcon={Sparkles}
           badgeVariant="accent"

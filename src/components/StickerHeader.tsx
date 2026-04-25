@@ -12,6 +12,8 @@ interface StickerHeaderProps {
   align?: "left" | "center";
   className?: string;
   onDark?: boolean;
+  /** Optional id applied to the inner <h2>. Useful for aria-labelledby on parent <section>. */
+  titleId?: string;
 }
 
 const BADGE_VARIANTS = {
@@ -35,6 +37,7 @@ const StickerHeader = ({
   align = "center",
   className,
   onDark = false,
+  titleId,
 }: StickerHeaderProps) => {
   const alignClasses = align === "center" ? "text-center mx-auto items-center" : "text-left items-start";
   return (
@@ -50,6 +53,7 @@ const StickerHeader = ({
         <span className="font-display font-black text-[10px] uppercase tracking-widest">{badge}</span>
       </div>
       <h2
+        id={titleId}
         className={cn(
           "font-display font-black tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl",
           onDark ? "text-background" : "text-foreground"

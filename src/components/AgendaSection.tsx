@@ -61,6 +61,7 @@ const AgendaSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <StickerHeader
+        titleId="agenda-title"
           badge="Calendario"
           badgeIcon={Calendar}
           title="nuestra"
