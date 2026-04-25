@@ -475,42 +475,43 @@ const VacilateElMundial = () => {
                 ))}
               </div>
 
-              {/* The Roadtrip */}
-              <div className="mb-10 md:mb-16">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">
-                  La Gran Expedición 2026
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <Star className="w-5 md:w-6 h-5 md:h-6 text-blue-700" />
-                    </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Houston</h4>
-                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Base USA</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Centro de operaciones en Estados Unidos. Conexión directa con nuestra audiencia.
-                    </p>
+              {/* La Ruta — 15 paradas */}
+              <div id="la-ruta" className="mb-10 md:mb-16 scroll-mt-24">
+                <div className="text-center mb-6 md:mb-10">
+                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 border border-[#ee506f]/30 mb-3 md:mb-4">
+                    <MapPin className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">La Ruta</span>
                   </div>
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <Trophy className="w-5 md:w-6 h-5 md:h-6 text-white" />
+                  <h3 className="text-2xl md:text-4xl font-black mb-2 md:mb-3">
+                    La Gran Expedición 2026
+                  </h3>
+                  <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto px-2">
+                    <strong>15 paradas · 4 países · 6 meses</strong> cubriendo el Mundial en vivo desde donde pasa la acción.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 max-w-6xl mx-auto">
+                  {routeStops.map((stop) => (
+                    <div
+                      key={stop.n}
+                      className="relative bg-card rounded-2xl border border-border p-4 hover:border-[#9000ff]/50 hover:shadow-lg hover:shadow-[#9000ff]/10 transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] text-white text-xs font-black flex items-center justify-center border-2 border-background shadow-md">
+                        {stop.n}
+                      </div>
+                      <div className="flex items-start justify-between mb-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 rounded px-1.5 py-0.5">
+                          {countryLabel[stop.country]}
+                        </span>
+                        <Flag className="w-3.5 h-3.5 text-[#9000ff]" />
+                      </div>
+                      <h4 className="font-bold text-sm md:text-base leading-tight mb-1">{stop.city}</h4>
+                      <div className="text-xs text-[#ee506f] font-semibold flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {stop.date}
+                      </div>
                     </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Costa Este</h4>
-                    <div className="text-xs md:text-sm text-[#ee506f] font-medium mb-1 md:mb-2">Hub Fútbol</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Nueva York, Miami. La pasión del fútbol europeo y latinoamericano se encuentra.
-                    </p>
-                  </div>
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <MapPin className="w-5 md:w-6 h-5 md:h-6 text-green-700" />
-                    </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">México</h4>
-                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Inauguración + Final</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      El epicentro del caos latino. Gastronomía, cultura y fútbol en estado puro.
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </div>
 
