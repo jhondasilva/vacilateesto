@@ -33,7 +33,6 @@ import {
   Smartphone,
   MapPin,
   Star,
-  Footprints,
   MessageCircle,
   Trophy,
   Video
