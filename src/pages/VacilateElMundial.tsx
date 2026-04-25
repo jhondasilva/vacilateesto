@@ -1,10 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WorldCupCountdown from "@/components/WorldCupCountdown";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Globe,
   Tv,
@@ -34,6 +38,11 @@ import {
   Flame,
   ExternalLink,
   CheckCircle,
+  Download,
+  Mail,
+  Send,
+  FileText,
+  Loader2,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
@@ -42,8 +51,8 @@ import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 const stats = [
   { value: "2M+", label: "Seguidores Activos", icon: Users },
   { value: "24/7", label: "Presencia Digital", icon: Clock },
-  { value: "100%", label: "Engagement", icon: Heart },
-  { value: "5", label: "Plataformas", icon: Globe },
+  { value: "15", label: "Ciudades en ruta", icon: MapPin },
+  { value: "4", label: "Países", icon: Globe },
 ];
 
 const platforms = [
@@ -146,7 +155,75 @@ const quinielaFeatures = [
   { icon: Users, title: "Comunidad Activa", description: "Debate y comparte con miles de fanáticos" },
 ];
 
+type RouteStop = { n: number; city: string; country: "MX" | "US" | "FR" | "VE"; date: string };
+const routeStops: RouteStop[] = [
+  { n: 1, city: "Ciudad de México", country: "MX", date: "9 jun" },
+  { n: 2, city: "New York", country: "US", date: "12 jun" },
+  { n: 3, city: "Austin", country: "US", date: "14 jun" },
+  { n: 4, city: "Houston", country: "US", date: "16 jun" },
+  { n: 5, city: "Cannes", country: "FR", date: "19 jun" },
+  { n: 6, city: "Miami", country: "US", date: "26 jun" },
+  { n: 7, city: "San Francisco", country: "US", date: "1 jul" },
+  { n: 8, city: "Philadelphia", country: "US", date: "4 jul" },
+  { n: 9, city: "New York", country: "US", date: "5 jul" },
+  { n: 10, city: "Boston", country: "US", date: "7 jul" },
+  { n: 11, city: "Miami", country: "US", date: "10 jul" },
+  { n: 12, city: "Dallas", country: "US", date: "12 jul" },
+  { n: 13, city: "Atlanta", country: "US", date: "15 jul" },
+  { n: 14, city: "New York", country: "US", date: "17 jul" },
+  { n: 15, city: "Caracas", country: "VE", date: "20 jul" },
+];
+const countryLabel: Record<RouteStop["country"], string> = {
+  MX: "México",
+  US: "USA",
+  FR: "Francia",
+  VE: "Venezuela",
+};
+
 const VacilateElMundial = () => {
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const MEDIAKIT_URL = "/media-kit/VacilateElMundial-MediaKit-2026.pdf";
+  const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-mundial";
+
+  const handleSendByEmail = async () => {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({ title: "Email inválido", description: "Introduce un email válido.", variant: "destructive" });
+      return;
+    }
+    try {
+      setSending(true);
+      const res = await fetch(MEDIAKIT_URL);
+      const blob = await res.blob();
+      const reader = new FileReader();
+      const pdfBase64: string = await new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      const { error } = await supabase.functions.invoke("send-mediakit-email", {
+        body: { email, pdfBase64, kit: "mundial" },
+      });
+      if (error) throw error;
+      toast({ title: "¡Enviado!", description: `Media Kit enviado a ${email}` });
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error al enviar", description: "Inténtalo de nuevo en unos segundos.", variant: "destructive" });
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(
+    `Vacílate El Mundial 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
+  )}`;
+
   return (
     <>
       <Helmet>
@@ -280,12 +357,18 @@ const VacilateElMundial = () => {
                 </a>
 
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
-                  <Link to="/media-kit#contacto">
+                  <a href="#media-kit">
                     <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
-                      <Trophy className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Quiero Patrocinar
+                      <FileText className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                      Ver Media Kit
                     </Button>
-                  </Link>
+                  </a>
+                  <a href="#la-ruta">
+                    <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
+                      <MapPin className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                      La Ruta
+                    </Button>
+                  </a>
                   <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
                     <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
                       <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
@@ -333,34 +416,15 @@ const VacilateElMundial = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto items-start">
-                {/* Video 1 - Instagram Embed */}
-                <div className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
-                  <InstagramEmbed 
-                    postUrl="https://www.instagram.com/reel/DTdyOqAiT-F/" 
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Placeholder for more videos */}
-                <div className="hidden md:flex aspect-[9/16] bg-card rounded-3xl border-2 border-dashed border-border items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-6 h-6 text-muted-foreground" />
-                    </div>
-                    <p className="text-muted-foreground font-medium">Próximamente</p>
-                    <p className="text-xs text-muted-foreground/70 mt-1">Más contenido en camino</p>
+                {[
+                  "https://www.instagram.com/reel/DXFnxq8hJ3B/",
+                  "https://www.instagram.com/reel/DXPcDanBpIF/",
+                  "https://www.instagram.com/reel/DXApnXOBkHA/",
+                ].map((url) => (
+                  <div key={url} className="bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-border p-3 md:p-4">
+                    <InstagramEmbed postUrl={url} className="w-full" />
                   </div>
-                </div>
-
-                <div className="hidden lg:flex aspect-[9/16] bg-card rounded-3xl border-2 border-dashed border-border items-center justify-center">
-                  <div className="text-center p-6">
-                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-6 h-6 text-muted-foreground" />
-                    </div>
-                    <p className="text-muted-foreground font-medium">Próximamente</p>
-                    <p className="text-xs text-muted-foreground/70 mt-1">Más contenido en camino</p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               {/* CTA */}
@@ -417,42 +481,43 @@ const VacilateElMundial = () => {
                 ))}
               </div>
 
-              {/* The Roadtrip */}
-              <div className="mb-10 md:mb-16">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">
-                  La Gran Expedición 2026
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-b from-blue-700 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <Star className="w-5 md:w-6 h-5 md:h-6 text-blue-700" />
-                    </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Houston</h4>
-                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Base USA</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Centro de operaciones en Estados Unidos. Conexión directa con nuestra audiencia.
-                    </p>
+              {/* La Ruta — 15 paradas */}
+              <div id="la-ruta" className="mb-10 md:mb-16 scroll-mt-24">
+                <div className="text-center mb-6 md:mb-10">
+                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#ee506f]/10 border border-[#ee506f]/30 mb-3 md:mb-4">
+                    <MapPin className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#ee506f]" />
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">La Ruta</span>
                   </div>
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <Trophy className="w-5 md:w-6 h-5 md:h-6 text-white" />
+                  <h3 className="text-2xl md:text-4xl font-black mb-2 md:mb-3">
+                    La Gran Expedición 2026
+                  </h3>
+                  <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto px-2">
+                    <strong>15 paradas · 4 países · 6 meses</strong> cubriendo el Mundial en vivo desde donde pasa la acción.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 max-w-6xl mx-auto">
+                  {routeStops.map((stop) => (
+                    <div
+                      key={stop.n}
+                      className="relative bg-card rounded-2xl border border-border p-4 hover:border-[#9000ff]/50 hover:shadow-lg hover:shadow-[#9000ff]/10 transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="absolute -top-2 -left-2 w-8 h-8 rounded-full bg-gradient-to-br from-[#9000ff] to-[#ee506f] text-white text-xs font-black flex items-center justify-center border-2 border-background shadow-md">
+                        {stop.n}
+                      </div>
+                      <div className="flex items-start justify-between mb-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/60 rounded px-1.5 py-0.5">
+                          {countryLabel[stop.country]}
+                        </span>
+                        <Flag className="w-3.5 h-3.5 text-[#9000ff]" />
+                      </div>
+                      <h4 className="font-bold text-sm md:text-base leading-tight mb-1">{stop.city}</h4>
+                      <div className="text-xs text-[#ee506f] font-semibold flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {stop.date}
+                      </div>
                     </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">Costa Este</h4>
-                    <div className="text-xs md:text-sm text-[#ee506f] font-medium mb-1 md:mb-2">Hub Fútbol</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Nueva York, Miami. La pasión del fútbol europeo y latinoamericano se encuentra.
-                    </p>
-                  </div>
-                  <div className="bg-card rounded-2xl md:rounded-3xl p-4 md:p-6 border border-border text-center">
-                    <div className="w-12 md:w-14 h-12 md:h-14 rounded-full bg-gradient-to-br from-green-600 via-white to-red-600 flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-                      <MapPin className="w-5 md:w-6 h-5 md:h-6 text-green-700" />
-                    </div>
-                    <h4 className="font-bold text-base md:text-lg mb-1 md:mb-2">México</h4>
-                    <div className="text-xs md:text-sm text-[#9000ff] font-medium mb-1 md:mb-2">Inauguración + Final</div>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      El epicentro del caos latino. Gastronomía, cultura y fútbol en estado puro.
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -521,6 +586,126 @@ const VacilateElMundial = () => {
                       Quiero Patrocinar
                     </div>
                   </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Media Kit Section */}
+          <section id="media-kit" className="py-12 md:py-24 bg-foreground text-background scroll-mt-24 border-y-4 border-foreground relative overflow-hidden">
+            <div aria-hidden className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute top-10 left-10 w-72 h-72 bg-[#9000ff] rounded-full blur-3xl" />
+              <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl" />
+            </div>
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-8 md:mb-12">
+                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-background/10 border border-background/20 mb-4">
+                    <FileText className="w-3.5 md:w-4 h-3.5 md:h-4" />
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">Media Kit Mundial 2026</span>
+                  </div>
+                  <h2 className="font-display font-black text-3xl md:text-5xl mb-4">
+                    Llévate el Media Kit
+                  </h2>
+                  <p className="text-base md:text-lg text-background/80 max-w-2xl mx-auto px-2">
+                    Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca.
+                    Descárgalo, recíbelo por email o compártelo por LINE.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+                  {/* Download */}
+                  <a
+                    href={MEDIAKIT_URL}
+                    download
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#00f5d4] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Download className="w-7 h-7 text-black" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Descargar PDF</h3>
+                    <p className="text-sm text-background/70 mb-4">8 páginas · Diseño Sticker Pack</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#00f5d4]">
+                      Descargar ahora <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* View / Open */}
+                  <a
+                    href={MEDIAKIT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#9000ff] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Eye className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Ver online</h3>
+                    <p className="text-sm text-background/70 mb-4">Ábrelo en tu navegador</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#ee506f]">
+                      Abrir PDF <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* Share on LINE */}
+                  <a
+                    href={lineShareUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#06C755] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-[#06C755] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Send className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Compartir en LINE</h3>
+                    <p className="text-sm text-background/70 mb-4">Envíalo a tu chat o grupo</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#06C755]">
+                      Abrir LINE <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+                </div>
+
+                {/* Email form */}
+                <div className="mt-8 md:mt-10 bg-background/5 backdrop-blur-sm border-2 border-background/20 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-background text-foreground flex items-center justify-center">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-base md:text-lg">Recíbelo por email</h3>
+                      <p className="text-xs md:text-sm text-background/70">Te lo enviamos como adjunto al instante.</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Input
+                      type="email"
+                      placeholder="tu@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-background text-foreground border-0 h-12"
+                      disabled={sending}
+                    />
+                    <Button
+                      onClick={handleSendByEmail}
+                      disabled={sending}
+                      className="h-12 bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90 text-white font-bold whitespace-nowrap"
+                    >
+                      {sending ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Enviando…
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Enviar Media Kit
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-background/60 mt-3">
+                    Contacto oficial: <a href="mailto:elpatio@hacemosloquenosgusta.com" className="underline">elpatio@hacemosloquenosgusta.com</a>
+                  </p>
                 </div>
               </div>
             </div>
