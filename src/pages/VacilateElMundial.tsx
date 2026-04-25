@@ -1,10 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WorldCupCountdown from "@/components/WorldCupCountdown";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Globe,
   Tv,
@@ -34,6 +38,11 @@ import {
   Flame,
   ExternalLink,
   CheckCircle,
+  Download,
+  Mail,
+  Send,
+  FileText,
+  Loader2,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
