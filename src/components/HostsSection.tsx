@@ -41,7 +41,10 @@ const TICKER = ["LOS HOSTS", "★", "JUANSOFA + JHONSNACKS", "✦", "DESDE 2020"
 
 const HostsSection = () => {
   return (
-    <section id="hosts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="hosts-title">
+    <section id="hosts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="hosts-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="Hosts: JuanSofa y JhonSnacks" />
+      <meta itemProp="description" content="Conoce a Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), co-fundadores y hosts de Vacílate Esto, el ecosistema de Fun Educaitment más grande de Venezuela." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#hosts" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-0 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px] -translate-x-1/3 -translate-y-1/3 animate-float" />
         <div className="absolute bottom-0 right-0 w-[36rem] h-[36rem] bg-accent/15 rounded-full blur-[140px] translate-x-1/3 translate-y-1/3 animate-float-delayed" />

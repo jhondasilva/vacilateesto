@@ -26,6 +26,8 @@ const VacilateElMundialSection = () => {
   return (
     <section
       id="vacilate-el-mundial"
+      itemScope
+      itemType="https://schema.org/SportsEvent"
       className="relative overflow-hidden bg-background py-20 md:py-28"
     >
       {/* Background blobs + dot grid */}

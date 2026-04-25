@@ -64,7 +64,10 @@ const EpisodesSection = () => {
   }, []);
 
   return (
-    <section id="episodes" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="episodes-title">
+    <section id="episodes" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="episodes-title" itemScope itemType="https://schema.org/ItemList">
+      <meta itemProp="name" content="Episodios recientes del podcast Vacílate Esto" />
+      <meta itemProp="description" content="Últimos episodios del podcast Vacílate Esto con JuanSofa y JhonSnacks: humor, cultura, fútbol, gastronomía e historias venezolanas. Disponibles en Spotify y YouTube." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#episodes" />
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-1/3 -left-32 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px]" />

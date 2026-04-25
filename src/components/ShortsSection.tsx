@@ -41,7 +41,10 @@ const ShortsSection = () => {
   }, []);
 
   return (
-    <section id="shorts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="shorts-title">
+    <section id="shorts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="shorts-title" itemScope itemType="https://schema.org/ItemList">
+      <meta itemProp="name" content="Shorts y Cuentos de Vacílate Esto" />
+      <meta itemProp="description" content="Shorts diarios de ~1 minuto con historias virales, datos insólitos y mitos urbanos venezolanos. Contenido Fun Educaitment para TikTok, YouTube Shorts e Instagram Reels." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#shorts" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-accent/15 rounded-full blur-[140px] pointer-events-none" aria-hidden="true" />
 
       <StickerMarquee items={TICKER} variant="accent" className="mb-16 md:mb-20" reverse />
