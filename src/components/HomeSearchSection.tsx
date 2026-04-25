@@ -15,7 +15,7 @@ const SUGGESTIONS = [
   "llaneridad",
 ];
 
-const TICKER = ["BUSCÁ", "★", "ESCUCHÁ", "✦", "VACILATÉ", "★", "DESCUBRÍ", "✦"];
+const TICKER = ["BUSCÁ", "★", "ESCUCHÁ", "✦", "VACILATÉ", "★", "DESCUBRE", "✦"];
 
 const HomeSearchSection = () => {
   const [query, setQuery] = useState("");
