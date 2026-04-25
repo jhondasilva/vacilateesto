@@ -5,7 +5,6 @@ import {
   Radio,
   MapPin,
   Mail,
-  Footprints,
   MessageCircle,
   Star,
   Trophy,
@@ -90,14 +89,6 @@ const contentFormats = [
     icon: Mail,
     color: "bg-primary",
     stats: "Contenido curado",
-  },
-  {
-    title: "Caminado",
-    subtitle: "Formato Aventura",
-    description: "Un formato más aventurero de nuestro ecosistema, donde nos atrevemos a caminar partes de nuestro país y registramos todo el recorrido.",
-    icon: Footprints,
-    color: "bg-primary",
-    stats: "Exploraciones a pie",
   },
   {
     title: "Canales de Difusión",
