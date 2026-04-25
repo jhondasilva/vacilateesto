@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Play, Clock, Eye } from "lucide-react";
+import { Play, Clock, Eye, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import StickerMarquee from "@/components/StickerMarquee";
+import StickerHeader from "@/components/StickerHeader";
 
 type Episode = {
   video_id: string;
@@ -35,6 +37,8 @@ const formatRelative = (iso: string | null) => {
   return `Hace ${y} ${y === 1 ? "año" : "años"}`;
 };
 
+const TICKER = ["NUEVO EPISODIO", "★", "VACÍLATE ESTO", "✦", "PODCAST SEMANAL", "★", "FUN EDUCAITMENT", "✦"];
+
 const EpisodesSection = () => {
   const [episodes, setEpisodes] = useState<Episode[] | null>(null);
 
@@ -60,24 +64,28 @@ const EpisodesSection = () => {
   }, []);
 
   return (
-    <section id="episodes" className="py-20 md:py-28 bg-muted/40 relative overflow-hidden" aria-labelledby="episodes-title">
-      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-accent/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="container mx-auto px-4 relative z-10">
-        <header className="text-center mb-12 md:mb-16">
-          <span className="text-primary font-semibold text-xs sm:text-sm uppercase tracking-[0.2em]">Lo Más Reciente</span>
-          <h2 id="episodes-title" className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4 text-foreground tracking-tight">
-            Últimos Episodios
-          </h2>
-          <p className="font-body text-muted-foreground text-base md:text-lg max-w-xl mx-auto px-2">
-            No te pierdas nuestras aventuras y conversaciones más recientes.
-          </p>
-        </header>
+    <section id="episodes" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="episodes-title">
+      {/* Background blobs */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/3 -left-32 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px]" />
+        <div className="absolute bottom-1/3 -right-32 w-[36rem] h-[36rem] bg-accent/15 rounded-full blur-[140px]" />
+        <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <StickerMarquee items={TICKER} variant="dark" className="mb-16 md:mb-20" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <StickerHeader
+          badge="Lo más reciente"
+          title="últimos"
+          highlight="episodios"
+          description="No te pierdas nuestras aventuras y conversaciones más recientes."
+        />
+
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           {episodes === null
             ? Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="bg-background rounded-3xl overflow-hidden border border-border">
+                <div key={i} className="bg-background rounded-3xl overflow-hidden border-2 border-foreground">
                   <Skeleton className="aspect-video w-full rounded-none" />
                   <div className="p-6 space-y-3">
                     <Skeleton className="h-6 w-3/4" />
@@ -86,66 +94,84 @@ const EpisodesSection = () => {
                   </div>
                 </div>
               ))
-            : episodes.map((episode, index) => (
-                <a
-                  key={episode.video_id}
-                  href={`https://www.youtube.com/watch?v=${episode.video_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-500 hover:shadow-elevated hover:-translate-y-1 block"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="relative aspect-video overflow-hidden">
-                    <img
-                      src={episode.thumbnail_url || `https://img.youtube.com/vi/${episode.video_id}/maxresdefault.jpg`}
-                      alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
+            : episodes.map((episode, index) => {
+                const accentColor = index % 2 === 0 ? "primary" : "accent";
+                return (
+                  <a
+                    key={episode.video_id}
+                    href={`https://www.youtube.com/watch?v=${episode.video_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-background rounded-3xl overflow-hidden border-2 border-foreground hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300"
+                    style={{
+                      boxShadow: `8px 8px 0 hsl(var(--${accentColor}))`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `12px 12px 0 hsl(var(--${accentColor === "primary" ? "accent" : "primary"}))`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = `8px 8px 0 hsl(var(--${accentColor}))`;
+                    }}
+                  >
+                    <div className="relative aspect-video overflow-hidden border-b-2 border-foreground">
+                      <img
+                        src={episode.thumbnail_url || `https://img.youtube.com/vi/${episode.video_id}/maxresdefault.jpg`}
+                        alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
 
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-16 h-16 rounded-full bg-foreground border-2 border-background flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Play className="w-6 h-6 text-background ml-1" fill="currentColor" />
+                        </div>
                       </div>
-                    </div>
 
-                    {index === 0 && (
-                      <div className="absolute top-4 left-4 px-3 py-1 bg-primary rounded-full">
-                        <span className="text-xs font-bold text-primary-foreground uppercase">Nuevo</span>
-                      </div>
-                    )}
+                      {index === 0 && (
+                        <div className="absolute top-4 left-4 bg-primary text-primary-foreground rounded-full px-3 py-1 -rotate-3 border-2 border-foreground">
+                          <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo</span>
+                        </div>
+                      )}
 
-                    <div className="absolute bottom-4 right-4 flex items-center gap-2 text-xs text-white/90">
-                      <div className="flex items-center gap-1 bg-foreground/50 backdrop-blur-sm px-2 py-1 rounded-full">
+                      <div className="absolute bottom-4 right-4 flex items-center gap-1 bg-background border-2 border-foreground px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                         <Eye className="w-3 h-3" />
                         {formatViews(episode.view_count)}
                       </div>
                     </div>
-                  </div>
 
-                  <div className="p-6">
-                    <h3 className="font-display font-bold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2 text-foreground tracking-tight">
-                      {episode.title}
-                    </h3>
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {formatRelative(episode.published_at)}
+                    <div className="p-6">
+                      <h3 className="font-display font-black text-lg md:text-xl mb-3 line-clamp-2 text-foreground tracking-tight leading-tight group-hover:text-primary transition-colors">
+                        {episode.title}
+                      </h3>
+                      <div className="flex items-center justify-between gap-4 text-xs">
+                        <div className="flex items-center gap-1.5 text-muted-foreground font-semibold uppercase tracking-wider">
+                          <Clock className="w-3.5 h-3.5" />
+                          {formatRelative(episode.published_at)}
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-foreground font-display font-black text-[10px] uppercase tracking-widest">
+                          Ver
+                          <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </a>
-              ))}
+                  </a>
+                );
+              })}
         </div>
 
-        <div className="text-center mt-12">
-          <a href="https://www.youtube.com/@Vacilateestopodcast/videos" target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="lg">
-              Ver Todos los Episodios
-            </Button>
-          </a>
+        <div className="text-center mt-14">
+          <Button
+            asChild
+            size="xl"
+            className="rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all font-display font-black uppercase tracking-wider text-xs"
+          >
+            <a href="https://www.youtube.com/@Vacilateestopodcast/videos" target="_blank" rel="noopener noreferrer">
+              Ver todos los episodios
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </Button>
         </div>
       </div>
     </section>
