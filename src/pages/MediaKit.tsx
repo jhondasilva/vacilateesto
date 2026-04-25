@@ -42,18 +42,18 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene - 30 nov 2025)
+// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 24 abr 2026)
 const audienceData = {
-  totalFollowers: "3.5M+",
+  totalFollowers: "1.84M",
   totalImpressions: "89.6M",
   totalInteractions: "5.2M",
   totalPublications: "6,705",
   platforms: [
-    { name: "TikTok", followers: "1.82M", growth: "+7.18%", icon: Play },
-    { name: "Instagram", followers: "278.19K", growth: "+20.66%", icon: Instagram },
-    { name: "Facebook", followers: "210.68K", growth: "+11.8%", icon: Facebook },
-    { name: "YouTube", followers: "113K", growth: "+1.8%", icon: Youtube },
-    { name: "Threads", followers: "58.06K", growth: "+13.69%", icon: FileText },
+    { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
+    { name: "Instagram", followers: "284.94K", growth: "+23.59%", icon: Instagram },
+    { name: "Facebook", followers: "214.03K", growth: "+13.58%", icon: Facebook },
+    { name: "YouTube", followers: "119K", growth: "+7.21%", icon: Youtube },
+    { name: "Threads", followers: "61.23K", growth: "+19.88%", icon: FileText },
   ],
   impressions: {
     facebook: "44.79M",
