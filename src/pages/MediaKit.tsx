@@ -40,6 +40,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import StickerHeader from "@/components/StickerHeader";
+import StickerMarquee from "@/components/StickerMarquee";
 
 // Datos de audiencia - Fuente: Metricool (01 ene - 30 nov 2025)
 const audienceData = {
@@ -293,7 +295,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 shadow-card border border-border space-y-6">
+    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">Nombre *</Label>
@@ -337,7 +339,7 @@ const ContactForm = () => {
           required
         />
       </div>
-      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" size="lg" className="w-full border-2 border-foreground sticker-shadow-foreground font-display font-black uppercase tracking-widest" disabled={isSubmitting}>
         {isSubmitting ? (
           "Enviando..."
         ) : (
