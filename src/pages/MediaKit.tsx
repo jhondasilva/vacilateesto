@@ -176,14 +176,6 @@ const contentFormats = [
     stats: "Contenido curado",
   },
   {
-    title: "Caminado",
-    subtitle: "Formato Aventura",
-    description: "Un formato más aventurero de nuestro ecosistema, donde nos atrevemos a caminar partes de nuestro país y registramos todo el recorrido.",
-    icon: Footprints,
-    color: "bg-primary",
-    stats: "Exploraciones a pie",
-  },
-  {
     title: "Canales de Difusión",
     subtitle: "Comunidad VIP",
     description: "Canales exclusivos en Instagram y WhatsApp con contenidos especiales para nuestras comunidades más fieles. Acceso directo y cercano con nuestra audiencia.",
