@@ -105,7 +105,7 @@ const Footer = () => {
       title: "Recursos",
       links: [
         { label: "Media Kit", href: "/media-kit" },
-        { label: "Media Kit VEM 2026", href: "/media-kit/VacilateElMundial-MediaKit-2026.pdf" },
+        { label: "Media Kit VEM 2026", href: "/downloads/VacilateElMundial-MediaKit-2026.pdf" },
       ],
     },
     {
