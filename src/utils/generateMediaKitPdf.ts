@@ -296,7 +296,7 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  const desc = "Conectamos marcas con una audiencia apasionada de más de 3.5 millones de seguidores a través de contenido auténtico y entretenido.";
+  const desc = "Conectamos marcas con una audiencia apasionada de más de 1.84 millones de seguidores a través de contenido auténtico y entretenido.";
   const descLines = doc.splitTextToSize(desc, pageWidth - 60);
   doc.text(descLines, pageWidth / 2, 160, { align: "center" });
 

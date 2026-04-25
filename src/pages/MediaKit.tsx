@@ -477,13 +477,13 @@ const MediaKit = () => {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Media Kit 2026 | Vacílate Esto Podcast" />
-        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
+        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
         <meta property="og:url" content="https://www.vacilateesto.com/media-kit" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
-        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 3.5M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
+        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -496,7 +496,7 @@ const MediaKit = () => {
             "mainEntity": {
               "@type": "Organization",
               "name": "Vacílate Esto",
-              "description": "Ecosistema de Fun Educaitment venezolano con más de 3.5 millones de seguidores.",
+              "description": "Ecosistema de Fun Educaitment venezolano con más de 1.84 millones de seguidores.",
               "numberOfEmployees": "2",
               "founder": [
                 { "@type": "Person", "name": "Juan Carlos Martínez" },
