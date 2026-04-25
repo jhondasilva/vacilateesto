@@ -28,7 +28,7 @@ const TICKER = ["MEDIA HOLDING", "★", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR"
 
 const MediaHoldingSection = () => {
   return (
-    <section className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="media-holding-title">
+    <section id="media-holding" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="media-holding-title">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[32rem] h-[32rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 right-1/4 w-[32rem] h-[32rem] bg-accent/12 rounded-full blur-[140px]" />

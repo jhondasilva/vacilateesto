@@ -56,7 +56,7 @@ const TICKER = ["DISTRIBUCIÓN", "★", "10 CANALES", "✦", "MULTIPLATAFORMA", 
 
 const PlatformsSection = () => {
   return (
-    <section className="relative overflow-hidden bg-foreground text-background pt-0 pb-20 md:pb-28" aria-labelledby="platforms-title">
+    <section id="plataformas" className="relative overflow-hidden bg-foreground text-background pt-0 pb-20 md:pb-28" aria-labelledby="platforms-title">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[36rem] h-[36rem] bg-primary/25 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] bg-accent/25 rounded-full blur-[140px]" />
