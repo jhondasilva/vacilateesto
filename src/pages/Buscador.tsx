@@ -31,7 +31,6 @@ const SUGGESTIONS = [
   "el gol de Salomón Rondón",
   "leyenda del Silbón",
   "cuando hablaron de Roraima",
-  "Diosdado Cabello",
   "el perro caliente",
 ];
 

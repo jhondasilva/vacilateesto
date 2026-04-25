@@ -11,7 +11,6 @@ const SUGGESTIONS = [
   "Salomón Rondón",
   "perro caliente",
   "ramen",
-  "Diosdado",
   "llaneridad",
 ];
 
