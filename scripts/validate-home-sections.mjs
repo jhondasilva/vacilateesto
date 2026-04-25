@@ -8,6 +8,8 @@
  *   2. aria-labelledby que apunte a un id existente dentro del mismo archivo
  *   3. itemScope + itemType (Schema.org)
  *   4. <meta itemProp="name" />, "description" y "url" sin valores duplicados
+ *   5. itemProp="url" canónica: HTTPS, dominio canónico oficial,
+ *      hash que coincide con el id de la sección, sin query/trailing slash sucio.
  *
  * Falla el build (exit 1) si encuentra errores.
  * Se ejecuta automáticamente vía `npm run build` (prebuild).
@@ -38,6 +40,10 @@ const SECTION_FILES = [
 ];
 
 const REQUIRED_ITEMPROPS = ["name", "description", "url"];
+
+// Dominio canónico oficial del sitio (debe coincidir con <link rel="canonical">
+// y con sitemap.xml). Cualquier itemProp="url" del home debe usar exactamente este origin.
+const CANONICAL_ORIGIN = "https://www.vacilateesto.com";
 
 /**
  * Encuentra el primer <section ...> top-level con id="..." en el archivo.
