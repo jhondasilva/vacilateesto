@@ -73,7 +73,7 @@ const PlatformsSection = () => {
           badge="Plataformas"
           badgeVariant="outline"
           title="dónde nos"
-          highlight="encontrás"
+          highlight="encuentras"
           description="Una marca de Fun Educaitment presente en múltiples plataformas."
           onDark
         />
