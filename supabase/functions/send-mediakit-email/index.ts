@@ -11,6 +11,7 @@ const corsHeaders = {
 interface SendMediaKitRequest {
   email: string;
   pdfBase64: string;
+  kit?: "esto" | "mundial";
 }
 
 // HTML escape function to prevent XSS/injection attacks
@@ -75,7 +76,17 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const requestData = await req.json();
-    const { email, pdfBase64 } = requestData as SendMediaKitRequest;
+    const { email, pdfBase64, kit = "esto" } = requestData as SendMediaKitRequest;
+
+    const isMundial = kit === "mundial";
+    const subject = isMundial
+      ? "Media Kit Vacílate El Mundial 2026"
+      : "Media Kit Vacílate Esto 2026";
+    const filename = isMundial
+      ? "Media Kit Vacilate El Mundial 2026.pdf"
+      : "Media Kit Vacilate Esto 2026.pdf";
+    const headerTitle = isMundial ? "VACÍLATE EL MUNDIAL" : "VACÍLATE ESTO";
+    const headerSub = isMundial ? "Media Kit Mundial 2026" : "Media Kit 2026";
     
     console.log(`Received request for email: ${email}`);
     console.log(`PDF base64 length: ${pdfBase64?.length || 0}`);
@@ -104,7 +115,7 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Vacílate Esto <onboarding@resend.dev>",
         to: [email],
-        subject: "Media Kit Vacílate Esto 2026",
+        subject,
         html: `
           <!DOCTYPE html>
           <html>
@@ -127,8 +138,8 @@ const handler = async (req: Request): Promise<Response> => {
           <body>
             <div class="container">
               <div class="header">
-                <h1>VACÍLATE ESTO</h1>
-                <p>Media Kit 2026</p>
+                <h1>${escapeHtml(headerTitle)}</h1>
+                <p>${escapeHtml(headerSub)}</p>
               </div>
               <div class="content">
                 <h2>¡Gracias por tu interés!</h2>
@@ -147,7 +158,7 @@ const handler = async (req: Request): Promise<Response> => {
         `,
         attachments: [
           {
-            filename: "Media Kit Vacilate Esto 2026.pdf",
+            filename,
             content: pdfBase64,
           },
         ],
