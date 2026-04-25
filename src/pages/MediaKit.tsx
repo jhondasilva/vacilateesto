@@ -40,6 +40,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import StickerHeader from "@/components/StickerHeader";
+import StickerMarquee from "@/components/StickerMarquee";
 
 // Datos de audiencia - Fuente: Metricool (01 ene - 30 nov 2025)
 const audienceData = {
@@ -293,7 +295,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 shadow-card border border-border space-y-6">
+    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">Nombre *</Label>
@@ -337,7 +339,7 @@ const ContactForm = () => {
           required
         />
       </div>
-      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" size="lg" className="w-full border-2 border-foreground sticker-shadow-foreground font-display font-black uppercase tracking-widest" disabled={isSubmitting}>
         {isSubmitting ? (
           "Enviando..."
         ) : (
@@ -601,43 +603,46 @@ const MediaKit = () => {
           </section>
 
           {/* Platform Stats Section */}
-          <section className="py-20 bg-background">
+          <section className="py-16 md:py-24 bg-background">
+            <StickerMarquee
+              items={["★ 3.5M+ SEGUIDORES", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              variant="primary"
+              className="mb-12 sm:mb-16"
+            />
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">Métricas por Plataforma</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Nuestra Presencia Digital
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Datos: 01 enero - 30 noviembre 2025 · <span className="font-semibold">Fuente: Metricool</span>
-                </p>
-              </div>
+              <StickerHeader
+                badge="Métricas por plataforma"
+                badgeIcon={TrendingUp}
+                badgeVariant="primary"
+                title="Nuestra"
+                highlight="presencia digital"
+                description="Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool"
+              />
 
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
                 {audienceData.platforms.map((platform, index) => (
                   <div 
                     key={index} 
-                    className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-elevated transition-all duration-300 group"
+                    className={`bg-card rounded-2xl p-5 sm:p-6 border-2 border-foreground sticker-card-rotate ${index % 2 === 0 ? "sticker-shadow-primary sticker-tilt-l-sm" : "sticker-shadow-accent sticker-tilt-r-sm"} sticker-no-hover-mobile hover:-translate-y-1 transition-transform group`}
                   >
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                    <div className="text-xs text-muted-foreground mb-1">{platform.name}</div>
-                    <div className="text-2xl font-bold text-foreground">{platform.followers}</div>
+                    <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
+                    <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.followers}</div>
                     <div className="text-xs text-muted-foreground mb-1">Seguidores</div>
-                    <div className="text-sm font-semibold text-green-500">{platform.growth}</div>
+                    <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.growth}</div>
                   </div>
                 ))}
               </div>
 
               {/* Impressions Grid */}
-              <div className="mt-16 grid md:grid-cols-2 gap-8">
+              <div className="mt-16 grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Impresiones */}
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-3xl p-8 border border-primary/20">
-                  <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
-                    <Eye className="w-6 h-6 text-primary" />
-                    Impresiones Totales
+                <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary">
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-foreground mb-6 flex items-center gap-3 tracking-tight">
+                    <span className="inline-flex items-center justify-center w-9 h-9 bg-primary text-primary-foreground border-2 border-foreground rounded-full">
+                      <Eye className="w-4 h-4" />
+                    </span>
+                    Impresiones <span className="italic text-gradient">totales</span>
                   </h3>
                   <div className="space-y-4">
                     {[
@@ -650,8 +655,8 @@ const MediaKit = () => {
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
                         <div className="text-right">
-                          <span className="text-xl font-bold text-foreground">{item.value}</span>
-                          {item.growth && <span className={`text-sm ml-2 ${item.growth.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>{item.growth}</span>}
+                          <span className="font-display text-xl font-black text-foreground">{item.value}</span>
+                          {item.growth && <span className={`text-xs ml-2 px-1.5 py-0.5 font-display font-black border-2 border-foreground ${item.growth.startsWith('-') ? 'bg-destructive text-destructive-foreground' : 'bg-accent text-accent-foreground'}`}>{item.growth}</span>}
                         </div>
                       </div>
                     ))}
@@ -659,10 +664,12 @@ const MediaKit = () => {
                 </div>
 
                 {/* Interacciones */}
-                <div className="bg-gradient-to-br from-[#7DE8E8]/10 to-[#7DE8E8]/5 rounded-3xl p-8 border border-[#7DE8E8]/20">
-                  <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
-                    <Heart className="w-6 h-6 text-[#7DE8E8]" />
-                    Interacciones Totales
+                <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-accent">
+                  <h3 className="font-display text-2xl sm:text-3xl font-black text-foreground mb-6 flex items-center gap-3 tracking-tight">
+                    <span className="inline-flex items-center justify-center w-9 h-9 bg-accent text-accent-foreground border-2 border-foreground rounded-full">
+                      <Heart className="w-4 h-4" />
+                    </span>
+                    Interacciones <span className="italic text-gradient">totales</span>
                   </h3>
                   <div className="space-y-4">
                     {[
@@ -674,7 +681,7 @@ const MediaKit = () => {
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
-                        <span className="text-xl font-bold text-foreground">{item.value}</span>
+                        <span className="font-display text-xl font-black text-foreground">{item.value}</span>
                       </div>
                     ))}
                   </div>
@@ -684,37 +691,33 @@ const MediaKit = () => {
           </section>
 
           {/* Demographics Section */}
-          <section className="py-20 bg-muted/30">
+          <section className="py-16 md:py-24 bg-muted/30 border-y-2 border-foreground">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                  <Globe className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">Demografía</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  ¿De Dónde Es Nuestra Audiencia?
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Una comunidad global con fuerte presencia en Venezuela y la diáspora · <span className="font-semibold">Fuente: Metricool</span>
-                </p>
-              </div>
+              <StickerHeader
+                badge="Demografía"
+                badgeIcon={Globe}
+                badgeVariant="accent"
+                title="¿De dónde es"
+                highlight="nuestra audiencia"
+                description="Una comunidad global con fuerte presencia en Venezuela y la diáspora · Fuente: Metricool"
+              />
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Países */}
-                <div className="bg-card rounded-3xl p-8 shadow-card border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Top 10 Países</h3>
+                <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary">
+                  <div className="inline-block mb-6 px-3 py-1 bg-foreground text-background border-2 border-foreground font-display font-black text-xs uppercase tracking-widest -rotate-1">★ Top 10 Países</div>
                   <div className="space-y-3">
                     {audienceData.demographics.countries.map((country, idx) => (
                       <div key={idx} className="flex items-center gap-4">
-                        <span className="w-6 text-center text-sm font-bold text-primary">{idx + 1}</span>
+                        <span className="w-7 h-7 flex items-center justify-center text-xs font-display font-black bg-primary text-primary-foreground border-2 border-foreground rounded-full">{idx + 1}</span>
                         <div className="flex-1">
                           <div className="flex justify-between mb-1">
                             <span className="text-foreground font-medium">{country.name}</span>
-                            <span className="text-foreground font-bold">{country.percentage}</span>
+                            <span className="font-display text-foreground font-black">{country.percentage}</span>
                           </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-2.5 bg-muted rounded-full overflow-hidden border border-foreground">
                             <div 
-                              className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full"
+                              className="h-full bg-primary rounded-full"
                               style={{ width: country.percentage }}
                             />
                           </div>
@@ -725,20 +728,20 @@ const MediaKit = () => {
                 </div>
 
                 {/* Regiones */}
-                <div className="bg-card rounded-3xl p-8 shadow-card border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Top Regiones</h3>
+                <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-accent">
+                  <div className="inline-block mb-6 px-3 py-1 bg-accent text-accent-foreground border-2 border-foreground font-display font-black text-xs uppercase tracking-widest rotate-1">◆ Top Regiones</div>
                   <div className="space-y-3">
                     {audienceData.demographics.regions.map((region, idx) => (
                       <div key={idx} className="flex items-center gap-4">
-                        <span className="w-6 text-center text-sm font-bold text-[#7DE8E8]">{idx + 1}</span>
+                        <span className="w-7 h-7 flex items-center justify-center text-xs font-display font-black bg-accent text-accent-foreground border-2 border-foreground rounded-full">{idx + 1}</span>
                         <div className="flex-1">
                           <div className="flex justify-between mb-1">
                             <span className="text-foreground font-medium capitalize">{region.name}</span>
-                            <span className="text-foreground font-bold">{region.percentage}</span>
+                            <span className="font-display text-foreground font-black">{region.percentage}</span>
                           </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-2.5 bg-muted rounded-full overflow-hidden border border-foreground">
                             <div 
-                              className="h-full bg-gradient-to-r from-[#7DE8E8] to-[#7DE8E8]/60 rounded-full"
+                              className="h-full bg-accent rounded-full"
                               style={{ width: `${parseFloat(region.percentage) * 3}%` }}
                             />
                           </div>
@@ -752,36 +755,32 @@ const MediaKit = () => {
           </section>
 
           {/* Content Formats Section */}
-          <section className="py-20 bg-background">
+          <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                  <Play className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">Formatos de Contenido</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Nuestro Ecosistema de Contenido
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Múltiples formatos para conectar con nuestra audiencia de diferentes maneras
-                </p>
-              </div>
+              <StickerHeader
+                badge="Formatos de contenido"
+                badgeIcon={Play}
+                badgeVariant="dark"
+                title="Nuestro ecosistema de"
+                highlight="contenido"
+                description="Múltiples formatos para conectar con nuestra audiencia de diferentes maneras."
+              />
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 sticker-grid-safe">
                 {contentFormats.map((format, index) => (
                   <div 
                     key={index}
-                    className="group bg-card rounded-3xl p-8 border border-border shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
+                    className={`group bg-card rounded-3xl p-6 sm:p-7 border-2 border-foreground sticker-card-rotate ${index % 3 === 0 ? "sticker-shadow-primary sticker-tilt-l-sm" : index % 3 === 1 ? "sticker-shadow-accent sticker-tilt-r-sm" : "sticker-shadow-foreground"} sticker-no-hover-mobile hover:-translate-y-1 transition-transform`}
                   >
-                    <div className={`w-14 h-14 ${format.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                      <format.icon className="w-7 h-7 text-background" />
+                    <div className={`w-14 h-14 ${format.color} border-2 border-foreground rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:-rotate-6 transition-transform shadow-[3px_3px_0_hsl(var(--foreground))]`}>
+                      <format.icon className="w-7 h-7 text-foreground" />
                     </div>
-                    <div className="text-sm font-medium text-primary mb-1">{format.subtitle}</div>
-                    <h3 className="text-xl font-bold text-foreground mb-3">{format.title}</h3>
+                    <div className="text-[10px] font-display font-black uppercase tracking-widest text-primary mb-1">{format.subtitle}</div>
+                    <h3 className="font-display text-xl sm:text-2xl font-black text-foreground mb-3 leading-tight tracking-tight">{format.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                       {format.description}
                     </p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted text-xs font-medium text-foreground mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-foreground text-background text-[10px] font-display font-black uppercase tracking-widest mb-3">
                       {format.stats}
                     </div>
                     {format.platforms && (
@@ -796,38 +795,34 @@ const MediaKit = () => {
           </section>
 
           {/* Top Posts Section */}
-          <section className="py-20 bg-muted/30">
+          <section className="py-16 md:py-24 bg-muted/30 border-y-2 border-foreground">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">Top Publicaciones</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Contenido que Genera Impacto
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Nuestras publicaciones con mejor rendimiento · <span className="font-semibold">Fuente: Metricool</span>
-                </p>
-              </div>
+              <StickerHeader
+                badge="Top publicaciones"
+                badgeIcon={TrendingUp}
+                badgeVariant="primary"
+                title="Contenido que"
+                highlight="genera impacto"
+                description="Nuestras publicaciones con mejor rendimiento · Fuente: Metricool"
+              />
 
               <div className="overflow-x-auto">
-                <table className="w-full bg-card rounded-2xl shadow-card border border-border overflow-hidden">
-                  <thead className="bg-muted/50">
+                <table className="w-full bg-card rounded-2xl border-2 border-foreground sticker-shadow-foreground overflow-hidden">
+                  <thead className="bg-foreground text-background">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Fecha</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Descripción</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Impresiones</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Interacciones</th>
+                      <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Fecha</th>
+                      <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Descripción</th>
+                      <th className="px-4 sm:px-6 py-4 text-right text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Impresiones</th>
+                      <th className="px-4 sm:px-6 py-4 text-right text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Interacciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {topPosts.map((post, idx) => (
-                      <tr key={idx} className="border-t border-border hover:bg-muted/30 transition-colors">
-                        <td className="px-6 py-4 text-sm text-muted-foreground whitespace-nowrap">{post.date}</td>
-                        <td className="px-6 py-4 text-sm text-foreground">{post.description}</td>
-                        <td className="px-6 py-4 text-sm font-bold text-foreground text-right">{post.impressions}</td>
-                        <td className="px-6 py-4 text-sm font-bold text-primary text-right">{post.interactions}</td>
+                      <tr key={idx} className="border-t-2 border-foreground hover:bg-primary/10 transition-colors">
+                        <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-muted-foreground whitespace-nowrap font-medium">{post.date}</td>
+                        <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground">{post.description}</td>
+                        <td className="px-4 sm:px-6 py-4 text-sm font-display font-black text-foreground text-right">{post.impressions}</td>
+                        <td className="px-4 sm:px-6 py-4 text-sm font-display font-black text-primary text-right">{post.interactions}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -837,48 +832,57 @@ const MediaKit = () => {
           </section>
 
           {/* Sponsorship Plans Section */}
-          <section className="py-20 bg-gradient-to-br from-foreground via-foreground to-foreground/90 relative overflow-hidden">
+          <section className="py-16 md:py-24 bg-foreground relative overflow-hidden border-b-4 border-foreground">
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-20 right-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-              <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#7DE8E8] rounded-full blur-3xl" />
+              <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent rounded-full blur-3xl" />
+            </div>
+            {/* Floating stickers */}
+            <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
+              ★ Sponsors
+            </div>
+            <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
+              ◆ 2026
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 mb-4">
-                  <Calendar className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-primary">Planes de Patrocinio</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">
-                  Trabaja Con Nosotros
-                </h2>
-                <p className="text-background/70 text-lg max-w-2xl mx-auto">
-                  Planes diseñados para maximizar el impacto de tu marca
-                </p>
-              </div>
+              <StickerHeader
+                badge="Planes de patrocinio"
+                badgeIcon={Calendar}
+                badgeVariant="primary"
+                title="Trabaja"
+                highlight="con nosotros"
+                description="Planes diseñados para maximizar el impacto de tu marca."
+                onDark
+              />
 
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto sticker-grid-safe">
                 {sponsorshipPlans.map((plan, index) => (
                   <div 
                     key={index}
-                    className={`rounded-3xl p-8 ${
+                    className={`relative rounded-3xl p-6 sm:p-8 border-2 border-background sticker-card-rotate ${index === 0 ? "sticker-tilt-l-sm" : "sticker-tilt-r-sm"} ${
                       plan.highlighted 
-                        ? 'bg-primary text-background ring-4 ring-primary/30' 
-                        : 'bg-background/10 backdrop-blur-sm text-background border border-background/20'
+                        ? 'bg-primary text-primary-foreground shadow-[6px_6px_0_hsl(var(--background))] sm:shadow-[10px_10px_0_hsl(var(--background))]' 
+                        : 'bg-background text-foreground shadow-[6px_6px_0_hsl(var(--accent))] sm:shadow-[10px_10px_0_hsl(var(--accent))]'
                     }`}
                   >
-                    <h3 className={`text-3xl font-black mb-2 ${plan.highlighted ? 'text-background' : 'text-primary'}`}>
+                    {plan.highlighted && (
+                      <div className="absolute -top-3 -right-3 rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-[10px] uppercase tracking-widest shadow-[3px_3px_0_hsl(var(--foreground))]">
+                        ★ Recomendado
+                      </div>
+                    )}
+                    <h3 className={`font-display text-3xl sm:text-4xl font-black mb-2 tracking-tight ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'}`}>
                       {plan.name}
                     </h3>
-                    <p className={`text-sm mb-6 ${plan.highlighted ? 'text-background/80' : 'text-background/60'}`}>
+                    <p className={`text-xs uppercase tracking-widest font-display font-black mb-6 ${plan.highlighted ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
                       {plan.subtitle}
                     </p>
                     <ul className="space-y-4">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.highlighted ? 'text-background' : 'text-primary'}`} />
-                          <span className={plan.highlighted ? 'text-background/90' : 'text-background/80'}>
-                            <strong className={plan.highlighted ? 'text-background' : 'text-[#7DE8E8]'}>{feature.quantity}</strong> {feature.description}
+                          <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.highlighted ? 'text-primary-foreground' : 'text-primary'}`} />
+                          <span className={plan.highlighted ? 'text-primary-foreground/90' : 'text-foreground/80'}>
+                            <strong className={`font-display font-black ${plan.highlighted ? 'text-primary-foreground' : 'text-accent-foreground bg-accent px-1.5 border-2 border-foreground'}`}>{feature.quantity}</strong> {feature.description}
                           </span>
                         </li>
                       ))}
@@ -890,21 +894,17 @@ const MediaKit = () => {
           </section>
 
           {/* Contact Form Section */}
-          <section className="py-20 bg-background" id="contacto">
+          <section className="py-16 md:py-24 bg-background" id="contacto">
             <div className="container mx-auto px-4">
               <div className="max-w-2xl mx-auto">
-                <div className="text-center mb-12">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                    <Mail className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-foreground">Contacto</span>
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                    ¿Listo para Conectar con Nuestra Audiencia?
-                  </h2>
-                  <p className="text-muted-foreground text-lg">
-                    Completa el formulario y te contactaremos para crear una estrategia personalizada.
-                  </p>
-                </div>
+                <StickerHeader
+                  badge="Contacto"
+                  badgeIcon={Mail}
+                  badgeVariant="accent"
+                  title="¿Listo para conectar con"
+                  highlight="nuestra audiencia"
+                  description="Completa el formulario y te contactaremos para crear una estrategia personalizada."
+                />
 
                 <ContactForm />
 
