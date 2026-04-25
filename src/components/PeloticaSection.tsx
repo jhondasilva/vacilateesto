@@ -26,7 +26,7 @@ const PeloticaSection = () => {
         />
 
         <div className="max-w-4xl mx-auto mb-10">
-          <div className="relative bg-background rounded-3xl overflow-hidden border-2 border-foreground shadow-[10px_10px_0_hsl(var(--accent))]" style={{ paddingBottom: "56.25%" }}>
+          <div className="relative bg-background rounded-3xl overflow-hidden border-2 border-foreground sticker-shadow-lg-accent" style={{ paddingBottom: "56.25%" }}>
             <iframe
               src="https://www.youtube.com/embed/177jg-ARY5Y"
               title="Pelotica de Goma - La Historia"

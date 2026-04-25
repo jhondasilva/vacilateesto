@@ -71,35 +71,35 @@ const HomeSearchSection = () => {
 
           <h2
             id="search-title"
-            className="font-display font-black text-foreground mb-2 tracking-[-0.04em] leading-[0.85] text-5xl sm:text-6xl md:text-7xl"
+            className="font-display font-black text-foreground mb-2 tracking-[-0.04em] leading-[0.85] text-[2.5rem] sm:text-6xl md:text-7xl"
           >
             ¿de qué <span className="text-gradient italic">hablamos</span>
             <span className="block">sobre <span className="text-foreground">eso</span>?</span>
           </h2>
 
-          <p className="text-muted-foreground text-base md:text-lg mt-6 mb-10 max-w-xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg mt-5 sm:mt-6 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed">
             Buscá cualquier tema dentro de todos nuestros podcasts y saltá al
             minuto exacto donde lo conversamos. ✦
           </p>
 
           {/* Search form — neo-brutalist */}
           <form onSubmit={onSubmit} className="relative max-w-2xl mx-auto">
-            <div className="relative flex items-center gap-2 bg-background rounded-full border-2 border-foreground p-2 pl-5 shadow-[6px_6px_0_hsl(var(--primary))] focus-within:shadow-[8px_8px_0_hsl(var(--accent))] focus-within:-translate-x-0.5 focus-within:-translate-y-0.5 transition-all">
+            <div className="relative flex items-center gap-2 bg-background rounded-full border-2 border-foreground p-2 pl-4 sm:pl-5 shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] focus-within:shadow-[8px_8px_0_hsl(var(--accent))] focus-within:-translate-x-0.5 focus-within:-translate-y-0.5 transition-all">
               <Search className="w-5 h-5 text-foreground shrink-0" />
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Ej: la leyenda del Silbón…"
-                className="border-0 shadow-none focus-visible:ring-0 text-base md:text-lg bg-transparent flex-1 px-2 placeholder:text-muted-foreground"
+                className="border-0 shadow-none focus-visible:ring-0 text-base md:text-lg bg-transparent flex-1 px-1 sm:px-2 placeholder:text-muted-foreground min-w-0"
                 aria-label="Buscar contenido"
               />
               <Button
                 type="submit"
                 size="lg"
-                className="rounded-full gap-2 shrink-0 bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground font-display font-black uppercase tracking-wider text-xs"
+                className="rounded-full gap-2 shrink-0 bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground font-display font-black uppercase tracking-wider text-xs px-4 sm:px-6"
                 disabled={query.trim().length < 2}
               >
-                Buscar
+                <span className="hidden sm:inline">Buscar</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>

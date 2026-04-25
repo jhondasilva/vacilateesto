@@ -90,7 +90,7 @@ const NewsletterSection = () => {
           />
 
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="relative flex flex-col sm:flex-row items-stretch gap-2 bg-background rounded-3xl sm:rounded-full border-2 border-foreground p-2 sm:pl-5 shadow-[6px_6px_0_hsl(var(--primary))] focus-within:shadow-[8px_8px_0_hsl(var(--accent))] focus-within:-translate-x-0.5 focus-within:-translate-y-0.5 transition-all">
+            <div className="relative flex flex-col sm:flex-row items-stretch gap-2 bg-background rounded-3xl sm:rounded-full border-2 border-foreground p-2 sm:pl-5 shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] focus-within:shadow-[8px_8px_0_hsl(var(--accent))] focus-within:-translate-x-0.5 focus-within:-translate-y-0.5 transition-all">
               <div className="flex items-center gap-2 flex-1 px-3 sm:px-0">
                 <Mail className="w-5 h-5 text-foreground shrink-0" />
                 <Input

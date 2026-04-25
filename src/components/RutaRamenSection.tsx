@@ -32,7 +32,7 @@ const RutaRamenSection = () => {
 
         {/* Video */}
         <div className="max-w-4xl mx-auto mb-12">
-          <div className="relative bg-background rounded-3xl overflow-hidden border-2 border-foreground shadow-[10px_10px_0_hsl(var(--primary))]" style={{ paddingBottom: "56.25%" }}>
+          <div className="relative bg-background rounded-3xl overflow-hidden border-2 border-foreground sticker-shadow-lg-primary" style={{ paddingBottom: "56.25%" }}>
             <iframe
               src="https://www.youtube.com/embed/K6f1fHsqgg8"
               title="Ruta del Ramen en Caracas - Vacílate Esto Comiendo EP 1"
@@ -51,17 +51,14 @@ const RutaRamenSection = () => {
               <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Cómo evaluamos</span>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
             {criteria.map((c, index) => (
               <div
                 key={c}
-                className="text-center p-5 rounded-2xl bg-background border-2 border-foreground hover:-translate-y-1 transition-all"
-                style={{
-                  boxShadow: `4px 4px 0 hsl(var(--${index % 2 === 0 ? "primary" : "accent"}))`,
-                  transform: `rotate(${(index % 2 === 0 ? -1 : 1) * 1.5}deg)`,
-                }}
+                className={`text-center p-4 sm:p-5 rounded-2xl bg-background border-2 border-foreground hover:-translate-y-1 transition-all sticker-card-rotate sticker-shadow-${index % 2 === 0 ? "primary" : "accent"}`}
+                style={{ transform: `rotate(${(index % 2 === 0 ? -1 : 1) * 1.5}deg)` }}
               >
-                <div className="font-display font-black text-3xl text-foreground mb-1">{index + 1}</div>
+                <div className="font-display font-black text-2xl sm:text-3xl text-foreground mb-1">{index + 1}</div>
                 <div className="text-xs font-bold text-foreground uppercase tracking-wider">{c}</div>
               </div>
             ))}
@@ -76,12 +73,11 @@ const RutaRamenSection = () => {
               <span className="font-display font-black text-[10px] uppercase tracking-widest">Restaurantes visitados</span>
             </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
             {restaurants.map((restaurant, idx) => (
               <div
                 key={restaurant.name}
-                className="p-7 rounded-3xl bg-background border-2 border-foreground hover:-translate-y-1 transition-all"
-                style={{ boxShadow: `6px 6px 0 hsl(var(--${idx % 2 === 0 ? "primary" : "accent"}))` }}
+                className={`p-5 sm:p-6 md:p-7 rounded-3xl bg-background border-2 border-foreground hover:-translate-y-1 transition-all sticker-shadow-${idx % 2 === 0 ? "primary" : "accent"}`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <h4 className="font-display font-black text-2xl text-foreground uppercase tracking-tight">{restaurant.name}</h4>
