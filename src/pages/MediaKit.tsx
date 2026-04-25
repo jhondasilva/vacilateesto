@@ -202,19 +202,7 @@ const contentFormats = [
 
 const sponsorshipPlans = [
   {
-    name: "Plan 1",
-    subtitle: "Brand Placement Intensivo",
-    features: [
-      { quantity: "30", description: "Brand Placement Shorts en TikTok e Instagram" },
-      { quantity: "4", description: "Long Podcast en YouTube - Mención de 30 seg" },
-      { quantity: "4", description: "Historias en Instagram - 1 semanal" },
-      { quantity: "4", description: "Presencia en Newsletters - 1 semanal" },
-      { quantity: "1", description: "Short mensual en TikTok e Instagram con historia de marca" },
-    ],
-    highlighted: true,
-  },
-  {
-    name: "Plan 2",
+    name: "Plan Mensual",
     subtitle: "Content Integration",
     features: [
       { quantity: "15", description: "Content Shorts en TikTok e Instagram" },
@@ -223,7 +211,7 @@ const sponsorshipPlans = [
       { quantity: "4", description: "Presencia en Newsletters" },
       { quantity: "1", description: "Short mensual con historia de marca" },
     ],
-    highlighted: false,
+    highlighted: true,
   },
 ];
 
@@ -863,11 +851,11 @@ const MediaKit = () => {
                 onDark
               />
 
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto sticker-grid-safe">
+              <div className="grid gap-6 sm:gap-8 max-w-md mx-auto sticker-grid-safe">
                 {sponsorshipPlans.map((plan, index) => (
                   <div 
                     key={index}
-                    className={`relative rounded-3xl p-6 sm:p-8 border-2 border-background sticker-card-rotate ${index === 0 ? "sticker-tilt-l-sm" : "sticker-tilt-r-sm"} ${
+                    className={`relative rounded-3xl p-6 sm:p-8 border-2 border-background sticker-card-rotate sticker-tilt-r-sm ${
                       plan.highlighted 
                         ? 'bg-primary text-primary-foreground shadow-[6px_6px_0_hsl(var(--background))] sm:shadow-[10px_10px_0_hsl(var(--background))]' 
                         : 'bg-background text-foreground shadow-[6px_6px_0_hsl(var(--accent))] sm:shadow-[10px_10px_0_hsl(var(--accent))]'
