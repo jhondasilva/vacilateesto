@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import StickerHeader from "@/components/StickerHeader";
+import StickerMarquee from "@/components/StickerMarquee";
 import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles } from "lucide-react";
 import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
 
