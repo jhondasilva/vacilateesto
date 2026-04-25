@@ -585,6 +585,126 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
+          {/* Media Kit Section */}
+          <section id="media-kit" className="py-12 md:py-24 bg-foreground text-background scroll-mt-24 border-y-4 border-foreground relative overflow-hidden">
+            <div aria-hidden className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute top-10 left-10 w-72 h-72 bg-[#9000ff] rounded-full blur-3xl" />
+              <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#ee506f] rounded-full blur-3xl" />
+            </div>
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-8 md:mb-12">
+                  <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-background/10 border border-background/20 mb-4">
+                    <FileText className="w-3.5 md:w-4 h-3.5 md:h-4" />
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider">Media Kit Mundial 2026</span>
+                  </div>
+                  <h2 className="font-display font-black text-3xl md:text-5xl mb-4">
+                    Llévate el Media Kit
+                  </h2>
+                  <p className="text-base md:text-lg text-background/80 max-w-2xl mx-auto px-2">
+                    Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca.
+                    Descárgalo, recíbelo por email o compártelo por LINE.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+                  {/* Download */}
+                  <a
+                    href={MEDIAKIT_URL}
+                    download
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#00f5d4] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Download className="w-7 h-7 text-black" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Descargar PDF</h3>
+                    <p className="text-sm text-background/70 mb-4">8 páginas · Diseño Sticker Pack</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#00f5d4]">
+                      Descargar ahora <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* View / Open */}
+                  <a
+                    href={MEDIAKIT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#9000ff] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#9000ff] to-[#ee506f] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Eye className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Ver online</h3>
+                    <p className="text-sm text-background/70 mb-4">Ábrelo en tu navegador</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#ee506f]">
+                      Abrir PDF <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* Share on LINE */}
+                  <a
+                    href={lineShareUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-background/5 backdrop-blur-sm border-2 border-background/20 hover:border-[#06C755] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-[#06C755] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Send className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-1">Compartir en LINE</h3>
+                    <p className="text-sm text-background/70 mb-4">Envíalo a tu chat o grupo</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#06C755]">
+                      Abrir LINE <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+                </div>
+
+                {/* Email form */}
+                <div className="mt-8 md:mt-10 bg-background/5 backdrop-blur-sm border-2 border-background/20 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-background text-foreground flex items-center justify-center">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-base md:text-lg">Recíbelo por email</h3>
+                      <p className="text-xs md:text-sm text-background/70">Te lo enviamos como adjunto al instante.</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Input
+                      type="email"
+                      placeholder="tu@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-background text-foreground border-0 h-12"
+                      disabled={sending}
+                    />
+                    <Button
+                      onClick={handleSendByEmail}
+                      disabled={sending}
+                      className="h-12 bg-gradient-to-r from-[#9000ff] to-[#ee506f] hover:opacity-90 text-white font-bold whitespace-nowrap"
+                    >
+                      {sending ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Enviando…
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Enviar Media Kit
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-background/60 mt-3">
+                    Contacto oficial: <a href="mailto:elpatio@hacemosloquenosgusta.com" className="underline">elpatio@hacemosloquenosgusta.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* La Quiniela Section */}
           <section className="py-12 md:py-28 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
             {/* Decorative elements */}
