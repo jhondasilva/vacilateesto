@@ -90,7 +90,7 @@ const NewsletterSection = () => {
             badgeIcon={Sparkles}
             title="mantente al"
             highlight="día"
-            description="Suscribite a nuestra newsletter y recibí notificaciones de nuevos episodios, contenido exclusivo y las mejores aventuras."
+            description="Suscríbete a nuestra newsletter y recibe notificaciones de nuevos episodios, contenido exclusivo y las mejores aventuras."
           />
 
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
