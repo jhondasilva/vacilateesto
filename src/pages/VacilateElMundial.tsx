@@ -85,12 +85,12 @@ const contentFormats = [
 ];
 
 const timeline = [
-  { month: "Febrero 2026", event: "Inicio cobertura pre-Mundial desde Venezuela", status: "upcoming" },
-  { month: "Marzo 2026", event: "Contenido equipos, jugadores e historias", status: "upcoming" },
-  { month: "Abril 2026", event: "Historias de las sedes + gastronomía", status: "upcoming" },
-  { month: "Mayo 2026", event: "Houston: Base de operaciones USA", status: "upcoming" },
-  { month: "Junio 2026", event: "Costa Este + México: Mundial en vivo", status: "highlight" },
-  { month: "Julio 2026", event: "Final y cierre épico", status: "highlight" },
+  { month: "Febrero 2026", event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales", status: "upcoming" },
+  { month: "Marzo 2026", event: "Seguimos en redes con contenido de equipos, jugadores e historias", status: "upcoming" },
+  { month: "Abril 2026", event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope", status: "upcoming" },
+  { month: "Mayo 2026", event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas", status: "upcoming" },
+  { month: "Junio 2026", event: "A las sedes del Mundial: cobertura en ruta según itinerario", status: "highlight" },
+  { month: "Julio 2026", event: "La locura total: todo, todo el tiempo, hasta la final", status: "highlight" },
 ];
 
 const hosts = [
@@ -957,9 +957,28 @@ const VacilateElMundial = () => {
                 <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
                   Calendario 2026
                 </h2>
-                <p className="text-base md:text-xl text-muted-foreground">
-                  6 meses de contenido continuo
+                <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 px-2">
+                  De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del Mundial.
                 </p>
+
+                {/* Ecosistema legend */}
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-3xl mx-auto">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
+                    <Instagram className="w-3.5 h-3.5 text-[#ee506f]" />
+                    <span className="font-semibold">Redes</span>
+                    <span className="text-muted-foreground">· Reels · Shorts · TikToks</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
+                    <Tv className="w-3.5 h-3.5 text-[#9000ff]" />
+                    <span className="font-semibold">Streaming</span>
+                    <span className="text-muted-foreground">· Martes 5:00 PM</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs md:text-sm">
+                    <Radio className="w-3.5 h-3.5 text-[#00d9ff]" />
+                    <span className="font-semibold">Podcast</span>
+                    <span className="text-muted-foreground">· Jueves</span>
+                  </div>
+                </div>
               </div>
               
               <div className="max-w-3xl mx-auto">
