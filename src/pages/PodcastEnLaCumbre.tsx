@@ -320,7 +320,7 @@ const PodcastEnLaCumbre = () => {
                 <img 
                   src={logoCumbre} 
                   alt="Podcast en la Cumbre - Logo del proyecto de podcasts en montañas de Venezuela" 
-                  className="w-full max-w-2xl h-auto drop-shadow-[8px_8px_0_hsl(var(--foreground))]"
+                  className="w-full max-w-2xl h-auto"
                   loading="eager"
                 />
               </div>
