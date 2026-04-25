@@ -357,12 +357,18 @@ const VacilateElMundial = () => {
                 </a>
 
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
-                  <Link to="/media-kit#contacto">
+                  <a href="#media-kit">
                     <Button size="default" className="bg-white text-[#9000ff] hover:bg-white/90 w-full sm:w-auto text-sm md:text-base">
-                      <Trophy className="w-4 md:w-5 h-4 md:h-5 mr-2" />
-                      Quiero Patrocinar
+                      <FileText className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                      Ver Media Kit
                     </Button>
-                  </Link>
+                  </a>
+                  <a href="#la-ruta">
+                    <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
+                      <MapPin className="w-4 md:w-5 h-4 md:h-5 mr-2" />
+                      La Ruta
+                    </Button>
+                  </a>
                   <a href="https://www.instagram.com/vacilateestopodcast" target="_blank" rel="noopener noreferrer">
                     <Button size="default" variant="outline" className="border-white text-white hover:bg-white/20 w-full sm:w-auto text-sm md:text-base">
                       <Instagram className="w-4 md:w-5 h-4 md:h-5 mr-2" />
