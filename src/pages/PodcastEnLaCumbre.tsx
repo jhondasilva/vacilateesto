@@ -126,18 +126,34 @@ const PodcastEnLaCumbre = () => {
               "name": "Podcast en Naiguatá - El Techo de Caracas",
               "episodeNumber": 1,
               "description": "Primer episodio grabado en la cima del Pico Naiguatá a 2.765 metros, el techo de Caracas. Una expedición de 20 personas subiendo con micrófonos, cámaras y humor venezolano.",
+              "inLanguage": "es-VE",
               "duration": "PT1H30M",
               "datePublished": "2025-09",
-              "url": "https://www.youtube.com/watch?v=NZWSKJvOdXg"
+              "url": "https://www.youtube.com/watch?v=NdrcKpsD0UU",
+              "associatedMedia": {
+                "@type": "VideoObject",
+                "name": "Podcast en Naiguatá - El Techo de Caracas",
+                "embedUrl": "https://www.youtube.com/embed/NdrcKpsD0UU",
+                "uploadDate": "2025-09-01"
+              },
+              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast" }
             },
             {
               "@type": "PodcastEpisode",
               "name": "Podcast en Roraima - 2.000 Millones de Años de Ancestralidad",
               "episodeNumber": 2,
               "description": "Expedición al Monte Roraima, el tepuy más emblemático de Venezuela a 2.810 metros. Un viaje al origen del tiempo geológico y la cultura Pemón.",
+              "inLanguage": "es-VE",
               "duration": "PT1H1M29S",
               "datePublished": "2025-11",
-              "url": "https://www.youtube.com/watch?v=NdrcKpsD0UU"
+              "url": "https://www.youtube.com/watch?v=NZWSKJvOdXg",
+              "associatedMedia": {
+                "@type": "VideoObject",
+                "name": "Podcast en Roraima - 2.000 Millones de Años de Ancestralidad",
+                "embedUrl": "https://www.youtube.com/embed/NZWSKJvOdXg",
+                "uploadDate": "2025-11-01"
+              },
+              "partOfSeries": { "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast" }
             }
           ]
         },
