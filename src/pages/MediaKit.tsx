@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { generateMediaKitPdf, generateMediaKitPdfBase64 } from "@/utils/generateMediaKitPdf";
+// PDF estático servido desde /public/media-kit/
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -373,7 +373,18 @@ const PdfActions = () => {
     setIsSending(true);
 
     try {
-      const pdfBase64 = await generateMediaKitPdfBase64();
+      // Fetch static PDF and convert to base64
+      const res = await fetch("/media-kit/VacilateEsto-MediaKit-2026.pdf");
+      const blob = await res.blob();
+      const pdfBase64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          resolve(result.split(",")[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
 
       const { data, error } = await supabase.functions.invoke("send-mediakit-email", {
         body: { email: sendEmail, pdfBase64 },
@@ -407,10 +418,15 @@ const PdfActions = () => {
           variant="outline" 
           size="lg" 
           className="group"
-          onClick={() => generateMediaKitPdf()}
+          asChild
         >
-          <Download className="w-5 h-5 mr-2" />
-          Descargar Media Kit PDF
+          <a
+            href="/media-kit/VacilateEsto-MediaKit-2026.pdf"
+            download="Media Kit Vacilate Esto 2026.pdf"
+          >
+            <Download className="w-5 h-5 mr-2" />
+            Descargar Media Kit PDF
+          </a>
         </Button>
         
         <Button 
