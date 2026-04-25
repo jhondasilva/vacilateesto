@@ -28,7 +28,10 @@ const TICKER = ["MEDIA HOLDING", "★", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR"
 
 const MediaHoldingSection = () => {
   return (
-    <section id="media-holding" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="media-holding-title">
+    <section id="media-holding" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="media-holding-title" itemScope itemType="https://schema.org/WebPageElement">
+      <meta itemProp="name" content="Media Holding · El Ecosistema Vacílate Esto" />
+      <meta itemProp="description" content="Vacílate Esto opera como un Media Holding con 4 unidades: Media & Narrativa (podcast, shorts, lives), Experiencias (Pelotica de Goma, Podcast en la Cumbre, eventos), Tecnología & Data (La Quiniela, Vacílalo) y Retail & Consumo (Chocolates LATE)." />
+      <meta itemProp="url" content="https://www.vacilateesto.com/#media-holding" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[32rem] h-[32rem] bg-primary/12 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 right-1/4 w-[32rem] h-[32rem] bg-accent/12 rounded-full blur-[140px]" />
