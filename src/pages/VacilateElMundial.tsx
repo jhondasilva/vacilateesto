@@ -51,8 +51,8 @@ import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 const stats = [
   { value: "2M+", label: "Seguidores Activos", icon: Users },
   { value: "24/7", label: "Presencia Digital", icon: Clock },
-  { value: "100%", label: "Engagement", icon: Heart },
-  { value: "5", label: "Plataformas", icon: Globe },
+  { value: "15", label: "Ciudades en ruta", icon: MapPin },
+  { value: "4", label: "Países", icon: Globe },
 ];
 
 const platforms = [
