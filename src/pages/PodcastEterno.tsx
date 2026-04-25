@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import StickerHeader from "@/components/StickerHeader";
+import StickerMarquee from "@/components/StickerMarquee";
 import { Clock, Users, Trophy, Mic, Play, Calendar, Quote } from "lucide-react";
 
 const PodcastEterno = () => {
