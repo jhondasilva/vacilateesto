@@ -301,7 +301,7 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text(descLines, pageWidth / 2, 160, { align: "center" });
 
   const stats = [
-    { value: "3.5M+", label: "Seguidores" },
+    { value: "1.84M", label: "Comunidad" },
     { value: "89.6M", label: "Impresiones" },
     { value: "5.2M", label: "Interacciones" },
     { value: "6,705", label: "Publicaciones" },
@@ -332,18 +332,18 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(8);
-  doc.text("Datos: 01 enero - 30 noviembre 2025 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
+  doc.text("Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
 
   // ==================== PAGE 2: PLATFORM METRICS ====================
   addNewPage();
   drawHeader("NUESTRA PRESENCIA DIGITAL", "Métricas por Plataforma");
 
   const platformsWithValues = [
-    { name: "TikTok", followers: "1.82M", growth: "+7.18%", value: 1820000, icon: "▶" },
-    { name: "Instagram", followers: "278.19K", growth: "+20.66%", value: 278190, icon: "📷" },
-    { name: "Facebook", followers: "210.68K", growth: "+11.8%", value: 210680, icon: "f" },
-    { name: "YouTube", followers: "113K", growth: "+1.8%", value: 113000, icon: "▶" },
-    { name: "Threads", followers: "58.06K", growth: "+13.69%", value: 58060, icon: "@" },
+    { name: "TikTok", followers: "1.16M", growth: "+3.88%", value: 1160000, icon: "▶" },
+    { name: "Instagram", followers: "284.94K", growth: "+23.59%", value: 284940, icon: "📷" },
+    { name: "Facebook", followers: "214.03K", growth: "+13.58%", value: 214030, icon: "f" },
+    { name: "YouTube", followers: "119K", growth: "+7.21%", value: 119000, icon: "▶" },
+    { name: "Threads", followers: "61.23K", growth: "+19.88%", value: 61230, icon: "@" },
   ];
 
   const maxFollowers = 1820000;
