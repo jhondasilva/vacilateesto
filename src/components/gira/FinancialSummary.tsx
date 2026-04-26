@@ -54,36 +54,56 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   useEffect(() => { void load(); }, []);
 
-  // ===== Cálculo de gastos (USD reales) =====
+  // ===== Cálculo de gastos (USD reales · todos los costos ya son TOTALES 2 pax) =====
   const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
   const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
-  const transportCost = activities.filter(a => a.activity_type === "expense" && /transporte|amtrak|tren|uber/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0) || 3230;
-  // Toma comidas reales de trip_activities (food/meal + expenses con keywords culinarios)
-  const foodFromActivities = activities
-    .filter(a =>
-      a.activity_type === "food" ||
-      a.activity_type === "meal" ||
-      (a.activity_type === "expense" && /comida|bbq|banquete|alimentaci|arranque/i.test(a.title))
-    )
-    .reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+
+  // Clasificadores (mutuamente excluyentes para evitar doble conteo)
+  const isTransportExpense = (a: Activity) => a.activity_type === "expense" && /transporte|amtrak|tren|uber|metrorail/i.test(a.title);
+  const isFoodExpense = (a: Activity) =>
+    a.activity_type === "food" ||
+    a.activity_type === "meal" ||
+    (a.activity_type === "expense" && /comida|bbq|banquete|alimentaci|arranque/i.test(a.title));
+
+  const transportCost = activities.filter(isTransportExpense).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+  const foodFromActivities = activities.filter(isFoodExpense).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
   // Comidas base: $80/día x 2 pax x 42 días = $6,720 (per diem) + extras reales desde activities
-  const foodCost = foodFromActivities + 6720;
-  // Internet: WiFi a bordo $40/vuelo x 2 pax SOLO en vuelos de más de 3 horas
+  const perDiemFood = 6720;
+  const foodCost = foodFromActivities + perDiemFood;
+
+  // "Otros gastos" = expenses con costo > 0 que NO son transporte NI comida (extras hotel, content ordering, etc.)
+  const otherExpensesActivities = activities.filter(a =>
+    a.activity_type === "expense" &&
+    Number(a.cost_usd) > 0 &&
+    !isTransportExpense(a) &&
+    !isFoodExpense(a)
+  );
+  const otherExpensesCost = otherExpensesActivities.reduce((s, a) => s + Number(a.cost_usd), 0);
+
+  // Internet: WiFi a bordo $40/persona/vuelo SOLO en vuelos >3h
+  // Conviasa CCS→MEX = 2 vuelos pero cada uno con 1 pax → contar como 1 pax
+  // Resto = ambos pax viajan juntos → 2 pax por vuelo
   const parseDurationHours = (d: string | null | undefined): number => {
     if (!d) return 0;
     const h = d.match(/(\d+)\s*h/i);
     const m = d.match(/(\d+)\s*m/i);
     return (h ? Number(h[1]) : 0) + (m ? Number(m[1]) / 60 : 0);
   };
-  const longFlightsCount = activities.filter(a => a.activity_type === "flight" && parseDurationHours(a.duration) > 3).length;
-  const inflightWifiCost = 40 * 2 * longFlightsCount;
+  const longFlights = activities.filter(a => a.activity_type === "flight" && parseDurationHours(a.duration) > 3);
+  const longFlightsCount = longFlights.length;
+  const inflightWifiCost = longFlights.reduce((sum, a) => {
+    const isConviasaSolo = (a.airline || "").toLowerCase().includes("conviasa");
+    const pax = isConviasaSolo ? 1 : 2;
+    return sum + 40 * pax;
+  }, 0);
+
   // eSIMs/datos celular: $50/mes x 2 pax x 1.5 meses (mid-junio a fin julio) = $150
   const eSimCost = 150;
   // Seguro de viaje internacional: $200/persona x 2 = $400
   const insuranceCost = 400;
   // Operatividad: lavandería + ETIAS + propinas + tarjetas SIM físicas backup
   const operationsCost = 650;
-  const subtotal = flightsCost + hotelsCost + transportCost + foodCost + inflightWifiCost + eSimCost + insuranceCost + operationsCost;
+  const subtotal = flightsCost + hotelsCost + transportCost + foodCost + otherExpensesCost + inflightWifiCost + eSimCost + insuranceCost + operationsCost;
   const contingency = subtotal * 0.10;
   const totalUsd = subtotal + contingency;
 
@@ -201,11 +221,12 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const freeFlights = flightRows.filter(r => r.cost === 0).length;
 
   const expenseRows = [
-    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
+    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
-    { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
-    { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días (per diem) + extras registrados", value: foodCost },
-    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${longFlightsCount} vuelos >3h`, value: inflightWifiCost },
+    { concept: "Transporte terrestre", detail: `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`, value: transportCost },
+    { concept: "Alimentación", detail: `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`, value: foodCost },
+    { concept: "Otros gastos (extras hotel, contenido)", detail: `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`, value: otherExpensesCost },
+    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`, value: inflightWifiCost },
     { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
     { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
     { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
