@@ -331,6 +331,8 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
               {flightRows.map((r) => {
                 const isFree = r.cost === 0;
                 const hasWifi = r.durationHours > 3;
+                const isConviasaSolo = r.airline.toLowerCase().includes("conviasa");
+                const looksUnderpriced = !isFree && !isConviasaSolo && r.cost > 0 && r.cost < 300;
                 return (
                   <tr key={r.id} className={`border-t border-border ${isFree ? "bg-emerald-50/40" : ""}`}>
                     <td className="px-5 py-3 text-foreground font-medium">
@@ -344,6 +346,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                         {hasWifi && (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
                             <Wifi className="w-3 h-3" /> WiFi
+                          </span>
+                        )}
+                        {isConviasaSolo && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 border border-violet-200">
+                            1 pax (día distinto)
+                          </span>
+                        )}
+                        {looksUnderpriced && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                            <AlertTriangle className="w-3 h-3" /> ¿1 pax?
                           </span>
                         )}
                       </div>
