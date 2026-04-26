@@ -305,7 +305,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
           <div className="flex items-center gap-3">
             <Plane className="w-5 h-5 text-primary shrink-0" />
             <div>
-              <h3 className="font-bold text-foreground">Vuelos por segmento</h3>
+              <h3 className="font-bold text-foreground">Vuelos por segmento <span className="text-xs font-medium text-muted-foreground">(costos totales 2 pax)</span></h3>
               <p className="text-xs text-muted-foreground mt-1">
                 {flightsCount} segmentos · {longFlightsTotal} con WiFi a bordo (&gt;3h){freeFlights > 0 ? ` · ${freeFlights} sin costo (cortesía / sponsor)` : ""}.
               </p>
@@ -331,6 +331,8 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
               {flightRows.map((r) => {
                 const isFree = r.cost === 0;
                 const hasWifi = r.durationHours > 3;
+                const isConviasaSolo = r.airline.toLowerCase().includes("conviasa");
+                const looksUnderpriced = !isFree && !isConviasaSolo && r.cost > 0 && r.cost < 300;
                 return (
                   <tr key={r.id} className={`border-t border-border ${isFree ? "bg-emerald-50/40" : ""}`}>
                     <td className="px-5 py-3 text-foreground font-medium">
@@ -344,6 +346,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                         {hasWifi && (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
                             <Wifi className="w-3 h-3" /> WiFi
+                          </span>
+                        )}
+                        {isConviasaSolo && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 border border-violet-200">
+                            1 pax (día distinto)
+                          </span>
+                        )}
+                        {looksUnderpriced && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                            <AlertTriangle className="w-3 h-3" /> ¿1 pax?
                           </span>
                         )}
                       </div>
