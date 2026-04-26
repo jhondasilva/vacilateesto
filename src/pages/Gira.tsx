@@ -121,8 +121,26 @@ const Gira = () => {
         {(() => {
           const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
           const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
-          const otherCost = activities.filter(a => a.activity_type !== "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
-          const total = flightsCost + hotelsCost + otherCost;
+          const otherActivitiesCost = activities
+            .filter(a => a.activity_type !== "flight")
+            .reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+          // Mismos supuestos que FinancialSummary para que los totales coincidan
+          const perDiemFood = 6720;          // $80/día x 2 pax x 42 días
+          const parseHours = (d: string | null | undefined) => {
+            if (!d) return 0;
+            const h = d.match(/(\d+)\s*h/i);
+            const m = d.match(/(\d+)\s*m/i);
+            return (h ? Number(h[1]) : 0) + (m ? Number(m[1]) / 60 : 0);
+          };
+          const inflightWifiCost = activities
+            .filter(a => a.activity_type === "flight" && parseHours(a.duration) > 3)
+            .reduce((sum, a) => sum + 40 * ((a.airline || "").toLowerCase().includes("conviasa") ? 1 : 2), 0);
+          const eSimCost = 150;
+          const insuranceCost = 400;
+          const operationsCost = 650;
+          const subtotal = flightsCost + hotelsCost + otherActivitiesCost + perDiemFood + inflightWifiCost + eSimCost + insuranceCost + operationsCost;
+          const contingency = subtotal * 0.10;
+          const total = subtotal + contingency;
           const matchesCount = activities.filter(a => a.activity_type === "match").length;
           const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
           return (
@@ -132,7 +150,7 @@ const Gira = () => {
               <Stat label="Partidos" value={matchesCount} />
               <Stat label="Vuelos" valueText={fmt(flightsCost)} />
               <Stat label="Hospedaje" valueText={fmt(hotelsCost)} />
-              <Stat label="Total estimado" valueText={fmt(total)} highlight />
+              <Stat label="Total estimado" valueText={`${fmt(total)} USD`} highlight />
             </div>
           );
         })()}
