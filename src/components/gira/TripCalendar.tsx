@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon, AlertTriangle, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon, AlertTriangle, ChevronDown, Moon, Copy, Check as CheckIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import type { City, Activity } from "./CityCard";
 
 interface Props {
@@ -73,6 +74,8 @@ const DAYS_SHORT = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
 
 export const TripCalendar = ({ cities, activities }: Props) => {
   const [overlapsOpen, setOverlapsOpen] = useState(true);
+  const [lateArrivalOpen, setLateArrivalOpen] = useState(true);
+  const [copiedCityId, setCopiedCityId] = useState<string | null>(null);
   // Earliest start
   const earliest = useMemo(() => {
     if (!cities.length) return new Date();
@@ -301,6 +304,93 @@ export const TripCalendar = ({ cities, activities }: Props) => {
     return groups;
   }, [days, eventsByDate]);
 
+  // ===== Detección de hoteles con late arrival (llegada después de medianoche o muy temprano AM) =====
+  type LateArrival = {
+    cityId: string;
+    cityName: string;
+    accommodationName: string;
+    checkInDate: string;
+    arrivalDate: string;
+    arrivalTimeLabel: string;
+    flightTitle: string;
+    flightNumber: string | null;
+    reason: "post-midnight" | "early-am";
+    message: string;
+  };
+  const lateArrivals: LateArrival[] = useMemo(() => {
+    const out: LateArrival[] = [];
+    cities.forEach(city => {
+      if (!city.accommodation_name) return;
+      // Vuelo que aterriza el día del check-in o la madrugada siguiente
+      const checkInISO = city.start_date;
+      const checkInDate = fromISO(checkInISO);
+      const dayBeforeISO = toISO(addDays(checkInDate, -1));
+
+      const inboundFlights = activities.filter(a =>
+        a.activity_type === "flight" &&
+        a.city_id === city.id &&
+        a.activity_date &&
+        (a.activity_date === checkInISO || a.activity_date === dayBeforeISO)
+      );
+      inboundFlights.forEach(f => {
+        const dep = parseTimeToMin(f.departure_time);
+        const arr = parseTimeToMin(f.arrival_time);
+        if (dep == null || arr == null) return;
+
+        // Caso 1: vuelo cruza medianoche → llegada de madrugada al día siguiente
+        const crossesMidnight = arr < dep;
+        const actualArrivalDate = crossesMidnight
+          ? toISO(addDays(fromISO(f.activity_date!), 1))
+          : f.activity_date!;
+
+        const isPostMidnight = crossesMidnight && arr <= 6 * 60; // aterriza entre 00:00 y 06:00
+        const isEarlyAm = !crossesMidnight && arr <= 7 * 60; // aterriza antes de 7 AM mismo día
+
+        if (!isPostMidnight && !isEarlyAm) return;
+
+        const reason: LateArrival["reason"] = isPostMidnight ? "post-midnight" : "early-am";
+        const arrivalLabel = `${minToLabel(arr)} del ${actualArrivalDate}`;
+
+        const message =
+`Hello, I have reservation #[BOOKING_REF] under [GUEST_NAME] for check-in on ${checkInISO} at ${city.accommodation_name}.
+
+I will be arriving on a guaranteed late arrival — my flight ${f.flight_number ? `(${f.flight_number}) ` : ""}lands at SFO/${city.city} airport at ${minToLabel(arr)} on ${actualArrivalDate}, so I expect to be at the hotel around ${minToLabel(Math.min(arr + 90, 23 * 60 + 59))}.
+
+Please:
+1. Hold the room as guaranteed late arrival — do NOT release it.
+2. Have the room ready for early check-in upon arrival (around ${minToLabel(Math.min(arr + 90, 23 * 60 + 59))}).
+3. Note that the first night (${checkInISO}) is fully paid even though physical arrival is after midnight.
+
+Thank you!`;
+
+        out.push({
+          cityId: city.id,
+          cityName: city.city,
+          accommodationName: city.accommodation_name!,
+          checkInDate: checkInISO,
+          arrivalDate: actualArrivalDate,
+          arrivalTimeLabel: arrivalLabel,
+          flightTitle: f.title,
+          flightNumber: f.flight_number,
+          reason,
+          message,
+        });
+      });
+    });
+    return out;
+  }, [cities, activities]);
+
+  const copyMessage = async (la: LateArrival) => {
+    try {
+      await navigator.clipboard.writeText(la.message);
+      setCopiedCityId(la.cityId);
+      toast.success(`Mensaje copiado para ${la.accommodationName}`);
+      setTimeout(() => setCopiedCityId(null), 2500);
+    } catch {
+      toast.error("No se pudo copiar");
+    }
+  };
+
   return (
     <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
       {/* Toolbar */}
@@ -326,6 +416,82 @@ export const TripCalendar = ({ cities, activities }: Props) => {
           })}
         </div>
       </div>
+
+      {/* Banner de late arrivals */}
+      {lateArrivals.length > 0 && (
+        <div className="border-b border-sky-200 bg-sky-50 dark:bg-sky-950/30 dark:border-sky-900">
+          <button
+            type="button"
+            onClick={() => setLateArrivalOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 text-left hover:bg-sky-100/60 dark:hover:bg-sky-900/30 transition-colors"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Moon className="w-4 h-4 text-sky-600 dark:text-sky-400 flex-shrink-0" />
+              <p className="text-xs sm:text-sm font-semibold text-sky-800 dark:text-sky-200 truncate">
+                {lateArrivals.length} hotel{lateArrivals.length === 1 ? "" : "es"} con guaranteed late arrival
+                <span className="hidden sm:inline font-normal text-sky-700 dark:text-sky-300"> · click para copiar el mensaje al hotel</span>
+              </p>
+            </div>
+            <ChevronDown className={`w-4 h-4 text-sky-600 dark:text-sky-400 transition-transform ${lateArrivalOpen ? "rotate-180" : ""}`} />
+          </button>
+          {lateArrivalOpen && (
+            <div className="px-3 sm:px-4 pb-3 space-y-2">
+              {lateArrivals.map((la) => (
+                <div key={`${la.cityId}-${la.checkInDate}`} className="bg-card border border-sky-200 dark:border-sky-900 rounded-lg p-3 text-xs">
+                  <div className="flex items-start gap-2 mb-2 flex-wrap">
+                    <Hotel className="w-4 h-4 text-sky-600 dark:text-sky-400 flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-bold text-foreground">{la.accommodationName} · {la.cityName}</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Check-in: <span className="font-semibold text-foreground">{la.checkInDate}</span>
+                        {" · "}
+                        Llegada real: <span className="font-semibold text-foreground">{la.arrivalTimeLabel}</span>
+                      </p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Vuelo: {la.flightTitle}{la.flightNumber ? ` · ${la.flightNumber}` : ""}
+                      </p>
+                    </div>
+                    <span className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full border flex-shrink-0 ${
+                      la.reason === "post-midnight"
+                        ? "bg-violet-100 text-violet-700 border-violet-200 dark:bg-violet-900/50 dark:text-violet-300 dark:border-violet-800"
+                        : "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/50 dark:text-amber-300 dark:border-amber-800"
+                    }`}>
+                      {la.reason === "post-midnight" ? "Post-medianoche" : "Madrugada AM"}
+                    </span>
+                  </div>
+                  <details className="group">
+                    <summary className="flex items-center justify-between gap-2 cursor-pointer list-none rounded-md bg-muted/50 hover:bg-muted px-2.5 py-1.5 transition-colors">
+                      <span className="text-[11px] font-semibold text-foreground">Mensaje para el hotel (EN)</span>
+                      <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                        <ChevronDown className="w-3 h-3 group-open:rotate-180 transition-transform" />
+                        Ver / copiar
+                      </span>
+                    </summary>
+                    <div className="mt-2 relative">
+                      <pre className="text-[11px] whitespace-pre-wrap font-mono bg-muted/30 border border-border rounded-md p-2.5 pr-12 leading-relaxed text-foreground">
+{la.message}
+                      </pre>
+                      <Button
+                        size="sm"
+                        variant={copiedCityId === la.cityId ? "default" : "outline"}
+                        onClick={() => copyMessage(la)}
+                        className="absolute top-2 right-2 h-7 px-2"
+                      >
+                        {copiedCityId === la.cityId
+                          ? <><CheckIcon className="w-3 h-3 mr-1" /> Copiado</>
+                          : <><Copy className="w-3 h-3 mr-1" /> Copiar</>}
+                      </Button>
+                    </div>
+                    <p className="text-[10px] text-muted-foreground mt-1.5">
+                      Reemplazá <code className="bg-muted px-1 rounded">[BOOKING_REF]</code> y <code className="bg-muted px-1 rounded">[GUEST_NAME]</code> antes de enviar.
+                    </p>
+                  </details>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Banner de validación de superposiciones */}
       {visibleOverlaps.length > 0 && (
