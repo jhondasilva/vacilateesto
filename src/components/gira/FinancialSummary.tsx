@@ -58,9 +58,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
   const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
   const transportCost = activities.filter(a => a.activity_type === "expense" && /transporte|amtrak|tren|uber/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0) || 3230;
-  const foodFromActivities = activities.filter(a => a.activity_type === "expense" && /comida|bbq|banquete|alimentaci/i.test(a.title)).reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
-  // Comidas: $80/día x 2 pax x 42 días = $6,720 + $600 BBQ Houston + $360 arranque CDMX + $500 content ordering
-  const foodCost = foodFromActivities + 6720 + 600 + 360 + 500;
+  // Toma comidas reales de trip_activities (food/meal + expenses con keywords culinarios)
+  const foodFromActivities = activities
+    .filter(a =>
+      a.activity_type === "food" ||
+      a.activity_type === "meal" ||
+      (a.activity_type === "expense" && /comida|bbq|banquete|alimentaci|arranque/i.test(a.title))
+    )
+    .reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+  // Comidas base: $80/día x 2 pax x 42 días = $6,720 (per diem) + extras reales desde activities
+  const foodCost = foodFromActivities + 6720;
   // Internet: WiFi a bordo $40/vuelo x 2 pax SOLO en vuelos de más de 3 horas
   const parseDurationHours = (d: string | null | undefined): number => {
     if (!d) return 0;
@@ -173,7 +180,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
     { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
     { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
-    { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días + BBQ Houston + content ordering", value: foodCost },
+    { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días (per diem) + extras registrados", value: foodCost },
     { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${longFlightsCount} vuelos >3h`, value: inflightWifiCost },
     { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
     { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
