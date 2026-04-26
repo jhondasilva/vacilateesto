@@ -47,6 +47,8 @@ export type Activity = {
   arrival_time: string | null;
   duration: string | null;
   cabin_class: string | null;
+  cost_justification: string | null;
+  cost_estimate_usd: number | null;
 };
 
 export type Comment = {
