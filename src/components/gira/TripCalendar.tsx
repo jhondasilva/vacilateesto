@@ -351,17 +351,29 @@ export const TripCalendar = ({ cities, activities }: Props) => {
         const reason: LateArrival["reason"] = isPostMidnight ? "post-midnight" : "early-am";
         const arrivalLabel = `${minToLabel(arr)} del ${actualArrivalDate}`;
 
+        // Llegada estimada al hotel: aterrizaje + 2h (inmigración + equipaje + traslado)
+        const hotelArrivalMin = Math.min(arr + 120, 23 * 60 + 59);
+        const hotelArrivalLabel = minToLabel(hotelArrivalMin);
+
         const message =
-`Hello, I have reservation #[BOOKING_REF] under [GUEST_NAME] for check-in on ${checkInISO} at ${city.accommodation_name}.
+`Hello,
 
-I will be arriving on a guaranteed late arrival — my flight ${f.flight_number ? `(${f.flight_number}) ` : ""}lands at SFO/${city.city} airport at ${minToLabel(arr)} on ${actualArrivalDate}, so I expect to be at the hotel around ${minToLabel(Math.min(arr + 90, 23 * 60 + 59))}.
+I have reservation #[BOOKING_REF] under [GUEST_NAME] at ${city.accommodation_name} with check-in on ${checkInISO}.
 
-Please:
-1. Hold the room as guaranteed late arrival — do NOT release it.
-2. Have the room ready for early check-in upon arrival (around ${minToLabel(Math.min(arr + 90, 23 * 60 + 59))}).
-3. Note that the first night (${checkInISO}) is fully paid even though physical arrival is after midnight.
+IMPORTANT — Guaranteed late arrival:
+• The first night (${checkInISO}) is FULLY PAID. Please do NOT release the room under any circumstance.
+• My flight ${f.flight_number ? `${f.flight_number} ` : ""}lands at ${city.city} airport at ${minToLabel(arr)} on ${actualArrivalDate}.
+• I expect to arrive at the hotel around ${hotelArrivalLabel} on ${actualArrivalDate} (after immigration, baggage and ground transport).
 
-Thank you!`;
+Requests:
+1. Have the room cleaned and ready for immediate early check-in when I arrive at ~${hotelArrivalLabel}.
+2. Confirm in writing that the room is held and pre-paid so the front desk does not ask me to wait until 3 PM.
+3. If possible, leave a note at the front desk for the night/morning shift.
+
+Thank you very much for accommodating this — we have a tight schedule that day.
+
+Best regards,
+[GUEST_NAME]`;
 
         out.push({
           cityId: city.id,
