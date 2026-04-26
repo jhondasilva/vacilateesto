@@ -221,11 +221,12 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const freeFlights = flightRows.filter(r => r.cost === 0).length;
 
   const expenseRows = [
-    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
+    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
-    { concept: "Transporte terrestre", detail: "Uber XL/Black + Amtrak + traslados Cannes", value: transportCost },
-    { concept: "Alimentación", detail: "$80/día x 2 pax x 42 días (per diem) + extras registrados", value: foodCost },
-    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40 x 2 pax x ${longFlightsCount} vuelos >3h`, value: inflightWifiCost },
+    { concept: "Transporte terrestre", detail: `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`, value: transportCost },
+    { concept: "Alimentación", detail: `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`, value: foodCost },
+    { concept: "Otros gastos (extras hotel, contenido)", detail: `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`, value: otherExpensesCost },
+    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`, value: inflightWifiCost },
     { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
     { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
     { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
