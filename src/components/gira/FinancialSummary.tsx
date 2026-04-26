@@ -97,6 +97,35 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
     return sum + 40 * pax;
   }, 0);
 
+  // ===== Detección de traslados duplicados (vuelo vs tren/bus) =====
+  // Si el mismo trayecto origen→destino aparece como vuelo Y como gasto de transporte
+  // terrestre (Amtrak, tren, bus), lo marcamos como duplicado para revisar.
+  const ROUTE_RE = /\b([A-Z]{3})\s*(?:→|->|-|–|to|a)\s*([A-Z]{3})\b/i;
+  const extractRoute = (text: string | null | undefined): string | null => {
+    if (!text) return null;
+    const m = text.match(ROUTE_RE);
+    if (!m) return null;
+    return `${m[1].toUpperCase()}→${m[2].toUpperCase()}`;
+  };
+  const flightRoutes = new Map<string, string>(); // route -> activity id
+  activities.filter(a => a.activity_type === "flight").forEach(a => {
+    const route = extractRoute(a.title) || extractRoute(a.description);
+    if (route) flightRoutes.set(route, a.id);
+  });
+  const groundRoutes = new Map<string, string>();
+  activities.filter(isTransportExpense).forEach(a => {
+    const route = extractRoute(a.title) || extractRoute(a.description);
+    if (route) groundRoutes.set(route, a.id);
+  });
+  const duplicatedActivityIds = new Set<string>();
+  flightRoutes.forEach((flightId, route) => {
+    const groundId = groundRoutes.get(route);
+    if (groundId) {
+      duplicatedActivityIds.add(flightId);
+      duplicatedActivityIds.add(groundId);
+    }
+  });
+
   // eSIMs/datos celular: $50/mes x 2 pax x 1.5 meses (mid-junio a fin julio) = $150
   const eSimCost = 150;
   // Seguro de viaje internacional: $200/persona x 2 = $400
@@ -213,6 +242,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
       duration: a.duration || "",
       durationHours: parseDurationHours(a.duration),
       cost: Number(a.cost_usd) || 0,
+      duplicated: duplicatedActivityIds.has(a.id),
     }))
     .sort((x, y) => x.cityPos - y.cityPos || x.route.localeCompare(y.route));
   const totalFlightsCost = flightRows.reduce((s, r) => s + r.cost, 0);
