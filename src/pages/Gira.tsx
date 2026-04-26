@@ -10,7 +10,7 @@ import { AddCityForm } from "@/components/gira/AddCityForm";
 import { TripCalendar } from "@/components/gira/TripCalendar";
 import { CalendarSettings } from "@/components/gira/CalendarSettings";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon } from "lucide-react";
+import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
@@ -92,6 +92,16 @@ const Gira = () => {
           </div>
         </div>
       </header>
+
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-3">
+        <button
+          onClick={() => navigate("/gira/politicas")}
+          className="w-full sm:w-auto inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary text-xs sm:text-sm font-semibold transition-colors"
+        >
+          <ShieldCheck className="w-4 h-4" />
+          Políticas de gastos y viajes — acuerdo Juan / Jhon / Finanzas
+        </button>
+      </div>
 
       <section className="max-w-7xl mx-auto px-3 sm:px-6 pt-5 sm:pt-8 pb-3 sm:pb-4">
         <div className="mb-4 sm:mb-6">
