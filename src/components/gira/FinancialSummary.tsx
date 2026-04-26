@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi } from "lucide-react";
+import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi, ChevronDown, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import type { City, Activity } from "./CityCard";
 
@@ -39,6 +39,14 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const [draft, setDraft] = useState({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "", commission_pct: "10" });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [expandedAuditRows, setExpandedAuditRows] = useState<Set<string>>(new Set());
+  const toggleAuditRow = (id: string) => {
+    setExpandedAuditRows(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
 
   const load = async () => {
     const [sp, st] = await Promise.all([
@@ -621,6 +629,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
               overBudget,
               underBudget,
               missingJustification: !a.cost_justification,
+              breakdown: Array.isArray(a.cost_breakdown) ? a.cost_breakdown : [],
             };
           })
           .sort((x, y) => x.cityPos - y.cityPos || y.real - x.real);
@@ -666,14 +675,37 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                   {auditRows.map((r) => {
                     const flag = r.overBudget || r.underBudget || r.missingJustification;
                     const pctLabel = r.hasEstimate ? `${r.pct >= 0 ? "+" : ""}${Math.round(r.pct * 100)}%` : "—";
+                    const hasBreakdown = r.breakdown.length > 0;
+                    const isExpanded = expandedAuditRows.has(r.id);
+                    const breakdownSum = r.breakdown.reduce((s, b) => s + (Number(b.amount) || 0), 0);
+                    const breakdownMismatch = hasBreakdown && Math.abs(breakdownSum - r.real) > 1;
                     return (
-                      <tr key={r.id} className={`border-t border-border ${flag ? "bg-amber-50/40" : ""}`}>
+                      <Fragment key={r.id}>
+                      <tr className={`border-t border-border ${flag ? "bg-amber-50/40" : ""} ${hasBreakdown ? "cursor-pointer hover:bg-muted/40" : ""}`} onClick={hasBreakdown ? () => toggleAuditRow(r.id) : undefined}>
                         <td className="px-5 py-3 align-top">
-                          <p className="text-foreground font-medium">{r.title}</p>
+                          <div className="flex items-start gap-2">
+                            {hasBreakdown ? (
+                              isExpanded
+                                ? <ChevronDown className="w-4 h-4 mt-0.5 text-muted-foreground shrink-0" />
+                                : <ChevronRight className="w-4 h-4 mt-0.5 text-muted-foreground shrink-0" />
+                            ) : (
+                              <span className="w-4 h-4 shrink-0" />
+                            )}
+                            <div>
+                              <p className="text-foreground font-medium">
+                                {r.title}
+                                {hasBreakdown && (
+                                  <span className="ml-2 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
+                                    {r.breakdown.length} ítems
+                                  </span>
+                                )}
+                              </p>
                           <p className="text-[11px] text-muted-foreground mt-0.5">{r.city}</p>
                           {r.justification && (
                             <p className="text-[11px] text-muted-foreground mt-1 lg:hidden italic">{r.justification}</p>
                           )}
+                            </div>
+                          </div>
                         </td>
                         <td className="px-5 py-3 text-muted-foreground hidden lg:table-cell text-xs max-w-md">
                           {r.justification || <span className="italic text-amber-700">Sin justificación documentada</span>}
@@ -714,6 +746,38 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                           )}
                         </td>
                       </tr>
+                      {hasBreakdown && isExpanded && (
+                        <tr className="bg-muted/20 border-t border-border">
+                          <td colSpan={6} className="px-5 py-4">
+                            <div className="ml-6 space-y-2">
+                              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Desglose detallado</p>
+                              <div className="rounded-lg border border-border bg-background overflow-hidden">
+                                {r.breakdown.map((b, i) => (
+                                  <div key={i} className="px-4 py-3 border-b border-border last:border-b-0 flex items-start justify-between gap-4">
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-medium text-foreground">{b.label}</p>
+                                      {b.note && <p className="text-xs text-muted-foreground mt-1 italic">{b.note}</p>}
+                                    </div>
+                                    <p className="text-sm font-semibold text-rose-600 shrink-0 tabular-nums">{fmt(Number(b.amount) || 0)}</p>
+                                  </div>
+                                ))}
+                                <div className={`px-4 py-2 flex items-center justify-between gap-4 ${breakdownMismatch ? "bg-amber-50" : "bg-muted/40"}`}>
+                                  <p className="text-xs uppercase tracking-wider font-bold text-foreground">
+                                    Suma desglose
+                                    {breakdownMismatch && (
+                                      <span className="ml-2 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                                        ≠ Total ({fmt(r.real)})
+                                      </span>
+                                    )}
+                                  </p>
+                                  <p className="text-sm font-black text-foreground tabular-nums">{fmt(breakdownSum)}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                      </Fragment>
                     );
                   })}
                 </tbody>

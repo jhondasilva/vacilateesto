@@ -49,6 +49,7 @@ export type Activity = {
   cabin_class: string | null;
   cost_justification: string | null;
   cost_estimate_usd: number | null;
+  cost_breakdown: Array<{ label: string; amount: number; note?: string }> | null;
 };
 
 export type Comment = {
