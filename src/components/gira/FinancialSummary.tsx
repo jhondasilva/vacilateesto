@@ -319,6 +319,103 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
         </div>
       </div>
 
+      {/* Validación de consistencia: hotel_cost_usd vs nights × nightly_rate_usd */}
+      {(() => {
+        const validationRows = hotelRows.map(r => ({
+          ...r,
+          calculated: r.nights * r.nightly,
+          diff: r.cost - r.nights * r.nightly,
+        }));
+        const totalDiff = validationRows.reduce((s, r) => s + r.diff, 0);
+        // Tolerancia de $1 para absorber redondeos (ej. CDMX 3 × $86.67 = $260.01)
+        const offRows = validationRows.filter(r => Math.abs(r.diff) >= 1);
+        const allClean = offRows.length === 0;
+        return (
+          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+            <div className={`px-5 py-4 border-b border-border flex items-center justify-between gap-3 flex-wrap ${allClean ? "bg-emerald-50" : "bg-amber-50"}`}>
+              <div className="flex items-center gap-3">
+                {allClean ? (
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                ) : (
+                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+                )}
+                <div>
+                  <h3 className="font-bold text-foreground">Validación de hospedaje</h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {allClean
+                      ? "Todos los hoteles cuadran: hotel_cost_usd = noches × $/noche."
+                      : `${offRows.length} ciudad(es) con descuadre. Mové los extras a actividades como expense.`}
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Suma de diferencias</p>
+                <p className={`font-black text-lg ${Math.abs(totalDiff) < 1 ? "text-emerald-600" : "text-amber-600"}`}>
+                  {totalDiff >= 0 ? "+" : "−"}${Math.abs(Math.round(totalDiff)).toLocaleString("en-US")}
+                </p>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40 text-muted-foreground text-xs uppercase tracking-wider">
+                  <tr>
+                    <th className="text-left px-5 py-3 font-semibold">Ciudad</th>
+                    <th className="text-right px-5 py-3 font-semibold">Noches</th>
+                    <th className="text-right px-5 py-3 font-semibold">$/noche</th>
+                    <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">Calculado</th>
+                    <th className="text-right px-5 py-3 font-semibold">hotel_cost_usd</th>
+                    <th className="text-right px-5 py-3 font-semibold">Δ Diferencia</th>
+                    <th className="text-center px-5 py-3 font-semibold">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {validationRows.map((r) => {
+                    const ok = Math.abs(r.diff) < 1;
+                    const isFree = r.cost === 0 && r.nights === 0;
+                    return (
+                      <tr key={r.id} className={`border-t border-border ${!ok ? "bg-amber-50/40" : ""}`}>
+                        <td className="px-5 py-3 text-foreground font-medium">{r.city}</td>
+                        <td className="px-5 py-3 text-right text-foreground">{r.nights}</td>
+                        <td className="px-5 py-3 text-right text-muted-foreground">
+                          {r.nightly > 0 ? `$${r.nightly.toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "—"}
+                        </td>
+                        <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">
+                          {fmt(r.calculated)}
+                        </td>
+                        <td className="px-5 py-3 text-right text-foreground font-semibold">
+                          {fmt(r.cost)}
+                        </td>
+                        <td className={`px-5 py-3 text-right font-bold ${ok ? "text-emerald-600" : "text-amber-600"}`}>
+                          {ok ? "$0" : `${r.diff >= 0 ? "+" : "−"}$${Math.abs(Math.round(r.diff)).toLocaleString("en-US")}`}
+                        </td>
+                        <td className="px-5 py-3 text-center">
+                          {isFree ? (
+                            <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">N/A</span>
+                          ) : ok ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                              <CheckCircle2 className="w-3 h-3" /> OK
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                              <AlertTriangle className="w-3 h-3" /> Revisar
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {!allClean && (
+              <div className="px-5 py-3 bg-amber-50/60 border-t border-amber-200 text-xs text-amber-900">
+                💡 Las diferencias positivas (extras del hotel: parking, resort fee, eventos) deberían moverse a <code className="bg-amber-100 px-1 rounded">trip_activities</code> como <code className="bg-amber-100 px-1 rounded">expense</code>. Las negativas indican un total guardado menor al cálculo (probable error de captura en noches o tarifa).
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
       {/* Desglose de comisiones por categoría */}
       {categoryRows.length > 0 && (
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
