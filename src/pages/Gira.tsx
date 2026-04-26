@@ -10,11 +10,13 @@ import { AddCityForm } from "@/components/gira/AddCityForm";
 import { TripCalendar } from "@/components/gira/TripCalendar";
 import { CalendarSettings } from "@/components/gira/CalendarSettings";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck } from "lucide-react";
+import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck, Receipt } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-mundial.svg";
 import logoFifa from "@/assets/logo-mundial-2026.png";
+import { ExpenseReporter } from "@/components/gira/ExpenseReporter";
+import { ExpenseLog } from "@/components/gira/ExpenseLog";
 
 const Gira = () => {
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const Gira = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingData, setLoadingData] = useState(true);
+  const [expenseRefresh, setExpenseRefresh] = useState(0);
 
   const loadData = useCallback(async () => {
     const [citiesRes, activitiesRes, commentsRes] = await Promise.all([
@@ -174,9 +177,10 @@ const Gira = () => {
 
       <main className="max-w-7xl mx-auto px-3 sm:px-6 pb-20 pt-3 sm:pt-4">
         <Tabs defaultValue="ruta" className="w-full">
-          <TabsList className="mb-4 grid grid-cols-4 w-full sm:flex sm:w-auto h-auto">
+          <TabsList className="mb-4 grid grid-cols-5 w-full sm:flex sm:w-auto h-auto">
             <TabsTrigger value="ruta" className="text-xs sm:text-sm py-2"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Ruta completa</span><span className="sm:hidden">Ruta</span></TabsTrigger>
             <TabsTrigger value="finanzas" className="text-xs sm:text-sm py-2"><Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Resumen financiero</span><span className="sm:hidden">Finanzas</span></TabsTrigger>
+            <TabsTrigger value="gastos" className="text-xs sm:text-sm py-2"><Receipt className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Gastos</TabsTrigger>
             <TabsTrigger value="calendario" className="text-xs sm:text-sm py-2"><CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Calendario</TabsTrigger>
             <TabsTrigger value="ajustes" className="text-xs sm:text-sm py-2"><SettingsIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Feed</span><span className="sm:hidden">Feed</span></TabsTrigger>
           </TabsList>
@@ -218,6 +222,10 @@ const Gira = () => {
             )}
           </TabsContent>
 
+          <TabsContent value="gastos">
+            <ExpenseLog currentUserId={user!.id} refreshKey={expenseRefresh} />
+          </TabsContent>
+
           <TabsContent value="calendario">
             {loadingData ? (
               <div className="flex items-center justify-center py-20">
@@ -233,6 +241,13 @@ const Gira = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      <ExpenseReporter
+        userId={user!.id}
+        userEmail={user!.email!}
+        userName={displayName || user!.email!}
+        onCreated={() => setExpenseRefresh((n) => n + 1)}
+      />
     </div>
   );
 };

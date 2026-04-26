@@ -62,6 +62,75 @@ export type Database = {
         }
         Relationships: []
       }
+      expense_reports: {
+        Row: {
+          ai_extracted: Json | null
+          amount_original: number | null
+          amount_usd: number
+          category: string | null
+          city_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          expense_date: string
+          id: string
+          merchant: string | null
+          notes: string | null
+          paid_by: string
+          payment_method: string
+          receipt_url: string | null
+          reporter_email: string
+          reporter_name: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_extracted?: Json | null
+          amount_original?: number | null
+          amount_usd: number
+          category?: string | null
+          city_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          expense_date?: string
+          id?: string
+          merchant?: string | null
+          notes?: string | null
+          paid_by?: string
+          payment_method?: string
+          receipt_url?: string | null
+          reporter_email: string
+          reporter_name?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_extracted?: Json | null
+          amount_original?: number | null
+          amount_usd?: number
+          category?: string | null
+          city_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          expense_date?: string
+          id?: string
+          merchant?: string | null
+          notes?: string | null
+          paid_by?: string
+          payment_method?: string
+          receipt_url?: string | null
+          reporter_email?: string
+          reporter_name?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           email: string
