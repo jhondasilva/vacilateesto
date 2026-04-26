@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi } from "lucide-react";
+import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi, ChevronDown, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import type { City, Activity } from "./CityCard";
 
@@ -39,6 +39,14 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const [draft, setDraft] = useState({ name: "", category: "", amount_usd_bcv: "", status: "committed", notes: "", commission_pct: "10" });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [expandedAuditRows, setExpandedAuditRows] = useState<Set<string>>(new Set());
+  const toggleAuditRow = (id: string) => {
+    setExpandedAuditRows(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
 
   const load = async () => {
     const [sp, st] = await Promise.all([
