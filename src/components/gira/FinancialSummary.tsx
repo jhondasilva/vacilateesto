@@ -159,6 +159,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   };
 
   const totalNights = cities.reduce((s, c) => s + (Number(c.nights) || 0), 0);
+  const hotelRows = [...cities]
+    .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+    .map((c) => ({
+      id: c.id,
+      city: c.city,
+      nights: Number(c.nights) || 0,
+      cost: Number(c.hotel_cost_usd) || 0,
+      nightly: Number(c.nightly_rate_usd) || 0,
+      accommodation: c.accommodation_name || "",
+    }));
   const expenseRows = [
     { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
@@ -231,6 +241,71 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 <td className="px-5 py-4 text-foreground font-black uppercase">Inversión Total Estimada</td>
                 <td className="px-5 py-4 hidden sm:table-cell"></td>
                 <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(totalUsd)} USD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Desglose de hospedaje por ciudad */}
+      <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+        <div className="px-5 py-4 border-b border-border bg-muted/30">
+          <h3 className="font-bold text-foreground">Hospedaje por ciudad</h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            Validación visual: {totalNights} noches totales · {fmt(hotelsCost)} en hoteles. Las ciudades sin costo (familia) se marcan explícitamente.
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/40 text-muted-foreground text-xs uppercase tracking-wider">
+              <tr>
+                <th className="text-left px-5 py-3 font-semibold">Ciudad</th>
+                <th className="text-left px-5 py-3 font-semibold hidden sm:table-cell">Alojamiento</th>
+                <th className="text-right px-5 py-3 font-semibold">Noches</th>
+                <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">$ / noche</th>
+                <th className="text-right px-5 py-3 font-semibold">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {hotelRows.map((r) => {
+                const isFree = r.cost === 0;
+                const isSingleNight = r.nights === 1 && r.cost > 0;
+                return (
+                  <tr key={r.id} className={`border-t border-border ${isFree ? "bg-emerald-50/40" : ""}`}>
+                    <td className="px-5 py-3 text-foreground font-medium">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span>{r.city}</span>
+                        {isFree && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                            Sin hotel
+                          </span>
+                        )}
+                        {isSingleNight && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                            Solo 1 noche
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">
+                      {r.accommodation || <span className="italic text-muted-foreground/60">Por confirmar</span>}
+                    </td>
+                    <td className="px-5 py-3 text-right text-foreground font-semibold">{r.nights}</td>
+                    <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">
+                      {r.nightly > 0 ? fmt(r.nightly) : "—"}
+                    </td>
+                    <td className={`px-5 py-3 text-right font-semibold ${isFree ? "text-emerald-600" : "text-rose-600"}`}>
+                      {isFree ? "$0" : fmt(r.cost)}
+                    </td>
+                  </tr>
+                );
+              })}
+              <tr className="border-t-2 border-primary bg-primary/5">
+                <td className="px-5 py-4 text-foreground font-black uppercase">Total hospedaje</td>
+                <td className="px-5 py-4 hidden sm:table-cell"></td>
+                <td className="px-5 py-4 text-right text-foreground font-black">{totalNights}</td>
+                <td className="px-5 py-4 hidden sm:table-cell"></td>
+                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(hotelsCost)}</td>
               </tr>
             </tbody>
           </table>
