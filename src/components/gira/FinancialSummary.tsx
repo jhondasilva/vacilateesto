@@ -278,6 +278,90 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
         </div>
       </div>
 
+      {/* Desglose de vuelos por segmento */}
+      <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+        <div className="px-5 py-4 border-b border-border bg-muted/30 flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <Plane className="w-5 h-5 text-primary shrink-0" />
+            <div>
+              <h3 className="font-bold text-foreground">Vuelos por segmento</h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                {flightsCount} segmentos · {longFlightsTotal} con WiFi a bordo (&gt;3h){freeFlights > 0 ? ` · ${freeFlights} sin costo (cortesía / sponsor)` : ""}.
+              </p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Total vuelos</p>
+            <p className="font-black text-lg text-rose-600">{fmt(totalFlightsCost)}</p>
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/40 text-muted-foreground text-xs uppercase tracking-wider">
+              <tr>
+                <th className="text-left px-5 py-3 font-semibold">Ruta</th>
+                <th className="text-left px-5 py-3 font-semibold hidden md:table-cell">Aerolínea / Vuelo</th>
+                <th className="text-left px-5 py-3 font-semibold hidden sm:table-cell">Cabina</th>
+                <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">Duración</th>
+                <th className="text-right px-5 py-3 font-semibold">Costo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {flightRows.map((r) => {
+                const isFree = r.cost === 0;
+                const hasWifi = r.durationHours > 3;
+                return (
+                  <tr key={r.id} className={`border-t border-border ${isFree ? "bg-emerald-50/40" : ""}`}>
+                    <td className="px-5 py-3 text-foreground font-medium">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span>{r.route}</span>
+                        {isFree && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                            Sin costo
+                          </span>
+                        )}
+                        {hasWifi && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
+                            <Wifi className="w-3 h-3" /> WiFi
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 md:hidden">
+                        {r.airline} {r.flightNumber}
+                      </p>
+                    </td>
+                    <td className="px-5 py-3 text-muted-foreground hidden md:table-cell">
+                      {r.airline ? (
+                        <span>
+                          {r.airline}
+                          {r.flightNumber && <span className="ml-1 text-foreground/70 font-mono text-xs">{r.flightNumber}</span>}
+                        </span>
+                      ) : "—"}
+                    </td>
+                    <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell text-xs">
+                      {r.cabin || <span className="italic text-muted-foreground/60">—</span>}
+                    </td>
+                    <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">
+                      {r.duration || "—"}
+                    </td>
+                    <td className={`px-5 py-3 text-right font-semibold ${isFree ? "text-emerald-600" : "text-rose-600"}`}>
+                      {isFree ? "$0" : fmt(r.cost)}
+                    </td>
+                  </tr>
+                );
+              })}
+              <tr className="border-t-2 border-primary bg-primary/5">
+                <td className="px-5 py-4 text-foreground font-black uppercase">Total vuelos</td>
+                <td className="px-5 py-4 hidden md:table-cell"></td>
+                <td className="px-5 py-4 hidden sm:table-cell"></td>
+                <td className="px-5 py-4 hidden sm:table-cell"></td>
+                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(totalFlightsCost)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Desglose de hospedaje por ciudad */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
         <div className="px-5 py-4 border-b border-border bg-muted/30">
