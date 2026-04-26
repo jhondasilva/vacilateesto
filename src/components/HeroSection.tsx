@@ -69,12 +69,12 @@ const HeroSection = () => {
               <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo Episodio</span>
             </div>
 
-            <h1 id="hero-title" className="font-display font-black tracking-[-0.04em] leading-[0.82] mt-14 sm:mt-16 md:mt-20">
+            <h1 id="hero-title" className="font-display font-black tracking-[-0.04em] leading-[0.92] mt-14 sm:mt-16 md:mt-20 pb-2">
               <span className="block text-foreground text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem]">
                 vací
               </span>
-              <span className="block text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
-                <span className="text-gradient italic">late</span>
+              <span className="block text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2 pr-[0.15em]">
+                <span className="text-gradient italic inline-block pr-[0.08em]">late</span>
                 <span className="text-foreground">.</span>
               </span>
               <span className="block text-foreground text-[20vw] sm:text-[15vw] lg:text-[10rem] xl:text-[12rem] -mt-2">
