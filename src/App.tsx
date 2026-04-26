@@ -15,6 +15,16 @@ import NotFound from "./pages/NotFound";
 import Gira from "./pages/Gira";
 import GiraLogin from "./pages/GiraLogin";
 import Buscador from "./pages/Buscador";
+import Hosts from "./pages/Hosts";
+import BlogIndex from "./pages/blog/BlogIndex";
+import MejoresPodcastsVenezolanos from "./pages/blog/MejoresPodcastsVenezolanos";
+import ComoSubirRoraima from "./pages/blog/ComoSubirRoraima";
+import ComoSubirPicoNaiguata from "./pages/blog/ComoSubirPicoNaiguata";
+import LeyendasUrbanasVenezuela from "./pages/blog/LeyendasUrbanasVenezuela";
+import HistoriaArepa from "./pages/blog/HistoriaArepa";
+import MundialDesdeVenezuela from "./pages/blog/MundialDesdeVenezuela";
+import PodcastMasLargo from "./pages/blog/PodcastMasLargo";
+import RutaRamenCaracas from "./pages/blog/RutaRamenCaracas";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
 const queryClient = new QueryClient();
@@ -44,6 +54,16 @@ const App = () => (
             <Route path="/gira/login" element={<GiraLogin />} />
             <Route path="/gira" element={<Gira />} />
             <Route path="/buscador" element={<Buscador />} />
+            <Route path="/hosts" element={<Hosts />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/mejores-podcasts-venezolanos-2026" element={<MejoresPodcastsVenezolanos />} />
+            <Route path="/blog/como-subir-roraima-guia-completa" element={<ComoSubirRoraima />} />
+            <Route path="/blog/como-subir-pico-naiguata" element={<ComoSubirPicoNaiguata />} />
+            <Route path="/blog/leyendas-urbanas-venezuela" element={<LeyendasUrbanasVenezuela />} />
+            <Route path="/blog/historia-de-la-arepa" element={<HistoriaArepa />} />
+            <Route path="/blog/donde-ver-mundial-2026-desde-venezuela" element={<MundialDesdeVenezuela />} />
+            <Route path="/blog/podcast-mas-largo-historia" element={<PodcastMasLargo />} />
+            <Route path="/blog/ruta-del-ramen-caracas" element={<RutaRamenCaracas />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

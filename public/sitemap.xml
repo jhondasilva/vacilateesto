@@ -176,5 +176,85 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  
+
+  <!-- Hosts -->
+  <url>
+    <loc>https://www.vacilateesto.com/hosts</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Index -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Mejores podcasts venezolanos 2026 -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/mejores-podcasts-venezolanos-2026</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Cómo subir el Roraima -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/como-subir-roraima-guia-completa</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog: Cómo subir el Pico Naiguatá -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/como-subir-pico-naiguata</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Leyendas urbanas de Venezuela -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/leyendas-urbanas-venezuela</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Historia de la arepa -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/historia-de-la-arepa</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Mundial 2026 desde Venezuela -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/donde-ver-mundial-2026-desde-venezuela</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog: Podcast más largo de la historia -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/podcast-mas-largo-historia</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: Ruta del ramen en Caracas -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/ruta-del-ramen-caracas</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
