@@ -305,7 +305,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
           <div className="flex items-center gap-3">
             <Plane className="w-5 h-5 text-primary shrink-0" />
             <div>
-              <h3 className="font-bold text-foreground">Vuelos por segmento</h3>
+              <h3 className="font-bold text-foreground">Vuelos por segmento <span className="text-xs font-medium text-muted-foreground">(costos totales 2 pax)</span></h3>
               <p className="text-xs text-muted-foreground mt-1">
                 {flightsCount} segmentos · {longFlightsTotal} con WiFi a bordo (&gt;3h){freeFlights > 0 ? ` · ${freeFlights} sin costo (cortesía / sponsor)` : ""}.
               </p>
