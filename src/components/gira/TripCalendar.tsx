@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plane, Trophy, Hotel, MapPin, Utensils, Calendar as CalIcon, AlertTriangle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { City, Activity } from "./CityCard";
 
@@ -72,6 +72,7 @@ const MONTHS_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","A
 const DAYS_SHORT = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
 
 export const TripCalendar = ({ cities, activities }: Props) => {
+  const [overlapsOpen, setOverlapsOpen] = useState(true);
   // Earliest start
   const earliest = useMemo(() => {
     if (!cities.length) return new Date();
@@ -268,6 +269,38 @@ export const TripCalendar = ({ cities, activities }: Props) => {
   const todayISO = toISO(new Date());
   const gridCols = isMobile ? "44px 1fr" : `60px repeat(${numDays}, minmax(0,1fr))`;
 
+  // ===== Validación visual de superposiciones (en el rango visible) =====
+  type OverlapGroup = {
+    date: string;
+    events: CalEvent[];
+    hasContinuation: boolean;
+  };
+  const visibleOverlaps: OverlapGroup[] = useMemo(() => {
+    const groups: OverlapGroup[] = [];
+    days.forEach((d) => {
+      const iso = toISO(d);
+      const evs = (eventsByDate[iso] || []).filter(e => !e.isAllDay);
+      // Build clusters of events that share overlap (overlapCount > 1)
+      const seen = new Set<string>();
+      evs.forEach((ev) => {
+        if (seen.has(ev.id)) return;
+        if ((ev.overlapCount ?? 1) <= 1) return;
+        const cluster = evs.filter(o =>
+          o.startMin < ev.endMin && o.endMin > ev.startMin
+        );
+        cluster.forEach(c => seen.add(c.id));
+        if (cluster.length > 1) {
+          groups.push({
+            date: iso,
+            events: cluster.sort((a, b) => a.startMin - b.startMin),
+            hasContinuation: cluster.some(c => c.isContinuation),
+          });
+        }
+      });
+    });
+    return groups;
+  }, [days, eventsByDate]);
+
   return (
     <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
       {/* Toolbar */}
@@ -293,6 +326,72 @@ export const TripCalendar = ({ cities, activities }: Props) => {
           })}
         </div>
       </div>
+
+      {/* Banner de validación de superposiciones */}
+      {visibleOverlaps.length > 0 && (
+        <div className="border-b border-amber-200 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-900">
+          <button
+            type="button"
+            onClick={() => setOverlapsOpen(o => !o)}
+            className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 text-left hover:bg-amber-100/60 dark:hover:bg-amber-900/30 transition-colors"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+              <p className="text-xs sm:text-sm font-semibold text-amber-800 dark:text-amber-200 truncate">
+                {visibleOverlaps.length} superposición{visibleOverlaps.length === 1 ? "" : "es"} en el rango visible
+                <span className="hidden sm:inline font-normal text-amber-700 dark:text-amber-300"> · resueltas en columnas paralelas</span>
+              </p>
+            </div>
+            <ChevronDown className={`w-4 h-4 text-amber-600 dark:text-amber-400 transition-transform ${overlapsOpen ? "rotate-180" : ""}`} />
+          </button>
+          {overlapsOpen && (
+            <div className="px-3 sm:px-4 pb-3 space-y-2">
+              {visibleOverlaps.map((g, idx) => {
+                const d = fromISO(g.date);
+                const dateLabel = `${DAYS_SHORT[d.getDay()]} ${d.getDate()} ${MONTHS_FULL[d.getMonth()].slice(0, 3).toLowerCase()}`;
+                return (
+                  <div key={`${g.date}-${idx}`} className="bg-card border border-amber-200 dark:border-amber-900 rounded-lg p-2.5 text-xs">
+                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                      <span className="font-bold text-foreground">{dateLabel}</span>
+                      <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                        {g.events.length} eventos solapados
+                      </span>
+                      {g.hasContinuation && (
+                        <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                          ↳ vuelo cruza medianoche
+                        </span>
+                      )}
+                    </div>
+                    <ul className="space-y-1">
+                      {g.events.map(ev => {
+                        const s = styleFor(ev.type);
+                        const Icon = s.icon;
+                        return (
+                          <li key={ev.id} className="flex items-center gap-2">
+                            <span className={`inline-flex items-center justify-center w-5 h-5 rounded ${s.bg} ${s.border} border flex-shrink-0`}>
+                              <Icon className={`w-2.5 h-2.5 ${s.text}`} />
+                            </span>
+                            <span className="font-mono text-[10px] text-muted-foreground tabular-nums flex-shrink-0">
+                              {minToLabel(ev.startMin)}–{minToLabel(ev.endMin)}
+                            </span>
+                            <span className="font-medium text-foreground truncate">
+                              {ev.isContinuation && <span className="opacity-60 mr-1">↳</span>}
+                              {ev.title}
+                            </span>
+                            <span className="ml-auto text-[10px] text-muted-foreground flex-shrink-0">
+                              col {(ev.overlapColumn ?? 0) + 1}/{ev.overlapCount ?? 1}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Header: day columns */}
       <div className="grid border-b border-border" style={{ gridTemplateColumns: gridCols }}>
