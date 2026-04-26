@@ -594,6 +594,138 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
         );
       })()}
 
+      {/* Auditoría de gastos: justificación + desvío vs estimado */}
+      {(() => {
+        const DEVIATION_THRESHOLD = 0.20; // ±20%
+        const auditRows = activities
+          .filter(a => a.activity_type === "expense" && Number(a.cost_usd) > 0)
+          .map(a => {
+            const real = Number(a.cost_usd) || 0;
+            const estimate = Number(a.cost_estimate_usd) || 0;
+            const hasEstimate = estimate > 0;
+            const diff = hasEstimate ? real - estimate : 0;
+            const pct = hasEstimate ? diff / estimate : 0;
+            const overBudget = hasEstimate && pct > DEVIATION_THRESHOLD;
+            const underBudget = hasEstimate && pct < -DEVIATION_THRESHOLD;
+            return {
+              id: a.id,
+              title: a.title,
+              city: cityNameById.get(a.city_id) || "—",
+              cityPos: cityPosById.get(a.city_id) ?? 999,
+              justification: a.cost_justification || "",
+              real,
+              estimate,
+              hasEstimate,
+              diff,
+              pct,
+              overBudget,
+              underBudget,
+              missingJustification: !a.cost_justification,
+            };
+          })
+          .sort((x, y) => x.cityPos - y.cityPos || y.real - x.real);
+        const flagged = auditRows.filter(r => r.overBudget || r.underBudget || r.missingJustification);
+        const allClean = flagged.length === 0 && auditRows.length > 0;
+        return (
+          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+            <div className={`px-5 py-4 border-b border-border flex items-center justify-between gap-3 flex-wrap ${allClean ? "bg-emerald-50" : "bg-amber-50"}`}>
+              <div className="flex items-center gap-3">
+                {allClean ? (
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                ) : (
+                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+                )}
+                <div>
+                  <h3 className="font-bold text-foreground">Auditoría de gastos · justificación + desvío</h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Cada gasto debe traer su lógica (distancia, tipo de transporte, tarifa) y un estimado.
+                    Se marca en rojo si el costo real se desvía más de ±{Math.round(DEVIATION_THRESHOLD * 100)}% del estimado.
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Items a revisar</p>
+                <p className={`font-black text-lg ${flagged.length === 0 ? "text-emerald-600" : "text-amber-600"}`}>
+                  {flagged.length} / {auditRows.length}
+                </p>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40 text-muted-foreground text-xs uppercase tracking-wider">
+                  <tr>
+                    <th className="text-left px-5 py-3 font-semibold">Gasto</th>
+                    <th className="text-left px-5 py-3 font-semibold hidden lg:table-cell">Justificación</th>
+                    <th className="text-right px-5 py-3 font-semibold hidden sm:table-cell">Estimado</th>
+                    <th className="text-right px-5 py-3 font-semibold">Real</th>
+                    <th className="text-right px-5 py-3 font-semibold">Δ</th>
+                    <th className="text-center px-5 py-3 font-semibold">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {auditRows.map((r) => {
+                    const flag = r.overBudget || r.underBudget || r.missingJustification;
+                    const pctLabel = r.hasEstimate ? `${r.pct >= 0 ? "+" : ""}${Math.round(r.pct * 100)}%` : "—";
+                    return (
+                      <tr key={r.id} className={`border-t border-border ${flag ? "bg-amber-50/40" : ""}`}>
+                        <td className="px-5 py-3 align-top">
+                          <p className="text-foreground font-medium">{r.title}</p>
+                          <p className="text-[11px] text-muted-foreground mt-0.5">{r.city}</p>
+                          {r.justification && (
+                            <p className="text-[11px] text-muted-foreground mt-1 lg:hidden italic">{r.justification}</p>
+                          )}
+                        </td>
+                        <td className="px-5 py-3 text-muted-foreground hidden lg:table-cell text-xs max-w-md">
+                          {r.justification || <span className="italic text-amber-700">Sin justificación documentada</span>}
+                        </td>
+                        <td className="px-5 py-3 text-right text-muted-foreground hidden sm:table-cell">
+                          {r.hasEstimate ? fmt(r.estimate) : <span className="italic text-muted-foreground/60">—</span>}
+                        </td>
+                        <td className="px-5 py-3 text-right text-foreground font-semibold">{fmt(r.real)}</td>
+                        <td className={`px-5 py-3 text-right font-bold text-xs ${
+                          !r.hasEstimate ? "text-muted-foreground" :
+                          r.overBudget ? "text-rose-600" :
+                          r.underBudget ? "text-emerald-600" :
+                          "text-muted-foreground"
+                        }`}>
+                          {pctLabel}
+                        </td>
+                        <td className="px-5 py-3 text-center">
+                          {r.missingJustification ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                              <AlertTriangle className="w-3 h-3" /> Sin lógica
+                            </span>
+                          ) : r.overBudget ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                              <AlertTriangle className="w-3 h-3" /> Sobrecosto
+                            </span>
+                          ) : r.underBudget ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                              <TrendingDown className="w-3 h-3" /> Ahorro
+                            </span>
+                          ) : !r.hasEstimate ? (
+                            <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
+                              Sin estimado
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                              <CheckCircle2 className="w-3 h-3" /> OK
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="px-5 py-3 bg-muted/30 border-t border-border text-[11px] text-muted-foreground">
+              Umbral configurado: ±{Math.round(DEVIATION_THRESHOLD * 100)}%. Vuelos y hoteles tienen tablas dedicadas arriba con sus propias validaciones.
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Desglose de comisiones por categoría */}
       {/* Patrocinios */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
