@@ -31,7 +31,7 @@ const Gira = () => {
       supabase.from("trip_comments").select("*").order("created_at", { ascending: false }),
     ]);
     if (citiesRes.data) setCities(citiesRes.data as City[]);
-    if (activitiesRes.data) setActivities(activitiesRes.data as Activity[]);
+    if (activitiesRes.data) setActivities(activitiesRes.data as unknown as Activity[]);
     if (commentsRes.data) setComments(commentsRes.data as Comment[]);
     setLoadingData(false);
   }, []);
