@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi } from "lucide-react";
 import { toast } from "sonner";
 import type { City, Activity } from "./CityCard";
 
