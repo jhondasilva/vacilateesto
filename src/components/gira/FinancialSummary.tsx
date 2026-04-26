@@ -390,6 +390,11 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                             <AlertTriangle className="w-3 h-3" /> ¿1 pax?
                           </span>
                         )}
+                        {r.duplicated && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                            <AlertTriangle className="w-3 h-3" /> Duplicado con tren
+                          </span>
+                        )}
                       </div>
                       <p className="text-[11px] text-muted-foreground mt-0.5 md:hidden">
                         {r.airline} {r.flightNumber}
