@@ -102,9 +102,24 @@ const Footer = () => {
 
   const footerLinks = [
     {
+      title: "Blog",
+      links: [
+        { label: "Todos los artículos", href: "/blog" },
+        { label: "Mejores podcasts venezolanos", href: "/blog/mejores-podcasts-venezolanos-2026" },
+        { label: "Cómo subir el Roraima", href: "/blog/como-subir-roraima-guia-completa" },
+        { label: "Cómo subir el Pico Naiguatá", href: "/blog/como-subir-pico-naiguata" },
+        { label: "Leyendas urbanas de Venezuela", href: "/blog/leyendas-urbanas-venezuela" },
+        { label: "Historia de la arepa", href: "/blog/historia-de-la-arepa" },
+        { label: "Mundial 2026 desde Venezuela", href: "/blog/donde-ver-mundial-2026-desde-venezuela" },
+        { label: "El podcast más largo", href: "/blog/podcast-mas-largo-historia" },
+        { label: "Ruta del ramen en Caracas", href: "/blog/ruta-del-ramen-caracas" },
+      ],
+    },
+    {
       title: "Recursos",
       links: [
         { label: "Media Kit", href: "/media-kit" },
+        { label: "Hosts", href: "/hosts" },
         { label: "Media Kit VEM 2026", href: "/downloads/VacilateElMundial-MediaKit-2026.pdf" },
       ],
     },
