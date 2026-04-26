@@ -14,6 +14,7 @@ import InstallApp from "./pages/InstallApp";
 import NotFound from "./pages/NotFound";
 import Gira from "./pages/Gira";
 import GiraLogin from "./pages/GiraLogin";
+import GiraPoliticas from "./pages/GiraPoliticas";
 import Buscador from "./pages/Buscador";
 import Hosts from "./pages/Hosts";
 import BlogIndex from "./pages/blog/BlogIndex";
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/instalar" element={<InstallApp />} />
             <Route path="/gira/login" element={<GiraLogin />} />
             <Route path="/gira" element={<Gira />} />
+            <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/hosts" element={<Hosts />} />
             <Route path="/blog" element={<BlogIndex />} />
