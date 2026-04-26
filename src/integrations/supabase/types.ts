@@ -92,6 +92,8 @@ export type Database = {
           arrival_time: string | null
           cabin_class: string | null
           city_id: string
+          cost_estimate_usd: number | null
+          cost_justification: string | null
           cost_usd: number | null
           created_at: string
           departure_time: string | null
@@ -114,6 +116,8 @@ export type Database = {
           arrival_time?: string | null
           cabin_class?: string | null
           city_id: string
+          cost_estimate_usd?: number | null
+          cost_justification?: string | null
           cost_usd?: number | null
           created_at?: string
           departure_time?: string | null
@@ -136,6 +140,8 @@ export type Database = {
           arrival_time?: string | null
           cabin_class?: string | null
           city_id?: string
+          cost_estimate_usd?: number | null
+          cost_justification?: string | null
           cost_usd?: number | null
           created_at?: string
           departure_time?: string | null
