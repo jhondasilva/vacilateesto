@@ -176,6 +176,30 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
       nightly: Number(c.nightly_rate_usd) || 0,
       accommodation: c.accommodation_name || "",
     }));
+
+  // ===== Filas de vuelos (orden cronológico vía posición de ciudad) =====
+  const cityPosById = new Map(cities.map(c => [c.id, c.position ?? 0]));
+  const cityNameById = new Map(cities.map(c => [c.id, c.city]));
+  const flightRows = activities
+    .filter(a => a.activity_type === "flight")
+    .map(a => ({
+      id: a.id,
+      city: cityNameById.get(a.city_id) || "—",
+      cityPos: cityPosById.get(a.city_id) ?? 999,
+      route: a.title,
+      airline: a.airline || "",
+      flightNumber: a.flight_number || "",
+      cabin: a.cabin_class || "",
+      duration: a.duration || "",
+      durationHours: parseDurationHours(a.duration),
+      cost: Number(a.cost_usd) || 0,
+    }))
+    .sort((x, y) => x.cityPos - y.cityPos || x.route.localeCompare(y.route));
+  const totalFlightsCost = flightRows.reduce((s, r) => s + r.cost, 0);
+  const flightsCount = flightRows.length;
+  const longFlightsTotal = flightRows.filter(r => r.durationHours > 3).length;
+  const freeFlights = flightRows.filter(r => r.cost === 0).length;
+
   const expenseRows = [
     { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
