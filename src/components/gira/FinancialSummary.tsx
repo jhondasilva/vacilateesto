@@ -629,6 +629,7 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
               overBudget,
               underBudget,
               missingJustification: !a.cost_justification,
+              breakdown: Array.isArray(a.cost_breakdown) ? a.cost_breakdown : [],
             };
           })
           .sort((x, y) => x.cityPos - y.cityPos || y.real - x.real);
