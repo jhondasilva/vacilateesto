@@ -159,6 +159,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   };
 
   const totalNights = cities.reduce((s, c) => s + (Number(c.nights) || 0), 0);
+  const hotelRows = [...cities]
+    .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+    .map((c) => ({
+      id: c.id,
+      city: c.city,
+      nights: Number(c.nights) || 0,
+      cost: Number(c.hotel_cost_usd) || 0,
+      nightly: Number(c.nightly_rate_usd) || 0,
+      accommodation: c.accommodation_name || "",
+    }));
   const expenseRows = [
     { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · Conviasa directo + Premium Economy internacional`, value: flightsCost },
     { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
