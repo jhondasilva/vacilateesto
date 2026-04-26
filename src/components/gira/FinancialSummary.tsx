@@ -332,7 +332,9 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
                 const isFree = r.cost === 0;
                 const hasWifi = r.durationHours > 3;
                 const isConviasaSolo = r.airline.toLowerCase().includes("conviasa");
-                const looksUnderpriced = !isFree && !isConviasaSolo && r.cost > 0 && r.cost < 300;
+                // Solo alerta vuelos largos (>3h) con costo sospechosamente bajo (<$400 total para 2 pax).
+                // Domésticos cortos USA pueden costar legítimamente $200-300 total ×2.
+                const looksUnderpriced = !isFree && !isConviasaSolo && r.cost > 0 && r.durationHours > 3 && r.cost < 400;
                 return (
                   <tr key={r.id} className={`border-t border-border ${isFree ? "bg-emerald-50/40" : ""}`}>
                     <td className="px-5 py-3 text-foreground font-medium">
