@@ -32,7 +32,7 @@ const VacilateElMundialSection = () => {
       className="relative overflow-hidden bg-background py-20 md:py-28"
     >
       <meta itemProp="name" content="Vacílate El Mundial 2026 · Cobertura del Mundial FIFA México, USA y Canadá" />
-      <meta itemProp="description" content="Plataforma de cobertura del Mundial FIFA 2026 producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 15 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
+      <meta itemProp="description" content="Plataforma de cobertura del Mundial FIFA 2026 producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 16 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
       <meta itemProp="startDate" content="2026-06-11" />
       <meta itemProp="endDate" content="2026-07-19" />
       <meta itemProp="url" content="https://www.vacilateesto.com/vacilate-el-mundial" />
