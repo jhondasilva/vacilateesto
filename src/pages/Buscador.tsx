@@ -276,6 +276,23 @@ const Buscador = () => {
                 </button>
               ))}
             </div>
+
+            <div className="flex gap-2 mt-3 justify-center flex-wrap">
+              {PROGRAMAS.map(({ k, label }) => (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setPrograma(k)}
+                  className={`text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
+                    programa === k
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-transparent text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
