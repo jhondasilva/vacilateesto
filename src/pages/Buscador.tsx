@@ -152,6 +152,12 @@ const Buscador = () => {
     [],
   );
 
+  const filteredResults = useMemo(() => {
+    if (!results) return [];
+    if (programa === "all") return results;
+    return results.filter((r) => detectPrograma(r.title) === programa);
+  }, [results, programa]);
+
   return (
     <>
       <Helmet>
