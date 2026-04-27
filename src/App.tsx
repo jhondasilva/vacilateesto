@@ -8,6 +8,7 @@ import PodcastEnLaCumbre from "./pages/PodcastEnLaCumbre";
 import PodcastEterno from "./pages/PodcastEterno";
 import VacilateElMundial from "./pages/VacilateElMundial";
 import MediaKit from "./pages/MediaKit";
+import MediaKitVEM from "./pages/MediaKitVEM";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import InstallApp from "./pages/InstallApp";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/podcast-eterno" element={<PodcastEterno />} />
             <Route path="/vacilate-el-mundial" element={<VacilateElMundial />} />
             <Route path="/media-kit" element={<MediaKit />} />
+            <Route path="/media-kit-vem" element={<MediaKitVEM />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/terminos" element={<TermsOfUse />} />
             <Route path="/instalar" element={<InstallApp />} />
