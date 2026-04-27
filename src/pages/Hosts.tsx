@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HostsSection from "@/components/HostsSection";
+import HostLinguisticInsights from "@/components/HostLinguisticInsights";
 
 const Hosts = () => {
   const url = "https://www.vacilateesto.com/hosts";
@@ -30,6 +31,7 @@ const Hosts = () => {
           </p>
         </section>
         <HostsSection />
+        <HostLinguisticInsights />
       </main>
       <Footer />
     </div>
