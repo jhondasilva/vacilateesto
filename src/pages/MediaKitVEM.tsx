@@ -250,13 +250,13 @@ const MediaKitVEM = () => {
                     id="hero-vem-title"
                     className="font-display font-black tracking-[-0.04em] leading-[0.92] mt-14 sm:mt-16 md:mt-20 pb-2"
                   >
-                    <span className="block text-foreground text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem]">
+                    <span className="block text-foreground text-[15vw] sm:text-[12vw] lg:text-[7.5rem] xl:text-[9rem]">
                       vacílate
                     </span>
-                    <span className="block text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem] -mt-2 pr-[0.15em]">
+                    <span className="block text-[15vw] sm:text-[12vw] lg:text-[7.5rem] xl:text-[9rem] -mt-2 pr-[0.15em]">
                       <span className="text-gradient italic inline-block pr-[0.08em]">el mundial</span>
                     </span>
-                    <span className="block text-foreground text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem] -mt-2">
+                    <span className="block text-foreground text-[15vw] sm:text-[12vw] lg:text-[7.5rem] xl:text-[9rem] -mt-2">
                       2026<span className="text-primary">.</span>
                     </span>
                   </h1>
