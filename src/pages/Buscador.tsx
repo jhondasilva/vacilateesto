@@ -341,9 +341,6 @@ const Buscador = () => {
                                 </>
                               )}
                             </Badge>
-                            <span className="text-xs text-muted-foreground font-medium">
-                              {Math.round(r.similarity * 100)}% coincidencia
-                            </span>
                           </div>
                           <h3 className="font-bold text-base sm:text-lg leading-snug mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                             {r.title}
