@@ -30,7 +30,7 @@ import logoVEM from "@/assets/logo-vacilate-mundial.svg";
 const stats = [
   { number: "2M+", label: "Seguidores" },
   { number: "24/7", label: "Presencia" },
-  { number: "15", label: "Ciudades" },
+  { number: "16", label: "Paradas" },
   { number: "4", label: "Países" },
 ];
 
@@ -123,21 +123,22 @@ const ecosystem = [
 ];
 
 const route = [
-  { n: 1, country: "MX", city: "CDMX", date: "9 jun" },
-  { n: 2, country: "USA", city: "New York", date: "12 jun" },
-  { n: 3, country: "USA", city: "Austin", date: "14 jun" },
-  { n: 4, country: "USA", city: "Houston", date: "16 jun" },
-  { n: 5, country: "FRA", city: "Cannes", date: "19 jun" },
-  { n: 6, country: "USA", city: "Miami", date: "26 jun" },
-  { n: 7, country: "USA", city: "San Francisco", date: "1 jul" },
-  { n: 8, country: "USA", city: "Philadelphia", date: "4 jul" },
-  { n: 9, country: "USA", city: "New York", date: "5 jul" },
-  { n: 10, country: "USA", city: "Boston", date: "7 jul" },
-  { n: 11, country: "USA", city: "Miami", date: "10 jul" },
-  { n: 12, country: "USA", city: "Dallas", date: "12 jul" },
-  { n: 13, country: "USA", city: "Atlanta", date: "15 jul" },
-  { n: 14, country: "USA", city: "New York", date: "17 jul" },
-  { n: 15, country: "VEN", city: "Caracas", date: "20 jul" },
+  { n: 1, country: "MX", city: "CDMX", date: "10–12 jun" },
+  { n: 2, country: "USA", city: "New York", date: "12–14 jun" },
+  { n: 3, country: "USA", city: "Austin", date: "14–15 jun" },
+  { n: 4, country: "USA", city: "Houston", date: "16–18 jun" },
+  { n: 5, country: "FRA", city: "Cannes", date: "19–26 jun" },
+  { n: 6, country: "USA", city: "Miami", date: "26–28 jun" },
+  { n: 7, country: "VEN", city: "Caracas", date: "28 jun – 1 jul" },
+  { n: 8, country: "USA", city: "San Francisco", date: "1–3 jul" },
+  { n: 9, country: "USA", city: "Philadelphia", date: "4–5 jul" },
+  { n: 10, country: "USA", city: "New York", date: "5–7 jul" },
+  { n: 11, country: "USA", city: "Boston", date: "7–10 jul" },
+  { n: 12, country: "USA", city: "Miami", date: "10–11 jul" },
+  { n: 13, country: "USA", city: "Dallas", date: "12–14 jul" },
+  { n: 14, country: "USA", city: "Atlanta", date: "15–16 jul" },
+  { n: 15, country: "USA", city: "New York", date: "17–20 jul" },
+  { n: 16, country: "VEN", city: "Caracas", date: "20 jul" },
 ];
 
 const benefits = [
@@ -209,7 +210,7 @@ const MediaKitVEM = () => {
                   Vacílate <span className="text-gradient">El Mundial</span> 2026
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl">
-                  MX · USA · CAN | FEB - JUL 2026 | 15 ciudades | 4 países. El ecosistema de Fun Educaitment que cubre el Mundial FIFA 2026 con humor, data y calle.
+                MX · USA · CAN · FRA · VEN | FEB - JUL 2026 | 16 paradas | 4 países. El ecosistema de Fun Educaitment que cubre el Mundial FIFA 2026 con humor, data y calle.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 mt-2">
@@ -248,7 +249,7 @@ const MediaKitVEM = () => {
               "MX · USA · CAN",
               "FEB — JUL 2026",
               "FUN EDUCAITMENT",
-              "15 CIUDADES · 4 PAÍSES",
+              "16 PARADAS · 4 PAÍSES",
             ]}
             variant="primary"
           />
@@ -448,7 +449,7 @@ const MediaKitVEM = () => {
                 La Ruta
               </h2>
               <p className="mt-2 text-muted-foreground">
-                15 ciudades · 4 países. Junio a las sedes, julio la locura. Cierre triunfal en Caracas.
+                16 paradas · 4 países. Junio a las sedes, escala en Caracas, julio la locura y cierre triunfal en Caracas.
               </p>
 
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
