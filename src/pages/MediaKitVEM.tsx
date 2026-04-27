@@ -193,52 +193,212 @@ const MediaKitVEM = () => {
         <Header />
 
         <main role="main" className="pt-20">
-          {/* HERO */}
-          <section className="relative overflow-hidden bg-hero">
-            <div className="container mx-auto px-4 py-16 sm:py-24 max-w-6xl">
-              <div className="flex flex-col items-center text-center gap-6">
-                <img
-                  src={logoVEM}
-                  alt="Vacílate El Mundial 2026"
-                  className="w-40 sm:w-56 md:w-72 h-auto"
-                  loading="eager"
-                />
-                <span className="inline-flex items-center gap-2 bg-foreground text-background px-4 py-1.5 rounded-full text-xs font-display font-black uppercase tracking-widest border-2 border-foreground">
-                  <Trophy className="w-3.5 h-3.5" /> Media Kit 2026
-                </span>
-                <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl uppercase leading-[0.95] tracking-tight">
-                  Vacílate <span className="text-gradient">El Mundial</span> 2026
-                </h1>
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl">
-                MX · USA · CAN · FRA · VEN | FEB - JUL 2026 | 16 paradas | 4 países. El ecosistema de Fun Educaitment que cubre el Mundial FIFA 2026 con humor, data y calle.
-                </p>
+          {/* HERO — same style as Home */}
+          <section
+            id="hero-vem"
+            className="relative overflow-hidden bg-background"
+            aria-labelledby="hero-vem-title"
+          >
+            {/* Background blobs */}
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-primary/30 rounded-full blur-[140px] animate-float" />
+              <div className="absolute -bottom-32 -right-32 w-[40rem] h-[40rem] bg-accent/30 rounded-full blur-[140px] animate-float-delayed" />
+              <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
+            </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 mt-2">
-                  <Button
-                    size="lg"
-                    className="border-2 border-foreground sticker-shadow-foreground font-display font-black uppercase tracking-widest"
-                    asChild
+            {/* Top marquee */}
+            <div className="relative z-10 border-y-2 border-foreground bg-foreground text-background overflow-hidden py-2.5">
+              <div className="flex whitespace-nowrap animate-marquee">
+                {Array.from({ length: 4 }).flatMap((_, k) => [
+                  "VACÍLATE EL MUNDIAL 2026",
+                  "★",
+                  "MX · USA · CAN · FRA · VEN",
+                  "✦",
+                  "FEB — JUL 2026",
+                  "★",
+                  "16 PARADAS · 4 PAÍSES",
+                  "✦",
+                ].map((item, i) => (
+                  <span
+                    key={`${k}-${i}`}
+                    className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase mx-6 inline-flex items-center"
                   >
-                    <a
-                      href="/downloads/VacilateElMundial-MediaKit-2026.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download="Vacilate-El-Mundial-MediaKit-2026.pdf"
-                    >
-                      <Download className="w-5 h-5 mr-2" /> Descargar PDF
-                    </a>
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-2 border-foreground sticker-shadow-accent font-display font-black uppercase tracking-widest"
-                    asChild
+                    {item}
+                  </span>
+                )))}
+              </div>
+            </div>
+
+            {/* Main content */}
+            <div className="container mx-auto px-4 relative z-10 pt-10 md:pt-16 pb-12 md:pb-16 max-w-6xl">
+              <div className="grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+                {/* LEFT — type-as-hero */}
+                <div className="lg:col-span-7 relative">
+                  {/* Floating sticker: MEDIA KIT */}
+                  <div className="absolute -top-2 sm:-top-4 left-0 md:-left-6 z-20 bg-primary text-primary-foreground rounded-full px-3 py-1.5 sm:px-4 sm:py-2 shadow-[0_8px_24px_hsl(var(--primary)/0.4)] -rotate-6 hover:rotate-0 transition-transform duration-300 border-2 border-foreground">
+                    <div className="flex items-center gap-2 font-display font-black text-[10px] sm:text-xs uppercase tracking-widest">
+                      <Trophy className="w-3.5 h-3.5" /> Media Kit 2026
+                    </div>
+                  </div>
+
+                  {/* Floating sticker: 16 PARADAS */}
+                  <div className="absolute top-0 sm:-top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1 sm:px-3 sm:py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))]">
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">★ 16 Paradas · 4 Países</span>
+                  </div>
+
+                  <h1
+                    id="hero-vem-title"
+                    className="font-display font-black tracking-[-0.04em] leading-[0.92] mt-14 sm:mt-16 md:mt-20 pb-2"
                   >
-                    <a href="#contacto">
-                      <Mail className="w-5 h-5 mr-2" /> Hablemos
-                    </a>
-                  </Button>
+                    <span className="block text-foreground text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem]">
+                      vacílate
+                    </span>
+                    <span className="block text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem] -mt-2 pr-[0.15em]">
+                      <span className="text-gradient italic inline-block pr-[0.08em]">el mundial</span>
+                    </span>
+                    <span className="block text-foreground text-[18vw] sm:text-[14vw] lg:text-[8.5rem] xl:text-[10rem] -mt-2">
+                      2026<span className="text-primary">.</span>
+                    </span>
+                  </h1>
+
+                  {/* Subtitle + CTAs */}
+                  <div className="mt-6 sm:mt-8 max-w-xl">
+                    <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+                      El <span className="font-bold text-foreground">ecosistema de Fun Educaitment</span> que cubre el Mundial FIFA 2026 con
+                      <span className="font-bold text-foreground"> humor, data y calle</span>. MX · USA · CAN · FRA · VEN — feb a jul 2026. ✦
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Button
+                        asChild
+                        size="xl"
+                        className="group rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <a
+                          href="/downloads/VacilateElMundial-MediaKit-2026.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download="Vacilate-El-Mundial-MediaKit-2026.pdf"
+                        >
+                          <Download className="w-5 h-5" aria-hidden="true" />
+                          Descargar PDF
+                        </a>
+                      </Button>
+                      <Button
+                        asChild
+                        size="xl"
+                        variant="outline"
+                        className="group rounded-full border-2 border-foreground bg-background hover:bg-accent hover:text-accent-foreground hover:border-foreground"
+                      >
+                        <a href="#contacto">
+                          <Mail className="w-5 h-5" aria-hidden="true" />
+                          Hablemos
+                        </a>
+                      </Button>
+                    </div>
+
+                    {/* Quick chips */}
+                    <div className="flex flex-wrap items-center gap-2 mt-6">
+                      <span className="text-xs uppercase tracking-widest font-bold text-muted-foreground mr-1">Highlights:</span>
+                      {["2M+ Seguidores", "24/7 Presencia", "16 Paradas", "4 Países"].map((p) => (
+                        <span
+                          key={p}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-muted border border-border text-xs font-semibold"
+                        >
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* RIGHT — logo with stickers */}
+                <div className="lg:col-span-5 relative">
+                  <div className="relative aspect-square max-w-[300px] sm:max-w-[380px] md:max-w-[440px] mx-auto">
+                    {/* Spinning sticker badge */}
+                    <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 z-30 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 animate-spin-slow">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <defs>
+                          <path id="circlePathVem" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+                        </defs>
+                        <text className="fill-foreground font-display font-black" style={{ fontSize: "11px", letterSpacing: "2px" }}>
+                          <textPath href="#circlePathVem">
+                            ★ MUNDIAL · 2026 · MX · USA · CAN · ★ MUNDIAL · 2026 ·
+                          </textPath>
+                        </text>
+                      </svg>
+                      <Trophy className="absolute inset-0 m-auto w-6 h-6 sm:w-8 sm:h-8 text-primary" aria-hidden="true" />
+                    </div>
+
+                    {/* Frame with logo */}
+                    <div className="relative w-full h-full bg-background rounded-3xl border-2 border-foreground shadow-[6px_6px_0_hsl(var(--primary))] sm:shadow-[10px_10px_0_hsl(var(--primary))] lg:shadow-[12px_12px_0_hsl(var(--primary))] hover:shadow-[16px_16px_0_hsl(var(--accent))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 rotate-2 hover:rotate-0 overflow-hidden flex items-center justify-center p-8">
+                      <img
+                        src={logoVEM}
+                        alt="Vacílate El Mundial 2026"
+                        className="w-full h-auto max-h-full object-contain"
+                        loading="eager"
+                      />
+                      <div className="absolute bottom-3 left-3 right-3 bg-background/90 backdrop-blur-md rounded-xl px-3 py-2 border border-border flex items-center justify-between">
+                        <span className="font-display font-black text-xs uppercase tracking-wider">VEM 2026</span>
+                        <span className="text-xs text-muted-foreground">Feb — Jul</span>
+                      </div>
+                    </div>
+
+                    {/* Floating rating sticker */}
+                    <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 z-30 bg-background border-2 border-foreground rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))] -rotate-6 hover:rotate-0 transition-transform">
+                      <div className="flex items-center gap-1.5">
+                        <Sparkles className="w-4 h-4 text-primary" />
+                        <span className="font-display font-black text-sm">FIFA</span>
+                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">2026</span>
+                      </div>
+                    </div>
+
+                    {/* Floating squiggle */}
+                    <svg
+                      className="hidden sm:block absolute -top-8 right-8 z-20 w-20 h-20 text-accent animate-wiggle"
+                      viewBox="0 0 100 100"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M10,50 Q30,10 50,50 T90,50" />
+                    </svg>
+
+                    {/* Stats sticker */}
+                    <div
+                      className="absolute top-1/2 -left-4 sm:-left-8 md:-left-12 z-30 bg-foreground text-background rounded-2xl px-2.5 py-2 sm:px-3 sm:py-2.5 -rotate-12 hover:rotate-0 transition-transform border-2 border-foreground"
+                      aria-label="16 paradas en 4 países"
+                    >
+                      <div className="font-display font-black text-2xl leading-none">16</div>
+                      <div className="text-[9px] uppercase tracking-widest text-background/70 font-bold mt-0.5">Paradas</div>
+                      <div className="text-[8px] uppercase tracking-widest text-background/50 font-semibold mt-0.5">4 países</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom marquee */}
+            <div className="relative z-10 border-y-2 border-foreground bg-primary text-primary-foreground overflow-hidden py-2">
+              <div className="flex whitespace-nowrap animate-marquee-fast" style={{ animationDirection: "reverse" }}>
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <span key={idx} className="inline-flex items-center mx-6">
+                    <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
+                      Humor · Data · Calle
+                    </span>
+                    <span className="mx-6 text-background/70">✦</span>
+                    <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
+                      Fun Educaitment
+                    </span>
+                    <span className="mx-6 text-background/70">✦</span>
+                    <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
+                      Mundial FIFA 2026
+                    </span>
+                    <span className="mx-6 text-background/70">✦</span>
+                  </span>
+                ))}
               </div>
             </div>
           </section>
