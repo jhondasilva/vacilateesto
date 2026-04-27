@@ -2,7 +2,7 @@ import headerBanner from "@/assets/header-banner.png";
 
 const HeroBanner = () => {
   return (
-    <section className="w-full" aria-label="Banner principal de Vacílate Esto">
+    <section className="w-full pt-20" aria-label="Banner principal de Vacílate Esto">
       <div className="w-full">
         <img
           src={headerBanner}
