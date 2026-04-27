@@ -314,6 +314,15 @@ const Buscador = () => {
             </div>
           )}
 
+          {(() => null)()}
+          {results && (() => {
+            const filtered =
+              programa === "all"
+                ? results
+                : results.filter((r) => detectPrograma(r.title) === programa);
+            (window as any).__filteredResults = filtered;
+            return null;
+          })()}
           {results && results.length === 0 && !loading && (
             <div className="text-center py-16">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
