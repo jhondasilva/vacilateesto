@@ -131,6 +131,63 @@ export type Database = {
         }
         Relationships: []
       }
+      host_stats: {
+        Row: {
+          avg_turn_length_seconds: number
+          created_at: string
+          display_name: string
+          host_key: string
+          id: string
+          last_computed_at: string
+          lexical_richness: number
+          top_fillers: Json
+          top_topics: Json
+          top_words: Json
+          total_seconds_spoken: number
+          total_turns: number
+          total_words: number
+          unique_words: number
+          updated_at: string
+          videos_analyzed: number
+        }
+        Insert: {
+          avg_turn_length_seconds?: number
+          created_at?: string
+          display_name: string
+          host_key: string
+          id?: string
+          last_computed_at?: string
+          lexical_richness?: number
+          top_fillers?: Json
+          top_topics?: Json
+          top_words?: Json
+          total_seconds_spoken?: number
+          total_turns?: number
+          total_words?: number
+          unique_words?: number
+          updated_at?: string
+          videos_analyzed?: number
+        }
+        Update: {
+          avg_turn_length_seconds?: number
+          created_at?: string
+          display_name?: string
+          host_key?: string
+          id?: string
+          last_computed_at?: string
+          lexical_richness?: number
+          top_fillers?: Json
+          top_topics?: Json
+          top_words?: Json
+          total_seconds_spoken?: number
+          total_turns?: number
+          total_words?: number
+          unique_words?: number
+          updated_at?: string
+          videos_analyzed?: number
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           email: string
@@ -443,6 +500,8 @@ export type Database = {
           embedding: string | null
           end_seconds: number
           id: string
+          speaker: string | null
+          speaker_confidence: number | null
           start_seconds: number
           text: string
           text_tsv: unknown
@@ -454,6 +513,8 @@ export type Database = {
           embedding?: string | null
           end_seconds: number
           id?: string
+          speaker?: string | null
+          speaker_confidence?: number | null
           start_seconds: number
           text: string
           text_tsv?: unknown
@@ -465,6 +526,8 @@ export type Database = {
           embedding?: string | null
           end_seconds?: number
           id?: string
+          speaker?: string | null
+          speaker_confidence?: number | null
           start_seconds?: number
           text?: string
           text_tsv?: unknown

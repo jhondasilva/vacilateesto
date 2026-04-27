@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.extract-receipt]
 verify_jwt = true
+
+[functions.host-insights]
+verify_jwt = false
