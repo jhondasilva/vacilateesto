@@ -285,7 +285,7 @@ Deno.serve(async (req) => {
         byVideo.get(row.video_id).chunks.push(row);
       }
     }
-    const results = Array.from(byVideo.values()).slice(0, 12);
+    const results = Array.from(byVideo.values()).slice(0, 30);
 
     return new Response(
       JSON.stringify({ ok: true, query, results }),

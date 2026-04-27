@@ -34,6 +34,29 @@ const SUGGESTIONS = [
   "el perro caliente",
 ];
 
+type Programa = "all" | "podcast" | "streaming" | "pelotica" | "cumbre";
+
+const PROGRAMAS: { k: Programa; label: string }[] = [
+  { k: "all", label: "Todos" },
+  { k: "podcast", label: "Podcast" },
+  { k: "streaming", label: "Streaming" },
+  { k: "pelotica", label: "Pelotica de Goma" },
+  { k: "cumbre", label: "En la Cumbre" },
+];
+
+function detectPrograma(title: string): Programa {
+  const t = title.toLowerCase();
+  if (t.includes("cumbre")) return "cumbre";
+  if (t.includes("pelotica")) return "pelotica";
+  if (
+    t.includes("streaming") ||
+    /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\b\s*\|/i.test(t) ||
+    t.startsWith("live ")
+  )
+    return "streaming";
+  return "podcast";
+}
+
 function formatTimestamp(seconds: number): string {
   const s = Math.floor(seconds);
   const h = Math.floor(s / 3600);
@@ -67,6 +90,7 @@ const Buscador = () => {
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "podcast" | "short">("all");
+  const [programa, setPrograma] = useState<Programa>("all");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<SearchResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -127,6 +151,12 @@ const Buscador = () => {
     () => `Por ejemplo: ${SUGGESTIONS[Math.floor(Date.now() / 4000) % SUGGESTIONS.length]}`,
     [],
   );
+
+  const filteredResults = useMemo(() => {
+    if (!results) return [];
+    if (programa === "all") return results;
+    return results.filter((r) => detectPrograma(r.title) === programa);
+  }, [results, programa]);
 
   return (
     <>
@@ -252,6 +282,23 @@ const Buscador = () => {
                 </button>
               ))}
             </div>
+
+            <div className="flex gap-2 mt-3 justify-center flex-wrap">
+              {PROGRAMAS.map(({ k, label }) => (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setPrograma(k)}
+                  className={`text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
+                    programa === k
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-transparent text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -273,26 +320,34 @@ const Buscador = () => {
             </div>
           )}
 
-          {results && results.length === 0 && !loading && (
+          {results && filteredResults.length === 0 && !loading && (
             <div className="text-center py-16">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
                 <Search className="w-7 h-7 text-muted-foreground" />
               </div>
-              <p className="text-xl font-bold mb-2">Nada por aquí para "{submittedQuery}"</p>
-              <p className="text-muted-foreground">Prueba con otras palabras o quita los filtros para ver más resultados.</p>
+              <p className="text-xl font-bold mb-2">
+                {results.length === 0
+                  ? `Nada por aquí para "${submittedQuery}"`
+                  : `Sin resultados en este programa para "${submittedQuery}"`}
+              </p>
+              <p className="text-muted-foreground">
+                {results.length === 0
+                  ? "Prueba con otras palabras o quita los filtros para ver más resultados."
+                  : "Cambia el programa o selecciona “Todos” para ver más resultados."}
+              </p>
             </div>
           )}
 
-          {results && results.length > 0 && (
+          {results && filteredResults.length > 0 && (
             <>
               <p className="text-sm text-muted-foreground mb-5 px-1">
                 Encontramos{" "}
-                <span className="font-semibold text-foreground">{results.length}</span>{" "}
-                {results.length === 1 ? "momento" : "momentos"} para{" "}
+                <span className="font-semibold text-foreground">{filteredResults.length}</span>{" "}
+                {filteredResults.length === 1 ? "momento" : "momentos"} para{" "}
                 <span className="font-semibold text-foreground">"{submittedQuery}"</span>
               </p>
               <div className="space-y-4">
-                {results.map((r) => {
+                {filteredResults.map((r) => {
                   const seconds = Math.floor(r.start_seconds);
                   const url = `https://youtu.be/${r.video_id}?t=${seconds}s`;
                   return (
