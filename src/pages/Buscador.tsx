@@ -34,6 +34,29 @@ const SUGGESTIONS = [
   "el perro caliente",
 ];
 
+type Programa = "all" | "podcast" | "streaming" | "pelotica" | "cumbre";
+
+const PROGRAMAS: { k: Programa; label: string }[] = [
+  { k: "all", label: "Todos" },
+  { k: "podcast", label: "Podcast" },
+  { k: "streaming", label: "Streaming" },
+  { k: "pelotica", label: "Pelotica de Goma" },
+  { k: "cumbre", label: "En la Cumbre" },
+];
+
+function detectPrograma(title: string): Programa {
+  const t = title.toLowerCase();
+  if (t.includes("cumbre")) return "cumbre";
+  if (t.includes("pelotica")) return "pelotica";
+  if (
+    t.includes("streaming") ||
+    /\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)\b\s*\|/i.test(t) ||
+    t.startsWith("live ")
+  )
+    return "streaming";
+  return "podcast";
+}
+
 function formatTimestamp(seconds: number): string {
   const s = Math.floor(seconds);
   const h = Math.floor(s / 3600);
@@ -67,6 +90,7 @@ const Buscador = () => {
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "podcast" | "short">("all");
+  const [programa, setPrograma] = useState<Programa>("all");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<SearchResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
