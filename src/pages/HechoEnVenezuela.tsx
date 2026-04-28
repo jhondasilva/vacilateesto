@@ -181,9 +181,9 @@ const HechoEnVenezuela = () => {
 
       <Header />
 
-      <main className="container mx-auto px-4 py-12 md:py-20 max-w-5xl">
+      <main className="container mx-auto px-4 py-8 md:py-20 max-w-5xl overflow-x-hidden">
         {/* Breadcrumb */}
-        <nav className="text-sm text-muted-foreground mb-8" aria-label="Breadcrumb">
+        <nav className="text-xs sm:text-sm text-muted-foreground mb-6 md:mb-8 break-words" aria-label="Breadcrumb">
           <Link to="/" className="hover:text-primary">
             Inicio
           </Link>
@@ -192,15 +192,15 @@ const HechoEnVenezuela = () => {
         </nav>
 
         {/* Hero */}
-        <header className="mb-12 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <MapPin className="w-4 h-4" />
+        <header className="mb-10 md:mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-4 md:mb-6">
+            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Grabados desde dentro del país
           </div>
-          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight break-words">
             Podcasts Hechos en Venezuela 🇻🇪
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             La gran mayoría de los podcasts venezolanos importantes hoy se graban{" "}
             <strong>fuera del país</strong>. Esta es la lista de los pocos que siguen
             produciéndose <strong>desde dentro de Venezuela</strong>, con voces locales y mirada
@@ -209,39 +209,39 @@ const HechoEnVenezuela = () => {
         </header>
 
         {/* Diferenciador */}
-        <section className="mb-12 p-6 md:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
+        <section className="mb-10 md:mb-12 p-5 sm:p-6 md:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
+          <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-6">
             <div className="text-center">
-              <div className="text-4xl font-black text-primary mb-2">~8</div>
-              <p className="text-sm text-muted-foreground">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-1 sm:mb-2">~8</div>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-snug">
                 podcasts venezolanos relevantes grabados <strong>en</strong> Venezuela
               </p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-black text-primary mb-2">~80%</div>
-              <p className="text-sm text-muted-foreground">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-1 sm:mb-2">~80%</div>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-snug">
                 de los podcasts venezolanos importantes hoy se graban en la diáspora
               </p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-black text-primary mb-2">100%</div>
-              <p className="text-sm text-muted-foreground">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-1 sm:mb-2">100%</div>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-snug">
                 del contenido en esta lista está producido desde el territorio nacional
               </p>
             </div>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 flex items-center gap-2">
-            <Radio className="w-6 h-6 text-primary" />
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 flex items-center gap-2">
+            <Radio className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
             ¿Por qué importa el "Hecho en Venezuela"?
           </h2>
-          <p className="leading-relaxed mb-3">
+          <p className="text-sm sm:text-base leading-relaxed mb-3">
             Un podcast grabado <strong>desde Venezuela</strong> no es lo mismo que un podcast
             venezolano grabado desde otro país. Quien produce desde el país convive a diario con
             la calle, los códigos culturales actuales, la jerga del momento, los apagones, los
             estadios llenos, las cumbres, los conciertos y el humor cambiante. Eso se nota en el
             contenido.
           </p>
-          <p className="leading-relaxed text-muted-foreground">
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
             Es contenido <strong>documental sobre la Venezuela de hoy</strong>, no sobre la
             Venezuela recordada. Por eso este grupo de productoras — pequeño pero firme — es
             irreemplazable para el ecosistema cultural del país.
@@ -249,12 +249,12 @@ const HechoEnVenezuela = () => {
         </section>
 
         {/* Lista (sin ranking) */}
-        <section className="space-y-6">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <Radio className="w-7 h-7 text-primary" />
+        <section className="space-y-4 md:space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex items-start sm:items-center gap-2">
+            <Radio className="w-6 h-6 sm:w-7 sm:h-7 text-primary flex-shrink-0 mt-1 sm:mt-0" />
             Algunos de los podcasts hechos en Venezuela
           </h2>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 md:mb-6">
             Mencionados sin orden de ranking. Todos comparten algo en común: se graban y producen
             dentro del país.
           </p>
@@ -262,16 +262,16 @@ const HechoEnVenezuela = () => {
           {PODCASTS.map((p) => (
             <article
               key={p.name}
-              className={`p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg ${
+              className={`p-5 sm:p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg ${
                 p.highlight
                   ? "bg-gradient-to-br from-primary/10 via-background to-background border-primary shadow-md"
                   : "bg-card border-border"
               }`}
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
-                    <h3 className="text-2xl md:text-3xl font-bold">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold break-words">
                       {p.internal ? (
                         <Link to={p.internal} className="hover:text-primary transition-colors">
                           {p.name}
@@ -290,17 +290,17 @@ const HechoEnVenezuela = () => {
                         p.name
                       )}
                     </h3>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">
+                    <span className="self-start inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold whitespace-nowrap">
                       <MapPin className="w-3 h-3" /> {p.city}
                     </span>
                   </div>
-                  <p className="text-sm font-semibold text-primary mb-1">{p.category}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-primary mb-1">{p.category}</p>
                   <p className="text-sm text-muted-foreground mb-3">
                     <Mic className="inline w-3.5 h-3.5 mr-1" />
                     {p.hosts}
                   </p>
-                  <p className="leading-relaxed mb-3">{p.why}</p>
-                  <div className="flex flex-wrap gap-3">
+                  <p className="text-sm sm:text-base leading-relaxed mb-3">{p.why}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-2">
                     {p.internal && (
                       <Link
                         to={p.internal}
@@ -323,25 +323,25 @@ const HechoEnVenezuela = () => {
         </section>
 
         {/* CTA */}
-        <section className="mt-16 p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground text-center">
-          <Mountain className="w-12 h-12 mx-auto mb-4 opacity-90" />
-          <h2 className="text-3xl md:text-4xl font-black mb-4">
+        <section className="mt-12 md:mt-16 p-6 sm:p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground text-center">
+          <Mountain className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-4 opacity-90" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3 md:mb-4">
             Apoya el podcast hecho en Venezuela
           </h2>
-          <p className="text-lg mb-6 opacity-90 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg mb-5 md:mb-6 opacity-90 max-w-2xl mx-auto">
             Suscríbete, escucha y comparte el contenido producido desde el país. Cada play es un
             voto por mantener viva la conversación venezolana hecha en Venezuela.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/"
-              className="px-6 py-3 rounded-full bg-background text-foreground font-bold hover:scale-105 transition-transform"
+              className="px-6 py-3 rounded-full bg-background text-foreground font-bold hover:scale-105 transition-transform text-sm sm:text-base"
             >
               Escuchar Vacílate Esto
             </Link>
             <Link
               to="/mejores-podcasts-venezuela"
-              className="px-6 py-3 rounded-full bg-background/10 border border-background/30 font-bold hover:bg-background/20 transition-colors"
+              className="px-6 py-3 rounded-full bg-background/10 border border-background/30 font-bold hover:bg-background/20 transition-colors text-sm sm:text-base"
             >
               Ver más podcasts venezolanos
             </Link>
@@ -349,9 +349,9 @@ const HechoEnVenezuela = () => {
         </section>
 
         {/* Enlaces internos relacionados */}
-        <section className="mt-12 p-6 rounded-2xl bg-muted/30 border border-border">
-          <h2 className="text-xl font-bold mb-4">Sigue explorando</h2>
-          <ul className="grid md:grid-cols-2 gap-3">
+        <section className="mt-10 md:mt-12 p-5 sm:p-6 rounded-2xl bg-muted/30 border border-border">
+          <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Sigue explorando</h2>
+          <ul className="grid sm:grid-cols-2 gap-2 sm:gap-3 text-sm sm:text-base">
             <li>
               <Link to="/mejores-podcasts-venezuela" className="text-primary hover:underline">
                 → Más podcasts venezolanos recomendados
