@@ -18,13 +18,21 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
-/** Race a promise against a hard timeout; returns fallback if it loses. */
-function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+/** Race a promise against a hard timeout; returns fallback if it loses.
+ *  Also aborts the underlying fetch via the provided AbortController so the
+ *  request doesn't keep the function "busy" past the timeout. */
+function withTimeout<T>(
+  p: Promise<T>,
+  ms: number,
+  fallback: T,
+  ctrl?: AbortController,
+): Promise<T> {
   return Promise.race([
-    p,
+    p.catch(() => fallback),
     new Promise<T>((resolve) =>
       setTimeout(() => {
         console.warn(`withTimeout: hit ${ms}ms, using fallback`);
+        try { ctrl?.abort(); } catch (_) { /* noop */ }
         resolve(fallback);
       }, ms),
     ),
@@ -36,13 +44,13 @@ function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
  * (so Postgres FTS catches synonyms / declensions). Falls back to the
  * original query if the AI call fails.
  */
-async function expandQuery(query: string): Promise<string[]> {
+async function expandQuery(query: string, signal?: AbortSignal): Promise<string[]> {
   try {
     const r = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
         method: "POST",
-        signal: AbortSignal.timeout(8000),
+        signal,
         headers: {
           Authorization: `Bearer ${LOVABLE_API_KEY}`,
           "Content-Type": "application/json",
@@ -111,6 +119,7 @@ async function expandQuery(query: string): Promise<string[]> {
 async function rerank(
   query: string,
   candidates: { chunk_id: string; text: string; title: string }[],
+  signal?: AbortSignal,
 ): Promise<string[]> {
   if (candidates.length === 0) return [];
   if (candidates.length === 1) return [candidates[0].chunk_id];
@@ -125,7 +134,7 @@ async function rerank(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
         method: "POST",
-        signal: AbortSignal.timeout(15000),
+        signal,
         headers: {
           Authorization: `Bearer ${LOVABLE_API_KEY}`,
           "Content-Type": "application/json",
@@ -224,8 +233,14 @@ Deno.serve(async (req) => {
       kind === "podcast" || kind === "short" ? kind : null;
 
     // 1. Expand the query with Gemini → multiple FTS searches
-    //    Hard cap at 6s so a hanging gateway can't kill the whole request.
-    const variants = await withTimeout(expandQuery(cleanQuery), 6000, [cleanQuery]);
+    //    Hard cap at 4s; abort the fetch on timeout so we don't keep it open.
+    const expandCtrl = new AbortController();
+    const variants = await withTimeout(
+      expandQuery(cleanQuery, expandCtrl.signal),
+      4000,
+      [cleanQuery],
+      expandCtrl,
+    );
     const groupedResults = await Promise.all(
       variants.map((v) =>
         supabase.rpc("yt_search_chunks_grouped", {
@@ -280,10 +295,12 @@ Deno.serve(async (req) => {
       };
     });
     const fallbackOrder = topChunks.map((c) => c.chunk_id);
+    const rerankCtrl = new AbortController();
     const rerankedIds = await withTimeout(
-      rerank(cleanQuery, topChunks),
-      12000,
+      rerank(cleanQuery, topChunks, rerankCtrl.signal),
+      8000,
       fallbackOrder,
+      rerankCtrl,
     );
     const idToVideo = new Map(merged.map((v) => [v.video_id, v]));
     const orderedVideos = rerankedIds
