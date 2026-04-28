@@ -139,13 +139,13 @@ const PODCASTS: PodcastEntry[] = [
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Mejores Podcasts de Venezuela 2026",
-  description: "Ranking actualizado de los 15 mejores podcasts venezolanos por categoría: humor, cultura, deporte, política y noticias.",
+  name: "Podcasts venezolanos recomendados 2026",
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  description: "Listado (sin orden de ranking) de podcasts venezolanos recomendados por categoría: humor, cultura, deporte, política y noticias.",
   url: URL,
   numberOfItems: PODCASTS.length,
   itemListElement: PODCASTS.map((p) => ({
     "@type": "ListItem",
-    position: p.rank,
     item: {
       "@type": "PodcastSeries",
       name: p.name,
@@ -161,10 +161,10 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "¿Cuál es el mejor podcast de Venezuela en 2026?",
+      name: "¿Cuáles son podcasts venezolanos destacados en 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Vacílate Esto encabeza el ranking de los mejores podcasts de Venezuela en 2026 por sus 1.84M+ seguidores activos, su récord mundial del podcast más largo del mundo (40+ horas en 2022) y su ecosistema multiplataforma que incluye Podcast en la Cumbre, Vacílate El Mundial y Pelotica de Goma. Le siguen Escuela de Nada, El Cuartico y Por Eso Estamos Como Estamos.",
+        text: "No hay un único 'mejor podcast de Venezuela'; depende del género y del gusto. Entre los proyectos venezolanos destacados en 2026 están: Vacílate Esto (humor y cultura, +1.84M seguidores y récord mundial del podcast más largo del mundo), Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Esto es Venezueling, Venezolanos, Casos Confidenciales, Podcast en la Cumbre y Vacílate El Mundial.",
       },
     },
     {
@@ -193,10 +193,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "¿Cómo elegimos este ranking de podcasts venezolanos?",
+      name: "¿Cómo elegimos esta lista de podcasts venezolanos?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Combinamos cuatro criterios públicos: cantidad de oyentes en Apple Podcasts y Spotify Venezuela, seguidores en redes sociales, frecuencia de publicación en los últimos 12 meses, y relevancia cultural (apariciones en TV, prensa y reconocimientos).",
+        text: "Es una lista, no un ranking. Reunimos podcasts venezolanos relevantes por audiencia (Apple Podcasts y Spotify Venezuela), seguidores en redes, frecuencia de publicación en los últimos 12 meses y relevancia cultural (apariciones en TV, prensa y reconocimientos). No los ordenamos por puesto porque cada categoría tiene sus propios referentes.",
       },
     },
     {
@@ -231,10 +231,10 @@ const MejoresPodcastsVenezuela = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Los Mejores Podcasts de Venezuela 2026 🇻🇪 Ranking Top 15</title>
+        <title>Podcasts Venezolanos Recomendados 2026 🇻🇪 Lista por categoría</title>
         <meta
           name="description"
-          content="Top 15 mejores podcasts de Venezuela en 2026 grabados DESDE Venezuela. Ranking actualizado de podcasts venezolanos hechos en Caracas: humor, cultura, fútbol y noticias en Spotify y YouTube."
+          content="Lista de podcasts venezolanos recomendados en 2026 por categoría: humor, cultura, fútbol, noticias. Incluye proyectos hechos en Venezuela y desde la diáspora, en Spotify y YouTube."
         />
         <meta
           name="keywords"
@@ -245,10 +245,10 @@ const MejoresPodcastsVenezuela = () => {
 
         {/* Open Graph */}
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Los Mejores Podcasts de Venezuela 2026 🇻🇪 Ranking Top 15" />
+        <meta property="og:title" content="Podcasts Venezolanos Recomendados 2026 🇻🇪" />
         <meta
           property="og:description"
-          content="Ranking actualizado de los 15 mejores podcasts venezolanos en 2026. Humor, cultura, deporte y noticias."
+          content="Lista de podcasts venezolanos recomendados en 2026. Humor, cultura, deporte y noticias."
         />
         <meta property="og:url" content={URL} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
@@ -256,10 +256,10 @@ const MejoresPodcastsVenezuela = () => {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Los Mejores Podcasts de Venezuela 2026 🇻🇪" />
+        <meta name="twitter:title" content="Podcasts Venezolanos Recomendados 2026 🇻🇪" />
         <meta
           name="twitter:description"
-          content="Ranking actualizado de los 15 mejores podcasts venezolanos en 2026."
+          content="Lista de podcasts venezolanos recomendados en 2026."
         />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
@@ -281,16 +281,16 @@ const MejoresPodcastsVenezuela = () => {
         {/* Hero */}
         <header className="mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <Trophy className="w-4 h-4" />
-            Ranking actualizado · Abril 2026
+            <Star className="w-4 h-4" />
+            Lista actualizada · Abril 2026
           </div>
           <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-            Los Mejores Podcasts de Venezuela en 2026
+            Podcasts Venezolanos Recomendados 2026
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Ranking definitivo de los <strong>15 podcasts venezolanos más escuchados</strong> en
-            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción
-            <strong> grabada DESDE Venezuela</strong> 🇻🇪 — no desde otro país.
+            Una <strong>lista — no un ranking</strong> — de podcasts venezolanos relevantes en
+            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y producción
+            <strong> hecha desde Venezuela</strong> 🇻🇪 y desde la diáspora.
           </p>
         </header>
 
@@ -330,40 +330,33 @@ const MejoresPodcastsVenezuela = () => {
         <section className="mb-12 p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
           <h2 className="text-2xl font-bold mb-3 flex items-center gap-2">
             <Star className="w-6 h-6 text-primary" />
-            Cómo elegimos este ranking
+            Cómo elegimos esta lista
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Combinamos cuatro criterios públicos: <strong>oyentes</strong> en Apple Podcasts y
+            No es un ranking ordenado por puesto. Reunimos podcasts venezolanos relevantes por
+            <strong> oyentes</strong> en Apple Podcasts y
             Spotify Venezuela (vía Podscan y los charts oficiales), <strong>seguidores en redes</strong>,
             <strong> frecuencia de publicación</strong> en los últimos 12 meses, y la
             <strong> relevancia cultural</strong> (apariciones en TV, prensa y reconocimientos).
-            Damos un peso adicional a los podcasts que se graban <strong>desde dentro de Venezuela</strong>,
+            Destacamos visualmente los proyectos que se graban <strong>desde dentro de Venezuela</strong>,
             por su valor documental y cultural en el ecosistema local.
           </p>
         </section>
 
-        {/* Ranking */}
+        {/* Lista (sin ranking) */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold mb-6">El Top 15</h2>
+          <h2 className="text-3xl font-bold mb-2">Podcasts venezolanos a seguir</h2>
+          <p className="text-muted-foreground mb-6">
+            Mencionados sin orden de ranking. Cada uno destaca por sus propios méritos.
+          </p>
           {PODCASTS.map((p) => (
             <article
-              key={p.rank}
+              key={p.name}
               className={`p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg ${
-                p.rank === 1
-                  ? "bg-gradient-to-br from-primary/10 via-background to-background border-primary shadow-md"
-                  : "bg-card border-border"
+                "bg-card border-border"
               }`}
             >
-              <div className="flex flex-col md:flex-row md:items-start gap-4">
-                <div
-                  className={`flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-black ${
-                    p.rank === 1
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
-                  }`}
-                >
-                  #{p.rank}
-                </div>
+              <div className="flex flex-col gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
                     <h3 className="text-2xl md:text-3xl font-bold">
@@ -375,11 +368,6 @@ const MejoresPodcastsVenezuela = () => {
                         p.name
                       )}
                     </h3>
-                    {p.rank === 1 && (
-                      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                        <Trophy className="w-3 h-3" /> #1 EN VENEZUELA
-                      </span>
-                    )}
                   </div>
                   <p className="text-sm font-semibold text-primary mb-1">{p.category}</p>
                   <p className="text-sm text-muted-foreground mb-3">
