@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MapPin, Mic, Trophy, ExternalLink, Radio, Mountain } from "lucide-react";
+import { MapPin, Mic, ExternalLink, Radio, Mountain } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -8,7 +8,6 @@ const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/hecho-en-venezuela`;
 
 type LocalPodcast = {
-  rank: number;
   name: string;
   city: string;
   category: string;
@@ -21,7 +20,6 @@ type LocalPodcast = {
 
 const PODCASTS: LocalPodcast[] = [
   {
-    rank: 1,
     name: "Vacílate Esto",
     city: "Caracas",
     category: "Humor · Cultura · Entretenimiento",
@@ -31,7 +29,6 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 2,
     name: "Podcast en la Cumbre",
     city: "Cumbres de Venezuela",
     category: "Aventura · Cultura",
@@ -41,7 +38,6 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 3,
     name: "Vacílate El Mundial",
     city: "Caracas",
     category: "Fútbol · Mundial 2026",
@@ -51,7 +47,6 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 4,
     name: "Pelotica de Goma",
     city: "Caracas",
     category: "Béisbol · Deportes",
@@ -61,7 +56,6 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 5,
     name: "Esto es Venezueling",
     city: "Caracas",
     category: "Noticias · Análisis",
@@ -69,7 +63,6 @@ const PODCASTS: LocalPodcast[] = [
     why: "Análisis del panorama venezolano con periodistas y expertos en el terreno. Periodismo desde adentro del país.",
   },
   {
-    rank: 6,
     name: "Venezolanos",
     city: "Caracas",
     category: "Historia · Cultura",
@@ -77,7 +70,6 @@ const PODCASTS: LocalPodcast[] = [
     why: "Historia y cultura venezolana contada por uno de los grandes historiadores del país, desde Venezuela.",
   },
   {
-    rank: 7,
     name: "Casos Confidenciales",
     city: "Caracas",
     category: "True Crime",
@@ -85,7 +77,6 @@ const PODCASTS: LocalPodcast[] = [
     why: "True crime con casos reales venezolanos, investigado y producido desde Caracas.",
   },
   {
-    rank: 8,
     name: "Unión Radio Pódcast",
     city: "Caracas",
     category: "Noticias · Política",
@@ -98,13 +89,13 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Podcasts Hechos en Venezuela 2026",
+  itemListOrder: "https://schema.org/ItemListUnordered",
   description:
-    "Ranking de los podcasts venezolanos importantes que se graban y producen desde dentro de Venezuela, no desde otro país.",
+    "Listado (sin orden de ranking) de podcasts venezolanos que se graban y producen desde dentro de Venezuela.",
   url: URL,
   numberOfItems: PODCASTS.length,
   itemListElement: PODCASTS.map((p) => ({
     "@type": "ListItem",
-    position: p.rank,
     item: {
       "@type": "PodcastSeries",
       name: p.name,
@@ -140,7 +131,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts más importantes que se graban desde Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Los podcasts importantes producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Vacílate Esto encabeza la lista por audiencia y producción.",
+          text: "Algunos de los podcasts producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. No es un ranking: son menciones de proyectos relevantes que mantienen su producción dentro del país.",
       },
     },
     {
@@ -170,7 +161,7 @@ const HechoEnVenezuela = () => {
         <title>Podcasts Hechos en Venezuela 🇻🇪 Grabados DESDE el país</title>
         <meta
           name="description"
-          content="Los podcasts venezolanos importantes que se graban y producen DESDE Venezuela, no desde otro país. Ranking de podcasts hechos en Caracas y otras ciudades del país."
+          content="Lista de podcasts venezolanos que se graban y producen DESDE Venezuela, no desde otro país. Menciones de proyectos hechos en Caracas y otras ciudades del país."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:type" content="website" />
@@ -256,32 +247,27 @@ const HechoEnVenezuela = () => {
           </p>
         </section>
 
-        {/* Ranking */}
+        {/* Lista (sin ranking) */}
         <section className="space-y-6">
-          <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
-            <Trophy className="w-7 h-7 text-primary" />
-            El ranking de los hechos en Venezuela
+          <h2 className="text-3xl font-bold mb-2 flex items-center gap-2">
+            <Radio className="w-7 h-7 text-primary" />
+            Algunos de los podcasts hechos en Venezuela
           </h2>
+          <p className="text-muted-foreground mb-6">
+            Mencionados sin orden de ranking. Todos comparten algo en común: se graban y producen
+            dentro del país.
+          </p>
 
           {PODCASTS.map((p) => (
             <article
-              key={p.rank}
+              key={p.name}
               className={`p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg ${
                 p.highlight
                   ? "bg-gradient-to-br from-primary/10 via-background to-background border-primary shadow-md"
                   : "bg-card border-border"
               }`}
             >
-              <div className="flex flex-col md:flex-row md:items-start gap-4">
-                <div
-                  className={`flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-black ${
-                    p.rank === 1
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
-                  }`}
-                >
-                  #{p.rank}
-                </div>
+              <div className="flex flex-col gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
                     <h3 className="text-2xl md:text-3xl font-bold">
@@ -348,7 +334,7 @@ const HechoEnVenezuela = () => {
               to="/mejores-podcasts-venezuela"
               className="px-6 py-3 rounded-full bg-background/10 border border-background/30 font-bold hover:bg-background/20 transition-colors"
             >
-              Ver ranking general
+              Ver más podcasts venezolanos
             </Link>
           </div>
         </section>
@@ -359,7 +345,7 @@ const HechoEnVenezuela = () => {
           <ul className="grid md:grid-cols-2 gap-3">
             <li>
               <Link to="/mejores-podcasts-venezuela" className="text-primary hover:underline">
-                → Mejores Podcasts de Venezuela 2026 (ranking general)
+                → Más podcasts venezolanos recomendados
               </Link>
             </li>
             <li>
