@@ -32,15 +32,6 @@ const PODCASTS: LocalPodcast[] = [
   },
   {
     rank: 2,
-    name: "El Cuartico",
-    city: "Caracas",
-    category: "Comedia · Conversación",
-    hosts: "Chucho Roldán, Estefanía León, Daniel Enrique",
-    why: "Conversaciones largas con humor venezolano, grabadas en Caracas. Uno de los pilares del podcast hecho en Venezuela y referente del humor local contemporáneo.",
-    external: "https://open.spotify.com/show/0XW64SlumcOO0HqvCPjRxN",
-  },
-  {
-    rank: 3,
     name: "Podcast en la Cumbre",
     city: "Cumbres de Venezuela",
     category: "Aventura · Cultura",
@@ -50,23 +41,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 4,
-    name: "Por Eso Estamos Como Estamos",
-    city: "Caracas",
-    category: "Comedia · Sociedad",
-    hosts: "Ricardo Del Bufalo",
-    why: "Stand-up y reflexión sobre el país desde Caracas. Humor para entender — y sobrevivir — la Venezuela de hoy, contado por quien la vive todos los días.",
-  },
-  {
-    rank: 5,
-    name: "A Medias",
-    city: "Caracas",
-    category: "Sociedad · Conversación",
-    hosts: "Ana Milagros Parra & Ricardo Del Bufalo",
-    why: "Venezolanos contando Venezuela desde Caracas. Conversaciones honestas sobre el país sin filtros de quienes viven en otro país.",
-  },
-  {
-    rank: 6,
+    rank: 3,
     name: "Vacílate El Mundial",
     city: "Caracas",
     category: "Fútbol · Mundial 2026",
@@ -76,7 +51,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 7,
+    rank: 4,
     name: "Pelotica de Goma",
     city: "Caracas",
     category: "Béisbol · Deportes",
@@ -86,7 +61,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 8,
+    rank: 5,
     name: "Esto es Venezueling",
     city: "Caracas",
     category: "Noticias · Análisis",
@@ -94,7 +69,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "Análisis del panorama venezolano con periodistas y expertos en el terreno. Periodismo desde adentro del país.",
   },
   {
-    rank: 9,
+    rank: 6,
     name: "Venezolanos",
     city: "Caracas",
     category: "Historia · Cultura",
@@ -102,7 +77,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "Historia y cultura venezolana contada por uno de los grandes historiadores del país, desde Venezuela.",
   },
   {
-    rank: 10,
+    rank: 7,
     name: "Casos Confidenciales",
     city: "Caracas",
     category: "True Crime",
@@ -110,7 +85,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "True crime con casos reales venezolanos, investigado y producido desde Caracas.",
   },
   {
-    rank: 11,
+    rank: 8,
     name: "Unión Radio Pódcast",
     city: "Caracas",
     category: "Noticias · Política",
