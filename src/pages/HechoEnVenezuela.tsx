@@ -1,8 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MapPin, Mic, ExternalLink, Radio, Mountain } from "lucide-react";
+import { MapPin, Mic, ExternalLink, Radio, Mountain, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { podcastSlug } from "./MejoresPodcastsVenezuela";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/hecho-en-venezuela`;
@@ -299,14 +300,22 @@ const HechoEnVenezuela = () => {
                     {p.hosts}
                   </p>
                   <p className="leading-relaxed mb-3">{p.why}</p>
-                  {p.internal && (
+                  <div className="flex flex-wrap gap-3">
+                    {p.internal && (
+                      <Link
+                        to={p.internal}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                      >
+                        Ver página dedicada <ExternalLink className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
                     <Link
-                      to={p.internal}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                      to={`/mejores-podcasts-venezuela#${podcastSlug(p.name)}`}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary hover:underline"
                     >
-                      Ver más <ExternalLink className="w-3.5 h-3.5" />
+                      Más sobre {p.name} <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
-                  )}
+                  </div>
                 </div>
               </div>
             </article>
