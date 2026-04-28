@@ -311,8 +311,9 @@ const MejoresPodcastsVenezuela = () => {
               </p>
               <p className="leading-relaxed text-muted-foreground">
                 Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
-                códigos y el humor de quien vive aquí todos los días. Junto a <em>El Cuartico</em>,
-                <em> Podcast en la Cumbre</em> y un puñado más, formamos parte del pequeño grupo
+                códigos y el humor de quien vive aquí todos los días. Junto a
+                <em> Podcast en la Cumbre</em>, <em>Vacílate El Mundial</em>, <em>Pelotica de Goma</em>,
+                <em> Esto es Venezueling</em> y un puñado más, formamos parte del pequeño grupo
                 de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
               </p>
               <Link
