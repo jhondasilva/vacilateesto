@@ -23,7 +23,7 @@ const TermsOfUse = () => {
                 Términos de Uso
               </h1>
               <p className="text-muted-foreground">
-                Última actualización: Diciembre 2024
+                Última actualización: Abril 2026
               </p>
             </div>
 
@@ -39,9 +39,16 @@ const TermsOfUse = () => {
 
                 <section>
                   <h2 className="text-2xl font-bold text-foreground mb-4">2. Descripción del Servicio</h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Vacílate Esto es un ecosistema de contenido de entretenimiento educativo ("Fun Educaitment") que incluye podcasts, videos, artículos y contenido en redes sociales. Nuestro contenido está diseñado para entretener e informar sobre historias, cultura venezolana y temas de interés general.
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Vacílate Esto es un ecosistema de entretenimiento educativo ("Fun Educaitment") que incluye:
                   </p>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+                    <li>Podcasts (Vacílate Esto, Podcast en la Cumbre, Pelotica, Ruta Ramen, entre otros)</li>
+                    <li>Videos, shorts y formatos como Guerra de Comerciales</li>
+                    <li>Buscador de episodios con transcripciones e inteligencia artificial</li>
+                    <li>App PWA, blog editorial y newsletter</li>
+                    <li>Proyecto especial Vacílate El Mundial 2026</li>
+                  </ul>
                 </section>
 
                 <section>
@@ -52,6 +59,7 @@ const TermsOfUse = () => {
                   <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4 mb-4">
                     <li>Episodios de podcast</li>
                     <li>Videos y shorts</li>
+                    <li>Transcripciones generadas con asistencia de IA</li>
                     <li>Textos y artículos</li>
                     <li>Imágenes y gráficos</li>
                     <li>Logos y marcas</li>
@@ -70,10 +78,10 @@ const TermsOfUse = () => {
                   <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4 mb-4">
                     <li>Visualización y escucha personal no comercial</li>
                     <li>Compartir enlaces a nuestro contenido en redes sociales</li>
-                    <li>Citar fragmentos breves con atribución adecuada</li>
+                    <li>Citar fragmentos breves de episodios o transcripciones con atribución adecuada y enlace de regreso</li>
                   </ul>
                   <p className="text-muted-foreground leading-relaxed">
-                    Para cualquier otro uso, incluyendo uso comercial o republicación, debes obtener nuestro permiso previo.
+                    Para cualquier otro uso, incluyendo uso comercial, republicación, entrenamiento de modelos de IA o scraping automatizado, debes obtener nuestro permiso previo por escrito.
                   </p>
                 </section>
 
@@ -99,35 +107,42 @@ const TermsOfUse = () => {
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">7. Limitación de Responsabilidad</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">7. Buscador, Transcripciones e IA</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    El contenido de Vacílate Esto se proporciona "tal cual" con fines de entretenimiento e información general. No garantizamos la exactitud, integridad o actualidad de toda la información presentada. No somos responsables por decisiones tomadas basadas en nuestro contenido.
+                    Las transcripciones disponibles en nuestro buscador son generadas automáticamente con asistencia de inteligencia artificial. Pueden contener errores, omisiones o interpretaciones imprecisas y se ofrecen únicamente como referencia para descubrir contenido. La fuente oficial siempre es el episodio original publicado en nuestros canales. Las búsquedas pueden enviarse a proveedores de IA conforme a nuestra <a href="/privacidad" className="text-primary hover:underline">Política de Privacidad</a>.
                   </p>
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">8. Enlaces a Terceros</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">8. Limitación de Responsabilidad</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    El contenido de Vacílate Esto se proporciona "tal cual" con fines de entretenimiento e información general. No garantizamos la exactitud, integridad o actualidad de toda la información presentada, incluyendo transcripciones automáticas. No somos responsables por decisiones tomadas basadas en nuestro contenido.
+                  </p>
+                </section>
+
+                <section>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">9. Enlaces a Terceros</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Nuestro sitio puede contener enlaces a sitios web de terceros. No somos responsables del contenido, políticas de privacidad o prácticas de estos sitios externos. Te recomendamos revisar los términos y políticas de cualquier sitio que visites.
                   </p>
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">9. Modificaciones</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">10. Modificaciones</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Nos reservamos el derecho de modificar estos términos de uso en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en este sitio. El uso continuado del sitio después de cualquier modificación constituye tu aceptación de los nuevos términos.
                   </p>
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">10. Ley Aplicable</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">11. Ley Aplicable</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Estos términos se rigen por las leyes de la República Bolivariana de Venezuela. Cualquier disputa relacionada con estos términos será sometida a la jurisdicción de los tribunales competentes de Venezuela.
                   </p>
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">11. Contacto</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-4">12. Contacto</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Para cualquier pregunta sobre estos términos de uso, puedes contactarnos en:{" "}
                     <a href="mailto:jhon@hacemosloquenosgusta.com" className="text-primary hover:underline">
