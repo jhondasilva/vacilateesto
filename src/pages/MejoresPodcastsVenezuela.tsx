@@ -1,11 +1,20 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Headphones, Mic, Star, ExternalLink, Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/mejores-podcasts-venezuela`;
+
+export const podcastSlug = (name: string) =>
+  name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 type PodcastEntry = {
   rank: number;
@@ -228,6 +237,15 @@ const breadcrumbSchema = {
 };
 
 const MejoresPodcastsVenezuela = () => {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const el = document.getElementById(hash.slice(1));
+    if (el) {
+      // small delay to ensure layout settled
+      setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    }
+  }, [hash]);
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
