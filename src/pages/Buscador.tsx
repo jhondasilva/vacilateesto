@@ -1,7 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
-import { Search, Play, Loader2, Sparkles, Clock, Mic, Film } from "lucide-react";
+import {
+  Search,
+  Play,
+  Loader2,
+  Sparkles,
+  Clock,
+  Mic,
+  Film,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -26,12 +37,13 @@ type SearchChunk = {
 
 type SearchResult = SearchChunk & { chunks: SearchChunk[] };
 
-const SUGGESTIONS = [
-  "la mejor arepa de Caracas",
-  "el gol de Salomón Rondón",
-  "la leyenda del Silbón",
-  "cuando hablamos de Roraima",
-  "el perro caliente",
+const FALLBACK_SUGGESTIONS = [
+  "la radiografía del perro caliente",
+  "fidelidad a una marca",
+  "llaneridad y código de honor",
+  "marcas que viven en tus recuerdos",
+  "viajar por Sudamérica sin fecha de vuelta",
+  "el cine que conocías ya no existe",
 ];
 
 type Programa = "all" | "podcast" | "streaming" | "pelotica" | "cumbre";
@@ -43,6 +55,8 @@ const PROGRAMAS: { k: Programa; label: string }[] = [
   { k: "pelotica", label: "Pelotica de Goma" },
   { k: "cumbre", label: "En la Cumbre" },
 ];
+
+type SortMode = "relevance" | "recent";
 
 function detectPrograma(title: string): Programa {
   const t = title.toLowerCase();
@@ -86,14 +100,22 @@ function highlight(text: string, query: string) {
   );
 }
 
+// Simple in-memory result cache, scoped to the page lifetime.
+const resultCache = new Map<string, SearchResult[]>();
+const cacheKey = (q: string, k: string) => `${k}::${q.trim().toLowerCase()}`;
+
 const Buscador = () => {
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "podcast" | "short">("all");
   const [programa, setPrograma] = useState<Programa>("all");
+  const [sortMode, setSortMode] = useState<SortMode>("relevance");
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<SearchResult[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [stats, setStats] = useState<{ podcasts: number; shorts: number } | null>(null);
+  const [dynamicSuggestions, setDynamicSuggestions] = useState<string[]>(FALLBACK_SUGGESTIONS);
   const abortRef = useRef<AbortController | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -102,9 +124,17 @@ const Buscador = () => {
     if (abortRef.current) abortRef.current.abort();
     const ctrl = new AbortController();
     abortRef.current = ctrl;
+    const key = cacheKey(q, k);
+    setSubmittedQuery(q.trim());
+    setExpanded(new Set());
+    if (resultCache.has(key)) {
+      setResults(resultCache.get(key)!);
+      setError(null);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
-    setSubmittedQuery(q.trim());
     try {
       const { data, error } = await supabase.functions.invoke("yt-search", {
         body: {
@@ -116,7 +146,9 @@ const Buscador = () => {
       if (ctrl.signal.aborted) return;
       if (error) throw error;
       if (!data?.ok) throw new Error(data?.error || "Error desconocido");
-      setResults(data.results || []);
+      const r = (data.results || []) as SearchResult[];
+      resultCache.set(key, r);
+      setResults(r);
     } catch (e: any) {
       if (ctrl.signal.aborted) return;
       setError(e?.message || "No pudimos buscar en este momento. Inténtalo de nuevo en un ratico.");
@@ -141,22 +173,80 @@ const Buscador = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Load real catalog stats + dynamic suggestions (recent episode titles).
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [pc, sc, recent] = await Promise.all([
+          supabase.from("yt_videos").select("video_id", { count: "exact", head: true }).eq("kind", "podcast"),
+          supabase.from("yt_videos").select("video_id", { count: "exact", head: true }).eq("kind", "short"),
+          supabase
+            .from("yt_videos")
+            .select("title")
+            .eq("kind", "podcast")
+            .order("published_at", { ascending: false, nullsFirst: false })
+            .limit(12),
+        ]);
+        if (cancelled) return;
+        setStats({ podcasts: pc.count ?? 0, shorts: sc.count ?? 0 });
+        const titles = (recent.data || [])
+          .map((r: any) => (r.title || "").trim())
+          .filter((t: string) => t.length > 0 && t.length < 70)
+          .map((t: string) =>
+            t.replace(/\s*ft\.?\s.*$/i, "").replace(/\s*\|.*$/, "").replace(/^\W+|\W+$/g, "").trim(),
+          )
+          .filter((t: string) => t.length > 6);
+        if (titles.length >= 3) setDynamicSuggestions(titles.slice(0, 6));
+      } catch (e) {
+        // keep fallback
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) setSearchParams({ q: query.trim() }, { replace: true });
     runSearch(query, filter);
   };
 
-  const placeholder = useMemo(
-    () => `Por ejemplo: ${SUGGESTIONS[Math.floor(Date.now() / 4000) % SUGGESTIONS.length]}`,
-    [],
-  );
+  const placeholder = useMemo(() => {
+    const s = dynamicSuggestions[Math.floor(Math.random() * dynamicSuggestions.length)];
+    return `Por ejemplo: ${s}`;
+  }, [dynamicSuggestions]);
 
   const filteredResults = useMemo(() => {
     if (!results) return [];
-    if (programa === "all") return results;
-    return results.filter((r) => detectPrograma(r.title) === programa);
-  }, [results, programa]);
+    let r = programa === "all" ? results : results.filter((x) => detectPrograma(x.title) === programa);
+    if (sortMode === "recent") {
+      r = [...r].sort((a, b) => {
+        const ta = a.published_at ? new Date(a.published_at).getTime() : 0;
+        const tb = b.published_at ? new Date(b.published_at).getTime() : 0;
+        return tb - ta;
+      });
+    }
+    return r;
+  }, [results, programa, sortMode]);
+
+  const programaCounts = useMemo(() => {
+    const counts: Record<Programa, number> = { all: 0, podcast: 0, streaming: 0, pelotica: 0, cumbre: 0 };
+    if (!results) return counts;
+    counts.all = results.length;
+    for (const r of results) counts[detectPrograma(r.title)]++;
+    return counts;
+  }, [results]);
+
+  const toggleExpanded = (id: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   return (
     <>
@@ -164,7 +254,7 @@ const Buscador = () => {
         <title>Buscador de momentos | Vacílate Esto</title>
         <meta
           name="description"
-          content="Busca cualquier tema en los más de 200 episodios y 600 shorts de Vacílate Esto. Encuentra el minuto exacto donde lo conversamos y míralo en YouTube."
+          content={`Busca cualquier tema en ${stats ? `${stats.podcasts} episodios y ${stats.shorts} shorts` : "todos los episodios y shorts"} de Vacílate Esto. Encuentra el minuto exacto donde lo conversamos y míralo en YouTube.`}
         />
         <link rel="canonical" href="https://www.vacilateesto.com/buscador" />
       </Helmet>
@@ -183,10 +273,10 @@ const Buscador = () => {
           />
           {/* Floating stickers */}
           <div aria-hidden className="absolute top-24 left-6 hidden md:block rotate-[-10deg] bg-foreground text-background border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--primary))]">
-            ◆ 200+ episodios
+            ◆ {stats ? `${stats.podcasts} episodios` : "Episodios"}
           </div>
           <div aria-hidden className="absolute top-32 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
-            ★ 600+ shorts
+            ★ {stats ? `${stats.shorts.toLocaleString()} shorts` : "Shorts"}
           </div>
 
           <div className="container mx-auto px-4 pt-10 pb-8 md:pt-20 md:pb-14 max-w-4xl">
@@ -244,7 +334,7 @@ const Buscador = () => {
                   <span className="text-xs text-muted-foreground self-center mr-1">
                     Prueba con:
                   </span>
-                  {SUGGESTIONS.slice(0, 4).map((s) => (
+                  {dynamicSuggestions.slice(0, 4).map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -296,6 +386,9 @@ const Buscador = () => {
                   }`}
                 >
                   {label}
+                  {results && k !== "all" && programaCounts[k] > 0 && (
+                    <span className="ml-1 opacity-70">·{programaCounts[k]}</span>
+                  )}
                 </button>
               ))}
             </div>
@@ -340,19 +433,46 @@ const Buscador = () => {
 
           {results && filteredResults.length > 0 && (
             <>
-              <p className="text-sm text-muted-foreground mb-5 px-1">
-                Encontramos{" "}
-                <span className="font-semibold text-foreground">{filteredResults.length}</span>{" "}
-                {filteredResults.length === 1 ? "momento" : "momentos"} para{" "}
-                <span className="font-semibold text-foreground">"{submittedQuery}"</span>
-              </p>
+              <div className="flex items-center justify-between gap-3 mb-5 px-1 flex-wrap">
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">{filteredResults.length}</span>{" "}
+                  {filteredResults.length === 1 ? "episodio" : "episodios"} con momentos para{" "}
+                  <span className="font-semibold text-foreground">"{submittedQuery}"</span>
+                </p>
+                <div className="flex gap-1 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setSortMode("relevance")}
+                    className={`px-2.5 py-1 rounded-full border font-semibold transition-colors ${
+                      sortMode === "relevance"
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-transparent text-muted-foreground border-border hover:text-foreground"
+                    }`}
+                  >
+                    Más relevantes
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSortMode("recent")}
+                    className={`px-2.5 py-1 rounded-full border font-semibold transition-colors ${
+                      sortMode === "recent"
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-transparent text-muted-foreground border-border hover:text-foreground"
+                    }`}
+                  >
+                    Más recientes
+                  </button>
+                </div>
+              </div>
               <div className="space-y-4">
                 {filteredResults.map((r) => {
                   const seconds = Math.floor(r.start_seconds);
                   const url = `https://youtu.be/${r.video_id}?t=${seconds}s`;
+                  const extraChunks = (r.chunks || []).slice(1);
+                  const isOpen = expanded.has(r.video_id);
                   return (
                     <Card
-                      key={r.chunk_id}
+                      key={r.video_id}
                       className="overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all group"
                     >
                       <div className="flex flex-col sm:flex-row gap-4 p-4">
@@ -396,6 +516,20 @@ const Buscador = () => {
                                 </>
                               )}
                             </Badge>
+                            {r.published_at && (
+                              <span className="text-[11px] text-muted-foreground">
+                                {new Date(r.published_at).toLocaleDateString("es-VE", {
+                                  year: "numeric",
+                                  month: "short",
+                                })}
+                              </span>
+                            )}
+                            {extraChunks.length > 0 && (
+                              <Badge variant="outline" className="font-semibold gap-1">
+                                <Layers className="w-3 h-3" />
+                                {r.chunks.length} momentos
+                              </Badge>
+                            )}
                           </div>
                           <h3 className="font-bold text-base sm:text-lg leading-snug mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                             {r.title}
@@ -403,14 +537,61 @@ const Buscador = () => {
                           <p className="text-sm text-muted-foreground line-clamp-3 mb-3 leading-relaxed">
                             …{highlight(r.text, submittedQuery)}…
                           </p>
-                          <Button asChild size="sm">
-                            <a href={url} target="_blank" rel="noopener noreferrer">
-                              <Play className="w-4 h-4 fill-current" />
-                              Ir al minuto {formatTimestamp(r.start_seconds)}
-                            </a>
-                          </Button>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Button asChild size="sm">
+                              <a href={url} target="_blank" rel="noopener noreferrer">
+                                <Play className="w-4 h-4 fill-current" />
+                                Ir al minuto {formatTimestamp(r.start_seconds)}
+                              </a>
+                            </Button>
+                            {extraChunks.length > 0 && (
+                              <Button
+                                type="button"
+                                size="sm"
+                                variant="outline"
+                                onClick={() => toggleExpanded(r.video_id)}
+                              >
+                                {isOpen ? (
+                                  <>
+                                    <ChevronUp className="w-4 h-4" />
+                                    Ocultar
+                                  </>
+                                ) : (
+                                  <>
+                                    <ChevronDown className="w-4 h-4" />
+                                    Ver {extraChunks.length} más
+                                  </>
+                                )}
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
+                      {isOpen && extraChunks.length > 0 && (
+                        <div className="border-t border-border bg-muted/30 px-4 py-3 space-y-2">
+                          {extraChunks.map((c) => {
+                            const cs = Math.floor(c.start_seconds);
+                            const cu = `https://youtu.be/${c.video_id}?t=${cs}s`;
+                            return (
+                              <a
+                                key={c.chunk_id}
+                                href={cu}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex gap-3 items-start p-2.5 rounded-lg hover:bg-background transition-colors group/chunk"
+                              >
+                                <div className="shrink-0 mt-0.5 flex items-center gap-1 bg-foreground text-background text-[11px] font-mono font-bold px-2 py-1 rounded-md">
+                                  <Clock className="w-3 h-3" />
+                                  {formatTimestamp(c.start_seconds)}
+                                </div>
+                                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 group-hover/chunk:text-foreground">
+                                  …{highlight(c.text, submittedQuery)}…
+                                </p>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      )}
                     </Card>
                   );
                 })}
