@@ -11,7 +11,7 @@ const corsHeaders = {
 
 // Bump this whenever ingest.py changes. The local script compares its own
 // SCRIPT_VERSION against this and re-downloads the source when they differ.
-const SCRIPT_VERSION = "2026.04.24.1";
+const SCRIPT_VERSION = "2026.04.28.1";
 
 const SCRIPT_URL =
   "https://raw.githubusercontent.com/lovable-dev/__placeholder__/main/ingest.py";

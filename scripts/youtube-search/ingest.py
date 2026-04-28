@@ -46,7 +46,7 @@ load_dotenv()
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
 # nueva, la escribimos sobre este archivo, y reiniciamos.
-SCRIPT_VERSION = "2026.04.24.1"
+SCRIPT_VERSION = "2026.04.28.1"
 VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
 
 
@@ -86,6 +86,7 @@ LOVABLE_API_KEY = os.environ["LOVABLE_API_KEY"]
 SUPABASE_URL = os.environ["SUPABASE_URL"]
 SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
+CHANNEL_ID = "UC070EE8OAX9_drD-InoxTig"
 CHANNEL_HANDLE = "Vacilateestopodcast"
 TRANSCRIBE_MODEL = "google/gemini-2.5-flash"
 CHUNK_SECONDS = 60
@@ -100,11 +101,15 @@ sb: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 def get_uploads_playlist_id() -> str:
     r = requests.get(
         "https://www.googleapis.com/youtube/v3/channels",
-        params={"part": "contentDetails", "forHandle": CHANNEL_HANDLE, "key": YOUTUBE_API_KEY},
+        params={"part": "contentDetails", "id": CHANNEL_ID, "key": YOUTUBE_API_KEY},
         timeout=30,
     )
-    r.raise_for_status()
-    return r.json()["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    if not r.ok:
+        raise RuntimeError(f"channels.list failed: {r.status_code} {r.text[:500]}")
+    items = r.json().get("items", [])
+    if not items:
+        raise RuntimeError(f"No encontré el canal {CHANNEL_HANDLE} ({CHANNEL_ID})")
+    return items[0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
 
 def list_all_video_ids(playlist_id: str) -> List[str]:
