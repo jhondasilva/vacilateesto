@@ -631,6 +631,24 @@ export type Database = {
           video_id: string
         }[]
       }
+      yt_search_chunks_grouped: {
+        Args: {
+          filter_kind?: string
+          match_count?: number
+          per_video_limit?: number
+          query_text: string
+        }
+        Returns: {
+          best_rank: number
+          chunks: Json
+          kind: string
+          match_count_total: number
+          published_at: string
+          thumbnail_url: string
+          title: string
+          video_id: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
