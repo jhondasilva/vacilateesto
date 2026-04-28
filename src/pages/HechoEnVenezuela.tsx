@@ -32,15 +32,6 @@ const PODCASTS: LocalPodcast[] = [
   },
   {
     rank: 2,
-    name: "El Cuartico",
-    city: "Caracas",
-    category: "Comedia · Conversación",
-    hosts: "Chucho Roldán, Estefanía León, Daniel Enrique",
-    why: "Conversaciones largas con humor venezolano, grabadas en Caracas. Uno de los pilares del podcast hecho en Venezuela y referente del humor local contemporáneo.",
-    external: "https://open.spotify.com/show/0XW64SlumcOO0HqvCPjRxN",
-  },
-  {
-    rank: 3,
     name: "Podcast en la Cumbre",
     city: "Cumbres de Venezuela",
     category: "Aventura · Cultura",
@@ -50,23 +41,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 4,
-    name: "Por Eso Estamos Como Estamos",
-    city: "Caracas",
-    category: "Comedia · Sociedad",
-    hosts: "Ricardo Del Bufalo",
-    why: "Stand-up y reflexión sobre el país desde Caracas. Humor para entender — y sobrevivir — la Venezuela de hoy, contado por quien la vive todos los días.",
-  },
-  {
-    rank: 5,
-    name: "A Medias",
-    city: "Caracas",
-    category: "Sociedad · Conversación",
-    hosts: "Ana Milagros Parra & Ricardo Del Bufalo",
-    why: "Venezolanos contando Venezuela desde Caracas. Conversaciones honestas sobre el país sin filtros de quienes viven en otro país.",
-  },
-  {
-    rank: 6,
+    rank: 3,
     name: "Vacílate El Mundial",
     city: "Caracas",
     category: "Fútbol · Mundial 2026",
@@ -76,7 +51,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 7,
+    rank: 4,
     name: "Pelotica de Goma",
     city: "Caracas",
     category: "Béisbol · Deportes",
@@ -86,7 +61,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    rank: 8,
+    rank: 5,
     name: "Esto es Venezueling",
     city: "Caracas",
     category: "Noticias · Análisis",
@@ -94,7 +69,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "Análisis del panorama venezolano con periodistas y expertos en el terreno. Periodismo desde adentro del país.",
   },
   {
-    rank: 9,
+    rank: 6,
     name: "Venezolanos",
     city: "Caracas",
     category: "Historia · Cultura",
@@ -102,7 +77,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "Historia y cultura venezolana contada por uno de los grandes historiadores del país, desde Venezuela.",
   },
   {
-    rank: 10,
+    rank: 7,
     name: "Casos Confidenciales",
     city: "Caracas",
     category: "True Crime",
@@ -110,7 +85,7 @@ const PODCASTS: LocalPodcast[] = [
     why: "True crime con casos reales venezolanos, investigado y producido desde Caracas.",
   },
   {
-    rank: 11,
+    rank: 8,
     name: "Unión Radio Pódcast",
     city: "Caracas",
     category: "Noticias · Política",
@@ -165,7 +140,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts más importantes que se graban desde Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Los podcasts importantes producidos desde Venezuela en 2026 son: Vacílate Esto, El Cuartico, Podcast en la Cumbre, Por Eso Estamos Como Estamos, A Medias, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Vacílate Esto encabeza la lista por audiencia y producción.",
+        text: "Los podcasts importantes producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Vacílate Esto encabeza la lista por audiencia y producción.",
       },
     },
     {
@@ -245,7 +220,7 @@ const HechoEnVenezuela = () => {
         <section className="mb-12 p-6 md:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div className="text-center">
-              <div className="text-4xl font-black text-primary mb-2">~11</div>
+              <div className="text-4xl font-black text-primary mb-2">~8</div>
               <p className="text-sm text-muted-foreground">
                 podcasts venezolanos relevantes grabados <strong>en</strong> Venezuela
               </p>

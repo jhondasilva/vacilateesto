@@ -204,7 +204,7 @@ const faqSchema = {
       name: "¿Qué podcasts venezolanos se graban DESDE Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), El Cuartico, Podcast en la Cumbre, Pelotica de Goma y Vacílate El Mundial. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
+        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
       },
     },
     {
@@ -311,8 +311,9 @@ const MejoresPodcastsVenezuela = () => {
               </p>
               <p className="leading-relaxed text-muted-foreground">
                 Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
-                códigos y el humor de quien vive aquí todos los días. Junto a <em>El Cuartico</em>,
-                <em> Podcast en la Cumbre</em> y un puñado más, formamos parte del pequeño grupo
+                códigos y el humor de quien vive aquí todos los días. Junto a
+                <em> Podcast en la Cumbre</em>, <em>Vacílate El Mundial</em>, <em>Pelotica de Goma</em>,
+                <em> Esto es Venezueling</em> y un puñado más, formamos parte del pequeño grupo
                 de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
               </p>
               <Link
