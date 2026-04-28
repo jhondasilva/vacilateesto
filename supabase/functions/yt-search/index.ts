@@ -226,66 +226,102 @@ Deno.serve(async (req) => {
     // 1. Expand the query with Gemini → multiple FTS searches
     //    Hard cap at 6s so a hanging gateway can't kill the whole request.
     const variants = await withTimeout(expandQuery(cleanQuery), 6000, [cleanQuery]);
-    const seenChunks = new Map<string, any>();
-    const ftsResults = await Promise.all(
+    const groupedResults = await Promise.all(
       variants.map((v) =>
-        supabase.rpc("yt_search_chunks_fts", {
+        supabase.rpc("yt_search_chunks_grouped", {
           query_text: v,
           match_count: matchCount,
           filter_kind: filterKind,
+          per_video_limit: 8,
         }),
       ),
     );
-    ftsResults.forEach(({ data, error }, i) => {
+
+    // Merge variants by video_id, keeping the union of chunks (deduped) and best rank.
+    const byVideo = new Map<string, any>();
+    groupedResults.forEach(({ data, error }, i) => {
       if (error) {
-        console.error("FTS error for variant", variants[i], error);
+        console.error("grouped error for variant", variants[i], error);
         return;
       }
-      for (const row of data || []) {
-        const existing = seenChunks.get(row.chunk_id);
-        if (!existing || (row.rank ?? 0) > (existing.rank ?? 0)) {
-          seenChunks.set(row.chunk_id, row);
+      for (const row of (data || []) as any[]) {
+        const existing = byVideo.get(row.video_id);
+        if (!existing) {
+          byVideo.set(row.video_id, {
+            ...row,
+            chunks: [...(row.chunks || [])],
+          });
+        } else {
+          existing.best_rank = Math.max(existing.best_rank ?? 0, row.best_rank ?? 0);
+          const seen = new Set(existing.chunks.map((c: any) => c.chunk_id));
+          for (const c of row.chunks || []) {
+            if (!seen.has(c.chunk_id)) {
+              existing.chunks.push(c);
+              seen.add(c.chunk_id);
+            }
+          }
         }
       }
     });
 
-    const candidates = Array.from(seenChunks.values())
-      .sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0))
+    const merged = Array.from(byVideo.values())
+      .sort((a, b) => (b.best_rank ?? 0) - (a.best_rank ?? 0))
       .slice(0, 30);
 
-    // 2. Re-rank with Gemini for semantic precision (hard cap 12s, fallback to FTS order)
-    const fallbackOrder = candidates.map((c) => c.chunk_id);
+    // Re-rank top videos by their best chunk text using Gemini.
+    const topChunks = merged.map((v) => {
+      const best = (v.chunks || [])
+        .slice()
+        .sort((a: any, b: any) => (b.rank ?? 0) - (a.rank ?? 0))[0];
+      return {
+        chunk_id: v.video_id, // use video_id as the rerank key
+        text: best?.text ?? "",
+        title: v.title ?? "",
+      };
+    });
+    const fallbackOrder = topChunks.map((c) => c.chunk_id);
     const rerankedIds = await withTimeout(
-      rerank(
-        cleanQuery,
-        candidates.map((c) => ({
-          chunk_id: c.chunk_id,
-          text: c.text,
-          title: c.title,
-        })),
-      ),
+      rerank(cleanQuery, topChunks),
       12000,
       fallbackOrder,
     );
-    const idToRow = new Map(candidates.map((c) => [c.chunk_id, c]));
-    const ordered = rerankedIds
-      .map((id) => idToRow.get(id))
+    const idToVideo = new Map(merged.map((v) => [v.video_id, v]));
+    const orderedVideos = rerankedIds
+      .map((id) => idToVideo.get(id))
       .filter(Boolean) as any[];
 
-    // 3. Group by video, keep top chunk per video
-    const byVideo = new Map<string, any>();
-    for (const row of ordered) {
-      if (!byVideo.has(row.video_id)) {
-        byVideo.set(row.video_id, {
-          ...row,
-          similarity: row.rank ?? 0,
-          chunks: [row],
-        });
-      } else {
-        byVideo.get(row.video_id).chunks.push(row);
-      }
-    }
-    const results = Array.from(byVideo.values()).slice(0, 30);
+    // Shape each result to match the frontend contract (top-level chunk fields + chunks[]).
+    const results = orderedVideos.map((v) => {
+      const sortedChunks = (v.chunks || [])
+        .slice()
+        .sort((a: any, b: any) => (b.rank ?? 0) - (a.rank ?? 0));
+      const top = sortedChunks[0] || {};
+      return {
+        chunk_id: top.chunk_id,
+        video_id: v.video_id,
+        title: v.title,
+        kind: v.kind,
+        thumbnail_url: v.thumbnail_url,
+        published_at: v.published_at,
+        start_seconds: top.start_seconds ?? 0,
+        end_seconds: top.end_seconds ?? 0,
+        text: top.text ?? "",
+        similarity: v.best_rank ?? 0,
+        match_count_total: v.match_count_total ?? sortedChunks.length,
+        chunks: sortedChunks.map((c: any) => ({
+          chunk_id: c.chunk_id,
+          video_id: v.video_id,
+          title: v.title,
+          kind: v.kind,
+          thumbnail_url: v.thumbnail_url,
+          published_at: v.published_at,
+          start_seconds: c.start_seconds,
+          end_seconds: c.end_seconds,
+          text: c.text,
+          similarity: c.rank ?? 0,
+        })),
+      };
+    });
 
     return new Response(
       JSON.stringify({ ok: true, query, results }),
