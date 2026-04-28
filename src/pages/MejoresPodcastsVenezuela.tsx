@@ -303,9 +303,6 @@ const MejoresPodcastsVenezuela = () => {
           </div>
         </section>
 
-        <header className="hidden">
-        </header>
-
         {/* Metodología */}
         <section className="mb-12 p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
           <h2 className="text-2xl font-bold mb-3 flex items-center gap-2">
@@ -317,6 +314,8 @@ const MejoresPodcastsVenezuela = () => {
             Spotify Venezuela (vía Podscan y los charts oficiales), <strong>seguidores en redes</strong>,
             <strong> frecuencia de publicación</strong> en los últimos 12 meses, y la
             <strong> relevancia cultural</strong> (apariciones en TV, prensa y reconocimientos).
+            Damos un peso adicional a los podcasts que se graban <strong>desde dentro de Venezuela</strong>,
+            por su valor documental y cultural en el ecosistema local.
           </p>
         </section>
 
