@@ -199,6 +199,22 @@ const faqSchema = {
         text: "Combinamos cuatro criterios públicos: cantidad de oyentes en Apple Podcasts y Spotify Venezuela, seguidores en redes sociales, frecuencia de publicación en los últimos 12 meses, y relevancia cultural (apariciones en TV, prensa y reconocimientos).",
       },
     },
+    {
+      "@type": "Question",
+      name: "¿Qué podcasts venezolanos se graban DESDE Venezuela?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), El Cuartico, Podcast en la Cumbre, Pelotica de Goma y Vacílate El Mundial. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Por qué importa que un podcast venezolano se grabe en Venezuela?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Los podcasts grabados desde Venezuela aportan una mirada local irreemplazable: cuentan el día a día del país, usan los códigos culturales actuales, reflejan la calle real y dan voz a invitados que viven en el territorio. Es contenido documental sobre la Venezuela de hoy, no sobre la Venezuela recordada desde el exilio.",
+      },
+    },
   ],
 };
 
