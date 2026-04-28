@@ -140,7 +140,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts más importantes que se graban desde Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Los podcasts importantes producidos desde Venezuela en 2026 son: Vacílate Esto, El Cuartico, Podcast en la Cumbre, Por Eso Estamos Como Estamos, A Medias, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Vacílate Esto encabeza la lista por audiencia y producción.",
+        text: "Los podcasts importantes producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Vacílate Esto encabeza la lista por audiencia y producción.",
       },
     },
     {
@@ -220,7 +220,7 @@ const HechoEnVenezuela = () => {
         <section className="mb-12 p-6 md:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div className="text-center">
-              <div className="text-4xl font-black text-primary mb-2">~11</div>
+              <div className="text-4xl font-black text-primary mb-2">~8</div>
               <p className="text-sm text-muted-foreground">
                 podcasts venezolanos relevantes grabados <strong>en</strong> Venezuela
               </p>
