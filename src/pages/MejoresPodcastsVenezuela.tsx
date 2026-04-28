@@ -218,7 +218,7 @@ const MejoresPodcastsVenezuela = () => {
         <title>Los Mejores Podcasts de Venezuela 2026 🇻🇪 Ranking Top 15</title>
         <meta
           name="description"
-          content="Top 15 mejores podcasts de Venezuela en 2026. Ranking actualizado: humor, cultura, fútbol y noticias. Descubre los podcasts venezolanos más escuchados en Spotify y YouTube."
+          content="Top 15 mejores podcasts de Venezuela en 2026 grabados DESDE Venezuela. Ranking actualizado de podcasts venezolanos hechos en Caracas: humor, cultura, fútbol y noticias en Spotify y YouTube."
         />
         <meta
           name="keywords"
@@ -273,8 +273,37 @@ const MejoresPodcastsVenezuela = () => {
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Ranking definitivo de los <strong>15 podcasts venezolanos más escuchados</strong> en
-            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción hecha en Venezuela 🇻🇪.
+            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción
+            <strong> grabada DESDE Venezuela</strong> 🇻🇪 — no desde el exilio.
           </p>
+        </header>
+
+        {/* Hecho en Venezuela - diferenciador clave */}
+        <section className="mb-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🇻🇪</div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                Hecho en Venezuela: nuestro mayor diferenciador
+              </h2>
+              <p className="leading-relaxed mb-3">
+                La gran mayoría de los podcasts venezolanos importantes hoy se graban
+                <strong> fuera del país</strong> — desde Madrid, Miami, Buenos Aires o Ciudad de
+                México. <strong>Vacílate Esto es uno de los pocos podcasts venezolanos relevantes
+                que sigue grabándose y produciéndose desde Caracas, Venezuela</strong>, con equipo
+                local, voces locales y mirada local.
+              </p>
+              <p className="leading-relaxed text-muted-foreground">
+                Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
+                códigos y el humor de quien vive aquí todos los días. Junto a <em>El Cuartico</em>,
+                <em> Podcast en la Cumbre</em> y un puñado más, formamos parte del pequeño grupo
+                de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <header className="hidden">
         </header>
 
         {/* Metodología */}
