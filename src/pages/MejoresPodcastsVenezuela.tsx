@@ -199,6 +199,22 @@ const faqSchema = {
         text: "Combinamos cuatro criterios públicos: cantidad de oyentes en Apple Podcasts y Spotify Venezuela, seguidores en redes sociales, frecuencia de publicación en los últimos 12 meses, y relevancia cultural (apariciones en TV, prensa y reconocimientos).",
       },
     },
+    {
+      "@type": "Question",
+      name: "¿Qué podcasts venezolanos se graban DESDE Venezuela?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), El Cuartico, Podcast en la Cumbre, Pelotica de Goma y Vacílate El Mundial. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Por qué importa que un podcast venezolano se grabe en Venezuela?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Los podcasts grabados desde Venezuela aportan una mirada local irreemplazable: cuentan el día a día del país, usan los códigos culturales actuales, reflejan la calle real y dan voz a invitados que viven en el territorio. Es contenido documental sobre la Venezuela de hoy, no sobre la Venezuela recordada desde el exilio.",
+      },
+    },
   ],
 };
 
@@ -218,7 +234,7 @@ const MejoresPodcastsVenezuela = () => {
         <title>Los Mejores Podcasts de Venezuela 2026 🇻🇪 Ranking Top 15</title>
         <meta
           name="description"
-          content="Top 15 mejores podcasts de Venezuela en 2026. Ranking actualizado: humor, cultura, fútbol y noticias. Descubre los podcasts venezolanos más escuchados en Spotify y YouTube."
+          content="Top 15 mejores podcasts de Venezuela en 2026 grabados DESDE Venezuela. Ranking actualizado de podcasts venezolanos hechos en Caracas: humor, cultura, fútbol y noticias en Spotify y YouTube."
         />
         <meta
           name="keywords"
@@ -273,9 +289,35 @@ const MejoresPodcastsVenezuela = () => {
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Ranking definitivo de los <strong>15 podcasts venezolanos más escuchados</strong> en
-            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción hecha en Venezuela 🇻🇪.
+            Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción
+            <strong> grabada DESDE Venezuela</strong> 🇻🇪 — no desde el exilio.
           </p>
         </header>
+
+        {/* Hecho en Venezuela - diferenciador clave */}
+        <section className="mb-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🇻🇪</div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                Hecho en Venezuela: nuestro mayor diferenciador
+              </h2>
+              <p className="leading-relaxed mb-3">
+                La gran mayoría de los podcasts venezolanos importantes hoy se graban
+                <strong> fuera del país</strong> — desde Madrid, Miami, Buenos Aires o Ciudad de
+                México. <strong>Vacílate Esto es uno de los pocos podcasts venezolanos relevantes
+                que sigue grabándose y produciéndose desde Caracas, Venezuela</strong>, con equipo
+                local, voces locales y mirada local.
+              </p>
+              <p className="leading-relaxed text-muted-foreground">
+                Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
+                códigos y el humor de quien vive aquí todos los días. Junto a <em>El Cuartico</em>,
+                <em> Podcast en la Cumbre</em> y un puñado más, formamos parte del pequeño grupo
+                de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* Metodología */}
         <section className="mb-12 p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
@@ -288,6 +330,8 @@ const MejoresPodcastsVenezuela = () => {
             Spotify Venezuela (vía Podscan y los charts oficiales), <strong>seguidores en redes</strong>,
             <strong> frecuencia de publicación</strong> en los últimos 12 meses, y la
             <strong> relevancia cultural</strong> (apariciones en TV, prensa y reconocimientos).
+            Damos un peso adicional a los podcasts que se graban <strong>desde dentro de Venezuela</strong>,
+            por su valor documental y cultural en el ecosistema local.
           </p>
         </section>
 
