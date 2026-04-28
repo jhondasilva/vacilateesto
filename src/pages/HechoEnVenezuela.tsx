@@ -63,7 +63,7 @@ const PODCASTS: LocalPodcast[] = [
     city: "Caracas",
     category: "Sociedad · Conversación",
     hosts: "Ana Milagros Parra & Ricardo Del Bufalo",
-    why: "Venezolanos contando Venezuela desde Caracas. Conversaciones honestas sobre el país sin filtros del exilio.",
+    why: "Venezolanos contando Venezuela desde Caracas. Conversaciones honestas sobre el país sin filtros de quienes viven en otro país.",
   },
   {
     rank: 6,
@@ -124,7 +124,7 @@ const itemListSchema = {
   "@type": "ItemList",
   name: "Podcasts Hechos en Venezuela 2026",
   description:
-    "Ranking de los podcasts venezolanos importantes que se graban y producen desde dentro de Venezuela, no desde el exilio.",
+    "Ranking de los podcasts venezolanos importantes que se graban y producen desde dentro de Venezuela, no desde otro país.",
   url: URL,
   numberOfItems: PODCASTS.length,
   itemListElement: PODCASTS.map((p) => ({
@@ -195,7 +195,7 @@ const HechoEnVenezuela = () => {
         <title>Podcasts Hechos en Venezuela 🇻🇪 Grabados DESDE el país</title>
         <meta
           name="description"
-          content="Los podcasts venezolanos importantes que se graban y producen DESDE Venezuela, no desde el exilio. Ranking de podcasts hechos en Caracas y otras ciudades del país."
+          content="Los podcasts venezolanos importantes que se graban y producen DESDE Venezuela, no desde otro país. Ranking de podcasts hechos en Caracas y otras ciudades del país."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:type" content="website" />
@@ -269,7 +269,7 @@ const HechoEnVenezuela = () => {
           </h2>
           <p className="leading-relaxed mb-3">
             Un podcast grabado <strong>desde Venezuela</strong> no es lo mismo que un podcast
-            venezolano grabado desde el exilio. Quien produce desde el país convive a diario con
+            venezolano grabado desde otro país. Quien produce desde el país convive a diario con
             la calle, los códigos culturales actuales, la jerga del momento, los apagones, los
             estadios llenos, las cumbres, los conciertos y el humor cambiante. Eso se nota en el
             contenido.
