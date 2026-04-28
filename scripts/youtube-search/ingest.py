@@ -100,7 +100,7 @@ sb: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 def get_uploads_playlist_id() -> str:
     r = requests.get(
         "https://www.googleapis.com/youtube/v3/channels",
-        params={"part": "contentDetails", "forHandle": f"@{CHANNEL_HANDLE}", "key": YOUTUBE_API_KEY},
+        params={"part": "contentDetails", "forHandle": CHANNEL_HANDLE, "key": YOUTUBE_API_KEY},
         timeout=30,
     )
     r.raise_for_status()
