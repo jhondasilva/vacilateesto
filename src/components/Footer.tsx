@@ -106,6 +106,7 @@ const Footer = () => {
       links: [
         { label: "Todos los artículos", href: "/blog" },
         { label: "Mejores podcasts de Venezuela", href: "/mejores-podcasts-venezuela" },
+      { label: "Podcasts hechos en Venezuela 🇻🇪", href: "/hecho-en-venezuela" },
         { label: "Podcasts venezolanos de comedia", href: "/podcasts-venezolanos-comedia" },
         { label: "Podcasts venezolanos de fútbol", href: "/podcasts-venezolanos-futbol" },
         { label: "Podcasts venezolanos en Spotify", href: "/podcasts-venezolanos-spotify" },

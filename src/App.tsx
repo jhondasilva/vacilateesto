@@ -22,6 +22,7 @@ import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
 import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
 import PodcastsVenezolanosFutbol from "./pages/PodcastsVenezolanosFutbol";
 import PodcastsVenezolanosSpotify from "./pages/PodcastsVenezolanosSpotify";
+import HechoEnVenezuela from "./pages/HechoEnVenezuela";
 import BlogIndex from "./pages/blog/BlogIndex";
 import MejoresPodcastsVenezolanos from "./pages/blog/MejoresPodcastsVenezolanos";
 import ComoSubirRoraima from "./pages/blog/ComoSubirRoraima";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
             <Route path="/podcasts-venezolanos-futbol" element={<PodcastsVenezolanosFutbol />} />
             <Route path="/podcasts-venezolanos-spotify" element={<PodcastsVenezolanosSpotify />} />
+            <Route path="/hecho-en-venezuela" element={<HechoEnVenezuela />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/mejores-podcasts-venezolanos-2026" element={<MejoresPodcastsVenezolanos />} />
             <Route path="/blog/como-subir-roraima-guia-completa" element={<ComoSubirRoraima />} />

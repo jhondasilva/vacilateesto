@@ -315,6 +315,12 @@ const MejoresPodcastsVenezuela = () => {
                 <em> Podcast en la Cumbre</em> y un puñado más, formamos parte del pequeño grupo
                 de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
               </p>
+              <Link
+                to="/hecho-en-venezuela"
+                className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold hover:scale-105 transition-transform"
+              >
+                Ver lista completa de podcasts hechos en Venezuela →
+              </Link>
             </div>
           </div>
         </section>
