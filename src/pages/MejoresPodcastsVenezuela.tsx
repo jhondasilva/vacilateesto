@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Trophy, Headphones, Mic, Star, ExternalLink, Search } from "lucide-react";
+import { Headphones, Mic, Star, ExternalLink, Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
