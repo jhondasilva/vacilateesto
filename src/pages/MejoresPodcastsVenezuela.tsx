@@ -352,9 +352,7 @@ const MejoresPodcastsVenezuela = () => {
           {PODCASTS.map((p) => (
             <article
               key={p.name}
-              className={`p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg ${
-                "bg-card border-border"
-              }`}
+              className="p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg bg-card border-border"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex-1 min-w-0">
