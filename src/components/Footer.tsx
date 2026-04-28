@@ -105,6 +105,10 @@ const Footer = () => {
       title: "Blog",
       links: [
         { label: "Todos los artículos", href: "/blog" },
+        { label: "Mejores podcasts de Venezuela", href: "/mejores-podcasts-venezuela" },
+        { label: "Podcasts venezolanos de comedia", href: "/podcasts-venezolanos-comedia" },
+        { label: "Podcasts venezolanos de fútbol", href: "/podcasts-venezolanos-futbol" },
+        { label: "Podcasts venezolanos en Spotify", href: "/podcasts-venezolanos-spotify" },
         { label: "Mejores podcasts venezolanos", href: "/blog/mejores-podcasts-venezolanos-2026" },
         { label: "Cómo subir el Roraima", href: "/blog/como-subir-roraima-guia-completa" },
         { label: "Cómo subir el Pico Naiguatá", href: "/blog/como-subir-pico-naiguata" },

@@ -18,6 +18,10 @@ import GiraLogin from "./pages/GiraLogin";
 import GiraPoliticas from "./pages/GiraPoliticas";
 import Buscador from "./pages/Buscador";
 import Hosts from "./pages/Hosts";
+import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
+import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
+import PodcastsVenezolanosFutbol from "./pages/PodcastsVenezolanosFutbol";
+import PodcastsVenezolanosSpotify from "./pages/PodcastsVenezolanosSpotify";
 import BlogIndex from "./pages/blog/BlogIndex";
 import MejoresPodcastsVenezolanos from "./pages/blog/MejoresPodcastsVenezolanos";
 import ComoSubirRoraima from "./pages/blog/ComoSubirRoraima";
@@ -59,6 +63,10 @@ const App = () => (
             <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/hosts" element={<Hosts />} />
+            <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
+            <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
+            <Route path="/podcasts-venezolanos-futbol" element={<PodcastsVenezolanosFutbol />} />
+            <Route path="/podcasts-venezolanos-spotify" element={<PodcastsVenezolanosSpotify />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/mejores-podcasts-venezolanos-2026" element={<MejoresPodcastsVenezolanos />} />
             <Route path="/blog/como-subir-roraima-guia-completa" element={<ComoSubirRoraima />} />

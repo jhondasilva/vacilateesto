@@ -44,6 +44,38 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Página pilar SEO: Mejores Podcasts de Venezuela -->
+  <url>
+    <loc>https://www.vacilateesto.com/mejores-podcasts-venezuela</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Cluster: Comedia -->
+  <url>
+    <loc>https://www.vacilateesto.com/podcasts-venezolanos-comedia</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Cluster: Fútbol -->
+  <url>
+    <loc>https://www.vacilateesto.com/podcasts-venezolanos-futbol</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Cluster: Spotify -->
+  <url>
+    <loc>https://www.vacilateesto.com/podcasts-venezolanos-spotify</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
   
   <!-- Campeonato de Comerciales 2025 -->
   <url>
