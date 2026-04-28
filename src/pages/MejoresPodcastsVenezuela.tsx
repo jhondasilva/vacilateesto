@@ -288,24 +288,24 @@ const MejoresPodcastsVenezuela = () => {
 
       <Header />
 
-      <main className="container mx-auto px-4 py-12 md:py-20 max-w-5xl">
+      <main className="container mx-auto px-4 py-8 md:py-20 max-w-5xl overflow-x-hidden">
         {/* Breadcrumb */}
-        <nav className="text-sm text-muted-foreground mb-8" aria-label="Breadcrumb">
+        <nav className="text-xs sm:text-sm text-muted-foreground mb-6 md:mb-8 break-words" aria-label="Breadcrumb">
           <Link to="/" className="hover:text-primary">Inicio</Link>
           <span className="mx-2">/</span>
           <span className="text-foreground">Mejores Podcasts de Venezuela</span>
         </nav>
 
         {/* Hero */}
-        <header className="mb-12 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <Star className="w-4 h-4" />
+        <header className="mb-10 md:mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-4 md:mb-6">
+            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Lista actualizada · Abril 2026
           </div>
-          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight break-words">
             Podcasts Venezolanos Recomendados 2026
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Una <strong>lista — no un ranking</strong> — de podcasts venezolanos relevantes en
             Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y producción
             <strong> hecha desde Venezuela</strong> 🇻🇪 y desde la diáspora.
@@ -313,21 +313,21 @@ const MejoresPodcastsVenezuela = () => {
         </header>
 
         {/* Hecho en Venezuela - diferenciador clave */}
-        <section className="mb-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">🇻🇪</div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+        <section className="mb-10 md:mb-12 p-5 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
+          <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+            <div className="text-3xl sm:text-4xl">🇻🇪</div>
+            <div className="min-w-0">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3">
                 Hecho en Venezuela: nuestro mayor diferenciador
               </h2>
-              <p className="leading-relaxed mb-3">
+              <p className="text-sm sm:text-base leading-relaxed mb-3">
                 La gran mayoría de los podcasts venezolanos importantes hoy se graban
                 <strong> fuera del país</strong> — desde Madrid, Miami, Buenos Aires o Ciudad de
                 México. <strong>Vacílate Esto es uno de los pocos podcasts venezolanos relevantes
                 que sigue grabándose y produciéndose desde Caracas, Venezuela</strong>, con equipo
                 local, voces locales y mirada local.
               </p>
-              <p className="leading-relaxed text-muted-foreground">
+              <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
                 Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
                 códigos y el humor de quien vive aquí todos los días. Junto a
                 <em> Podcast en la Cumbre</em>, <em>Vacílate El Mundial</em>, <em>Pelotica de Goma</em>,
@@ -336,21 +336,21 @@ const MejoresPodcastsVenezuela = () => {
               </p>
               <Link
                 to="/hecho-en-venezuela"
-                className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold hover:scale-105 transition-transform"
+                className="inline-flex items-center justify-center text-center gap-2 mt-4 px-4 sm:px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold hover:scale-105 transition-transform text-sm sm:text-base w-full sm:w-auto"
               >
-                Ver lista completa de podcasts hechos en Venezuela →
+                Ver podcasts hechos en Venezuela →
               </Link>
             </div>
           </div>
         </section>
 
         {/* Metodología */}
-        <section className="mb-12 p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-          <h2 className="text-2xl font-bold mb-3 flex items-center gap-2">
-            <Star className="w-6 h-6 text-primary" />
+        <section className="mb-10 md:mb-12 p-5 sm:p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+          <h2 className="text-xl sm:text-2xl font-bold mb-3 flex items-start sm:items-center gap-2">
+            <Star className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0 mt-1 sm:mt-0" />
             Cómo elegimos esta lista
           </h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             No es un ranking ordenado por puesto. Reunimos podcasts venezolanos relevantes por
             <strong> oyentes</strong> en Apple Podcasts y
             Spotify Venezuela (vía Podscan y los charts oficiales), <strong>seguidores en redes</strong>,
@@ -362,21 +362,21 @@ const MejoresPodcastsVenezuela = () => {
         </section>
 
         {/* Lista (sin ranking) */}
-        <section className="space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Podcasts venezolanos a seguir</h2>
-          <p className="text-muted-foreground mb-6">
+        <section className="space-y-4 md:space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2">Podcasts venezolanos a seguir</h2>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 md:mb-6">
             Mencionados sin orden de ranking. Cada uno destaca por sus propios méritos.
           </p>
           {PODCASTS.map((p) => (
             <article
               key={p.name}
               id={podcastSlug(p.name)}
-              className="p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg bg-card border-border scroll-mt-24"
+              className="p-5 sm:p-6 md:p-8 rounded-2xl border transition-all hover:shadow-lg bg-card border-border scroll-mt-24"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
-                    <h3 className="text-2xl md:text-3xl font-bold">
+                  <div className="mb-2">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold break-words">
                       {p.internal ? (
                         <Link to={p.internal} className="hover:text-primary transition-colors">
                           {p.name}
@@ -386,18 +386,18 @@ const MejoresPodcastsVenezuela = () => {
                       )}
                     </h3>
                   </div>
-                  <p className="text-sm font-semibold text-primary mb-1">{p.category}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-primary mb-1">{p.category}</p>
                   <p className="text-sm text-muted-foreground mb-3">
                     <Mic className="inline w-3.5 h-3.5 mr-1" />
                     {p.hosts}
                   </p>
-                  <p className="leading-relaxed mb-3">{p.why}</p>
+                  <p className="text-sm sm:text-base leading-relaxed mb-3">{p.why}</p>
                   {p.highlight && (
-                    <p className="text-sm leading-relaxed p-3 rounded-lg bg-primary/5 border border-primary/20 mb-3">
+                    <p className="text-xs sm:text-sm leading-relaxed p-3 rounded-lg bg-primary/5 border border-primary/20 mb-3">
                       ⭐ {p.highlight}
                     </p>
                   )}
-                  <div className="flex flex-wrap gap-2 text-sm">
+                  <div className="flex flex-wrap gap-2 text-xs sm:text-sm">
                     {p.spotify && (
                       <a
                         href={p.spotify}
@@ -436,59 +436,59 @@ const MejoresPodcastsVenezuela = () => {
         </section>
 
         {/* Cluster links */}
-        <section className="mt-16 p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-            <Headphones className="w-6 h-6 text-primary" />
+        <section className="mt-12 md:mt-16 p-5 sm:p-6 md:p-8 rounded-2xl bg-muted/30 border border-border">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-2">
+            <Headphones className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
             Explora por categoría
           </h2>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
             <Link
               to="/podcasts-venezolanos-comedia"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
               <h3 className="font-bold mb-1">🎭 Comedia</h3>
-              <p className="text-sm text-muted-foreground">Los podcasts venezolanos de humor más escuchados</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Los podcasts venezolanos de humor más escuchados</p>
             </Link>
             <Link
               to="/podcasts-venezolanos-futbol"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
               <h3 className="font-bold mb-1">⚽ Fútbol</h3>
-              <p className="text-sm text-muted-foreground">Podcasts venezolanos de fútbol y la Vinotinto</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Podcasts venezolanos de fútbol y la Vinotinto</p>
             </Link>
             <Link
               to="/podcasts-venezolanos-spotify"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
               <h3 className="font-bold mb-1">🎧 En Spotify</h3>
-              <p className="text-sm text-muted-foreground">Los mejores podcasts venezolanos en Spotify</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Los mejores podcasts venezolanos en Spotify</p>
             </Link>
           </div>
         </section>
 
         {/* CTA buscador */}
-        <section className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-background border border-primary/30 text-center">
-          <Search className="w-10 h-10 text-primary mx-auto mb-3" />
-          <h2 className="text-2xl font-bold mb-2">Busca un momento exacto</h2>
-          <p className="text-muted-foreground mb-4">
+        <section className="mt-10 md:mt-12 p-5 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-background border border-primary/30 text-center">
+          <Search className="w-8 h-8 sm:w-10 sm:h-10 text-primary mx-auto mb-3" />
+          <h2 className="text-xl sm:text-2xl font-bold mb-2">Busca un momento exacto</h2>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4">
             Tenemos un buscador semántico con miles de momentos de Vacílate Esto. Encuentra ese chiste, esa anécdota o esa historia en segundos.
           </p>
           <Link
             to="/buscador"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base"
           >
             Ir al buscador
           </Link>
         </section>
 
         {/* FAQ */}
-        <section className="mt-16">
-          <h2 className="text-3xl font-bold mb-6">Preguntas frecuentes</h2>
-          <div className="space-y-4">
+        <section className="mt-12 md:mt-16">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6">Preguntas frecuentes</h2>
+          <div className="space-y-3 md:space-y-4">
             {faqSchema.mainEntity.map((q: any, i: number) => (
-              <details key={i} className="p-5 rounded-xl border border-border bg-card group">
-                <summary className="font-semibold cursor-pointer text-lg">{q.name}</summary>
-                <p className="mt-3 text-muted-foreground leading-relaxed">
+              <details key={i} className="p-4 sm:p-5 rounded-xl border border-border bg-card group">
+                <summary className="font-semibold cursor-pointer text-base sm:text-lg pr-4">{q.name}</summary>
+                <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {q.acceptedAnswer.text}
                 </p>
               </details>
