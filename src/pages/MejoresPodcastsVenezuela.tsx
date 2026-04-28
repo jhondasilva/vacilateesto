@@ -212,7 +212,7 @@ const faqSchema = {
       name: "¿Por qué importa que un podcast venezolano se grabe en Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Los podcasts grabados desde Venezuela aportan una mirada local irreemplazable: cuentan el día a día del país, usan los códigos culturales actuales, reflejan la calle real y dan voz a invitados que viven en el territorio. Es contenido documental sobre la Venezuela de hoy, no sobre la Venezuela recordada desde el exilio.",
+        text: "Los podcasts grabados desde Venezuela aportan una mirada local irreemplazable: cuentan el día a día del país, usan los códigos culturales actuales, reflejan la calle real y dan voz a invitados que viven en el territorio. Es contenido documental sobre la Venezuela de hoy, no sobre la Venezuela recordada desde otro país.",
       },
     },
   ],
@@ -290,7 +290,7 @@ const MejoresPodcastsVenezuela = () => {
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Ranking definitivo de los <strong>15 podcasts venezolanos más escuchados</strong> en
             Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y la mejor producción
-            <strong> grabada DESDE Venezuela</strong> 🇻🇪 — no desde el exilio.
+            <strong> grabada DESDE Venezuela</strong> 🇻🇪 — no desde otro país.
           </p>
         </header>
 
