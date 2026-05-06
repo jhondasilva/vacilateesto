@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 /**
  * Hook that handles automatic redirection based on the domain.
- * When accessing from vacilateelmundial.com, redirects to /vacilate-el-mundial
+ * When accessing from vacilateelmundial.com, redirects to /vacilate-el-futbol
  */
 export const useDomainRedirect = () => {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ export const useDomainRedirect = () => {
       hostname === 'www.vacilateelmundial.com';
 
     // If on the VEM domain and not already on the VEM page, redirect
-    if (isVacilateElMundialDomain && location.pathname !== '/vacilate-el-mundial') {
-      navigate('/vacilate-el-mundial', { replace: true });
+    if (isVacilateElMundialDomain && location.pathname !== '/vacilate-el-futbol') {
+      navigate('/vacilate-el-futbol', { replace: true });
     }
   }, [navigate, location.pathname]);
 };

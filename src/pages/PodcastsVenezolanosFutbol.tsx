@@ -38,7 +38,7 @@ const PodcastsVenezolanosFutbol = () => (
       El spin-off futbolero de <a href="/">Vacílate Esto</a>. Cobertura del <a href="/blog/donde-ver-mundial-2026-desde-venezuela">Mundial México-USA-Canadá 2026</a> desde Venezuela, con humor, data y la pasión vinotinta. Conducido por JuanSofa & JhonSnacks.
     </p>
     <p>
-      <a href="/vacilate-el-mundial"><strong>Conoce el proyecto Vacílate El Fútbol 2026 →</strong></a>
+      <a href="/vacilate-el-futbol"><strong>Conoce el proyecto Vacílate El Fútbol 2026 →</strong></a>
     </p>
 
     <h2>2. Vacílate Esto (segmentos de fútbol)</h2>

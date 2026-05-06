@@ -25,7 +25,7 @@ const formats = [
 const VacilateElMundialSection = () => {
   return (
     <section
-      id="vacilate-el-mundial"
+      id="vacilate-el-futbol"
       aria-labelledby="vem-title"
       itemScope
       itemType="https://schema.org/SportsEvent"
@@ -35,7 +35,7 @@ const VacilateElMundialSection = () => {
       <meta itemProp="description" content="Plataforma de cobertura del Mundial FIFA 2026 producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 16 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
       <meta itemProp="startDate" content="2026-06-11" />
       <meta itemProp="endDate" content="2026-07-19" />
-      <meta itemProp="url" content="https://www.vacilateesto.com/vacilate-el-mundial" />
+      <meta itemProp="url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
       {/* Background blobs + dot grid */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 -left-32 w-[40rem] h-[40rem] bg-primary/25 rounded-full blur-[140px] animate-float" />

@@ -44,7 +44,7 @@ const PODCASTS: LocalPodcast[] = [
     category: "Fútbol · Mundial 2026",
     hosts: "JuanSofa & JhonSnacks",
     why: "El spin-off futbolero de Vacílate Esto. Cobertura del Mundial 2026 con humor y data, grabado desde Venezuela.",
-    internal: "/vacilate-el-mundial",
+    internal: "/vacilate-el-futbol",
     highlight: true,
   },
   {

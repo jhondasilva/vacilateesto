@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
     const staticUrls = [
       { loc: `${SITE}/`, priority: "1.0", changefreq: "daily" },
       { loc: `${SITE}/buscador`, priority: "0.9", changefreq: "daily" },
-      { loc: `${SITE}/vacilate-el-mundial`, priority: "0.95", changefreq: "daily" },
+      { loc: `${SITE}/vacilate-el-futbol`, priority: "0.95", changefreq: "daily" },
       { loc: `${SITE}/mejores-podcasts-venezuela`, priority: "0.95", changefreq: "weekly" },
       { loc: `${SITE}/podcasts-venezolanos-comedia`, priority: "0.85", changefreq: "monthly" },
       { loc: `${SITE}/podcasts-venezolanos-futbol`, priority: "0.85", changefreq: "monthly" },

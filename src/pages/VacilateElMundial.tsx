@@ -207,7 +207,7 @@ const VacilateElMundial = () => {
   const [sending, setSending] = useState(false);
 
   const MEDIAKIT_URL = "/downloads/VacilateElMundial-MediaKit-2026.pdf";
-  const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-mundial";
+  const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
 
   const handleSendByEmail = async () => {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -265,7 +265,7 @@ const VacilateElMundial = () => {
           name="keywords"
           content="mundial 2026, fifa world cup 2026, mundial mexico usa canada, podcast mundial, cobertura mundial 2026, vacilate esto mundial"
         />
-        <link rel="canonical" href="https://www.vacilateesto.com/vacilate-el-mundial" />
+        <link rel="canonical" href="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
@@ -277,7 +277,7 @@ const VacilateElMundial = () => {
           property="og:description"
           content="Contenido multiplataforma sobre el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir el Mundial."
         />
-        <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-mundial" />
+        <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
         <meta property="og:image" content="https://www.vacilateesto.com/og-image.png" />
         <meta property="og:image:width" content="1200" />
@@ -303,7 +303,7 @@ const VacilateElMundial = () => {
             "endDate": "2026-07-19",
             "eventStatus": "https://schema.org/EventScheduled",
             "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
-            "url": "https://www.vacilateesto.com/vacilate-el-mundial",
+            "url": "https://www.vacilateesto.com/vacilate-el-futbol",
             "image": "https://www.vacilateesto.com/og-image.png",
             "location": [
               { "@type": "Country", "name": "México" },
@@ -343,7 +343,7 @@ const VacilateElMundial = () => {
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.vacilateesto.com" },
-              { "@type": "ListItem", "position": 2, "name": "Vacílate El Fútbol 2026", "item": "https://www.vacilateesto.com/vacilate-el-mundial" }
+              { "@type": "ListItem", "position": 2, "name": "Vacílate El Fútbol 2026", "item": "https://www.vacilateesto.com/vacilate-el-futbol" }
             ]
           })}
         </script>
