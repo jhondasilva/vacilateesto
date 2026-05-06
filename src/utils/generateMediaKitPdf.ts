@@ -4,32 +4,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 // Datos de audiencia
 const audienceData = {
   totalFollowers: "1.84M",
-  totalImpressions: "89.6M",
-  totalInteractions: "5.2M",
-  totalPublications: "6,705",
+  totalImpressions: "93.15M",
+  totalInteractions: "5.33M",
+  totalPublications: "7,068",
   platforms: [
     { name: "TikTok", followers: "1.16M", growth: "+3.88%" },
-    { name: "Instagram", followers: "284.94K", growth: "+23.59%" },
-    { name: "Facebook", followers: "214.03K", growth: "+13.58%" },
-    { name: "YouTube", followers: "119K", growth: "+7.21%" },
-    { name: "Threads", followers: "61.23K", growth: "+19.88%" },
+    { name: "Instagram", followers: "285.13K", growth: "+23.67%" },
+    { name: "Facebook", followers: "213.82K", growth: "+13.69%" },
+    { name: "YouTube", followers: "120K", growth: "+8.11%" },
+    { name: "Threads", followers: "61.38K", growth: "+20.13%" },
   ],
   impressions: {
-    facebook: "44.79M",
+    facebook: "45.81M",
     facebookGrowth: "+64.94%",
-    instagram: "22.74M",
+    instagram: "24.35M",
     instagramGrowth: "+88.36%",
-    tiktok: "19.88M",
+    tiktok: "20.53M",
     tiktokGrowth: "+336.6%",
-    youtube: "1.95M",
-    linkedin: "224.69K",
+    youtube: "2.11M",
+    linkedin: "225.28K",
     linkedinGrowth: "+486.67%",
   },
   interactions: {
-    facebook: "3.4M",
-    instagram: "427.99K",
+    facebook: "3.42M",
+    instagram: "486.21K",
     threads: "1.32M",
-    youtube: "71.44K",
+    youtube: "74.19K",
     linkedin: "6,456",
   },
   demographics: {
@@ -302,9 +302,9 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   const stats = [
     { value: "1.84M", label: "Comunidad" },
-    { value: "89.6M", label: "Impresiones" },
-    { value: "5.2M", label: "Interacciones" },
-    { value: "6,705", label: "Publicaciones" },
+    { value: "93.15M", label: "Impresiones" },
+    { value: "5.33M", label: "Interacciones" },
+    { value: "7,068", label: "Publicaciones" },
   ];
   
   const boxWidth = 38;
@@ -332,7 +332,7 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   doc.setTextColor(...GRAY_COLOR);
   doc.setFontSize(8);
-  doc.text("Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
+  doc.text("Datos: 01 enero 2025 - 30 abril 2026 · Fuente: Metricool", pageWidth / 2, pageHeight - 20, { align: "center" });
 
   // ==================== PAGE 2: PLATFORM METRICS ====================
   addNewPage();
@@ -340,10 +340,10 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   const platformsWithValues = [
     { name: "TikTok", followers: "1.16M", growth: "+3.88%", value: 1160000, icon: "▶" },
-    { name: "Instagram", followers: "284.94K", growth: "+23.59%", value: 284940, icon: "📷" },
-    { name: "Facebook", followers: "214.03K", growth: "+13.58%", value: 214030, icon: "f" },
-    { name: "YouTube", followers: "119K", growth: "+7.21%", value: 119000, icon: "▶" },
-    { name: "Threads", followers: "61.23K", growth: "+19.88%", value: 61230, icon: "@" },
+    { name: "Instagram", followers: "285.13K", growth: "+23.67%", value: 285130, icon: "📷" },
+    { name: "Facebook", followers: "213.82K", growth: "+13.69%", value: 213820, icon: "f" },
+    { name: "YouTube", followers: "120K", growth: "+8.11%", value: 120000, icon: "▶" },
+    { name: "Threads", followers: "61.38K", growth: "+20.13%", value: 61380, icon: "@" },
   ];
 
   const maxFollowers = 1820000;
@@ -402,14 +402,14 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   drawSectionTitle("Impresiones Totales");
   
   const impressionData = [
-    { platform: "Facebook", value: "44.79M", growth: "+64.94%", numValue: 44.79, color: [66, 103, 178] as [number, number, number] },
-    { platform: "Instagram", value: "22.74M", growth: "+88.36%", numValue: 22.74, color: [225, 48, 108] as [number, number, number] },
-    { platform: "TikTok", value: "19.88M", growth: "+336.6%", numValue: 19.88, color: [0, 0, 0] as [number, number, number] },
-    { platform: "YouTube", value: "1.95M", growth: "", numValue: 1.95, color: [255, 0, 0] as [number, number, number] },
-    { platform: "LinkedIn", value: "224.69K", growth: "+486.67%", numValue: 0.22, color: [0, 119, 181] as [number, number, number] },
+    { platform: "Facebook", value: "45.81M", growth: "+64.94%", numValue: 45.81, color: [66, 103, 178] as [number, number, number] },
+    { platform: "Instagram", value: "24.35M", growth: "+88.36%", numValue: 24.35, color: [225, 48, 108] as [number, number, number] },
+    { platform: "TikTok", value: "20.53M", growth: "+336.6%", numValue: 20.53, color: [0, 0, 0] as [number, number, number] },
+    { platform: "YouTube", value: "2.11M", growth: "", numValue: 2.11, color: [255, 0, 0] as [number, number, number] },
+    { platform: "LinkedIn", value: "225.28K", growth: "+486.67%", numValue: 0.23, color: [0, 119, 181] as [number, number, number] },
   ];
 
-  const maxImpressions = 44.79;
+  const maxImpressions = 45.81;
   const barMaxWidth = 80;
 
   impressionData.forEach((item) => {
@@ -446,14 +446,14 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   drawSectionTitle("Interacciones Totales");
   
   const interactionData = [
-    { platform: "Facebook", value: "3.4M", numValue: 3.4, color: [66, 103, 178] as [number, number, number] },
+    { platform: "Facebook", value: "3.42M", numValue: 3.42, color: [66, 103, 178] as [number, number, number] },
     { platform: "Threads", value: "1.32M", numValue: 1.32, color: [0, 0, 0] as [number, number, number] },
-    { platform: "Instagram", value: "427.99K", numValue: 0.43, color: [225, 48, 108] as [number, number, number] },
-    { platform: "YouTube", value: "71.44K", numValue: 0.07, color: [255, 0, 0] as [number, number, number] },
+    { platform: "Instagram", value: "486.21K", numValue: 0.49, color: [225, 48, 108] as [number, number, number] },
+    { platform: "YouTube", value: "74.19K", numValue: 0.07, color: [255, 0, 0] as [number, number, number] },
     { platform: "LinkedIn", value: "6,456", numValue: 0.006, color: [0, 119, 181] as [number, number, number] },
   ];
 
-  const maxInteractions = 3.4;
+  const maxInteractions = 3.42;
 
   interactionData.forEach((item) => {
     doc.setTextColor(...DARK_COLOR);

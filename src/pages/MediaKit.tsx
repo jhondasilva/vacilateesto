@@ -42,35 +42,35 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 24 abr 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 30 abr 2026)
 const audienceData = {
   totalFollowers: "1.84M",
-  totalImpressions: "89.6M",
-  totalInteractions: "5.2M",
-  totalPublications: "6,705",
+  totalImpressions: "93.15M",
+  totalInteractions: "5.33M",
+  totalPublications: "7,068",
   platforms: [
     { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
-    { name: "Instagram", followers: "284.94K", growth: "+23.59%", icon: Instagram },
-    { name: "Facebook", followers: "214.03K", growth: "+13.58%", icon: Facebook },
-    { name: "YouTube", followers: "119K", growth: "+7.21%", icon: Youtube },
-    { name: "Threads", followers: "61.23K", growth: "+19.88%", icon: FileText },
+    { name: "Instagram", followers: "285.13K", growth: "+23.67%", icon: Instagram },
+    { name: "Facebook", followers: "213.82K", growth: "+13.69%", icon: Facebook },
+    { name: "YouTube", followers: "120K", growth: "+8.11%", icon: Youtube },
+    { name: "Threads", followers: "61.38K", growth: "+20.13%", icon: FileText },
   ],
   impressions: {
-    facebook: "44.79M",
+    facebook: "45.81M",
     facebookGrowth: "+64.94%",
-    instagram: "22.74M",
+    instagram: "24.35M",
     instagramGrowth: "+88.36%",
-    tiktok: "19.88M",
+    tiktok: "20.53M",
     tiktokGrowth: "+336.6%",
-    youtube: "1.95M",
-    linkedin: "224.69K",
+    youtube: "2.11M",
+    linkedin: "225.28K",
     linkedinGrowth: "+486.67%",
   },
   interactions: {
-    facebook: "3.4M",
-    instagram: "427.99K",
+    facebook: "3.42M",
+    instagram: "486.21K",
     threads: "1.32M",
-    youtube: "71.44K",
+    youtube: "74.19K",
     linkedin: "6,456",
   },
   demographics: {
@@ -474,7 +474,7 @@ const MediaKit = () => {
     <>
       <Helmet>
         <title>Media Kit 2026 | Vacílate Esto - Colabora con el Podcast #1 de Venezuela</title>
-        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 93.15M impresiones. Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
         
@@ -582,9 +582,9 @@ const MediaKit = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
                     { value: "1.84M", label: "Comunidad Total", icon: Users },
-                    { value: "89.6M", label: "Impresiones Anuales", icon: Eye },
-                    { value: "5.2M", label: "Interacciones", icon: Heart },
-                    { value: "6,705", label: "Publicaciones", icon: FileText },
+                    { value: "93.15M", label: "Impresiones Anuales", icon: Eye },
+                    { value: "5.33M", label: "Interacciones", icon: Heart },
+                    { value: "7,068", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -600,7 +600,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 1.84M COMUNIDAD", "◆ 89.6M IMPRESIONES", "▲ 5.2M INTERACCIONES", "● 6,705 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              items={["★ 1.84M COMUNIDAD", "◆ 93.15M IMPRESIONES", "▲ 5.33M INTERACCIONES", "● 7,068 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
