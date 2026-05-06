@@ -582,9 +582,9 @@ const MediaKit = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
                     { value: "1.84M", label: "Comunidad Total", icon: Users },
-                    { value: "89.6M", label: "Impresiones Anuales", icon: Eye },
-                    { value: "5.2M", label: "Interacciones", icon: Heart },
-                    { value: "6,705", label: "Publicaciones", icon: FileText },
+                    { value: "93.15M", label: "Impresiones Anuales", icon: Eye },
+                    { value: "5.33M", label: "Interacciones", icon: Heart },
+                    { value: "7,068", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
