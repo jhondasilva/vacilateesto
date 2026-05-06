@@ -16,7 +16,7 @@ const MundialDesdeVenezuela = () => (
       { id: "tv", label: "TV abierta y cable" },
       { id: "streaming", label: "Streaming oficial" },
       { id: "horarios", label: "Diferencia horaria" },
-      { id: "vacilate", label: "Vacílate El Mundial" },
+      { id: "vacilate", label: "Vacílate El Fútbol" },
     ]}
     faq={[
       {
@@ -60,9 +60,9 @@ const MundialDesdeVenezuela = () => (
       <li><strong>Canadá (Toronto, Vancouver):</strong> mismo o -3 según ciudad.</li>
     </ul>
 
-    <h2 id="vacilate">Vacílate El Mundial: el podcast del Mundial 2026</h2>
+    <h2 id="vacilate">Vacílate El Fútbol: el podcast del Mundial 2026</h2>
     <p>
-      Toda la cobertura, análisis y locura del torneo la vas a tener en <a href="/vacilate-el-mundial">Vacílate El Mundial</a>, nuestro podcast diario durante todo el torneo. Recordá también marcar el <a href="/">countdown del Mundial</a> en nuestra home.
+      Toda la cobertura, análisis y locura del torneo la vas a tener en <a href="/vacilate-el-mundial">Vacílate El Fútbol</a>, nuestro podcast diario durante todo el torneo. Recordá también marcar el <a href="/">countdown del Mundial</a> en nuestra home.
     </p>
   </BlogArticleLayout>
 );

@@ -17,7 +17,7 @@ const contentFormats = [
   { title: "Newsletter", subtitle: "Semanal", description: "Semanalmente enviamos un boletín informativo donde compartimos contenido curado y lo más visto del ecosistema esa semana.", icon: Mail, color: "primary" as const, stats: "Contenido curado" },
   { title: "Canales de Difusión", subtitle: "Comunidad VIP", description: "Canales exclusivos en Instagram y WhatsApp con contenidos especiales para nuestras comunidades más fieles. Acceso directo y cercano con nuestra audiencia.", icon: MessageCircle, color: "accent" as const, stats: "Instagram y WhatsApp" },
   { title: "Proyectos Especiales", subtitle: "Producciones Únicas", description: "Proyectos con identidad propia que nacen del ecosistema Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.", icon: Star, color: "primary" as const, stats: "3 proyectos realizados" },
-  { title: "Vacílate El Mundial", subtitle: "Cobertura Especial 2026", description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.", icon: Trophy, color: "accent" as const, stats: "Feb - Jul 2026" },
+  { title: "Vacílate El Fútbol", subtitle: "Cobertura Especial 2026", description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.", icon: Trophy, color: "accent" as const, stats: "Feb - Jul 2026" },
 ];
 
 const TICKER = ["ECOSISTEMA", "★", "12 FORMATOS", "✦", "MULTIPLATAFORMA", "★", "VACÍLATE ESTO", "✦"];

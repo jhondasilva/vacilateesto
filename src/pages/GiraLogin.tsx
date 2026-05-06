@@ -76,7 +76,7 @@ const GiraLogin = () => {
         </div>
 
         <div className="text-center mb-8">
-          <img src={logoMundial} alt="Vacílate El Mundial" className="h-20 w-auto mx-auto mb-4" loading="lazy" />
+          <img src={logoMundial} alt="Vacílate El Fútbol" className="h-20 w-auto mx-auto mb-4" loading="lazy" />
           <p className="text-muted-foreground text-sm">Plan de gira • Acceso privado</p>
         </div>
 

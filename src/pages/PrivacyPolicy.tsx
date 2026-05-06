@@ -56,7 +56,7 @@ const PrivacyPolicy = () => {
                     <li>Enviarte nuestro newsletter con contenido curado y novedades</li>
                     <li>Responder consultas, propuestas y solicitudes de patrocinio</li>
                     <li>Mejorar el buscador semántico y la calidad de los resultados</li>
-                    <li>Comunicarte sobre nuevos episodios, proyectos especiales y la gira Vacílate El Mundial</li>
+                    <li>Comunicarte sobre nuevos episodios, proyectos especiales y la gira Vacílate El Fútbol</li>
                     <li>Operar y mejorar nuestra app, web y herramientas internas</li>
                   </ul>
                 </section>

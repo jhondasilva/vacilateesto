@@ -1,7 +1,7 @@
 import { Globe, UtensilsCrossed, Newspaper, MapPin, Zap, Sparkles, ArrowUpRight } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
 
-const TICKER = ["VACÍLATE EL MUNDIAL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
+const TICKER = ["VACÍLATE EL FÚTBOL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
 
 const features = [
   { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live) y Radio FM Center" },
@@ -31,7 +31,7 @@ const VacilateElMundialSection = () => {
       itemType="https://schema.org/SportsEvent"
       className="relative overflow-hidden bg-background py-20 md:py-28"
     >
-      <meta itemProp="name" content="Vacílate El Mundial 2026 · Cobertura del Mundial FIFA México, USA y Canadá" />
+      <meta itemProp="name" content="Vacílate El Fútbol 2026 · Cobertura del Mundial FIFA México, USA y Canadá" />
       <meta itemProp="description" content="Plataforma de cobertura del Mundial FIFA 2026 producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 16 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
       <meta itemProp="startDate" content="2026-06-11" />
       <meta itemProp="endDate" content="2026-07-19" />
@@ -86,7 +86,7 @@ const VacilateElMundialSection = () => {
               <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
                 <img
                   src={logoVacilateElMundial}
-                  alt="Vacílate El Mundial 2026"
+                  alt="Vacílate El Fútbol 2026"
                   className="w-full h-auto"
                   loading="lazy"
                 />

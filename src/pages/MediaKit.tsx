@@ -191,7 +191,7 @@ const contentFormats = [
     stats: "3 proyectos realizados",
   },
   {
-    title: "Vacílate El Mundial",
+    title: "Vacílate El Fútbol",
     subtitle: "Cobertura Especial 2026",
     description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.",
     icon: Trophy,
@@ -474,20 +474,20 @@ const MediaKit = () => {
     <>
       <Helmet>
         <title>Media Kit 2026 | Vacílate Esto - Colabora con el Podcast #1 de Venezuela</title>
-        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Mundial 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 89.6M impresiones. Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Media Kit 2026 | Vacílate Esto Podcast" />
-        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026, Campeonato de Comerciales y más." />
+        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026, Campeonato de Comerciales y más." />
         <meta property="og:url" content="https://www.vacilateesto.com/media-kit" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
-        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 1.84M+ seguidores. Vacílate El Mundial 2026 y más proyectos." />
+        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026 y más proyectos." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -515,7 +515,7 @@ const MediaKit = () => {
             "offers": [
               {
                 "@type": "Offer",
-                "name": "Vacílate El Mundial 2026",
+                "name": "Vacílate El Fútbol 2026",
                 "description": "Patrocinio para cobertura multiplataforma del Mundial de Fútbol 2026 en México, USA y Canadá. Contenido de febrero a julio 2026.",
                 "category": "Patrocinio Especial"
               },

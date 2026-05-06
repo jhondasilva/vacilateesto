@@ -66,7 +66,7 @@ const PodcastsVenezolanosSpotify = () => (
       Nicole Kolster y Adriana Núñez Rabascall analizan el panorama venezolano sin sesgos.
     </p>
 
-    <h2>7. Vacílate El Mundial</h2>
+    <h2>7. Vacílate El Fútbol</h2>
     <p>
       El spin-off futbolero de Vacílate Esto rumbo al Mundial 2026. <a href="/vacilate-el-mundial">Conoce el proyecto →</a>
     </p>

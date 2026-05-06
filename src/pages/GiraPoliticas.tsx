@@ -20,7 +20,7 @@ const GiraPoliticas = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>Políticas de gastos · Gira Vacílate El Mundial</title>
+        <title>Políticas de gastos · Gira Vacílate El Fútbol</title>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
 

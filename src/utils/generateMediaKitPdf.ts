@@ -142,7 +142,7 @@ const contentFormats = [
     platforms: "Multiplataforma"
   },
   { 
-    title: "Vacílate El Mundial", 
+    title: "Vacílate El Fútbol", 
     subtitle: "Cobertura Especial 2026", 
     stats: "Feb - Jul 2026",
     description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto con nuestro estilo único.",
@@ -666,9 +666,9 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text("Total Impresiones: 6.75M+", margin + 10, y + 22);
   doc.text("Total Interacciones: 576K+", pageWidth / 2, y + 22);
 
-  // ==================== PAGE 6: VACÍLATE EL MUNDIAL 2026 ====================
+  // ==================== PAGE 6: VACÍLATE EL FÚTBOL 2026 ====================
   addNewPage();
-  drawHeader("VACÍLATE EL MUNDIAL 2026", "Proyecto Especial · Febrero - Julio 2026");
+  drawHeader("VACÍLATE EL FÚTBOL 2026", "Proyecto Especial · Febrero - Julio 2026");
 
   // Intro
   doc.setTextColor(...DARK_COLOR);
