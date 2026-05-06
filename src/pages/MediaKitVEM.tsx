@@ -34,6 +34,12 @@ const stats = [
   { number: "4", label: "Países" },
 ];
 
+const reachStats = [
+  { number: "93.15M", label: "Impresiones", icon: Eye },
+  { number: "5.33M", label: "Interacciones", icon: Sparkles },
+  { number: "7,068", label: "Publicaciones", icon: Megaphone },
+];
+
 const pillars = [
   {
     title: "Humor",
@@ -430,6 +436,41 @@ const MediaKitVEM = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Acumulado de alcance — período enero 2025 / abril 2026 */}
+            <div className="mt-10">
+              <div className="flex flex-wrap items-end justify-between gap-2 mb-5">
+                <div>
+                  <span className="inline-block bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-display font-black uppercase tracking-widest border-2 border-foreground">
+                    Alcance acumulado
+                  </span>
+                  <h3 className="mt-3 font-display font-black text-2xl sm:text-3xl uppercase leading-tight">
+                    Lo que mueve el ecosistema
+                  </h3>
+                </div>
+                <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground">
+                  01 ene 2025 — 30 abr 2026 · Fuente: Metricool
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                {reachStats.map((s) => (
+                  <div
+                    key={s.label}
+                    className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-foreground"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-accent text-accent-foreground flex items-center justify-center border-2 border-foreground">
+                      <s.icon className="w-6 h-6" aria-hidden="true" />
+                    </div>
+                    <div className="mt-4 font-display font-black text-3xl sm:text-4xl md:text-5xl text-foreground">
+                      {s.number}
+                    </div>
+                    <div className="mt-1 font-display font-bold uppercase tracking-widest text-xs sm:text-sm text-muted-foreground">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
