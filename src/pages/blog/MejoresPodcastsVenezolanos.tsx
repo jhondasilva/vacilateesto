@@ -58,7 +58,7 @@ const MejoresPodcastsVenezolanos = () => (
     <h3>1. Vacílate Esto</h3>
     <p>
       <strong>Hosts:</strong> Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks).<br />
-      El podcast venezolano #1 en entretenimiento. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de <em>Fun Educaitment</em>. Tiene 1.84M+ seguidores y rompió el récord mundial del podcast más largo del mundo en 2022. También están detrás de proyectos como <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> y <a href="/vacilate-el-mundial">Vacílate El Mundial 2026</a>.
+      El podcast venezolano #1 en entretenimiento. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de <em>Fun Educaitment</em>. Tiene 1.84M+ seguidores y rompió el récord mundial del podcast más largo del mundo en 2022. También están detrás de proyectos como <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> y <a href="/vacilate-el-mundial">Vacílate El Fútbol 2026</a>.
     </p>
 
     <h3>2. Por Eso Estamos Como Estamos</h3>
@@ -92,7 +92,7 @@ const MejoresPodcastsVenezolanos = () => (
     </p>
     <ul>
       <li><strong>De Vuelta a la Pelota</strong> — béisbol venezolano y MLB.</li>
-      <li><strong>Vacílate El Mundial</strong> — el spin-off futbolero de Vacílate Esto rumbo al Mundial México-USA-Canadá.</li>
+      <li><strong>Vacílate El Fútbol</strong> — el spin-off futbolero de Vacílate Esto rumbo al Mundial México-USA-Canadá.</li>
     </ul>
 
     <h2 id="politica">Política y noticias</h2>

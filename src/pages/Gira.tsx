@@ -70,7 +70,7 @@ const Gira = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>Gira • Vacílate El Mundial</title>
+        <title>Gira • Vacílate El Fútbol</title>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
 
@@ -79,7 +79,7 @@ const Gira = () => {
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <img src={logoVacilate} alt="Vacílate Esto" className="h-9 w-auto hidden sm:block" loading="lazy" />
             <div className="hidden sm:block w-px h-8 bg-border" />
-            <img src={logoMundial} alt="Vacílate El Mundial" className="h-8 sm:h-10 w-auto" loading="lazy" />
+            <img src={logoMundial} alt="Vacílate El Fútbol" className="h-8 sm:h-10 w-auto" loading="lazy" />
             <div className="hidden md:block w-px h-8 bg-border" />
             <img src={logoFifa} alt="Mundial 2026" className="h-10 w-auto hidden md:block" loading="lazy" />
           </div>
@@ -112,7 +112,7 @@ const Gira = () => {
             Producción 2026 • Acceso privado
           </p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight">
-            Plan de gira <span className="text-primary">Vacílate El Mundial</span>
+            Plan de gira <span className="text-primary">Vacílate El Fútbol</span>
           </h1>
           <p className="text-xs sm:text-base text-muted-foreground mt-2 max-w-2xl">
             Coordinación de viajes, hoteles, partidos y producción para la cobertura del Mundial 2026.

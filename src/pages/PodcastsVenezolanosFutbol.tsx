@@ -6,7 +6,7 @@ const PodcastsVenezolanosFutbol = () => (
     canonicalPath="/podcasts-venezolanos-futbol"
     title="Los Mejores Podcasts Venezolanos de Fútbol 2026 ⚽ Vinotinto y Mundial"
     h1="Los mejores podcasts venezolanos de fútbol"
-    description="Podcasts venezolanos de fútbol, Vinotinto y Mundial 2026. Vacílate El Mundial, análisis y cobertura desde Venezuela."
+    description="Podcasts venezolanos de fútbol, Vinotinto y Mundial 2026. Vacílate El Fútbol, análisis y cobertura desde Venezuela."
     keywords="podcast fútbol venezuela, podcast vinotinto, podcast mundial 2026 venezuela, vacilate el mundial, fútbol venezolano podcast, podcast deportes venezuela"
     datePublished="2026-04-28"
     readingMinutes={4}
@@ -16,12 +16,12 @@ const PodcastsVenezolanosFutbol = () => (
       {
         question: "¿Hay podcasts venezolanos de fútbol y Vinotinto?",
         answer:
-          "Sí. Vacílate El Mundial es el spin-off futbolero de Vacílate Esto rumbo al Mundial 2026, con cobertura desde Venezuela. También hay programas dedicados a la Liga FUTVE y a los venezolanos en el exterior.",
+          "Sí. Vacílate El Fútbol es el spin-off futbolero de Vacílate Esto rumbo al Mundial 2026, con cobertura desde Venezuela. También hay programas dedicados a la Liga FUTVE y a los venezolanos en el exterior.",
       },
       {
         question: "¿Dónde escuchar el podcast del Mundial 2026 en español venezolano?",
         answer:
-          "Vacílate El Mundial está disponible en YouTube, Spotify y todas las plataformas. Cobertura del Mundial México-USA-Canadá 2026 con humor, data y mirada venezolana.",
+          "Vacílate El Fútbol está disponible en YouTube, Spotify y todas las plataformas. Cobertura del Mundial México-USA-Canadá 2026 con humor, data y mirada venezolana.",
       },
     ]}
   >
@@ -33,12 +33,12 @@ const PodcastsVenezolanosFutbol = () => (
       Para más opciones por categoría, visita nuestro <a href="/mejores-podcasts-venezuela"><strong>ranking de los mejores podcasts de Venezuela</strong></a>.
     </p>
 
-    <h2>1. Vacílate El Mundial</h2>
+    <h2>1. Vacílate El Fútbol</h2>
     <p>
       El spin-off futbolero de <a href="/">Vacílate Esto</a>. Cobertura del <a href="/blog/donde-ver-mundial-2026-desde-venezuela">Mundial México-USA-Canadá 2026</a> desde Venezuela, con humor, data y la pasión vinotinta. Conducido por JuanSofa & JhonSnacks.
     </p>
     <p>
-      <a href="/vacilate-el-mundial"><strong>Conoce el proyecto Vacílate El Mundial 2026 →</strong></a>
+      <a href="/vacilate-el-mundial"><strong>Conoce el proyecto Vacílate El Fútbol 2026 →</strong></a>
     </p>
 
     <h2>2. Vacílate Esto (segmentos de fútbol)</h2>

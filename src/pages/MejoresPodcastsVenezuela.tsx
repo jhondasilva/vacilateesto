@@ -36,7 +36,7 @@ const PODCASTS: PodcastEntry[] = [
     category: "Humor · Cultura · Entretenimiento",
     hosts: "JuanSofa & JhonSnacks",
     why: "El podcast venezolano #1 en entretenimiento. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de Fun Educaitment. 1.84M+ seguidores activos en todas las plataformas y récord mundial del podcast más largo del mundo (40+ horas continuas en 2022).",
-    highlight: "Ecosistema completo: podcast, shorts, lives, docuseries y proyectos especiales como Podcast en la Cumbre y Vacílate El Mundial 2026.",
+    highlight: "Ecosistema completo: podcast, shorts, lives, docuseries y proyectos especiales como Podcast en la Cumbre y Vacílate El Fútbol 2026.",
     spotify: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
     youtube: "https://www.youtube.com/@Vacilateestopodcast",
     apple: "https://podcasts.apple.com/us/podcast/vac%C3%ADlate-esto-podcast/id1666351070",
@@ -122,7 +122,7 @@ const PODCASTS: PodcastEntry[] = [
   },
   {
     rank: 13,
-    name: "Vacílate El Mundial",
+    name: "Vacílate El Fútbol",
     category: "Fútbol · Mundial 2026",
     hosts: "JuanSofa & JhonSnacks",
     why: "El spin-off futbolero de Vacílate Esto rumbo al Mundial México-USA-Canadá 2026. Cobertura desde Venezuela con humor y data.",
@@ -173,7 +173,7 @@ const faqSchema = {
       name: "¿Cuáles son podcasts venezolanos destacados en 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No hay un único 'mejor podcast de Venezuela'; depende del género y del gusto. Entre los proyectos venezolanos destacados en 2026 están: Vacílate Esto (humor y cultura, +1.84M seguidores y récord mundial del podcast más largo del mundo), Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Esto es Venezueling, Venezolanos, Casos Confidenciales, Podcast en la Cumbre y Vacílate El Mundial.",
+        text: "No hay un único 'mejor podcast de Venezuela'; depende del género y del gusto. Entre los proyectos venezolanos destacados en 2026 están: Vacílate Esto (humor y cultura, +1.84M seguidores y récord mundial del podcast más largo del mundo), Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Esto es Venezueling, Venezolanos, Casos Confidenciales, Podcast en la Cumbre y Vacílate El Fútbol.",
       },
     },
     {
@@ -213,7 +213,7 @@ const faqSchema = {
       name: "¿Qué podcasts venezolanos se graban DESDE Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
+        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
       },
     },
     {
@@ -330,7 +330,7 @@ const MejoresPodcastsVenezuela = () => {
               <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
                 Eso nos da un ángulo único: contamos el país desde adentro, con la calle, los
                 códigos y el humor de quien vive aquí todos los días. Junto a
-                <em> Podcast en la Cumbre</em>, <em>Vacílate El Mundial</em>, <em>Pelotica de Goma</em>,
+                <em> Podcast en la Cumbre</em>, <em>Vacílate El Fútbol</em>, <em>Pelotica de Goma</em>,
                 <em> Esto es Venezueling</em> y un puñado más, formamos parte del pequeño grupo
                 de producciones que mantienen viva la conversación podcastera dentro de Venezuela.
               </p>

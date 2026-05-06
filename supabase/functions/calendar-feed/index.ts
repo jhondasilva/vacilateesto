@@ -143,15 +143,15 @@ Deno.serve(async (_req) => {
       .select("name,color,description")
       .limit(1)
       .maybeSingle();
-    const calName = settingsRes.data?.name ?? "Vacílate El Mundial";
+    const calName = settingsRes.data?.name ?? "Vacílate El Fútbol";
     const calColor = settingsRes.data?.color ?? "#E91E63";
-    const calDesc = settingsRes.data?.description ?? "Gira Vacílate El Mundial 2026 — Feed en vivo";
+    const calDesc = settingsRes.data?.description ?? "Gira Vacílate El Fútbol 2026 — Feed en vivo";
 
     const now = stamp();
     const lines: string[] = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Vacilate El Mundial//Gira 2026//ES",
+      "PRODID:-//Vacilate El Futbol//Gira 2026//ES",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       fold(`X-WR-CALNAME:${esc(calName)}`),

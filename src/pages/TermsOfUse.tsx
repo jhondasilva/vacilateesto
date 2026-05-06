@@ -47,7 +47,7 @@ const TermsOfUse = () => {
                     <li>Videos, shorts y formatos como Guerra de Comerciales</li>
                     <li>Buscador de episodios con transcripciones e inteligencia artificial</li>
                     <li>App PWA, blog editorial y newsletter</li>
-                    <li>Proyecto especial Vacílate El Mundial 2026</li>
+                    <li>Proyecto especial Vacílate El Fútbol 2026</li>
                   </ul>
                 </section>
 

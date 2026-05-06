@@ -170,10 +170,10 @@ const MediaKitVEM = () => {
   return (
     <>
       <Helmet>
-        <title>Media Kit Vacílate El Mundial 2026 | Cobertura Mundial FIFA MX·USA·CAN</title>
+        <title>Media Kit Vacílate El Fútbol 2026 | Cobertura Mundial FIFA MX·USA·CAN</title>
         <meta
           name="description"
-          content="Media Kit oficial de Vacílate El Mundial 2026. Cobertura no-oficial del Mundial FIFA con humor, data y calle. 15 ciudades, 4 países, feb-jul 2026. 2M+ seguidores."
+          content="Media Kit oficial de Vacílate El Fútbol 2026. Cobertura no-oficial del Mundial FIFA con humor, data y calle. 15 ciudades, 4 países, feb-jul 2026. 2M+ seguidores."
         />
         <meta
           name="keywords"
@@ -181,7 +181,7 @@ const MediaKitVEM = () => {
         />
         <link rel="canonical" href={url} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Media Kit Vacílate El Mundial 2026" />
+        <meta property="og:title" content="Media Kit Vacílate El Fútbol 2026" />
         <meta
           property="og:description"
           content="Cobertura del Mundial FIFA 2026 con humor, data y calle. 15 ciudades · 4 países · feb-jul 2026."
@@ -210,7 +210,7 @@ const MediaKitVEM = () => {
             <div className="relative z-10 border-y-2 border-foreground bg-foreground text-background overflow-hidden py-2.5">
               <div className="flex whitespace-nowrap animate-marquee">
                 {Array.from({ length: 4 }).flatMap((_, k) => [
-                  "VACÍLATE EL MUNDIAL 2026",
+                  "VACÍLATE EL FÚTBOL 2026",
                   "★",
                   "MX · USA · CAN · FRA · VEN",
                   "✦",
@@ -334,7 +334,7 @@ const MediaKitVEM = () => {
                     <div className="relative w-full h-full bg-background rounded-3xl border-2 border-foreground shadow-[6px_6px_0_hsl(var(--primary))] sm:shadow-[10px_10px_0_hsl(var(--primary))] lg:shadow-[12px_12px_0_hsl(var(--primary))] hover:shadow-[16px_16px_0_hsl(var(--accent))] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 rotate-2 hover:rotate-0 overflow-hidden flex items-center justify-center p-8">
                       <img
                         src={logoVEM}
-                        alt="Vacílate El Mundial 2026"
+                        alt="Vacílate El Fútbol 2026"
                         className="w-full h-auto max-h-full object-contain"
                         loading="eager"
                       />
@@ -405,7 +405,7 @@ const MediaKitVEM = () => {
 
           <StickerMarquee
             items={[
-              "VACÍLATE EL MUNDIAL 2026",
+              "VACÍLATE EL FÚTBOL 2026",
               "MX · USA · CAN",
               "FEB — JUL 2026",
               "FUN EDUCAITMENT",
@@ -440,7 +440,7 @@ const MediaKitVEM = () => {
                 ¿Qué es?
               </span>
               <h2 className="mt-4 font-display font-black text-3xl sm:text-5xl uppercase leading-tight">
-                Vacílate El Mundial
+                Vacílate El Fútbol
               </h2>
               <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">
                 Es la cobertura no-oficial del Mundial FIFA 2026 desde la mirada de Vacílate Esto. Un ecosistema de contenido que mezcla humor, data, gastronomía y calle para hablarle tanto al fanático duro del fútbol como al 80% del mercado que disfruta el Mundial sin ser futbolero.

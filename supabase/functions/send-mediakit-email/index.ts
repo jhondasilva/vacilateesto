@@ -80,12 +80,12 @@ const handler = async (req: Request): Promise<Response> => {
 
     const isMundial = kit === "mundial";
     const subject = isMundial
-      ? "Media Kit Vacílate El Mundial 2026"
+      ? "Media Kit Vacílate El Fútbol 2026"
       : "Media Kit Vacílate Esto 2026";
     const filename = isMundial
-      ? "Media Kit Vacilate El Mundial 2026.pdf"
+      ? "Media Kit Vacilate El Futbol 2026.pdf"
       : "Media Kit Vacilate Esto 2026.pdf";
-    const headerTitle = isMundial ? "VACÍLATE EL MUNDIAL" : "VACÍLATE ESTO";
+    const headerTitle = isMundial ? "VACÍLATE EL FÚTBOL" : "VACÍLATE ESTO";
     const headerSub = isMundial ? "Media Kit Mundial 2026" : "Media Kit 2026";
     
     console.log(`Received request for email: ${email}`);

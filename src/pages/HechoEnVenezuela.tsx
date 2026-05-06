@@ -39,7 +39,7 @@ const PODCASTS: LocalPodcast[] = [
     highlight: true,
   },
   {
-    name: "Vacílate El Mundial",
+    name: "Vacílate El Fútbol",
     city: "Caracas",
     category: "Fútbol · Mundial 2026",
     hosts: "JuanSofa & JhonSnacks",
@@ -132,7 +132,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts más importantes que se graban desde Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-          text: "Algunos de los podcasts producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Mundial, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. No es un ranking: son menciones de proyectos relevantes que mantienen su producción dentro del país.",
+          text: "Algunos de los podcasts producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. No es un ranking: son menciones de proyectos relevantes que mantienen su producción dentro del país.",
       },
     },
     {
