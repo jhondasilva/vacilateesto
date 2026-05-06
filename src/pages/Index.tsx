@@ -208,7 +208,7 @@ const Index = () => {
               { "@type": "ListItem", "position": 1, "name": "Inicio", "url": "https://www.vacilateesto.com/#hero" },
               { "@type": "ListItem", "position": 2, "name": "Buscador del podcast", "url": "https://www.vacilateesto.com/#search" },
               { "@type": "ListItem", "position": 3, "name": "Media Holding · Ecosistema", "url": "https://www.vacilateesto.com/#media-holding" },
-              { "@type": "ListItem", "position": 4, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/#vacilate-el-mundial" },
+              { "@type": "ListItem", "position": 4, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/#vacilate-el-futbol" },
               { "@type": "ListItem", "position": 5, "name": "Episodios recientes", "url": "https://www.vacilateesto.com/#episodes" },
               { "@type": "ListItem", "position": 6, "name": "Shorts y Cuentos", "url": "https://www.vacilateesto.com/#shorts" },
               { "@type": "ListItem", "position": 7, "name": "Hosts: JuanSofa & JhonSnacks", "url": "https://www.vacilateesto.com/#hosts" },
@@ -227,7 +227,7 @@ const Index = () => {
         <script type="application/ld+json">
           {JSON.stringify([
             { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 1, "name": "Inicio", "url": "https://www.vacilateesto.com/" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 2, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/vacilate-el-mundial" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 2, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/vacilate-el-futbol" },
             { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 3, "name": "Media Kit", "url": "https://www.vacilateesto.com/media-kit" },
             { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 4, "name": "Podcast en la Cumbre", "url": "https://www.vacilateesto.com/podcast-en-la-cumbre" },
             { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 5, "name": "Podcast Eterno", "url": "https://www.vacilateesto.com/podcast-eterno" },

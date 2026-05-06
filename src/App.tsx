@@ -53,7 +53,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
             <Route path="/podcast-eterno" element={<PodcastEterno />} />
-            <Route path="/vacilate-el-mundial" element={<VacilateElMundial />} />
+            <Route path="/vacilate-el-futbol" element={<VacilateElMundial />} />
             <Route path="/media-kit" element={<MediaKit />} />
             <Route path="/media-kit-vem" element={<MediaKitVEM />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />

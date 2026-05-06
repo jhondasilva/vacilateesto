@@ -68,7 +68,7 @@ const PodcastsVenezolanosSpotify = () => (
 
     <h2>7. Vacílate El Fútbol</h2>
     <p>
-      El spin-off futbolero de Vacílate Esto rumbo al Mundial 2026. <a href="/vacilate-el-mundial">Conoce el proyecto →</a>
+      El spin-off futbolero de Vacílate Esto rumbo al Mundial 2026. <a href="/vacilate-el-futbol">Conoce el proyecto →</a>
     </p>
 
     <h2>Cómo encontrar más podcasts venezolanos en Spotify</h2>

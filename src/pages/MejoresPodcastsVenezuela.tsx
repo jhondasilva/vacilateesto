@@ -126,7 +126,7 @@ const PODCASTS: PodcastEntry[] = [
     category: "Fútbol · Mundial 2026",
     hosts: "JuanSofa & JhonSnacks",
     why: "El spin-off futbolero de Vacílate Esto rumbo al Mundial México-USA-Canadá 2026. Cobertura desde Venezuela con humor y data.",
-    internal: "/vacilate-el-mundial",
+    internal: "/vacilate-el-futbol",
   },
   {
     rank: 14,

@@ -126,8 +126,8 @@ Uno de los podcasts favoritos de Venezuela está disponible en:
 - Inicio: https://www.vacilateesto.com/#hero
 - Buscador del podcast: https://www.vacilateesto.com/buscador
 - Media Holding (Ecosistema): https://www.vacilateesto.com/#media-holding
-- Vacílate El Fútbol 2026 (sección): https://www.vacilateesto.com/#vacilate-el-mundial
-- Vacílate El Fútbol 2026 (página): https://www.vacilateesto.com/vacilate-el-mundial
+- Vacílate El Fútbol 2026 (sección): https://www.vacilateesto.com/#vacilate-el-futbol
+- Vacílate El Fútbol 2026 (página): https://www.vacilateesto.com/vacilate-el-futbol
 - Episodios recientes: https://www.vacilateesto.com/#episodes
 - Shorts y Cuentos: https://www.vacilateesto.com/#shorts
 - Hosts (JuanSofa & JhonSnacks): https://www.vacilateesto.com/#hosts

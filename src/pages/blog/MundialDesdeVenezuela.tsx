@@ -62,7 +62,7 @@ const MundialDesdeVenezuela = () => (
 
     <h2 id="vacilate">Vacílate El Fútbol: el podcast del Mundial 2026</h2>
     <p>
-      Toda la cobertura, análisis y locura del torneo la vas a tener en <a href="/vacilate-el-mundial">Vacílate El Fútbol</a>, nuestro podcast diario durante todo el torneo. Recordá también marcar el <a href="/">countdown del Mundial</a> en nuestra home.
+      Toda la cobertura, análisis y locura del torneo la vas a tener en <a href="/vacilate-el-futbol">Vacílate El Fútbol</a>, nuestro podcast diario durante todo el torneo. Recordá también marcar el <a href="/">countdown del Mundial</a> en nuestra home.
     </p>
   </BlogArticleLayout>
 );

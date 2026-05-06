@@ -6,7 +6,7 @@ import StickerHeader from "@/components/StickerHeader";
 const businessArms = [
   { id: "media", title: "Media & Narrativa", subtitle: "El Núcleo", description: "El motor que genera confianza masiva. Podcast, shorts, lives, docuseries. El contenido no es el producto final; es el motor de marketing para todo el ecosistema.", icon: Tv, color: "primary" as const, products: [
     { name: "Podcast Vacílate Esto", link: "https://youtube.com/@Vacilateestopodcast" },
-    { name: "Vacílate El Fútbol 2026", link: "/vacilate-el-mundial" },
+    { name: "Vacílate El Fútbol 2026", link: "/vacilate-el-futbol" },
     { name: "Vacílate Esto Cuentos", link: "https://www.tiktok.com/@vacilateesto" },
   ]},
   { id: "experiences", title: "Experiencias", subtitle: "El Brazo Físico", description: "Sacamos a la gente de la pantalla y la llevamos al mundo físico. Eventos sold-out que generan su propio contenido viral. La nostalgia y la innovación se encuentran.", icon: Mountain, color: "accent" as const, products: [
