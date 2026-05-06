@@ -42,35 +42,35 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 24 abr 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 30 abr 2026)
 const audienceData = {
   totalFollowers: "1.84M",
-  totalImpressions: "89.6M",
-  totalInteractions: "5.2M",
-  totalPublications: "6,705",
+  totalImpressions: "93.15M",
+  totalInteractions: "5.33M",
+  totalPublications: "7,068",
   platforms: [
     { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
-    { name: "Instagram", followers: "284.94K", growth: "+23.59%", icon: Instagram },
-    { name: "Facebook", followers: "214.03K", growth: "+13.58%", icon: Facebook },
-    { name: "YouTube", followers: "119K", growth: "+7.21%", icon: Youtube },
-    { name: "Threads", followers: "61.23K", growth: "+19.88%", icon: FileText },
+    { name: "Instagram", followers: "285.13K", growth: "+23.67%", icon: Instagram },
+    { name: "Facebook", followers: "213.82K", growth: "+13.69%", icon: Facebook },
+    { name: "YouTube", followers: "120K", growth: "+8.11%", icon: Youtube },
+    { name: "Threads", followers: "61.38K", growth: "+20.13%", icon: FileText },
   ],
   impressions: {
-    facebook: "44.79M",
+    facebook: "45.81M",
     facebookGrowth: "+64.94%",
-    instagram: "22.74M",
+    instagram: "24.35M",
     instagramGrowth: "+88.36%",
-    tiktok: "19.88M",
+    tiktok: "20.53M",
     tiktokGrowth: "+336.6%",
-    youtube: "1.95M",
-    linkedin: "224.69K",
+    youtube: "2.11M",
+    linkedin: "225.28K",
     linkedinGrowth: "+486.67%",
   },
   interactions: {
-    facebook: "3.4M",
-    instagram: "427.99K",
+    facebook: "3.42M",
+    instagram: "486.21K",
     threads: "1.32M",
-    youtube: "71.44K",
+    youtube: "74.19K",
     linkedin: "6,456",
   },
   demographics: {
