@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,24 +10,19 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const [ready, setReady] = useState(false);
+  const location = useLocation();
+  const initialEmail = (location.state as { email?: string } | null)?.email ?? "";
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    // Supabase pone la sesión en la URL hash al venir del enlace de recuperación.
-    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN") setReady(true);
-    });
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) setReady(true);
-    });
-    return () => sub.subscription.unsubscribe();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email) {
+      toast.error("Ingresa tu email");
+      return;
+    }
     if (password.length < 8) {
       toast.error("La contraseña debe tener al menos 8 caracteres");
       return;
@@ -37,10 +32,12 @@ const ResetPassword = () => {
       return;
     }
     setSubmitting(true);
-    const { error } = await supabase.auth.updateUser({ password });
+    const { data, error } = await supabase.functions.invoke("admin-set-password", {
+      body: { email: email.trim(), password },
+    });
     setSubmitting(false);
-    if (error) {
-      toast.error("No se pudo actualizar la contraseña");
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error || "No se pudo actualizar la contraseña");
       return;
     }
     toast.success("Contraseña actualizada");
@@ -59,12 +56,19 @@ const ResetPassword = () => {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-8 shadow-[var(--shadow-card)]">
-          {!ready ? (
-            <div className="flex items-center justify-center py-8 text-muted-foreground text-sm">
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Validando enlace…
-            </div>
-          ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tu@empresa.com"
+                  required
+                />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Nueva contraseña</Label>
                 <Input
@@ -93,7 +97,6 @@ const ResetPassword = () => {
                 Guardar contraseña
               </Button>
             </form>
-          )}
         </div>
 
         <p className="text-center text-muted-foreground/60 text-xs mt-6">
