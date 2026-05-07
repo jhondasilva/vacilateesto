@@ -365,6 +365,16 @@ const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: strin
                     (e.currentTarget as HTMLImageElement).style.display = "none";
                   }}
                 />
+              ) : !isYT ? (
+                <iframe
+                  src={`https://www.instagram.com/p/${it.id}/embed/captioned/`}
+                  loading="lazy"
+                  scrolling="no"
+                  allow="encrypted-media"
+                  className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+                  style={{ background: "#000" }}
+                  title={`Instagram ${it.id}`}
+                />
               ) : (
                 <div
                   className="absolute inset-0 flex items-center justify-center"
