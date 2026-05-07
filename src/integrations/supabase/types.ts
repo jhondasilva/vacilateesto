@@ -95,7 +95,7 @@ export type Database = {
           display_name: string | null
           email: string
           id: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           brand_id: string
@@ -103,7 +103,7 @@ export type Database = {
           display_name?: string | null
           email: string
           id?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           brand_id?: string
@@ -111,7 +111,7 @@ export type Database = {
           display_name?: string | null
           email?: string
           id?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -715,6 +715,7 @@ export type Database = {
     }
     Functions: {
       is_allowed_user: { Args: never; Returns: boolean }
+      is_brand_client: { Args: never; Returns: boolean }
       user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
       yt_search_chunks: {
         Args: {
