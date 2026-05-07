@@ -5,6 +5,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Download, Eye, Heart, Users, Megaphone, TrendingUp, Loader2, LogOut,
+  Youtube, Instagram, Play, ExternalLink,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -16,6 +17,13 @@ type Report = {
   platforms: Array<Record<string, any>>;
   top_posts: Array<Record<string, any>>;
   pdf_url: string | null;
+  content_items?: Array<{
+    type: "youtube_short" | "instagram_reel";
+    category: string;
+    id: string;
+    url: string;
+    thumb?: string;
+  }>;
 };
 
 type Brand = { id: string; name: string; slug: string; brand_color: string | null };
@@ -46,7 +54,7 @@ const DashboardBrand = () => {
       setBrand(b as Brand);
       const { data: r } = await supabase
         .from("brand_reports")
-        .select("id, title, period_label, summary, platforms, top_posts, pdf_url")
+        .select("id, title, period_label, summary, platforms, top_posts, pdf_url, content_items")
         .eq("brand_id", b.id)
         .order("period_end", { ascending: false });
       const list = (r ?? []) as Report[];
