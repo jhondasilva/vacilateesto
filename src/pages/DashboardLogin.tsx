@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
@@ -14,6 +14,9 @@ const DashboardLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [mode, setMode] = useState<"signin" | "reset">("signin");
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetting, setResetting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +32,25 @@ const DashboardLogin = () => {
       return;
     }
     toast.success("Bienvenido");
+  };
+
+  const handleReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!resetEmail) {
+      toast.error("Ingresa tu email");
+      return;
+    }
+    setResetting(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setResetting(false);
+    if (error) {
+      toast.error("No se pudo enviar el correo");
+      return;
+    }
+    toast.success("Te enviamos un correo para restablecer tu contraseña");
+    setMode("signin");
   };
 
   if (!loading && session && (brands.length > 0 || isAdmin)) {
@@ -52,6 +74,7 @@ const DashboardLogin = () => {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-8 shadow-[var(--shadow-card)]">
+          {mode === "signin" ? (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -66,7 +89,16 @@ const DashboardLogin = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Contraseña</Label>
+                <button
+                  type="button"
+                  onClick={() => { setResetEmail(email); setMode("reset"); }}
+                  className="text-xs text-primary hover:underline"
+                >
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
               <Input
                 id="password"
                 type="password"
@@ -82,6 +114,36 @@ const DashboardLogin = () => {
               Entrar al dashboard
             </Button>
           </form>
+          ) : (
+          <form onSubmit={handleReset} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="reset-email">Email de tu cuenta</Label>
+              <Input
+                id="reset-email"
+                type="email"
+                autoComplete="email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="tu@empresa.com"
+                required
+              />
+              <p className="text-xs text-muted-foreground">
+                Te enviaremos un enlace para crear una nueva contraseña.
+              </p>
+            </div>
+            <Button type="submit" className="w-full" size="lg" disabled={resetting}>
+              {resetting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Enviar enlace de recuperación
+            </Button>
+            <button
+              type="button"
+              onClick={() => setMode("signin")}
+              className="w-full inline-flex items-center justify-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="w-3 h-3" /> Volver al inicio de sesión
+            </button>
+          </form>
+          )}
         </div>
 
         <p className="text-center text-muted-foreground/60 text-xs mt-6">
