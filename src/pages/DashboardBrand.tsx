@@ -155,9 +155,6 @@ const DashboardBrand = () => {
                   <SummaryCard icon={Heart} label="Interacciones" value={active.summary.interactions} accent={accent} />
                   <SummaryCard icon={Users} label="Alcance" value={active.summary.reach} accent={accent} />
                   <SummaryCard icon={Megaphone} label="Publicaciones" value={active.summary.posts} accent={accent} />
-                  {active.summary.new_followers && (
-                    <SummaryCard icon={Users} label="Nuevos seguidores" value={active.summary.new_followers} accent={accent} />
-                  )}
                   {active.summary.engagement_growth && (
                     <SummaryCard
                       icon={TrendingUp}
