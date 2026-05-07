@@ -6,7 +6,7 @@ import Logo from "@/components/Logo";
 
 const navLinks = [
   { label: "Inicio", href: "/" },
-  { label: "VEM 2026", href: "/vacilate-el-futbol" },
+  { label: "VEF 2026", href: "/vacilate-el-futbol" },
   { label: "Media Kit", href: "/media-kit" },
   { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },
   { label: "Podcast Eterno", href: "/podcast-eterno" },

@@ -125,7 +125,7 @@ const Footer = () => {
       links: [
         { label: "Media Kit", href: "/media-kit" },
         { label: "Hosts", href: "/hosts" },
-        { label: "Media Kit VEM 2026", href: "/media-kit-vem" },
+        { label: "Media Kit VEF 2026", href: "/media-kit-vem" },
       ],
     },
     {

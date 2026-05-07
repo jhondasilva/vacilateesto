@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Lock, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
-import logoMundial from "@/assets/logo-vacilate-mundial.svg";
+import logoMundial from "@/assets/logo-vacilate-futbol.png";
 import logoFifa from "@/assets/logo-mundial-2026.png";
 
 const GiraLogin = () => {
