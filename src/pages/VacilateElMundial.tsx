@@ -330,7 +330,7 @@ const VacilateElMundial = () => {
             "name": "Media Kit Vacílate El Fútbol 2026",
             "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Fútbol 2026.",
             "encodingFormat": "application/pdf",
-            "url": "https://www.vacilateesto.com/downloads/VacilateElMundial-MediaKit-2026.pdf",
+            "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf",
             "inLanguage": "es-VE",
             "publisher": { "@type": "Organization", "name": "Vacílate Esto" }
           })}
