@@ -8,6 +8,13 @@ import {
   Youtube, Instagram, Play, ExternalLink, MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
+import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
+import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
+import logoCocaCola from "@/assets/logo-coca-cola.png";
+
+const BRAND_LOGOS: Record<string, string> = {
+  "coca-cola": logoCocaCola,
+};
 
 type Report = {
   id: string;
@@ -68,6 +75,9 @@ const DashboardBrand = () => {
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
+  const brandLogo = brand ? BRAND_LOGOS[brand.slug] : null;
+  const isMundialReport = (title: string) =>
+    /mundial|fútbol|futbol/i.test(title);
 
   const handleDownload = async () => {
     if (!active?.pdf_url) return;
@@ -91,9 +101,26 @@ const DashboardBrand = () => {
             <Button asChild variant="ghost" size="sm">
               <Link to="/dashboard"><ArrowLeft className="w-4 h-4" /></Link>
             </Button>
-            <div className="min-w-0">
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">Dashboard</p>
-              <p className="font-bold truncate">{brand?.name ?? "—"}</p>
+            <img
+              src={logoVacilateEsto}
+              alt="Vacílate Esto"
+              className="h-8 w-auto hidden sm:block"
+              loading="lazy"
+            />
+            <div className="h-6 w-px bg-border hidden sm:block" />
+            <div className="flex items-center gap-2 min-w-0">
+              {brandLogo && (
+                <img
+                  src={brandLogo}
+                  alt={brand?.name ?? ""}
+                  className="h-8 w-auto object-contain"
+                  loading="lazy"
+                />
+              )}
+              <div className="min-w-0">
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Dashboard</p>
+                <p className="font-bold truncate text-sm">{brand?.name ?? "—"}</p>
+              </div>
             </div>
           </div>
           <Button onClick={() => supabase.auth.signOut()} variant="outline" size="sm">
@@ -132,20 +159,48 @@ const DashboardBrand = () => {
 
             {active && (
               <>
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-                  <div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight">{active.title}</h1>
-                    <p className="text-muted-foreground mt-2">{active.period_label}</p>
+                <div
+                  className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 md:p-8 mb-8"
+                  style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+                >
+                  <div
+                    className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                    style={{ background: `radial-gradient(circle at 100% 0%, ${accent}, transparent 60%)` }}
+                  />
+                  <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div className="flex items-center gap-5 min-w-0">
+                      {brandLogo && (
+                        <img
+                          src={brandLogo}
+                          alt={brand?.name ?? ""}
+                          className="h-14 md:h-20 w-auto object-contain shrink-0"
+                          loading="lazy"
+                        />
+                      )}
+                      <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
+                      <img
+                        src={isMundialReport(active.title) ? logoVacilateFutbol : logoVacilateEsto}
+                        alt={isMundialReport(active.title) ? "Vacílate El Fútbol" : "Vacílate Esto"}
+                        className="h-14 md:h-20 w-auto object-contain shrink-0"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="md:text-right min-w-0">
+                      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{active.period_label}</p>
+                      <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">{active.title}</h1>
+                    </div>
                   </div>
                   {active.pdf_url && (
-                    <Button onClick={handleDownload} disabled={downloading}>
-                      {downloading ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Download className="w-4 h-4" />
-                      )}
-                      Descargar PDF
-                    </Button>
+                    <div className="relative mt-6 flex justify-end">
+                      <Button onClick={handleDownload} disabled={downloading}>
+                        {downloading ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Download className="w-4 h-4" />
+                        )}
+                        Descargar PDF
+                      </Button>
+                    </div>
                   )}
                 </div>
 
