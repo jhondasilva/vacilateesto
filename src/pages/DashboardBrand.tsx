@@ -230,6 +230,11 @@ const DashboardBrand = () => {
                     </div>
                   </section>
                 )}
+
+                {/* Galería de contenidos */}
+                {active.content_items && active.content_items.length > 0 && (
+                  <ContentGallery items={active.content_items} accent={accent} />
+                )}
               </>
             )}
           </>
