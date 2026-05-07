@@ -5,7 +5,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Download, Eye, Heart, Users, Megaphone, TrendingUp, Loader2, LogOut,
-  Youtube, Instagram, Play, ExternalLink,
+  Youtube, Instagram, Play, ExternalLink, MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -268,6 +268,36 @@ const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: strin
   const categories = Array.from(new Set(items.map((i) => i.category)));
   const [active, setActive] = useState<string>(categories[0] ?? "");
   const filtered = items.filter((i) => i.category === active);
+  const [ytStats, setYtStats] = useState<Record<string, { views: number; likes: number; comments: number }>>({});
+  const [loadingStats, setLoadingStats] = useState(false);
+
+  useEffect(() => {
+    const ids = items.filter((i) => i.type === "youtube_short").map((i) => i.id);
+    if (ids.length === 0) return;
+    setLoadingStats(true);
+    supabase.functions
+      .invoke("youtube-stats", { body: { videoIds: ids } })
+      .then(({ data, error }) => {
+        if (!error && data?.stats) setYtStats(data.stats);
+      })
+      .finally(() => setLoadingStats(false));
+  }, [items]);
+
+  const ytItems = items.filter((i) => i.type === "youtube_short");
+  const totals = ytItems.reduce(
+    (acc, it) => {
+      const s = ytStats[it.id];
+      if (s) {
+        acc.views += s.views;
+        acc.likes += s.likes;
+        acc.comments += s.comments;
+      }
+      return acc;
+    },
+    { views: 0, likes: 0, comments: 0 },
+  );
+  const fmt = (n: number) =>
+    n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : `${n}`;
 
   return (
     <section className="mb-12">
@@ -295,10 +325,28 @@ const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: strin
         </div>
       </div>
 
+      {ytItems.length > 0 && (
+        <div className="grid grid-cols-3 gap-3 mb-5">
+          <div className="bg-card border border-border rounded-xl p-4">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground uppercase tracking-wider"><Eye className="w-3.5 h-3.5" /> Views YT</div>
+            <p className="text-xl md:text-2xl font-black mt-1">{loadingStats ? "…" : fmt(totals.views)}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground uppercase tracking-wider"><Heart className="w-3.5 h-3.5" /> Likes</div>
+            <p className="text-xl md:text-2xl font-black mt-1">{loadingStats ? "…" : fmt(totals.likes)}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground uppercase tracking-wider"><MessageCircle className="w-3.5 h-3.5" /> Comments</div>
+            <p className="text-xl md:text-2xl font-black mt-1">{loadingStats ? "…" : fmt(totals.comments)}</p>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {filtered.map((it) => {
           const isYT = it.type === "youtube_short";
           const PlatformIcon = isYT ? Youtube : Instagram;
+          const s = isYT ? ytStats[it.id] : undefined;
           return (
             <a
               key={it.id + it.url}
@@ -335,9 +383,19 @@ const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: strin
                   <Play className="w-5 h-5 fill-foreground text-foreground ml-0.5" />
                 </div>
               </div>
-              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white text-[10px] font-semibold">
-                <span className="truncate">{it.category}</span>
-                <ExternalLink className="w-3 h-3 flex-shrink-0" />
+              <div className="absolute bottom-2 left-2 right-2 text-white">
+                {s ? (
+                  <div className="flex items-center justify-between text-[10px] font-bold">
+                    <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmt(s.views)}</span>
+                    <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmt(s.likes)}</span>
+                    <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" />{fmt(s.comments)}</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between text-[10px] font-semibold">
+                    <span className="truncate">{it.category}</span>
+                    <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                  </div>
+                )}
               </div>
             </a>
           );
