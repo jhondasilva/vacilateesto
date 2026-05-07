@@ -5,7 +5,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Download, Eye, Heart, Users, Megaphone, TrendingUp, Loader2, LogOut,
-  Youtube, Instagram, Play, ExternalLink,
+  Youtube, Instagram, Play, ExternalLink, MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
