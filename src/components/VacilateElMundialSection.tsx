@@ -1,5 +1,5 @@
 import { Globe, UtensilsCrossed, Newspaper, MapPin, Zap, Sparkles, ArrowUpRight } from "lucide-react";
-import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
+import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 
 const TICKER = ["VACÍLATE EL FÚTBOL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
 

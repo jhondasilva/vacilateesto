@@ -47,7 +47,7 @@ import {
   Loader2,
   Sparkles,
 } from "lucide-react";
-import logoVacilateElMundial from "@/assets/logo-vacilate-mundial.svg";
+import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 
@@ -206,7 +206,7 @@ const VacilateElMundial = () => {
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
 
-  const MEDIAKIT_URL = "/downloads/VacilateElMundial-MediaKit-2026.pdf";
+  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf";
   const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
 
   const handleSendByEmail = async () => {
@@ -270,7 +270,7 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Fútbol 2026 (VEM 2026) es la plataforma de cobertura del Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 16 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElMundial-MediaKit-2026.pdf" />
+        <meta name="ai-content-summary" content="Vacílate El Fútbol 2026 (VEF 2026) es la plataforma de cobertura del Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 16 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Fútbol 2026 | La Magia del Mundial en el Feed" />
         <meta
@@ -330,7 +330,7 @@ const VacilateElMundial = () => {
             "name": "Media Kit Vacílate El Fútbol 2026",
             "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Fútbol 2026.",
             "encodingFormat": "application/pdf",
-            "url": "https://www.vacilateesto.com/downloads/VacilateElMundial-MediaKit-2026.pdf",
+            "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf",
             "inLanguage": "es-VE",
             "publisher": { "@type": "Organization", "name": "Vacílate Esto" }
           })}
@@ -556,7 +556,7 @@ const VacilateElMundial = () => {
                 badge="Fun Educaitment"
                 badgeIcon={Zap}
                 title="qué es"
-                highlight="vacílate el mundial"
+                highlight="vacílate el fútbol"
                 description="No somos creadores buscando audiencia desde cero. Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
               />
 

@@ -747,7 +747,7 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   });
   y += 45;
 
-  drawSectionTitle("Formatos de Contenido VEM");
+  drawSectionTitle("Formatos de Contenido VEF");
   
   const vemFormats = [
     { title: "El Gol y la Comida", desc: "Gastronomía de México, USA y Canadá celebrando cada gol" },

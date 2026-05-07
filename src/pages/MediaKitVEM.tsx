@@ -25,7 +25,7 @@ import {
   Tv,
   Play,
 } from "lucide-react";
-import logoVEM from "@/assets/logo-vacilate-mundial.svg";
+import logoVEM from "@/assets/logo-vacilate-futbol.png";
 
 const stats = [
   { number: "2M+", label: "Seguidores" },
@@ -183,7 +183,7 @@ const MediaKitVEM = () => {
         />
         <meta
           name="keywords"
-          content="vacilate el mundial, mundial 2026, media kit mundial, patrocinio mundial, cobertura mundial fifa, vacilate esto mundial"
+          content="vacilate el fútbol, mundial 2026, media kit mundial, patrocinio mundial, cobertura mundial fifa, vacilate esto fútbol"
         />
         <link rel="canonical" href={url} />
         <meta property="og:type" content="website" />
@@ -281,10 +281,10 @@ const MediaKitVEM = () => {
                         className="group rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       >
                         <a
-                          href="/downloads/VacilateElMundial-MediaKit-2026.pdf"
+                          href="/downloads/VacilateElFutbol-MediaKit-2026.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
-                          download="Vacilate-El-Mundial-MediaKit-2026.pdf"
+                          download="Vacilate-El-Futbol-MediaKit-2026.pdf"
                         >
                           <Download className="w-5 h-5" aria-hidden="true" />
                           Descargar PDF
@@ -345,7 +345,7 @@ const MediaKitVEM = () => {
                         loading="eager"
                       />
                       <div className="absolute bottom-3 left-3 right-3 bg-background/90 backdrop-blur-md rounded-xl px-3 py-2 border border-border flex items-center justify-between">
-                        <span className="font-display font-black text-xs uppercase tracking-wider">VEM 2026</span>
+                        <span className="font-display font-black text-xs uppercase tracking-wider">VEF 2026</span>
                         <span className="text-xs text-muted-foreground">Feb — Jul</span>
                       </div>
                     </div>
@@ -736,14 +736,6 @@ const MediaKitVEM = () => {
                   </div>
                   <div className="mt-2 font-display font-bold space-y-1">
                     <a
-                      href="https://vacilateelmundial.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block hover:text-primary"
-                    >
-                      vacilateelmundial.com
-                    </a>
-                    <a
                       href="https://vacilateesto.com"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -762,10 +754,10 @@ const MediaKitVEM = () => {
                   asChild
                 >
                   <a
-                    href="/downloads/VacilateElMundial-MediaKit-2026.pdf"
+                    href="/downloads/VacilateElFutbol-MediaKit-2026.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="Vacilate-El-Mundial-MediaKit-2026.pdf"
+                    download="Vacilate-El-Futbol-MediaKit-2026.pdf"
                   >
                     <Download className="w-5 h-5 mr-2" /> Descargar Media Kit PDF
                   </a>

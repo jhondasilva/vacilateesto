@@ -13,7 +13,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck, Receipt } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
-import logoMundial from "@/assets/logo-vacilate-mundial.svg";
+import logoMundial from "@/assets/logo-vacilate-futbol.png";
 import logoFifa from "@/assets/logo-mundial-2026.png";
 import { ExpenseReporter } from "@/components/gira/ExpenseReporter";
 import { ExpenseLog } from "@/components/gira/ExpenseLog";
