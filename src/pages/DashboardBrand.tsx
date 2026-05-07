@@ -265,7 +265,14 @@ type ContentItem = {
 };
 
 const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: string }) => {
-  const categories = Array.from(new Set(items.map((i) => i.category)));
+  const order = ["Reels", "Shorts", "Promos"];
+  const categories = Array.from(new Set(items.map((i) => i.category))).sort(
+    (a, b) => {
+      const ia = order.indexOf(a);
+      const ib = order.indexOf(b);
+      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+    },
+  );
   const [active, setActive] = useState<string>(categories[0] ?? "");
   const filtered = items.filter((i) => i.category === active);
   const [ytStats, setYtStats] = useState<Record<string, { views: number; likes: number; comments: number }>>({});
