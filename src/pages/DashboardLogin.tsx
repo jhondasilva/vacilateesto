@@ -83,8 +83,8 @@ const DashboardLogin = () => {
 
         <p className="text-center text-muted-foreground/60 text-xs mt-6">
           ¿Sin acceso? Escríbenos a{" "}
-          <a href="mailto:hola@vacilateesto.com" className="text-primary underline">
-            hola@vacilateesto.com
+          <a href="mailto:jhon@hacemosloquenosgusta.com" className="text-primary underline">
+            jhon@hacemosloquenosgusta.com
           </a>
           {" · "}
           <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
