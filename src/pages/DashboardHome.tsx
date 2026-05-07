@@ -1,0 +1,72 @@
+import { Navigate, Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useBrandAuth } from "@/hooks/useBrandAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
+
+const DashboardHome = () => {
+  const { session, loading, brands, isAdmin } = useBrandAuth();
+
+  if (!loading && !session) return <Navigate to="/dashboard/login" replace />;
+  if (!loading && session && brands.length === 1 && !isAdmin) {
+    return <Navigate to={`/dashboard/${brands[0].brand.slug}`} replace />;
+  }
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="border-b border-border">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="font-black tracking-tight text-lg">Vacílate Esto</Link>
+          <div className="flex items-center gap-2">
+            {isAdmin && (
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/dashboard/admin"><Settings className="w-4 h-4 mr-1" /> Admin</Link>
+              </Button>
+            )}
+            <Button onClick={() => supabase.auth.signOut()} variant="outline" size="sm">
+              <LogOut className="w-4 h-4 mr-1" /> Salir
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-12 max-w-3xl">
+        <h1 className="text-3xl md:text-4xl font-black mb-2">Tus dashboards</h1>
+        <p className="text-muted-foreground mb-8">Selecciona la marca para ver sus resultados.</p>
+
+        {loading ? (
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+        ) : brands.length === 0 ? (
+          <div className="bg-card border border-border rounded-2xl p-8 text-center">
+            <p className="text-muted-foreground">
+              Aún no tienes marcas asignadas. Contáctanos en{" "}
+              <a href="mailto:hola@vacilateesto.com" className="text-primary underline">
+                hola@vacilateesto.com
+              </a>
+              .
+            </p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 gap-4">
+            {brands.map((b) => (
+              <Link
+                key={b.brand.id}
+                to={`/dashboard/${b.brand.slug}`}
+                className="group bg-card border border-border rounded-2xl p-6 hover:border-primary transition-colors flex items-center justify-between"
+                style={{ borderLeftColor: b.brand.brand_color ?? undefined, borderLeftWidth: 4 }}
+              >
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Marca</p>
+                  <p className="text-xl font-bold">{b.brand.name}</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </Link>
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
+
+export default DashboardHome;

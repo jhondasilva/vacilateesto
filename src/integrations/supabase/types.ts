@@ -35,6 +35,124 @@ export type Database = {
         }
         Relationships: []
       }
+      brand_reports: {
+        Row: {
+          brand_id: string
+          created_at: string
+          id: string
+          pdf_url: string | null
+          period_end: string | null
+          period_label: string
+          period_start: string | null
+          platforms: Json
+          summary: Json
+          title: string
+          top_posts: Json
+          updated_at: string
+        }
+        Insert: {
+          brand_id: string
+          created_at?: string
+          id?: string
+          pdf_url?: string | null
+          period_end?: string | null
+          period_label: string
+          period_start?: string | null
+          platforms?: Json
+          summary?: Json
+          title: string
+          top_posts?: Json
+          updated_at?: string
+        }
+        Update: {
+          brand_id?: string
+          created_at?: string
+          id?: string
+          pdf_url?: string | null
+          period_end?: string | null
+          period_label?: string
+          period_start?: string | null
+          platforms?: Json
+          summary?: Json
+          title?: string
+          top_posts?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brand_reports_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brand_users: {
+        Row: {
+          brand_id: string
+          created_at: string
+          display_name: string | null
+          email: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          brand_id: string
+          created_at?: string
+          display_name?: string | null
+          email: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          brand_id?: string
+          created_at?: string
+          display_name?: string | null
+          email?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brand_users_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brands: {
+        Row: {
+          brand_color: string | null
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          brand_color?: string | null
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          brand_color?: string | null
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       calendar_settings: {
         Row: {
           color: string
@@ -597,6 +715,8 @@ export type Database = {
     }
     Functions: {
       is_allowed_user: { Args: never; Returns: boolean }
+      is_brand_client: { Args: never; Returns: boolean }
+      user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
       yt_search_chunks: {
         Args: {
           filter_kind?: string

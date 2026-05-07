@@ -18,6 +18,10 @@ import GiraLogin from "./pages/GiraLogin";
 import GiraPoliticas from "./pages/GiraPoliticas";
 import Buscador from "./pages/Buscador";
 import Hosts from "./pages/Hosts";
+import DashboardLogin from "./pages/DashboardLogin";
+import DashboardHome from "./pages/DashboardHome";
+import DashboardBrand from "./pages/DashboardBrand";
+import DashboardAdmin from "./pages/DashboardAdmin";
 import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
 import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
 import PodcastsVenezolanosFutbol from "./pages/PodcastsVenezolanosFutbol";
@@ -65,6 +69,10 @@ const App = () => (
             <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/hosts" element={<Hosts />} />
+            <Route path="/dashboard/login" element={<DashboardLogin />} />
+            <Route path="/dashboard" element={<DashboardHome />} />
+            <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+            <Route path="/dashboard/:slug" element={<DashboardBrand />} />
             <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
             <Route path="/podcasts-venezolanos-futbol" element={<PodcastsVenezolanosFutbol />} />
