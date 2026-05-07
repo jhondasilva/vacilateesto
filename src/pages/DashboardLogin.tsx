@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
-import { Loader2, LayoutDashboard } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
 const DashboardLogin = () => {
   const { session, loading, brands, isAdmin } = useBrandAuth();
@@ -39,9 +40,11 @@ const DashboardLogin = () => {
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 text-primary mb-3">
-            <LayoutDashboard className="w-8 h-8" />
-          </div>
+          <img
+            src={logoVacilate}
+            alt="Vacílate Esto"
+            className="h-16 w-auto mx-auto mb-4"
+          />
           <h1 className="text-3xl font-black tracking-tight">Dashboard de clientes</h1>
           <p className="text-muted-foreground text-sm mt-2">
             Accede a los resultados de tus campañas con Vacílate Esto.
