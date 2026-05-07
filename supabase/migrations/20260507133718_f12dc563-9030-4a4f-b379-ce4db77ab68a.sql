@@ -1,0 +1,1 @@
+ALTER TABLE public.brand_reports ADD COLUMN IF NOT EXISTS content_items jsonb NOT NULL DEFAULT '[]'::jsonb;
