@@ -38,6 +38,7 @@ export type Database = {
       brand_reports: {
         Row: {
           brand_id: string
+          content_items: Json
           created_at: string
           id: string
           pdf_url: string | null
@@ -52,6 +53,7 @@ export type Database = {
         }
         Insert: {
           brand_id: string
+          content_items?: Json
           created_at?: string
           id?: string
           pdf_url?: string | null
@@ -66,6 +68,7 @@ export type Database = {
         }
         Update: {
           brand_id?: string
+          content_items?: Json
           created_at?: string
           id?: string
           pdf_url?: string | null
