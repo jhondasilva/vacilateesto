@@ -256,4 +256,95 @@ const SummaryCard = ({
   </div>
 );
 
+type ContentItem = {
+  type: "youtube_short" | "instagram_reel";
+  category: string;
+  id: string;
+  url: string;
+  thumb?: string;
+};
+
+const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: string }) => {
+  const categories = Array.from(new Set(items.map((i) => i.category)));
+  const [active, setActive] = useState<string>(categories[0] ?? "");
+  const filtered = items.filter((i) => i.category === active);
+
+  return (
+    <section className="mb-12">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+        <div>
+          <h2 className="text-2xl font-black">Galería de contenidos</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            {items.length} piezas publicadas en YouTube e Instagram.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <button
+              key={c}
+              onClick={() => setActive(c)}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors ${
+                c === active
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-transparent text-foreground border-border hover:border-foreground/40"
+              }`}
+            >
+              {c} · {items.filter((i) => i.category === c).length}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        {filtered.map((it) => {
+          const isYT = it.type === "youtube_short";
+          const PlatformIcon = isYT ? Youtube : Instagram;
+          return (
+            <a
+              key={it.id + it.url}
+              href={it.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-[9/16] overflow-hidden rounded-xl bg-card border border-border hover:border-foreground/40 transition-colors"
+            >
+              {it.thumb ? (
+                <img
+                  src={it.thumb}
+                  alt={`${it.category} ${it.id}`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              ) : (
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${accent}22, transparent)` }}
+                >
+                  <PlatformIcon className="w-8 h-8 opacity-60" style={{ color: accent }} />
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-90" />
+              <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 rounded-full bg-background/90 backdrop-blur text-[10px] font-bold uppercase tracking-wider">
+                <PlatformIcon className="w-3 h-3" />
+                {isYT ? "YT" : "IG"}
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-12 h-12 rounded-full bg-background/95 flex items-center justify-center">
+                  <Play className="w-5 h-5 fill-foreground text-foreground ml-0.5" />
+                </div>
+              </div>
+              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white text-[10px] font-semibold">
+                <span className="truncate">{it.category}</span>
+                <ExternalLink className="w-3 h-3 flex-shrink-0" />
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 export default DashboardBrand;
