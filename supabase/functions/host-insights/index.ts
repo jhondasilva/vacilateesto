@@ -75,6 +75,25 @@ function tokenize(text: string): string[] {
 }
 
 async function fetchAllChunks(host: "juan" | "jhon"): Promise<any[]> {
+  // Solo analizamos episodios de podcast — nunca shorts.
+  const podcastIds = new Set<string>();
+  {
+    const PAGE = 1000;
+    let from = 0;
+    while (true) {
+      const { data, error } = await sb
+        .from("yt_videos")
+        .select("video_id")
+        .eq("kind", "podcast")
+        .range(from, from + PAGE - 1);
+      if (error) throw error;
+      if (!data || data.length === 0) break;
+      for (const r of data) podcastIds.add(r.video_id);
+      if (data.length < PAGE) break;
+      from += PAGE;
+    }
+  }
+
   const all: any[] = [];
   const PAGE = 1000;
   let from = 0;
@@ -86,7 +105,9 @@ async function fetchAllChunks(host: "juan" | "jhon"): Promise<any[]> {
       .range(from, from + PAGE - 1);
     if (error) throw error;
     if (!data || data.length === 0) break;
-    all.push(...data);
+    for (const ch of data) {
+      if (podcastIds.has(ch.video_id)) all.push(ch);
+    }
     if (data.length < PAGE) break;
     from += PAGE;
   }
