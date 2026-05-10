@@ -320,6 +320,7 @@ def main():
     ap.add_argument("--video-id", default=None)
     ap.add_argument("--recompute-stats", action="store_true", help="Solo recomputa host_stats sin diarizar")
     ap.add_argument("--dry-run", action="store_true", help="Diariza pero NO escribe en la DB ni recomputa stats")
+    ap.add_argument("--max-minutes", type=float, default=None, help="Solo diariza los primeros N minutos (ideal para dry-run rápido)")
     ap.add_argument("--keep-audio", action="store_true", help="No borra los .wav descargados (útil para depurar)")
     args = ap.parse_args()
 
@@ -356,7 +357,7 @@ def main():
         print(f"  🎧 Audio listo ({audio.stat().st_size // 1024} KB)")
 
         try:
-            segments = diarize(audio)
+            segments = diarize(audio, max_minutes=args.max_minutes, work_dir=work_dir)
         except Exception as e:
             print(f"  ❌ Diarización falló: {e}")
             failed += 1
