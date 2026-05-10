@@ -28,6 +28,7 @@ Uso:
     python diarize.py --limit 10
     python diarize.py --video-id ABC123
     python diarize.py --recompute-stats   # solo recalcula host_stats
+    python diarize.py --limit 1 --dry-run # prueba sin escribir en la DB
 """
 
 import argparse
@@ -72,15 +73,22 @@ def download_audio(video_id: str, out_dir: Path) -> Optional[Path]:
         "-o", str(out_dir / f"{video_id}.%(ext)s"),
         url,
     ]
-    try:
-        subprocess.run(cmd, check=True, capture_output=True, timeout=600)
-        return out_path if out_path.exists() else None
-    except subprocess.CalledProcessError as e:
-        print(f"  ⚠️  yt-dlp failed for {video_id}: {e.stderr.decode()[:200]}")
-        return None
-    except subprocess.TimeoutExpired:
-        print(f"  ⚠️  yt-dlp timeout for {video_id}")
-        return None
+    last_err = ""
+    for attempt in range(1, 4):
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, timeout=900)
+            if out_path.exists():
+                return out_path
+            last_err = "wav no generado"
+        except subprocess.CalledProcessError as e:
+            last_err = e.stderr.decode()[:200]
+        except subprocess.TimeoutExpired:
+            last_err = "timeout"
+        if attempt < 3:
+            print(f"  ⏳ yt-dlp intento {attempt} falló ({last_err[:80]}), reintentando…")
+            time.sleep(5 * attempt)
+    print(f"  ⚠️  yt-dlp falló para {video_id}: {last_err[:200]}")
+    return None
 
 
 # ---------- Diarization ----------
@@ -262,16 +270,25 @@ def get_videos_to_diarize(limit: int, video_id: Optional[str]) -> List[dict]:
     if video_id:
         r = sb.table("yt_videos").select("video_id,title").eq("video_id", video_id).execute()
         return r.data
-    # videos podcast that have chunks but no speaker yet
-    # Workaround: fetch all podcast videos, filter client-side those without speaker chunks.
-    r = sb.table("yt_videos").select("video_id,title").eq("kind", "podcast").order("published_at", desc=True).limit(500).execute()
-    out = []
-    for v in r.data:
-        c = sb.table("yt_transcript_chunks").select("id", count="exact").eq("video_id", v["video_id"]).not_.is_("speaker", "null").limit(1).execute()
-        if (c.count or 0) == 0:
-            out.append(v)
-        if len(out) >= limit:
+    # 1) Todos los videos podcast indexados, ordenados por más recientes.
+    r = sb.table("yt_videos").select("video_id,title").eq("kind", "podcast").order("published_at", desc=True).limit(1000).execute()
+    podcasts = r.data or []
+    # 2) IDs de videos que YA tienen al menos un chunk con speaker asignado.
+    done: set[str] = set()
+    page = 0
+    PAGE = 1000
+    while True:
+        c = sb.table("yt_transcript_chunks").select("video_id").not_.is_("speaker", "null").range(page * PAGE, page * PAGE + PAGE - 1).execute()
+        rows = c.data or []
+        if not rows:
             break
+        for row in rows:
+            done.add(row["video_id"])
+        if len(rows) < PAGE:
+            break
+        page += 1
+    out = [v for v in podcasts if v["video_id"] not in done][:limit]
+    print(f"   {len(podcasts)} podcasts totales, {len(done)} ya diarizados, {len(out)} pendientes en esta tanda")
     return out
 
 
@@ -280,6 +297,8 @@ def main():
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--video-id", default=None)
     ap.add_argument("--recompute-stats", action="store_true", help="Solo recomputa host_stats sin diarizar")
+    ap.add_argument("--dry-run", action="store_true", help="Diariza pero NO escribe en la DB ni recomputa stats")
+    ap.add_argument("--keep-audio", action="store_true", help="No borra los .wav descargados (útil para depurar)")
     args = ap.parse_args()
 
     if args.recompute_stats:
@@ -288,10 +307,13 @@ def main():
 
     videos = get_videos_to_diarize(args.limit, args.video_id)
     print(f"🎯 {len(videos)} videos por diarizar")
+    if args.dry_run:
+        print("   (modo --dry-run: no se escribirá nada en la DB)")
 
     work_dir = Path(tempfile.gettempdir()) / "ve_diarize"
     work_dir.mkdir(exist_ok=True)
 
+    ok, failed, skipped = 0, 0, 0
     for i, v in enumerate(videos, 1):
         vid = v["video_id"]
         print(f"\n[{i}/{len(videos)}] {vid} — {v['title'][:60]}")
@@ -301,11 +323,13 @@ def main():
         chunks = chunks_r.data
         if not chunks:
             print("  ⏭️  Sin chunks, salto")
+            skipped += 1
             continue
 
         audio = download_audio(vid, work_dir)
         if not audio:
             print("  ⏭️  No pude bajar audio")
+            failed += 1
             continue
         print(f"  🎧 Audio listo ({audio.stat().st_size // 1024} KB)")
 
@@ -313,6 +337,7 @@ def main():
             segments = diarize(audio)
         except Exception as e:
             print(f"  ❌ Diarización falló: {e}")
+            failed += 1
             continue
         print(f"  🗣️  {len(segments)} segmentos, {len(set(s[2] for s in segments))} hablantes")
 
@@ -322,17 +347,30 @@ def main():
             print(f"     {label} → {host} ({conf:.2f})")
 
         updates = assign_chunks(chunks, segments, speaker_map)
-        update_chunks_speaker(updates)
-        print(f"  ✅ {len(updates)} chunks actualizados en {time.time()-t0:.1f}s")
+        if args.dry_run:
+            counts: Dict[str, int] = defaultdict(int)
+            for u in updates:
+                counts[u["speaker"]] += 1
+            print(f"  🧪 dry-run: {dict(counts)} ({len(updates)} chunks) en {time.time()-t0:.1f}s")
+        else:
+            update_chunks_speaker(updates)
+            print(f"  ✅ {len(updates)} chunks actualizados en {time.time()-t0:.1f}s")
+        ok += 1
 
         # Free audio file
-        try:
-            audio.unlink()
-        except Exception:
-            pass
+        if not args.keep_audio:
+            try:
+                audio.unlink()
+            except Exception:
+                pass
 
-    # Final: recompute stats
-    recompute_host_stats()
+    print(f"\n📦 Resumen: ok={ok} fallidos={failed} sin_chunks={skipped}")
+
+    # Final: recompute stats (solo si hubo cambios reales)
+    if ok > 0 and not args.dry_run:
+        recompute_host_stats()
+    elif args.dry_run:
+        print("   (saltando recomputo de stats por --dry-run)")
 
 
 if __name__ == "__main__":
