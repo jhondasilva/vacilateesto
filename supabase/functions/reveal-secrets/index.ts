@@ -12,6 +12,8 @@ Deno.serve(async (req) => {
     const { code } = await req.json()
     const expected = Deno.env.get('REVEAL_CODE')
 
+    console.log('REVEAL_CODE set:', !!expected, 'len:', expected?.length, 'received len:', code?.length)
+
     if (!expected || code !== expected) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), {
         status: 403,
