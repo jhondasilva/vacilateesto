@@ -40,6 +40,7 @@ import time
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+import platform
 
 import requests
 from dotenv import load_dotenv
@@ -101,6 +102,7 @@ def get_pipeline():
     print("🔧 Cargando pyannote (primera vez, puede tardar)...")
     from pyannote.audio import Pipeline
     import torch
+    print(f"   → torch {torch.__version__} / Python {platform.machine()}")
     _pipeline = Pipeline.from_pretrained(
         "pyannote/speaker-diarization-3.1",
         use_auth_token=HUGGINGFACE_TOKEN,
@@ -113,14 +115,34 @@ def get_pipeline():
         _pipeline.to(torch.device("cuda"))
         print("   → usando CUDA")
     else:
-        print("   → usando CPU (lento)")
+        print("   → usando CPU (lento). Si tu Mac es Apple Silicon, reinstala torch nativo para activar MPS.")
     return _pipeline
 
 
-def diarize(audio_path: Path) -> List[Tuple[float, float, str]]:
+def clipped_audio(audio_path: Path, max_minutes: Optional[float], out_dir: Path) -> Path:
+    """Return original audio or a clipped copy for quick dry-runs."""
+    if not max_minutes or max_minutes <= 0:
+        return audio_path
+    clipped = out_dir / f"{audio_path.stem}.first-{max_minutes:g}min.wav"
+    if clipped.exists():
+        return clipped
+    subprocess.run(
+        ["ffmpeg", "-y", "-i", str(audio_path), "-t", str(max_minutes * 60), "-ar", "16000", "-ac", "1", str(clipped)],
+        check=True,
+        capture_output=True,
+        timeout=300,
+    )
+    return clipped
+
+
+def diarize(audio_path: Path, max_minutes: Optional[float] = None, work_dir: Optional[Path] = None) -> List[Tuple[float, float, str]]:
     """Returns list of (start_sec, end_sec, speaker_label)."""
     pipeline = get_pipeline()
-    diarization = pipeline(str(audio_path))
+    input_audio = clipped_audio(audio_path, max_minutes, work_dir or audio_path.parent)
+    if input_audio != audio_path:
+        print(f"  ✂️  Prueba rápida: diarizando solo los primeros {max_minutes:g} min")
+    print("  ⏱️  Diarización corriendo; en CPU puede tardar mucho y no muestra progreso...")
+    diarization = pipeline(str(input_audio))
     segments = []
     for turn, _, speaker in diarization.itertracks(yield_label=True):
         segments.append((float(turn.start), float(turn.end), str(speaker)))
@@ -298,6 +320,7 @@ def main():
     ap.add_argument("--video-id", default=None)
     ap.add_argument("--recompute-stats", action="store_true", help="Solo recomputa host_stats sin diarizar")
     ap.add_argument("--dry-run", action="store_true", help="Diariza pero NO escribe en la DB ni recomputa stats")
+    ap.add_argument("--max-minutes", type=float, default=None, help="Solo diariza los primeros N minutos (ideal para dry-run rápido)")
     ap.add_argument("--keep-audio", action="store_true", help="No borra los .wav descargados (útil para depurar)")
     args = ap.parse_args()
 
@@ -334,7 +357,7 @@ def main():
         print(f"  🎧 Audio listo ({audio.stat().st_size // 1024} KB)")
 
         try:
-            segments = diarize(audio)
+            segments = diarize(audio, max_minutes=args.max_minutes, work_dir=work_dir)
         except Exception as e:
             print(f"  ❌ Diarización falló: {e}")
             failed += 1
