@@ -70,7 +70,7 @@ def download_audio(video_id: str, out_dir: Path) -> Optional[Path]:
     cmd = [
         "yt-dlp", "-x", "--audio-format", "wav",
         "--audio-quality", "0",
-        "--postprocessor-args", "-ar 16000 -ac 1",
+        "--postprocessor-args", "ffmpeg:-ar 16000 -ac 1",
         "-o", str(out_dir / f"{video_id}.%(ext)s"),
         url,
     ]
