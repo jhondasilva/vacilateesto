@@ -62,7 +62,7 @@ sb: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 
 # ---------- Audio download ----------
-def download_audio(video_id: str, out_dir: Path) -> Optional[Path]:
+def download_audio(video_id: str, out_dir: Path, cookies_file: Optional[str] = None) -> Optional[Path]:
     out_path = out_dir / f"{video_id}.wav"
     if out_path.exists():
         return out_path
@@ -78,6 +78,13 @@ def download_audio(video_id: str, out_dir: Path) -> Optional[Path]:
         "-o", str(out_dir / f"{video_id}.%(ext)s"),
         url,
     ]
+    if cookies_file:
+        cookies_path = Path(cookies_file).expanduser()
+        if cookies_path.exists():
+            cmd[1:1] = ["--cookies", str(cookies_path)]
+            print(f"  🍪 usando cookies: {cookies_path}")
+        else:
+            print(f"  ⚠️  YOUTUBE_COOKIES_FILE no existe: {cookies_path}")
     last_err = ""
     for attempt in range(1, 4):
         try:
