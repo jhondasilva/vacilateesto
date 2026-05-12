@@ -58,25 +58,20 @@ const LabHosts = () => {
   const [chunks, setChunks] = useState<ChunkRow[]>([]);
   const [videos, setVideos] = useState<Record<string, VideoRow>>({});
   const [error, setError] = useState<string | null>(null);
-  const [coverage, setCoverage] = useState<{ done: number; total: number; episodes: number } | null>(null);
+  const [coverage, setCoverage] = useState<{ done: number; total: number } | null>(null);
 
   // Load coverage stats
   useEffect(() => {
     (async () => {
       try {
-        const [doneRes, totalRes, epsRes] = await Promise.all([
+        const [doneRes, totalRes] = await Promise.all([
           supabase
             .from("yt_transcript_chunks")
             .select("id", { count: "exact", head: true })
             .not("speaker", "is", null),
           supabase.from("yt_transcript_chunks").select("id", { count: "exact", head: true }),
-          supabase.rpc("count_diarized_episodes" as never).single(),
         ]);
-        setCoverage({
-          done: doneRes.count ?? 0,
-          total: totalRes.count ?? 0,
-          episodes: (epsRes.data as any) ?? 0,
-        });
+        setCoverage({ done: doneRes.count ?? 0, total: totalRes.count ?? 0 });
       } catch {
         // ignore
       }
@@ -160,8 +155,7 @@ const LabHosts = () => {
             </p>
             {coverage && (
               <p className="text-xs text-muted-foreground mt-3 font-mono">
-                Cobertura: {coverage.done.toLocaleString()} / {coverage.total.toLocaleString()} chunks ·{" "}
-                {coverage.episodes} episodios diarizados
+                Cobertura: {coverage.done.toLocaleString()} / {coverage.total.toLocaleString()} chunks con hablante
               </p>
             )}
           </div>
