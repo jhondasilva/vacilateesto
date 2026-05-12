@@ -32,6 +32,7 @@ Uso:
 """
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -334,6 +335,7 @@ def main():
     ap.add_argument("--max-minutes", type=float, default=None, help="Solo diariza los primeros N minutos (ideal para dry-run rápido)")
     ap.add_argument("--keep-audio", action="store_true", help="No borra los .wav descargados (útil para depurar)")
     ap.add_argument("--cookies-file", default=os.environ.get("YOUTUBE_COOKIES_FILE"), help="Archivo cookies.txt exportado de YouTube para evitar bloqueo anti-bot")
+    ap.add_argument("--save-json", default=None, help="Carpeta donde guardar un .json por video con segmentos + speaker_map (para subir luego con upload-diarization.py)")
     args = ap.parse_args()
 
     if args.recompute_stats:
@@ -347,6 +349,12 @@ def main():
 
     work_dir = Path(tempfile.gettempdir()) / "ve_diarize"
     work_dir.mkdir(exist_ok=True)
+
+    save_dir: Optional[Path] = None
+    if args.save_json:
+        save_dir = Path(args.save_json).expanduser()
+        save_dir.mkdir(parents=True, exist_ok=True)
+        print(f"💾 Guardando JSONs de diarización en {save_dir}")
 
     ok, failed, skipped = 0, 0, 0
     for i, v in enumerate(videos, 1):
@@ -380,6 +388,23 @@ def main():
         speaker_map = identify_speakers_with_ai(samples, v["title"])
         for label, (host, conf) in speaker_map.items():
             print(f"     {label} → {host} ({conf:.2f})")
+
+        if save_dir is not None:
+            payload = {
+                "video_id": vid,
+                "title": v["title"],
+                "diarized_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                "max_minutes": args.max_minutes,
+                "segments": [
+                    {"start": s, "end": e, "label": lbl} for (s, e, lbl) in segments
+                ],
+                "speaker_map": {
+                    lbl: {"host": h, "confidence": c} for lbl, (h, c) in speaker_map.items()
+                },
+            }
+            out_json = save_dir / f"{vid}.json"
+            out_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2))
+            print(f"  💾 JSON guardado: {out_json}")
 
         updates = assign_chunks(chunks, segments, speaker_map)
         if args.dry_run:
