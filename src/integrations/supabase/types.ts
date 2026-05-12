@@ -720,6 +720,19 @@ export type Database = {
       is_allowed_user: { Args: never; Returns: boolean }
       is_brand_client: { Args: never; Returns: boolean }
       user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
+      yt_episode_speaker_stats: {
+        Args: { p_video_id?: string }
+        Returns: {
+          published_at: string
+          seconds: number
+          speaker: string
+          thumbnail_url: string
+          title: string
+          turns: number
+          video_id: string
+          words: number
+        }[]
+      }
       yt_search_chunks: {
         Args: {
           filter_kind?: string
