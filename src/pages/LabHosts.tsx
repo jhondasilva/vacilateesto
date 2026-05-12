@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3 } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import LabHostChat from "./LabHostChat";
 
 type Speaker = "all" | "jhon" | "juan" | "invitado" | "unknown";
 
@@ -48,7 +49,7 @@ type EpisodeAggregated = {
   bySpeaker: Record<string, { seconds: number; words: number; turns: number }>;
 };
 
-type Tab = "search" | "stats";
+type Tab = "search" | "stats" | "ai";
 
 const SPEAKERS: { k: Speaker; label: string; color: string }[] = [
   { k: "all", label: "Todos", color: "bg-foreground text-background" },
@@ -278,7 +279,21 @@ const LabHosts = () => {
               <BarChart3 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
               Stats por episodio
             </button>
+            <button
+              type="button"
+              onClick={() => setTab("ai")}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === "ai"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Sparkles className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Pregúntale a la IA
+            </button>
           </div>
+
+          {tab === "ai" && <LabHostChat />}
 
           {tab === "search" && (
           <>
