@@ -717,6 +717,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_diarization_status: {
+        Args: { limit_count?: number }
+        Returns: {
+          chunks_with_speaker: number
+          duration_seconds: number
+          invitado_chunks: number
+          jhon_chunks: number
+          juan_chunks: number
+          title: string
+          total_chunks: number
+          video_id: string
+        }[]
+      }
+      get_videos_without_transcription: {
+        Args: { limit_count?: number }
+        Returns: {
+          duration_seconds: number
+          title: string
+          video_id: string
+        }[]
+      }
       is_allowed_user: { Args: never; Returns: boolean }
       is_brand_client: { Args: never; Returns: boolean }
       user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
