@@ -72,6 +72,7 @@ const App = () => (
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/hosts" element={<Hosts />} />
             <Route path="/lab/hosts" element={<LabHosts />} />
+            <Route path="/lab/host" element={<LabHosts />} />
             <Route path="/dashboard/login" element={<DashboardLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<DashboardHome />} />
