@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,29 @@ type VideoRow = {
   kind: string;
 };
 
+type EpisodeStatRow = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  speaker: string;
+  seconds: number;
+  words: number;
+  turns: number;
+};
+
+type EpisodeAggregated = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  total_seconds: number;
+  total_words: number;
+  bySpeaker: Record<string, { seconds: number; words: number; turns: number }>;
+};
+
+type Tab = "search" | "stats";
+
 const SPEAKERS: { k: Speaker; label: string; color: string }[] = [
   { k: "all", label: "Todos", color: "bg-foreground text-background" },
   { k: "jhon", label: "Jhon", color: "bg-primary text-primary-foreground" },
@@ -44,6 +67,23 @@ function fmtTs(s: number) {
   return `${m}:${String(ss).padStart(2, "0")}`;
 }
 
+function fmtDuration(totalSec: number) {
+  const sec = Math.round(totalSec);
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  if (h > 0) return `${h}h ${m}m`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+function speakerBarColor(sp: string) {
+  if (sp === "jhon") return "bg-primary";
+  if (sp === "juan") return "bg-accent";
+  if (sp === "invitado") return "bg-foreground/70";
+  return "bg-muted-foreground/40";
+}
+
 function speakerColor(sp: string | null) {
   if (sp === "jhon") return "bg-primary text-primary-foreground";
   if (sp === "juan") return "bg-accent text-accent-foreground";
@@ -52,6 +92,7 @@ function speakerColor(sp: string | null) {
 }
 
 const LabHosts = () => {
+  const [tab, setTab] = useState<Tab>("search");
   const [query, setQuery] = useState("");
   const [speaker, setSpeaker] = useState<Speaker>("all");
   const [loading, setLoading] = useState(false);
@@ -59,6 +100,11 @@ const LabHosts = () => {
   const [videos, setVideos] = useState<Record<string, VideoRow>>({});
   const [error, setError] = useState<string | null>(null);
   const [coverage, setCoverage] = useState<{ done: number; total: number } | null>(null);
+
+  // Episode stats
+  const [statsLoading, setStatsLoading] = useState(false);
+  const [statsError, setStatsError] = useState<string | null>(null);
+  const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
 
   // Load coverage stats
   useEffect(() => {
@@ -77,6 +123,52 @@ const LabHosts = () => {
       }
     })();
   }, []);
+
+  // Load episode stats when switching to that tab (lazy, once)
+  useEffect(() => {
+    if (tab !== "stats" || episodes.length > 0 || statsLoading) return;
+    (async () => {
+      setStatsLoading(true);
+      setStatsError(null);
+      try {
+        const { data, error: err } = await (supabase.rpc as any)("yt_episode_speaker_stats", {
+          p_video_id: null,
+        });
+        if (err) throw err;
+        const rows = (data || []) as EpisodeStatRow[];
+        const byVid: Record<string, EpisodeAggregated> = {};
+        for (const r of rows) {
+          const e = (byVid[r.video_id] ||= {
+            video_id: r.video_id,
+            title: r.title,
+            thumbnail_url: r.thumbnail_url,
+            published_at: r.published_at,
+            total_seconds: 0,
+            total_words: 0,
+            bySpeaker: {},
+          });
+          const sec = Number(r.seconds) || 0;
+          const wds = Number(r.words) || 0;
+          e.total_seconds += sec;
+          e.total_words += wds;
+          e.bySpeaker[r.speaker] = {
+            seconds: sec,
+            words: wds,
+            turns: Number(r.turns) || 0,
+          };
+        }
+        const list = Object.values(byVid).sort(
+          (a, b) =>
+            new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime(),
+        );
+        setEpisodes(list);
+      } catch (e: any) {
+        setStatsError(e?.message || "Error cargando estadísticas");
+      } finally {
+        setStatsLoading(false);
+      }
+    })();
+  }, [tab, episodes.length, statsLoading]);
 
   const runSearch = async () => {
     const q = query.trim();
@@ -160,6 +252,36 @@ const LabHosts = () => {
             )}
           </div>
 
+          {/* Tabs */}
+          <div className="flex gap-2 mb-6 border-b border-border">
+            <button
+              type="button"
+              onClick={() => setTab("search")}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === "search"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Search className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Búsqueda
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("stats")}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === "stats"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <BarChart3 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Stats por episodio
+            </button>
+          </div>
+
+          {tab === "search" && (
+          <>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -276,6 +398,103 @@ const LabHosts = () => {
               );
             })}
           </div>
+          </>
+          )}
+
+          {tab === "stats" && (
+            <div className="space-y-4">
+              {statsLoading && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground py-12 justify-center">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Cargando estadísticas…
+                </div>
+              )}
+              {statsError && (
+                <Card className="p-4 border-destructive/40 bg-destructive/10 text-destructive text-sm">
+                  {statsError}
+                </Card>
+              )}
+              {!statsLoading && !statsError && episodes.length === 0 && (
+                <p className="text-sm text-muted-foreground py-12 text-center">
+                  No hay episodios diarizados aún.
+                </p>
+              )}
+              {episodes.map((ep) => {
+                const order = ["jhon", "juan", "invitado", "unknown"];
+                const speakers = order.filter((s) => ep.bySpeaker[s]);
+                return (
+                  <Card key={ep.video_id} className="p-5">
+                    <div className="flex gap-4 mb-4">
+                      {ep.thumbnail_url && (
+                        <img
+                          src={ep.thumbnail_url}
+                          alt=""
+                          className="w-24 h-14 object-cover rounded-md flex-shrink-0"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-sm md:text-base line-clamp-2">{ep.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-1 font-mono">
+                          {ep.published_at
+                            ? new Date(ep.published_at).toLocaleDateString("es-VE")
+                            : ""}{" "}
+                          · {fmtDuration(ep.total_seconds)} hablado · {ep.total_words.toLocaleString()} palabras
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Stacked bar */}
+                    <div className="flex w-full h-2 rounded-full overflow-hidden bg-muted mb-3">
+                      {speakers.map((s) => {
+                        const pct = ep.total_seconds
+                          ? (ep.bySpeaker[s].seconds / ep.total_seconds) * 100
+                          : 0;
+                        return (
+                          <div
+                            key={s}
+                            className={speakerBarColor(s)}
+                            style={{ width: `${pct}%` }}
+                            title={`${s}: ${pct.toFixed(1)}%`}
+                          />
+                        );
+                      })}
+                    </div>
+
+                    {/* Speaker breakdown */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {speakers.map((s) => {
+                        const d = ep.bySpeaker[s];
+                        const pct = ep.total_seconds
+                          ? (d.seconds / ep.total_seconds) * 100
+                          : 0;
+                        return (
+                          <div
+                            key={s}
+                            className="rounded-lg bg-muted/40 p-3 border border-border/50"
+                          >
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span
+                                className={`w-2.5 h-2.5 rounded-full ${speakerBarColor(s)}`}
+                              />
+                              <span className="text-xs font-bold uppercase tracking-wider">
+                                {s === "unknown" ? "?" : s}
+                              </span>
+                              <span className="text-[10px] text-muted-foreground ml-auto font-mono">
+                                {pct.toFixed(0)}%
+                              </span>
+                            </div>
+                            <div className="text-sm font-semibold">{fmtDuration(d.seconds)}</div>
+                            <div className="text-[11px] text-muted-foreground font-mono">
+                              {d.words.toLocaleString()} palabras · {d.turns} turnos
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>
