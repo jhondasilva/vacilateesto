@@ -1,6 +1,7 @@
 #!/bin/bash
 # run-status.sh — Muestra el estado de diarización desde la terminal.
-# Uso: ./run-status.sh
+# Uso: ./run-status.sh              # snapshot único
+#      ./run-status.sh --watch      # refresca cada 30s
 
 set -euo pipefail
 
@@ -15,7 +16,4 @@ else
     PYTHON="python3"
 fi
 
-echo "🎙️  Status de diarización — Vacílate El Podcast"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-
-"$PYTHON" "$SCRIPT_DIR/status.py"
+"$PYTHON" "$SCRIPT_DIR/status.py" "$@"
