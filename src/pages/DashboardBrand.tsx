@@ -625,7 +625,11 @@ const MetricoolDashboard = ({
           <div className="md:text-right min-w-0">
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Menciones en redes · en vivo</p>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">{brand.name} en Vacílate Esto</h1>
-            <p className="text-xs text-muted-foreground mt-2 font-mono">@cocacola · @cocacolave · #cocacola · #cocacolave · #vacilateelmundial · #vacilateelfutbol · #mundial2026 · panini · álbum panini</p>
+            <p className="text-xs text-muted-foreground mt-2 font-mono">
+              {scope === "brand"
+                ? "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa"
+                : "Todos los posts de la cuenta"}
+            </p>
           </div>
         </div>
       </div>
