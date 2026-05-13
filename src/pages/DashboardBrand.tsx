@@ -41,9 +41,13 @@ const BRAND_KEYWORDS: Record<
     label: "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa",
   },
   kfc: {
-    keywords: ["@kfcvzla", "#kfcvzla", "kfcvzla", "@kfcve", "#kfcve"],
+    keywords: [
+      "@kfc_vzla", "#kfc_vzla", "kfc_vzla",
+      "@kfcvzla", "#kfcvzla", "kfcvzla",
+      "@kfcve", "#kfcve",
+    ],
     excludeKeywords: [],
-    label: "@kfcvzla · #kfcvzla",
+    label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
 };
 
