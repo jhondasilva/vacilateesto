@@ -113,10 +113,19 @@ Deno.serve(async (req) => {
     const blogId = Number(body.blogId ?? 1943481);
     const keywords: string[] = body.keywords ?? [
       "@cocacola",
+      "@cocacolavzla",
+      "@cocacolave",
+      "coca-cola femsa",
+      "cocacolafemsa",
       "#cocacola",
       "#coca-cola",
+      "coca-cola",
       "#vacilateelmundial",
       "#vacilateelfutbol",
+      "vacilate el mundial",
+      "vacilate el futbol",
+      "vacílate el mundial",
+      "vacílate el fútbol",
     ];
     const now = new Date();
     const from =
