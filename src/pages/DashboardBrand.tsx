@@ -540,7 +540,7 @@ const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[]
 const MetricoolDashboard = ({
   brand, brandLogo, accent,
 }: { brand: Brand; brandLogo: string | null; accent: string }) => {
-  const months = useState(() => buildMonths(12))[0];
+  const months = useState(() => buildMonths())[0];
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
   const [cache, setCache] = useState<Record<MonthKey, MentionsResponse>>({});
