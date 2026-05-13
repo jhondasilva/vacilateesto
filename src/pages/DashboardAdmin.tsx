@@ -5,10 +5,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Loader2, UserPlus, Inbox, Check, X, Trash2 } from "lucide-react";
+import { ArrowLeft, Loader2, UserPlus, Inbox, Check, X, Trash2, Users, Shield, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 type Brand = { id: string; name: string; slug: string };
+type BrandAccess = {
+  id: string;
+  brand_id: string;
+  email: string;
+  display_name: string | null;
+  user_id: string | null;
+  created_at: string;
+  brand: { name: string; slug: string } | null;
+};
+type AllowedUser = { id: string; email: string; display_name: string | null; created_at: string };
 type AccessRequest = {
   id: string;
   email: string;
@@ -29,6 +39,13 @@ const DashboardAdmin = () => {
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [loadingReqs, setLoadingReqs] = useState(false);
   const [actioningId, setActioningId] = useState<string | null>(null);
+  const [accesses, setAccesses] = useState<BrandAccess[]>([]);
+  const [loadingAcc, setLoadingAcc] = useState(false);
+  const [admins, setAdmins] = useState<AllowedUser[]>([]);
+  const [loadingAdmins, setLoadingAdmins] = useState(false);
+  const [newAdminEmail, setNewAdminEmail] = useState("");
+  const [newAdminName, setNewAdminName] = useState("");
+  const [addingAdmin, setAddingAdmin] = useState(false);
 
   const loadRequests = async () => {
     setLoadingReqs(true);
@@ -40,6 +57,26 @@ const DashboardAdmin = () => {
     setLoadingReqs(false);
   };
 
+  const loadAccesses = async () => {
+    setLoadingAcc(true);
+    const { data } = await supabase
+      .from("brand_users")
+      .select("id, brand_id, email, display_name, user_id, created_at, brand:brands(name, slug)")
+      .order("created_at", { ascending: false });
+    setAccesses((data ?? []) as any);
+    setLoadingAcc(false);
+  };
+
+  const loadAdmins = async () => {
+    setLoadingAdmins(true);
+    const { data } = await supabase
+      .from("allowed_users")
+      .select("id, email, display_name, created_at")
+      .order("created_at", { ascending: true });
+    setAdmins((data ?? []) as AllowedUser[]);
+    setLoadingAdmins(false);
+  };
+
   useEffect(() => {
     if (!isAdmin) return;
     (async () => {
@@ -47,6 +84,8 @@ const DashboardAdmin = () => {
       setBrands((data ?? []) as Brand[]);
     })();
     loadRequests();
+    loadAccesses();
+    loadAdmins();
   }, [isAdmin]);
 
   if (!loading && !session) return <Navigate to="/dashboard/login" replace />;
@@ -72,6 +111,7 @@ const DashboardAdmin = () => {
     setDisplayName("");
     setPassword("");
     loadRequests();
+    loadAccesses();
   };
 
   const fillFromRequest = (r: AccessRequest) => {
@@ -108,6 +148,45 @@ const DashboardAdmin = () => {
     loadRequests();
   };
 
+  const revokeAccess = async (a: BrandAccess) => {
+    if (!confirm(`¿Revocar acceso de ${a.email} a ${a.brand?.name ?? "esta marca"}?`)) return;
+    const { error } = await supabase.from("brand_users").delete().eq("id", a.id);
+    if (error) return toast.error("No se pudo revocar");
+    toast.success("Acceso revocado");
+    loadAccesses();
+  };
+
+  const addAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = newAdminEmail.trim().toLowerCase();
+    if (!cleanEmail) return toast.error("Email requerido");
+    setAddingAdmin(true);
+    const { error } = await supabase
+      .from("allowed_users")
+      .insert({ email: cleanEmail, display_name: newAdminName.trim() || null });
+    setAddingAdmin(false);
+    if (error) return toast.error(error.message);
+    toast.success("Admin agregado");
+    setNewAdminEmail("");
+    setNewAdminName("");
+    loadAdmins();
+  };
+
+  const removeAdmin = async (a: AllowedUser) => {
+    if (!confirm(`¿Quitar permisos de admin a ${a.email}?`)) return;
+    const { error } = await supabase.from("allowed_users").delete().eq("id", a.id);
+    if (error) return toast.error("No se pudo eliminar");
+    toast.success("Admin eliminado");
+    loadAdmins();
+  };
+
+  // Agrupar accesos por email para vista "quién tiene qué"
+  const accessesByUser = accesses.reduce<Record<string, BrandAccess[]>>((acc, a) => {
+    const k = a.email.toLowerCase();
+    (acc[k] ||= []).push(a);
+    return acc;
+  }, {});
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
@@ -121,7 +200,7 @@ const DashboardAdmin = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12 max-w-2xl space-y-8">
+      <main className="container mx-auto px-4 py-12 max-w-3xl space-y-8">
         <section className="bg-card border border-border rounded-2xl p-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
@@ -205,6 +284,129 @@ const DashboardAdmin = () => {
           )}
           <p className="text-xs text-muted-foreground mt-4">
             Al aprobar, los datos se cargan abajo. Selecciona la marca y una contraseña inicial para crear el acceso.
+          </p>
+        </section>
+
+        <section className="bg-card border border-border rounded-2xl p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <Users className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold">Accesos a dashboards de marca</h2>
+            </div>
+            <Button variant="ghost" size="sm" onClick={loadAccesses} disabled={loadingAcc}>
+              {loadingAcc && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Recargar
+            </Button>
+          </div>
+          {loadingAcc ? (
+            <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+          ) : Object.keys(accessesByUser).length === 0 ? (
+            <p className="text-sm text-muted-foreground">Aún no hay clientes vinculados.</p>
+          ) : (
+            <ul className="space-y-3">
+              {Object.entries(accessesByUser).map(([email, list]) => (
+                <li key={email} className="border border-border rounded-xl p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                    <div className="min-w-0">
+                      <p className="font-semibold truncate">{list[0].display_name || email}</p>
+                      <p className="text-sm text-muted-foreground truncate">{email}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {list.length} marca{list.length !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {list.map((a) => (
+                      <span
+                        key={a.id}
+                        className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground rounded-full pl-3 pr-1 py-1 text-xs"
+                      >
+                        {a.brand?.name ?? a.brand_id}
+                        <button
+                          onClick={() => revokeAccess(a)}
+                          className="rounded-full bg-background/40 hover:bg-destructive hover:text-destructive-foreground p-1 transition"
+                          title="Revocar acceso"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </span>
+                    ))}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-7 rounded-full text-xs"
+                      onClick={() => {
+                        setEmail(email);
+                        setDisplayName(list[0].display_name || "");
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        toast.info("Selecciona otra marca abajo y crea el acceso.");
+                      }}
+                    >
+                      <Plus className="w-3 h-3 mr-1" /> Marca
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="bg-card border border-border rounded-2xl p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold">Administradores · Gira</h2>
+            </div>
+            <Button variant="ghost" size="sm" onClick={loadAdmins} disabled={loadingAdmins}>
+              {loadingAdmins && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Recargar
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Acceso total: dashboard de Gira, panel admin, todas las marcas y solicitudes.
+          </p>
+          {loadingAdmins ? (
+            <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+          ) : (
+            <ul className="space-y-2 mb-4">
+              {admins.map((a) => (
+                <li
+                  key={a.id}
+                  className="border border-border rounded-xl p-3 flex items-center justify-between gap-2"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{a.display_name || a.email}</p>
+                    {a.display_name && (
+                      <p className="text-xs text-muted-foreground truncate">{a.email}</p>
+                    )}
+                  </div>
+                  <Button size="sm" variant="ghost" onClick={() => removeAdmin(a)}>
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <form onSubmit={addAdmin} className="grid sm:grid-cols-[1fr_1fr_auto] gap-2">
+            <Input
+              type="email"
+              placeholder="email@dominio.com"
+              value={newAdminEmail}
+              onChange={(e) => setNewAdminEmail(e.target.value)}
+              required
+            />
+            <Input
+              placeholder="Nombre (opcional)"
+              value={newAdminName}
+              onChange={(e) => setNewAdminName(e.target.value)}
+            />
+            <Button type="submit" disabled={addingAdmin}>
+              {addingAdmin ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4 mr-1" />}
+              Agregar
+            </Button>
+          </form>
+          <p className="text-xs text-muted-foreground mt-3">
+            Recuerda crear/establecer su contraseña con el formulario inferior si aún no tiene cuenta.
           </p>
         </section>
 
