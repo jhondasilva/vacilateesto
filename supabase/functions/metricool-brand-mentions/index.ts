@@ -129,8 +129,16 @@ Deno.serve(async (req) => {
       : platforms;
     const results = await Promise.all(requested.map((p) => fetchPlatform(p, blogId, from, to)));
     const all = results.flat();
+    const fromMs = new Date(from).getTime();
+    const toMs = new Date(to).getTime();
     const matched = all
       .filter((p) => matchesKeywords(p.text, keywords))
+      .filter((p) => {
+        if (!p.publishedAt) return false;
+        const t = new Date(p.publishedAt).getTime();
+        if (Number.isNaN(t)) return false;
+        return t >= fromMs && t <= toMs;
+      })
       .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 
     const totals = matched.reduce(
