@@ -8,6 +8,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 
 const DashboardLogin = () => {
   const { session, loading, brands, isAdmin } = useBrandAuth();
