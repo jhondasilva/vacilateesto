@@ -1,0 +1,169 @@
+import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+
+const TOKEN = Deno.env.get("METRICOOL_USER_TOKEN")!;
+const USER_ID = Deno.env.get("METRICOOL_USER_ID")!;
+const BASE = "https://app.metricool.com/api/v2/analytics/posts";
+
+const norm = (s: string) =>
+  (s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+const matchesKeywords = (text: string, keywords: string[]) => {
+  const n = norm(text);
+  return keywords.some((k) => n.includes(norm(k)));
+};
+
+type Unified = {
+  platform: "instagram" | "tiktok" | "facebook" | "youtube";
+  id: string;
+  url: string;
+  publishedAt: string | null;
+  text: string;
+  thumbnail: string | null;
+  metrics: Record<string, number>;
+};
+
+function unify(platform: Unified["platform"], p: any): Unified | null {
+  switch (platform) {
+    case "instagram":
+      return {
+        platform,
+        id: p.postId,
+        url: p.url,
+        publishedAt: p.publishedAt?.dateTime ?? null,
+        text: p.content ?? "",
+        thumbnail: p.imageUrl ?? null,
+        metrics: {
+          likes: p.likes ?? 0,
+          comments: p.comments ?? 0,
+          reach: p.reach ?? 0,
+          impressions: p.impressions ?? 0,
+          views: p.views ?? p.videoViews ?? 0,
+          saved: p.saved ?? 0,
+        },
+      };
+    case "tiktok":
+      return {
+        platform,
+        id: p.videoId,
+        url: p.shareUrl,
+        publishedAt: p.createTime ?? null,
+        text: p.videoDescription ?? p.title ?? "",
+        thumbnail: p.coverImageUrl ?? null,
+        metrics: {
+          views: p.viewCount ?? p.views ?? 0,
+          likes: p.likeCount ?? p.likes ?? 0,
+          comments: p.commentCount ?? p.comments ?? 0,
+          shares: p.shareCount ?? p.shares ?? 0,
+        },
+      };
+    case "facebook":
+      return {
+        platform,
+        id: p.postId,
+        url: p.link,
+        publishedAt: p.created?.dateTime ?? null,
+        text: p.text ?? "",
+        thumbnail: p.picture ?? null,
+        metrics: {
+          impressions: p.impressions ?? 0,
+          reactions: p.reactions ?? 0,
+          comments: p.comments ?? 0,
+          shares: p.shares ?? 0,
+        },
+      };
+    case "youtube":
+      return {
+        platform,
+        id: p.videoId,
+        url: p.watchUrl,
+        publishedAt: p.publishedAt?.dateTime ?? null,
+        text: `${p.title ?? ""}\n${p.description ?? ""}`,
+        thumbnail: p.thumbnailUrl ?? null,
+        metrics: {
+          views: p.views ?? 0,
+          likes: p.likes ?? 0,
+          comments: p.comments ?? 0,
+        },
+      };
+  }
+  return null;
+}
+
+async function fetchPlatform(
+  platform: Unified["platform"],
+  blogId: number,
+  from: string,
+  to: string,
+): Promise<Unified[]> {
+  const url = `${BASE}/${platform}?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`;
+  const r = await fetch(url, { headers: { "X-Mc-Auth": TOKEN } });
+  if (!r.ok) return [];
+  const json = await r.json();
+  const arr: any[] = Array.isArray(json) ? json : (json.data ?? []);
+  return arr.map((p) => unify(platform, p)).filter((x): x is Unified => !!x);
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  try {
+    const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
+    const blogId = Number(body.blogId ?? 1943481);
+    const keywords: string[] = body.keywords ?? [
+      "@cocacola",
+      "#cocacola",
+      "#coca-cola",
+      "#vacilateelmundial",
+      "#vacilateelfutbol",
+    ];
+    const now = new Date();
+    const from =
+      body.from ?? new Date(now.getTime() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 19);
+    const to = body.to ?? now.toISOString().slice(0, 19);
+
+    const platforms: Unified["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
+    const results = await Promise.all(platforms.map((p) => fetchPlatform(p, blogId, from, to)));
+    const all = results.flat();
+    const matched = all
+      .filter((p) => matchesKeywords(p.text, keywords))
+      .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+
+    const totals = matched.reduce(
+      (acc, p) => {
+        acc.views += p.metrics.views ?? 0;
+        acc.likes += p.metrics.likes ?? p.metrics.reactions ?? 0;
+        acc.comments += p.metrics.comments ?? 0;
+        acc.impressions += p.metrics.impressions ?? 0;
+        return acc;
+      },
+      { views: 0, likes: 0, comments: 0, impressions: 0 },
+    );
+
+    const byPlatform = matched.reduce<Record<string, number>>((acc, p) => {
+      acc[p.platform] = (acc[p.platform] ?? 0) + 1;
+      return acc;
+    }, {});
+
+    return new Response(
+      JSON.stringify({
+        blogId,
+        keywords,
+        from,
+        to,
+        totalScanned: all.length,
+        matchedCount: matched.length,
+        byPlatform,
+        totals,
+        posts: matched,
+      }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+  } catch (e) {
+    return new Response(JSON.stringify({ error: String(e) }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+});
