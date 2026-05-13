@@ -15,6 +15,12 @@ const matchesKeywords = (text: string, keywords: string[]) => {
   return keywords.some((k) => n.includes(norm(k)));
 };
 
+const excludesKeywords = (text: string, keywords: string[]) => {
+  if (!keywords.length) return false;
+  const n = norm(text);
+  return keywords.some((k) => n.includes(norm(k)));
+};
+
 type Unified = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
   id: string;
@@ -183,8 +189,12 @@ Deno.serve(async (req) => {
     const fromMs = new Date(from).getTime();
     const toMs = new Date(to).getTime();
     const scope: "all" | "brand" = body.scope === "all" ? "all" : "brand";
+    const excludeKeywords: string[] = body.excludeKeywords ?? [];
     const matched = all
-      .filter((p) => (scope === "all" ? true : matchesKeywords(p.text, keywords)))
+      .filter((p) => {
+        if (scope === "all") return true;
+        return matchesKeywords(p.text, keywords) && !excludesKeywords(p.text, excludeKeywords);
+      })
       .filter((p) => {
         if (!p.publishedAt) return false;
         const t = new Date(p.publishedAt).getTime();

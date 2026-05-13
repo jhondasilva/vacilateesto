@@ -565,7 +565,14 @@ const MetricoolDashboard = ({
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
     supabase.functions
       .invoke("metricool-brand-mentions", {
-        body: { from: fmtIso(month.from), to: fmtIso(month.to), scope },
+        body: {
+          from: fmtIso(month.from),
+          to: fmtIso(month.to),
+          scope,
+          ...(scope === "brand"
+            ? { excludeKeywords: ["@kfcve", "#kfcve", "#kfc", "kfc"] }
+            : {}),
+        },
       })
       .then(({ data, error }) => {
         if (error) {
