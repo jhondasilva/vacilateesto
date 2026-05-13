@@ -189,8 +189,12 @@ Deno.serve(async (req) => {
     const fromMs = new Date(from).getTime();
     const toMs = new Date(to).getTime();
     const scope: "all" | "brand" = body.scope === "all" ? "all" : "brand";
+    const excludeKeywords: string[] = body.excludeKeywords ?? [];
     const matched = all
-      .filter((p) => (scope === "all" ? true : matchesKeywords(p.text, keywords)))
+      .filter((p) => {
+        if (scope === "all") return true;
+        return matchesKeywords(p.text, keywords) && !excludesKeywords(p.text, excludeKeywords);
+      })
       .filter((p) => {
         if (!p.publishedAt) return false;
         const t = new Date(p.publishedAt).getTime();
