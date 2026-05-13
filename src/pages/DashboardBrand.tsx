@@ -516,54 +516,165 @@ const fmtNum = (n: number) =>
 
 const MetricoolMentions = ({ accent }: { accent: string }) => {
   const [data, setData] = useState<MentionsResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<"all" | MentionPost["platform"]>("all");
+  const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
+  const [selected, setSelected] = useState<MentionPost["platform"][]>(ALL_PLATFORMS);
+  const [range, setRange] = useState<DateRange | undefined>(() => {
+    const to = new Date();
+    const from = new Date(to.getTime() - 365 * 24 * 3600 * 1000);
+    return { from, to };
+  });
 
-  useEffect(() => {
+  const fetchData = () => {
+    if (!range?.from || !range?.to || selected.length === 0) return;
     setLoading(true);
+    const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
     supabase.functions
-      .invoke("metricool-brand-mentions", { body: {} })
+      .invoke("metricool-brand-mentions", {
+        body: {
+          platforms: selected,
+          from: fmtIso(range.from!),
+          to: fmtIso(new Date(range.to!.getTime() + 23 * 3600 * 1000 + 59 * 60 * 1000)),
+        },
+      })
       .then(({ data, error }) => {
-        if (!error && data) setData(data as MentionsResponse);
+        if (error) toast.error("Error consultando Metricool");
+        else if (data) {
+          setData(data as MentionsResponse);
+          setFilter("all");
+        }
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) {
-    return (
-      <section className="mb-12">
-        <h2 className="text-2xl font-black mb-4">Menciones en redes (en vivo)</h2>
-        <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
-          <Loader2 className="w-5 h-5 animate-spin" />
-          <span className="text-muted-foreground">Cargando datos de Metricool…</span>
-        </div>
-      </section>
+  const togglePlatform = (p: MentionPost["platform"]) => {
+    setSelected((prev) =>
+      prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p],
     );
-  }
+  };
 
-  if (!data || data.matchedCount === 0) {
-    return (
-      <section className="mb-12">
-        <h2 className="text-2xl font-black mb-4">Menciones en redes (en vivo)</h2>
-        <p className="text-muted-foreground">Aún no hay publicaciones que mencionen a Coca-Cola.</p>
-      </section>
-    );
-  }
-
-  const platforms = Object.keys(data.byPlatform) as MentionPost["platform"][];
-  const filtered = filter === "all" ? data.posts : data.posts.filter((p) => p.platform === filter);
+  const platforms = data ? (Object.keys(data.byPlatform) as MentionPost["platform"][]) : [];
+  const filtered = !data
+    ? []
+    : filter === "all"
+      ? data.posts
+      : data.posts.filter((p) => p.platform === filter);
 
   return (
     <section className="mb-12">
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
         <div>
           <h2 className="text-2xl font-black">Menciones en redes (en vivo)</h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            {data.matchedCount} publicaciones de Vacílate Esto Podcast con{" "}
-            <span className="font-mono">{data.keywords.join(" · ")}</span>
-          </p>
+          {data && (
+            <p className="text-sm text-muted-foreground mt-1">
+              {data.matchedCount} publicaciones de Vacílate Esto Podcast con{" "}
+              <span className="font-mono">{data.keywords.join(" · ")}</span>
+            </p>
+          )}
         </div>
       </div>
+
+      {/* Controles */}
+      <div className="bg-card border border-border rounded-2xl p-4 mb-5 flex flex-col lg:flex-row lg:items-end gap-4">
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-bold">Redes</p>
+          <div className="flex flex-wrap gap-2">
+            {ALL_PLATFORMS.map((p) => {
+              const M = PLATFORM_META[p];
+              const isOn = selected.includes(p);
+              return (
+                <PlatformChip
+                  key={p}
+                  active={isOn}
+                  onClick={() => togglePlatform(p)}
+                  label={M.label}
+                  Icon={M.Icon}
+                />
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-bold">Período</p>
+          <div className="flex flex-wrap gap-2 items-center">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn("justify-start text-left font-normal", !range && "text-muted-foreground")}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {range?.from ? (
+                    range.to ? (
+                      <>
+                        {format(range.from, "d MMM yyyy", { locale: es })} —{" "}
+                        {format(range.to, "d MMM yyyy", { locale: es })}
+                      </>
+                    ) : (
+                      format(range.from, "d MMM yyyy", { locale: es })
+                    )
+                  ) : (
+                    <span>Elegí un rango</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="range"
+                  selected={range}
+                  onSelect={setRange}
+                  numberOfMonths={2}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                  locale={es}
+                />
+              </PopoverContent>
+            </Popover>
+            <div className="flex flex-wrap gap-1">
+              {[
+                { label: "30d", days: 30 },
+                { label: "90d", days: 90 },
+                { label: "6m", days: 180 },
+                { label: "1a", days: 365 },
+              ].map((preset) => (
+                <button
+                  key={preset.label}
+                  onClick={() => {
+                    const to = new Date();
+                    const from = new Date(to.getTime() - preset.days * 24 * 3600 * 1000);
+                    setRange({ from, to });
+                  }}
+                  className="px-2.5 py-1.5 rounded-md text-xs font-bold border border-border hover:border-foreground/40 transition-colors"
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <Button onClick={fetchData} disabled={loading || selected.length === 0 || !range?.from || !range?.to}>
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+          Procesar
+        </Button>
+      </div>
+
+      {loading ? (
+        <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span className="text-muted-foreground">Consultando Metricool…</span>
+        </div>
+      ) : !data ? null : data.matchedCount === 0 ? (
+        <p className="text-muted-foreground">No hay publicaciones que mencionen a Coca-Cola en este rango.</p>
+      ) : (
+        <>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
         <SummaryCard icon={Eye} label="Views" value={fmtNum(data.totals.views)} accent={accent} />
@@ -627,6 +738,8 @@ const MetricoolMentions = ({ accent }: { accent: string }) => {
           );
         })}
       </div>
+        </>
+      )}
     </section>
   );
 };
