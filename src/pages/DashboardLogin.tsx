@@ -96,7 +96,7 @@ const DashboardLogin = () => {
         </div>
 
         <div className="mt-8 space-y-6">
-          <RequestAccessForm />
+          <RequestAccessForm hideLoginLink />
           <p className="text-center text-muted-foreground/60 text-xs">
             <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
           </p>
