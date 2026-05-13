@@ -15,6 +15,12 @@ const matchesKeywords = (text: string, keywords: string[]) => {
   return keywords.some((k) => n.includes(norm(k)));
 };
 
+const excludesKeywords = (text: string, keywords: string[]) => {
+  if (!keywords.length) return false;
+  const n = norm(text);
+  return keywords.some((k) => n.includes(norm(k)));
+};
+
 type Unified = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
   id: string;
