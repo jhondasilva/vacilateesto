@@ -534,7 +534,14 @@ const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[]
       y++;
     }
   }
-  return out.reverse(); // más reciente primero
+  const monthly = out.reverse(); // más reciente primero
+  const cumulative = {
+    key: "cumulative-2026" as MonthKey,
+    label: "Acumulado 2026",
+    from: new Date(2026, 1, 1, 0, 0, 0),
+    to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+  };
+  return [cumulative, ...monthly];
 };
 
 const MetricoolDashboard = ({
