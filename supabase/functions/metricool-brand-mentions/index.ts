@@ -174,6 +174,10 @@ Deno.serve(async (req) => {
       "vacilate el futbol",
       "vacílate el mundial",
       "vacílate el fútbol",
+      "#mundial2026",
+      "mundial 2026",
+      "panini",
+      "álbum panini",
     ];
     const now = new Date();
     const from =
