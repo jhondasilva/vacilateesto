@@ -517,7 +517,7 @@ type MonthKey = string; // "YYYY-MM"
 const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[] => {
   const out: { key: MonthKey; label: string; from: Date; to: Date }[] = [];
   const startYear = 2026;
-  const startMonth = 1; // febrero (0-indexed)
+  const startMonth = 0; // enero (0-indexed)
   const now = new Date();
   const endYear = now.getFullYear();
   const endMonth = now.getMonth();
