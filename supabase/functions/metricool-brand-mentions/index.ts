@@ -28,9 +28,11 @@ type Unified = {
 function unify(platform: Unified["platform"], p: any): Unified | null {
   switch (platform) {
     case "instagram":
+      // Handles both feed posts and reels (reels have reelId + shareUrl-like url)
+      const igId = p.postId ?? p.reelId ?? "";
       return {
         platform,
-        id: p.postId,
+        id: igId,
         url: p.url,
         publishedAt: p.publishedAt?.dateTime ?? null,
         text: p.content ?? "",
@@ -39,9 +41,10 @@ function unify(platform: Unified["platform"], p: any): Unified | null {
           likes: p.likes ?? 0,
           comments: p.comments ?? 0,
           reach: p.reach ?? 0,
-          impressions: p.impressions ?? 0,
+          impressions: p.impressions ?? p.impressionsTotal ?? 0,
           views: p.views ?? p.videoViews ?? 0,
           saved: p.saved ?? 0,
+          shares: p.shares ?? 0,
         },
       };
     case "tiktok":
@@ -98,12 +101,35 @@ async function fetchPlatform(
   from: string,
   to: string,
 ): Promise<Unified[]> {
-  const url = `${BASE}/${platform}?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`;
-  const r = await fetch(url, { headers: { "X-Mc-Auth": TOKEN } });
-  if (!r.ok) return [];
-  const json = await r.json();
-  const arr: any[] = Array.isArray(json) ? json : (json.data ?? []);
-  return arr.map((p) => unify(platform, p)).filter((x): x is Unified => !!x);
+  // Instagram has feed posts + reels in two separate endpoints; fetch both.
+  const endpoints =
+    platform === "instagram"
+      ? [
+          `${BASE}/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
+          `https://app.metricool.com/api/v2/analytics/reels/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
+        ]
+      : [`${BASE}/${platform}?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`];
+
+  const results = await Promise.all(
+    endpoints.map(async (url) => {
+      const r = await fetch(url, { headers: { "X-Mc-Auth": TOKEN } });
+      if (!r.ok) return [] as any[];
+      const json = await r.json();
+      return Array.isArray(json) ? json : (json.data ?? []);
+    }),
+  );
+  const arr = results.flat();
+  // Dedupe by id (reel + feed shouldn't overlap, but be safe)
+  const seen = new Set<string>();
+  const out: Unified[] = [];
+  for (const p of arr) {
+    const u = unify(platform, p);
+    if (!u) continue;
+    if (seen.has(u.id)) continue;
+    seen.add(u.id);
+    out.push(u);
+  }
+  return out;
 }
 
 Deno.serve(async (req) => {
