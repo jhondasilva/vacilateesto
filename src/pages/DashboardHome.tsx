@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { LogOut, ArrowRight, Settings } from "lucide-react";
+import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 
 const DashboardHome = () => {
