@@ -5,9 +5,15 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Download, Eye, Heart, Users, Megaphone, TrendingUp, Loader2, LogOut,
-  Youtube, Instagram, Play, ExternalLink, MessageCircle, Music2, Facebook,
+  Youtube, Instagram, Play, ExternalLink, MessageCircle, Music2, Facebook, CalendarIcon, RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import type { DateRange } from "react-day-picker";
 import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
