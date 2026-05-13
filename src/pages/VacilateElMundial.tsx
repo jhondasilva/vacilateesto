@@ -698,7 +698,7 @@ const VacilateElMundial = () => {
                 <a
                   href={MEDIAKIT_URL}
                   download
-                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="group bg-background text-foreground rounded-3xl border-2 border-primary p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   style={{ transform: "rotate(-1.5deg)" }}
                 >
                   <div className="w-14 h-14 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
@@ -716,7 +716,7 @@ const VacilateElMundial = () => {
                   href={MEDIAKIT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--accent))] hover:shadow-[8px_8px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="group bg-background text-foreground rounded-3xl border-2 border-accent p-6 text-center shadow-[6px_6px_0_hsl(var(--accent))] hover:shadow-[8px_8px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   style={{ transform: "rotate(0.5deg)" }}
                 >
                   <div className="w-14 h-14 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
@@ -734,7 +734,7 @@ const VacilateElMundial = () => {
                   href={lineShareUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-background text-foreground rounded-3xl border-2 border-background p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="group bg-background text-foreground rounded-3xl border-2 border-primary p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   style={{ transform: "rotate(-0.5deg)" }}
                 >
                   <div className="w-14 h-14 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--primary))] group-hover:rotate-6 transition-transform">
@@ -749,7 +749,7 @@ const VacilateElMundial = () => {
               </div>
 
               {/* Email form */}
-              <div className="mt-10 bg-background text-foreground border-2 border-background rounded-3xl p-6 md:p-8 max-w-2xl mx-auto shadow-[8px_8px_0_hsl(var(--accent))]">
+              <div className="mt-10 bg-background text-foreground border-2 border-accent rounded-3xl p-6 md:p-8 max-w-2xl mx-auto shadow-[8px_8px_0_hsl(var(--accent))]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center shadow-[3px_3px_0_hsl(var(--primary))]">
                     <Mail className="w-5 h-5" />
