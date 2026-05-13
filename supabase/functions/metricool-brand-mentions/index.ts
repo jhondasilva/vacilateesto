@@ -124,7 +124,10 @@ Deno.serve(async (req) => {
     const to = body.to ?? now.toISOString().slice(0, 19);
 
     const platforms: Unified["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
-    const results = await Promise.all(platforms.map((p) => fetchPlatform(p, blogId, from, to)));
+    const requested: Unified["platform"][] = Array.isArray(body.platforms) && body.platforms.length
+      ? body.platforms.filter((p: string) => platforms.includes(p as any))
+      : platforms;
+    const results = await Promise.all(requested.map((p) => fetchPlatform(p, blogId, from, to)));
     const all = results.flat();
     const matched = all
       .filter((p) => matchesKeywords(p.text, keywords))
