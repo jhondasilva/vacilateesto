@@ -584,6 +584,11 @@ const MetricoolDashboard = ({
   const month = months.find((m) => m.key === monthKey)!;
   const cacheKey = `${monthKey}::${scope}`;
   const data = cache[cacheKey];
+  const brandConfig = BRAND_KEYWORDS[brand.slug] ?? {
+    keywords: undefined as unknown as string[],
+    excludeKeywords: [] as string[],
+    label: brand.name,
+  };
 
   useEffect(() => {
     if (cache[cacheKey]) return;
@@ -596,7 +601,10 @@ const MetricoolDashboard = ({
           to: fmtIso(month.to),
           scope,
           ...(scope === "brand"
-            ? { excludeKeywords: ["@kfcve", "#kfcve", "#kfc", "kfc"] }
+            ? {
+                keywords: brandConfig.keywords,
+                excludeKeywords: brandConfig.excludeKeywords,
+              }
             : {}),
         },
       })
@@ -653,7 +661,7 @@ const MetricoolDashboard = ({
             <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">{brand.name} en Vacílate Esto</h1>
             <p className="text-xs text-muted-foreground mt-2 font-mono">
               {scope === "brand"
-                ? "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa"
+                ? brandConfig.label
                 : "Todos los posts de la cuenta"}
             </p>
           </div>
