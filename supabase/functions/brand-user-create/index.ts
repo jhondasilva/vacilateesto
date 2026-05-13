@@ -18,30 +18,26 @@ Deno.serve(async (req) => {
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-    const userClient = createClient(supabaseUrl, anonKey, {
-      global: { headers: { Authorization: authHeader } },
-    });
+    const admin = createClient(supabaseUrl, serviceKey);
+
     const token = authHeader.replace("Bearer ", "");
-    const { data: claims, error: claimsErr } = await userClient.auth.getClaims(token);
-    if (claimsErr || !claims?.claims) {
+    const { data: userData, error: userErr } = await admin.auth.getUser(token);
+    if (userErr || !userData?.user) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const callerEmail = (claims.claims.email as string | undefined)?.toLowerCase().trim();
+    const callerEmail = userData.user.email?.toLowerCase().trim();
     if (!callerEmail) {
       return new Response(JSON.stringify({ error: "Sin email" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    const admin = createClient(supabaseUrl, serviceKey);
 
     // Caller debe estar en allowed_users (mismo gate que Gira)
     const { data: allowed } = await admin
