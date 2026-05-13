@@ -14,9 +14,11 @@ import { cn } from "@/lib/utils";
 import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
+import logoKfc from "@/assets/logo-kfc.png";
 
 const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
+  kfc: logoKfc,
 };
 
 // Configuración de keywords por marca (filtros de menciones en redes)
