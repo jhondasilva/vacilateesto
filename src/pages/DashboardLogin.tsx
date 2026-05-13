@@ -95,14 +95,12 @@ const DashboardLogin = () => {
           </form>
         </div>
 
-        <p className="text-center text-muted-foreground/60 text-xs mt-6">
-          ¿Sin acceso? Escríbenos a{" "}
-          <a href="mailto:jhon@hacemosloquenosgusta.com" className="text-primary underline">
-            jhon@hacemosloquenosgusta.com
-          </a>
-          {" · "}
-          <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
-        </p>
+        <div className="mt-8 space-y-6">
+          <RequestAccessForm />
+          <p className="text-center text-muted-foreground/60 text-xs">
+            <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
