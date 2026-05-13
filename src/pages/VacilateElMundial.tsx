@@ -146,7 +146,7 @@ const hosts = [
     description:
       "Aporta la data dura, la historia y la pasión que todo fanático del fútbol respeta. Su conocimiento profundo del juego retiene al núcleo duro futbolero.",
     image: jhonDaSilva,
-    instagram: "@jhonsnacks",
+    instagram: "@jhonsnacksn",
     color: "primary" as const,
   },
   {

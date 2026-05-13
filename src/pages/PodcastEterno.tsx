@@ -64,7 +64,7 @@ const PodcastEterno = () => {
             "@type": "Person",
             "name": "Jhon Da Silva",
             "alternateName": "JhonSnacks",
-            "url": "https://www.instagram.com/jhonsnacks/",
+            "url": "https://www.instagram.com/jhonsnacksn/",
             "jobTitle": "Co-Host y Creador de Contenido",
             "nationality": { "@type": "Country", "name": "Venezuela" }
           }
