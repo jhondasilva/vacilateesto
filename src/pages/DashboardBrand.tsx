@@ -513,233 +513,255 @@ const PLATFORM_META: Record<MentionPost["platform"], { label: string; Icon: any 
 const fmtNum = (n: number) =>
   n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : `${n}`;
 
-const MetricoolMentions = ({ accent }: { accent: string }) => {
-  const [data, setData] = useState<MentionsResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState<"all" | MentionPost["platform"]>("all");
-  const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
-  const [selected, setSelected] = useState<MentionPost["platform"][]>(ALL_PLATFORMS);
-  const [range, setRange] = useState<DateRange | undefined>(() => {
-    const to = new Date();
-    const from = new Date(to.getTime() - 365 * 24 * 3600 * 1000);
-    return { from, to };
-  });
+// =============== Coca-Cola: dashboard 100% Metricool ===============
 
-  const fetchData = () => {
-    if (!range?.from || !range?.to || selected.length === 0) return;
+type MonthKey = string; // "YYYY-MM"
+
+const buildMonths = (count = 12): { key: MonthKey; label: string; from: Date; to: Date }[] => {
+  const out: { key: MonthKey; label: string; from: Date; to: Date }[] = [];
+  const now = new Date();
+  for (let i = 0; i < count; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const from = new Date(d.getFullYear(), d.getMonth(), 1, 0, 0, 0);
+    const to = new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    out.push({ key, label: format(d, "MMM yy", { locale: es }), from, to });
+  }
+  return out;
+};
+
+const MetricoolDashboard = ({
+  brand, brandLogo, accent,
+}: { brand: Brand; brandLogo: string | null; accent: string }) => {
+  const months = useState(() => buildMonths(12))[0];
+  const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
+  const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
+  const [cache, setCache] = useState<Record<MonthKey, MentionsResponse>>({});
+  const [loading, setLoading] = useState(false);
+
+  const month = months.find((m) => m.key === monthKey)!;
+  const data = cache[monthKey];
+
+  useEffect(() => {
+    if (cache[monthKey]) return;
     setLoading(true);
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
     supabase.functions
       .invoke("metricool-brand-mentions", {
-        body: {
-          platforms: selected,
-          from: fmtIso(range.from!),
-          to: fmtIso(new Date(range.to!.getTime() + 23 * 3600 * 1000 + 59 * 60 * 1000)),
-        },
+        body: { from: fmtIso(month.from), to: fmtIso(month.to) },
       })
       .then(({ data, error }) => {
-        if (error) toast.error("Error consultando Metricool");
-        else if (data) {
-          setData(data as MentionsResponse);
-          setFilter("all");
+        if (error) {
+          toast.error("Error consultando Metricool");
+          return;
         }
+        if (data) setCache((prev) => ({ ...prev, [monthKey]: data as MentionsResponse }));
       })
       .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [monthKey]);
 
-  const togglePlatform = (p: MentionPost["platform"]) => {
-    setSelected((prev) =>
-      prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p],
-    );
-  };
-
-  const platforms = data ? (Object.keys(data.byPlatform) as MentionPost["platform"][]) : [];
-  const filtered = !data
+  const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
+  const postsForView = !data
     ? []
-    : filter === "all"
+    : view === "all"
       ? data.posts
-      : data.posts.filter((p) => p.platform === filter);
+      : data.posts.filter((p) => p.platform === view);
+
+  const totalsForView = postsForView.reduce(
+    (acc, p) => {
+      acc.views += p.metrics.views ?? 0;
+      acc.likes += p.metrics.likes ?? p.metrics.reactions ?? 0;
+      acc.comments += p.metrics.comments ?? 0;
+      acc.impressions += p.metrics.impressions ?? 0;
+      return acc;
+    },
+    { views: 0, likes: 0, comments: 0, impressions: 0 },
+  );
 
   return (
-    <section className="mb-12">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
-        <div>
-          <h2 className="text-2xl font-black">Menciones en redes (en vivo)</h2>
-          {data && (
-            <p className="text-sm text-muted-foreground mt-1">
-              {data.matchedCount} publicaciones de Vacílate Esto Podcast con{" "}
-              <span className="font-mono">{data.keywords.join(" · ")}</span>
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Controles */}
-      <div className="bg-card border border-border rounded-2xl p-4 mb-5 flex flex-col lg:flex-row lg:items-end gap-4">
-        <div className="flex-1 min-w-0">
-          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-bold">Redes</p>
-          <div className="flex flex-wrap gap-2">
-            {ALL_PLATFORMS.map((p) => {
-              const M = PLATFORM_META[p];
-              const isOn = selected.includes(p);
-              return (
-                <PlatformChip
-                  key={p}
-                  active={isOn}
-                  onClick={() => togglePlatform(p)}
-                  label={M.label}
-                  Icon={M.Icon}
-                />
-              );
-            })}
+    <>
+      {/* Hero */}
+      <div
+        className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 md:p-8 mb-6"
+        style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+      >
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{ background: `radial-gradient(circle at 100% 0%, ${accent}, transparent 60%)` }}
+        />
+        <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex items-center gap-5 min-w-0">
+            {brandLogo && (
+              <img src={brandLogo} alt={brand.name} className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
+            )}
+            <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
+            <img src={logoVacilateEsto} alt="Vacílate Esto" className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
+          </div>
+          <div className="md:text-right min-w-0">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Menciones en redes · en vivo</p>
+            <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">{brand.name} en Vacílate Esto</h1>
+            <p className="text-xs text-muted-foreground mt-2 font-mono">@cocacola · #cocacola · #vacilateelmundial · #vacilateelfutbol</p>
           </div>
         </div>
-
-        <div>
-          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 font-bold">Período</p>
-          <div className="flex flex-wrap gap-2 items-center">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className={cn("justify-start text-left font-normal", !range && "text-muted-foreground")}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {range?.from ? (
-                    range.to ? (
-                      <>
-                        {format(range.from, "d MMM yyyy", { locale: es })} —{" "}
-                        {format(range.to, "d MMM yyyy", { locale: es })}
-                      </>
-                    ) : (
-                      format(range.from, "d MMM yyyy", { locale: es })
-                    )
-                  ) : (
-                    <span>Elegí un rango</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="range"
-                  selected={range}
-                  onSelect={setRange}
-                  numberOfMonths={2}
-                  initialFocus
-                  className={cn("p-3 pointer-events-auto")}
-                  locale={es}
-                />
-              </PopoverContent>
-            </Popover>
-            <div className="flex flex-wrap gap-1">
-              {[
-                { label: "30d", days: 30 },
-                { label: "90d", days: 90 },
-                { label: "6m", days: 180 },
-                { label: "1a", days: 365 },
-              ].map((preset) => (
-                <button
-                  key={preset.label}
-                  onClick={() => {
-                    const to = new Date();
-                    const from = new Date(to.getTime() - preset.days * 24 * 3600 * 1000);
-                    setRange({ from, to });
-                  }}
-                  className="px-2.5 py-1.5 rounded-md text-xs font-bold border border-border hover:border-foreground/40 transition-colors"
-                >
-                  {preset.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <Button onClick={fetchData} disabled={loading || selected.length === 0 || !range?.from || !range?.to}>
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
-          Procesar
-        </Button>
       </div>
 
-      {loading ? (
-        <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
-          <Loader2 className="w-5 h-5 animate-spin" />
-          <span className="text-muted-foreground">Consultando Metricool…</span>
-        </div>
-      ) : !data ? null : data.matchedCount === 0 ? (
-        <p className="text-muted-foreground">No hay publicaciones que mencionen a Coca-Cola en este rango.</p>
-      ) : (
-        <>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <SummaryCard icon={Eye} label="Views" value={fmtNum(data.totals.views)} accent={accent} />
-        <SummaryCard icon={Heart} label="Likes" value={fmtNum(data.totals.likes)} accent={accent} />
-        <SummaryCard icon={MessageCircle} label="Comentarios" value={fmtNum(data.totals.comments)} accent={accent} />
-        <SummaryCard icon={Megaphone} label="Impresiones" value={fmtNum(data.totals.impressions)} accent={accent} />
+      {/* Selector de mes */}
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes</p>
+        {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+      </div>
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 mb-6 -mx-1 px-1">
+        {months.map((m) => (
+          <button
+            key={m.key}
+            onClick={() => { setMonthKey(m.key); setView("all"); }}
+            className={cn(
+              "shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors capitalize",
+              m.key === monthKey
+                ? "bg-foreground text-background border-foreground"
+                : "bg-transparent text-foreground border-border hover:border-foreground/40",
+            )}
+          >
+            {m.label}
+          </button>
+        ))}
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-5">
-        <PlatformChip active={filter === "all"} onClick={() => setFilter("all")} label={`Todas · ${data.matchedCount}`} />
-        {platforms.map((p) => {
+      {/* Selector de red: General + cada plataforma */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <PlatformChip
+          active={view === "all"}
+          onClick={() => setView("all")}
+          label={`General · ${data?.matchedCount ?? 0}`}
+        />
+        {ALL_PLATFORMS.map((p) => {
           const M = PLATFORM_META[p];
+          const count = data?.byPlatform?.[p] ?? 0;
           return (
             <PlatformChip
               key={p}
-              active={filter === p}
-              onClick={() => setFilter(p)}
-              label={`${M.label} · ${data.byPlatform[p]}`}
+              active={view === p}
+              onClick={() => setView(p)}
+              label={`${M.label} · ${count}`}
               Icon={M.Icon}
             />
           );
         })}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-        {filtered.map((p) => {
-          const { Icon } = PLATFORM_META[p.platform];
-          return (
-            <a
-              key={p.platform + p.id}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative aspect-[9/16] overflow-hidden rounded-xl bg-card border border-border hover:border-foreground/40 transition-colors"
-            >
-              {p.thumbnail ? (
-                <img
-                  src={p.thumbnail}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                  <Icon className="w-8 h-8 text-muted-foreground" />
-                </div>
-              )}
-              <div className="absolute top-2 left-2 bg-background/85 backdrop-blur rounded-full p-1.5">
-                <Icon className="w-3.5 h-3.5" />
+      {loading && !data ? (
+        <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span className="text-muted-foreground">Consultando Metricool…</span>
+        </div>
+      ) : !data || data.matchedCount === 0 ? (
+        <div className="bg-card border border-border rounded-2xl p-8 text-center">
+          <p className="text-muted-foreground">
+            Sin menciones de Coca-Cola en {month.label}.
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Métricas del scope actual */}
+          <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <SummaryCard icon={Eye} label="Views" value={fmtNum(totalsForView.views)} accent={accent} />
+            <SummaryCard icon={Heart} label="Likes" value={fmtNum(totalsForView.likes)} accent={accent} />
+            <SummaryCard icon={MessageCircle} label="Comentarios" value={fmtNum(totalsForView.comments)} accent={accent} />
+            <SummaryCard icon={Megaphone} label={view === "all" ? "Publicaciones" : "Publicaciones"} value={postsForView.length} accent={accent} />
+          </section>
+
+          {/* Vista General: desglose por red */}
+          {view === "all" && (
+            <section className="mb-10">
+              <h2 className="text-xl font-black mb-4">Aporte por red</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {ALL_PLATFORMS.map((p) => {
+                  const M = PLATFORM_META[p];
+                  const posts = data.posts.filter((x) => x.platform === p);
+                  const t = posts.reduce(
+                    (acc, q) => {
+                      acc.views += q.metrics.views ?? 0;
+                      acc.likes += q.metrics.likes ?? q.metrics.reactions ?? 0;
+                      acc.comments += q.metrics.comments ?? 0;
+                      return acc;
+                    },
+                    { views: 0, likes: 0, comments: 0 },
+                  );
+                  return (
+                    <button
+                      key={p}
+                      onClick={() => setView(p)}
+                      className="text-left bg-card border border-border rounded-2xl p-5 hover:border-foreground/40 transition-colors"
+                      style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+                    >
+                      <div className="flex items-center gap-2 mb-3">
+                        <M.Icon className="w-5 h-5" style={{ color: accent }} />
+                        <p className="font-bold">{M.label}</p>
+                      </div>
+                      <p className="text-3xl font-black">{posts.length}</p>
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">publicaciones</p>
+                      <dl className="grid grid-cols-3 gap-2 text-xs pt-3 border-t border-border">
+                        <div><dt className="text-muted-foreground">Views</dt><dd className="font-bold">{fmtNum(t.views)}</dd></div>
+                        <div><dt className="text-muted-foreground">Likes</dt><dd className="font-bold">{fmtNum(t.likes)}</dd></div>
+                        <div><dt className="text-muted-foreground">Coment.</dt><dd className="font-bold">{fmtNum(t.comments)}</dd></div>
+                      </dl>
+                    </button>
+                  );
+                })}
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/55 to-transparent text-white">
-                <p className="text-[10px] line-clamp-2 mb-1 opacity-90">{p.text}</p>
-                <div className="flex items-center justify-between text-[10px] font-bold">
-                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmtNum(p.metrics.views ?? p.metrics.impressions ?? 0)}</span>
-                  <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0)}</span>
-                  <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" />{fmtNum(p.metrics.comments ?? 0)}</span>
-                </div>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+            </section>
+          )}
+
+          {/* Posts del scope */}
+          <section className="mb-12">
+            <h2 className="text-xl font-black mb-4">
+              {view === "all" ? "Todas las publicaciones" : `Publicaciones en ${PLATFORM_META[view].label}`}
+              <span className="text-muted-foreground font-normal text-base ml-2">· {postsForView.length}</span>
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              {postsForView.map((p) => {
+                const { Icon } = PLATFORM_META[p.platform];
+                return (
+                  <a
+                    key={p.platform + p.id}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative aspect-[9/16] overflow-hidden rounded-xl bg-card border border-border hover:border-foreground/40 transition-colors"
+                  >
+                    {p.thumbnail ? (
+                      <img
+                        src={p.thumbnail}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                        <Icon className="w-8 h-8 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="absolute top-2 left-2 bg-background/85 backdrop-blur rounded-full p-1.5">
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/55 to-transparent text-white">
+                      <p className="text-[10px] line-clamp-2 mb-1 opacity-90">{p.text}</p>
+                      <div className="flex items-center justify-between text-[10px] font-bold">
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmtNum(p.metrics.views ?? p.metrics.impressions ?? 0)}</span>
+                        <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0)}</span>
+                        <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" />{fmtNum(p.metrics.comments ?? 0)}</span>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
         </>
       )}
-    </section>
+    </>
   );
 };
 
