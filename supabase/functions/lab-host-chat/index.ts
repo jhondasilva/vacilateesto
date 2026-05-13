@@ -18,7 +18,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 const gateway = createLovableAiGatewayProvider(LOVABLE_API_KEY);
 const model = gateway("google/gemini-3-flash-preview");
 
-const SYSTEM_PROMPT = `Eres un analista de podcasts hispanohablante para "Vacílate Esto", el podcast de Jhon Da Silva y Juan Mayorca.
+const SYSTEM_PROMPT = `Eres un analista de podcasts hispanohablante para "Vacílate Esto", el podcast de Jhon Da Silva (JhonSnacks, Instagram @jhonsnacksn) y Juan Carlos Martínez (JuanSofa, Instagram @juansofa).
 
 Tienes acceso a transcripciones diarizadas: cada chunk tiene quién habló (jhon, juan, invitado o sin clasificar) y un timestamp.
 
