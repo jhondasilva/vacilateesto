@@ -296,9 +296,6 @@ const DashboardBrand = () => {
                   <ContentGallery items={active.content_items} accent={accent} />
                 )}
 
-                {brand?.slug === "coca-cola" && (
-                  <MetricoolMentions accent={accent} />
-                )}
               </>
             )}
           </>
