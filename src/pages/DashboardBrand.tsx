@@ -625,24 +625,50 @@ const MetricoolDashboard = ({
 
       {/* Selector de mes */}
       <div className="mb-2 flex items-center justify-between gap-3">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes</p>
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
         {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
       </div>
-      <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 mb-6 -mx-1 px-1">
-        {months.map((m) => (
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0">
+          {months.map((m) => (
+            <button
+              key={m.key}
+              onClick={() => { setMonthKey(m.key); setView("all"); }}
+              className={cn(
+                "shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors capitalize",
+                m.key === monthKey
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-transparent text-foreground border-border hover:border-foreground/40",
+              )}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+        <div className="inline-flex shrink-0 rounded-full border border-border p-1 bg-card self-start sm:self-auto">
           <button
-            key={m.key}
-            onClick={() => { setMonthKey(m.key); setView("all"); }}
+            onClick={() => { setScope("brand"); setView("all"); }}
             className={cn(
-              "shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors capitalize",
-              m.key === monthKey
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-foreground border-border hover:border-foreground/40",
+              "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors",
+              scope === "brand"
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
-            {m.label}
+            {brand.name}
           </button>
-        ))}
+          <button
+            onClick={() => { setScope("all"); setView("all"); }}
+            className={cn(
+              "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors",
+              scope === "all"
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            Todo Vacílate
+          </button>
+        </div>
       </div>
 
       {/* Selector de red: General + cada plataforma */}
@@ -675,7 +701,9 @@ const MetricoolDashboard = ({
       ) : !data || data.matchedCount === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center">
           <p className="text-muted-foreground">
-            Sin menciones de Coca-Cola en {month.label}.
+            {scope === "brand"
+              ? `Sin menciones de ${brand.name} en ${month.label}.`
+              : `Sin publicaciones de Vacílate Esto en ${month.label}.`}
           </p>
         </div>
       ) : (
