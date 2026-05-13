@@ -514,23 +514,33 @@ const fmtNum = (n: number) =>
 
 type MonthKey = string; // "YYYY-MM"
 
-const buildMonths = (count = 12): { key: MonthKey; label: string; from: Date; to: Date }[] => {
+const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[] => {
   const out: { key: MonthKey; label: string; from: Date; to: Date }[] = [];
+  const startYear = 2026;
+  const startMonth = 1; // febrero (0-indexed)
   const now = new Date();
-  for (let i = 0; i < count; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const from = new Date(d.getFullYear(), d.getMonth(), 1, 0, 0, 0);
-    const to = new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59);
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-    out.push({ key, label: format(d, "MMM yy", { locale: es }), from, to });
+  const endYear = now.getFullYear();
+  const endMonth = now.getMonth();
+  let y = startYear;
+  let m = startMonth;
+  while (y < endYear || (y === endYear && m <= endMonth)) {
+    const from = new Date(y, m, 1, 0, 0, 0);
+    const to = new Date(y, m + 1, 0, 23, 59, 59);
+    const key = `${y}-${String(m + 1).padStart(2, "0")}`;
+    out.push({ key, label: format(from, "MMM yy", { locale: es }), from, to });
+    m++;
+    if (m > 11) {
+      m = 0;
+      y++;
+    }
   }
-  return out;
+  return out.reverse(); // más reciente primero
 };
 
 const MetricoolDashboard = ({
   brand, brandLogo, accent,
 }: { brand: Brand; brandLogo: string | null; accent: string }) => {
-  const months = useState(() => buildMonths(12))[0];
+  const months = useState(() => buildMonths())[0];
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
   const [cache, setCache] = useState<Record<MonthKey, MentionsResponse>>({});
