@@ -65,7 +65,7 @@ const hosts = [
   {
     role: "El Fiebrúo",
     name: "Jhon Da Silva",
-    handle: "@jhonsnacksn",
+    handle: "@jhonsnacks",
     description:
       "Aporta la data dura, la historia y la pasión que todo fanático del fútbol respeta. Su conocimiento profundo del juego retiene al núcleo duro futbolero.",
     color: "bg-primary",

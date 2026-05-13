@@ -78,7 +78,7 @@ const BlogArticleLayout = ({
         "@type": "Person",
         name: "Jhon Da Silva",
         alternateName: "JhonSnacks",
-        url: "https://www.instagram.com/jhonsnacksn/",
+        url: "https://www.instagram.com/jhonsnacks/",
       },
     ],
     publisher: {

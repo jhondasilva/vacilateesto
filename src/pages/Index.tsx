@@ -23,7 +23,7 @@ const Index = () => {
       <Helmet>
         <title>Vacílate Esto | Uno de los Podcasts Favoritos de Venezuela 🇻🇪 Entretenimiento, Fútbol, Gastronomía e Historia</title>
         <meta name="description" content="Vacílate Esto: uno de los podcasts favoritos de Venezuela y ecosistema de entretenimiento #1. Fun Educaitment con fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores. Escúchanos en Spotify, YouTube y todas las plataformas. Vacílate El Fútbol 2026." />
-        <meta name="keywords" content="podcast venezuela, mejor podcast venezolano, vacilate esto, podcast español, entretenimiento venezuela, mundial 2026, fun educaitment, podcast futbol, podcast gastronomia, podcast historia, leyendas venezuela, mitos urbanos, juansofa, jhonsnacksn" />
+        <meta name="keywords" content="podcast venezuela, mejor podcast venezolano, vacilate esto, podcast español, entretenimiento venezuela, mundial 2026, fun educaitment, podcast futbol, podcast gastronomia, podcast historia, leyendas venezuela, mitos urbanos, juansofa, jhonsnacks" />
         <link rel="canonical" href="https://www.vacilateesto.com" />
         
         {/* Robots */}
@@ -81,7 +81,7 @@ const Index = () => {
                 "@type": "Person", 
                 "name": "Jhon Da Silva",
                 "alternateName": "JhonSnacks",
-                "sameAs": "https://www.instagram.com/jhonsnacksn"
+                "sameAs": "https://www.instagram.com/jhonsnacks"
               }
             ],
             "sameAs": [
