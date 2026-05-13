@@ -28,18 +28,20 @@ type Unified = {
 function unify(platform: Unified["platform"], p: any): Unified | null {
   switch (platform) {
     case "instagram":
-      // Handles both feed posts and reels (reels have reelId + shareUrl-like url)
+      // Handles feed posts, reels and stories
       const igId = p.postId ?? p.reelId ?? "";
+      const igUrl = p.url ?? p.permalink ?? "";
+      const igThumb = p.imageUrl ?? p.thumbnailUrl ?? null;
       return {
         platform,
         id: igId,
-        url: p.url,
+        url: igUrl,
         publishedAt: p.publishedAt?.dateTime ?? null,
         text: p.content ?? "",
-        thumbnail: p.imageUrl ?? null,
+        thumbnail: igThumb,
         metrics: {
           likes: p.likes ?? 0,
-          comments: p.comments ?? 0,
+          comments: p.comments ?? p.replies ?? 0,
           reach: p.reach ?? 0,
           impressions: p.impressions ?? p.impressionsTotal ?? 0,
           views: p.views ?? p.videoViews ?? 0,
@@ -112,6 +114,7 @@ async function fetchPlatform(
       ? [
           `${BASE}/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
           `https://app.metricool.com/api/v2/analytics/reels/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
+          `https://app.metricool.com/api/v2/analytics/stories/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
         ]
       : platform === "facebook"
       ? [
@@ -151,6 +154,9 @@ Deno.serve(async (req) => {
       "@cocacola",
       "@cocacolavzla",
       "@cocacolave",
+      "#cocacolave",
+      "#cocacolavzla",
+      "cocacolave",
       "coca-cola femsa",
       "cocacolafemsa",
       "#cocacola",
