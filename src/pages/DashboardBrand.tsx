@@ -19,6 +19,32 @@ const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
 };
 
+// Configuración de keywords por marca (filtros de menciones en redes)
+const BRAND_KEYWORDS: Record<
+  string,
+  { keywords: string[]; excludeKeywords: string[]; label: string }
+> = {
+  "coca-cola": {
+    keywords: [
+      "@cocacola", "@cocacolavzla", "@cocacolave",
+      "#cocacolave", "#cocacolavzla", "cocacolave",
+      "coca-cola femsa", "cocacolafemsa",
+      "#cocacola", "#coca-cola", "coca-cola",
+      "#vacilateelmundial", "#vacilateelfutbol",
+      "vacilate el mundial", "vacilate el futbol",
+      "vacílate el mundial", "vacílate el fútbol",
+      "#mundial2026", "mundial 2026", "panini", "álbum panini",
+    ],
+    excludeKeywords: ["@kfcve", "@kfcvzla", "#kfcve", "#kfcvzla", "#kfc", "kfc"],
+    label: "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa",
+  },
+  kfc: {
+    keywords: ["@kfcvzla", "#kfcvzla", "kfcvzla", "@kfcve", "#kfcve"],
+    excludeKeywords: [],
+    label: "@kfcvzla · #kfcvzla",
+  },
+};
+
 type Report = {
   id: string;
   title: string;
