@@ -563,6 +563,12 @@ const MetricoolDashboard = ({
     if (cache[cacheKey]) return;
     setLoading(true);
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
+    const brandOnlyKeywords = [
+      "@cocacola", "@cocacolavzla", "@cocacolave",
+      "#cocacolave", "#cocacolavzla", "cocacolave",
+      "coca-cola femsa", "cocacolafemsa",
+      "#cocacola", "#coca-cola", "coca-cola",
+    ];
     supabase.functions
       .invoke("metricool-brand-mentions", {
         body: {
@@ -570,7 +576,10 @@ const MetricoolDashboard = ({
           to: fmtIso(month.to),
           scope,
           ...(scope === "brand"
-            ? { excludeKeywords: ["@kfcve", "#kfcve", "#kfc", "kfc"] }
+            ? {
+                keywords: brandOnlyKeywords,
+                excludeKeywords: ["@kfcve", "#kfcve", "#kfc", "kfc"],
+              }
             : {}),
         },
       })
