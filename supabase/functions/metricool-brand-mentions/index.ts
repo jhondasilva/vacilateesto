@@ -63,18 +63,23 @@ function unify(platform: Unified["platform"], p: any): Unified | null {
         },
       };
     case "facebook":
+      // Handles both feed posts and reels (FB reels use reelId + description + reelUrl)
+      const fbId = p.postId ?? p.reelId ?? "";
+      const fbText = p.text ?? p.description ?? "";
+      const fbViews = p.blueReelsPlayCount ?? p.videoViews ?? 0;
       return {
         platform,
-        id: p.postId,
-        url: p.link,
+        id: fbId,
+        url: p.link ?? p.reelUrl ?? "",
         publishedAt: p.created?.dateTime ?? null,
-        text: p.text ?? "",
-        thumbnail: p.picture ?? null,
+        text: fbText,
+        thumbnail: p.picture ?? p.thumbnailUrl ?? null,
         metrics: {
-          impressions: p.impressions ?? 0,
-          reactions: p.reactions ?? 0,
+          impressions: p.impressions ?? p.postImpressionsUnique ?? 0,
+          reactions: p.reactions ?? p.postVideoReactions ?? 0,
           comments: p.comments ?? 0,
           shares: p.shares ?? 0,
+          views: fbViews,
         },
       };
     case "youtube":
@@ -107,6 +112,11 @@ async function fetchPlatform(
       ? [
           `${BASE}/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
           `https://app.metricool.com/api/v2/analytics/reels/instagram?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
+        ]
+      : platform === "facebook"
+      ? [
+          `${BASE}/facebook?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
+          `https://app.metricool.com/api/v2/analytics/reels/facebook?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`,
         ]
       : [`${BASE}/${platform}?blogId=${blogId}&from=${from}&to=${to}&userId=${USER_ID}`];
 
