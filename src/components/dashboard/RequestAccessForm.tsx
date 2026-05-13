@@ -73,10 +73,12 @@ const RequestAccessForm = ({ hideLoginLink = false }: RequestAccessFormProps) =>
         {submitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
         Enviar solicitud
       </Button>
-      <p className="text-xs text-muted-foreground text-center">
-        ¿Ya tienes cuenta?{" "}
-        <Link to="/dashboard/login" className="text-primary underline">Inicia sesión</Link>
-      </p>
+      {!hideLoginLink && (
+        <p className="text-xs text-muted-foreground text-center">
+          ¿Ya tienes cuenta?{" "}
+          <Link to="/dashboard/login" className="text-primary underline">Inicia sesión</Link>
+        </p>
+      )}
     </form>
   );
 };
