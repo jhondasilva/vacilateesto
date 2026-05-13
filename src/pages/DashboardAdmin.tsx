@@ -46,6 +46,9 @@ const DashboardAdmin = () => {
   const [newAdminEmail, setNewAdminEmail] = useState("");
   const [newAdminName, setNewAdminName] = useState("");
   const [addingAdmin, setAddingAdmin] = useState(false);
+  const [linkingEmail, setLinkingEmail] = useState<string | null>(null);
+  const [linkBrandId, setLinkBrandId] = useState("");
+  const [linkSubmitting, setLinkSubmitting] = useState(false);
 
   const loadRequests = async () => {
     setLoadingReqs(true);
@@ -153,6 +156,23 @@ const DashboardAdmin = () => {
     const { error } = await supabase.from("brand_users").delete().eq("id", a.id);
     if (error) return toast.error("No se pudo revocar");
     toast.success("Acceso revocado");
+    loadAccesses();
+  };
+
+  const linkExistingToBrand = async (targetEmail: string, displayNameValue: string | null, userIdValue: string | null) => {
+    if (!linkBrandId) return toast.error("Selecciona una marca");
+    setLinkSubmitting(true);
+    const { error } = await supabase.from("brand_users").insert({
+      brand_id: linkBrandId,
+      email: targetEmail,
+      display_name: displayNameValue,
+      user_id: userIdValue,
+    });
+    setLinkSubmitting(false);
+    if (error) return toast.error(error.message);
+    toast.success("Marca vinculada");
+    setLinkingEmail(null);
+    setLinkBrandId("");
     loadAccesses();
   };
 
@@ -331,19 +351,47 @@ const DashboardAdmin = () => {
                         </button>
                       </span>
                     ))}
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-7 rounded-full text-xs"
-                      onClick={() => {
-                        setEmail(email);
-                        setDisplayName(list[0].display_name || "");
-                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                        toast.info("Selecciona otra marca abajo y crea el acceso.");
-                      }}
-                    >
-                      <Plus className="w-3 h-3 mr-1" /> Marca
-                    </Button>
+                    {linkingEmail === email ? (
+                      <div className="flex items-center gap-1 w-full mt-2">
+                        <select
+                          value={linkBrandId}
+                          onChange={(e) => setLinkBrandId(e.target.value)}
+                          className="h-8 rounded-md border border-input bg-background px-2 text-xs flex-1"
+                        >
+                          <option value="">Selecciona marca…</option>
+                          {brands
+                            .filter((b) => !list.some((a) => a.brand_id === b.id))
+                            .map((b) => (
+                              <option key={b.id} value={b.id}>{b.name}</option>
+                            ))}
+                        </select>
+                        <Button
+                          size="sm"
+                          className="h-8 text-xs"
+                          disabled={linkSubmitting || !linkBrandId}
+                          onClick={() => linkExistingToBrand(email, list[0].display_name, list[0].user_id)}
+                        >
+                          {linkSubmitting ? <Loader2 className="w-3 h-3 animate-spin" /> : "Vincular"}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-8 text-xs"
+                          onClick={() => { setLinkingEmail(null); setLinkBrandId(""); }}
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 rounded-full text-xs"
+                        onClick={() => { setLinkingEmail(email); setLinkBrandId(""); }}
+                      >
+                        <Plus className="w-3 h-3 mr-1" /> Marca
+                      </Button>
+                    )}
                   </div>
                 </li>
               ))}
