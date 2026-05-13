@@ -165,12 +165,12 @@ const DashboardBrand = () => {
           <Loader2 className="w-6 h-6 animate-spin text-primary" />
         ) : !brand ? (
           <p className="text-muted-foreground">Marca no disponible.</p>
+        ) : BRAND_KEYWORDS[brand.slug] ? (
+          <MetricoolDashboard brand={brand} brandLogo={brandLogo} accent={accent} />
         ) : reports.length === 0 ? (
           <div className="bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-muted-foreground">Aún no hay reportes publicados para {brand.name}.</p>
           </div>
-        ) : BRAND_KEYWORDS[brand.slug] ? (
-          <MetricoolDashboard brand={brand} brandLogo={brandLogo} accent={accent} />
         ) : (
           <>
             {/* Selector de períodos */}
