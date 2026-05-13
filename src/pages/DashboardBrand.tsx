@@ -19,6 +19,32 @@ const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
 };
 
+// Configuración de keywords por marca (filtros de menciones en redes)
+const BRAND_KEYWORDS: Record<
+  string,
+  { keywords: string[]; excludeKeywords: string[]; label: string }
+> = {
+  "coca-cola": {
+    keywords: [
+      "@cocacola", "@cocacolavzla", "@cocacolave",
+      "#cocacolave", "#cocacolavzla", "cocacolave",
+      "coca-cola femsa", "cocacolafemsa",
+      "#cocacola", "#coca-cola", "coca-cola",
+      "#vacilateelmundial", "#vacilateelfutbol",
+      "vacilate el mundial", "vacilate el futbol",
+      "vacílate el mundial", "vacílate el fútbol",
+      "#mundial2026", "mundial 2026", "panini", "álbum panini",
+    ],
+    excludeKeywords: ["@kfcve", "@kfcvzla", "#kfcve", "#kfcvzla", "#kfc", "kfc"],
+    label: "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa",
+  },
+  kfc: {
+    keywords: ["@kfcvzla", "#kfcvzla", "kfcvzla", "@kfcve", "#kfcve"],
+    excludeKeywords: [],
+    label: "@kfcvzla · #kfcvzla",
+  },
+};
+
 type Report = {
   id: string;
   title: string;
@@ -141,7 +167,7 @@ const DashboardBrand = () => {
           <div className="bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-muted-foreground">Aún no hay reportes publicados para {brand.name}.</p>
           </div>
-        ) : brand.slug === "coca-cola" ? (
+        ) : BRAND_KEYWORDS[brand.slug] ? (
           <MetricoolDashboard brand={brand} brandLogo={brandLogo} accent={accent} />
         ) : (
           <>
@@ -558,6 +584,11 @@ const MetricoolDashboard = ({
   const month = months.find((m) => m.key === monthKey)!;
   const cacheKey = `${monthKey}::${scope}`;
   const data = cache[cacheKey];
+  const brandConfig = BRAND_KEYWORDS[brand.slug] ?? {
+    keywords: undefined as unknown as string[],
+    excludeKeywords: [] as string[],
+    label: brand.name,
+  };
 
   useEffect(() => {
     if (cache[cacheKey]) return;
@@ -570,7 +601,10 @@ const MetricoolDashboard = ({
           to: fmtIso(month.to),
           scope,
           ...(scope === "brand"
-            ? { excludeKeywords: ["@kfcve", "#kfcve", "#kfc", "kfc"] }
+            ? {
+                keywords: brandConfig.keywords,
+                excludeKeywords: brandConfig.excludeKeywords,
+              }
             : {}),
         },
       })
@@ -627,7 +661,7 @@ const MetricoolDashboard = ({
             <h1 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">{brand.name} en Vacílate Esto</h1>
             <p className="text-xs text-muted-foreground mt-2 font-mono">
               {scope === "brand"
-                ? "@cocacola · @cocacolave · #cocacola · #cocacolave · @cocacolavzla · #cocacolavzla · coca-cola femsa"
+                ? brandConfig.label
                 : "Todos los posts de la cuenta"}
             </p>
           </div>
