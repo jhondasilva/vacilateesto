@@ -479,3 +479,164 @@ const ContentGallery = ({ items, accent }: { items: ContentItem[]; accent: strin
 };
 
 export default DashboardBrand;
+
+type MentionPost = {
+  platform: "instagram" | "tiktok" | "facebook" | "youtube";
+  id: string;
+  url: string;
+  publishedAt: string | null;
+  text: string;
+  thumbnail: string | null;
+  metrics: Record<string, number>;
+};
+
+type MentionsResponse = {
+  keywords: string[];
+  matchedCount: number;
+  byPlatform: Record<string, number>;
+  totals: { views: number; likes: number; comments: number; impressions: number };
+  posts: MentionPost[];
+};
+
+const PLATFORM_META: Record<MentionPost["platform"], { label: string; Icon: any }> = {
+  instagram: { label: "Instagram", Icon: Instagram },
+  tiktok: { label: "TikTok", Icon: Music2 },
+  facebook: { label: "Facebook", Icon: Facebook },
+  youtube: { label: "YouTube", Icon: Youtube },
+};
+
+const fmtNum = (n: number) =>
+  n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : `${n}`;
+
+const MetricoolMentions = ({ accent }: { accent: string }) => {
+  const [data, setData] = useState<MentionsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<"all" | MentionPost["platform"]>("all");
+
+  useEffect(() => {
+    setLoading(true);
+    supabase.functions
+      .invoke("metricool-brand-mentions", { body: {} })
+      .then(({ data, error }) => {
+        if (!error && data) setData(data as MentionsResponse);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="mb-12">
+        <h2 className="text-2xl font-black mb-4">Menciones en redes (en vivo)</h2>
+        <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 animate-spin" />
+          <span className="text-muted-foreground">Cargando datos de Metricool…</span>
+        </div>
+      </section>
+    );
+  }
+
+  if (!data || data.matchedCount === 0) {
+    return (
+      <section className="mb-12">
+        <h2 className="text-2xl font-black mb-4">Menciones en redes (en vivo)</h2>
+        <p className="text-muted-foreground">Aún no hay publicaciones que mencionen a Coca-Cola.</p>
+      </section>
+    );
+  }
+
+  const platforms = Object.keys(data.byPlatform) as MentionPost["platform"][];
+  const filtered = filter === "all" ? data.posts : data.posts.filter((p) => p.platform === filter);
+
+  return (
+    <section className="mb-12">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+        <div>
+          <h2 className="text-2xl font-black">Menciones en redes (en vivo)</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            {data.matchedCount} publicaciones de Vacílate Esto Podcast con{" "}
+            <span className="font-mono">{data.keywords.join(" · ")}</span>
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+        <SummaryCard icon={Eye} label="Views" value={fmtNum(data.totals.views)} accent={accent} />
+        <SummaryCard icon={Heart} label="Likes" value={fmtNum(data.totals.likes)} accent={accent} />
+        <SummaryCard icon={MessageCircle} label="Comentarios" value={fmtNum(data.totals.comments)} accent={accent} />
+        <SummaryCard icon={Megaphone} label="Impresiones" value={fmtNum(data.totals.impressions)} accent={accent} />
+      </div>
+
+      <div className="flex flex-wrap gap-2 mb-5">
+        <PlatformChip active={filter === "all"} onClick={() => setFilter("all")} label={`Todas · ${data.matchedCount}`} />
+        {platforms.map((p) => {
+          const M = PLATFORM_META[p];
+          return (
+            <PlatformChip
+              key={p}
+              active={filter === p}
+              onClick={() => setFilter(p)}
+              label={`${M.label} · ${data.byPlatform[p]}`}
+              Icon={M.Icon}
+            />
+          );
+        })}
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        {filtered.map((p) => {
+          const { Icon } = PLATFORM_META[p.platform];
+          return (
+            <a
+              key={p.platform + p.id}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-[9/16] overflow-hidden rounded-xl bg-card border border-border hover:border-foreground/40 transition-colors"
+            >
+              {p.thumbnail ? (
+                <img
+                  src={p.thumbnail}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                  <Icon className="w-8 h-8 text-muted-foreground" />
+                </div>
+              )}
+              <div className="absolute top-2 left-2 bg-background/85 backdrop-blur rounded-full p-1.5">
+                <Icon className="w-3.5 h-3.5" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/55 to-transparent text-white">
+                <p className="text-[10px] line-clamp-2 mb-1 opacity-90">{p.text}</p>
+                <div className="flex items-center justify-between text-[10px] font-bold">
+                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmtNum(p.metrics.views ?? p.metrics.impressions ?? 0)}</span>
+                  <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0)}</span>
+                  <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" />{fmtNum(p.metrics.comments ?? 0)}</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const PlatformChip = ({
+  active, onClick, label, Icon,
+}: { active: boolean; onClick: () => void; label: string; Icon?: any }) => (
+  <button
+    onClick={onClick}
+    className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors flex items-center gap-1.5 ${
+      active
+        ? "bg-foreground text-background border-foreground"
+        : "bg-transparent text-foreground border-border hover:border-foreground/40"
+    }`}
+  >
+    {Icon && <Icon className="w-3.5 h-3.5" />}
+    {label}
+  </button>
+);
