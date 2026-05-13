@@ -7,7 +7,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
-const RequestAccessForm = () => {
+interface RequestAccessFormProps {
+  hideLoginLink?: boolean;
+}
+
+const RequestAccessForm = ({ hideLoginLink = false }: RequestAccessFormProps) => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [submitting, setSubmitting] = useState(false);
