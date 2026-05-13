@@ -550,30 +550,33 @@ const MetricoolDashboard = ({
   const months = useState(() => buildMonths())[0];
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
-  const [cache, setCache] = useState<Record<MonthKey, MentionsResponse>>({});
+  type Scope = "brand" | "all";
+  const [scope, setScope] = useState<Scope>("brand");
+  const [cache, setCache] = useState<Record<string, MentionsResponse>>({});
   const [loading, setLoading] = useState(false);
 
   const month = months.find((m) => m.key === monthKey)!;
-  const data = cache[monthKey];
+  const cacheKey = `${monthKey}::${scope}`;
+  const data = cache[cacheKey];
 
   useEffect(() => {
-    if (cache[monthKey]) return;
+    if (cache[cacheKey]) return;
     setLoading(true);
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
     supabase.functions
       .invoke("metricool-brand-mentions", {
-        body: { from: fmtIso(month.from), to: fmtIso(month.to) },
+        body: { from: fmtIso(month.from), to: fmtIso(month.to), scope },
       })
       .then(({ data, error }) => {
         if (error) {
           toast.error("Error consultando Metricool");
           return;
         }
-        if (data) setCache((prev) => ({ ...prev, [monthKey]: data as MentionsResponse }));
+        if (data) setCache((prev) => ({ ...prev, [cacheKey]: data as MentionsResponse }));
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monthKey]);
+  }, [monthKey, scope]);
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const postsForView = !data
