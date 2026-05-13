@@ -167,7 +167,7 @@ const DashboardBrand = () => {
           <div className="bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-muted-foreground">Aún no hay reportes publicados para {brand.name}.</p>
           </div>
-        ) : brand.slug === "coca-cola" ? (
+        ) : BRAND_KEYWORDS[brand.slug] ? (
           <MetricoolDashboard brand={brand} brandLogo={brandLogo} accent={accent} />
         ) : (
           <>
