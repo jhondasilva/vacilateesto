@@ -8,6 +8,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 
 const DashboardLogin = () => {
   const { session, loading, brands, isAdmin } = useBrandAuth();
@@ -94,14 +95,12 @@ const DashboardLogin = () => {
           </form>
         </div>
 
-        <p className="text-center text-muted-foreground/60 text-xs mt-6">
-          ¿Sin acceso? Escríbenos a{" "}
-          <a href="mailto:jhon@hacemosloquenosgusta.com" className="text-primary underline">
-            jhon@hacemosloquenosgusta.com
-          </a>
-          {" · "}
-          <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
-        </p>
+        <div className="mt-8 space-y-6">
+          <RequestAccessForm hideLoginLink />
+          <p className="text-center text-muted-foreground/60 text-xs">
+            <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
