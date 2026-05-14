@@ -37,6 +37,13 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  maggi: {
+    keywords: [
+      "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
+      "#maggi", "maggi",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>

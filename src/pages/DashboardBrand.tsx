@@ -58,6 +58,14 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@vatelvenezuela · #vatel · #vatelvenezuela",
   },
+  maggi: {
+    keywords: [
+      "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
+      "#maggi", "maggi",
+    ],
+    excludeKeywords: [],
+    label: "@maggivenezuela · #maggi · #maggivenezuela",
+  },
 };
 
 type Report = {
