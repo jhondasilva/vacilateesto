@@ -15,6 +15,7 @@ import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
+import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 
 const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
@@ -677,7 +678,32 @@ const MetricoolDashboard = ({
       {/* Selector de mes */}
       <div className="mb-2 flex items-center justify-between gap-3">
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
-        {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+        <div className="flex items-center gap-2">
+          {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={!data || data.matchedCount === 0}
+            onClick={() => {
+              if (!data) return;
+              generateBrandReportPdf({
+                brandName: brand.name,
+                brandColor: accent.startsWith("#") ? accent : "#E91E63",
+                scopeLabel:
+                  scope === "brand"
+                    ? brandConfig.label
+                    : "Todas las publicaciones de Vacílate Esto",
+                periodLabel: month.label,
+                from: month.from,
+                to: month.to,
+                data,
+              });
+              toast.success("Informe descargado");
+            }}
+          >
+            <Download className="w-4 h-4 mr-1" /> Informe PDF
+          </Button>
+        </div>
       </div>
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0">
