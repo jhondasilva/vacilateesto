@@ -960,3 +960,19 @@ const KPI = ({ icon: Icon, label, value, sub, tone }: { icon: typeof Wallet; lab
     </div>
   );
 };
+
+const MiniStat = ({ label, value, accent }: { label: string; value: string; accent: "amber" | "blue" | "purple" | "emerald" | "rose" }) => {
+  const accents = {
+    amber: "text-amber-700",
+    blue: "text-blue-700",
+    purple: "text-purple-700",
+    emerald: "text-emerald-700",
+    rose: "text-rose-700",
+  };
+  return (
+    <div className="px-4 py-3">
+      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">{label}</p>
+      <p className={`text-base font-bold mt-1 ${accents[accent]}`}>{value}</p>
+    </div>
+  );
+};
