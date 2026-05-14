@@ -50,6 +50,14 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
+  vatel: {
+    keywords: [
+      "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
+      "#vatel", "vatel",
+    ],
+    excludeKeywords: [],
+    label: "@vatelvenezuela · #vatel · #vatelvenezuela",
+  },
 };
 
 type Report = {
