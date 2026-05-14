@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi, ChevronDown, ChevronRight } from "lucide-react";
+import { Plus, Trash2, Edit2, Check, X, TrendingUp, TrendingDown, Wallet, CheckCircle2, AlertTriangle, Plane, Wifi, ChevronDown, ChevronRight, Receipt } from "lucide-react";
 import { toast } from "sonner";
 import type { City, Activity } from "./CityCard";
 
@@ -18,6 +18,16 @@ type Sponsor = {
 };
 
 type Settings = { id: string; bcv_to_usd_rate: number };
+
+type ExpenseRow = {
+  id: string;
+  paid_by: string;
+  amount_usd: number;
+  expense_date: string;
+  category: string | null;
+  merchant: string | null;
+  description: string | null;
+};
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const SPONSOR_STATUS: Record<string, { label: string; cls: string }> = {
@@ -34,6 +44,7 @@ interface Props {
 export const FinancialSummary = ({ cities, activities }: Props) => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [expenses, setExpenses] = useState<ExpenseRow[]>([]);
   const [editingRate, setEditingRate] = useState(false);
   const [rateDraft, setRateDraft] = useState("0.60");
   const [showForm, setShowForm] = useState(false);
@@ -49,15 +60,17 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   };
 
   const load = async () => {
-    const [sp, st] = await Promise.all([
+    const [sp, st, ex] = await Promise.all([
       supabase.from("trip_sponsors").select("*").order("created_at", { ascending: false }),
       supabase.from("trip_settings").select("*").limit(1).maybeSingle(),
+      supabase.from("expense_reports").select("id,paid_by,amount_usd,expense_date,category,merchant,description").order("expense_date", { ascending: false }),
     ]);
     if (sp.data) setSponsors(sp.data as Sponsor[]);
     if (st.data) {
       setSettings(st.data as Settings);
       setRateDraft(String(st.data.bcv_to_usd_rate));
     }
+    if (ex.data) setExpenses(ex.data as ExpenseRow[]);
   };
 
   useEffect(() => { void load(); }, []);
@@ -152,6 +165,16 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
   const totalSponsoredReal = totalNetBcv * rate;
   const totalCommissionReal = totalCommissionBcv * rate;
   const balance = totalSponsoredReal - totalUsd;
+
+  // ===== Costo real ejecutado (basado en expense_reports) =====
+  const realSpent = expenses.reduce((s, e) => s + (Number(e.amount_usd) || 0), 0);
+  const realByPayer = expenses.reduce((acc, e) => {
+    const k = e.paid_by || "conjunto";
+    acc[k] = (acc[k] || 0) + (Number(e.amount_usd) || 0);
+    return acc;
+  }, {} as Record<string, number>);
+  const realPctOfBudget = totalUsd > 0 ? (realSpent / totalUsd) * 100 : 0;
+  const realRemaining = totalUsd - realSpent;
 
   // ===== Desglose de comisiones por categoría =====
   const commissionByCategory = sponsors.reduce((acc, s) => {
@@ -278,6 +301,35 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
         <KPI icon={TrendingUp} label="Patrocinios netos (USD real)" value={fmt(totalSponsoredReal)} tone="success" sub={`Bruto ${fmt(totalSponsoredBcv)} BCV − comisión ${fmt(totalCommissionBcv)}`} />
         <KPI icon={Wallet} label="Balance" value={fmt(balance)} tone={balance >= 0 ? "success" : "destructive"} />
         <KPI icon={TrendingUp} label="Rentabilidad" value={`${totalUsd > 0 ? Math.round(((totalSponsoredReal - totalUsd) / totalUsd) * 100) : 0}%`} tone="info" sub={`Ingresos ${fmt(totalSponsoredReal)} / Gastos ${fmt(totalUsd)}`} />
+      </div>
+
+      {/* Costo real ejecutado (gastos reportados) */}
+      <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
+        <div className="px-5 py-4 border-b border-border bg-muted/30 flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <Receipt className="w-5 h-5 text-primary shrink-0" />
+            <div>
+              <h3 className="font-bold text-foreground">Costo real ejecutado</h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                {expenses.length} gastos reportados · {realPctOfBudget.toFixed(1)}% del presupuesto estimado
+              </p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Gastado hasta hoy</p>
+            <p className="font-black text-lg text-rose-600">{fmt(realSpent)}</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
+          <MiniStat label="Conjunto (agencia)" value={fmt(realByPayer.conjunto || 0)} accent="amber" />
+          <MiniStat label="Pagado por Juan" value={fmt(realByPayer.juan || 0)} accent="blue" />
+          <MiniStat label="Pagado por Jhon" value={fmt(realByPayer.jhon || 0)} accent="purple" />
+          <MiniStat
+            label={realRemaining >= 0 ? "Disponible vs presupuesto" : "Exceso sobre presupuesto"}
+            value={fmt(Math.abs(realRemaining))}
+            accent={realRemaining >= 0 ? "emerald" : "rose"}
+          />
+        </div>
       </div>
 
       {/* Tasa de cambio */}
