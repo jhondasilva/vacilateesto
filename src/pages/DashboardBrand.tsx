@@ -601,28 +601,38 @@ const MetricoolDashboard = ({
     if (cache[cacheKey]) return;
     setLoading(true);
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
-    supabase.functions
-      .invoke("metricool-brand-mentions", {
+    (async () => {
+      // 1. Intentar leer del caché diario (refrescado a las 6am)
+      const { data: cached } = await supabase
+        .from("brand_metricool_cache")
+        .select("payload, refreshed_at")
+        .eq("brand_slug", brand.slug)
+        .eq("scope", scope)
+        .eq("period_key", monthKey)
+        .maybeSingle();
+      if (cached?.payload) {
+        setCache((prev) => ({ ...prev, [cacheKey]: cached.payload as MentionsResponse }));
+        setLoading(false);
+        return;
+      }
+      // 2. Fallback: llamar Metricool en vivo
+      const { data, error } = await supabase.functions.invoke("metricool-brand-mentions", {
         body: {
           from: fmtIso(month.from),
           to: fmtIso(month.to),
           scope,
           ...(scope === "brand"
-            ? {
-                keywords: brandConfig.keywords,
-                excludeKeywords: brandConfig.excludeKeywords,
-              }
+            ? { keywords: brandConfig.keywords, excludeKeywords: brandConfig.excludeKeywords }
             : {}),
         },
-      })
-      .then(({ data, error }) => {
-        if (error) {
-          toast.error("Error consultando Metricool");
-          return;
-        }
-        if (data) setCache((prev) => ({ ...prev, [cacheKey]: data as MentionsResponse }));
-      })
-      .finally(() => setLoading(false));
+      });
+      if (error) {
+        toast.error("Error consultando Metricool");
+      } else if (data) {
+        setCache((prev) => ({ ...prev, [cacheKey]: data as MentionsResponse }));
+      }
+      setLoading(false);
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monthKey, scope]);
 

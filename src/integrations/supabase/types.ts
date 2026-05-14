@@ -71,6 +71,42 @@ export type Database = {
         }
         Relationships: []
       }
+      brand_metricool_cache: {
+        Row: {
+          brand_slug: string
+          id: string
+          payload: Json
+          period_from: string | null
+          period_key: string
+          period_label: string | null
+          period_to: string | null
+          refreshed_at: string
+          scope: string
+        }
+        Insert: {
+          brand_slug: string
+          id?: string
+          payload: Json
+          period_from?: string | null
+          period_key: string
+          period_label?: string | null
+          period_to?: string | null
+          refreshed_at?: string
+          scope: string
+        }
+        Update: {
+          brand_slug?: string
+          id?: string
+          payload?: Json
+          period_from?: string | null
+          period_key?: string
+          period_label?: string | null
+          period_to?: string | null
+          refreshed_at?: string
+          scope?: string
+        }
+        Relationships: []
+      }
       brand_reports: {
         Row: {
           brand_id: string
