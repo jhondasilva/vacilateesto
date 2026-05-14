@@ -106,7 +106,12 @@ export const generateBrandReportPdf = ({
   const toStr = format(to, "d MMM yyyy", { locale: es });
   doc.text(`${fromStr} — ${toStr}`, margin, 290);
 
-  // KPIs grandes en portada
+  // KPIs grandes en portada — Totales generales de todas las redes acumulado
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Resumen General · Todas las redes acumulado", margin, 330);
+
   const kpis = [
     { label: "Publicaciones", value: String(data.matchedCount) },
     { label: "Views", value: fmtNum(data.totals.views) },
@@ -148,25 +153,7 @@ export const generateBrandReportPdf = ({
     pageH - 40,
   );
 
-  // ============ Página 2: Desglose por red ============
-  doc.addPage();
-  doc.setFillColor(255, 255, 255);
-  doc.rect(0, 0, pageW, pageH, "F");
-
-  doc.setFillColor(r, g, b);
-  doc.rect(0, 0, pageW, 6, "F");
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.setTextColor(120, 120, 125);
-  doc.text(`${brandName.toUpperCase()} · ${periodLabel.toUpperCase()}`, margin, 50);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor(20, 20, 25);
-  doc.text("Aporte por red", margin, 90);
-
-  // Tabla por plataforma
+  // Helper: calcular filas por plataforma (reutilizado)
   const platformOrder: MentionPost["platform"][] = [
     "instagram",
     "tiktok",
@@ -193,6 +180,105 @@ export const generateBrandReportPdf = ({
     ];
   });
 
+  // ============ Página 2: Resumen General (totales de todas las redes acumulado) ============
+  doc.addPage();
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, pageW, pageH, "F");
+
+  doc.setFillColor(r, g, b);
+  doc.rect(0, 0, pageW, 6, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(120, 120, 125);
+  doc.text(`${brandName.toUpperCase()} · ${periodLabel.toUpperCase()}`, margin, 50);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(26);
+  doc.setTextColor(20, 20, 25);
+  doc.text("Resumen General", margin, 90);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(12);
+  doc.setTextColor(100, 100, 105);
+  doc.text("Datos totales generales de todas las redes acumulado", margin, 112);
+
+  // KPIs grandes — totales generales
+  const summaryKpis = [
+    { label: "Publicaciones totales", value: String(data.matchedCount), sub: `${Object.keys(data.byPlatform).filter(k => data.byPlatform[k] > 0).length} redes con actividad` },
+    { label: "Views totales", value: fmtNum(data.totals.views), sub: "Todas las plataformas" },
+    { label: "Likes totales", value: fmtNum(data.totals.likes), sub: "Reacciones acumuladas" },
+    { label: "Comentarios totales", value: fmtNum(data.totals.comments), sub: "Interacciones totales" },
+  ];
+
+  const sumBoxW = (pageW - margin * 2 - 24) / 2;
+  const sumBoxH = 100;
+  const sumTop = 140;
+  summaryKpis.forEach((k, i) => {
+    const col = i % 2;
+    const row = Math.floor(i / 2);
+    const x = margin + col * (sumBoxW + 12);
+    const y = sumTop + row * (sumBoxH + 12);
+    doc.setFillColor(248, 248, 252);
+    doc.roundedRect(x, y, sumBoxW, sumBoxH, 8, 8, "F");
+    doc.setFillColor(r, g, b);
+    doc.rect(x, y, sumBoxW, 4, "F");
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(120, 120, 125);
+    doc.text(k.label.toUpperCase(), x + 14, y + 26);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(32);
+    doc.setTextColor(20, 20, 25);
+    doc.text(k.value, x + 14, y + 62);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(160, 160, 165);
+    doc.text(k.sub, x + 14, y + 82);
+  });
+
+  // Tabla resumen por red (vista compacta)
+  const lastSummaryY = sumTop + 2 * (sumBoxH + 12) + 20;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(20, 20, 25);
+  doc.text("Distribución por red", margin, lastSummaryY);
+
+  autoTable(doc, {
+    startY: lastSummaryY + 14,
+    head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]],
+    body: platformRows,
+    theme: "grid",
+    margin: { left: margin, right: margin },
+    headStyles: {
+      fillColor: [r, g, b],
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+      fontSize: 10,
+    },
+    bodyStyles: { fontSize: 11, cellPadding: 8 },
+    alternateRowStyles: { fillColor: [248, 248, 250] },
+  });
+
+  // ============ Página 3: Aporte por red detallado ============
+  doc.addPage();
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, pageW, pageH, "F");
+
+  doc.setFillColor(r, g, b);
+  doc.rect(0, 0, pageW, 6, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(120, 120, 125);
+  doc.text(`${brandName.toUpperCase()} · ${periodLabel.toUpperCase()}`, margin, 50);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.setTextColor(20, 20, 25);
+  doc.text("Aporte por red", margin, 90);
+
+  // Tabla por plataforma
   autoTable(doc, {
     startY: 110,
     head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]],
