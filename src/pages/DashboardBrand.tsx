@@ -101,7 +101,7 @@ type Report = {
   }>;
 };
 
-type Brand = { id: string; name: string; slug: string; brand_color: string | null };
+type Brand = { id: string; name: string; slug: string; brand_color: string | null; logo_url: string | null };
 
 const DashboardBrand = () => {
   const { slug } = useParams();
@@ -118,7 +118,7 @@ const DashboardBrand = () => {
       setLoading(true);
       const { data: b } = await supabase
         .from("brands")
-        .select("id, name, slug, brand_color")
+        .select("id, name, slug, brand_color, logo_url")
         .eq("slug", slug)
         .maybeSingle();
       if (!b) {
@@ -143,7 +143,7 @@ const DashboardBrand = () => {
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
-  const brandLogo = brand ? BRAND_LOGOS[brand.slug] : null;
+  const brandLogo = brand ? (BRAND_LOGOS[brand.slug] ?? brand.logo_url ?? null) : null;
   const isMundialReport = (title: string) =>
     /mundial|fútbol|futbol/i.test(title);
 

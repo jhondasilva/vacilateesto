@@ -1,0 +1,1 @@
+UPDATE public.brands SET logo_url='https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/vatel.webp' WHERE slug='vatel';
