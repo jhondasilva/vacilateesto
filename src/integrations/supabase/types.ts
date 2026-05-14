@@ -789,6 +789,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_duplicate_expense_reports: {
+        Args: never
+        Returns: {
+          deleted_count: number
+        }[]
+      }
       get_diarization_status: {
         Args: { limit_count?: number }
         Returns: {
