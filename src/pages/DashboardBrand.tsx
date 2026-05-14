@@ -82,6 +82,22 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@buchananslatam · #buchanans",
   },
+  plumrose: {
+    keywords: [
+      "@plumrosevzla", "#plumrosevzla", "plumrosevzla",
+      "#plumrose", "plumrose",
+    ],
+    excludeKeywords: [],
+    label: "@plumrosevzla · #plumrose",
+  },
+  nestea: {
+    keywords: [
+      "@nesteavzla", "#nesteavzla", "nesteavzla",
+      "#nestea", "nestea",
+    ],
+    excludeKeywords: [],
+    label: "@nesteavzla · #nestea",
+  },
 };
 
 type Report = {
