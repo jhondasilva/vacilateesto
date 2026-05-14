@@ -72,6 +72,12 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  covencaucho: {
+    keywords: [
+      "@covencaucho", "#covencaucho", "covencaucho",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>

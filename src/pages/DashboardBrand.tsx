@@ -98,6 +98,13 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@nesteavzla · #nestea",
   },
+  covencaucho: {
+    keywords: [
+      "@covencaucho", "#covencaucho", "covencaucho",
+    ],
+    excludeKeywords: [],
+    label: "@covencaucho · #covencaucho",
+  },
 };
 
 type Report = {
