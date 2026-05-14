@@ -100,16 +100,40 @@ function buildPeriods() {
 }
 
 async function callMetricool(body: Record<string, unknown>) {
-  const r = await fetch(`${SUPABASE_URL}/functions/v1/metricool-brand-mentions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${SERVICE_ROLE}`,
-    },
-    body: JSON.stringify(body),
-  });
-  if (!r.ok) throw new Error(`metricool ${r.status}: ${await r.text()}`);
-  return await r.json();
+  // Reintenta con backoff cuando Metricool devuelve rate limit.
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const r = await fetch(`${SUPABASE_URL}/functions/v1/metricool-brand-mentions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SERVICE_ROLE}`,
+      },
+      body: JSON.stringify(body),
+    });
+    const text = await r.text();
+    if (r.ok) {
+      try {
+        const json = JSON.parse(text);
+        if (typeof json?.error === "string" && /rate limit/i.test(json.error)) {
+          const m = json.error.match(/Retry after (\d+)ms/i);
+          const wait = m ? Math.min(parseInt(m[1], 10) + 500, 35000) : 8000;
+          await new Promise((res) => setTimeout(res, wait));
+          continue;
+        }
+        return json;
+      } catch {
+        return JSON.parse(text);
+      }
+    }
+    if (r.status === 429 || /rate limit/i.test(text)) {
+      const m = text.match(/Retry after (\d+)ms/i);
+      const wait = m ? Math.min(parseInt(m[1], 10) + 500, 35000) : 8000;
+      await new Promise((res) => setTimeout(res, wait));
+      continue;
+    }
+    throw new Error(`metricool ${r.status}: ${text}`);
+  }
+  throw new Error("metricool: rate limit, no quedó cupo tras reintentos");
 }
 
 Deno.serve(async (req) => {
@@ -127,6 +151,10 @@ Deno.serve(async (req) => {
     const periods = buildPeriods();
     const results: any[] = [];
 
+    // Cache de scope="all" por periodo: el payload no depende de la marca,
+    // así que lo calculamos una sola vez por periodo y lo reusamos.
+    const allByPeriod = new Map<string, unknown>();
+
     for (const brand of brands ?? []) {
       const cfg = BRAND_KEYWORDS[brand.slug];
       if (!cfg) {
@@ -136,14 +164,22 @@ Deno.serve(async (req) => {
       for (const period of periods) {
         for (const scope of ["brand", "all"] as const) {
           try {
-            const payload = await callMetricool({
-              from: fmtIso(period.from),
-              to: fmtIso(period.to),
-              scope,
-              ...(scope === "brand"
-                ? { keywords: cfg.keywords, excludeKeywords: cfg.excludeKeywords }
-                : {}),
-            });
+            let payload: any;
+            if (scope === "all" && allByPeriod.has(period.key)) {
+              payload = allByPeriod.get(period.key);
+            } else {
+              payload = await callMetricool({
+                from: fmtIso(period.from),
+                to: fmtIso(period.to),
+                scope,
+                ...(scope === "brand"
+                  ? { keywords: cfg.keywords, excludeKeywords: cfg.excludeKeywords }
+                  : {}),
+              });
+              if (scope === "all") allByPeriod.set(period.key, payload);
+              // Pequeña pausa para no saturar a Metricool entre llamadas.
+              await new Promise((res) => setTimeout(res, 800));
+            }
             const { error: upErr } = await supabase
               .from("brand_metricool_cache")
               .upsert(
