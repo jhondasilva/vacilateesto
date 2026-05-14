@@ -143,9 +143,24 @@ Deno.serve(async (req) => {
       auth: { persistSession: false },
     });
 
-    const { data: brands, error: brandsErr } = await supabase
-      .from("brands")
-      .select("slug, name");
+    // Permitir filtrar marcas vía body para ejecutes más rápidos.
+    let brandFilter: string[] | null = null;
+    if (req.method === "POST") {
+      try {
+        const body = await req.json();
+        if (Array.isArray(body?.brands) && body.brands.length > 0) {
+          brandFilter = body.brands.map((s: string) => String(s).trim().toLowerCase());
+        }
+      } catch {
+        /* body vacío o no JSON */
+      }
+    }
+
+    let brandsQuery = supabase.from("brands").select("slug, name");
+    if (brandFilter) {
+      brandsQuery = brandsQuery.in("slug", brandFilter);
+    }
+    const { data: brands, error: brandsErr } = await brandsQuery;
     if (brandsErr) throw brandsErr;
 
     const periods = buildPeriods();
