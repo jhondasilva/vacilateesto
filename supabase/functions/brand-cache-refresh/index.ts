@@ -58,6 +58,20 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  plumrose: {
+    keywords: [
+      "@plumrosevzla", "#plumrosevzla", "plumrosevzla",
+      "#plumrose", "plumrose",
+    ],
+    excludeKeywords: [],
+  },
+  nestea: {
+    keywords: [
+      "@nesteavzla", "#nesteavzla", "nesteavzla",
+      "#nestea", "nestea",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>
