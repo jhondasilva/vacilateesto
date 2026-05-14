@@ -66,6 +66,14 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@maggivenezuela · #maggi · #maggivenezuela",
   },
+  empire: {
+    keywords: [
+      "@empirekeeway", "#empirekeeway", "empirekeeway",
+      "#empire", "empire",
+    ],
+    excludeKeywords: [],
+    label: "@empirekeeway · #empire · #empirekeeway",
+  },
 };
 
 type Report = {
