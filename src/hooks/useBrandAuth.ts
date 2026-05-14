@@ -34,7 +34,14 @@ export const useBrandAuth = () => {
         supabase.rpc("is_allowed_user"),
       ]);
       if (!mounted) return;
-      setBrands((links ?? []).filter((l: any) => l.brand) as BrandLink[]);
+      // Deduplicar por brand_id: si el usuario está en allowed_users (admin),
+      // RLS devuelve TODOS los brand_users (uno por cada vínculo de cada usuario),
+      // lo que multiplica las marcas en la UI. Forzamos una sola entrada por marca.
+      const valid = (links ?? []).filter((l: any) => l.brand) as BrandLink[];
+      const unique = Array.from(
+        new Map(valid.map((l) => [l.brand.id, l])).values(),
+      );
+      setBrands(unique);
       setIsAdmin(adminCheck === true);
       setLoading(false);
     };

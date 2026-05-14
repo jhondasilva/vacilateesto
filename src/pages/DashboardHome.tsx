@@ -8,11 +8,8 @@ import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 
 const DashboardHome = () => {
-  const { session, loading, brands: rawBrands, isAdmin } = useBrandAuth();
-  // Deduplicar por brand.id (admin ve todos los vínculos por RLS)
-  const brands = Array.from(
-    new Map(rawBrands.map((b) => [b.brand.id, b])).values(),
-  );
+  // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
+  const { session, loading, brands, isAdmin } = useBrandAuth();
 
   if (!loading && !session) {
     return (
