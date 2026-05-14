@@ -44,6 +44,13 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  empire: {
+    keywords: [
+      "@empirekeeway", "#empirekeeway", "empirekeeway",
+      "#empire", "empire",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>
