@@ -85,18 +85,39 @@ export const ExpenseLog = ({ currentUserId, refreshKey = 0 }: Props) => {
     return t;
   }, [rows]);
 
+  const getReceiptPath = (value: string) => {
+    const bucketMarker = "/expense-receipts/";
+    try {
+      const url = new URL(value);
+      const markerIndex = url.pathname.indexOf(bucketMarker);
+      if (markerIndex >= 0) {
+        return decodeURIComponent(url.pathname.slice(markerIndex + bucketMarker.length));
+      }
+    } catch {
+      // Already a storage object path.
+    }
+
+    return decodeURIComponent(value.replace(/^expense-receipts\//, ""));
+  };
+
   const handleViewReceipt = async (path: string) => {
-    if (signedUrls[path]) {
-      window.open(signedUrls[path], "_blank");
+    const receiptPath = getReceiptPath(path);
+    const receiptWindow = window.open("", "_blank");
+
+    if (signedUrls[receiptPath]) {
+      if (receiptWindow) receiptWindow.location.href = signedUrls[receiptPath];
+      else window.location.href = signedUrls[receiptPath];
       return;
     }
-    const { data, error } = await supabase.storage.from("expense-receipts").createSignedUrl(path, 600);
+    const { data, error } = await supabase.storage.from("expense-receipts").createSignedUrl(receiptPath, 600);
     if (error || !data) {
+      receiptWindow?.close();
       toast.error("No se pudo abrir el recibo");
       return;
     }
-    setSignedUrls((s) => ({ ...s, [path]: data.signedUrl }));
-    window.open(data.signedUrl, "_blank");
+    setSignedUrls((s) => ({ ...s, [receiptPath]: data.signedUrl }));
+    if (receiptWindow) receiptWindow.location.href = data.signedUrl;
+    else window.location.href = data.signedUrl;
   };
 
   const handleDelete = async (row: ExpenseRow) => {
@@ -105,7 +126,7 @@ export const ExpenseLog = ({ currentUserId, refreshKey = 0 }: Props) => {
       return;
     }
     if (!confirm("¿Eliminar este gasto?")) return;
-    if (row.receipt_url) await supabase.storage.from("expense-receipts").remove([row.receipt_url]);
+    if (row.receipt_url) await supabase.storage.from("expense-receipts").remove([getReceiptPath(row.receipt_url)]);
     const { error } = await supabase.from("expense_reports").delete().eq("id", row.id);
     if (error) toast.error("Error al eliminar");
     else { toast.success("Gasto eliminado"); void load(); }
