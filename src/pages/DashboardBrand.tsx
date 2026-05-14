@@ -143,7 +143,7 @@ const DashboardBrand = () => {
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
-  const brandLogo = brand ? (BRAND_LOGOS[brand.slug] ?? brand.logo_url ?? null) : null;
+  const brandLogo = brand ? (brand.logo_url ?? BRAND_LOGOS[brand.slug] ?? null) : null;
   const isMundialReport = (title: string) =>
     /mundial|fútbol|futbol/i.test(title);
 
