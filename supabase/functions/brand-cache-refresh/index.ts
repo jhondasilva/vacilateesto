@@ -51,6 +51,13 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  buchanans: {
+    keywords: [
+      "@buchananslatam", "#buchananslatam", "buchananslatam",
+      "#buchanans", "buchanans",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>

@@ -74,6 +74,14 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@empirekeeway · #empire · #empirekeeway",
   },
+  buchanans: {
+    keywords: [
+      "@buchananslatam", "#buchananslatam", "buchananslatam",
+      "#buchanans", "buchanans",
+    ],
+    excludeKeywords: [],
+    label: "@buchananslatam · #buchanans",
+  },
 };
 
 type Report = {
