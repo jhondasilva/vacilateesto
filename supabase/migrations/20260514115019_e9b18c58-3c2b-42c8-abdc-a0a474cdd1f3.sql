@@ -1,0 +1,1 @@
+DELETE FROM public.allowed_users WHERE email IN ('estrella.rodriguez@hacemosloquenosgusta.com','andreina.ascension@hacemosloquenosgusta.com');
