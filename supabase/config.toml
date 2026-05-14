@@ -32,3 +32,6 @@ verify_jwt = false
 
 [functions.admin-set-password]
 verify_jwt = false
+
+[functions.brand-cache-refresh]
+verify_jwt = false
