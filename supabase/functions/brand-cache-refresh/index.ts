@@ -30,6 +30,13 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  vatel: {
+    keywords: [
+      "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
+      "#vatel", "vatel",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>
