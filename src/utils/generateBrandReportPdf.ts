@@ -106,7 +106,12 @@ export const generateBrandReportPdf = ({
   const toStr = format(to, "d MMM yyyy", { locale: es });
   doc.text(`${fromStr} — ${toStr}`, margin, 290);
 
-  // KPIs grandes en portada
+  // KPIs grandes en portada — Totales generales de todas las redes acumulado
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Resumen General · Todas las redes acumulado", margin, 330);
+
   const kpis = [
     { label: "Publicaciones", value: String(data.matchedCount) },
     { label: "Views", value: fmtNum(data.totals.views) },
