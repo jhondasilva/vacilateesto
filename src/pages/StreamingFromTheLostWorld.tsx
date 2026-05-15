@@ -107,32 +107,23 @@ const StreamingFromTheLostWorld = () => {
     let alive = true;
     (async () => {
       try {
-        const { data, error } = await supabase.functions.invoke("drive-folder-videos", {
-          method: "GET",
-          // @ts-expect-error supabase-js supports query for invoke via URL
-          query: { folderId: TIKTOK_FOLDER_ID },
-        });
-        if (error) throw error;
-        if (alive && data) setTiktoks((data.videos ?? []) as DriveVideo[]);
+        const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+        const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+        const res = await fetch(
+          `https://${projectId}.supabase.co/functions/v1/drive-folder-videos?folderId=${TIKTOK_FOLDER_ID}`,
+          {
+            headers: {
+              Authorization: `Bearer ${key}`,
+              apikey: key,
+            },
+          }
+        );
+        const json = await res.json();
+        if (!res.ok) throw new Error(json?.error ?? `HTTP ${res.status}`);
+        if (alive) setTiktoks((json.videos ?? []) as DriveVideo[]);
       } catch (err) {
-        // Fallback: call edge function directly with query param
-        try {
-          const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-          const res = await fetch(
-            `https://${projectId}.supabase.co/functions/v1/drive-folder-videos?folderId=${TIKTOK_FOLDER_ID}`,
-            {
-              headers: {
-                Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-                apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-              },
-            }
-          );
-          const json = await res.json();
-          if (alive && json?.videos) setTiktoks(json.videos as DriveVideo[]);
-          else if (alive) setTiktoksError(json?.error ?? "Failed to load videos");
-        } catch (err2) {
-          if (alive) setTiktoksError(err2 instanceof Error ? err2.message : "Failed to load videos");
-        }
+        console.error(err);
+        if (alive) setTiktoksError(err instanceof Error ? err.message : "Failed to load videos");
       } finally {
         if (alive) setTiktoksLoading(false);
       }
