@@ -17,12 +17,18 @@ import {
   Play,
   ExternalLink,
   ArrowUpRight,
+  Film,
+  X,
+  Loader2,
 } from "lucide-react";
 import boardImage from "@/assets/streaming-lost-world-board.jpeg";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/streaming-from-the-lost-world`;
 const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1mT6FpJuZl4p7FlKGhKm_3JXWaBCYSNzX";
+const TIKTOK_FOLDER_ID = "1HrGS50B---CIBSorvgRKM8NQtXMJ8-_F";
+const TIKTOK_FOLDER_URL = `https://drive.google.com/drive/folders/${TIKTOK_FOLDER_ID}`;
 const CASE_VIDEO_ID = "PSm0Qmahdrg";
 
 const SECTIONS = [
@@ -31,8 +37,9 @@ const SECTIONS = [
   { id: "enabler", num: "03", title: "Enabler" },
   { id: "execution", num: "04", title: "Execution" },
   { id: "streams", num: "05", title: "Streams" },
-  { id: "community", num: "06", title: "Community" },
-  { id: "results", num: "07", title: "Results" },
+  { id: "tiktoks", num: "06", title: "TikToks" },
+  { id: "community", num: "07", title: "Community" },
+  { id: "results", num: "08", title: "Results" },
 ];
 
 /* ---------- Reveal on scroll ---------- */
@@ -80,6 +87,50 @@ const StreamingFromTheLostWorld = () => {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>("hero");
+
+  type DriveVideo = {
+    id: string;
+    name: string;
+    thumbnail: string;
+    preview: string;
+    width: number | null;
+    height: number | null;
+    durationMs: number | null;
+  };
+  const [tiktoks, setTiktoks] = useState<DriveVideo[]>([]);
+  const [tiktoksLoading, setTiktoksLoading] = useState(true);
+  const [tiktoksError, setTiktoksError] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<DriveVideo | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+        const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+        const res = await fetch(
+          `https://${projectId}.supabase.co/functions/v1/drive-folder-videos?folderId=${TIKTOK_FOLDER_ID}`,
+          {
+            headers: {
+              Authorization: `Bearer ${key}`,
+              apikey: key,
+            },
+          }
+        );
+        const json = await res.json();
+        if (!res.ok) throw new Error(json?.error ?? `HTTP ${res.status}`);
+        if (alive) setTiktoks((json.videos ?? []) as DriveVideo[]);
+      } catch (err) {
+        console.error(err);
+        if (alive) setTiktoksError(err instanceof Error ? err.message : "Failed to load videos");
+      } finally {
+        if (alive) setTiktoksLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -549,8 +600,128 @@ const StreamingFromTheLostWorld = () => {
           </div>
         </SectionWrap>
 
-        {/* 06 Community */}
-        <SectionWrap id="community" num="06" title="Community Engagement">
+        {/* 06 TikTok Streams Gallery */}
+        <section
+          id="tiktoks"
+          className="relative px-5 sm:px-10 lg:px-20 py-20 sm:py-28 scroll-mt-24 border-t border-white/[0.06]"
+        >
+          <div className="max-w-6xl mx-auto">
+            <Reveal>
+              <div className="flex items-baseline gap-4 mb-6">
+                <span className="text-7xl sm:text-8xl font-black text-white/[0.06] leading-none select-none">
+                  06
+                </span>
+                <span className="text-[10px] tracking-[0.4em] uppercase text-white/40">
+                  Chapter 06
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
+                The TikToks
+              </h2>
+              <p className="max-w-2xl text-white/65 leading-relaxed mb-10">
+                The vertical streams that powered the broadcast — published live to TikTok from the summit. Tap any clip to play it right here.
+              </p>
+            </Reveal>
+
+            {tiktoksLoading && (
+              <div className="flex items-center justify-center py-20 text-white/50">
+                <Loader2 className="w-6 h-6 animate-spin mr-3" />
+                Loading videos…
+              </div>
+            )}
+            {tiktoksError && !tiktoksLoading && (
+              <div className="text-center py-12 text-rose-300/80 text-sm">
+                Could not load videos: {tiktoksError}
+              </div>
+            )}
+            {!tiktoksLoading && !tiktoksError && tiktoks.length > 0 && (
+              <Reveal>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                  {tiktoks.map((v, i) => (
+                    <button
+                      key={v.id}
+                      onClick={() => setActiveVideo(v)}
+                      className="group relative aspect-[9/16] rounded-xl overflow-hidden border border-white/10 bg-black hover:border-sky-400/50 transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(56,140,210,0.4)]"
+                      aria-label={`Play video ${i + 1}`}
+                    >
+                      <img
+                        src={v.thumbnail}
+                        alt={`TikTok stream ${i + 1}`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all">
+                          <Play className="w-5 h-5 text-white group-hover:text-black fill-current ml-0.5" />
+                        </div>
+                      </div>
+                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm text-[10px] font-bold tracking-wider text-white/90">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </Reveal>
+            )}
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <span className="text-xs text-white/40 tracking-widest uppercase">
+                {tiktoks.length} videos
+              </span>
+              <a
+                href={TIKTOK_FOLDER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-white/70 hover:text-white transition-colors"
+              >
+                <Film className="w-3.5 h-3.5" /> Open on Drive
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <Dialog open={!!activeVideo} onOpenChange={(o) => !o && setActiveVideo(null)}>
+          <DialogContent className="max-w-md p-0 bg-black border-white/10 overflow-hidden">
+            {activeVideo && (
+              <div className="relative">
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-black/80 transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <div className="aspect-[9/16] w-full bg-black">
+                  <iframe
+                    src={`${activeVideo.preview}?autoplay=1`}
+                    title={activeVideo.name}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="p-3 flex items-center justify-between bg-black border-t border-white/5">
+                  <span className="text-[10px] tracking-widest uppercase text-white/40">
+                    TikTok stream
+                  </span>
+                  <a
+                    href={`https://drive.google.com/file/d/${activeVideo.id}/view`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-white/70 hover:text-white transition-colors"
+                  >
+                    Open in Drive <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* 07 Community */}
+        <SectionWrap id="community" num="07" title="Community Engagement">
           <p>
             This wasn't a broadcast — it was a shared expedition. The community didn't just watch; they participated, guided, and amplified the experience organically.
           </p>
@@ -581,8 +752,8 @@ const StreamingFromTheLostWorld = () => {
           </p>
         </SectionWrap>
 
-        {/* 07 Results */}
-        <SectionWrap id="results" num="07" title="The Results" last>
+        {/* 08 Results */}
+        <SectionWrap id="results" num="08" title="The Results" last>
           <div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden mt-2">
             {[
               { big: "76K+", label: "Organic Likes" },
