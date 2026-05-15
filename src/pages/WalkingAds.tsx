@@ -703,7 +703,7 @@ const WalkingAds = () => {
         </SectionWrap>
 
         {/* 07 Placements */}
-        <SectionWrap id="placements" num="07" title="Media Placements" last>
+        <SectionWrap id="placements" num="07" title="Media Placements">
           <div className="not-prose grid md:grid-cols-2 gap-4">
               <Reveal>
               <div className="h-full p-6 rounded-2xl border border-white/10 bg-white/[0.02]">
@@ -773,6 +773,159 @@ const WalkingAds = () => {
               className="absolute inset-0 w-full h-full"
             />
           </div>
+        </SectionWrap>
+
+        {/* 08 Ad Gallery */}
+        <SectionWrap id="ad-gallery" num="08" title="The Ads — Click to Play" last>
+          <p>
+            All 14 social injections and the TV creative, served straight from the campaign archive. Tap any thumbnail to play it inline.
+          </p>
+
+          <div className="not-prose mt-8">
+            {/* Tabs */}
+            <div className="inline-flex p-1 rounded-full border border-white/10 bg-white/[0.03] mb-8">
+              <button
+                onClick={() => setAdsTab("meta")}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+                  adsTab === "meta"
+                    ? "bg-amber-400 text-black"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                <Radio className="w-3.5 h-3.5" />
+                Instagram & Meta
+                <span className="ml-1 text-[10px] opacity-70">{ads.meta.length}</span>
+              </button>
+              <button
+                onClick={() => setAdsTab("tv")}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+                  adsTab === "tv"
+                    ? "bg-rose-400 text-black"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                <Tv className="w-3.5 h-3.5" />
+                Television
+                <span className="ml-1 text-[10px] opacity-70">{ads.tv.length}</span>
+              </button>
+            </div>
+
+            {/* States */}
+            {adsLoading && (
+              <div className="flex items-center gap-3 text-white/50 text-sm py-12">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Loading ads from the archive…
+              </div>
+            )}
+            {adsError && !adsLoading && (
+              <div className="rounded-xl border border-rose-400/20 bg-rose-400/5 text-rose-200 text-sm p-4">
+                Couldn't load the ads right now. You can still browse them on Drive:{" "}
+                <a
+                  href={
+                    adsTab === "tv"
+                      ? "https://drive.google.com/drive/folders/1t9E0DyPx_ex9Prw36Y4yi1FBmgFodi_h"
+                      : "https://drive.google.com/drive/folders/1SaWMYetPO2Dm-gDkspCTl1xShcLVwevY"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  open folder
+                </a>
+                .
+              </div>
+            )}
+
+            {!adsLoading && !adsError && (
+              <div
+                className={`grid gap-4 ${
+                  adsTab === "meta"
+                    ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                }`}
+              >
+                {currentAds.map((ad, i) => {
+                  const isVertical = adsTab === "meta";
+                  return (
+                    <button
+                      key={ad.id}
+                      onClick={() => setActiveAd(ad)}
+                      className="group relative block w-full overflow-hidden rounded-xl border border-white/10 bg-black/40 hover:border-white/30 transition-all focus:outline-none focus:ring-2 focus:ring-amber-400/60"
+                      style={{ aspectRatio: isVertical ? "9 / 16" : "16 / 9" }}
+                    >
+                      <img
+                        src={ad.thumbnail}
+                        alt={ad.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).style.opacity = "0";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-white/95 text-black flex items-center justify-center shadow-lg scale-90 group-hover:scale-100 transition-transform">
+                          <Play className="w-5 h-5 ml-0.5 fill-current" />
+                        </div>
+                      </div>
+                      <div className="absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-black/60 backdrop-blur px-2 py-1 text-[10px] uppercase tracking-wider text-white/80">
+                        <Film className="w-3 h-3" />
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="absolute bottom-2 left-2 right-2 text-left text-[11px] font-medium text-white/90 truncate">
+                        {ad.name.replace(/\.(mp4|mov|m4v|webm)$/i, "")}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {!adsLoading && !adsError && currentAds.length === 0 && (
+              <div className="text-white/50 text-sm py-8">No videos found in this folder.</div>
+            )}
+          </div>
+
+          <Dialog open={!!activeAd} onOpenChange={(o) => !o && setActiveAd(null)}>
+            <DialogContent className="max-w-3xl p-0 bg-black border-white/10 overflow-hidden">
+              {activeAd && (
+                <div className="relative">
+                  <div
+                    className="relative w-full bg-black"
+                    style={{
+                      aspectRatio:
+                        activeAd.width && activeAd.height
+                          ? `${activeAd.width} / ${activeAd.height}`
+                          : adsTab === "meta"
+                          ? "9 / 16"
+                          : "16 / 9",
+                      maxHeight: "85vh",
+                    }}
+                  >
+                    <iframe
+                      key={activeAd.id}
+                      src={`${activeAd.preview}?autoplay=1`}
+                      title={activeAd.name}
+                      allow="autoplay; encrypted-media; fullscreen"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-white/10 text-xs">
+                    <div className="text-white/80 truncate">{activeAd.name}</div>
+                    <a
+                      href={`https://drive.google.com/file/d/${activeAd.id}/view`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-white/60 hover:text-white transition-colors shrink-0"
+                    >
+                      Open in Drive <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
         </SectionWrap>
 
         {/* CTA */}
