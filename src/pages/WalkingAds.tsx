@@ -194,11 +194,11 @@ const WalkingAds = () => {
         <title>Walking Ads Above the Algorithm — Vacílate Esto · Cannes Lions 2026</title>
         <meta
           name="description"
-          content="14 hours, 14 injections, $44 total. A masterclass in human-centric media integration that turned a $44 hack into a national milestone."
+          content="14 hours, 14 injections, $44 total. One nation watching."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:title" content="Walking Ads Above the Algorithm" />
-        <meta property="og:description" content="A masterclass in human-centric media integration." />
+        <meta property="og:description" content="14 hours, 14 injections, $44 total. One nation watching." />
         <meta property="og:url" content={URL} />
       </Helmet>
 
@@ -319,7 +319,7 @@ const WalkingAds = () => {
 
               <Reveal delay={450}>
                 <p className="mt-8 max-w-md text-base sm:text-lg text-white/65 leading-relaxed">
-                  A masterclass in human-centric media integration. <strong className="text-white">14 hours. 14 injections. $44 total.</strong> One nation watching.
+                  <strong className="text-white">14 hours. 14 injections. $44 total.</strong> One nation watching.
                 </p>
               </Reveal>
 
