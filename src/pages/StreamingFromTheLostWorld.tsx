@@ -22,7 +22,6 @@ import {
   Loader2,
 } from "lucide-react";
 import boardImage from "@/assets/streaming-lost-world-board.jpeg";
-import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const SITE = "https://www.vacilateesto.com";
