@@ -63,6 +63,7 @@ export default defineConfig(({ mode }) => ({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,avif,jpg,jpeg,woff,woff2}"],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallbackDenylist: [/^\/~oauth/],
         runtimeCaching: [
           {
