@@ -19,8 +19,13 @@ import {
   Clock,
   Target,
   Radio,
+  Film,
+  X,
+  Loader2,
 } from "lucide-react";
 import boardImage from "@/assets/walking-ads-board.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/walking-ads`;
@@ -35,6 +40,7 @@ const SECTIONS = [
   { id: "shift", num: "05", title: "Shift" },
   { id: "community", num: "06", title: "Community" },
   { id: "placements", num: "07", title: "Placements" },
+  { id: "ad-gallery", num: "08", title: "Ad Gallery" },
 ];
 
 const TIMELINE = [
