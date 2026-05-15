@@ -316,6 +316,31 @@ const WalkingAds = () => {
                 </div>
               </Reveal>
 
+              <Reveal delay={620}>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <a
+                    href="https://drive.google.com/drive/folders/1t9E0DyPx_ex9Prw36Y4yi1FBmgFodi_h"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-rose-400/30 bg-rose-400/5 text-rose-300 text-sm font-medium hover:bg-rose-400/10 transition-colors"
+                  >
+                    <Tv className="w-4 h-4" />
+                    TV Ads archive
+                    <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                  <a
+                    href="https://drive.google.com/drive/folders/1SaWMYetPO2Dm-gDkspCTl1xShcLVwevY"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-amber-400/30 bg-amber-400/5 text-amber-300 text-sm font-medium hover:bg-amber-400/10 transition-colors"
+                  >
+                    <Radio className="w-4 h-4" />
+                    Instagram & Meta ads
+                    <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </div>
+              </Reveal>
+
               <Reveal delay={650}>
                 <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] tracking-[0.2em] uppercase text-white/40">
                   <span>
