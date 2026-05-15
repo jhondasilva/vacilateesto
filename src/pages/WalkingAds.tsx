@@ -115,6 +115,48 @@ const WalkingAds = () => {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>("hero");
 
+  type Ad = {
+    id: string;
+    name: string;
+    thumbnail: string;
+    preview: string;
+    width: number | null;
+    height: number | null;
+    durationMs: number | null;
+  };
+  const [ads, setAds] = useState<{ tv: Ad[]; meta: Ad[] }>({ tv: [], meta: [] });
+  const [adsLoading, setAdsLoading] = useState(true);
+  const [adsError, setAdsError] = useState<string | null>(null);
+  const [adsTab, setAdsTab] = useState<"tv" | "meta">("meta");
+  const [activeAd, setActiveAd] = useState<Ad | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("walking-ads-drive-list");
+        if (error) throw error;
+        if (alive && data) setAds({ tv: data.tv ?? [], meta: data.meta ?? [] });
+      } catch (err) {
+        console.error(err);
+        if (alive) setAdsError(err instanceof Error ? err.message : "Failed to load ads");
+      } finally {
+        if (alive) setAdsLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const sortedAds = (list: Ad[]) =>
+    [...list].sort((a, b) => {
+      const na = parseInt(a.name.match(/^\d+/)?.[0] ?? "999", 10);
+      const nb = parseInt(b.name.match(/^\d+/)?.[0] ?? "999", 10);
+      return na - nb;
+    });
+  const currentAds = sortedAds(adsTab === "tv" ? ads.tv : ads.meta);
+
   useEffect(() => {
     const onScroll = () => {
       const h = document.documentElement;
