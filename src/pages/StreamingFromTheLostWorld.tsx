@@ -752,8 +752,8 @@ const StreamingFromTheLostWorld = () => {
           </p>
         </SectionWrap>
 
-        {/* 07 Results */}
-        <SectionWrap id="results" num="07" title="The Results" last>
+        {/* 08 Results */}
+        <SectionWrap id="results" num="08" title="The Results" last>
           <div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden mt-2">
             {[
               { big: "76K+", label: "Organic Likes" },
