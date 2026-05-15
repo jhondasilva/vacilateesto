@@ -20,6 +20,7 @@ import {
   Target,
   Radio,
 } from "lucide-react";
+import boardImage from "@/assets/walking-ads-board.jpg";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/walking-ads`;
@@ -306,6 +307,12 @@ const WalkingAds = () => {
                   >
                     See the 59-min protocol
                   </button>
+                  <button
+                    onClick={() => document.getElementById("board")?.scrollIntoView({ behavior: "smooth" })}
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/20 hover:bg-white/5 text-sm font-semibold transition-colors"
+                  >
+                    See the case board
+                  </button>
                 </div>
               </Reveal>
 
@@ -382,6 +389,34 @@ const WalkingAds = () => {
                   className="absolute inset-0 w-full h-full"
                 />
               </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Case Board */}
+        <section id="board" className="px-5 sm:px-10 lg:px-20 pb-12 scroll-mt-24">
+          <div className="max-w-6xl mx-auto">
+            <Reveal>
+              <div className="flex items-center gap-3 mb-5 text-[11px] tracking-[0.3em] uppercase text-white/45">
+                <span className="w-8 h-px bg-white/30" />
+                Case Board
+              </div>
+              <a
+                href={boardImage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group relative rounded-2xl overflow-hidden border border-white/10 bg-black shadow-[0_20px_80px_-20px_rgba(245,158,11,0.35)]"
+              >
+                <img
+                  src={boardImage}
+                  alt="Walking Ads Above the Algorithm — case board"
+                  loading="lazy"
+                  className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+                <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-[10px] tracking-widest uppercase text-white/80 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Open full size <ArrowUpRight className="w-3 h-3" />
+                </div>
+              </a>
             </Reveal>
           </div>
         </section>
