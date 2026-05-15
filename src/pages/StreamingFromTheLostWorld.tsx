@@ -17,12 +17,19 @@ import {
   Play,
   ExternalLink,
   ArrowUpRight,
+  Film,
+  X,
+  Loader2,
 } from "lucide-react";
 import boardImage from "@/assets/streaming-lost-world-board.jpeg";
+import { supabase } from "@/integrations/supabase/client";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const SITE = "https://www.vacilateesto.com";
 const URL = `${SITE}/streaming-from-the-lost-world`;
 const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1mT6FpJuZl4p7FlKGhKm_3JXWaBCYSNzX";
+const TIKTOK_FOLDER_ID = "1HrGS50B---CIBSorvgRKM8NQtXMJ8-_F";
+const TIKTOK_FOLDER_URL = `https://drive.google.com/drive/folders/${TIKTOK_FOLDER_ID}`;
 const CASE_VIDEO_ID = "PSm0Qmahdrg";
 
 const SECTIONS = [
@@ -31,8 +38,9 @@ const SECTIONS = [
   { id: "enabler", num: "03", title: "Enabler" },
   { id: "execution", num: "04", title: "Execution" },
   { id: "streams", num: "05", title: "Streams" },
-  { id: "community", num: "06", title: "Community" },
-  { id: "results", num: "07", title: "Results" },
+  { id: "tiktoks", num: "06", title: "TikToks" },
+  { id: "community", num: "07", title: "Community" },
+  { id: "results", num: "08", title: "Results" },
 ];
 
 /* ---------- Reveal on scroll ---------- */
@@ -80,6 +88,59 @@ const StreamingFromTheLostWorld = () => {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>("hero");
+
+  type DriveVideo = {
+    id: string;
+    name: string;
+    thumbnail: string;
+    preview: string;
+    width: number | null;
+    height: number | null;
+    durationMs: number | null;
+  };
+  const [tiktoks, setTiktoks] = useState<DriveVideo[]>([]);
+  const [tiktoksLoading, setTiktoksLoading] = useState(true);
+  const [tiktoksError, setTiktoksError] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<DriveVideo | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("drive-folder-videos", {
+          method: "GET",
+          // @ts-expect-error supabase-js supports query for invoke via URL
+          query: { folderId: TIKTOK_FOLDER_ID },
+        });
+        if (error) throw error;
+        if (alive && data) setTiktoks((data.videos ?? []) as DriveVideo[]);
+      } catch (err) {
+        // Fallback: call edge function directly with query param
+        try {
+          const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+          const res = await fetch(
+            `https://${projectId}.supabase.co/functions/v1/drive-folder-videos?folderId=${TIKTOK_FOLDER_ID}`,
+            {
+              headers: {
+                Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+                apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+              },
+            }
+          );
+          const json = await res.json();
+          if (alive && json?.videos) setTiktoks(json.videos as DriveVideo[]);
+          else if (alive) setTiktoksError(json?.error ?? "Failed to load videos");
+        } catch (err2) {
+          if (alive) setTiktoksError(err2 instanceof Error ? err2.message : "Failed to load videos");
+        }
+      } finally {
+        if (alive) setTiktoksLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
