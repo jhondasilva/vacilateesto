@@ -35,3 +35,6 @@ verify_jwt = false
 
 [functions.brand-cache-refresh]
 verify_jwt = false
+
+[functions.walking-ads-drive-list]
+verify_jwt = false
