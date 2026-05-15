@@ -31,6 +31,7 @@ import PodcastsVenezolanosSpotify from "./pages/PodcastsVenezolanosSpotify";
 import HechoEnVenezuela from "./pages/HechoEnVenezuela";
 import StreamingFromTheLostWorld from "./pages/StreamingFromTheLostWorld";
 import WalkingAds from "./pages/WalkingAds";
+import Cannes from "./pages/Cannes";
 import BlogIndex from "./pages/blog/BlogIndex";
 import MejoresPodcastsVenezolanos from "./pages/blog/MejoresPodcastsVenezolanos";
 import ComoSubirRoraima from "./pages/blog/ComoSubirRoraima";
@@ -87,6 +88,7 @@ const App = () => (
             <Route path="/hecho-en-venezuela" element={<HechoEnVenezuela />} />
             <Route path="/streaming-from-the-lost-world" element={<StreamingFromTheLostWorld />} />
             <Route path="/walking-ads" element={<WalkingAds />} />
+            <Route path="/cannes" element={<Cannes />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/mejores-podcasts-venezolanos-2026" element={<MejoresPodcastsVenezolanos />} />
             <Route path="/blog/como-subir-roraima-guia-completa" element={<ComoSubirRoraima />} />
