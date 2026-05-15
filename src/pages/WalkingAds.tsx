@@ -699,6 +699,14 @@ const WalkingAds = () => {
                   <div className="flex justify-between gap-4 border-t border-white/5 pt-2"><dt className="text-white/50">Execution</dt><dd className="text-white/80 text-right">Reels & Stories</dd></div>
                   <div className="flex justify-between gap-4 border-t border-white/5 pt-2"><dt className="text-white/50">Cadence</dt><dd className="text-white/80 text-right">59-min manual injections</dd></div>
                 </dl>
+                <a
+                  href="https://drive.google.com/drive/folders/1SaWMYetPO2Dm-gDkspCTl1xShcLVwevY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-amber-200 transition-colors"
+                >
+                  View Instagram & Meta ads <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </Reveal>
           </div>
