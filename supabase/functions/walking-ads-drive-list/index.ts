@@ -18,7 +18,11 @@ type DriveFile = {
   videoMediaMetadata?: { width?: number; height?: number; durationMillis?: string };
 };
 
-async function listFolder(folderId: string, apiKey: string): Promise<DriveFile[]> {
+async function listFolder(
+  folderId: string,
+  lovableApiKey: string,
+  driveApiKey: string,
+): Promise<DriveFile[]> {
   const url = new URL("https://connector-gateway.lovable.dev/google_drive/drive/v3/files");
   url.searchParams.set("q", `'${folderId}' in parents and trashed = false`);
   url.searchParams.set(
@@ -28,7 +32,10 @@ async function listFolder(folderId: string, apiKey: string): Promise<DriveFile[]
   url.searchParams.set("pageSize", "200");
   url.searchParams.set("orderBy", "name");
   const res = await fetch(url.toString(), {
-    headers: { "Lovable-API-Key": apiKey },
+    headers: {
+      Authorization: `Bearer ${lovableApiKey}`,
+      "X-Connection-Api-Key": driveApiKey,
+    },
   });
   if (!res.ok) {
     const text = await res.text();
@@ -41,12 +48,14 @@ async function listFolder(folderId: string, apiKey: string): Promise<DriveFile[]
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
   try {
-    const apiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) throw new Error("Missing LOVABLE_API_KEY");
+    const driveApiKey = Deno.env.get("GOOGLE_DRIVE_API_KEY");
+    if (!driveApiKey) throw new Error("Missing GOOGLE_DRIVE_API_KEY");
 
     const [tv, meta] = await Promise.all([
-      listFolder(FOLDERS.tv, apiKey),
-      listFolder(FOLDERS.meta, apiKey),
+      listFolder(FOLDERS.tv, lovableApiKey, driveApiKey),
+      listFolder(FOLDERS.meta, lovableApiKey, driveApiKey),
     ]);
 
     const filterVideos = (files: DriveFile[]) =>
