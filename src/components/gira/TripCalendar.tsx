@@ -124,6 +124,7 @@ export const TripCalendar = ({ cities, activities }: Props) => {
     // Hotels as all-day spanning each night
     cities.forEach(c => {
       if (!c.accommodation_name) return;
+      if (c.accommodation_status !== 'confirmed') return;
       const start = fromISO(c.start_date);
       const end = fromISO(c.end_date);
       let cur = new Date(start);
