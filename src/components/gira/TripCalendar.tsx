@@ -148,6 +148,7 @@ export const TripCalendar = ({ cities, activities }: Props) => {
       const city = cityById.get(a.city_id);
       const date = a.activity_date || (city ? city.start_date : null);
       if (!date) return;
+      if (a.activity_type === "flight" && a.status !== "confirmed") return;
 
       const dep = parseTimeToMin(a.departure_time);
       const arr = parseTimeToMin(a.arrival_time);
