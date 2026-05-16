@@ -147,26 +147,6 @@ const Gira = () => {
             Coordinación de viajes, hoteles, partidos y producción para la cobertura del Mundial 2026.
           </p>
         </div>
-        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-          <label className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
-            Escenario Portugal
-          </label>
-          <Select value={scenario} onValueChange={(v) => setScenario(v as typeof scenario)}>
-            <SelectTrigger className="w-full sm:w-[340px] bg-card border-primary/30">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="base">Itinerario original (base)</SelectItem>
-              <SelectItem value="alt_a">Alternativa A — Portugal 1° (KC → Vancouver → KC)</SelectItem>
-              <SelectItem value="alt_b">Alternativa B — Portugal 2° (NY → Dallas → Miami → Atlanta)</SelectItem>
-            </SelectContent>
-          </Select>
-          {scenario !== "base" && (
-            <span className="text-[10px] sm:text-xs text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 border border-primary/30">
-              Vista hipotética
-            </span>
-          )}
-        </div>
         {(() => {
           const flightsCost = visibleActivities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
           const hotelsCost = visibleCities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
@@ -207,9 +187,25 @@ const Gira = () => {
 
       <section className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
         <div className="bg-gradient-to-br from-card to-muted/30 border border-border rounded-2xl p-3 sm:p-5 shadow-[var(--shadow-soft)]">
-          <div className="flex items-center justify-between mb-3 gap-2">
-            <h2 className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">Itinerario completo</h2>
-            <span className="text-[10px] sm:text-[11px] text-muted-foreground hidden xs:block">Tap ciudad ↓</span>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2 sm:gap-3">
+            <h2 className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold shrink-0">Itinerario completo</h2>
+            <div className="flex items-center gap-2 flex-wrap">
+              <Select value={scenario} onValueChange={(v) => setScenario(v as typeof scenario)}>
+                <SelectTrigger className="h-8 w-full sm:w-[320px] bg-background border-primary/30 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="base">Itinerario original (base)</SelectItem>
+                  <SelectItem value="alt_a">Alternativa A — Portugal 1° (KC → Vancouver → KC)</SelectItem>
+                  <SelectItem value="alt_b">Alternativa B — Portugal 2° (NY → Dallas → Miami → Atlanta)</SelectItem>
+                </SelectContent>
+              </Select>
+              {scenario !== "base" && (
+                <span className="text-[10px] text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 border border-primary/30">
+                  Hipotético
+                </span>
+              )}
+            </div>
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2">
             {visibleCities.map((c, idx) => {
