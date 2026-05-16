@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +10,7 @@ import { AddCityForm } from "@/components/gira/AddCityForm";
 import { TripCalendar } from "@/components/gira/TripCalendar";
 import { CalendarSettings } from "@/components/gira/CalendarSettings";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck, Receipt } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
@@ -26,6 +27,34 @@ const Gira = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [expenseRefresh, setExpenseRefresh] = useState(0);
+  const [scenario, setScenario] = useState<"base" | "alt_a" | "alt_b">("base");
+
+  // Posiciones del itinerario base que se REEMPLAZAN en cada escenario alterno
+  const REPLACED_BY_ALT_A = new Set([8, 10, 11, 12]);          // SF, NY (5-7), Boston, Miami
+  const REPLACED_BY_ALT_B = new Set([8, 10, 11, 12, 13, 14]);  // + Dallas, Atlanta
+
+  const visibleCities = useMemo(() => {
+    const base = cities.filter((c) => c.position < 100);
+    const altA = cities.filter((c) => c.position >= 100 && c.position < 200);
+    const altB = cities.filter((c) => c.position >= 200 && c.position < 300);
+    const byDate = (a: City, b: City) =>
+      new Date(a.start_date).getTime() - new Date(b.start_date).getTime();
+
+    if (scenario === "alt_a") {
+      const kept = base.filter((c) => !REPLACED_BY_ALT_A.has(c.position));
+      return [...kept, ...altA].sort(byDate);
+    }
+    if (scenario === "alt_b") {
+      const kept = base.filter((c) => !REPLACED_BY_ALT_B.has(c.position));
+      return [...kept, ...altB].sort(byDate);
+    }
+    return base;
+  }, [cities, scenario]);
+
+  const visibleActivities = useMemo(() => {
+    const ids = new Set(visibleCities.map((c) => c.id));
+    return activities.filter((a) => ids.has(a.city_id));
+  }, [activities, visibleCities]);
 
   const loadData = useCallback(async () => {
     const [citiesRes, activitiesRes, commentsRes] = await Promise.all([
@@ -118,10 +147,30 @@ const Gira = () => {
             Coordinación de viajes, hoteles, partidos y producción para la cobertura del Mundial 2026.
           </p>
         </div>
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <label className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
+            Escenario Portugal
+          </label>
+          <Select value={scenario} onValueChange={(v) => setScenario(v as typeof scenario)}>
+            <SelectTrigger className="w-full sm:w-[340px] bg-card border-primary/30">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="base">Itinerario original (base)</SelectItem>
+              <SelectItem value="alt_a">Alternativa A — Portugal 1° (KC → Vancouver → KC)</SelectItem>
+              <SelectItem value="alt_b">Alternativa B — Portugal 2° (NY → Dallas → Miami → Atlanta)</SelectItem>
+            </SelectContent>
+          </Select>
+          {scenario !== "base" && (
+            <span className="text-[10px] sm:text-xs text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 border border-primary/30">
+              Vista hipotética
+            </span>
+          )}
+        </div>
         {(() => {
-          const flightsCost = activities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
-          const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
-          const otherActivitiesCost = activities
+          const flightsCost = visibleActivities.filter(a => a.activity_type === "flight").reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
+          const hotelsCost = visibleCities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
+          const otherActivitiesCost = visibleActivities
             .filter(a => a.activity_type !== "flight")
             .reduce((s, a) => s + (Number(a.cost_usd) || 0), 0);
           // Mismos supuestos que FinancialSummary para que los totales coincidan
@@ -132,7 +181,7 @@ const Gira = () => {
             const m = d.match(/(\d+)\s*m/i);
             return (h ? Number(h[1]) : 0) + (m ? Number(m[1]) / 60 : 0);
           };
-          const inflightWifiCost = activities
+          const inflightWifiCost = visibleActivities
             .filter(a => a.activity_type === "flight" && parseHours(a.duration) > 3)
             .reduce((sum, a) => sum + 40 * ((a.airline || "").toLowerCase().includes("conviasa") ? 1 : 2), 0);
           const eSimCost = 150;
@@ -141,11 +190,11 @@ const Gira = () => {
           const subtotal = flightsCost + hotelsCost + otherActivitiesCost + perDiemFood + inflightWifiCost + eSimCost + insuranceCost + operationsCost;
           const contingency = subtotal * 0.10;
           const total = subtotal + contingency;
-          const matchesCount = activities.filter(a => a.activity_type === "match").length;
+          const matchesCount = visibleActivities.filter(a => a.activity_type === "match").length;
           const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
           return (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
-              <Stat label="Ciudades" value={cities.length} />
+              <Stat label="Ciudades" value={visibleCities.length} />
               <Stat label="Días de gira" value={42} />
               <Stat label="Partidos" value={matchesCount} />
               <Stat label="Vuelos" valueText={fmt(flightsCost)} />
@@ -163,9 +212,10 @@ const Gira = () => {
             <span className="text-[10px] sm:text-[11px] text-muted-foreground hidden xs:block">Tap ciudad ↓</span>
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2">
-            {cities.map((c) => {
+            {visibleCities.map((c, idx) => {
               const flag = countryFlag(c.country);
               const dateLabel = formatShortDate(c.start_date);
+              const isAlt = c.position >= 100;
               return (
                 <button
                   key={c.id}
@@ -174,11 +224,11 @@ const Gira = () => {
                     window.dispatchEvent(new CustomEvent("gira:open-city", { detail: { cityId: c.id } }));
                     setTimeout(() => el?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
                   }}
-                  className="group relative bg-card border border-border hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all rounded-xl p-2 sm:p-2.5 text-left active:scale-95"
+                  className={`group relative bg-card border hover:shadow-md hover:-translate-y-0.5 transition-all rounded-xl p-2 sm:p-2.5 text-left active:scale-95 ${isAlt ? "border-primary/60 ring-1 ring-primary/30" : "border-border hover:border-primary"}`}
                 >
                   <div className="flex items-center justify-between mb-1 sm:mb-1.5">
                     <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      {c.position}
+                      {idx + 1}
                     </span>
                     <span className="text-sm sm:text-base leading-none">{flag}</span>
                   </div>
@@ -210,11 +260,11 @@ const Gira = () => {
               </div>
             ) : (
               <div className="space-y-3">
-                {cities.map((city) => (
+                {visibleCities.map((city) => (
                   <CityCard
                     key={city.id}
                     city={city}
-                    activities={activities.filter((a) => a.city_id === city.id)}
+                    activities={visibleActivities.filter((a) => a.city_id === city.id)}
                     comments={comments}
                     currentUserId={user!.id}
                     currentUserName={displayName || user!.email!}
@@ -222,10 +272,12 @@ const Gira = () => {
                     onRefresh={loadData}
                   />
                 ))}
-                <AddCityForm
-                  nextPosition={(cities[cities.length - 1]?.position ?? 0) + 1}
-                  onCreated={loadData}
-                />
+                {scenario === "base" && (
+                  <AddCityForm
+                    nextPosition={(cities.filter(c => c.position < 100).slice(-1)[0]?.position ?? 0) + 1}
+                    onCreated={loadData}
+                  />
+                )}
               </div>
             )}
           </TabsContent>
@@ -236,7 +288,7 @@ const Gira = () => {
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
               </div>
             ) : (
-              <FinancialSummary cities={cities} activities={activities} />
+              <FinancialSummary cities={visibleCities} activities={visibleActivities} />
             )}
           </TabsContent>
 
@@ -250,7 +302,7 @@ const Gira = () => {
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
               </div>
             ) : (
-              <TripCalendar cities={cities} activities={activities} />
+              <TripCalendar cities={visibleCities} activities={visibleActivities} />
             )}
           </TabsContent>
 
