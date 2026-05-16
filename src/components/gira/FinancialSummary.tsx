@@ -39,9 +39,10 @@ const SPONSOR_STATUS: Record<string, { label: string; cls: string }> = {
 interface Props {
   cities: City[];
   activities: Activity[];
+  scenario?: "base" | "alt_a" | "alt_b";
 }
 
-export const FinancialSummary = ({ cities, activities }: Props) => {
+export const FinancialSummary = ({ cities, activities, scenario = "base" }: Props) => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [settings, setSettings] = useState<Settings | null>(null);
   const [expenses, setExpenses] = useState<ExpenseRow[]>([]);
@@ -295,6 +296,21 @@ export const FinancialSummary = ({ cities, activities }: Props) => {
 
   return (
     <div className="space-y-6">
+      {scenario !== "base" && (
+        <div className="rounded-2xl border border-primary/40 bg-primary/10 px-4 py-3 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm">
+            <p className="font-bold text-primary">
+              Vista hipotética — {scenario === "alt_a"
+                ? "Alternativa A · Portugal 1° (KC → Vancouver → KC)"
+                : "Alternativa B · Portugal 2° (NY → Dallas → Miami → Atlanta)"}
+            </p>
+            <p className="text-muted-foreground mt-0.5">
+              Los desgloses de hoteles, vuelos y totales abajo reflejan automáticamente las ciudades y tramos de este escenario.
+            </p>
+          </div>
+        </div>
+      )}
       {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         <KPI icon={TrendingDown} label="Gastos totales (USD real)" value={fmt(totalUsd)} tone="destructive" />
