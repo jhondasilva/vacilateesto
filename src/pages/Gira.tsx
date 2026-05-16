@@ -284,7 +284,7 @@ const Gira = () => {
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
               </div>
             ) : (
-              <FinancialSummary cities={visibleCities} activities={visibleActivities} />
+              <FinancialSummary cities={visibleCities} activities={visibleActivities} scenario={scenario} />
             )}
           </TabsContent>
 
