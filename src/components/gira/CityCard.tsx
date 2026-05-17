@@ -323,7 +323,11 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
                     Ver en Booking →
                   </a>
                 )}
-                {city.accommodation_notes && <p className="text-muted-foreground text-xs italic mt-1">{city.accommodation_notes}</p>}
+                {city.accommodation_notes && (
+                  <pre className="text-muted-foreground text-xs mt-2 whitespace-pre-wrap font-sans leading-relaxed bg-muted/30 rounded-md p-2.5 border border-border/50">
+                    {city.accommodation_notes}
+                  </pre>
+                )}
               </div>
             ) : (
               <div className="space-y-2 bg-muted/40 rounded-lg p-3">
