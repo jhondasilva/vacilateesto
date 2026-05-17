@@ -239,7 +239,7 @@ def page_formats(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LOS FORMATOS")
     wrap(c,
-        "Cinco verticales que se alimentan entre sí — el podcast es el corazón, las redes amplifican y el streaming convierte. Tu marca puede entrar por donde mejor encaje.",
+        "Cuatro verticales que se alimentan entre sí — el podcast es el corazón, las redes amplifican y el streaming convierte. Tu marca puede entrar por donde mejor encaje.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     formats = [
