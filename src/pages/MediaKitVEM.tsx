@@ -754,7 +754,7 @@ const MediaKitVEM = () => {
                   asChild
                 >
                   <a
-                    href="/downloads/VacilateElFutbol-MediaKit-2026.pdf"
+                    href="/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517"
                     target="_blank"
                     rel="noopener noreferrer"
                     download="Vacilate-El-Futbol-MediaKit-2026.pdf"
