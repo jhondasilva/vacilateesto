@@ -139,8 +139,8 @@ def page_audience(c):
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
-        ("9.1M",  "ALCANCE + VISTAS",  PINK),
-        ("244K",  "INTERACCIONES",     CYAN),
+        ("10.4M", "ALCANCE + VISTAS",  PINK),
+        ("299K",  "INTERACCIONES",     CYAN),
         ("776",   "POSTS PUBLICADOS",  INK),
         ("5",     "PLATAFORMAS",       PINK),
     ]
@@ -155,10 +155,10 @@ def page_audience(c):
 
     sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
     months = [
-        ("ENE", "1.20M",  "126 posts",  PINK),
-        ("FEB", "2.94M",  "198 posts",  CYAN),
-        ("MAR", "2.53M",  "209 posts",  PINK),
-        ("ABR", "2.46M",  "243 posts",  CYAN),
+        ("ENE", "1.35M",  "126 posts",  PINK),
+        ("FEB", "3.39M",  "198 posts",  CYAN),
+        ("MAR", "2.84M",  "209 posts",  PINK),
+        ("ABR", "2.80M",  "243 posts",  CYAN),
     ]
     cw = (W-72-30)/4; cy = H-400
     for i,(m,big,sub,col) in enumerate(months):
@@ -175,11 +175,11 @@ def page_audience(c):
 
     sticker_pill(c, 36, H-440, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
     plats = [
-        ("INSTAGRAM", "4.1M",   "Reels + Stories + Feed",   "233 posts · 148K likes",   PINK),
+        ("INSTAGRAM", "4.3M",   "Reels + Stories + Feed",   "233 posts · 148K likes",   PINK),
         ("TIKTOK",    "3.4M",   "Alcance acumulado",        "192 videos · alto share",  INK),
         ("YOUTUBE",   "1.06M",  "Vistas en shorts + videos","24K likes · canal activo", CYAN),
         ("THREADS",   "478K",   "Vistas acumuladas",        "102 posts · 3.5K likes",   PINK),
-        ("FACEBOOK",  "249",    "Publicaciones del periodo","Reels + feed",             INK),
+        ("FACEBOOK",  "1.15M",  "Reach + vistas (reels)",   "249 posts · 54K likes",    INK),
     ]
     cw = (W-72-40)/5; cy = H-580
     for i,(name,big,what,foot,col) in enumerate(plats):
