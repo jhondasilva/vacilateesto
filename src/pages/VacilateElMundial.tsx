@@ -511,7 +511,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Play}
                 title="míralo"
                 highlight="en acción"
-                description="Reels, shorts y contenido exclusivo de Vacílate El Fútbol 2026."
+                description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
               />
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto items-start">
@@ -556,7 +556,7 @@ const VacilateElMundial = () => {
                 badge="Fun Educaitment"
                 badgeIcon={Zap}
                 title="qué es"
-                highlight="vacílate el fútbol"
+                highlight="vacílate el mundial"
                 description="No somos creadores buscando audiencia desde cero. Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
               />
 
@@ -623,7 +623,7 @@ const VacilateElMundial = () => {
                 badgeIcon={MapPin}
                 title="la gran"
                 highlight="expedición"
-                description="15 paradas · 4 países · 6 meses cubriendo el Mundial en vivo desde donde pasa la acción."
+                description="15 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
               />
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto">
@@ -689,7 +689,7 @@ const VacilateElMundial = () => {
                 badgeVariant="primary"
                 title="llévate el"
                 highlight="media kit"
-                description="Toda la propuesta de Vacílate El Fútbol: la ruta, los formatos, la audiencia y cómo activar tu marca."
+                description="Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca."
                 onDark
               />
 
