@@ -205,7 +205,7 @@ def page_audience(c):
     plats = [
         ("INSTAGRAM",  "4.1M",  "Reels + Stories + Feed",  "233 publicaciones · 148K likes",  PINK),
         ("TIKTOK",     "3.4M",  "Alcance acumulado",        "192 videos · alto share rate",    INK),
-        ("YOUTUBE",    "1.06M", "Vistas en shorts + videos","18K likes · canal en crecimiento", CYAN),
+        ("YOUTUBE",    "1.06M", "Vistas en shorts + videos","24K likes · canal en crecimiento", CYAN),
     ]
     cw = (W-72-30)/3; cy = H-580
     for i,(name,big,what,foot,col) in enumerate(plats):
