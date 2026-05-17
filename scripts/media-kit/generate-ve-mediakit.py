@@ -156,9 +156,9 @@ def page_audience(c):
     sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
     months = [
         ("ENE", "1.20M",  "126 posts",  PINK),
-        ("FEB", "2.94M",  "197 posts",  CYAN),
+        ("FEB", "2.94M",  "198 posts",  CYAN),
         ("MAR", "2.53M",  "209 posts",  PINK),
-        ("ABR", "2.39M",  "244 posts",  CYAN),
+        ("ABR", "2.46M",  "243 posts",  CYAN),
     ]
     cw = (W-72-30)/4; cy = H-400
     for i,(m,big,sub,col) in enumerate(months):
