@@ -1,13 +1,13 @@
 import { Globe, UtensilsCrossed, Newspaper, MapPin, Zap, Sparkles, ArrowUpRight } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 
-const TICKER = ["VACÍLATE EL FÚTBOL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
+const TICKER = ["VACÍLATE EL MUNDIAL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
 
 const features = [
   { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live) y Radio FM Center" },
   { icon: Zap, title: "Fun Educaitment", description: "Diversión, educación y entretenimiento en cada contenido" },
   { icon: UtensilsCrossed, title: "El Gol y la Comida", description: "Sabores de México, USA y Canadá mientras celebramos cada gol" },
-  { icon: Newspaper, title: "Vacílalo News", description: "Noticias del Mundial con ironía y data insólita" },
+  { icon: Newspaper, title: "Vacílalo News", description: "Noticias del fútbol con ironía y data insólita" },
 ];
 
 const stats = [
@@ -18,8 +18,8 @@ const stats = [
 
 const formats = [
   { icon: UtensilsCrossed, title: "El Gol y el Taco", desc: "Probamos la comida típica de las sedes. Cada platillo, una historia." },
-  { icon: Newspaper, title: "Vacílalo News", desc: "Noticias del Mundial con ironía y data insólita para cortar la sed de información." },
-  { icon: MapPin, title: "Desde el Estadio", desc: "Cobertura en ruta, zonas de hinchas y cánticos. La energía del Mundial en vivo." },
+  { icon: Newspaper, title: "Vacílalo News", desc: "Noticias del fútbol con ironía y data insólita para cortar la sed de información." },
+  { icon: MapPin, title: "Desde el Estadio", desc: "Cobertura en ruta, zonas de hinchas y cánticos. La energía del fútbol en vivo." },
 ];
 
 const VacilateElMundialSection = () => {
