@@ -27,28 +27,16 @@ const Gira = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [expenseRefresh, setExpenseRefresh] = useState(0);
-  const [scenario, setScenario] = useState<"base" | "alt_a" | "alt_b">("base");
-
-  // Posiciones del itinerario base que se REEMPLAZAN en cada escenario alterno
-  const REPLACED_BY_ALT_A = new Set([8, 10, 11, 12, 13, 14]);  // SF, NY (5-7), Boston, Miami, Dallas, Atlanta (semifinales propias)
-  const REPLACED_BY_ALT_B = new Set([8, 10, 11, 12, 13, 14]);  // + Dallas, Atlanta
+  const [scenario, setScenario] = useState<"alt_a" | "alt_b">("alt_a");
 
   const visibleCities = useMemo(() => {
-    const base = cities.filter((c) => c.position < 100);
+    const shared = cities.filter((c) => c.position < 100);
     const altA = cities.filter((c) => c.position >= 100 && c.position < 200);
     const altB = cities.filter((c) => c.position >= 200 && c.position < 300);
     const byDate = (a: City, b: City) =>
       new Date(a.start_date).getTime() - new Date(b.start_date).getTime();
-
-    if (scenario === "alt_a") {
-      const kept = base.filter((c) => !REPLACED_BY_ALT_A.has(c.position));
-      return [...kept, ...altA].sort(byDate);
-    }
-    if (scenario === "alt_b") {
-      const kept = base.filter((c) => !REPLACED_BY_ALT_B.has(c.position));
-      return [...kept, ...altB].sort(byDate);
-    }
-    return base;
+    const extras = scenario === "alt_a" ? altA : altB;
+    return [...shared, ...extras].sort(byDate);
   }, [cities, scenario]);
 
   const visibleActivities = useMemo(() => {
@@ -195,16 +183,10 @@ const Gira = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="base">Itinerario original (base)</SelectItem>
                   <SelectItem value="alt_a">Alternativa A — Portugal 1° (KC → Vancouver → KC)</SelectItem>
                   <SelectItem value="alt_b">Alternativa B — Portugal 2° (NY → Dallas → Miami → Atlanta)</SelectItem>
                 </SelectContent>
               </Select>
-              {scenario !== "base" && (
-                <span className="text-[10px] text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 border border-primary/30">
-                  Hipotético
-                </span>
-              )}
             </div>
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2">
@@ -268,12 +250,6 @@ const Gira = () => {
                     onRefresh={loadData}
                   />
                 ))}
-                {scenario === "base" && (
-                  <AddCityForm
-                    nextPosition={(cities.filter(c => c.position < 100).slice(-1)[0]?.position ?? 0) + 1}
-                    onCreated={loadData}
-                  />
-                )}
               </div>
             )}
           </TabsContent>
