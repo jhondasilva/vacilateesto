@@ -30,7 +30,7 @@ const Gira = () => {
   const [scenario, setScenario] = useState<"base" | "alt_a" | "alt_b">("base");
 
   // Posiciones del itinerario base que se REEMPLAZAN en cada escenario alterno
-  const REPLACED_BY_ALT_A = new Set([8, 10, 11, 12]);          // SF, NY (5-7), Boston, Miami
+  const REPLACED_BY_ALT_A = new Set([8, 10, 11, 12, 13, 14]);  // SF, NY (5-7), Boston, Miami, Dallas, Atlanta (semifinales propias)
   const REPLACED_BY_ALT_B = new Set([8, 10, 11, 12, 13, 14]);  // + Dallas, Atlanta
 
   const visibleCities = useMemo(() => {
