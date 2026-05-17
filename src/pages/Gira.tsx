@@ -11,13 +11,14 @@ import { TripCalendar } from "@/components/gira/TripCalendar";
 import { CalendarSettings } from "@/components/gira/CalendarSettings";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck, Receipt } from "lucide-react";
+import { LogOut, Loader2, MapPin, Wallet, CalendarDays, Settings as SettingsIcon, ShieldCheck, Receipt, ListChecks } from "lucide-react";
 import { toast } from "sonner";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import logoMundial from "@/assets/logo-vacilate-futbol.png";
 import logoFifa from "@/assets/logo-mundial-2026.png";
 import { ExpenseReporter } from "@/components/gira/ExpenseReporter";
 import { ExpenseLog } from "@/components/gira/ExpenseLog";
+import { StatusBoard } from "@/components/gira/StatusBoard";
 
 const Gira = () => {
   const navigate = useNavigate();
@@ -223,8 +224,9 @@ const Gira = () => {
 
       <main className="max-w-7xl mx-auto px-3 sm:px-6 pb-20 pt-3 sm:pt-4">
         <Tabs defaultValue="ruta" className="w-full">
-          <TabsList className="mb-4 grid grid-cols-5 w-full sm:flex sm:w-auto h-auto">
+          <TabsList className="mb-4 grid grid-cols-3 sm:grid-cols-6 w-full sm:flex sm:w-auto h-auto">
             <TabsTrigger value="ruta" className="text-xs sm:text-sm py-2"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Ruta completa</span><span className="sm:hidden">Ruta</span></TabsTrigger>
+            <TabsTrigger value="estado" className="text-xs sm:text-sm py-2"><ListChecks className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Estado</TabsTrigger>
             <TabsTrigger value="finanzas" className="text-xs sm:text-sm py-2"><Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> <span className="hidden sm:inline">Resumen financiero</span><span className="sm:hidden">Finanzas</span></TabsTrigger>
             <TabsTrigger value="gastos" className="text-xs sm:text-sm py-2"><Receipt className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Gastos</TabsTrigger>
             <TabsTrigger value="calendario" className="text-xs sm:text-sm py-2"><CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5" /> Calendario</TabsTrigger>
