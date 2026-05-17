@@ -50,6 +50,7 @@ import {
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
+import RouteMap from "@/components/vacilate-mundial/RouteMap";
 
 // ───────────────────────── Data ─────────────────────────
 
