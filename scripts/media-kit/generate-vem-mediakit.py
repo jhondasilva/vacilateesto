@@ -22,7 +22,7 @@ SOFT = HexColor("#F5F5F4")
 MUT  = HexColor("#737373")
 BG   = HexColor("#FAFAF9")
 
-PAGES = 7
+PAGES = 8
 TITLE = "Vacílate El Mundial 2026 — Media Kit"
 
 def header(c, page):
@@ -153,9 +153,80 @@ def page_about(c):
         wrap(c, d, cx+16, cy+38, cw-32, fs=8, leading=11, color=MUT)
     footer(c, 2)
 
-# ───────── PAGE 3: HOSTS ─────────
-def page_hosts(c):
+# ───────── PAGE 3: AUDIENCIA ENE–ABR 2026 ─────────
+def page_audience(c):
     header(c, 3)
+    sticker_pill(c, 36, H-66, 170, 20, "AUDIENCIA · ENE — ABR 2026", fill=PINK, fg=white)
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
+    c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
+    wrap(c,
+        "Datos reales medidos en Metricool entre el 1 de enero y el 30 de abril de 2026 — Instagram (Feed + Reels + Stories), TikTok y YouTube de Vacílate Esto Podcast.",
+        36, H-130, W-72, fs=10, leading=13, color=MUT)
+
+    # ── Top KPI row (totales 4 meses)
+    kpis = [
+        ("8.6M", "ALCANCE + VISTAS",   PINK),
+        ("240K", "INTERACCIONES",      CYAN),
+        ("425+", "POSTS PUBLICADOS",   INK),
+        ("3",    "PLATAFORMAS CORE",   PINK),
+    ]
+    cw = (W-72-30)/4; cy = H-230
+    for i,(big,small,col) in enumerate(kpis):
+        cx = 36 + i*(cw+10)
+        sticker_card(c, cx, cy, cw, 80, shadow=col)
+        c.setFillColor(col); c.setFont("Helvetica-Bold", 24)
+        c.drawCentredString(cx+cw/2, cy+44, big)
+        c.setFillColor(MUT); c.setFont("Helvetica-Bold", 7)
+        c.drawCentredString(cx+cw/2, cy+22, small)
+
+    # ── Monthly evolution
+    sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
+    months = [
+        ("ENE", "1.18M",  "73 posts",  PINK),
+        ("FEB", "2.92M", "108 posts",  CYAN),
+        ("MAR", "2.20M", "112 posts",  PINK),
+        ("ABR", "2.28M", "132 posts",  CYAN),
+    ]
+    cw = (W-72-30)/4; cy = H-400
+    for i,(m,big,sub,col) in enumerate(months):
+        cx = 36 + i*(cw+10)
+        sticker_card(c, cx, cy, cw, 100, shadow=col)
+        c.setFillColor(col); c.setFont("Helvetica-Bold", 11)
+        c.drawString(cx+14, cy+82, m + " 2026")
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 22)
+        c.drawString(cx+14, cy+50, big)
+        c.setFillColor(MUT); c.setFont("Helvetica-Bold", 7)
+        c.drawString(cx+14, cy+34, "ALCANCE + VISTAS")
+        c.setFillColor(INK); c.setFont("Helvetica", 8)
+        c.drawString(cx+14, cy+16, sub)
+
+    # ── Plataformas (split)
+    sticker_pill(c, 36, H-440, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
+    plats = [
+        ("INSTAGRAM",  "4.1M",  "Reels + Stories + Feed",  "233 publicaciones · 148K likes",  PINK),
+        ("TIKTOK",     "3.4M",  "Alcance acumulado",        "192 videos · alto share rate",    INK),
+        ("YOUTUBE",    "1.06M", "Vistas en shorts + videos","18K likes · canal en crecimiento", CYAN),
+    ]
+    cw = (W-72-30)/3; cy = H-580
+    for i,(name,big,what,foot,col) in enumerate(plats):
+        cx = 36 + i*(cw+15)
+        sticker_card(c, cx, cy, cw, 125, shadow=col)
+        sticker_pill(c, cx+14, cy+125-30, 80, 18, name, fill=col, fg=INK if col==CYAN else white, fs=7)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 22)
+        c.drawString(cx+14, cy+62, big)
+        c.setFillColor(MUT); c.setFont("Helvetica", 8)
+        c.drawString(cx+14, cy+48, what)
+        c.setFillColor(INK); c.setFont("Helvetica", 7.5)
+        wrap(c, foot, cx+14, cy+30, cw-28, fs=7.5, leading=10, color=MUT)
+
+    # ── Footnote
+    c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
+    c.drawString(36, 50, "Fuente: Metricool · Vacílate Esto Podcast · período 1 ene – 30 abr 2026. Métricas combinan reach orgánico y views totales por plataforma.")
+    footer(c, 3)
+
+# ───────── PAGE 4: HOSTS ─────────
+def page_hosts(c):
+    header(c, 4)
     sticker_pill(c, 36, H-66, 130, 20, "LOS PROTAGONISTAS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LOS HOSTS")
@@ -187,11 +258,11 @@ def page_hosts(c):
     wrap(c,
         "El Mundial no se vive solo en la cancha. Se vive en la mesa, en el bar, en el chat y en la calle. Nosotros lo contamos como nadie: con humor, data y la calle bien puesta.",
         80, cy2+82, W-72-60, font="Helvetica-Oblique", fs=11, leading=15)
-    footer(c, 3)
+    footer(c, 4)
 
-# ───────── PAGE 4: FORMATOS DE COBERTURA ─────────
+# ───────── PAGE 5: FORMATOS DE COBERTURA ─────────
 def page_formats(c):
-    header(c, 4)
+    header(c, 5)
     sticker_pill(c, 36, H-66, 160, 20, "COBERTURA PRESENCIAL", fill=CYAN, fg=INK)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LOS FORMATOS")
@@ -226,11 +297,11 @@ def page_formats(c):
         # meta pill
         sticker_pill(c, cx+16, cy+16, cw-32, 22, meta, fill=SOFT, fg=INK, fs=7)
 
-    footer(c, 4)
+    footer(c, 5)
 
-# ───────── PAGE 5: ECOSISTEMA + CALENDARIO ─────────
+# ───────── PAGE 6: ECOSISTEMA + CALENDARIO ─────────
 def page_eco(c):
-    header(c, 5)
+    header(c, 6)
     sticker_pill(c, 36, H-66, 150, 20, "TODO, TODO EL TIEMPO", fill=INK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "EL ECOSISTEMA")
@@ -270,11 +341,11 @@ def page_eco(c):
         c.drawString(cx+12, cy+60, t)
         wrap(c, d, cx+12, cy+44, cw-24, fs=7.5, leading=10, color=MUT)
 
-    footer(c, 5)
+    footer(c, 6)
 
-# ───────── PAGE 6: LA RUTA ─────────
+# ───────── PAGE 7: LA RUTA ─────────
 def page_route(c):
-    header(c, 6)
+    header(c, 7)
     sticker_pill(c, 36, H-66, 130, 20, "JUN — JUL 2026", fill=CYAN, fg=INK)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA RUTA · ALTERNATIVA 1")
@@ -322,11 +393,11 @@ def page_route(c):
     c.drawString(50, cy+28, "JUN > A LAS SEDES   ·   JUL > LA LOCURA   ·   CIERRE EN CARACAS · 20 JUL")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 8)
     c.drawString(50, cy+12, "Presencia presencial: 13 paradas en MÉXICO + EE.UU.")
-    footer(c, 6)
+    footer(c, 7)
 
-# ───────── PAGE 7: TRABAJA + CONTACTO ─────────
+# ───────── PAGE 8: TRABAJA + CONTACTO ─────────
 def page_contact(c):
-    header(c, 7)
+    header(c, 8)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "ACTIVA TU MARCA")
@@ -366,7 +437,7 @@ def page_contact(c):
     c.setFillColor(white); c.setFont("Helvetica", 10)
     c.drawString(56, cy+16, "vacilateelmundial.com  ·  vacilateesto.com")
 
-    footer(c, 7)
+    footer(c, 8)
 
 # Build PDF
 c = canvas.Canvas(OUT, pagesize=letter)
@@ -375,6 +446,7 @@ c.setAuthor("Vacílate Esto")
 c.setSubject("Media Kit · Vacílate El Mundial 2026 · Gira presencial")
 page_cover(c);   c.showPage()
 page_about(c);   c.showPage()
+page_audience(c);c.showPage()
 page_hosts(c);   c.showPage()
 page_formats(c); c.showPage()
 page_eco(c);     c.showPage()
