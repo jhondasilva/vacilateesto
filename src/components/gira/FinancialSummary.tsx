@@ -81,7 +81,10 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
   const hotelsCost = cities.reduce((s, c) => s + (Number(c.hotel_cost_usd) || 0), 0);
 
   // Clasificadores (mutuamente excluyentes para evitar doble conteo)
-  const isTransportExpense = (a: Activity) => a.activity_type === "expense" && /transporte|amtrak|tren|uber|metrorail/i.test(a.title);
+  // Incluye actividades con type='transport' y gastos con título de transporte/renta de auto.
+  const isTransportExpense = (a: Activity) =>
+    a.activity_type === "transport" ||
+    (a.activity_type === "expense" && /transporte|amtrak|tren|uber|metrorail|alquiler|renta|carro|auto/i.test(a.title));
   const isFoodExpense = (a: Activity) =>
     a.activity_type === "food" ||
     a.activity_type === "meal" ||
@@ -302,8 +305,8 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
           <div className="text-xs sm:text-sm">
             <p className="font-bold text-primary">
               Vista hipotética — {scenario === "alt_a"
-                ? "Alternativa A · Portugal 1° (KC → Vancouver → KC)"
-                : "Alternativa B · Portugal 2° (NY → Dallas → Miami → Atlanta)"}
+                ? "Alternativa A · Portugal 1° (KC → Vancouver → KC → Atlanta)"
+                : "Alternativa B · Portugal 2° (NY → Atlanta → Boston → Dallas)"}
             </p>
             <p className="text-muted-foreground mt-0.5">
               Los desgloses de hoteles, vuelos y totales abajo reflejan automáticamente las ciudades y tramos de este escenario.
