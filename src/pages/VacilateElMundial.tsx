@@ -357,7 +357,7 @@ const VacilateElMundial = () => {
           <section
             id="hero"
             className="relative overflow-hidden bg-background pt-20 md:pt-24 pb-16 md:pb-24"
-            aria-label="Vacílate El Fútbol 2026"
+            aria-label="Vacílate El Mundial 2026"
           >
             {/* Background blobs + dot grid */}
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
