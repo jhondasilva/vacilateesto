@@ -257,6 +257,10 @@ const Gira = () => {
           </TabsContent>
 
           <TabsContent value="finanzas">
+            {/* placeholder kept */}
+          </TabsContent>
+        </Tabs>
+      </main>
             {loadingData ? (
               <div className="flex items-center justify-center py-20">
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
