@@ -362,7 +362,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf");
+      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260517");
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
