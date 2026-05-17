@@ -91,7 +91,7 @@ const contentFormats = [
   {
     title: "Vacílalo News",
     description:
-      "Noticias del Mundial con ironía y data insólita. Los mejores momentos, las polémicas y las curiosidades con nuestro toque único.",
+      "Noticias del fútbol con ironía y data insólita. Los mejores momentos, las polémicas y las curiosidades con nuestro toque único.",
     icon: Newspaper,
     color: "accent" as const,
     stats: "Sátira informativa",
@@ -99,7 +99,7 @@ const contentFormats = [
   {
     title: "Desde el Estadio",
     description:
-      "Cobertura en ruta, zonas de hinchas y cánticos donde la marea de fanáticos está presente. La energía del Mundial en vivo.",
+      "Cobertura en ruta, zonas de hinchas y cánticos donde la marea de fanáticos está presente. La energía del fútbol en vivo.",
     icon: MapPin,
     color: "primary" as const,
     stats: "On the road",
@@ -129,7 +129,7 @@ const timeline = [
   },
   {
     month: "Junio 2026",
-    event: "A las sedes del Mundial: cobertura en ruta según itinerario",
+    event: "A las sedes del fútbol: cobertura en ruta según itinerario",
     status: "highlight",
   },
   {
@@ -153,7 +153,7 @@ const hosts = [
     name: "Juan Carlos Martínez",
     role: "El Escéptico",
     description:
-      "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
+      "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el fútbol sin ser experto.",
     image: juanCarlosMartinez,
     instagram: "@juansofa",
     color: "accent" as const,
