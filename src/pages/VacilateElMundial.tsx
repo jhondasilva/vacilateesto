@@ -948,7 +948,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Sparkles}
                 title="formatos"
                 highlight="que conectan"
-                description="Acompañamos al fanático en todo el viaje del Mundial, integrando contenido de forma orgánica en la cultura del viaje, la comida y la celebración."
+                description="Acompañamos al fanático en todo el viaje del fútbol, integrando contenido de forma orgánica en la cultura del viaje, la comida y la celebración."
               />
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
@@ -999,7 +999,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Calendar}
                 title="seis meses"
                 highlight="de locura"
-                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del Mundial."
+                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del fútbol."
               />
 
               {/* Ecosistema legend */}
@@ -1135,12 +1135,12 @@ const VacilateElMundial = () => {
               <h2 className="font-display font-black tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5">
                 listo para el
                 <span className="block">
-                  <span className="text-gradient italic">mundial</span>
+                  <span className="text-gradient italic">fútbol</span>
                   <span>.</span>
                 </span>
               </h2>
               <p className="font-body text-base md:text-lg text-background/80 max-w-2xl mx-auto mb-8">
-                Únete a nuestra comunidad y vive el Mundial desde ángulos que nunca imaginaste. La magia del fútbol está en
+                Únete a nuestra comunidad y vive el fútbol desde ángulos que nunca imaginaste. La magia del fútbol está en
                 el feed.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
