@@ -206,7 +206,7 @@ const VacilateElMundial = () => {
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
 
-  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf";
+  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517";
   const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
 
   const handleSendByEmail = async () => {
