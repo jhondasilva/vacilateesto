@@ -1042,7 +1042,7 @@ const VacilateElMundial = () => {
                       {isHighlight && (
                         <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-3 py-1 shadow-[3px_3px_0_hsl(var(--foreground))]">
                           <span className="font-display font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
-                            <Flame className="w-3 h-3" /> Mundial
+                            <Flame className="w-3 h-3" /> En vivo
                           </span>
                         </div>
                       )}
