@@ -54,7 +54,7 @@ import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 // ───────────────────────── Data ─────────────────────────
 
 const HERO_TICKER = [
-  "VACÍLATE EL FÚTBOL 2026",
+  "VACÍLATE EL MUNDIAL 2026",
   "★",
   "MX · USA · CAN",
   "✦",
