@@ -391,7 +391,7 @@ const VacilateElMundial = () => {
                     </div>
 
                     <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
-                      <img src={logoVacilateElMundial} alt="Vacílate El Fútbol 2026" className="w-full h-auto" />
+                      <img src={logoVacilateElMundial} alt="Vacílate El Mundial 2026" className="w-full h-auto" />
                       <div className="mt-5 pt-5 border-t-2 border-dashed border-border flex items-center justify-between">
                         <span className="font-display font-black text-xs uppercase tracking-wider">Feb — Jul</span>
                         <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">MX · USA · CAN</span>
@@ -415,13 +415,13 @@ const VacilateElMundial = () => {
                   <h1 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5rem] mb-5 sm:mb-6">
                     la magia
                     <span className="block">
-                      <span className="text-gradient italic">del mundial</span>
+                      <span className="text-gradient italic">del fútbol</span>
                     </span>
                     <span className="block">se vive en el feed.</span>
                   </h1>
 
                   <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
-                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del Mundial pero desde ángulos
+                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del fútbol pero desde ángulos
                     inesperados, al más puro estilo Vacílate Esto. ✦
                   </p>
 
