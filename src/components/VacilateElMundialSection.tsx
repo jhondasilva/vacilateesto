@@ -1,13 +1,13 @@
 import { Globe, UtensilsCrossed, Newspaper, MapPin, Zap, Sparkles, ArrowUpRight } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 
-const TICKER = ["VACÍLATE EL FÚTBOL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
+const TICKER = ["VACÍLATE EL MUNDIAL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
 
 const features = [
   { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live) y Radio FM Center" },
   { icon: Zap, title: "Fun Educaitment", description: "Diversión, educación y entretenimiento en cada contenido" },
   { icon: UtensilsCrossed, title: "El Gol y la Comida", description: "Sabores de México, USA y Canadá mientras celebramos cada gol" },
-  { icon: Newspaper, title: "Vacílalo News", description: "Noticias del Mundial con ironía y data insólita" },
+  { icon: Newspaper, title: "Vacílalo News", description: "Noticias del fútbol con ironía y data insólita" },
 ];
 
 const stats = [
@@ -18,8 +18,8 @@ const stats = [
 
 const formats = [
   { icon: UtensilsCrossed, title: "El Gol y el Taco", desc: "Probamos la comida típica de las sedes. Cada platillo, una historia." },
-  { icon: Newspaper, title: "Vacílalo News", desc: "Noticias del Mundial con ironía y data insólita para cortar la sed de información." },
-  { icon: MapPin, title: "Desde el Estadio", desc: "Cobertura en ruta, zonas de hinchas y cánticos. La energía del Mundial en vivo." },
+  { icon: Newspaper, title: "Vacílalo News", desc: "Noticias del fútbol con ironía y data insólita para cortar la sed de información." },
+  { icon: MapPin, title: "Desde el Estadio", desc: "Cobertura en ruta, zonas de hinchas y cánticos. La energía del fútbol en vivo." },
 ];
 
 const VacilateElMundialSection = () => {
@@ -31,8 +31,8 @@ const VacilateElMundialSection = () => {
       itemType="https://schema.org/SportsEvent"
       className="relative overflow-hidden bg-background py-20 md:py-28"
     >
-      <meta itemProp="name" content="Vacílate El Fútbol 2026 · Cobertura del Mundial FIFA México, USA y Canadá" />
-      <meta itemProp="description" content="Plataforma de cobertura del Mundial FIFA 2026 producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 16 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
+      <meta itemProp="name" content="Vacílate El Mundial 2026 · Cobertura del fútbol en México, USA y Canadá" />
+      <meta itemProp="description" content="Plataforma de cobertura del fútbol producida por Vacílate Esto: podcasts, shorts, lives y brand placement desde las 16 ciudades sede. Hosts: JuanSofa y JhonSnacks. Junio–Julio 2026." />
       <meta itemProp="startDate" content="2026-06-11" />
       <meta itemProp="endDate" content="2026-07-19" />
       <meta itemProp="url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
@@ -86,7 +86,7 @@ const VacilateElMundialSection = () => {
               <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
                 <img
                   src={logoVacilateElMundial}
-                  alt="Vacílate El Fútbol 2026"
+                  alt="Vacílate El Mundial 2026"
                   className="w-full h-auto"
                   loading="lazy"
                 />
@@ -113,12 +113,12 @@ const VacilateElMundialSection = () => {
 
             <h2 id="vem-title" className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] mb-5 sm:mb-6">
               la magia
-              <span className="block"><span className="text-gradient italic">del mundial</span></span>
+              <span className="block"><span className="text-gradient italic">del fútbol</span></span>
               <span className="block">se vive en el feed.</span>
             </h2>
 
             <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mr-0 mx-auto">
-              Hablamos del Mundial pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
+              Hablamos del fútbol pero desde ángulos inesperados, al más puro estilo Vacílate Esto.
               Datos insólitos, anécdotas legendarias e historias que te harán ver el fútbol con otros ojos. ✦
             </p>
           </div>

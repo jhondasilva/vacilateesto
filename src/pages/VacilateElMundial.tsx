@@ -54,7 +54,7 @@ import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 // ───────────────────────── Data ─────────────────────────
 
 const HERO_TICKER = [
-  "VACÍLATE EL FÚTBOL 2026",
+  "VACÍLATE EL MUNDIAL 2026",
   "★",
   "MX · USA · CAN",
   "✦",
@@ -91,7 +91,7 @@ const contentFormats = [
   {
     title: "Vacílalo News",
     description:
-      "Noticias del Mundial con ironía y data insólita. Los mejores momentos, las polémicas y las curiosidades con nuestro toque único.",
+      "Noticias del fútbol con ironía y data insólita. Los mejores momentos, las polémicas y las curiosidades con nuestro toque único.",
     icon: Newspaper,
     color: "accent" as const,
     stats: "Sátira informativa",
@@ -99,7 +99,7 @@ const contentFormats = [
   {
     title: "Desde el Estadio",
     description:
-      "Cobertura en ruta, zonas de hinchas y cánticos donde la marea de fanáticos está presente. La energía del Mundial en vivo.",
+      "Cobertura en ruta, zonas de hinchas y cánticos donde la marea de fanáticos está presente. La energía del fútbol en vivo.",
     icon: MapPin,
     color: "primary" as const,
     stats: "On the road",
@@ -129,7 +129,7 @@ const timeline = [
   },
   {
     month: "Junio 2026",
-    event: "A las sedes del Mundial: cobertura en ruta según itinerario",
+    event: "A las sedes del fútbol: cobertura en ruta según itinerario",
     status: "highlight",
   },
   {
@@ -153,7 +153,7 @@ const hosts = [
     name: "Juan Carlos Martínez",
     role: "El Escéptico",
     description:
-      "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el Mundial sin ser futbolero.",
+      "Sigue la vibra, la calle y el entretenimiento que hace el contenido viral. Su enfoque fresco expande la audiencia hacia el 80% del mercado que disfruta el fútbol sin ser experto.",
     image: juanCarlosMartinez,
     instagram: "@juansofa",
     color: "accent" as const,
@@ -250,16 +250,16 @@ const VacilateElMundial = () => {
   };
 
   const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(
-    `Vacílate El Fútbol 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
+    `Vacílate El Mundial 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
   )}`;
 
   return (
     <>
       <Helmet>
-        <title>Vacílate El Fútbol 2026 | Cobertura del Mundial FIFA México, USA y Canadá</title>
+        <title>Vacílate El Mundial 2026 | Cobertura del fútbol en México, USA y Canadá</title>
         <meta
           name="description"
-          content="Vacílate El Fútbol 2026: contenido multiplataforma sobre el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 16 ciudades. Por Vacílate Esto."
+          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 16 ciudades. Por Vacílate Esto."
         />
         <meta
           name="keywords"
@@ -270,12 +270,12 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Fútbol 2026 (VEF 2026) es la plataforma de cobertura del Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 16 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 16 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Vacílate El Fútbol 2026 | La Magia del Mundial en el Feed" />
+        <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Contenido multiplataforma sobre el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir el Mundial."
+          content="Contenido multiplataforma sobre el fútbol en el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir la experiencia."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
@@ -285,10 +285,10 @@ const VacilateElMundial = () => {
         <meta property="og:locale" content="es_VE" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@vacilateesto" />
-        <meta name="twitter:title" content="Vacílate El Fútbol 2026" />
+        <meta name="twitter:title" content="Vacílate El Mundial 2026" />
         <meta
           name="twitter:description"
-          content="El Mundial 2026 visto desde ángulos inesperados. Fun Educaitment por Vacílate Esto."
+          content="El fútbol del Mundial 2026 visto desde ángulos inesperados. Fun Educaitment por Vacílate Esto."
         />
         <meta name="twitter:image" content="https://www.vacilateesto.com/og-image.png" />
 
@@ -297,8 +297,8 @@ const VacilateElMundial = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SportsEvent",
-            "name": "Vacílate El Fútbol 2026 - Cobertura Mundial FIFA 2026",
-            "description": "Cobertura multiplataforma del Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 16 ciudades sede.",
+            "name": "Vacílate El Mundial 2026 - Cobertura del fútbol en el Mundial FIFA 2026",
+            "description": "Cobertura multiplataforma del fútbol en el Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 16 ciudades sede.",
             "startDate": "2026-06-11",
             "endDate": "2026-07-19",
             "eventStatus": "https://schema.org/EventScheduled",
@@ -327,8 +327,8 @@ const VacilateElMundial = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "DigitalDocument",
-            "name": "Media Kit Vacílate El Fútbol 2026",
-            "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Fútbol 2026.",
+            "name": "Media Kit Vacílate El Mundial 2026",
+            "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Mundial 2026.",
             "encodingFormat": "application/pdf",
             "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf",
             "inLanguage": "es-VE",
@@ -343,7 +343,7 @@ const VacilateElMundial = () => {
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.vacilateesto.com" },
-              { "@type": "ListItem", "position": 2, "name": "Vacílate El Fútbol 2026", "item": "https://www.vacilateesto.com/vacilate-el-futbol" }
+              { "@type": "ListItem", "position": 2, "name": "Vacílate El Mundial 2026", "item": "https://www.vacilateesto.com/vacilate-el-futbol" }
             ]
           })}
         </script>
@@ -357,7 +357,7 @@ const VacilateElMundial = () => {
           <section
             id="hero"
             className="relative overflow-hidden bg-background pt-20 md:pt-24 pb-16 md:pb-24"
-            aria-label="Vacílate El Fútbol 2026"
+            aria-label="Vacílate El Mundial 2026"
           >
             {/* Background blobs + dot grid */}
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -391,7 +391,7 @@ const VacilateElMundial = () => {
                     </div>
 
                     <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
-                      <img src={logoVacilateElMundial} alt="Vacílate El Fútbol 2026" className="w-full h-auto" />
+                      <img src={logoVacilateElMundial} alt="Vacílate El Mundial 2026" className="w-full h-auto" />
                       <div className="mt-5 pt-5 border-t-2 border-dashed border-border flex items-center justify-between">
                         <span className="font-display font-black text-xs uppercase tracking-wider">Feb — Jul</span>
                         <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">MX · USA · CAN</span>
@@ -415,13 +415,13 @@ const VacilateElMundial = () => {
                   <h1 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5rem] mb-5 sm:mb-6">
                     la magia
                     <span className="block">
-                      <span className="text-gradient italic">del mundial</span>
+                      <span className="text-gradient italic">del fútbol</span>
                     </span>
                     <span className="block">se vive en el feed.</span>
                   </h1>
 
                   <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
-                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del Mundial pero desde ángulos
+                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del fútbol pero desde ángulos
                     inesperados, al más puro estilo Vacílate Esto. ✦
                   </p>
 
@@ -511,7 +511,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Play}
                 title="míralo"
                 highlight="en acción"
-                description="Reels, shorts y contenido exclusivo de Vacílate El Fútbol 2026."
+                description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
               />
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto items-start">
@@ -556,7 +556,7 @@ const VacilateElMundial = () => {
                 badge="Fun Educaitment"
                 badgeIcon={Zap}
                 title="qué es"
-                highlight="vacílate el fútbol"
+                highlight="vacílate el mundial"
                 description="No somos creadores buscando audiencia desde cero. Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
               />
 
@@ -623,7 +623,7 @@ const VacilateElMundial = () => {
                 badgeIcon={MapPin}
                 title="la gran"
                 highlight="expedición"
-                description="15 paradas · 4 países · 6 meses cubriendo el Mundial en vivo desde donde pasa la acción."
+                description="15 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
               />
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto">
@@ -689,7 +689,7 @@ const VacilateElMundial = () => {
                 badgeVariant="primary"
                 title="llévate el"
                 highlight="media kit"
-                description="Toda la propuesta de Vacílate El Fútbol: la ruta, los formatos, la audiencia y cómo activar tu marca."
+                description="Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca."
                 onDark
               />
 
@@ -948,7 +948,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Sparkles}
                 title="formatos"
                 highlight="que conectan"
-                description="Acompañamos al fanático en todo el viaje del Mundial, integrando contenido de forma orgánica en la cultura del viaje, la comida y la celebración."
+                description="Acompañamos al fanático en todo el viaje del fútbol, integrando contenido de forma orgánica en la cultura del viaje, la comida y la celebración."
               />
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto">
@@ -999,7 +999,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Calendar}
                 title="seis meses"
                 highlight="de locura"
-                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del Mundial."
+                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del fútbol."
               />
 
               {/* Ecosistema legend */}
@@ -1042,7 +1042,7 @@ const VacilateElMundial = () => {
                       {isHighlight && (
                         <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-3 py-1 shadow-[3px_3px_0_hsl(var(--foreground))]">
                           <span className="font-display font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
-                            <Flame className="w-3 h-3" /> Mundial
+                            <Flame className="w-3 h-3" /> En vivo
                           </span>
                         </div>
                       )}
@@ -1135,12 +1135,12 @@ const VacilateElMundial = () => {
               <h2 className="font-display font-black tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl mb-5">
                 listo para el
                 <span className="block">
-                  <span className="text-gradient italic">mundial</span>
+                  <span className="text-gradient italic">fútbol</span>
                   <span>.</span>
                 </span>
               </h2>
               <p className="font-body text-base md:text-lg text-background/80 max-w-2xl mx-auto mb-8">
-                Únete a nuestra comunidad y vive el Mundial desde ángulos que nunca imaginaste. La magia del fútbol está en
+                Únete a nuestra comunidad y vive el fútbol desde ángulos que nunca imaginaste. La magia del fútbol está en
                 el feed.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
