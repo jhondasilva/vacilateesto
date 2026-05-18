@@ -570,17 +570,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Conectamos marcas con una comunidad apasionada de más de 1.84 millones de seguidores 
-                  a través de contenido auténtico y entretenido.
+                  Entre enero y abril de 2026 generamos <strong>7.99M de views</strong> y <strong>619K interacciones</strong> con
+                  1,131 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "1.84M", label: "Comunidad Total", icon: Users },
-                    { value: "93.15M", label: "Impresiones Anuales", icon: Eye },
-                    { value: "5.33M", label: "Interacciones", icon: Heart },
-                    { value: "7,068", label: "Publicaciones", icon: FileText },
+                    { value: "7.99M", label: "Views ene–abr 2026", icon: Eye },
+                    { value: "6.49M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "619.6K", label: "Interacciones", icon: Heart },
+                    { value: "1,131", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -596,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 1.84M COMUNIDAD", "◆ 93.15M IMPRESIONES", "▲ 5.33M INTERACCIONES", "● 7,068 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              items={["★ 7.99M VIEWS", "◆ 6.49M IMPRESIONES", "▲ 619.6K INTERACCIONES", "● 1,131 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–ABR 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -607,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 30 abril 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -633,7 +633,7 @@ const MediaKit = () => {
                     <span className="inline-flex items-center justify-center w-9 h-9 bg-primary text-primary-foreground border-2 border-foreground rounded-full">
                       <Eye className="w-4 h-4" />
                     </span>
-                    Impresiones <span className="italic text-gradient">totales</span>
+                    Views <span className="italic text-gradient">por plataforma</span>
                   </h3>
                   <div className="space-y-4">
                     {[
@@ -688,7 +688,7 @@ const MediaKit = () => {
                 badgeVariant="accent"
                 title="¿De dónde es"
                 highlight="nuestra audiencia"
-                description="Una comunidad global con fuerte presencia en Venezuela y la diáspora · Fuente: Metricool"
+                description="Una comunidad global con fuerte presencia en Venezuela y la diáspora · Fuente: Metricool (acumulado histórico)"
               />
 
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -792,7 +792,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Nuestras publicaciones con mejor rendimiento · Fuente: Metricool"
+                description="Top 6 publicaciones ene–abr 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
