@@ -618,9 +618,9 @@ const MediaKit = () => {
                   >
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
-                    <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.followers}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Seguidores</div>
-                    <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.growth}</div>
+                    <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views ene–abr</div>
+                    <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
               </div>
@@ -637,11 +637,10 @@ const MediaKit = () => {
                   </h3>
                   <div className="space-y-4">
                     {[
-                      { platform: "Facebook", value: audienceData.impressions.facebook, growth: audienceData.impressions.facebookGrowth },
-                      { platform: "Instagram", value: audienceData.impressions.instagram, growth: audienceData.impressions.instagramGrowth },
-                      { platform: "TikTok", value: audienceData.impressions.tiktok, growth: audienceData.impressions.tiktokGrowth },
-                      { platform: "YouTube", value: audienceData.impressions.youtube, growth: "" },
-                      { platform: "LinkedIn", value: audienceData.impressions.linkedin, growth: audienceData.impressions.linkedinGrowth },
+                      { platform: "TikTok", value: audienceData.views.tiktok, growth: "" },
+                      { platform: "Instagram", value: audienceData.views.instagram, growth: "" },
+                      { platform: "Facebook", value: audienceData.views.facebook, growth: "" },
+                      { platform: "YouTube", value: audienceData.views.youtube, growth: "" },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
@@ -664,11 +663,10 @@ const MediaKit = () => {
                   </h3>
                   <div className="space-y-4">
                     {[
-                      { platform: "Facebook", value: audienceData.interactions.facebook },
-                      { platform: "Threads", value: audienceData.interactions.threads },
+                      { platform: "TikTok", value: audienceData.interactions.tiktok },
                       { platform: "Instagram", value: audienceData.interactions.instagram },
+                      { platform: "Facebook", value: audienceData.interactions.facebook },
                       { platform: "YouTube", value: audienceData.interactions.youtube },
-                      { platform: "LinkedIn", value: audienceData.interactions.linkedin },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
