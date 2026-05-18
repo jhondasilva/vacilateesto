@@ -42,36 +42,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 30 abr 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene – 30 abr 2026)
+// Métricas calculadas desde el edge function metricool-brand-mentions sobre
+// las publicaciones reales del período. No incluye seguidores ni crecimiento
+// (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalFollowers: "1.84M",
-  totalImpressions: "93.15M",
-  totalInteractions: "5.33M",
-  totalPublications: "7,068",
+  totalViews: "7.99M",
+  totalImpressions: "6.49M",
+  totalInteractions: "619.6K",
+  totalPublications: "1,131",
   platforms: [
-    { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
-    { name: "Instagram", followers: "285.13K", growth: "+23.67%", icon: Instagram },
-    { name: "Facebook", followers: "213.82K", growth: "+13.69%", icon: Facebook },
-    { name: "YouTube", followers: "120K", growth: "+8.11%", icon: Youtube },
-    { name: "Threads", followers: "61.38K", growth: "+20.13%", icon: FileText },
+    { name: "TikTok", views: "3.74M", publications: "192", icon: Play },
+    { name: "Instagram", views: "2.28M", publications: "458", icon: Instagram },
+    { name: "Facebook", views: "1.08M", publications: "249", icon: Facebook },
+    { name: "YouTube", views: "884.5K", publications: "232", icon: Youtube },
   ],
-  impressions: {
-    facebook: "45.81M",
-    facebookGrowth: "+64.94%",
-    instagram: "24.35M",
-    instagramGrowth: "+88.36%",
-    tiktok: "20.53M",
-    tiktokGrowth: "+336.6%",
-    youtube: "2.11M",
-    linkedin: "225.28K",
-    linkedinGrowth: "+486.67%",
+  views: {
+    tiktok: "3.74M",
+    instagram: "2.28M",
+    facebook: "1.08M",
+    youtube: "884.5K",
   },
   interactions: {
-    facebook: "3.42M",
-    instagram: "486.21K",
-    threads: "1.32M",
-    youtube: "74.19K",
-    linkedin: "6,456",
+    tiktok: "327.6K",
+    instagram: "214.6K",
+    facebook: "54.1K",
+    youtube: "23.3K",
   },
   demographics: {
     countries: [
@@ -216,12 +212,12 @@ const sponsorshipPlans = [
 ];
 
 const topPosts = [
-  { date: "21 Feb 2025", description: "¿Sabías la existencia de este pozo?", impressions: "2.48M", interactions: "186.25K" },
-  { date: "07 Ago 2025", description: "Algunos aseguran haber sentido su presencia…", impressions: "1.04M", interactions: "80.55K" },
-  { date: "22 Mar 2025", description: "¿Qué opinas sobre estos 2 artistas venezolanos?", impressions: "919.49K", interactions: "56.97K" },
-  { date: "24 Abr 2025", description: "Teorías sobre la desaparición…", impressions: "880.3K", interactions: "59.85K" },
-  { date: "11 Feb 2025", description: "¿Crees esta leyenda? ¿Qué opinas?", impressions: "743.38K", interactions: "103.98K" },
-  { date: "07 May 2025", description: "La historia de constancia y éxito...", impressions: "685.74K", interactions: "88.78K" },
+  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "608.9K", interactions: "38.6K" },
+  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "383.0K", interactions: "37.5K" },
+  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "290.3K", interactions: "48.7K" },
+  { date: "19 Feb 2026", description: "TikTok · Don Nicanor, un personaje grabado en el ADN del país…", impressions: "259.0K", interactions: "21.4K" },
+  { date: "20 Feb 2026", description: "YouTube · El cine que conocías ya no existe — Ft. Jorge Roig", impressions: "149.5K", interactions: "94" },
+  { date: "04 Abr 2026", description: "Instagram · La tonada, el vínculo sagrado del llanero — Simón Díaz", impressions: "137.4K", interactions: "16.4K" },
 ];
 
 const ContactForm = () => {
