@@ -42,36 +42,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene 2025 - 30 abr 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene – 30 abr 2026)
+// Métricas calculadas desde el edge function metricool-brand-mentions sobre
+// las publicaciones reales del período. No incluye seguidores ni crecimiento
+// (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalFollowers: "1.84M",
-  totalImpressions: "93.15M",
-  totalInteractions: "5.33M",
-  totalPublications: "7,068",
+  totalViews: "7.99M",
+  totalImpressions: "6.49M",
+  totalInteractions: "619.6K",
+  totalPublications: "1,131",
   platforms: [
-    { name: "TikTok", followers: "1.16M", growth: "+3.88%", icon: Play },
-    { name: "Instagram", followers: "285.13K", growth: "+23.67%", icon: Instagram },
-    { name: "Facebook", followers: "213.82K", growth: "+13.69%", icon: Facebook },
-    { name: "YouTube", followers: "120K", growth: "+8.11%", icon: Youtube },
-    { name: "Threads", followers: "61.38K", growth: "+20.13%", icon: FileText },
+    { name: "TikTok", views: "3.74M", publications: "192", icon: Play },
+    { name: "Instagram", views: "2.28M", publications: "458", icon: Instagram },
+    { name: "Facebook", views: "1.08M", publications: "249", icon: Facebook },
+    { name: "YouTube", views: "884.5K", publications: "232", icon: Youtube },
   ],
-  impressions: {
-    facebook: "45.81M",
-    facebookGrowth: "+64.94%",
-    instagram: "24.35M",
-    instagramGrowth: "+88.36%",
-    tiktok: "20.53M",
-    tiktokGrowth: "+336.6%",
-    youtube: "2.11M",
-    linkedin: "225.28K",
-    linkedinGrowth: "+486.67%",
+  views: {
+    tiktok: "3.74M",
+    instagram: "2.28M",
+    facebook: "1.08M",
+    youtube: "884.5K",
   },
   interactions: {
-    facebook: "3.42M",
-    instagram: "486.21K",
-    threads: "1.32M",
-    youtube: "74.19K",
-    linkedin: "6,456",
+    tiktok: "327.6K",
+    instagram: "214.6K",
+    facebook: "54.1K",
+    youtube: "23.3K",
   },
   demographics: {
     countries: [
@@ -216,12 +212,12 @@ const sponsorshipPlans = [
 ];
 
 const topPosts = [
-  { date: "21 Feb 2025", description: "¿Sabías la existencia de este pozo?", impressions: "2.48M", interactions: "186.25K" },
-  { date: "07 Ago 2025", description: "Algunos aseguran haber sentido su presencia…", impressions: "1.04M", interactions: "80.55K" },
-  { date: "22 Mar 2025", description: "¿Qué opinas sobre estos 2 artistas venezolanos?", impressions: "919.49K", interactions: "56.97K" },
-  { date: "24 Abr 2025", description: "Teorías sobre la desaparición…", impressions: "880.3K", interactions: "59.85K" },
-  { date: "11 Feb 2025", description: "¿Crees esta leyenda? ¿Qué opinas?", impressions: "743.38K", interactions: "103.98K" },
-  { date: "07 May 2025", description: "La historia de constancia y éxito...", impressions: "685.74K", interactions: "88.78K" },
+  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "608.9K", interactions: "38.6K" },
+  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "383.0K", interactions: "37.5K" },
+  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "290.3K", interactions: "48.7K" },
+  { date: "19 Feb 2026", description: "TikTok · Don Nicanor, un personaje grabado en el ADN del país…", impressions: "259.0K", interactions: "21.4K" },
+  { date: "20 Feb 2026", description: "YouTube · El cine que conocías ya no existe — Ft. Jorge Roig", impressions: "149.5K", interactions: "94" },
+  { date: "04 Abr 2026", description: "Instagram · La tonada, el vínculo sagrado del llanero — Simón Díaz", impressions: "137.4K", interactions: "16.4K" },
 ];
 
 const ContactForm = () => {
@@ -574,17 +570,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Conectamos marcas con una comunidad apasionada de más de 1.84 millones de seguidores 
-                  a través de contenido auténtico y entretenido.
+                  Entre enero y abril de 2026 generamos <strong>7.99M de views</strong> y <strong>619K interacciones</strong> con
+                  1,131 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "1.84M", label: "Comunidad Total", icon: Users },
-                    { value: "93.15M", label: "Impresiones Anuales", icon: Eye },
-                    { value: "5.33M", label: "Interacciones", icon: Heart },
-                    { value: "7,068", label: "Publicaciones", icon: FileText },
+                    { value: "7.99M", label: "Views ene–abr 2026", icon: Eye },
+                    { value: "6.49M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "619.6K", label: "Interacciones", icon: Heart },
+                    { value: "1,131", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -600,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 1.84M COMUNIDAD", "◆ 93.15M IMPRESIONES", "▲ 5.33M INTERACCIONES", "● 7,068 PUBLICACIONES", "★ FUENTE: METRICOOL"]}
+              items={["★ 7.99M VIEWS", "◆ 6.49M IMPRESIONES", "▲ 619.6K INTERACCIONES", "● 1,131 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–ABR 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -611,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero 2025 - 24 abril 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 30 abril 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -622,9 +618,9 @@ const MediaKit = () => {
                   >
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
-                    <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.followers}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Seguidores</div>
-                    <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.growth}</div>
+                    <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views ene–abr</div>
+                    <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
               </div>
@@ -637,15 +633,14 @@ const MediaKit = () => {
                     <span className="inline-flex items-center justify-center w-9 h-9 bg-primary text-primary-foreground border-2 border-foreground rounded-full">
                       <Eye className="w-4 h-4" />
                     </span>
-                    Impresiones <span className="italic text-gradient">totales</span>
+                    Views <span className="italic text-gradient">por plataforma</span>
                   </h3>
                   <div className="space-y-4">
                     {[
-                      { platform: "Facebook", value: audienceData.impressions.facebook, growth: audienceData.impressions.facebookGrowth },
-                      { platform: "Instagram", value: audienceData.impressions.instagram, growth: audienceData.impressions.instagramGrowth },
-                      { platform: "TikTok", value: audienceData.impressions.tiktok, growth: audienceData.impressions.tiktokGrowth },
-                      { platform: "YouTube", value: audienceData.impressions.youtube, growth: "" },
-                      { platform: "LinkedIn", value: audienceData.impressions.linkedin, growth: audienceData.impressions.linkedinGrowth },
+                      { platform: "TikTok", value: audienceData.views.tiktok, growth: "" },
+                      { platform: "Instagram", value: audienceData.views.instagram, growth: "" },
+                      { platform: "Facebook", value: audienceData.views.facebook, growth: "" },
+                      { platform: "YouTube", value: audienceData.views.youtube, growth: "" },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
@@ -668,11 +663,10 @@ const MediaKit = () => {
                   </h3>
                   <div className="space-y-4">
                     {[
-                      { platform: "Facebook", value: audienceData.interactions.facebook },
-                      { platform: "Threads", value: audienceData.interactions.threads },
+                      { platform: "TikTok", value: audienceData.interactions.tiktok },
                       { platform: "Instagram", value: audienceData.interactions.instagram },
+                      { platform: "Facebook", value: audienceData.interactions.facebook },
                       { platform: "YouTube", value: audienceData.interactions.youtube },
-                      { platform: "LinkedIn", value: audienceData.interactions.linkedin },
                     ].map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0">
                         <span className="text-foreground font-medium">{item.platform}</span>
@@ -694,7 +688,7 @@ const MediaKit = () => {
                 badgeVariant="accent"
                 title="¿De dónde es"
                 highlight="nuestra audiencia"
-                description="Una comunidad global con fuerte presencia en Venezuela y la diáspora · Fuente: Metricool"
+                description="Una comunidad global con fuerte presencia en Venezuela y la diáspora · Fuente: Metricool (acumulado histórico)"
               />
 
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -798,7 +792,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Nuestras publicaciones con mejor rendimiento · Fuente: Metricool"
+                description="Top 6 publicaciones ene–abr 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
