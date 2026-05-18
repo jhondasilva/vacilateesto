@@ -134,17 +134,18 @@ const ecosystem = [
     color: "bg-foreground",
     items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube", "FM Center"],
   },
+  {
+    title: "Radio FM",
+    icon: Radio,
+    color: "bg-primary",
+    items: [
+      "FM Center · Hot Sports",
+      "Cuentos de 1 minuto",
+      "6 rotaciones diarias",
+      "Bases desde sedes USA",
+    ],
+  },
 ];
-
-const radioBlock = {
-  title: "Radio · FM Center",
-  items: [
-    "Hot Sports · cuentos de 1 minuto",
-    "6 rotaciones diarias",
-    "Bases desde sedes USA",
-    "Ruta del Mundial en vivo",
-  ],
-};
 
 const route = [
   { n: 1, country: "MX", city: "CDMX", date: "10–12 jun" },
@@ -578,7 +579,7 @@ const MediaKitVEM = () => {
               </h2>
               <p className="mt-2 text-muted-foreground">Qué hacemos, cómo lo hacemos.</p>
 
-              <div className="mt-10 grid md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {formats.map((f) => (
                   <div
                     key={f.title}
