@@ -111,9 +111,6 @@ const DashboardAdmin = () => {
     loadAdmins();
   }, [isAdmin]);
 
-  if (!loading && !session) return <Navigate to="/dashboard/login" replace />;
-  if (!loading && !isAdmin) return <Navigate to="/dashboard" replace />;
-
   const counts = useMemo(() => {
     const c = { pending: 0, approved: 0, rejected: 0 };
     for (const r of requests) {
@@ -129,6 +126,9 @@ const DashboardAdmin = () => {
     if (filter === "processed") return requests.filter((r) => r.status !== "pending");
     return requests;
   }, [requests, filter]);
+
+  if (!loading && !session) return <Navigate to="/dashboard/login" replace />;
+  if (!loading && !isAdmin) return <Navigate to="/dashboard" replace />;
 
   const openApprove = (r: AccessRequest) => {
     setOpenReqId(r.id);
