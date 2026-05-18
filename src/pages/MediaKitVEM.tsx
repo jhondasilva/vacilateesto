@@ -105,6 +105,14 @@ const formats = [
     icon: Plane,
     color: "bg-foreground",
   },
+  {
+    tag: "Radio · FM Center",
+    title: "Cuentos de un Minuto",
+    description:
+      "Cápsulas diarias de 60 segundos rotando 6 veces al día en Hot Sports (FM Center), grabadas desde nuestras bases en las sedes de Estados Unidos siguiendo la ruta.",
+    icon: Radio,
+    color: "bg-primary",
+  },
 ];
 
 const ecosystem = [
@@ -125,6 +133,17 @@ const ecosystem = [
     icon: Mic,
     color: "bg-foreground",
     items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube", "FM Center"],
+  },
+  {
+    title: "Radio FM",
+    icon: Radio,
+    color: "bg-primary",
+    items: [
+      "FM Center · Hot Sports",
+      "Cuentos de 1 minuto",
+      "6 rotaciones diarias",
+      "Bases desde sedes USA",
+    ],
   },
 ];
 
@@ -560,7 +579,7 @@ const MediaKitVEM = () => {
               </h2>
               <p className="mt-2 text-muted-foreground">Qué hacemos, cómo lo hacemos.</p>
 
-              <div className="mt-10 grid md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {formats.map((f) => (
                   <div
                     key={f.title}
@@ -618,7 +637,7 @@ const MediaKitVEM = () => {
               El Ecosistema
             </h2>
 
-            <div className="mt-10 grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {ecosystem.map((e) => (
                 <div
                   key={e.title}
