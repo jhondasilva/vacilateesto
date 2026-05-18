@@ -297,6 +297,16 @@ def page_formats(c):
         # meta pill
         sticker_pill(c, cx+16, cy+16, cw-32, 22, meta, fill=SOFT, fg=INK, fs=7)
 
+    # Radio · FM Center callout strip
+    ry = 70
+    c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(36, ry, W-72, 70, 12, fill=1, stroke=1)
+    sticker_pill(c, 50, ry+44, 130, 18, "RADIO · FM CENTER", fill=PINK, fg=white, fs=7)
+    c.setFillColor(white); c.setFont("Helvetica-Bold", 13)
+    c.drawString(50, ry+24, "CUENTOS DE 1 MINUTO  ·  HOT SPORTS  ·  6 ROTACIONES DIARIAS")
+    c.setFillColor(CYAN); c.setFont("Helvetica", 8.5)
+    c.drawString(50, ry+10, "Bases desde las sedes de EE.UU. siguiendo la ruta del Mundial.")
+
     footer(c, 5)
 
 # ───────── PAGE 6: ECOSISTEMA + CALENDARIO ─────────
@@ -310,16 +320,17 @@ def page_eco(c):
         ("REDES", ["Reels IG","Stories IG","TikToks","Shorts YouTube"], PINK),
         ("STREAMING", ["TikTok Live","Watch parties","Reacciones","Multi-cam"], CYAN),
         ("PODCAST", ["Episodios semanales","Especiales Mundial","Spotify · YouTube","FM Center"], INK),
+        ("RADIO FM", ["FM Center · Hot Sports","Cuentos de 1 minuto","6 rotaciones diarias","Bases desde sedes USA"], PINK),
     ]
-    cw = (W-72-30)/3; cy = H-310
+    cw = (W-72-45)/4; cy = H-310
     for i,(t,items,col) in enumerate(cols):
         cx = 36 + i*(cw+15)
         sticker_card(c, cx, cy, cw, 150, shadow=col)
-        c.setFillColor(col); c.setFont("Helvetica-Bold", 13)
+        c.setFillColor(col); c.setFont("Helvetica-Bold", 12)
         c.drawString(cx+16, cy+125, t)
-        c.setFillColor(INK); c.setFont("Helvetica", 10)
+        c.setFillColor(INK); c.setFont("Helvetica", 9)
         for j,it in enumerate(items):
-            c.drawString(cx+16, cy+100 - j*16, "•  " + it)
+            c.drawString(cx+16, cy+100 - j*15, "•  " + it)
 
     # Calendario
     sticker_pill(c, 36, H-360, 120, 20, "CALENDARIO 2026", fill=PINK, fg=white)
