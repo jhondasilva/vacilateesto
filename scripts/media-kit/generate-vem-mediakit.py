@@ -320,7 +320,7 @@ def page_eco(c):
         ("REDES", ["Reels IG","Stories IG","TikToks","Shorts YouTube"], PINK),
         ("STREAMING", ["TikTok Live","Watch parties","Reacciones","Multi-cam"], CYAN),
         ("PODCAST", ["Episodios semanales","Especiales Mundial","Spotify · YouTube","FM Center"], INK),
-        ("RADIO FM", ["FM Center · Hot Sports","Cuentos de 1 minuto","6 rotaciones diarias","Bases desde sedes USA"], PINK),
+        ("RADIO FM", ["FM Center · Hot Sports","Cuentos de 1 minuto","6 veces al día","Bases en sedes USA"], PINK),
     ]
     cw = (W-72-45)/4; cy = H-310
     for i,(t,items,col) in enumerate(cols):
