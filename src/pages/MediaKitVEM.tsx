@@ -105,6 +105,14 @@ const formats = [
     icon: Plane,
     color: "bg-foreground",
   },
+  {
+    tag: "Radio · FM Center",
+    title: "Cuentos de un Minuto",
+    description:
+      "Cápsulas diarias de 60 segundos rotando 6 veces al día en Hot Sports (FM Center), grabadas desde nuestras bases en las sedes de Estados Unidos siguiendo la ruta.",
+    icon: Radio,
+    color: "bg-primary",
+  },
 ];
 
 const ecosystem = [
@@ -127,6 +135,16 @@ const ecosystem = [
     items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube", "FM Center"],
   },
 ];
+
+const radioBlock = {
+  title: "Radio · FM Center",
+  items: [
+    "Hot Sports · cuentos de 1 minuto",
+    "6 rotaciones diarias",
+    "Bases desde sedes USA",
+    "Ruta del Mundial en vivo",
+  ],
+};
 
 const route = [
   { n: 1, country: "MX", city: "CDMX", date: "10–12 jun" },
