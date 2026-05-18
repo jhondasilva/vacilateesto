@@ -637,7 +637,7 @@ const MediaKitVEM = () => {
               El Ecosistema
             </h2>
 
-            <div className="mt-10 grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {ecosystem.map((e) => (
                 <div
                   key={e.title}
