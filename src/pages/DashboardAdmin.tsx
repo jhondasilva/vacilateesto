@@ -650,6 +650,67 @@ const DashboardAdmin = () => {
           )}
         </section>
 
+        {/* Actividad de inicios de sesión */}
+        <section className="bg-card border border-border rounded-2xl p-6 sm:p-8">
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2">
+              <Activity className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold">
+                Actividad de acceso{" "}
+                <span className="text-sm font-normal text-muted-foreground">({activity.length})</span>
+              </h2>
+            </div>
+            <Button variant="ghost" size="sm" onClick={loadActivity} disabled={loadingActivity}>
+              {loadingActivity && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Recargar
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Quién se ha conectado y cuándo fue su último inicio de sesión. Ordenado del más reciente al más antiguo.
+          </p>
+          {loadingActivity ? (
+            <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+          ) : activity.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Sin datos.</p>
+          ) : (
+            <ul className="space-y-2">
+              {activity.map((u) => {
+                const never = !u.last_sign_in_at;
+                return (
+                  <li
+                    key={u.id}
+                    className="border border-border rounded-xl p-3 flex items-center justify-between gap-3"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium truncate flex items-center gap-2">
+                        <Mail className="w-3 h-3 text-muted-foreground shrink-0" />
+                        {u.email ?? "—"}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Cuenta creada: {u.created_at ? new Date(u.created_at).toLocaleString() : "—"}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      {never ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border bg-muted text-muted-foreground border-border">
+                          Nunca
+                        </span>
+                      ) : (
+                        <>
+                          <p className="text-xs font-semibold">
+                            {new Date(u.last_sign_in_at!).toLocaleString()}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground">último acceso</p>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
+
         {/* Admins */}
         <section className="bg-card border border-border rounded-2xl p-6 sm:p-8">
           <div className="flex items-center justify-between mb-5">
