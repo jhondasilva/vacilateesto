@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, Loader2, AlertTriangle, Activity, CheckCircle2, XCircle, Trash2 } from "lucide-react";
+import { ArrowLeft, Loader2, AlertTriangle, Activity, CheckCircle2, XCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -33,8 +33,6 @@ const IngestHealth = () => {
   const { session, loading: authLoading, isAdmin } = useBrandAuth();
   const [rows, setRows] = useState<LogRow[]>([]);
   const [loading, setLoading] = useState(false);
-  const [corruptChunks, setCorruptChunks] = useState<number | null>(null);
-  const [cleaning, setCleaning] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -58,16 +56,6 @@ const IngestHealth = () => {
         titles = Object.fromEntries((vdata ?? []).map((v: any) => [v.video_id, v.title]));
       }
       setRows(logs.map((r) => ({ ...r, video: r.video_id ? { title: titles[r.video_id] ?? null } : null })));
-
-      // Live count of corrupt chunks still in DB (defensive sanity check)
-      const { count } = await supabase
-        .from("yt_transcript_chunks")
-        .select("id", { count: "exact", head: true })
-        .gt("text", "")
-        .filter("end_seconds", "lt", "start_seconds + 120");
-      // The filter above is not valid PostgREST; use RPC-style by raw length check instead via length filter
-      // Fallback: just leave count null; the alerts table is the source of truth.
-      setCorruptChunks(typeof count === "number" ? count : null);
     } catch (e: any) {
       toast.error(`No pude cargar el log: ${e.message}`);
     } finally {
