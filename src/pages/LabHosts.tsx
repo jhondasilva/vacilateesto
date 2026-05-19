@@ -407,11 +407,8 @@ const LabHosts = () => {
                   </div>
                   <div className="space-y-2">
                     {list.map((c) => (
-                      <a
+                      <div
                         key={c.id}
-                        href={`https://youtube.com/watch?v=${video_id}&t=${Math.floor(c.start_seconds)}s`}
-                        target="_blank"
-                        rel="noreferrer"
                         className="block p-3 rounded-lg bg-muted/40 hover:bg-muted/70 transition-colors group"
                       >
                         <div className="flex items-center gap-2 mb-1.5 flex-wrap">
@@ -422,7 +419,12 @@ const LabHosts = () => {
                           >
                             {c.speaker || "?"}
                           </span>
-                          {c.speaker_confidence != null && (
+                          {c.manual_override && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 border border-emerald-500/30">
+                              ✓ corregido
+                            </span>
+                          )}
+                          {c.speaker_confidence != null && !c.manual_override && (
                             <span className="text-[10px] text-muted-foreground font-mono">
                               {(c.speaker_confidence * 100).toFixed(0)}%
                             </span>
@@ -430,10 +432,51 @@ const LabHosts = () => {
                           <span className="text-[10px] text-muted-foreground font-mono">
                             {fmtTs(c.start_seconds)}
                           </span>
-                          <ExternalLink className="w-3 h-3 ml-auto text-muted-foreground group-hover:text-foreground" />
+                          {isAdmin && (
+                            editingId === c.id ? (
+                              <div className="flex items-center gap-1 ml-auto">
+                                {(["jhon", "juan", "invitado", "unknown"] as const).map((sp) => (
+                                  <button
+                                    key={sp}
+                                    type="button"
+                                    disabled={savingId === c.id}
+                                    onClick={() => reassignSpeaker(c.id, sp)}
+                                    className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${speakerColor(sp)} hover:opacity-80 disabled:opacity-50`}
+                                  >
+                                    {sp === "unknown" ? "?" : sp}
+                                  </button>
+                                ))}
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingId(null)}
+                                  className="text-[10px] text-muted-foreground px-1"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setEditingId(c.id)}
+                                className="ml-auto text-muted-foreground hover:text-foreground p-0.5"
+                                title="Reasignar hablante"
+                              >
+                                <Pencil className="w-3 h-3" />
+                              </button>
+                            )
+                          )}
+                          <a
+                            href={`https://youtube.com/watch?v=${video_id}&t=${Math.floor(c.start_seconds)}s`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={isAdmin ? "" : "ml-auto"}
+                            title="Abrir en YouTube"
+                          >
+                            <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+                          </a>
                         </div>
                         <p className="text-sm leading-relaxed">{c.text}</p>
-                      </a>
+                      </div>
                     ))}
                   </div>
                 </Card>
