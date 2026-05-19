@@ -81,6 +81,7 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<DashboardHome />} />
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+            <Route path="/dashboard/admin/ingest-health" element={<IngestHealth />} />
             <Route path="/dashboard/:slug" element={<DashboardBrand />} />
             <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
