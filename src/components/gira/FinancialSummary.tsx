@@ -285,17 +285,108 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
   const longFlightsTotal = flightRows.filter(r => r.durationHours > 3).length;
   const freeFlights = flightRows.filter(r => r.cost === 0).length;
 
+  // ===== Reales reportados por categoría (expense_reports) =====
+  const realByCategoryRaw = expenses.reduce((acc, e) => {
+    const cat = (e.category || "").toLowerCase().trim();
+    acc[cat] = (acc[cat] || 0) + (Number(e.amount_usd) || 0);
+    return acc;
+  }, {} as Record<string, number>);
+  const realByCategory: Record<string, number> = {
+    vuelos: realByCategoryRaw["vuelos"] || 0,
+    hospedaje: (realByCategoryRaw["hospedaje"] || 0) + (realByCategoryRaw["hotel"] || 0) + (realByCategoryRaw["alojamiento"] || 0),
+    transporte: (realByCategoryRaw["transporte"] || 0) + (realByCategoryRaw["uber"] || 0) + (realByCategoryRaw["tren"] || 0),
+    comida: (realByCategoryRaw["comida"] || 0) + (realByCategoryRaw["alimentacion"] || 0) + (realByCategoryRaw["alimentación"] || 0),
+    wifi: (realByCategoryRaw["wifi"] || 0),
+    esim: (realByCategoryRaw["esim"] || 0) + (realByCategoryRaw["internet"] || 0) + (realByCategoryRaw["datos"] || 0),
+    seguro: (realByCategoryRaw["seguro"] || 0),
+    operatividad: (realByCategoryRaw["operatividad"] || 0) + (realByCategoryRaw["lavanderia"] || 0) + (realByCategoryRaw["propinas"] || 0),
+    otros: (realByCategoryRaw["otros"] || 0) + (realByCategoryRaw[""] || 0),
+  };
+
+  // Construcción híbrida: si hay real para la categoría → sustituye el proyectado.
+  const buildRow = (concept: string, projected: number, realKey: keyof typeof realByCategory, detailProjected: string, detailReal: string) => {
+    const real = realByCategory[realKey] || 0;
+    const useReal = real > 0;
+    return {
+      concept,
+      detail: useReal ? detailReal : detailProjected,
+      value: useReal ? real : projected,
+      projected,
+      real,
+      source: useReal ? "real" as const : "proyectado" as const,
+    };
+  };
+
   const expenseRows = [
-    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`, value: flightsCost },
-    { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
-    { concept: "Transporte terrestre", detail: `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`, value: transportCost },
-    { concept: "Alimentación", detail: `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`, value: foodCost },
-    { concept: "Otros gastos (extras hotel, contenido)", detail: `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`, value: otherExpensesCost },
-    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`, value: inflightWifiCost },
-    { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
-    { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
-    { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
+    buildRow(
+      "Vuelos",
+      flightsCost,
+      "vuelos",
+      `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`,
+      `Reportado en gastos · proyectado era ${fmt(flightsCost)}`,
+    ),
+    buildRow(
+      "Hospedaje",
+      hotelsCost,
+      "hospedaje",
+      `${totalNights} noches · boutique 3-4★ cerca de estadios`,
+      `Reportado en gastos · proyectado era ${fmt(hotelsCost)}`,
+    ),
+    buildRow(
+      "Transporte terrestre",
+      transportCost,
+      "transporte",
+      `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`,
+      `Reportado en gastos · proyectado era ${fmt(transportCost)}`,
+    ),
+    buildRow(
+      "Alimentación",
+      foodCost,
+      "comida",
+      `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`,
+      `Reportado en gastos · proyectado era ${fmt(foodCost)} (per diem $${perDiemFood.toLocaleString("en-US")} + extras)`,
+    ),
+    buildRow(
+      "Otros gastos (extras hotel, contenido)",
+      otherExpensesCost,
+      "otros",
+      `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`,
+      `Reportado en gastos · proyectado era ${fmt(otherExpensesCost)}`,
+    ),
+    buildRow(
+      "WiFi a bordo (Jhon + Juan)",
+      inflightWifiCost,
+      "wifi",
+      `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`,
+      `Reportado en gastos · proyectado era ${fmt(inflightWifiCost)}`,
+    ),
+    buildRow(
+      "Internet celular (eSIM)",
+      eSimCost,
+      "esim",
+      "Datos roaming 2 personas · ~6 semanas",
+      `Reportado en gastos · proyectado era ${fmt(eSimCost)}`,
+    ),
+    buildRow(
+      "Seguro de viaje",
+      insuranceCost,
+      "seguro",
+      "Cobertura internacional 2 pax x 42 días",
+      `Reportado en gastos · proyectado era ${fmt(insuranceCost)}`,
+    ),
+    buildRow(
+      "Operatividad",
+      operationsCost,
+      "operatividad",
+      "Lavandería + ETIAS + propinas + extras",
+      `Reportado en gastos · proyectado era ${fmt(operationsCost)}`,
+    ),
   ];
+
+  // Recalcular subtotal/contingencia/total usando el híbrido real+proyectado
+  const hybridSubtotal = expenseRows.reduce((s, r) => s + r.value, 0);
+  const hybridContingency = hybridSubtotal * 0.10;
+  const hybridTotal = hybridSubtotal + hybridContingency;
 
   return (
     <div className="space-y-6">
