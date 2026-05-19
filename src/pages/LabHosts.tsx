@@ -631,6 +631,20 @@ const LabHosts = () => {
                       <Row sp="juan" d={u} />
                       <Row sp="invitado" d={i} />
                     </div>
+                    <div className="flex flex-wrap gap-3 mt-3 text-[10px] text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        Verde ≥70% — diarización confiable
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-amber-500" />
+                        Ámbar 50-70% — revisar posibles errores
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-destructive" />
+                        Rojo &lt;50% — alta probabilidad de error de hablante
+                      </span>
+                    </div>
                     {ratio > 1.25 && (
                       <p className="text-[11px] text-muted-foreground mt-3 leading-relaxed">
                         ⚠ La diarización tiende a asignar más tiempo a Jhon. Esto puede indicar voces parecidas o un sesgo del modelo. Revisa chunks de baja confianza en la búsqueda y reasigna manualmente cuando detectes errores.
