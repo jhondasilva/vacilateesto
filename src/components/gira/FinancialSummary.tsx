@@ -285,17 +285,108 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
   const longFlightsTotal = flightRows.filter(r => r.durationHours > 3).length;
   const freeFlights = flightRows.filter(r => r.cost === 0).length;
 
+  // ===== Reales reportados por categoría (expense_reports) =====
+  const realByCategoryRaw = expenses.reduce((acc, e) => {
+    const cat = (e.category || "").toLowerCase().trim();
+    acc[cat] = (acc[cat] || 0) + (Number(e.amount_usd) || 0);
+    return acc;
+  }, {} as Record<string, number>);
+  const realByCategory: Record<string, number> = {
+    vuelos: realByCategoryRaw["vuelos"] || 0,
+    hospedaje: (realByCategoryRaw["hospedaje"] || 0) + (realByCategoryRaw["hotel"] || 0) + (realByCategoryRaw["alojamiento"] || 0),
+    transporte: (realByCategoryRaw["transporte"] || 0) + (realByCategoryRaw["uber"] || 0) + (realByCategoryRaw["tren"] || 0),
+    comida: (realByCategoryRaw["comida"] || 0) + (realByCategoryRaw["alimentacion"] || 0) + (realByCategoryRaw["alimentación"] || 0),
+    wifi: (realByCategoryRaw["wifi"] || 0),
+    esim: (realByCategoryRaw["esim"] || 0) + (realByCategoryRaw["internet"] || 0) + (realByCategoryRaw["datos"] || 0),
+    seguro: (realByCategoryRaw["seguro"] || 0),
+    operatividad: (realByCategoryRaw["operatividad"] || 0) + (realByCategoryRaw["lavanderia"] || 0) + (realByCategoryRaw["propinas"] || 0),
+    otros: (realByCategoryRaw["otros"] || 0) + (realByCategoryRaw[""] || 0),
+  };
+
+  // Construcción híbrida: si hay real para la categoría → sustituye el proyectado.
+  const buildRow = (concept: string, projected: number, realKey: keyof typeof realByCategory, detailProjected: string, detailReal: string) => {
+    const real = realByCategory[realKey] || 0;
+    const useReal = real > 0;
+    return {
+      concept,
+      detail: useReal ? detailReal : detailProjected,
+      value: useReal ? real : projected,
+      projected,
+      real,
+      source: useReal ? "real" as const : "proyectado" as const,
+    };
+  };
+
   const expenseRows = [
-    { concept: "Vuelos", detail: `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`, value: flightsCost },
-    { concept: "Hospedaje", detail: `${totalNights} noches · boutique 3-4★ cerca de estadios`, value: hotelsCost },
-    { concept: "Transporte terrestre", detail: `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`, value: transportCost },
-    { concept: "Alimentación", detail: `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`, value: foodCost },
-    { concept: "Otros gastos (extras hotel, contenido)", detail: `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`, value: otherExpensesCost },
-    { concept: "WiFi a bordo (Jhon + Juan)", detail: `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`, value: inflightWifiCost },
-    { concept: "Internet celular (eSIM)", detail: "Datos roaming 2 personas · ~6 semanas", value: eSimCost },
-    { concept: "Seguro de viaje", detail: "Cobertura internacional 2 pax x 42 días", value: insuranceCost },
-    { concept: "Operatividad", detail: "Lavandería + ETIAS + propinas + extras", value: operationsCost },
+    buildRow(
+      "Vuelos",
+      flightsCost,
+      "vuelos",
+      `${activities.filter(a => a.activity_type === "flight").length} segmentos · totales 2 pax · mix Economy/Premium Economy/Business`,
+      `Reportado en gastos · proyectado era ${fmt(flightsCost)}`,
+    ),
+    buildRow(
+      "Hospedaje",
+      hotelsCost,
+      "hospedaje",
+      `${totalNights} noches · boutique 3-4★ cerca de estadios`,
+      `Reportado en gastos · proyectado era ${fmt(hotelsCost)}`,
+    ),
+    buildRow(
+      "Transporte terrestre",
+      transportCost,
+      "transporte",
+      `Uber XL/Black + Amtrak + traslados (${activities.filter(isTransportExpense).length} registros)`,
+      `Reportado en gastos · proyectado era ${fmt(transportCost)}`,
+    ),
+    buildRow(
+      "Alimentación",
+      foodCost,
+      "comida",
+      `$80/día x 2 pax x 42 días (per diem $${perDiemFood.toLocaleString("en-US")}) + ${activities.filter(isFoodExpense).length} extras registrados`,
+      `Reportado en gastos · proyectado era ${fmt(foodCost)} (per diem $${perDiemFood.toLocaleString("en-US")} + extras)`,
+    ),
+    buildRow(
+      "Otros gastos (extras hotel, contenido)",
+      otherExpensesCost,
+      "otros",
+      `${otherExpensesActivities.length} ítems sin clasificar en transporte/comida`,
+      `Reportado en gastos · proyectado era ${fmt(otherExpensesCost)}`,
+    ),
+    buildRow(
+      "WiFi a bordo (Jhon + Juan)",
+      inflightWifiCost,
+      "wifi",
+      `$40/pax · ${longFlightsCount} vuelos >3h (Conviasa solo 1 pax)`,
+      `Reportado en gastos · proyectado era ${fmt(inflightWifiCost)}`,
+    ),
+    buildRow(
+      "Internet celular (eSIM)",
+      eSimCost,
+      "esim",
+      "Datos roaming 2 personas · ~6 semanas",
+      `Reportado en gastos · proyectado era ${fmt(eSimCost)}`,
+    ),
+    buildRow(
+      "Seguro de viaje",
+      insuranceCost,
+      "seguro",
+      "Cobertura internacional 2 pax x 42 días",
+      `Reportado en gastos · proyectado era ${fmt(insuranceCost)}`,
+    ),
+    buildRow(
+      "Operatividad",
+      operationsCost,
+      "operatividad",
+      "Lavandería + ETIAS + propinas + extras",
+      `Reportado en gastos · proyectado era ${fmt(operationsCost)}`,
+    ),
   ];
+
+  // Recalcular subtotal/contingencia/total usando el híbrido real+proyectado
+  const hybridSubtotal = expenseRows.reduce((s, r) => s + r.value, 0);
+  const hybridContingency = hybridSubtotal * 0.10;
+  const hybridTotal = hybridSubtotal + hybridContingency;
 
   return (
     <div className="space-y-6">
@@ -374,7 +465,9 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
       <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
         <div className="px-5 py-4 border-b border-border bg-muted/30">
           <h3 className="font-bold text-foreground">Resumen de inversión (USD reales · 2 pax)</h3>
-          <p className="text-xs text-muted-foreground mt-1">Idéntico a la hoja "Resumen Total" del Excel</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Híbrido: <span className="font-semibold text-emerald-700">reales reportados</span> donde existen, <span className="font-semibold text-sky-700">proyectados</span> donde no.
+          </p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -388,7 +481,14 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
             <tbody>
               {expenseRows.map((r) => (
                 <tr key={r.concept} className="border-t border-border">
-                  <td className="px-5 py-3 text-foreground font-medium">{r.concept}</td>
+                  <td className="px-5 py-3 text-foreground font-medium">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span>{r.concept}</span>
+                      <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${r.source === "real" ? "bg-emerald-100 text-emerald-700 border-emerald-200" : "bg-sky-100 text-sky-700 border-sky-200"}`}>
+                        {r.source === "real" ? "Real" : "Proyectado"}
+                      </span>
+                    </div>
+                  </td>
                   <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">{r.detail}</td>
                   <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(r.value)}</td>
                 </tr>
@@ -396,12 +496,12 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
               <tr className="border-t border-border bg-muted/30">
                 <td className="px-5 py-3 text-foreground font-medium">Fondo de Imprevistos (10%)</td>
                 <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">Margen de seguridad sobre logística</td>
-                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(contingency)}</td>
+                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(hybridContingency)}</td>
               </tr>
               <tr className="border-t-2 border-primary bg-primary/5">
                 <td className="px-5 py-4 text-foreground font-black uppercase">Inversión Total Estimada</td>
                 <td className="px-5 py-4 hidden sm:table-cell"></td>
-                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(totalUsd)} USD</td>
+                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(hybridTotal)} USD</td>
               </tr>
             </tbody>
           </table>
