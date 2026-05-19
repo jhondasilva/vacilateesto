@@ -42,6 +42,22 @@ from supabase import create_client, Client
 
 load_dotenv()
 
+# ---------- Normalización de marca ----------
+# Corrige errores comunes de transcripción del nombre de la marca.
+_BRAND_FIXES = [
+    (re.compile(r"Bacilat[oae]"), "Vacílate"),
+    (re.compile(r"bacilat[oae]"), "vacílate"),
+    (re.compile(r"Vasilat[oae]"), "Vacílate"),
+    (re.compile(r"vasilat[oae]"), "vacílate"),
+]
+
+def normalize_brand(text: str) -> str:
+    if not text:
+        return text
+    for pat, repl in _BRAND_FIXES:
+        text = pat.sub(repl, text)
+    return text
+
 # ---------- Auto-update ----------
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
