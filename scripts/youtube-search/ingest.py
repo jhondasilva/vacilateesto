@@ -62,7 +62,7 @@ def normalize_brand(text: str) -> str:
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
 # nueva, la escribimos sobre este archivo, y reiniciamos.
-SCRIPT_VERSION = "2026.04.28.1"
+SCRIPT_VERSION = "2026.05.19.1"
 VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
 
 
@@ -333,15 +333,31 @@ def transcribe_slice(slice_path: Path, slice_start: float) -> List[dict]:
                     continue
                 raise
         segs = data.get("segments", [])
-        return [
-            {
-                "start": float(s["start"]) + slice_start,
-                "end": float(s["end"]) + slice_start,
-                "text": s["text"].strip(),
-            }
-            for s in segs
-            if s.get("text", "").strip()
-        ]
+        cleaned: List[dict] = []
+        dropped = 0
+        for s in segs:
+            txt = (s.get("text") or "").strip()
+            if not txt:
+                continue
+            try:
+                st = float(s["start"])
+                en = float(s["end"])
+            except (KeyError, TypeError, ValueError):
+                dropped += 1
+                continue
+            dur = max(en - st, 0.0)
+            # Discard "aplastados": un segmento que afirma durar 30 s pero
+            # contiene 15.000 caracteres es la transcripción entera comprimida
+            # en una ventana corta (bug observado de Gemini). Tope generoso:
+            # 35 chars/seg ≈ 350 wpm, muy por encima del habla humana real.
+            max_chars = max(int(dur * 35), 400)
+            if len(txt) > max_chars:
+                dropped += 1
+                continue
+            cleaned.append({"start": st + slice_start, "end": en + slice_start, "text": txt})
+        if dropped:
+            print(f"     🧹 descartados {dropped} segmento(s) aplastado(s)")
+        return cleaned
     raise RuntimeError(f"transcribe failed after 3 attempts for {slice_path}")
 
 
@@ -359,6 +375,13 @@ def chunk_segments(segments: List[dict]) -> List[dict]:
         if in_win:
             text = " ".join(s["text"] for s in in_win)
             text = re.sub(r"\s+", " ", text).strip()
+            # Guardia anti-corrupción: si el texto excede lo plausible para la
+            # ventana, recórtalo. Evita filas con la transcripción entera
+            # aplastada en un chunk de 60 s.
+            max_chunk_chars = CHUNK_SECONDS * 40  # ~2.400 chars
+            if len(text) > max_chunk_chars:
+                print(f"     ⚠️  chunk @{int(win_start)}s recortado ({len(text)}→{max_chunk_chars} chars)")
+                text = text[:max_chunk_chars]
             if len(text) > 30:
                 chunks.append(
                     {
