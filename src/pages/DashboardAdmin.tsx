@@ -7,7 +7,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Loader2, UserPlus, Inbox, Check, X, Trash2, Users,
-  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp,
+  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp, Activity,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,14 @@ type AccessRequest = {
   notes: string | null;
 };
 
+type LoginActivity = {
+  id: string;
+  email: string | null;
+  created_at: string | null;
+  last_sign_in_at: string | null;
+  email_confirmed_at: string | null;
+};
+
 type StatusFilter = "pending" | "processed" | "all";
 
 const DashboardAdmin = () => {
@@ -43,6 +51,8 @@ const DashboardAdmin = () => {
   const [loadingReqs, setLoadingReqs] = useState(false);
   const [loadingAcc, setLoadingAcc] = useState(false);
   const [loadingAdmins, setLoadingAdmins] = useState(false);
+  const [activity, setActivity] = useState<LoginActivity[]>([]);
+  const [loadingActivity, setLoadingActivity] = useState(false);
   const [actioningId, setActioningId] = useState<string | null>(null);
   const [filter, setFilter] = useState<StatusFilter>("pending");
 
@@ -100,6 +110,24 @@ const DashboardAdmin = () => {
     setLoadingAdmins(false);
   };
 
+  const loadActivity = async () => {
+    setLoadingActivity(true);
+    const { data, error } = await supabase.functions.invoke("admin-login-activity", { body: {} });
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error ?? error?.message ?? "Error al cargar actividad");
+      setLoadingActivity(false);
+      return;
+    }
+    const users = ((data as any)?.users ?? []) as LoginActivity[];
+    users.sort((a, b) => {
+      const ta = a.last_sign_in_at ? new Date(a.last_sign_in_at).getTime() : 0;
+      const tb = b.last_sign_in_at ? new Date(b.last_sign_in_at).getTime() : 0;
+      return tb - ta;
+    });
+    setActivity(users);
+    setLoadingActivity(false);
+  };
+
   useEffect(() => {
     if (!isAdmin) return;
     (async () => {
@@ -109,6 +137,7 @@ const DashboardAdmin = () => {
     loadRequests();
     loadAccesses();
     loadAdmins();
+    loadActivity();
   }, [isAdmin]);
 
   const counts = useMemo(() => {
@@ -618,6 +647,67 @@ const DashboardAdmin = () => {
                 Crear cliente
               </Button>
             </form>
+          )}
+        </section>
+
+        {/* Actividad de inicios de sesión */}
+        <section className="bg-card border border-border rounded-2xl p-6 sm:p-8">
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2">
+              <Activity className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold">
+                Actividad de acceso{" "}
+                <span className="text-sm font-normal text-muted-foreground">({activity.length})</span>
+              </h2>
+            </div>
+            <Button variant="ghost" size="sm" onClick={loadActivity} disabled={loadingActivity}>
+              {loadingActivity && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Recargar
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Quién se ha conectado y cuándo fue su último inicio de sesión. Ordenado del más reciente al más antiguo.
+          </p>
+          {loadingActivity ? (
+            <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+          ) : activity.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Sin datos.</p>
+          ) : (
+            <ul className="space-y-2">
+              {activity.map((u) => {
+                const never = !u.last_sign_in_at;
+                return (
+                  <li
+                    key={u.id}
+                    className="border border-border rounded-xl p-3 flex items-center justify-between gap-3"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium truncate flex items-center gap-2">
+                        <Mail className="w-3 h-3 text-muted-foreground shrink-0" />
+                        {u.email ?? "—"}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Cuenta creada: {u.created_at ? new Date(u.created_at).toLocaleString() : "—"}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      {never ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border bg-muted text-muted-foreground border-border">
+                          Nunca
+                        </span>
+                      ) : (
+                        <>
+                          <p className="text-xs font-semibold">
+                            {new Date(u.last_sign_in_at!).toLocaleString()}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground">último acceso</p>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           )}
         </section>
 
