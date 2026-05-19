@@ -113,11 +113,6 @@ const LabHosts = () => {
   const [statsError, setStatsError] = useState<string | null>(null);
   const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
 
-  // Compare before/after
-  const [compareLoading, setCompareLoading] = useState(false);
-  const [compareError, setCompareError] = useState<string | null>(null);
-  const [compareEpisodes, setCompareEpisodes] = useState<CompareEpisode[]>([]);
-  const [compareOnlyChanged, setCompareOnlyChanged] = useState(true);
 
   // Load coverage stats
   useEffect(() => {
