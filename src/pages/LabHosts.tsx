@@ -112,7 +112,7 @@ const LabHosts = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [statsError, setStatsError] = useState<string | null>(null);
   const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
-
+  const [confidence, setConfidence] = useState<Record<string, { avg: number; high: number; total: number }>>({});
 
   // Load coverage stats
   useEffect(() => {
@@ -180,6 +180,45 @@ const LabHosts = () => {
     })();
   }, [tab, episodes.length, statsLoading]);
 
+  // Load avg speaker confidence per host
+  useEffect(() => {
+    if (tab !== "stats" || Object.keys(confidence).length > 0) return;
+    (async () => {
+      try {
+        const result: Record<string, { avg: number; high: number; total: number }> = {};
+        for (const sp of ["jhon", "juan", "invitado"]) {
+          const { data } = await supabase
+            .from("yt_transcript_chunks")
+            .select("speaker_confidence")
+            .eq("speaker", sp)
+            .not("speaker_confidence", "is", null)
+            .limit(5000);
+          const vals = (data || []).map((r: any) => Number(r.speaker_confidence) || 0);
+          const total = vals.length;
+          const avg = total ? vals.reduce((a, b) => a + b, 0) / total : 0;
+          const high = vals.filter((v) => v >= 0.7).length;
+          result[sp] = { avg, high, total };
+        }
+        setConfidence(result);
+      } catch {
+        // ignore
+      }
+    })();
+  }, [tab, confidence]);
+
+  const statsTotals = useMemo(() => {
+    const t: Record<string, { seconds: number; words: number; turns: number; episodes: number }> = {};
+    for (const ep of episodes) {
+      for (const [sp, d] of Object.entries(ep.bySpeaker)) {
+        const acc = (t[sp] ||= { seconds: 0, words: 0, turns: 0, episodes: 0 });
+        acc.seconds += d.seconds;
+        acc.words += d.words;
+        acc.turns += d.turns;
+        acc.episodes += 1;
+      }
+    }
+    return t;
+  }, [episodes]);
 
   const runSearch = async () => {
     const q = query.trim();
@@ -507,6 +546,99 @@ const LabHosts = () => {
                   No hay episodios diarizados aún.
                 </p>
               )}
+              {episodes.length > 0 && (() => {
+                const j = statsTotals.jhon;
+                const u = statsTotals.juan;
+                const i = statsTotals.invitado;
+                const jSec = j?.seconds || 0;
+                const uSec = u?.seconds || 0;
+                const ratio = uSec > 0 ? jSec / uSec : 0;
+                let biasLabel = "Equilibrado";
+                let biasClass = "text-emerald-600 bg-emerald-500/10 border-emerald-500/30";
+                if (ratio === 0) { biasLabel = "Sin datos"; biasClass = "text-muted-foreground bg-muted border-border"; }
+                else if (ratio > 1.5) { biasLabel = "Sesgo fuerte hacia Jhon"; biasClass = "text-destructive bg-destructive/10 border-destructive/30"; }
+                else if (ratio > 1.25) { biasLabel = "Sesgo moderado hacia Jhon"; biasClass = "text-amber-600 bg-amber-500/10 border-amber-500/30"; }
+                else if (ratio < 0.67) { biasLabel = "Sesgo fuerte hacia Juan"; biasClass = "text-destructive bg-destructive/10 border-destructive/30"; }
+                else if (ratio < 0.8) { biasLabel = "Sesgo moderado hacia Juan"; biasClass = "text-amber-600 bg-amber-500/10 border-amber-500/30"; }
+                const Row = ({ sp, d }: { sp: "jhon" | "juan" | "invitado"; d: typeof j }) => {
+                  if (!d) return null;
+                  const conf = confidence[sp];
+                  return (
+                    <div className="rounded-lg border border-border/60 p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className={`w-3 h-3 rounded-full ${speakerBarColor(sp)}`} />
+                        <span className="text-sm font-bold uppercase tracking-wider">{sp}</span>
+                        <span className="text-[10px] text-muted-foreground ml-auto font-mono">
+                          {d.episodes} ep.
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 mb-3">
+                        <div>
+                          <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Tiempo</div>
+                          <div className="text-sm font-bold font-mono">{fmtDuration(d.seconds)}</div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Palabras</div>
+                          <div className="text-sm font-bold font-mono">{d.words.toLocaleString()}</div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Turnos</div>
+                          <div className="text-sm font-bold font-mono">{d.turns.toLocaleString()}</div>
+                        </div>
+                      </div>
+                      {conf && conf.total > 0 && (
+                        <div className="pt-3 border-t border-border/50">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Confianza</span>
+                            <span className="text-[11px] font-mono font-semibold">
+                              {(conf.avg * 100).toFixed(0)}%
+                            </span>
+                          </div>
+                          <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                            <div
+                              className={conf.avg >= 0.7 ? "h-full bg-emerald-500" : conf.avg >= 0.5 ? "h-full bg-amber-500" : "h-full bg-destructive"}
+                              style={{ width: `${Math.min(100, conf.avg * 100)}%` }}
+                            />
+                          </div>
+                          <div className="text-[10px] text-muted-foreground font-mono mt-1">
+                            {((conf.high / conf.total) * 100).toFixed(0)}% chunks con confianza ≥70%
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                };
+                return (
+                  <Card className="p-5 border-2 border-foreground/10">
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                      <div>
+                        <h3 className="font-bold text-base">Resumen Jhon vs Juan</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          Agregado de {episodes.length} episodios diarizados
+                        </p>
+                      </div>
+                      <div className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border ${biasClass}`}>
+                        {biasLabel}
+                        {ratio > 0 && (
+                          <span className="ml-2 font-mono opacity-80">
+                            Jhon/Juan = {ratio.toFixed(2)}×
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <Row sp="jhon" d={j} />
+                      <Row sp="juan" d={u} />
+                      <Row sp="invitado" d={i} />
+                    </div>
+                    {ratio > 1.25 && (
+                      <p className="text-[11px] text-muted-foreground mt-3 leading-relaxed">
+                        ⚠ La diarización tiende a asignar más tiempo a Jhon. Esto puede indicar voces parecidas o un sesgo del modelo. Revisa chunks de baja confianza en la búsqueda y reasigna manualmente cuando detectes errores.
+                      </p>
+                    )}
+                  </Card>
+                );
+              })()}
               {episodes.map((ep) => {
                 const order = ["jhon", "juan", "invitado", "unknown"];
                 const speakers = order.filter((s) => ep.bySpeaker[s]);
