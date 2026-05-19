@@ -273,14 +273,15 @@ def assign_chunks(
 
 
 def update_chunks_speaker(updates: List[dict]) -> None:
-    # Supabase doesn't have bulk update; do it in batches via upsert on id
+    # Respeta correcciones manuales (manual_override=true).
+    # Solo actualiza chunks que NO han sido corregidos por un humano.
     BATCH = 100
     for i in range(0, len(updates), BATCH):
         batch = updates[i:i + BATCH]
         for u in batch:
             sb.table("yt_transcript_chunks").update(
                 {"speaker": u["speaker"], "speaker_confidence": u["speaker_confidence"]}
-            ).eq("id", u["id"]).execute()
+            ).eq("id", u["id"]).eq("manual_override", False).execute()
 
 
 # ---------- Recompute host_stats ----------

@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3, Sparkles } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import LabHostChat from "./LabHostChat";
+import { useBrandAuth } from "@/hooks/useBrandAuth";
+import { toast } from "sonner";
 
 type Speaker = "all" | "jhon" | "juan" | "invitado" | "unknown";
 
@@ -18,6 +20,7 @@ type ChunkRow = {
   text: string;
   speaker: string | null;
   speaker_confidence: number | null;
+  manual_override?: boolean | null;
 };
 
 type VideoRow = {
@@ -93,6 +96,7 @@ function speakerColor(sp: string | null) {
 }
 
 const LabHosts = () => {
+  const { isAdmin } = useBrandAuth();
   const [tab, setTab] = useState<Tab>("search");
   const [query, setQuery] = useState("");
   const [speaker, setSpeaker] = useState<Speaker>("all");
@@ -101,6 +105,8 @@ const LabHosts = () => {
   const [videos, setVideos] = useState<Record<string, VideoRow>>({});
   const [error, setError] = useState<string | null>(null);
   const [coverage, setCoverage] = useState<{ done: number; total: number } | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [savingId, setSavingId] = useState<string | null>(null);
 
   // Episode stats
   const [statsLoading, setStatsLoading] = useState(false);
@@ -181,7 +187,7 @@ const LabHosts = () => {
     try {
       let req = supabase
         .from("yt_transcript_chunks")
-        .select("id, video_id, start_seconds, end_seconds, text, speaker, speaker_confidence")
+        .select("id, video_id, start_seconds, end_seconds, text, speaker, speaker_confidence, manual_override")
         .textSearch("text_tsv", q, { config: "spanish", type: "websearch" })
         .limit(80);
       if (speaker !== "all") {
@@ -218,6 +224,27 @@ const LabHosts = () => {
       chunks: list.sort((a, b) => a.start_seconds - b.start_seconds),
     }));
   }, [chunks]);
+
+  const reassignSpeaker = async (chunkId: string, newSpeaker: string) => {
+    setSavingId(chunkId);
+    const { data, error } = await supabase.functions.invoke("lab-set-speaker", {
+      body: { chunk_id: chunkId, speaker: newSpeaker },
+    });
+    setSavingId(null);
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error ?? error?.message ?? "Error");
+      return;
+    }
+    setChunks((prev) =>
+      prev.map((c) =>
+        c.id === chunkId
+          ? { ...c, speaker: newSpeaker, speaker_confidence: 1, manual_override: true }
+          : c,
+      ),
+    );
+    setEditingId(null);
+    toast.success("Atribución corregida");
+  };
 
   const speakerCounts = useMemo(() => {
     const c: Record<string, number> = { jhon: 0, juan: 0, invitado: 0, unknown: 0 };
@@ -380,11 +407,8 @@ const LabHosts = () => {
                   </div>
                   <div className="space-y-2">
                     {list.map((c) => (
-                      <a
+                      <div
                         key={c.id}
-                        href={`https://youtube.com/watch?v=${video_id}&t=${Math.floor(c.start_seconds)}s`}
-                        target="_blank"
-                        rel="noreferrer"
                         className="block p-3 rounded-lg bg-muted/40 hover:bg-muted/70 transition-colors group"
                       >
                         <div className="flex items-center gap-2 mb-1.5 flex-wrap">
@@ -395,7 +419,12 @@ const LabHosts = () => {
                           >
                             {c.speaker || "?"}
                           </span>
-                          {c.speaker_confidence != null && (
+                          {c.manual_override && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 border border-emerald-500/30">
+                              ✓ corregido
+                            </span>
+                          )}
+                          {c.speaker_confidence != null && !c.manual_override && (
                             <span className="text-[10px] text-muted-foreground font-mono">
                               {(c.speaker_confidence * 100).toFixed(0)}%
                             </span>
@@ -403,10 +432,51 @@ const LabHosts = () => {
                           <span className="text-[10px] text-muted-foreground font-mono">
                             {fmtTs(c.start_seconds)}
                           </span>
-                          <ExternalLink className="w-3 h-3 ml-auto text-muted-foreground group-hover:text-foreground" />
+                          {isAdmin && (
+                            editingId === c.id ? (
+                              <div className="flex items-center gap-1 ml-auto">
+                                {(["jhon", "juan", "invitado", "unknown"] as const).map((sp) => (
+                                  <button
+                                    key={sp}
+                                    type="button"
+                                    disabled={savingId === c.id}
+                                    onClick={() => reassignSpeaker(c.id, sp)}
+                                    className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${speakerColor(sp)} hover:opacity-80 disabled:opacity-50`}
+                                  >
+                                    {sp === "unknown" ? "?" : sp}
+                                  </button>
+                                ))}
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingId(null)}
+                                  className="text-[10px] text-muted-foreground px-1"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setEditingId(c.id)}
+                                className="ml-auto text-muted-foreground hover:text-foreground p-0.5"
+                                title="Reasignar hablante"
+                              >
+                                <Pencil className="w-3 h-3" />
+                              </button>
+                            )
+                          )}
+                          <a
+                            href={`https://youtube.com/watch?v=${video_id}&t=${Math.floor(c.start_seconds)}s`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={isAdmin ? "" : "ml-auto"}
+                            title="Abrir en YouTube"
+                          >
+                            <ExternalLink className="w-3 h-3 text-muted-foreground hover:text-foreground" />
+                          </a>
                         </div>
                         <p className="text-sm leading-relaxed">{c.text}</p>
-                      </a>
+                      </div>
                     ))}
                   </div>
                 </Card>
