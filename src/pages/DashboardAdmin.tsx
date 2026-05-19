@@ -7,7 +7,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Loader2, UserPlus, Inbox, Check, X, Trash2, Users,
-  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp,
+  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp, Activity,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,14 @@ type AccessRequest = {
   notes: string | null;
 };
 
+type LoginActivity = {
+  id: string;
+  email: string | null;
+  created_at: string | null;
+  last_sign_in_at: string | null;
+  email_confirmed_at: string | null;
+};
+
 type StatusFilter = "pending" | "processed" | "all";
 
 const DashboardAdmin = () => {
@@ -43,6 +51,8 @@ const DashboardAdmin = () => {
   const [loadingReqs, setLoadingReqs] = useState(false);
   const [loadingAcc, setLoadingAcc] = useState(false);
   const [loadingAdmins, setLoadingAdmins] = useState(false);
+  const [activity, setActivity] = useState<LoginActivity[]>([]);
+  const [loadingActivity, setLoadingActivity] = useState(false);
   const [actioningId, setActioningId] = useState<string | null>(null);
   const [filter, setFilter] = useState<StatusFilter>("pending");
 
@@ -100,6 +110,24 @@ const DashboardAdmin = () => {
     setLoadingAdmins(false);
   };
 
+  const loadActivity = async () => {
+    setLoadingActivity(true);
+    const { data, error } = await supabase.functions.invoke("admin-login-activity", { body: {} });
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error ?? error?.message ?? "Error al cargar actividad");
+      setLoadingActivity(false);
+      return;
+    }
+    const users = ((data as any)?.users ?? []) as LoginActivity[];
+    users.sort((a, b) => {
+      const ta = a.last_sign_in_at ? new Date(a.last_sign_in_at).getTime() : 0;
+      const tb = b.last_sign_in_at ? new Date(b.last_sign_in_at).getTime() : 0;
+      return tb - ta;
+    });
+    setActivity(users);
+    setLoadingActivity(false);
+  };
+
   useEffect(() => {
     if (!isAdmin) return;
     (async () => {
@@ -109,6 +137,7 @@ const DashboardAdmin = () => {
     loadRequests();
     loadAccesses();
     loadAdmins();
+    loadActivity();
   }, [isAdmin]);
 
   const counts = useMemo(() => {
