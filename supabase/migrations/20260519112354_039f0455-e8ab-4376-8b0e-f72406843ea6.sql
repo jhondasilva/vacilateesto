@@ -1,0 +1,1 @@
+UPDATE public.yt_transcript_chunks SET speaker='invitado', speaker_confidence=1.0, manual_override=true WHERE id='15d23330-a6dd-4374-8a1a-de1b156912ec';
