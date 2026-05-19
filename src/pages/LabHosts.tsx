@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil, GitCompareArrows } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -52,29 +52,7 @@ type EpisodeAggregated = {
   bySpeaker: Record<string, { seconds: number; words: number; turns: number }>;
 };
 
-type Tab = "search" | "stats" | "ai" | "compare";
-
-type CompareRow = {
-  video_id: string;
-  title: string;
-  thumbnail_url: string | null;
-  published_at: string | null;
-  speaker: string;
-  seconds_before: number;
-  words_before: number;
-  seconds_after: number;
-  words_after: number;
-};
-
-type CompareEpisode = {
-  video_id: string;
-  title: string;
-  thumbnail_url: string | null;
-  published_at: string | null;
-  bySpeaker: Record<string, { secB: number; wdsB: number; secA: number; wdsA: number }>;
-};
-
-const COMPARE_LABEL = "pre_rediarize_2026_05_19";
+type Tab = "search" | "stats" | "ai";
 
 const SPEAKERS: { k: Speaker; label: string; color: string }[] = [
   { k: "all", label: "Todos", color: "bg-foreground text-background" },
