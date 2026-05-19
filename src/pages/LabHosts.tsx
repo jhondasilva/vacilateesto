@@ -322,18 +322,6 @@ const LabHosts = () => {
               <Sparkles className="w-4 h-4 inline mr-1.5 -mt-0.5" />
               Pregúntale a la IA
             </button>
-            <button
-              type="button"
-              onClick={() => setTab("compare")}
-              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
-                tab === "compare"
-                  ? "border-foreground text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <GitCompareArrows className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-              Antes/después
-            </button>
           </div>
 
           {tab === "ai" && <LabHostChat />}
