@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3, Sparkles } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import LabHostChat from "./LabHostChat";
+import { useBrandAuth } from "@/hooks/useBrandAuth";
+import { toast } from "sonner";
 
 type Speaker = "all" | "jhon" | "juan" | "invitado" | "unknown";
 
@@ -18,6 +20,7 @@ type ChunkRow = {
   text: string;
   speaker: string | null;
   speaker_confidence: number | null;
+  manual_override?: boolean | null;
 };
 
 type VideoRow = {
@@ -93,6 +96,7 @@ function speakerColor(sp: string | null) {
 }
 
 const LabHosts = () => {
+  const { isAdmin } = useBrandAuth();
   const [tab, setTab] = useState<Tab>("search");
   const [query, setQuery] = useState("");
   const [speaker, setSpeaker] = useState<Speaker>("all");
@@ -101,6 +105,8 @@ const LabHosts = () => {
   const [videos, setVideos] = useState<Record<string, VideoRow>>({});
   const [error, setError] = useState<string | null>(null);
   const [coverage, setCoverage] = useState<{ done: number; total: number } | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [savingId, setSavingId] = useState<string | null>(null);
 
   // Episode stats
   const [statsLoading, setStatsLoading] = useState(false);
@@ -181,7 +187,7 @@ const LabHosts = () => {
     try {
       let req = supabase
         .from("yt_transcript_chunks")
-        .select("id, video_id, start_seconds, end_seconds, text, speaker, speaker_confidence")
+        .select("id, video_id, start_seconds, end_seconds, text, speaker, speaker_confidence, manual_override")
         .textSearch("text_tsv", q, { config: "spanish", type: "websearch" })
         .limit(80);
       if (speaker !== "all") {
@@ -218,6 +224,27 @@ const LabHosts = () => {
       chunks: list.sort((a, b) => a.start_seconds - b.start_seconds),
     }));
   }, [chunks]);
+
+  const reassignSpeaker = async (chunkId: string, newSpeaker: string) => {
+    setSavingId(chunkId);
+    const { data, error } = await supabase.functions.invoke("lab-set-speaker", {
+      body: { chunk_id: chunkId, speaker: newSpeaker },
+    });
+    setSavingId(null);
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error ?? error?.message ?? "Error");
+      return;
+    }
+    setChunks((prev) =>
+      prev.map((c) =>
+        c.id === chunkId
+          ? { ...c, speaker: newSpeaker, speaker_confidence: 1, manual_override: true }
+          : c,
+      ),
+    );
+    setEditingId(null);
+    toast.success("Atribución corregida");
+  };
 
   const speakerCounts = useMemo(() => {
     const c: Record<string, number> = { jhon: 0, juan: 0, invitado: 0, unknown: 0 };
