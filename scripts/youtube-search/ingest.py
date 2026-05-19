@@ -62,7 +62,7 @@ def normalize_brand(text: str) -> str:
 # Bump esto cada vez que cambie el script. La edge function `script-version`
 # expone su propio número; si no coinciden, nos auto-descargamos la versión
 # nueva, la escribimos sobre este archivo, y reiniciamos.
-SCRIPT_VERSION = "2026.05.19.1"
+SCRIPT_VERSION = "2026.05.19.2"
 VERSION_ENDPOINT = "https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/script-version"
 
 
@@ -357,6 +357,11 @@ def transcribe_slice(slice_path: Path, slice_start: float) -> List[dict]:
             cleaned.append({"start": st + slice_start, "end": en + slice_start, "text": txt})
         if dropped:
             print(f"     🧹 descartados {dropped} segmento(s) aplastado(s)")
+        # Expose stats for the caller without changing the return signature.
+        transcribe_slice.last_stats = {  # type: ignore[attr-defined]
+            "segments_returned": len(segs),
+            "segments_dropped": dropped,
+        }
         return cleaned
     raise RuntimeError(f"transcribe failed after 3 attempts for {slice_path}")
 
@@ -364,6 +369,7 @@ def transcribe_slice(slice_path: Path, slice_start: float) -> List[dict]:
 # ---------- Chunking + embeddings ----------
 
 def chunk_segments(segments: List[dict]) -> List[dict]:
+    chunk_segments.last_stats = {"chunks_truncated": 0}  # type: ignore[attr-defined]
     if not segments:
         return []
     total_end = segments[-1]["end"]
@@ -382,6 +388,7 @@ def chunk_segments(segments: List[dict]) -> List[dict]:
             if len(text) > max_chunk_chars:
                 print(f"     ⚠️  chunk @{int(win_start)}s recortado ({len(text)}→{max_chunk_chars} chars)")
                 text = text[:max_chunk_chars]
+                chunk_segments.last_stats["chunks_truncated"] += 1  # type: ignore[attr-defined]
             if len(text) > 30:
                 chunks.append(
                     {
@@ -419,7 +426,7 @@ def already_indexed(video_id: str) -> bool:
     return bool(r.data and r.data.get("indexed_at"))
 
 
-def save_chunks(video_id: str, chunks: List[dict]):
+def save_chunks(video_id: str, chunks: List[dict], stats: Optional[dict] = None):
     # replace existing
     sb.table("yt_transcript_chunks").delete().eq("video_id", video_id).execute()
     # No embeddings: full-text search en Postgres se encarga de la búsqueda
@@ -438,9 +445,30 @@ def save_chunks(video_id: str, chunks: List[dict]):
         sb.table("yt_transcript_chunks").insert(rows[i : i + 200]).execute()
 
     sb.table("yt_videos").update({"indexed_at": "now()"}).eq("video_id", video_id).execute()
+    meta = dict(stats or {})
+    meta["chunks_saved"] = len(rows)
+    meta["script_version"] = SCRIPT_VERSION
     sb.table("yt_ingest_log").insert(
-        {"video_id": video_id, "status": "indexed", "message": f"{len(rows)} chunks"}
+        {
+            "video_id": video_id,
+            "status": "indexed",
+            "message": f"{len(rows)} chunks",
+            "metadata": meta,
+        }
     ).execute()
+
+    # Emit a separate corruption alert if thresholds were crossed.
+    seg_drop = int(meta.get("segments_dropped", 0))
+    chunk_trunc = int(meta.get("chunks_truncated", 0))
+    if seg_drop >= 5 or chunk_trunc >= 1:
+        sb.table("yt_ingest_log").insert(
+            {
+                "video_id": video_id,
+                "status": "corruption_alert",
+                "message": f"{seg_drop} segmento(s) descartado(s), {chunk_trunc} chunk(s) recortado(s)",
+                "metadata": meta,
+            }
+        ).execute()
 
 
 def log_error(video_id: str, msg: str):
@@ -469,12 +497,19 @@ def process_one(v: dict, tmp_root: Path) -> str:
         slices = slice_audio(audio, AUDIO_SLICE_SECONDS, work)
         print(f"   🎧 {len(slices)} audio slice(s)")
         all_segments: List[dict] = []
+        total_segments_returned = 0
+        total_segments_dropped = 0
+        slices_failed = 0
         for idx, (path, start) in enumerate(slices):
             print(f"   📝 transcribing slice {idx+1}/{len(slices)}…")
             try:
                 segs = transcribe_slice(path, start)
+                stats = getattr(transcribe_slice, "last_stats", {}) or {}
+                total_segments_returned += int(stats.get("segments_returned", 0))
+                total_segments_dropped += int(stats.get("segments_dropped", 0))
                 all_segments.extend(segs)
             except Exception as se:
+                slices_failed += 1
                 print(f"   ⚠️  slice {idx+1} falló ({se}) — continuando con los demás")
             path.unlink(missing_ok=True)
         audio.unlink(missing_ok=True)
@@ -484,8 +519,16 @@ def process_one(v: dict, tmp_root: Path) -> str:
             return "no segments"
 
         chunks = chunk_segments(all_segments)
+        chunk_stats = getattr(chunk_segments, "last_stats", {}) or {}
         print(f"   ✂️  {len(chunks)} chunk(s) → guardando…")
-        save_chunks(vid, chunks)
+        run_stats = {
+            "slices_total": len(slices),
+            "slices_failed": slices_failed,
+            "segments_returned": total_segments_returned,
+            "segments_dropped": total_segments_dropped,
+            "chunks_truncated": int(chunk_stats.get("chunks_truncated", 0)),
+        }
+        save_chunks(vid, chunks, run_stats)
         print(f"   ✅ done — {len(chunks)} chunks indexed")
         return f"indexed {len(chunks)}"
     except Exception as e:

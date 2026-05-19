@@ -341,6 +341,14 @@ const DashboardAdmin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-3xl space-y-6">
+        {/* Quick links to other admin tools */}
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline" size="sm">
+            <Link to="/dashboard/admin/ingest-health">
+              <Activity className="w-4 h-4 mr-1.5" /> Salud del ingest
+            </Link>
+          </Button>
+        </div>
         {/* Solicitudes */}
         <section className="bg-card border border-border rounded-2xl p-6 sm:p-8">
           <div className="flex items-center justify-between mb-5">

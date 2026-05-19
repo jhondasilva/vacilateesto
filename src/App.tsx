@@ -23,6 +23,7 @@ import DashboardLogin from "./pages/DashboardLogin";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardBrand from "./pages/DashboardBrand";
 import DashboardAdmin from "./pages/DashboardAdmin";
+import IngestHealth from "./pages/IngestHealth";
 import ResetPassword from "./pages/ResetPassword";
 import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
 import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
@@ -80,6 +81,7 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<DashboardHome />} />
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+            <Route path="/dashboard/admin/ingest-health" element={<IngestHealth />} />
             <Route path="/dashboard/:slug" element={<DashboardBrand />} />
             <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
