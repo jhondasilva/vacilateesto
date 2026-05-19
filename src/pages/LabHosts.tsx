@@ -112,7 +112,7 @@ const LabHosts = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [statsError, setStatsError] = useState<string | null>(null);
   const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
-
+  const [confidence, setConfidence] = useState<Record<string, { avg: number; high: number; total: number }>>({});
 
   // Load coverage stats
   useEffect(() => {
