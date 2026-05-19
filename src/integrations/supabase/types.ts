@@ -693,6 +693,7 @@ export type Database = {
           embedding: string | null
           end_seconds: number
           id: string
+          manual_override: boolean
           speaker: string | null
           speaker_confidence: number | null
           start_seconds: number
@@ -706,6 +707,7 @@ export type Database = {
           embedding?: string | null
           end_seconds: number
           id?: string
+          manual_override?: boolean
           speaker?: string | null
           speaker_confidence?: number | null
           start_seconds: number
@@ -719,6 +721,7 @@ export type Database = {
           embedding?: string | null
           end_seconds?: number
           id?: string
+          manual_override?: boolean
           speaker?: string | null
           speaker_confidence?: number | null
           start_seconds?: number
