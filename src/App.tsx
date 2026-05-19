@@ -23,6 +23,7 @@ import DashboardLogin from "./pages/DashboardLogin";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardBrand from "./pages/DashboardBrand";
 import DashboardAdmin from "./pages/DashboardAdmin";
+import IngestHealth from "./pages/IngestHealth";
 import ResetPassword from "./pages/ResetPassword";
 import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
 import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
