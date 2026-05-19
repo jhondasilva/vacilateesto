@@ -180,6 +180,45 @@ const LabHosts = () => {
     })();
   }, [tab, episodes.length, statsLoading]);
 
+  // Load avg speaker confidence per host
+  useEffect(() => {
+    if (tab !== "stats" || Object.keys(confidence).length > 0) return;
+    (async () => {
+      try {
+        const result: Record<string, { avg: number; high: number; total: number }> = {};
+        for (const sp of ["jhon", "juan", "invitado"]) {
+          const { data } = await supabase
+            .from("yt_transcript_chunks")
+            .select("speaker_confidence")
+            .eq("speaker", sp)
+            .not("speaker_confidence", "is", null)
+            .limit(5000);
+          const vals = (data || []).map((r: any) => Number(r.speaker_confidence) || 0);
+          const total = vals.length;
+          const avg = total ? vals.reduce((a, b) => a + b, 0) / total : 0;
+          const high = vals.filter((v) => v >= 0.7).length;
+          result[sp] = { avg, high, total };
+        }
+        setConfidence(result);
+      } catch {
+        // ignore
+      }
+    })();
+  }, [tab, confidence]);
+
+  const statsTotals = useMemo(() => {
+    const t: Record<string, { seconds: number; words: number; turns: number; episodes: number }> = {};
+    for (const ep of episodes) {
+      for (const [sp, d] of Object.entries(ep.bySpeaker)) {
+        const acc = (t[sp] ||= { seconds: 0, words: 0, turns: 0, episodes: 0 });
+        acc.seconds += d.seconds;
+        acc.words += d.words;
+        acc.turns += d.turns;
+        acc.episodes += 1;
+      }
+    }
+    return t;
+  }, [episodes]);
 
   const runSearch = async () => {
     const q = query.trim();
