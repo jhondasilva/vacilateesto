@@ -145,6 +145,8 @@ const LabHosts = () => {
         const rows = (data || []) as EpisodeStatRow[];
         const byVid: Record<string, EpisodeAggregated> = {};
         for (const r of rows) {
+          // Excluir 'unknown' del agregado: chunks sin speaker confiable no se cuentan a nadie
+          if (!r.speaker || r.speaker === "unknown") continue;
           const e = (byVid[r.video_id] ||= {
             video_id: r.video_id,
             title: r.title,
