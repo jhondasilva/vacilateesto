@@ -390,7 +390,7 @@ def save_chunks(video_id: str, chunks: List[dict]):
             "chunk_index": i,
             "start_seconds": c["start"],
             "end_seconds": c["end"],
-            "text": c["text"],
+            "text": normalize_brand(c["text"]),
         }
         for i, c in enumerate(chunks)
     ]
