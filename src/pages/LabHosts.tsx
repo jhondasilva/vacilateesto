@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil, GitCompareArrows } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -52,7 +52,29 @@ type EpisodeAggregated = {
   bySpeaker: Record<string, { seconds: number; words: number; turns: number }>;
 };
 
-type Tab = "search" | "stats" | "ai";
+type Tab = "search" | "stats" | "ai" | "compare";
+
+type CompareRow = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  speaker: string;
+  seconds_before: number;
+  words_before: number;
+  seconds_after: number;
+  words_after: number;
+};
+
+type CompareEpisode = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  bySpeaker: Record<string, { secB: number; wdsB: number; secA: number; wdsA: number }>;
+};
+
+const COMPARE_LABEL = "pre_rediarize_2026_05_19";
 
 const SPEAKERS: { k: Speaker; label: string; color: string }[] = [
   { k: "all", label: "Todos", color: "bg-foreground text-background" },
@@ -112,6 +134,12 @@ const LabHosts = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [statsError, setStatsError] = useState<string | null>(null);
   const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
+
+  // Compare before/after
+  const [compareLoading, setCompareLoading] = useState(false);
+  const [compareError, setCompareError] = useState<string | null>(null);
+  const [compareEpisodes, setCompareEpisodes] = useState<CompareEpisode[]>([]);
+  const [compareOnlyChanged, setCompareOnlyChanged] = useState(true);
 
   // Load coverage stats
   useEffect(() => {
@@ -178,6 +206,66 @@ const LabHosts = () => {
       }
     })();
   }, [tab, episodes.length, statsLoading]);
+
+  // Load compare data
+  useEffect(() => {
+    if (tab !== "compare" || compareEpisodes.length > 0 || compareLoading) return;
+    (async () => {
+      setCompareLoading(true);
+      setCompareError(null);
+      try {
+        const { data, error: err } = await (supabase.rpc as any)("yt_episode_speaker_compare", {
+          p_label: COMPARE_LABEL,
+        });
+        if (err) throw err;
+        const rows = (data || []) as CompareRow[];
+        const byVid: Record<string, CompareEpisode> = {};
+        for (const r of rows) {
+          if (!r.speaker || r.speaker === "unknown") continue;
+          const e = (byVid[r.video_id] ||= {
+            video_id: r.video_id,
+            title: r.title,
+            thumbnail_url: r.thumbnail_url,
+            published_at: r.published_at,
+            bySpeaker: {},
+          });
+          e.bySpeaker[r.speaker] = {
+            secB: Number(r.seconds_before) || 0,
+            wdsB: Number(r.words_before) || 0,
+            secA: Number(r.seconds_after) || 0,
+            wdsA: Number(r.words_after) || 0,
+          };
+        }
+        const list = Object.values(byVid).sort(
+          (a, b) =>
+            new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime(),
+        );
+        setCompareEpisodes(list);
+      } catch (e: any) {
+        setCompareError(e?.message || "Error cargando comparación");
+      } finally {
+        setCompareLoading(false);
+      }
+    })();
+  }, [tab, compareEpisodes.length, compareLoading]);
+
+  const compareTotals = useMemo(() => {
+    const totals: Record<string, { secB: number; secA: number; wdsB: number; wdsA: number }> = {};
+    for (const ep of compareEpisodes) {
+      for (const [sp, d] of Object.entries(ep.bySpeaker)) {
+        const t = (totals[sp] ||= { secB: 0, secA: 0, wdsB: 0, wdsA: 0 });
+        t.secB += d.secB; t.secA += d.secA; t.wdsB += d.wdsB; t.wdsA += d.wdsA;
+      }
+    }
+    return totals;
+  }, [compareEpisodes]);
+
+  const visibleCompareEpisodes = useMemo(() => {
+    if (!compareOnlyChanged) return compareEpisodes;
+    return compareEpisodes.filter((ep) =>
+      Object.values(ep.bySpeaker).some((d) => Math.abs(d.secA - d.secB) >= 1),
+    );
+  }, [compareEpisodes, compareOnlyChanged]);
 
   const runSearch = async () => {
     const q = query.trim();
@@ -319,6 +407,18 @@ const LabHosts = () => {
             >
               <Sparkles className="w-4 h-4 inline mr-1.5 -mt-0.5" />
               Pregúntale a la IA
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("compare")}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === "compare"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <GitCompareArrows className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Antes/después
             </button>
           </div>
 
