@@ -686,6 +686,39 @@ export type Database = {
         }
         Relationships: []
       }
+      yt_speaker_snapshots: {
+        Row: {
+          id: string
+          label: string
+          seconds: number
+          speaker: string
+          taken_at: string
+          turns: number
+          video_id: string
+          words: number
+        }
+        Insert: {
+          id?: string
+          label: string
+          seconds?: number
+          speaker: string
+          taken_at?: string
+          turns?: number
+          video_id: string
+          words?: number
+        }
+        Update: {
+          id?: string
+          label?: string
+          seconds?: number
+          speaker?: string
+          taken_at?: string
+          turns?: number
+          video_id?: string
+          words?: number
+        }
+        Relationships: []
+      }
       yt_transcript_chunks: {
         Row: {
           chunk_index: number
@@ -822,6 +855,20 @@ export type Database = {
       is_allowed_user: { Args: never; Returns: boolean }
       is_brand_client: { Args: never; Returns: boolean }
       user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
+      yt_episode_speaker_compare: {
+        Args: { p_label: string }
+        Returns: {
+          published_at: string
+          seconds_after: number
+          seconds_before: number
+          speaker: string
+          thumbnail_url: string
+          title: string
+          video_id: string
+          words_after: number
+          words_before: number
+        }[]
+      }
       yt_episode_speaker_stats: {
         Args: { p_video_id?: string }
         Returns: {

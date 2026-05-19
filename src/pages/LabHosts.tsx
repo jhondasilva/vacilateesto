@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil } from "lucide-react";
+import { Loader2, Search, ExternalLink, BarChart3, Sparkles, Pencil, GitCompareArrows } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -52,7 +52,29 @@ type EpisodeAggregated = {
   bySpeaker: Record<string, { seconds: number; words: number; turns: number }>;
 };
 
-type Tab = "search" | "stats" | "ai";
+type Tab = "search" | "stats" | "ai" | "compare";
+
+type CompareRow = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  speaker: string;
+  seconds_before: number;
+  words_before: number;
+  seconds_after: number;
+  words_after: number;
+};
+
+type CompareEpisode = {
+  video_id: string;
+  title: string;
+  thumbnail_url: string | null;
+  published_at: string | null;
+  bySpeaker: Record<string, { secB: number; wdsB: number; secA: number; wdsA: number }>;
+};
+
+const COMPARE_LABEL = "pre_rediarize_2026_05_19";
 
 const SPEAKERS: { k: Speaker; label: string; color: string }[] = [
   { k: "all", label: "Todos", color: "bg-foreground text-background" },
@@ -112,6 +134,12 @@ const LabHosts = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [statsError, setStatsError] = useState<string | null>(null);
   const [episodes, setEpisodes] = useState<EpisodeAggregated[]>([]);
+
+  // Compare before/after
+  const [compareLoading, setCompareLoading] = useState(false);
+  const [compareError, setCompareError] = useState<string | null>(null);
+  const [compareEpisodes, setCompareEpisodes] = useState<CompareEpisode[]>([]);
+  const [compareOnlyChanged, setCompareOnlyChanged] = useState(true);
 
   // Load coverage stats
   useEffect(() => {
@@ -178,6 +206,66 @@ const LabHosts = () => {
       }
     })();
   }, [tab, episodes.length, statsLoading]);
+
+  // Load compare data
+  useEffect(() => {
+    if (tab !== "compare" || compareEpisodes.length > 0 || compareLoading) return;
+    (async () => {
+      setCompareLoading(true);
+      setCompareError(null);
+      try {
+        const { data, error: err } = await (supabase.rpc as any)("yt_episode_speaker_compare", {
+          p_label: COMPARE_LABEL,
+        });
+        if (err) throw err;
+        const rows = (data || []) as CompareRow[];
+        const byVid: Record<string, CompareEpisode> = {};
+        for (const r of rows) {
+          if (!r.speaker || r.speaker === "unknown") continue;
+          const e = (byVid[r.video_id] ||= {
+            video_id: r.video_id,
+            title: r.title,
+            thumbnail_url: r.thumbnail_url,
+            published_at: r.published_at,
+            bySpeaker: {},
+          });
+          e.bySpeaker[r.speaker] = {
+            secB: Number(r.seconds_before) || 0,
+            wdsB: Number(r.words_before) || 0,
+            secA: Number(r.seconds_after) || 0,
+            wdsA: Number(r.words_after) || 0,
+          };
+        }
+        const list = Object.values(byVid).sort(
+          (a, b) =>
+            new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime(),
+        );
+        setCompareEpisodes(list);
+      } catch (e: any) {
+        setCompareError(e?.message || "Error cargando comparación");
+      } finally {
+        setCompareLoading(false);
+      }
+    })();
+  }, [tab, compareEpisodes.length, compareLoading]);
+
+  const compareTotals = useMemo(() => {
+    const totals: Record<string, { secB: number; secA: number; wdsB: number; wdsA: number }> = {};
+    for (const ep of compareEpisodes) {
+      for (const [sp, d] of Object.entries(ep.bySpeaker)) {
+        const t = (totals[sp] ||= { secB: 0, secA: 0, wdsB: 0, wdsA: 0 });
+        t.secB += d.secB; t.secA += d.secA; t.wdsB += d.wdsB; t.wdsA += d.wdsA;
+      }
+    }
+    return totals;
+  }, [compareEpisodes]);
+
+  const visibleCompareEpisodes = useMemo(() => {
+    if (!compareOnlyChanged) return compareEpisodes;
+    return compareEpisodes.filter((ep) =>
+      Object.values(ep.bySpeaker).some((d) => Math.abs(d.secA - d.secB) >= 1),
+    );
+  }, [compareEpisodes, compareOnlyChanged]);
 
   const runSearch = async () => {
     const q = query.trim();
@@ -319,6 +407,18 @@ const LabHosts = () => {
             >
               <Sparkles className="w-4 h-4 inline mr-1.5 -mt-0.5" />
               Pregúntale a la IA
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("compare")}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === "compare"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <GitCompareArrows className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              Antes/después
             </button>
           </div>
 
@@ -572,6 +672,116 @@ const LabHosts = () => {
                             <div className="text-sm font-semibold">{fmtDuration(d.seconds)}</div>
                             <div className="text-[11px] text-muted-foreground font-mono">
                               {d.words.toLocaleString()} palabras · {d.turns} turnos
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+
+          {tab === "compare" && (
+            <div className="space-y-4">
+              <Card className="p-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                  <div>
+                    <h3 className="font-bold text-sm">Comparación antes / después</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Snapshot tomado el 2026-05-19 (post-limpieza, pre re-diarización). Re-corre el ingest local para actualizar el "después".
+                    </p>
+                  </div>
+                  <label className="flex items-center gap-2 text-xs cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={compareOnlyChanged}
+                      onChange={(e) => setCompareOnlyChanged(e.target.checked)}
+                      className="rounded"
+                    />
+                    Solo episodios con cambios
+                  </label>
+                </div>
+                {Object.keys(compareTotals).length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+                    {["jhon", "juan", "invitado"].map((sp) => {
+                      const t = compareTotals[sp];
+                      if (!t) return null;
+                      const delta = t.secA - t.secB;
+                      return (
+                        <div key={sp} className="rounded-lg border border-border/60 p-3">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`w-2.5 h-2.5 rounded-full ${speakerBarColor(sp)}`} />
+                            <span className="text-xs font-bold uppercase tracking-wider">{sp}</span>
+                          </div>
+                          <div className="text-sm font-mono">
+                            {fmtDuration(t.secB)} → {fmtDuration(t.secA)}
+                          </div>
+                          <div className={`text-[11px] font-mono mt-0.5 ${delta === 0 ? "text-muted-foreground" : delta > 0 ? "text-emerald-600" : "text-destructive"}`}>
+                            {delta > 0 ? "+" : ""}{fmtDuration(Math.abs(delta))}{delta !== 0 ? (delta > 0 ? " (subió)" : " (bajó)") : " (sin cambio)"}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </Card>
+
+              {compareLoading && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground py-12 justify-center">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Cargando comparación…
+                </div>
+              )}
+              {compareError && (
+                <Card className="p-4 border-destructive/40 bg-destructive/10 text-destructive text-sm">
+                  {compareError}
+                </Card>
+              )}
+              {!compareLoading && !compareError && visibleCompareEpisodes.length === 0 && (
+                <p className="text-sm text-muted-foreground py-12 text-center">
+                  {compareOnlyChanged
+                    ? "Ningún episodio ha cambiado todavía. Corre el re-ingest local para ver diferencias."
+                    : "No hay snapshot disponible."}
+                </p>
+              )}
+
+              {visibleCompareEpisodes.map((ep) => {
+                const speakers = ["jhon", "juan", "invitado"].filter((s) => ep.bySpeaker[s]);
+                return (
+                  <Card key={ep.video_id} className="p-5">
+                    <div className="flex gap-4 mb-4">
+                      {ep.thumbnail_url && (
+                        <img
+                          src={ep.thumbnail_url}
+                          alt=""
+                          className="w-24 h-14 object-cover rounded-md flex-shrink-0"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-sm md:text-base line-clamp-2">{ep.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-1 font-mono">
+                          {ep.published_at ? new Date(ep.published_at).toLocaleDateString("es-VE") : ""}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {speakers.map((s) => {
+                        const d = ep.bySpeaker[s];
+                        const delta = d.secA - d.secB;
+                        const pctChange = d.secB > 0 ? ((delta / d.secB) * 100) : (d.secA > 0 ? 100 : 0);
+                        return (
+                          <div key={s} className="rounded-lg bg-muted/40 p-3 border border-border/50">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className={`w-2.5 h-2.5 rounded-full ${speakerBarColor(s)}`} />
+                              <span className="text-xs font-bold uppercase tracking-wider">{s}</span>
+                            </div>
+                            <div className="text-xs text-muted-foreground">Antes</div>
+                            <div className="text-sm font-mono mb-1">{fmtDuration(d.secB)} · {d.wdsB.toLocaleString()} pal</div>
+                            <div className="text-xs text-muted-foreground">Después</div>
+                            <div className="text-sm font-mono">{fmtDuration(d.secA)} · {d.wdsA.toLocaleString()} pal</div>
+                            <div className={`text-[11px] font-mono mt-1 ${Math.abs(delta) < 1 ? "text-muted-foreground" : delta > 0 ? "text-emerald-600" : "text-destructive"}`}>
+                              Δ {delta > 0 ? "+" : ""}{fmtDuration(Math.abs(delta))} ({pctChange > 0 ? "+" : ""}{pctChange.toFixed(0)}%)
                             </div>
                           </div>
                         );
