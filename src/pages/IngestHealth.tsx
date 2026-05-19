@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, Loader2, AlertTriangle, Activity, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowLeft, Loader2, AlertTriangle, Activity, CheckCircle2, XCircle, RefreshCcw, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { toast } from "sonner";
 
@@ -23,6 +25,7 @@ const STATUS_STYLES: Record<string, { label: string; icon: any; cls: string }> =
   indexed: { label: "Indexado", icon: CheckCircle2, cls: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30" },
   error: { label: "Error", icon: XCircle, cls: "bg-destructive/15 text-destructive border-destructive/30" },
   corruption_alert: { label: "Alerta corrupción", icon: AlertTriangle, cls: "bg-amber-500/15 text-amber-700 border-amber-500/30" },
+  reingest_queued: { label: "Encolado", icon: RefreshCcw, cls: "bg-sky-500/15 text-sky-700 border-sky-500/30" },
 };
 
 function fmtDate(iso: string) {
@@ -33,6 +36,10 @@ const IngestHealth = () => {
   const { session, loading: authLoading, isAdmin } = useBrandAuth();
   const [rows, setRows] = useState<LogRow[]>([]);
   const [loading, setLoading] = useState(false);
+  const [safeMode, setSafeMode] = useState(true);
+  const [previewing, setPreviewing] = useState(false);
+  const [queueing, setQueueing] = useState(false);
+  const [preview, setPreview] = useState<{ videoIds: string[]; titles: Record<string, string> } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -66,6 +73,39 @@ const IngestHealth = () => {
   useEffect(() => {
     if (isAdmin) load();
   }, [isAdmin]);
+
+  const callQueue = async (dryRun: boolean) => {
+    const fn = dryRun ? setPreviewing : setQueueing;
+    fn(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-queue-reingest", {
+        body: { mode: "corruption", dryRun },
+      });
+      if (error) throw error;
+      if (dryRun) {
+        setPreview({ videoIds: data.videoIds ?? [], titles: data.titles ?? {} });
+        toast.success(`${data.queued} episodio(s) listo(s) para re-ingestar`);
+      } else {
+        toast.success(`${data.queued} episodio(s) encolado(s). Ejecuta el script local para procesar.`);
+        setPreview(null);
+        await load();
+      }
+    } catch (e: any) {
+      toast.error(`Falló: ${e.message ?? e}`);
+    } finally {
+      fn(false);
+    }
+  };
+
+  const confirmAndQueue = async () => {
+    if (!safeMode) {
+      const ok = window.confirm(
+        "MODO SEGURO DESACTIVADO: vas a encolar TODOS los episodios marcados. ¿Continuar?"
+      );
+      if (!ok) return;
+    }
+    await callQueue(false);
+  };
 
   const stats = useMemo(() => {
     const last7 = Date.now() - 7 * 24 * 60 * 60 * 1000;
@@ -147,6 +187,61 @@ const IngestHealth = () => {
             </div>
           </Card>
         )}
+
+        {/* Re-ingest panel */}
+        <Card className="p-4 mb-6">
+          <div className="flex items-start gap-3 flex-wrap">
+            <RefreshCcw className="h-5 w-5 text-primary mt-0.5" />
+            <div className="flex-1 min-w-[260px]">
+              <h2 className="font-semibold flex items-center gap-2">
+                Re-ingestar episodios por lote
+                {safeMode && (
+                  <Badge variant="outline" className="gap-1 bg-emerald-500/10 text-emerald-700 border-emerald-500/30">
+                    <Shield className="h-3 w-3" /> Modo seguro
+                  </Badge>
+                )}
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Limpia <code>indexed_at</code> de los episodios marcados para que <code>scripts/youtube-search/ingest.py</code> los reprocese desde cero en la próxima corrida local. No borra los chunks; el script los reemplaza al finalizar.
+              </p>
+              <div className="flex items-center gap-2 mt-3">
+                <Switch id="safe-mode" checked={safeMode} onCheckedChange={setSafeMode} />
+                <Label htmlFor="safe-mode" className="text-sm cursor-pointer">
+                  Solo episodios con corrupción detectada (recomendado)
+                </Label>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-4">
+                <Button variant="outline" size="sm" onClick={() => callQueue(true)} disabled={previewing || queueing}>
+                  {previewing ? <Loader2 className="h-4 w-4 mr-1.5 animate-spin" /> : null}
+                  Previsualizar
+                </Button>
+                <Button size="sm" onClick={confirmAndQueue} disabled={queueing || previewing}>
+                  {queueing ? <Loader2 className="h-4 w-4 mr-1.5 animate-spin" /> : <RefreshCcw className="h-4 w-4 mr-1.5" />}
+                  Encolar re-ingesta
+                </Button>
+              </div>
+              {preview && (
+                <div className="mt-4 border rounded-lg p-3 bg-muted/30">
+                  <p className="text-sm font-medium mb-2">{preview.videoIds.length} episodio(s) serían encolados:</p>
+                  <ul className="text-xs text-muted-foreground max-h-40 overflow-auto space-y-1">
+                    {preview.videoIds.slice(0, 50).map((id) => (
+                      <li key={id} className="truncate">
+                        <span className="font-mono text-foreground/70">{id}</span> — {preview.titles[id] ?? "(sin título)"}
+                      </li>
+                    ))}
+                    {preview.videoIds.length > 50 && (
+                      <li className="italic">…y {preview.videoIds.length - 50} más</li>
+                    )}
+                  </ul>
+                </div>
+              )}
+              <p className="text-xs text-muted-foreground mt-3">
+                Después de encolar, corre localmente:&nbsp;
+                <code className="bg-muted px-1.5 py-0.5 rounded">python scripts/youtube-search/ingest.py --limit 200</code>
+              </p>
+            </div>
+          </div>
+        </Card>
 
         {/* Recent runs table */}
         <Card className="overflow-hidden">
