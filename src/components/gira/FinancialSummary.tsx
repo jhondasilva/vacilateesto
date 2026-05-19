@@ -465,7 +465,9 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
       <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[var(--shadow-soft)]">
         <div className="px-5 py-4 border-b border-border bg-muted/30">
           <h3 className="font-bold text-foreground">Resumen de inversión (USD reales · 2 pax)</h3>
-          <p className="text-xs text-muted-foreground mt-1">Idéntico a la hoja "Resumen Total" del Excel</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Híbrido: <span className="font-semibold text-emerald-700">reales reportados</span> donde existen, <span className="font-semibold text-sky-700">proyectados</span> donde no.
+          </p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -479,7 +481,14 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
             <tbody>
               {expenseRows.map((r) => (
                 <tr key={r.concept} className="border-t border-border">
-                  <td className="px-5 py-3 text-foreground font-medium">{r.concept}</td>
+                  <td className="px-5 py-3 text-foreground font-medium">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span>{r.concept}</span>
+                      <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${r.source === "real" ? "bg-emerald-100 text-emerald-700 border-emerald-200" : "bg-sky-100 text-sky-700 border-sky-200"}`}>
+                        {r.source === "real" ? "Real" : "Proyectado"}
+                      </span>
+                    </div>
+                  </td>
                   <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">{r.detail}</td>
                   <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(r.value)}</td>
                 </tr>
@@ -487,12 +496,12 @@ export const FinancialSummary = ({ cities, activities, scenario = "base" }: Prop
               <tr className="border-t border-border bg-muted/30">
                 <td className="px-5 py-3 text-foreground font-medium">Fondo de Imprevistos (10%)</td>
                 <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">Margen de seguridad sobre logística</td>
-                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(contingency)}</td>
+                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{fmt(hybridContingency)}</td>
               </tr>
               <tr className="border-t-2 border-primary bg-primary/5">
                 <td className="px-5 py-4 text-foreground font-black uppercase">Inversión Total Estimada</td>
                 <td className="px-5 py-4 hidden sm:table-cell"></td>
-                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(totalUsd)} USD</td>
+                <td className="px-5 py-4 text-right text-rose-600 font-black text-lg">{fmt(hybridTotal)} USD</td>
               </tr>
             </tbody>
           </table>
