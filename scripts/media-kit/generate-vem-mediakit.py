@@ -419,7 +419,7 @@ def page_plans(c):
     # Dos planes lado a lado
     planes = [
         ("BOMBO DE ORO", PINK, [
-            "10 piezas genéricas",
+            "10 Piezas con Product Placement",
             "6 piezas personalizadas",
             "7 historias (Stories IG)",
             "1 show en vivo semanal",
@@ -427,7 +427,7 @@ def page_plans(c):
             "Logo en comunicaciones oficiales",
         ]),
         ("BOMBO DE PLATA", CYAN, [
-            "6 piezas genéricas",
+            "6 Piezas con Product Placement",
             "2 piezas personalizadas",
             "2 historias (Stories IG)",
             "1 show en vivo semanal",
