@@ -23,6 +23,7 @@ import {
   Youtube,
   Tv,
   Play,
+  Radio,
 } from "lucide-react";
 import logoVEM from "@/assets/logo-vacilate-futbol.png";
 
@@ -124,6 +125,12 @@ const ecosystem = [
     icon: Mic,
     color: "bg-foreground",
     items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube"],
+  },
+  {
+    title: "Radio",
+    icon: Radio,
+    color: "bg-primary",
+    items: ["FM Center", "Cobertura nacional", "Cápsulas diarias"],
   },
 ];
 
@@ -594,6 +601,7 @@ const MediaKitVEM = () => {
                     { label: "TikTok", icon: Play },
                     { label: "YouTube", icon: Youtube },
                     { label: "TikTok Live", icon: Tv },
+                    { label: "Radio FM Center", icon: Radio },
                   ].map((p) => (
                     <span
                       key={p.label}
