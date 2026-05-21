@@ -6,40 +6,33 @@ const scheduleData = [
   { day: "Lun", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
   ]},
   { day: "Mar", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "10:00 AM", title: "Streaming", platform: "Twitch" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
   ]},
   { day: "Mié", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
     { time: "12:00 PM", title: "Newsletter", platform: "Email" },
-    { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
   ]},
   { day: "Jue", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
     { time: "8:00 PM", title: "Podcast", platform: "YouTube/Spotify" },
   ]},
   { day: "Vie", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "3:00 PM", title: "Radio", platform: "Circuito Líder" },
   ]},
   { day: "Sáb", events: [
     { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "6:00 PM", title: "Podcast Radio", platform: "Circuito Líder" },
   ]},
   { day: "Dom", events: [
     { time: "10:00 AM", title: "Short Podcast", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
-    { time: "6:00 PM", title: "Podcast Radio", platform: "Circuito Líder" },
     { time: "10:00 PM", title: "Podcast TV", platform: "Televen" },
   ]},
 ];
