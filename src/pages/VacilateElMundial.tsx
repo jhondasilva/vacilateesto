@@ -256,7 +256,7 @@ const VacilateElMundial = () => {
   return (
     <>
       <Helmet>
-        <title>Vacílate El Mundial 2026 | Cobertura del fútbol en México, USA y Canadá</title>
+        <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
           content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 16 ciudades. Por Vacílate Esto."

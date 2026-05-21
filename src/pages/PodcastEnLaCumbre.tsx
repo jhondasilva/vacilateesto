@@ -276,9 +276,9 @@ const PodcastEnLaCumbre = () => {
   return (
     <>
       <Helmet>
-        <title>Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela 🇻🇪</title>
-        <meta name="title" content="Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela" />
-        <meta name="description" content="Podcast en la Cumbre es la travesía audiovisual de Vacílate Esto grabando podcasts en las montañas más emblemáticas de Venezuela: Naiguatá (2.765m), Roraima (2.810m) y Pico Bolívar (4.978m). Aventura, humor y reflexión con JuanSofa y JhonSnacks." />
+        <title>Podcast en la Cumbre | Aventura Venezuela 🇻🇪</title>
+        <meta name="title" content="Podcast en la Cumbre | Aventura Venezuela" />
+        <meta name="description" content="Travesía audiovisual de Vacílate Esto grabando podcasts en las montañas más altas de Venezuela: Naiguatá, Roraima y Pico Bolívar." />
         <meta name="keywords" content="podcast en la cumbre, podcast venezuela, podcast montaña venezuela, pico naiguata podcast, monte roraima podcast, pico bolivar, aventura venezuela, JuanSofa, JhonSnacks, vacilate esto, montañismo venezuela, mejor podcast aventura, podcast latinoamerica, podcasts venezolanos, tepuy roraima" />
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
