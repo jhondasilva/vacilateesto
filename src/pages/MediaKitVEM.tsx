@@ -132,18 +132,7 @@ const ecosystem = [
     title: "Podcast",
     icon: Mic,
     color: "bg-foreground",
-    items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube", "FM Center"],
-  },
-  {
-    title: "Radio FM",
-    icon: Radio,
-    color: "bg-primary",
-    items: [
-      "FM Center · Hot Sports",
-      "Cuentos de 1 minuto",
-      "6 rotaciones diarias",
-      "Bases desde sedes USA",
-    ],
+    items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube"],
   },
 ];
 
@@ -614,7 +603,6 @@ const MediaKitVEM = () => {
                     { label: "TikTok", icon: Play },
                     { label: "YouTube", icon: Youtube },
                     { label: "TikTok Live", icon: Tv },
-                    { label: "FM Center", icon: Radio },
                   ].map((p) => (
                     <span
                       key={p.label}
