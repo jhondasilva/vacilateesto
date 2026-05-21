@@ -22,7 +22,7 @@ SOFT = HexColor("#F5F5F4")
 MUT  = HexColor("#737373")
 BG   = HexColor("#FAFAF9")
 
-PAGES = 8
+PAGES = 9
 TITLE = "Vacílate El Mundial 2026 — Media Kit"
 
 def header(c, page):
