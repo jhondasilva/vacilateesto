@@ -10,7 +10,6 @@ import {
   Users,
   Mic,
   Utensils,
-  Radio,
   Newspaper,
   Plane,
   Mail,
