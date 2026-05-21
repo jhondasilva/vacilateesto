@@ -670,6 +670,9 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
+          {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
+          <PlanesParticipacion />
+
           {/* ───────────── MEDIA KIT ───────────── */}
           <section
             id="media-kit"
