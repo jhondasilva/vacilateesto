@@ -21,8 +21,8 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Vacílate Esto | Uno de los Podcasts Favoritos de Venezuela 🇻🇪 Entretenimiento, Fútbol, Gastronomía e Historia</title>
-        <meta name="description" content="Vacílate Esto: uno de los podcasts favoritos de Venezuela y ecosistema de entretenimiento #1. Fun Educaitment con fútbol, gastronomía, historia, leyendas y mitos urbanos. 2M+ seguidores. Escúchanos en Spotify, YouTube y todas las plataformas. Vacílate El Fútbol 2026." />
+        <title>Vacílate Esto | Podcast favorito de Venezuela 🇻🇪</title>
+        <meta name="description" content="Ecosistema de Fun Educaitment con fútbol, gastronomía e historia. 2M+ seguidores. Escúchanos en Spotify, YouTube y todas las plataformas." />
         <meta name="keywords" content="podcast venezuela, mejor podcast venezolano, vacilate esto, podcast español, entretenimiento venezuela, mundial 2026, fun educaitment, podcast futbol, podcast gastronomia, podcast historia, leyendas venezuela, mitos urbanos, juansofa, jhonsnacks" />
         <link rel="canonical" href="https://www.vacilateesto.com" />
         

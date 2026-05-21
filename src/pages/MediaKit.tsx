@@ -469,7 +469,7 @@ const MediaKit = () => {
   return (
     <>
       <Helmet>
-        <title>Media Kit 2026 | Vacílate Esto - Colabora con el Podcast #1 de Venezuela</title>
+        <title>Media Kit 2026 | Vacílate Esto</title>
         <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 93.15M impresiones. Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
