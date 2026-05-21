@@ -26,6 +26,7 @@ import {
   Radio,
 } from "lucide-react";
 import logoVEM from "@/assets/logo-vacilate-futbol.png";
+import PlanesParticipacion from "@/components/vacilate-mundial/PlanesParticipacion";
 
 const stats = [
   { number: "2M+", label: "Seguidores" },
@@ -685,6 +686,9 @@ const MediaKitVEM = () => {
               </div>
             </div>
           </section>
+
+          {/* PLANES DE PARTICIPACIÓN */}
+          <PlanesParticipacion />
 
           {/* BENEFITS */}
           <section className="container mx-auto px-4 py-16 max-w-6xl">

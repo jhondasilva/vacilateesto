@@ -51,6 +51,7 @@ import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 import RouteMap from "@/components/vacilate-mundial/RouteMap";
+import PlanesParticipacion from "@/components/vacilate-mundial/PlanesParticipacion";
 
 // ───────────────────────── Data ─────────────────────────
 
@@ -668,6 +669,9 @@ const VacilateElMundial = () => {
               </div>
             </div>
           </section>
+
+          {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
+          <PlanesParticipacion />
 
           {/* ───────────── MEDIA KIT ───────────── */}
           <section
