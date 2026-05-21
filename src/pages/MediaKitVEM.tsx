@@ -26,6 +26,7 @@ import {
   Radio,
 } from "lucide-react";
 import logoVEM from "@/assets/logo-vacilate-futbol.png";
+import PlanesParticipacion from "@/components/vacilate-mundial/PlanesParticipacion";
 
 const stats = [
   { number: "2M+", label: "Seguidores" },
