@@ -180,7 +180,7 @@ const Index = () => {
                 "name": "¿Dónde puedo escuchar Vacílate Esto?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Vacílate Esto está disponible gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch y todas las plataformas principales de podcast. También se transmite en FM Center en Venezuela."
+                  "text": "Vacílate Esto está disponible gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch y todas las plataformas principales de podcast."
                 }
               },
               {

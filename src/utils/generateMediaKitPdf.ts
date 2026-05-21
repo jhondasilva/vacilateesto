@@ -69,7 +69,7 @@ const contentFormats = [
     subtitle: "Formato Estrella", 
     stats: "Semanal · ~45 min",
     description: "Análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana.",
-    platforms: "Radio Circuito Líder, Televen TV, YouTube, Spotify"
+    platforms: "Televen TV, YouTube, Spotify"
   },
   { 
     title: "Vacílate Esto Comiendo", 

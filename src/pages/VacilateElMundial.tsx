@@ -77,7 +77,6 @@ const platforms = [
   { name: "TikTok", icon: Play },
   { name: "YouTube", icon: Play },
   { name: "TikTok Live", icon: Tv },
-  { name: "FM Center", icon: Radio },
 ];
 
 const contentFormats = [
@@ -421,7 +420,7 @@ const VacilateElMundial = () => {
                   </h1>
 
                   <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
-                    Contenido multiplataforma en Instagram, YouTube, TikTok y radio. Hablamos del fútbol pero desde ángulos
+                    Contenido multiplataforma en Instagram, YouTube y TikTok. Hablamos del fútbol pero desde ángulos
                     inesperados, al más puro estilo Vacílate Esto. ✦
                   </p>
 
