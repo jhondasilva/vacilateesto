@@ -406,7 +406,83 @@ def page_route(c):
     c.drawString(50, cy+12, "Presencia presencial: 13 paradas en MÉXICO + EE.UU.")
     footer(c, 7)
 
-# ───────── PAGE 8: TRABAJA + CONTACTO ─────────
+# ───────── PAGE 8: PLANES DE PARTICIPACIÓN ─────────
+def page_plans(c):
+    header(c, 8)
+    sticker_pill(c, 36, H-66, 170, 20, "PLANES DE PARTICIPACIÓN", fill=PINK, fg=white)
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
+    c.drawString(36, H-110, "¿QUÉ INCLUYE TU MARCA?")
+    wrap(c,
+        "Dos planes para activar tu marca dentro del ecosistema Vacílate El Fútbol 2026. Cada uno combina piezas en redes, historias, show en vivo, podcast y radio FM.",
+        36, H-130, W-72, fs=10, leading=13, color=MUT)
+
+    # Dos planes lado a lado
+    planes = [
+        ("BOMBO DE ORO", PINK, [
+            "10 piezas genéricas",
+            "6 piezas personalizadas",
+            "7 historias (Stories IG)",
+            "1 show en vivo semanal",
+            "1 podcast",
+            "Logo en comunicaciones oficiales",
+        ]),
+        ("BOMBO DE PLATA", CYAN, [
+            "6 piezas genéricas",
+            "2 piezas personalizadas",
+            "2 historias (Stories IG)",
+            "1 show en vivo semanal",
+            "1 podcast",
+            "Logo en comunicaciones oficiales",
+        ]),
+    ]
+    cw = (W-72-20)/2; ch = 215; cy = H-380
+    for i,(nombre,col,items) in enumerate(planes):
+        cx = 36 + i*(cw+20)
+        sticker_card(c, cx, cy, cw, ch, shadow=col)
+        sticker_pill(c, cx+16, cy+ch-34, 130, 22, "PLAN", fill=INK, fg=white, fs=8)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 20)
+        c.drawString(cx+16, cy+ch-62, nombre)
+        # underline
+        c.setStrokeColor(col); c.setLineWidth(3)
+        c.line(cx+16, cy+ch-68, cx+16+140, cy+ch-68)
+        # items
+        ty = cy+ch-92
+        for it in items:
+            c.setFillColor(col)
+            c.circle(cx+22, ty+3, 2.5, fill=1, stroke=0)
+            c.setFillColor(INK); c.setFont("Helvetica", 9.5)
+            c.drawString(cx+32, ty, it)
+            ty -= 18
+
+    # Incluido en ambos
+    sticker_pill(c, 36, H-410, 150, 18, "INCLUIDO EN AMBOS PLANES", fill=INK, fg=white, fs=7)
+    bens = [
+        ("DURACIÓN", "20 seg. aprox. por mención integrada al contenido.", PINK),
+        ("FASES", "Pre-mundial (mayo) y mundial (junio). Coordinamos día.", CYAN),
+        ("VISIBILIDAD", "Menciones en momentos épicos y eventos relevantes.", PINK),
+        ("RADIO FM", "6 cuentos diarios en Hot Sport (FM Center).", CYAN),
+    ]
+    cw = (W-72-30)/4; cy = H-530
+    for i,(t,d,col) in enumerate(bens):
+        cx = 36 + i*(cw+10)
+        sticker_card(c, cx, cy, cw, 90, shadow=col)
+        c.setFillColor(col); c.rect(cx+12, cy+90-22, 14, 14, fill=1, stroke=0)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 10)
+        c.drawString(cx+32, cy+90-19, t)
+        wrap(c, d, cx+12, cy+52, cw-24, fs=8, leading=11, color=MUT)
+
+    # Ejemplo de mención
+    ry = 70
+    c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(36, ry, W-72, 80, 12, fill=1, stroke=1)
+    sticker_pill(c, 50, ry+56, 130, 18, "EJEMPLO DE MENCIÓN", fill=PINK, fg=white, fs=7)
+    c.setFillColor(white); c.setFont("Helvetica-BoldOblique", 11)
+    c.drawString(50, ry+34, "\"Porque estamos fuera de casa, pero nada mejor que celebrarlo con [tu marca]...\"")
+    c.setFillColor(CYAN); c.setFont("Helvetica", 8.5)
+    c.drawString(50, ry+16, "Adaptamos el guión a tu rubro y al momento del partido.")
+    footer(c, 8)
+
+# ───────── PAGE 9: TRABAJA + CONTACTO ─────────
 def page_contact(c):
     header(c, 9)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
@@ -462,6 +538,7 @@ page_hosts(c);   c.showPage()
 page_formats(c); c.showPage()
 page_eco(c);     c.showPage()
 page_route(c);   c.showPage()
+page_plans(c);   c.showPage()
 page_contact(c); c.showPage()
 c.save()
 print("written", OUT)
