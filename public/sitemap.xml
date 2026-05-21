@@ -21,20 +21,12 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- Media Kit Vacílate El Fútbol 2026 (PDF) -->
+  <!-- Media Kit Vacílate El Fútbol 2026 -->
   <url>
-    <loc>https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517</loc>
-    <lastmod>2026-04-25</lastmod>
+    <loc>https://www.vacilateesto.com/media-kit-vem</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Media Kit Vacílate Esto 2026 (PDF) -->
-  <url>
-    <loc>https://www.vacilateesto.com/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260517</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- Buscador del Podcast -->
@@ -295,6 +287,14 @@
     <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Gira Vacílate El Fútbol: Políticas -->
+  <url>
+    <loc>https://www.vacilateesto.com/gira/politicas</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
 </urlset>
