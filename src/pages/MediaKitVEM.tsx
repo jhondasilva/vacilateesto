@@ -687,6 +687,9 @@ const MediaKitVEM = () => {
             </div>
           </section>
 
+          {/* PLANES DE PARTICIPACIÓN */}
+          <PlanesParticipacion />
+
           {/* BENEFITS */}
           <section className="container mx-auto px-4 py-16 max-w-6xl">
             <span className="inline-block bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-display font-black uppercase tracking-widest border-2 border-foreground">
