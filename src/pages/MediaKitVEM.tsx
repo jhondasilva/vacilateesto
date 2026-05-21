@@ -10,7 +10,6 @@ import {
   Users,
   Mic,
   Utensils,
-  Radio,
   Newspaper,
   Plane,
   Mail,
@@ -105,14 +104,6 @@ const formats = [
     icon: Plane,
     color: "bg-foreground",
   },
-  {
-    tag: "Radio · FM Center",
-    title: "Cuentos de un Minuto",
-    description:
-      "Cápsulas diarias de 60 segundos rotando 6 veces al día en Hot Sports (FM Center), grabadas desde nuestras bases en las sedes de Estados Unidos siguiendo la ruta.",
-    icon: Radio,
-    color: "bg-primary",
-  },
 ];
 
 const ecosystem = [
@@ -132,18 +123,7 @@ const ecosystem = [
     title: "Podcast",
     icon: Mic,
     color: "bg-foreground",
-    items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube", "FM Center"],
-  },
-  {
-    title: "Radio FM",
-    icon: Radio,
-    color: "bg-primary",
-    items: [
-      "FM Center · Hot Sports",
-      "Cuentos de 1 minuto",
-      "6 rotaciones diarias",
-      "Bases desde sedes USA",
-    ],
+    items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube"],
   },
 ];
 
@@ -614,7 +594,6 @@ const MediaKitVEM = () => {
                     { label: "TikTok", icon: Play },
                     { label: "YouTube", icon: Youtube },
                     { label: "TikTok Live", icon: Tv },
-                    { label: "FM Center", icon: Radio },
                   ].map((p) => (
                     <span
                       key={p.label}

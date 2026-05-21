@@ -110,7 +110,7 @@ const contentFormats = [
     icon: Mic,
     color: "bg-primary",
     stats: "Semanal · ~45 min",
-    platforms: "Radio Circuito Líder, Televen TV, YouTube, Spotify",
+    platforms: "Televen TV, YouTube, Spotify",
   },
   {
     title: "Vacílate Esto Comiendo",

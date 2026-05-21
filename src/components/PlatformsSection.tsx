@@ -5,12 +5,12 @@ import StickerHeader from "@/components/StickerHeader";
 const platformsData = [
   { name: "Podcast", platforms: [
     { name: "Spotify", icon: "spotify" }, { name: "YouTube", icon: "youtube" },
-    { name: "Pocket Casts", icon: "pocket" }, { name: "Radio", icon: "radio" },
+    { name: "Pocket Casts", icon: "pocket" },
   ]},
   { name: "Short Podcast", platforms: [
     { name: "YouTube", icon: "youtube" }, { name: "Pocket Casts", icon: "pocket" },
     { name: "TikTok", icon: "tiktok" }, { name: "Instagram", icon: "instagram" },
-    { name: "Facebook", icon: "facebook" }, { name: "Radio", icon: "radio" },
+    { name: "Facebook", icon: "facebook" },
   ]},
   { name: "Cuentos", platforms: [
     { name: "WhatsApp", icon: "whatsapp" }, { name: "Instagram", icon: "instagram" },
@@ -26,7 +26,6 @@ const platformsData = [
     { name: "TikTok", icon: "tiktok" }, { name: "Instagram", icon: "instagram" },
   ]},
   { name: "Eventos", platforms: [{ name: "Eventos", icon: "events" }] },
-  { name: "Radio", platforms: [{ name: "Radio", icon: "radio" }] },
   { name: "Juegos", platforms: [
     { name: "App Store", icon: "appstore" }, { name: "Play Store", icon: "playstore" },
   ]},
@@ -58,7 +57,7 @@ const PlatformsSection = () => {
   return (
     <section id="plataformas" className="relative overflow-hidden bg-foreground text-background pt-0 pb-20 md:pb-28" aria-labelledby="platforms-title" itemScope itemType="https://schema.org/WebPageElement">
       <meta itemProp="name" content="Plataformas donde escuchar Vacílate Esto" />
-      <meta itemProp="description" content="Escucha y mira Vacílate Esto gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch, Instagram y FM Center (radio en Venezuela)." />
+      <meta itemProp="description" content="Escucha y mira Vacílate Esto gratis en Spotify, YouTube, Apple Podcasts, TikTok, Twitch e Instagram." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#plataformas" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[36rem] h-[36rem] bg-primary/25 rounded-full blur-[140px]" />
