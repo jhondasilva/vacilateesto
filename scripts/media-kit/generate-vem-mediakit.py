@@ -408,7 +408,7 @@ def page_route(c):
 
 # ───────── PAGE 8: TRABAJA + CONTACTO ─────────
 def page_contact(c):
-    header(c, 8)
+    header(c, 9)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "ACTIVA TU MARCA")
@@ -448,7 +448,7 @@ def page_contact(c):
     c.setFillColor(white); c.setFont("Helvetica", 10)
     c.drawString(56, cy+16, "vacilateelmundial.com  ·  vacilateesto.com")
 
-    footer(c, 8)
+    footer(c, 9)
 
 # Build PDF
 c = canvas.Canvas(OUT, pagesize=letter)
