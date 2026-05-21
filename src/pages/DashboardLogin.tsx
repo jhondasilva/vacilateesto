@@ -16,6 +16,7 @@ const DashboardLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showRequest, setShowRequest] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,7 +97,16 @@ const DashboardLogin = () => {
         </div>
 
         <div className="mt-8 space-y-6">
-          <RequestAccessForm hideLoginLink />
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => setShowRequest((v) => !v)}
+              className="text-sm text-primary hover:underline"
+            >
+              {showRequest ? "Ocultar solicitud de acceso" : "¿No tienes acceso? Solicítalo aquí"}
+            </button>
+          </div>
+          {showRequest && <RequestAccessForm hideLoginLink />}
           <p className="text-center text-muted-foreground/60 text-xs">
             <Link to="/" className="hover:text-foreground">Volver al sitio</Link>
           </p>
