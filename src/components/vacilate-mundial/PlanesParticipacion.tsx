@@ -8,7 +8,7 @@ const planes = [
     textColor: "text-primary-foreground",
     shadow: "sticker-shadow-lg-primary",
     items: [
-      "10 piezas genéricas",
+      "10 Piezas con Product Placement",
       "6 piezas personalizadas",
       "7 historias (Stories IG)",
       "1 show en vivo semanal",
@@ -23,7 +23,7 @@ const planes = [
     textColor: "text-accent-foreground",
     shadow: "sticker-shadow-lg-accent",
     items: [
-      "6 piezas genéricas",
+      "6 Piezas con Product Placement",
       "2 piezas personalizadas",
       "2 historias (Stories IG)",
       "1 show en vivo semanal",
