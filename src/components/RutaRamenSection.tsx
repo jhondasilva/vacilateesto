@@ -6,7 +6,14 @@ import StickerHeader from "@/components/StickerHeader";
 const TICKER = ["RUTA DEL RAMEN", "★", "VACÍLATE COMIENDO", "✦", "CARACAS · VENEZUELA", "★", "🍜 MASTER", "✦"];
 
 const restaurants = [
-  { name: "Sake", description: "Sabores y texturas que sorprenden en cada bocado.", rating: "4.3" },
+  { name: "Noraneko", description: "El mejor ramen de Venezuela. Puntuación perfecta del jurado.", rating: "5.0" },
+  { name: "Selva de Paria", description: "Ramen artesanal con ingredientes de huerto propio. Sorpresa total.", rating: "4.7" },
+  { name: "Omono", description: "Caldo profundo y los mejores fideos de Caracas. Cerdo impecable.", rating: "4.2" },
+  { name: "Cachicamero", description: "Ramen venezolano con chuleta ahumada. Sabores que conectan.", rating: "3.8" },
+  { name: "Taiko", description: "Esencia japonesa en Caracas. Caldo reconfortante, fideos discretos.", rating: "3.3" },
+  { name: "Ramen Bar", description: "Propuesta agridulce con sabores asiáticos en plena Caracas.", rating: "3.3" },
+  { name: "Ajisen Ramen", description: "Caldo sabroso pero fideos suaves y chashu por debajo del estándar.", rating: "3.3" },
+  { name: "Itto", description: "Costilla y dumplings rescatan; caldo y noodles industrializados.", rating: "2.6" },
 ];
 
 const criteria = ["Caldo", "Noodles", "Proteína", "Toppings", "Presentación"];
