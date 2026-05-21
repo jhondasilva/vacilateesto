@@ -77,6 +77,7 @@ const platforms = [
   { name: "TikTok", icon: Play },
   { name: "YouTube", icon: Play },
   { name: "TikTok Live", icon: Tv },
+  { name: "Radio FM Center", icon: Radio },
 ];
 
 const contentFormats = [

@@ -4,7 +4,7 @@ import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 const TICKER = ["VACÍLATE EL MUNDIAL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
 
 const features = [
-  { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube y TikTok (incluyendo TikTok Live)" },
+  { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live) y Radio FM Center" },
   { icon: Zap, title: "Fun Educaitment", description: "Diversión, educación y entretenimiento en cada contenido" },
   { icon: UtensilsCrossed, title: "El Gol y la Comida", description: "Sabores de México, USA y Canadá mientras celebramos cada gol" },
   { icon: Newspaper, title: "Vacílalo News", description: "Noticias del fútbol con ironía y data insólita" },
@@ -193,7 +193,7 @@ const VacilateElMundialSection = () => {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-2 pt-8 border-t-2 border-dashed border-border">
             <span className="text-xs uppercase tracking-widest font-bold text-muted-foreground mr-1">Seguinos:</span>
-            {["Instagram", "TikTok", "YouTube"].map((p, i) => (
+            {["Instagram", "TikTok", "YouTube", "Radio FM Center"].map((p, i) => (
               <span
                 key={p}
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--foreground))]"
