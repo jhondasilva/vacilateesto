@@ -392,12 +392,7 @@ const WalkingAds = () => {
               <Reveal delay={650}>
                 <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] tracking-[0.2em] uppercase text-white/40">
                   <span>
-                    <span className="text-white/30">Agency</span>{" "}
-                    <span className="text-white/70">La Web Figital Agency</span>
-                  </span>
-                  <span className="text-white/15">|</span>
-                  <span>
-                    <span className="text-white/30">Client</span>{" "}
+                    <span className="text-white/30">Brand</span>{" "}
                     <span className="text-white/70">Vacílate Esto</span>
                   </span>
                   <span className="text-white/15">|</span>
