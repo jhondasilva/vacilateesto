@@ -210,7 +210,7 @@ const PodcastEterno = () => {
             "name": "¿Quiénes condujeron El Podcast Eterno?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El Podcast Eterno fue conducido por los creadores digitales venezolanos Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), fundadores de Vacílate Esto y co-fundadores de La Web Figital Agency y El Patio Content Studio."
+              "text": "El Podcast Eterno fue conducido por los creadores digitales venezolanos Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), fundadores de Vacílate Esto y El Patio Content Studio."
             }
           },
           {
