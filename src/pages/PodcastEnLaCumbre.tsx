@@ -84,12 +84,7 @@ const PodcastEnLaCumbre = () => {
         },
         "producer": {
           "@type": "Organization",
-          "name": "El Patio Content Studio",
-          "parentOrganization": {
-            "@type": "Organization",
-            "name": "La Web Figital Agency",
-            "url": "https://www.lawebfigitalagency.com"
-          }
+          "name": "El Patio Content Studio"
         },
         "contentLocation": [
           {

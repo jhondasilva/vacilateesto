@@ -14,7 +14,6 @@ const navLinks = [
   { label: "Pelotica de Goma", href: "https://www.peloticadegoma.com", external: true },
   { label: "Creative Hub", href: "https://creativehub.vacilateesto.com", external: true },
   { label: "Vacílalo", href: "https://vacilalo.vacilateesto.com", external: true },
-  { label: "La Web", href: "https://www.lawebfigitalagency.com", external: true },
   { label: "El Patio", href: "https://www.elpatiocontentstudio.com", external: true },
   { label: "Dashboard", href: "https://www.vacilateesto.com/dashboard/login", external: true },
   { label: "Contacto", href: "/#contact" },
