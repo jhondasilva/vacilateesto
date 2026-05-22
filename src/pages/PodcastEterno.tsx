@@ -274,7 +274,7 @@ const PodcastEterno = () => {
         <title>El Podcast Eterno | Récord Mundial del Podcast Más Largo del Mundo 🏆</title>
         <meta name="title" content="El Podcast Eterno | Récord Mundial del Podcast Más Largo del Mundo" />
         <meta name="description" content="El Podcast Eterno: 40 horas de transmisión en vivo que rompieron el récord mundial del podcast más largo del mundo el 30 de julio de 2022. Conducido por Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks) de Vacílate Esto, con 35 invitados y más de 100 personas en el equipo." />
-        <meta name="keywords" content="podcast eterno, podcast más largo del mundo, récord mundial podcast, 40 horas podcast, Juan Carlos Martínez, JuanSofa, Jhon Da Silva, JhonSnacks, Vacílate Esto, récord guinness podcast, venezuela podcast, streaming venezuela, podcast latinoamerica, Danny Ocean, Luis Carlos Díaz, Leonardo Padrón, El Patio Content Studio, La Web Figital Agency" />
+        <meta name="keywords" content="podcast eterno, podcast más largo del mundo, récord mundial podcast, 40 horas podcast, Juan Carlos Martínez, JuanSofa, Jhon Da Silva, JhonSnacks, Vacílate Esto, récord guinness podcast, venezuela podcast, streaming venezuela, podcast latinoamerica, Danny Ocean, Luis Carlos Díaz, Leonardo Padrón, El Patio Content Studio" />
         <meta name="author" content="Vacílate Esto - Juan Carlos Martínez y Jhon Da Silva" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="googlebot" content="index, follow" />
