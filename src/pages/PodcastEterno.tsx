@@ -77,12 +77,7 @@ const PodcastEterno = () => {
         },
         "producer": {
           "@type": "Organization",
-          "name": "El Patio Content Studio",
-          "parentOrganization": {
-            "@type": "Organization",
-            "name": "La Web Figital Agency",
-            "url": "https://www.lawebfigitalagency.com"
-          }
+          "name": "El Patio Content Studio"
         },
         "datePublished": "2022-07-28",
         "dateCreated": "2022-07-28",
