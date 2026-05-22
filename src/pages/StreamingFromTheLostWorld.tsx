@@ -267,12 +267,7 @@ const StreamingFromTheLostWorld = () => {
               <Reveal delay={650}>
                 <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] tracking-[0.2em] uppercase text-white/40">
                   <span>
-                    <span className="text-white/30">Agency</span>{" "}
-                    <span className="text-white/70">La Web Figital Agency</span>
-                  </span>
-                  <span className="text-white/15">|</span>
-                  <span>
-                    <span className="text-white/30">Client</span>{" "}
+                    <span className="text-white/30">Brand</span>{" "}
                     <span className="text-white/70">Vacílate Esto</span>
                   </span>
                   <span className="text-white/15">|</span>
@@ -609,7 +604,7 @@ const StreamingFromTheLostWorld = () => {
         <footer className="px-5 sm:px-10 lg:px-20 py-10 border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-white/40">
             <div className="tracking-[0.2em] uppercase">
-              Vacílate Esto · La Web Figital Agency · Cannes Lions 2026
+              Vacílate Esto · Cannes Lions 2026
             </div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
