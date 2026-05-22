@@ -152,16 +152,7 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2">
             <p className="text-background/70 text-sm mb-4 max-w-lg leading-relaxed">
-              Vacílate Esto es una marca de{" "}
-              <a 
-                href="https://www.lawebfigitalagency.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                La Web Figital Agency
-              </a>
-              {" "}producido por su unidad{" "}
+              Vacílate Esto es una marca producida por{" "}
               <a 
                 href="https://www.elpatiocontentstudio.com" 
                 target="_blank" 

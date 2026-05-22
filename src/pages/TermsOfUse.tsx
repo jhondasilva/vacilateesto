@@ -66,7 +66,7 @@ const TermsOfUse = () => {
                     <li>Diseño del sitio web</li>
                   </ul>
                   <p className="text-muted-foreground leading-relaxed">
-                    Son propiedad de Vacílate Esto, El Patio Content Studio y La Web Figital Agency, o se utilizan con permiso de sus respectivos propietarios. Queda prohibida la reproducción, distribución o modificación sin autorización previa por escrito.
+                    Son propiedad de Vacílate Esto y El Patio Content Studio, o se utilizan con permiso de sus respectivos propietarios. Queda prohibida la reproducción, distribución o modificación sin autorización previa por escrito.
                   </p>
                 </section>
 
