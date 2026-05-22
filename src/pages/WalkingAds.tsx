@@ -976,7 +976,7 @@ const WalkingAds = () => {
         <footer className="px-5 sm:px-10 lg:px-20 py-10 border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-white/40">
             <div className="tracking-[0.2em] uppercase">
-              Vacílate Esto · La Web Figital Agency · Cannes Lions 2026
+              Vacílate Esto · Cannes Lions 2026
             </div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
