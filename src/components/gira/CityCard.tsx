@@ -104,6 +104,7 @@ interface Props {
   currentUserName: string;
   currentUserEmail: string;
   onRefresh: () => void;
+  displayIndex?: number;
 }
 
 const formatRange = (start: string, end: string) => {
@@ -113,7 +114,7 @@ const formatRange = (start: string, end: string) => {
   return `${format(s, "d", { locale: es })}–${format(e, "d 'de' MMM", { locale: es })}`;
 };
 
-export const CityCard = ({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh }: Props) => {
+export const CityCard = ({ city, activities, comments, currentUserId, currentUserName, currentUserEmail, onRefresh, displayIndex }: Props) => {
   const [expanded, setExpanded] = useState(city.position <= 2);
 
   useEffect(() => {
@@ -237,7 +238,7 @@ export const CityCard = ({ city, activities, comments, currentUserId, currentUse
       <div className="w-full p-3 sm:p-5 flex items-center justify-between text-left group gap-2 sm:gap-3">
         <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0 text-left">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center font-bold text-primary shrink-0 text-sm sm:text-base">
-            {city.position}
+            {displayIndex ?? city.position}
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
