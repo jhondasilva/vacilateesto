@@ -240,10 +240,11 @@ const Gira = () => {
               </div>
             ) : (
               <div className="space-y-3">
-                {visibleCities.map((city) => (
+                {visibleCities.map((city, idx) => (
                   <CityCard
                     key={city.id}
                     city={city}
+                    displayIndex={idx + 1}
                     activities={visibleActivities.filter((a) => a.city_id === city.id)}
                     comments={comments}
                     currentUserId={user!.id}
