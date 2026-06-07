@@ -37,7 +37,7 @@ const BlogPostDynamic = () => {
       .maybeSingle()
       .then(({ data }) => {
         if (!active) return;
-        setPost(data as Post | null);
+        setPost((data as unknown as Post) ?? null);
         setLoading(false);
       });
     return () => {
