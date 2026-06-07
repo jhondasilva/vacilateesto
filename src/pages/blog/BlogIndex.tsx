@@ -195,30 +195,30 @@ const BlogIndex = () => {
             <p className="text-xs uppercase tracking-widest text-primary font-bold mb-3">
               Blog
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-4 break-words hyphens-auto">
               Lo que vacilamos por escrito
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Guías, listicles y reportajes desde Venezuela. Cultura, aventura, gastronomía y todo lo que da pie pa' un buen episodio.
             </p>
           </header>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
             {allPosts.map((p) => (
               <Link
                 key={p.slug}
                 to={`/blog/${p.slug}`}
-                className="group block p-6 md:p-7 bg-card border border-border rounded-2xl hover:border-primary/40 hover:shadow-lg transition-all"
+                className="group block p-5 sm:p-6 md:p-7 bg-card border border-border rounded-2xl hover:border-primary/40 hover:shadow-lg transition-all"
               >
-                <div className="flex items-center gap-3 mb-3 text-xs">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 text-xs flex-wrap">
                   <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full font-semibold uppercase tracking-wide">
                     {p.category}
                   </span>
-                  <span className="flex items-center gap-1 text-muted-foreground">
+                  <span className="flex items-center gap-1 text-muted-foreground whitespace-nowrap">
                     <Clock className="w-3 h-3" /> {p.minutes} min
                   </span>
                 </div>
-                <h2 className="text-xl md:text-2xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors break-words hyphens-auto">
                   {p.title}
                 </h2>
                 <p className="text-foreground/70 text-sm md:text-base leading-relaxed mb-4">
