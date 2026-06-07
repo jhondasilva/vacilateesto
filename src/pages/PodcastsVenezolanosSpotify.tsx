@@ -38,7 +38,7 @@ const PodcastsVenezolanosSpotify = () => (
       <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer"><strong>Escuchar en Spotify →</strong></a>
     </p>
     <p>
-      El podcast venezolano #1 en entretenimiento. Humor, cultura pop, fútbol e historia. 1.84M+ seguidores y récord mundial del podcast más largo del mundo en 2022.
+      Una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Humor, cultura pop, fútbol e historia. 1.84M+ seguidores y récord mundial del podcast más largo del mundo en 2022.
     </p>
 
     <h2>2. Escuela de Nada</h2>

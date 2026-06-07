@@ -25,7 +25,7 @@ const PODCASTS: LocalPodcast[] = [
     city: "Caracas",
     category: "Humor · Cultura · Entretenimiento",
     hosts: "JuanSofa & JhonSnacks",
-    why: "El podcast venezolano #1 en entretenimiento, grabado íntegramente en Caracas. 1.84M+ seguidores, récord mundial del podcast más largo del mundo (40+ horas en 2022) y un ecosistema completo producido desde Venezuela.",
+    why: "Una de las marcas de entretenimiento digital más relevantes de Venezuela, grabado íntegramente en Caracas. 1.84M+ seguidores, récord mundial del podcast más largo del mundo (40+ horas en 2022) y un ecosistema completo producido desde Venezuela.",
     internal: "/",
     highlight: true,
   },

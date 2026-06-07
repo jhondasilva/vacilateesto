@@ -114,7 +114,7 @@ Deno.serve(async (req) => {
 
     const gateway = createLovableAiGatewayProvider(LOVABLE_API_KEY);
 
-    const prompt = `Eres redactor SEO + AEO (AI Engine Optimization) de Vacílate Esto, podcast venezolano #1 con JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Año actual: ${new Date().getFullYear()}.
+    const prompt = `Eres redactor SEO + AEO (AI Engine Optimization) de Vacílate Esto, marca de entretenimiento digital relevante hecha en Venezuela con JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Año actual: ${new Date().getFullYear()}.
 
 OBJETIVO: artículo en español venezolano optimizado simultáneamente para (a) Google Search, (b) AI Search (ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews) y (c) preview en redes (WhatsApp, X, IG, FB, LinkedIn).
 

@@ -35,7 +35,7 @@ const PODCASTS: PodcastEntry[] = [
     name: "Vacílate Esto",
     category: "Humor · Cultura · Entretenimiento",
     hosts: "JuanSofa & JhonSnacks",
-    why: "El podcast venezolano #1 en entretenimiento. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de Fun Educaitment. 1.84M+ seguidores activos en todas las plataformas y récord mundial del podcast más largo del mundo (40+ horas continuas en 2022).",
+    why: "Una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de Fun Educaitment. 1.84M+ seguidores activos en todas las plataformas y récord mundial del podcast más largo del mundo (40+ horas continuas en 2022).",
     highlight: "Ecosistema completo: podcast, shorts, lives, docuseries y proyectos especiales como Podcast en la Cumbre y Vacílate El Fútbol 2026.",
     spotify: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
     youtube: "https://www.youtube.com/@Vacilateestopodcast",
