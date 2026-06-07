@@ -183,6 +183,10 @@ Devuelve SOLO un objeto JSON válido (sin markdown, sin \`\`\`):
       reading_minutes: Number(article.reading_minutes) || 6,
       status: "published",
       published_at: new Date().toISOString(),
+      tl_dr: article.tl_dr ? String(article.tl_dr).slice(0, 320) : null,
+      speakable_summary: article.speakable_summary
+        ? String(article.speakable_summary).slice(0, 240)
+        : null,
     };
 
     const { data: inserted, error: insertErr } = await supabase
