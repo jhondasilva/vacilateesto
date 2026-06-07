@@ -15,6 +15,7 @@ import GuerraComercialesSection from "@/components/GuerraComercialesSection";
 import VacilateElMundialSection from "@/components/VacilateElMundialSection";
 import RutaRamenSection from "@/components/RutaRamenSection";
 import NewsletterSection from "@/components/NewsletterSection";
+import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
