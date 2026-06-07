@@ -289,6 +289,38 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Blog: Tío Simón Díaz tributo -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/tio-simon-frases-tributo</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Mejor perro caliente Caracas -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/mejor-perro-caliente-caracas</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Qué es la llaneridad -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/que-es-la-llaneridad</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Marcas venezolanas nostálgicas -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/marcas-venezolanas-nostalgicas</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Gira Vacílate El Fútbol: Políticas -->
   <url>
     <loc>https://www.vacilateesto.com/gira/politicas</loc>
