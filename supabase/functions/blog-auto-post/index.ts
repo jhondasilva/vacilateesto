@@ -114,25 +114,41 @@ Deno.serve(async (req) => {
 
     const gateway = createLovableAiGatewayProvider(LOVABLE_API_KEY);
 
-    const prompt = `Eres redactor SEO de Vacílate Esto (podcast venezolano #1 con JuanSofa y JhonSnacks).
-Tema de hoy: "${theme.label}".
-Usa los siguientes fragmentos transcritos REALES de episodios para escribir un artículo de blog en español venezolano, natural, divertido y SEO-friendly.
+    const prompt = `Eres redactor SEO + AEO (AI Engine Optimization) de Vacílate Esto, podcast venezolano #1 con JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Año actual: ${new Date().getFullYear()}.
 
-FUENTES (no inventes datos, cita momentos cuando sea útil):
+OBJETIVO: artículo en español venezolano optimizado simultáneamente para (a) Google Search, (b) AI Search (ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews) y (c) preview en redes (WhatsApp, X, IG, FB, LinkedIn).
+
+REGLAS DE AI SEARCH (CRÍTICAS):
+- Primera oración del body_md debe responder claramente "qué es / quién / cuándo / por qué" del tema — los LLMs citan la primera respuesta clara.
+- Estructura con preguntas como subtítulos (## ¿Qué es...? ## ¿Por qué...? ## ¿Dónde...?), porque AI Search extrae respuestas por pregunta.
+- Mencionar entidades nombradas explícitas: Vacílate Esto, JuanSofa, JhonSnacks, Venezuela, Caracas, marcas, lugares, episodios. Repite el nombre completo del podcast al menos 3 veces.
+- Datos concretos, cifras y fechas (año, duración del episodio, etc.) — los LLMs prefieren respuestas con datos.
+- Cita fuente: incluye al menos 3 enlaces "Ver momento exacto" a YouTube con timestamp: [Ver momento](https://www.youtube.com/watch?v=VIDEO_ID&t=SECONDSs).
+- Cierra con CTAs internos a /buscador (semántico), https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1 y https://www.youtube.com/@Vacilateestopodcast.
+
+FUENTES REALES (no inventes hechos, parafrasea estos fragmentos transcritos de los episodios):
 ${JSON.stringify(sourceContext, null, 2)}
 
-Devuelve SOLO un objeto JSON válido con esta forma exacta (sin markdown, sin \`\`\`):
+Devuelve SOLO un objeto JSON válido (sin markdown, sin \`\`\`):
 {
-  "slug": "kebab-case-corto-con-keyword",
-  "title": "Título SEO con keyword <60 chars",
-  "h1": "H1 visible atractivo",
-  "description": "Meta description <160 chars",
-  "keywords": "5-8 keywords separadas por comas",
+  "slug": "kebab-case-con-keyword-principal (max 80 chars)",
+  "title": "Título SEO con keyword principal al inicio (max 60 chars, incluye 'Vacílate Esto' o '| Venezuela' al final si cabe)",
+  "h1": "H1 visible enganchador (max 80 chars)",
+  "description": "Meta description social-friendly que invita al click (max 158 chars)",
+  "keywords": "8-12 keywords separadas por comas, mezcla cabeza y long-tail",
   "category": "${theme.category}",
-  "tags": ["tag1","tag2","tag3","tag4"],
+  "tags": ["6-8 tags relevantes en kebab-case o palabras"],
   "reading_minutes": 6,
-  "body_md": "Markdown completo del artículo (1000-1500 palabras). Usa ## para subtítulos, listas, negritas. Incluye 2-3 secciones que conecten con momentos específicos de los episodios usando enlaces tipo: [ver momento](https://www.youtube.com/watch?v=VIDEO_ID&t=SECONDSs). Cierra con CTA al buscador (/buscador) y a YouTube/Spotify.",
-  "faq": [{"question":"...","answer":"..."},{"question":"...","answer":"..."},{"question":"...","answer":"..."}]
+  "tl_dr": "Resumen de 2-3 frases (max 280 chars) que responde el tema de un vistazo. Diseñado para que IA y redes lo citen literal.",
+  "speakable_summary": "1-2 frases (max 200 chars) en lenguaje hablado natural para asistentes de voz (Siri, Google Assistant). Sin emojis, sin markdown.",
+  "body_md": "Markdown 900-1400 palabras. Primera línea = respuesta directa. Usa ## para preguntas como subtítulos, ### para sub-temas, listas con -, **negritas** para entidades clave, > para citas memorables del podcast. Mínimo 3 enlaces a YouTube con timestamp y 1 a /buscador.",
+  "faq": [
+    {"question":"...","answer":"Respuesta directa de 2-4 frases con dato concreto."},
+    {"question":"...","answer":"..."},
+    {"question":"...","answer":"..."},
+    {"question":"...","answer":"..."},
+    {"question":"...","answer":"..."}
+  ]
 }`;
 
     const { text } = await generateText({
@@ -167,6 +183,10 @@ Devuelve SOLO un objeto JSON válido con esta forma exacta (sin markdown, sin \`
       reading_minutes: Number(article.reading_minutes) || 6,
       status: "published",
       published_at: new Date().toISOString(),
+      tl_dr: article.tl_dr ? String(article.tl_dr).slice(0, 320) : null,
+      speakable_summary: article.speakable_summary
+        ? String(article.speakable_summary).slice(0, 240)
+        : null,
     };
 
     const { data: inserted, error: insertErr } = await supabase

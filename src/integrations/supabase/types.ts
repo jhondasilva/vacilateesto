@@ -86,10 +86,12 @@ export type Database = {
           reading_minutes: number
           slug: string
           source_video_ids: string[]
+          speakable_summary: string | null
           status: string
           tags: string[]
           theme_key: string | null
           title: string
+          tl_dr: string | null
           updated_at: string
         }
         Insert: {
@@ -106,10 +108,12 @@ export type Database = {
           reading_minutes?: number
           slug: string
           source_video_ids?: string[]
+          speakable_summary?: string | null
           status?: string
           tags?: string[]
           theme_key?: string | null
           title: string
+          tl_dr?: string | null
           updated_at?: string
         }
         Update: {
@@ -126,10 +130,12 @@ export type Database = {
           reading_minutes?: number
           slug?: string
           source_video_ids?: string[]
+          speakable_summary?: string | null
           status?: string
           tags?: string[]
           theme_key?: string | null
           title?: string
+          tl_dr?: string | null
           updated_at?: string
         }
         Relationships: []
