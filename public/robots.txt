@@ -7,6 +7,7 @@ Allow: /
 # Sitemap
 Sitemap: https://www.vacilateesto.com/sitemap.xml
 Sitemap: https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/sitemap-videos
+Sitemap: https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/blog-sitemap
 
 # LLMs.txt for AI crawlers
 # https://llmstxt.org/
