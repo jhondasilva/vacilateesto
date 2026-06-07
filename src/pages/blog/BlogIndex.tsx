@@ -6,6 +6,42 @@ import { ArrowRight, Clock } from "lucide-react";
 
 const POSTS = [
   {
+    slug: "tio-simon-frases-tributo",
+    title: "Tío Simón Díaz: frases, tributo y por qué sigue siendo el alma de Venezuela",
+    excerpt:
+      "Las mejores frases, canciones y el tributo del episodio 200 al hombre que tradujo el llano al mundo entero.",
+    category: "Cultura",
+    minutes: 8,
+    date: "2026-05-20",
+  },
+  {
+    slug: "mejor-perro-caliente-caracas",
+    title: "Los mejores perros calientes de Caracas: la ruta definitiva 2026",
+    excerpt:
+      "Anatomía del perro caraqueño, los mejores perreros y las reglas no escritas del ritual nocturno más sagrado de la ciudad.",
+    category: "Gastronomía",
+    minutes: 9,
+    date: "2026-04-24",
+  },
+  {
+    slug: "que-es-la-llaneridad",
+    title: "Qué es la llaneridad: el código del llanero venezolano",
+    excerpt:
+      "El ADN, los códigos de honor y las costumbres del llanero. Una guía cultural para entender la raíz de Venezuela.",
+    category: "Cultura",
+    minutes: 10,
+    date: "2026-04-10",
+  },
+  {
+    slug: "marcas-venezolanas-nostalgicas",
+    title: "Marcas venezolanas que viven en tus recuerdos",
+    excerpt:
+      "Savoy, Polar, Pampero, Toddy, Cocosette y todas las marcas que se volvieron parte de la identidad nacional.",
+    category: "Cultura",
+    minutes: 10,
+    date: "2026-03-28",
+  },
+  {
     slug: "mejores-podcasts-venezolanos-2026",
     title: "Los mejores podcasts venezolanos para escuchar en 2026",
     excerpt:
