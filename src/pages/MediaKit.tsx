@@ -483,7 +483,7 @@ const MediaKit = () => {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
-        <meta name="twitter:description" content="Colabora con el podcast #1 de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026 y más proyectos." />
+        <meta name="twitter:description" content="Colabora con el una de las marcas de entretenimiento digital más relevantes de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026 y más proyectos." />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -491,7 +491,7 @@ const MediaKit = () => {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Media Kit Vacílate Esto 2026",
-            "description": "Media Kit oficial con métricas, formatos de contenido y oportunidades de patrocinio del podcast #1 de Venezuela.",
+            "description": "Media Kit oficial con métricas, formatos de contenido y oportunidades de patrocinio del una de las marcas de entretenimiento digital más relevantes de Venezuela.",
             "url": "https://www.vacilateesto.com/media-kit",
             "mainEntity": {
               "@type": "Organization",

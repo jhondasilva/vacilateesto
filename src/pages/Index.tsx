@@ -57,7 +57,7 @@ const Index = () => {
             "@id": "https://www.vacilateesto.com/#organization",
             "name": "Vacílate Esto",
             "alternateName": ["Vacilate Esto", "Vacílate Esto Podcast", "VE Podcast"],
-            "description": "Uno de los podcasts favoritos de Venezuela y ecosistema de entretenimiento #1. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
+            "description": "Una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Combina podcast, social media, contenidos para redes y eventos como Pelotica de Goma, Podcast en la Cumbre y el Podcast Eterno. Fun Educaitment que combina fútbol, gastronomía e historia con leyendas, datos insólitos y mitos urbanos.",
             "url": "https://www.vacilateesto.com",
             "logo": "https://www.vacilateesto.com/favicon.png",
             "image": "https://www.vacilateesto.com/favicon.png",
@@ -146,7 +146,7 @@ const Index = () => {
             "name": "Vacílate Esto",
             "alternateName": "Uno de los Podcasts Favoritos de Venezuela",
             "url": "https://www.vacilateesto.com",
-            "description": "Sitio oficial de Vacílate Esto, uno de los podcasts favoritos de Venezuela y ecosistema de entretenimiento #1.",
+            "description": "Sitio oficial de Vacílate Esto, una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Combina podcast, social media, contenidos para redes y eventos como Pelotica de Goma, Podcast en la Cumbre y el Podcast Eterno.",
             "inLanguage": "es-VE",
             "publisher": {
               "@id": "https://www.vacilateesto.com/#organization"
@@ -243,7 +243,7 @@ const Index = () => {
         <main role="main" aria-label="Contenido principal del podcast Vacílate Esto">
           <article itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Vacílate Esto" />
-            <meta itemProp="description" content="Ecosistema de entretenimiento y contenidos #1 de Venezuela. Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos." />
+            <meta itemProp="description" content="Una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, social media, contenidos para redes y eventos. Fun Educaitment: fútbol, gastronomía, historia, leyendas y mitos urbanos." />
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />

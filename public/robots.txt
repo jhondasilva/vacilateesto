@@ -1,4 +1,4 @@
-# Vacílate Esto - El Mejor Podcast de Venezuela | Ecosistema de Entretenimiento #1
+# Vacílate Esto - Marca de Entretenimiento Digital Hecha en Venezuela | Podcast, Social Media, Eventos
 # https://www.vacilateesto.com
 
 User-agent: *

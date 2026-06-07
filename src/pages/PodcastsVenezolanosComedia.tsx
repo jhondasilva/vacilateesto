@@ -35,7 +35,7 @@ const PodcastsVenezolanosComedia = () => (
 
     <h2>1. Vacílate Esto</h2>
     <p>
-      <strong>Hosts:</strong> JuanSofa & JhonSnacks. El podcast venezolano #1 en entretenimiento mezcla humor, cultura pop, fútbol y gastronomía bajo el concepto de <em>Fun Educaitment</em>. 1.84M+ seguidores y récord mundial del podcast más largo del mundo (40+ horas en 2022).
+      <strong>Hosts:</strong> JuanSofa & JhonSnacks. Una de las marcas de entretenimiento digital más relevantes de Venezuela mezcla humor, cultura pop, fútbol y gastronomía bajo el concepto de <em>Fun Educaitment</em>. 1.84M+ seguidores y récord mundial del podcast más largo del mundo (40+ horas en 2022).
     </p>
     <p>
       Escuchá en <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer">Spotify</a>, <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">YouTube</a> y <a href="https://podcasts.apple.com/us/podcast/vac%C3%ADlate-esto-podcast/id1666351070" target="_blank" rel="noopener noreferrer">Apple Podcasts</a>. O usá el <a href="/buscador">buscador semántico</a> para encontrar un chiste o momento puntual.

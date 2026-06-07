@@ -284,7 +284,7 @@ const BlogArticleLayout = ({
                 Vacílate Esto
               </p>
               <h3 className="text-2xl font-bold text-foreground mb-3">
-                Escucha el podcast venezolano #1
+                Escucha el marca de entretenimiento digital relevante hecha en Venezuela
               </h3>
               <p className="text-foreground/75 mb-5">
                 Humor, cultura y entretenimiento todas las semanas con JuanSofa y JhonSnacks.

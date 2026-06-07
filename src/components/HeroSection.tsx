@@ -23,7 +23,7 @@ const HeroSection = () => {
       itemType="https://schema.org/WebPageElement"
     >
       <meta itemProp="name" content="Vacílate Esto · Ecosistema de Entretenimiento de Venezuela" />
-      <meta itemProp="description" content="Inicio de Vacílate Esto: el podcast venezolano #1 y ecosistema de Fun Educaitment con humor, fútbol, gastronomía, historia y mitos urbanos. Hosts: JuanSofa y JhonSnacks. 2M+ seguidores." />
+      <meta itemProp="description" content="Inicio de Vacílate Esto: el marca de entretenimiento digital relevante hecha en Venezuela y ecosistema de Fun Educaitment con humor, fútbol, gastronomía, historia y mitos urbanos. Hosts: JuanSofa y JhonSnacks. 2M+ seguidores." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#hero" />
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
