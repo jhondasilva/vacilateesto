@@ -95,7 +95,11 @@ function speakerColor(sp: string | null) {
   return "bg-muted/60 text-muted-foreground";
 }
 
-const LabHosts = () => {
+type LabHostsProps = {
+  embedded?: boolean;
+};
+
+const LabHosts = ({ embedded = false }: LabHostsProps) => {
   const { isAdmin } = useBrandAuth();
   const [tab, setTab] = useState<Tab>("search");
   const [query, setQuery] = useState("");
@@ -298,14 +302,9 @@ const LabHosts = () => {
     return c;
   }, [chunks]);
 
-  return (
-    <>
-      <Helmet>
-        <title>Lab · Búsqueda por hablante</title>
-        <meta name="robots" content="noindex,nofollow" />
-      </Helmet>
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto max-w-5xl px-4 py-10">
+  const content = (
+    <div className={embedded ? "" : "container mx-auto max-w-5xl px-4 py-10"}>
+          {!embedded && (
           <div className="mb-8">
             <Badge variant="outline" className="mb-3 font-mono text-[10px] uppercase tracking-widest">
               /lab — interno
@@ -322,6 +321,12 @@ const LabHosts = () => {
               </p>
             )}
           </div>
+          )}
+          {embedded && coverage && (
+            <p className="text-xs text-muted-foreground mb-4 font-mono">
+              Cobertura diarización: {coverage.done.toLocaleString()} / {coverage.total.toLocaleString()} chunks
+            </p>
+          )}
 
           {/* Tabs */}
           <div className="flex gap-2 mb-6 border-b border-border">
@@ -731,8 +736,18 @@ const LabHosts = () => {
             </div>
           )}
 
-        </div>
-      </div>
+    </div>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <>
+      <Helmet>
+        <title>Lab · Búsqueda por hablante</title>
+        <meta name="robots" content="noindex,nofollow" />
+      </Helmet>
+      <div className="min-h-screen bg-background">{content}</div>
     </>
   );
 };
