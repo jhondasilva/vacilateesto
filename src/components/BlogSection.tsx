@@ -95,22 +95,22 @@ const BlogSection = () => {
             ))}
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6 mb-10">
             {allPosts.map((p) => (
               <Link
                 key={p.slug}
                 to={`/blog/${p.slug}`}
-                className="group block p-6 md:p-7 bg-card border border-border rounded-2xl hover:border-primary/40 hover:shadow-lg transition-all"
+                className="group block p-5 sm:p-6 md:p-7 bg-card border border-border rounded-2xl hover:border-primary/40 hover:shadow-lg transition-all"
               >
-                <div className="flex items-center gap-3 mb-3 text-xs">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 text-xs flex-wrap">
                   <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full font-semibold uppercase tracking-wide">
                     {p.category}
                   </span>
-                  <span className="flex items-center gap-1 text-muted-foreground">
+                  <span className="flex items-center gap-1 text-muted-foreground whitespace-nowrap">
                     <Clock className="w-3 h-3" /> {p.minutes} min
                   </span>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors break-words hyphens-auto">
                   {p.title}
                 </h3>
                 <p className="text-foreground/70 text-sm leading-relaxed mb-4 line-clamp-2">

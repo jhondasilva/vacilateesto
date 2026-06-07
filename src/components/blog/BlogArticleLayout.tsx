@@ -168,7 +168,7 @@ const BlogArticleLayout = ({
           {/* Breadcrumb visual */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6 flex-wrap"
+            className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6 flex-wrap min-w-0"
           >
             <Link to="/" className="hover:text-primary transition-colors">
               Inicio
@@ -185,11 +185,11 @@ const BlogArticleLayout = ({
 
           {/* Header */}
           <header className="mb-10">
-            <div className="flex items-center gap-2 mb-4 text-xs">
+            <div className="flex items-center gap-x-2 gap-y-1.5 mb-4 text-xs flex-wrap">
               <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full font-semibold uppercase tracking-wide">
                 {category}
               </span>
-              <span className="flex items-center gap-1 text-muted-foreground">
+              <span className="flex items-center gap-1 text-muted-foreground whitespace-nowrap">
                 <Calendar className="w-3 h-3" />
                 {new Date(datePublished).toLocaleDateString("es-VE", {
                   day: "numeric",
@@ -197,16 +197,16 @@ const BlogArticleLayout = ({
                   year: "numeric",
                 })}
               </span>
-              <span className="flex items-center gap-1 text-muted-foreground">
+              <span className="flex items-center gap-1 text-muted-foreground whitespace-nowrap">
                 <Clock className="w-3 h-3" />
                 {readingMinutes} min de lectura
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight text-foreground mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight text-foreground mb-4 break-words hyphens-auto">
               {h1}
             </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               {description}
             </p>
           </header>
