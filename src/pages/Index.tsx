@@ -146,7 +146,7 @@ const Index = () => {
             "name": "Vacílate Esto",
             "alternateName": "Uno de los Podcasts Favoritos de Venezuela",
             "url": "https://www.vacilateesto.com",
-            "description": "Sitio oficial de Vacílate Esto, uno de los podcasts favoritos de Venezuela y ecosistema de entretenimiento #1.",
+            "description": "Sitio oficial de Vacílate Esto, una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Combina podcast, social media, contenidos para redes y eventos como Pelotica de Goma, Podcast en la Cumbre y el Podcast Eterno.",
             "inLanguage": "es-VE",
             "publisher": {
               "@id": "https://www.vacilateesto.com/#organization"
