@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight, Clock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
@@ -118,6 +120,34 @@ const POSTS = [
 const SITE = "https://www.vacilateesto.com";
 
 const BlogIndex = () => {
+  const [dbPosts, setDbPosts] = useState<typeof POSTS>([]);
+
+  useEffect(() => {
+    supabase
+      .from("blog_posts")
+      .select("slug,title,description,category,reading_minutes,published_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false })
+      .limit(100)
+      .then(({ data }) => {
+        if (!data) return;
+        setDbPosts(
+          data.map((p: any) => ({
+            slug: p.slug,
+            title: p.title,
+            excerpt: p.description,
+            category: p.category || "Podcast",
+            minutes: p.reading_minutes || 6,
+            date: (p.published_at || "").slice(0, 10),
+          })),
+        );
+      });
+  }, []);
+
+  const allPosts = [...dbPosts, ...POSTS].sort((a, b) =>
+    (b.date || "").localeCompare(a.date || ""),
+  );
+
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -129,7 +159,7 @@ const BlogIndex = () => {
       name: "Vacílate Esto",
       url: SITE,
     },
-    blogPost: POSTS.map((p) => ({
+    blogPost: allPosts.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
       url: `${SITE}/blog/${p.slug}`,
@@ -174,7 +204,7 @@ const BlogIndex = () => {
           </header>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {POSTS.map((p) => (
+            {allPosts.map((p) => (
               <Link
                 key={p.slug}
                 to={`/blog/${p.slug}`}
