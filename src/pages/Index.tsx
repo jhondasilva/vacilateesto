@@ -229,11 +229,12 @@ const Index = () => {
         <script type="application/ld+json">
           {JSON.stringify([
             { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 1, "name": "Inicio", "url": "https://www.vacilateesto.com/" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 2, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/vacilate-el-futbol" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 3, "name": "Media Kit", "url": "https://www.vacilateesto.com/media-kit" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 4, "name": "Podcast en la Cumbre", "url": "https://www.vacilateesto.com/podcast-en-la-cumbre" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 5, "name": "Podcast Eterno", "url": "https://www.vacilateesto.com/podcast-eterno" },
-            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 6, "name": "Buscador del podcast", "url": "https://www.vacilateesto.com/buscador" }
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 2, "name": "Blog", "url": "https://www.vacilateesto.com/blog" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 3, "name": "Vacílate El Fútbol 2026", "url": "https://www.vacilateesto.com/vacilate-el-futbol" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 4, "name": "Media Kit", "url": "https://www.vacilateesto.com/media-kit" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 5, "name": "Podcast en la Cumbre", "url": "https://www.vacilateesto.com/podcast-en-la-cumbre" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 6, "name": "Podcast Eterno", "url": "https://www.vacilateesto.com/podcast-eterno" },
+            { "@context": "https://schema.org", "@type": "SiteNavigationElement", "position": 7, "name": "Buscador del podcast", "url": "https://www.vacilateesto.com/buscador" }
           ])}
         </script>
       </Helmet>
