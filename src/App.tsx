@@ -47,6 +47,7 @@ import TioSimonTributoFrases from "./pages/blog/TioSimonTributoFrases";
 import MejorPerroCalienteCaracas from "./pages/blog/MejorPerroCalienteCaracas";
 import QueEsLlaneridad from "./pages/blog/QueEsLlaneridad";
 import MarcasVenezolanasNostalgicas from "./pages/blog/MarcasVenezolanasNostalgicas";
+import BlogPostDynamic from "./pages/blog/BlogPostDynamic";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
 const queryClient = new QueryClient();
@@ -110,6 +111,8 @@ const App = () => (
             <Route path="/blog/mejor-perro-caliente-caracas" element={<MejorPerroCalienteCaracas />} />
             <Route path="/blog/que-es-la-llaneridad" element={<QueEsLlaneridad />} />
             <Route path="/blog/marcas-venezolanas-nostalgicas" element={<MarcasVenezolanasNostalgicas />} />
+            {/* Dynamic AI-generated blog posts (must be last among /blog/* routes) */}
+            <Route path="/blog/:slug" element={<BlogPostDynamic />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
