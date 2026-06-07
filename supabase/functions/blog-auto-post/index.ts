@@ -61,13 +61,29 @@ Deno.serve(async (req) => {
       ? THEMES.find((t) => t.key === body.theme) ?? pickTheme()
       : pickTheme();
 
-    // Buscar chunks diarizados relacionados con el tema
-    const { data: chunks, error: chunksErr } = await supabase.rpc("yt_search_chunks_fts", {
-      query_text: theme.query,
-      filter_kind: "podcast",
-      match_count: 30,
+    // Buscar chunks: intentar cada keyword del tema hasta encontrar resultados.
+    // Usamos FTS palabra por palabra (OR semántico) para maximizar coincidencias.
+    const keywords = theme.query.split(/\s+/).filter(Boolean);
+    let chunks: any[] = [];
+    for (const kw of keywords) {
+      const { data, error } = await supabase.rpc("yt_search_chunks_fts", {
+        query_text: kw,
+        filter_kind: "podcast",
+        match_count: 10,
+      });
+      if (error) throw error;
+      if (data && data.length) {
+        chunks.push(...data);
+      }
+      if (chunks.length >= 20) break;
+    }
+    // Deduplicar chunks por id
+    const seen = new Set<string>();
+    chunks = chunks.filter((c: any) => {
+      if (seen.has(c.chunk_id)) return false;
+      seen.add(c.chunk_id);
+      return true;
     });
-    if (chunksErr) throw chunksErr;
 
     if (!chunks || chunks.length === 0) {
       return new Response(JSON.stringify({ skipped: true, reason: "no chunks", theme: theme.key }), {
