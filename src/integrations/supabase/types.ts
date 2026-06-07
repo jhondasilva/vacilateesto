@@ -71,6 +71,69 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          body_md: string
+          category: string
+          created_at: string
+          description: string
+          faq: Json
+          h1: string
+          hero_image: string | null
+          id: string
+          keywords: string
+          published_at: string
+          reading_minutes: number
+          slug: string
+          source_video_ids: string[]
+          status: string
+          tags: string[]
+          theme_key: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body_md: string
+          category?: string
+          created_at?: string
+          description: string
+          faq?: Json
+          h1: string
+          hero_image?: string | null
+          id?: string
+          keywords?: string
+          published_at?: string
+          reading_minutes?: number
+          slug: string
+          source_video_ids?: string[]
+          status?: string
+          tags?: string[]
+          theme_key?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body_md?: string
+          category?: string
+          created_at?: string
+          description?: string
+          faq?: Json
+          h1?: string
+          hero_image?: string | null
+          id?: string
+          keywords?: string
+          published_at?: string
+          reading_minutes?: number
+          slug?: string
+          source_video_ids?: string[]
+          status?: string
+          tags?: string[]
+          theme_key?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       brand_metricool_cache: {
         Row: {
           brand_slug: string
