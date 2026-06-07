@@ -17,7 +17,6 @@ import Gira from "./pages/Gira";
 import GiraLogin from "./pages/GiraLogin";
 import GiraPoliticas from "./pages/GiraPoliticas";
 import Buscador from "./pages/Buscador";
-import LabHosts from "./pages/LabHosts";
 import Hosts from "./pages/Hosts";
 import DashboardLogin from "./pages/DashboardLogin";
 import DashboardHome from "./pages/DashboardHome";
@@ -81,8 +80,8 @@ const App = () => (
             <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/hosts" element={<Hosts />} />
-            <Route path="/lab/hosts" element={<LabHosts />} />
-            <Route path="/lab/host" element={<LabHosts />} />
+            <Route path="/lab/hosts" element={<Navigate to="/hosts" replace />} />
+            <Route path="/lab/host" element={<Navigate to="/hosts" replace />} />
             <Route path="/dashboard/login" element={<DashboardLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={<DashboardHome />} />
