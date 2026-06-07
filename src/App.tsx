@@ -43,6 +43,10 @@ import HistoriaArepa from "./pages/blog/HistoriaArepa";
 import MundialDesdeVenezuela from "./pages/blog/MundialDesdeVenezuela";
 import PodcastMasLargo from "./pages/blog/PodcastMasLargo";
 import RutaRamenCaracas from "./pages/blog/RutaRamenCaracas";
+import TioSimonTributoFrases from "./pages/blog/TioSimonTributoFrases";
+import MejorPerroCalienteCaracas from "./pages/blog/MejorPerroCalienteCaracas";
+import QueEsLlaneridad from "./pages/blog/QueEsLlaneridad";
+import MarcasVenezolanasNostalgicas from "./pages/blog/MarcasVenezolanasNostalgicas";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
 const queryClient = new QueryClient();
@@ -102,6 +106,10 @@ const App = () => (
             <Route path="/blog/donde-ver-mundial-2026-desde-venezuela" element={<MundialDesdeVenezuela />} />
             <Route path="/blog/podcast-mas-largo-historia" element={<PodcastMasLargo />} />
             <Route path="/blog/ruta-del-ramen-caracas" element={<RutaRamenCaracas />} />
+            <Route path="/blog/tio-simon-frases-tributo" element={<TioSimonTributoFrases />} />
+            <Route path="/blog/mejor-perro-caliente-caracas" element={<MejorPerroCalienteCaracas />} />
+            <Route path="/blog/que-es-la-llaneridad" element={<QueEsLlaneridad />} />
+            <Route path="/blog/marcas-venezolanas-nostalgicas" element={<MarcasVenezolanasNostalgicas />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
