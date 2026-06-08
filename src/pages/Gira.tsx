@@ -184,8 +184,8 @@ const Gira = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="alt_a">Alternativa A — Portugal 1° (KC → Vancouver → KC → Atlanta)</SelectItem>
-                  <SelectItem value="alt_b">Alternativa B — Portugal 2° (NY → Atlanta → Boston → Dallas)</SelectItem>
+                  <SelectItem value="alt_a">Alternativa A — Portugal 1°K (KC → Dallas → Boston → KC → Dallas → Atlanta)</SelectItem>
+                  <SelectItem value="alt_b">Alternativa B — Portugal 2°K (NY → Atlanta → Boston → Dallas)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
