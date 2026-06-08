@@ -518,7 +518,7 @@ const VacilateElMundial = () => {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto items-start">
                 {REELS.map((url, i) => {
-                  const rot = [-1.5, 1, -0.5][i];
+                  const rot = [-1.5, 1, -0.5, 1.2, -1, 0.6][i] ?? 0;
                   return (
                     <div
                       key={url}
