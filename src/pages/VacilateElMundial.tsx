@@ -195,6 +195,10 @@ const countryLabel: Record<RouteStop["country"], string> = {
 };
 
 const REELS = [
+  "https://www.instagram.com/p/DZDsiy2pwka/",
+  "https://www.instagram.com/p/DZLgY7MJzK4/",
+  "https://www.instagram.com/p/DZLuzWDBN8a/",
+  "https://www.instagram.com/p/DY-shj2h72u/",
   "https://www.instagram.com/p/DZTZ2WdMz6n/",
   "https://www.instagram.com/reel/DXFnxq8hJ3B/",
   "https://www.instagram.com/reel/DXPcDanBpIF/",
@@ -516,9 +520,9 @@ const VacilateElMundial = () => {
                 description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
               />
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto items-start">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-7xl mx-auto items-start">
                 {REELS.map((url, i) => {
-                  const rot = [-1.5, 1, -0.5, 1.2, -1, 0.6][i] ?? 0;
+                  const rot = [-1.5, 1.2, -0.8, 1.5, -1.2, 0.6, -0.5, 1][i] ?? 0;
                   return (
                     <div
                       key={url}
