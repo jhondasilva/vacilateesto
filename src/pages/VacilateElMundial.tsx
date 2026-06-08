@@ -195,6 +195,7 @@ const countryLabel: Record<RouteStop["country"], string> = {
 };
 
 const REELS = [
+  "https://www.instagram.com/p/DZTZ2WdMz6n/",
   "https://www.instagram.com/reel/DXFnxq8hJ3B/",
   "https://www.instagram.com/reel/DXPcDanBpIF/",
   "https://www.instagram.com/reel/DXApnXOBkHA/",
