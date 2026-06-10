@@ -172,11 +172,12 @@ export const ExpenseReporter = ({ userId, userEmail, userName, onCreated }: Prop
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button
-          className="fixed bottom-5 right-5 z-50 h-14 w-14 sm:w-auto sm:h-12 sm:px-5 rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 font-bold"
+          className="fixed right-4 z-[60] h-14 px-5 rounded-full bg-primary text-primary-foreground shadow-2xl hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 font-bold text-sm ring-4 ring-primary/20"
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1.25rem)" }}
           aria-label="Reportar gasto"
         >
-          <Plus className="w-6 h-6 sm:w-5 sm:h-5" />
-          <span className="hidden sm:inline">Reportar gasto</span>
+          <Camera className="w-5 h-5" />
+          <span>Reportar gasto</span>
         </button>
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[92vh] overflow-y-auto rounded-t-2xl">
