@@ -759,11 +759,9 @@ const VacilateElMundial = () => {
                   </span>
                 </a>
 
-                {/* View online */}
-                <a
-                  href={MEDIAKIT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                {/* View online (web page) */}
+                <Link
+                  to="/media-kit-vem"
                   className="group bg-background text-foreground rounded-3xl border-2 border-accent p-6 text-center shadow-[6px_6px_0_hsl(var(--accent))] hover:shadow-[8px_8px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   style={{ transform: "rotate(0.5deg)" }}
                 >
@@ -771,11 +769,11 @@ const VacilateElMundial = () => {
                     <Eye className="w-7 h-7" />
                   </div>
                   <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Ver online</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-4">Ábrelo en tu navegador</p>
+                  <p className="font-body text-sm text-muted-foreground mb-4">Web navegable, sin descarga</p>
                   <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-accent">
-                    Abrir PDF <ExternalLink className="w-3.5 h-3.5" />
+                    Abrir Media Kit <ArrowRight className="w-3.5 h-3.5" />
                   </span>
-                </a>
+                </Link>
 
                 {/* LINE */}
                 <a
