@@ -355,11 +355,30 @@ const VacilateElMundial = () => {
       <div className="min-h-screen bg-background">
         <Header />
 
-        <main>
+        {/* ───────────── TOP DOWNLOAD BANNER ───────────── */}
+        <div className="fixed top-20 left-0 right-0 z-40 bg-primary border-y-2 border-foreground">
+          <div className="container mx-auto px-4 py-2.5">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+              <span className="font-display font-black text-[10px] sm:text-xs uppercase tracking-widest text-primary-foreground">
+                Media Kit 2026 actualizado
+              </span>
+              <a
+                href={MEDIAKIT_URL}
+                download
+                className="inline-flex items-center gap-2 bg-background text-foreground border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-[3px_3px_0_hsl(var(--foreground))] hover:shadow-[4px_4px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Descargar PDF
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <main className="pt-10">
           {/* ───────────── HERO — Sticker Pack ───────────── */}
           <section
             id="hero"
-            className="relative overflow-hidden bg-background pt-20 md:pt-24 pb-16 md:pb-24"
+            className="relative overflow-hidden bg-background pt-10 md:pt-14 pb-16 md:pb-24"
             aria-label="Vacílate El Mundial 2026"
           >
             {/* Background blobs + dot grid */}
