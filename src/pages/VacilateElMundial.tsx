@@ -1232,6 +1232,27 @@ const VacilateElMundial = () => {
           </section>
         </main>
 
+        {/* Floating Media Kit quick access */}
+        <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 items-end">
+          <Link
+            to="/media-kit-vem"
+            aria-label="Ver Media Kit online"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-4 py-2.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            Media Kit
+          </Link>
+          <a
+            href={MEDIAKIT_URL}
+            download
+            aria-label="Descargar Media Kit PDF"
+            className="inline-flex items-center gap-2 bg-foreground text-background border-2 border-foreground rounded-full px-3 py-2 font-display font-black uppercase tracking-widest text-[10px] shadow-[3px_3px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+          >
+            <Download className="w-3.5 h-3.5" />
+            PDF
+          </a>
+        </div>
+
         <Footer />
       </div>
     </>
