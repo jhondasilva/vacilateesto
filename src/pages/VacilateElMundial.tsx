@@ -461,13 +461,23 @@ const VacilateElMundial = () => {
                   </div>
 
                   <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
-                    <a href="#media-kit">
+                    <Link to="/media-kit-vem">
                       <Button
                         size="lg"
                         className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       >
-                        <FileText className="w-4 h-4 mr-2" />
-                        Ver Media Kit
+                        <Eye className="w-4 h-4 mr-2" />
+                        Ver Media Kit Online
+                      </Button>
+                    </Link>
+                    <a href={MEDIAKIT_URL} download>
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="bg-background text-foreground border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:bg-foreground hover:text-background hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Descargar PDF
                       </Button>
                     </a>
                     <a href="#la-ruta">
