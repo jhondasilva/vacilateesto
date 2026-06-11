@@ -1208,6 +1208,15 @@ const VacilateElMundial = () => {
                     Seguir en TikTok
                   </Button>
                 </a>
+                <Link to="/media-kit-vem">
+                  <Button
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--background))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    Ver Media Kit VEF
+                  </Button>
+                </Link>
                 <Link to="/media-kit">
                   <Button
                     size="lg"
