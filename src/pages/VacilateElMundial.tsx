@@ -174,7 +174,7 @@ const routeStops: RouteStop[] = [
   { n: 1, city: "Ciudad de México", country: "MX", date: "9 jun" },
   { n: 2, city: "New York", country: "US", date: "12 jun" },
   { n: 3, city: "Austin", country: "US", date: "14 jun" },
-  { n: 4, city: "Houston", country: "US", date: "15 jun" },
+  { n: 4, city: "Houston", country: "US", date: "16 jun" },
   { n: 5, city: "Cannes", country: "FR", date: "19 jun" },
   { n: 6, city: "Miami", country: "US", date: "26 jun" },
   { n: 7, city: "Caracas", country: "VE", date: "28 jun" },

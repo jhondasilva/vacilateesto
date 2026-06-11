@@ -366,8 +366,8 @@ def page_route(c):
     stops = [
         (1,"MX","CIUDAD DE MÉXICO","9–12 jun"),
         (2,"US","NEW YORK","12–14 jun"),
-        (3,"US","AUSTIN","14–15 jun"),
-        (4,"US","HOUSTON","15–20 jun"),
+        (3,"US","AUSTIN","14–16 jun"),
+        (4,"US","HOUSTON","16–20 jun"),
         (5,"FR","CANNES","19–26 jun"),
         (6,"US","MIAMI","26–28 jun"),
         (7,"VE","CARACAS","28 jun – 1 jul"),
