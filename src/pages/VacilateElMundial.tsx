@@ -378,7 +378,7 @@ const VacilateElMundial = () => {
           {/* ───────────── HERO — Sticker Pack ───────────── */}
           <section
             id="hero"
-            className="relative overflow-hidden bg-background pt-20 md:pt-24 pb-16 md:pb-24"
+            className="relative overflow-hidden bg-background pt-10 md:pt-14 pb-16 md:pb-24"
             aria-label="Vacílate El Mundial 2026"
           >
             {/* Background blobs + dot grid */}
