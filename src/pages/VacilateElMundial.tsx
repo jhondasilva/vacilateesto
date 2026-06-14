@@ -640,7 +640,7 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── LA RUTA — 15 paradas ───────────── */}
+          {/* ───────────── LA RUTA — 14 paradas ───────────── */}
           <section
             id="la-ruta"
             className="relative bg-background py-16 md:py-24 overflow-hidden scroll-mt-24"
@@ -652,7 +652,7 @@ const VacilateElMundial = () => {
             </div>
 
             <StickerMarquee
-              items={["LA GRAN EXPEDICIÓN", "★", "15 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
+              items={["LA GRAN EXPEDICIÓN", "★", "14 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
               variant="dark"
               className="mb-12 md:mb-16"
             />
@@ -663,7 +663,7 @@ const VacilateElMundial = () => {
                 badgeIcon={MapPin}
                 title="la gran"
                 highlight="expedición"
-                description="15 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
+                description="14 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
               />
 
               <div className="max-w-6xl mx-auto mb-10 md:mb-14">
