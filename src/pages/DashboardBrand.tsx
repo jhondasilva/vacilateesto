@@ -944,8 +944,8 @@ const MetricoolDashboard = ({
                     <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/55 to-transparent text-white">
                       <p className="text-[10px] line-clamp-2 mb-1 opacity-90">{p.text}</p>
                       <div className="flex items-center justify-between text-[10px] font-bold">
-                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmtNum(p.metrics.views ?? p.metrics.impressions ?? 0)}</span>
-                        <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0)}</span>
+                        <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{fmtNum((p.metrics.views || p.metrics.impressions || p.metrics.reach) ?? 0)}</span>
+                        <span className="flex items-center gap-1"><Heart className="w-3 h-3" />{fmtNum((p.metrics.likes || p.metrics.reactions) ?? 0)}</span>
                         <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" />{fmtNum(p.metrics.comments ?? 0)}</span>
                       </div>
                     </div>
