@@ -78,6 +78,13 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  bnc: {
+    keywords: [
+      "@bncbanco", "#bncbanco", "bncbanco",
+      "#bnc", "bnc",
+    ],
+    excludeKeywords: [],
+  },
 };
 
 const fmtIso = (d: Date) =>
