@@ -105,6 +105,14 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@covencaucho · #covencaucho",
   },
+  bnc: {
+    keywords: [
+      "@bncbanco", "#bncbanco", "bncbanco",
+      "#bnc", "bnc",
+    ],
+    excludeKeywords: [],
+    label: "@bncbanco · #bnc · #bncbanco",
+  },
 };
 
 type Report = {
