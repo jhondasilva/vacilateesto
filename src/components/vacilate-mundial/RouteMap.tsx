@@ -71,7 +71,7 @@ export default function RouteMap() {
       <div className="relative rounded-3xl border-2 border-foreground overflow-hidden sticker-shadow-lg-primary bg-background">
         <div className="absolute top-3 left-3 z-[400] bg-foreground text-background px-3 py-1.5 rounded-full border-2 border-foreground shadow-[3px_3px_0_hsl(var(--accent))]">
           <span className="font-display font-black text-[10px] uppercase tracking-widest">
-            ★ Alternativa 1 · 15 paradas
+            ★ Alternativa 1 · 14 paradas
           </span>
         </div>
         <MapContainer
