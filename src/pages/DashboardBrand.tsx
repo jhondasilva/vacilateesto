@@ -5,7 +5,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Download, Eye, Heart, Users, Megaphone, TrendingUp, Loader2, LogOut,
-  Youtube, Instagram, Play, ExternalLink, MessageCircle, Music2, Facebook,
+  Youtube, Instagram, Play, ExternalLink, MessageCircle, Music2, Facebook, RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -650,6 +650,8 @@ const MetricoolDashboard = ({
   const [scope, setScope] = useState<Scope>("brand");
   const [cache, setCache] = useState<Record<string, MentionsResponse>>({});
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
 
   const month = months.find((m) => m.key === monthKey)!;
   const cacheKey = `${monthKey}::${scope}`;
@@ -675,6 +677,7 @@ const MetricoolDashboard = ({
         .maybeSingle();
       if (cached?.payload) {
         setCache((prev) => ({ ...prev, [cacheKey]: cached.payload as MentionsResponse }));
+        if (cached.refreshed_at) setLastRefreshed(new Date(cached.refreshed_at));
         setLoading(false);
         return;
       }
@@ -698,6 +701,37 @@ const MetricoolDashboard = ({
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monthKey, scope]);
+
+  const handleManualRefresh = async () => {
+    setRefreshing(true);
+    const tId = toast.loading(`Refrescando datos de ${brand.name}…`);
+    try {
+      const { error: refreshErr } = await supabase.functions.invoke("brand-cache-refresh", {
+        body: { brands: [brand.slug] },
+      });
+      if (refreshErr) throw refreshErr;
+      // Vuelve a leer el caché para el período/scope actual
+      const { data: cached } = await supabase
+        .from("brand_metricool_cache")
+        .select("payload, refreshed_at")
+        .eq("brand_slug", brand.slug)
+        .eq("scope", scope)
+        .eq("period_key", monthKey)
+        .maybeSingle();
+      if (cached?.payload) {
+        setCache({ [cacheKey]: cached.payload as MentionsResponse });
+        if (cached.refreshed_at) setLastRefreshed(new Date(cached.refreshed_at));
+      } else {
+        setCache({});
+      }
+      toast.success(`Dashboard de ${brand.name} actualizado`, { id: tId });
+    } catch (e) {
+      console.error(e);
+      toast.error("No se pudo refrescar el dashboard", { id: tId });
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const postsForView = !data
@@ -753,6 +787,25 @@ const MetricoolDashboard = ({
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
         <div className="flex items-center gap-2">
           {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+          {lastRefreshed && (
+            <span className="hidden sm:inline text-[10px] text-muted-foreground font-mono">
+              Actualizado {format(lastRefreshed, "d MMM HH:mm", { locale: es })}
+            </span>
+          )}
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={refreshing || loading}
+            onClick={handleManualRefresh}
+            title="Refrescar datos desde Metricool"
+          >
+            {refreshing ? (
+              <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+            ) : (
+              <RefreshCw className="w-4 h-4 mr-1" />
+            )}
+            Refrescar
+          </Button>
           <Button
             size="sm"
             variant="outline"
