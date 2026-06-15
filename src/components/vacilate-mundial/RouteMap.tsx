@@ -20,14 +20,9 @@ const STOPS: MapStop[] = [
   { n: 4, city: "Cannes", country: "FR", date: "19 jun", lat: 43.5528, lng: 7.0174 },
   { n: 5, city: "Miami", country: "US", date: "26 jun", lat: 25.7617, lng: -80.1918 },
   { n: 6, city: "Caracas", country: "VE", date: "28 jun", lat: 10.4806, lng: -66.9036 },
-  { n: 7, city: "Kansas City", country: "US", date: "2 jul", lat: 39.0997, lng: -94.5786 },
-  { n: 8, city: "Dallas", country: "US", date: "5 jul", lat: 32.7767, lng: -96.797 },
-  { n: 9, city: "Boston", country: "US", date: "7 jul", lat: 42.3601, lng: -71.0589 },
-  { n: 10, city: "Kansas City", country: "US", date: "10 jul", lat: 39.0997, lng: -94.5786 },
-  { n: 11, city: "Dallas", country: "US", date: "13 jul", lat: 32.7767, lng: -96.797 },
-  { n: 12, city: "Atlanta", country: "US", date: "15 jul", lat: 33.749, lng: -84.388 },
-  { n: 13, city: "New York", country: "US", date: "17 jul", lat: 40.7128, lng: -74.006 },
-  { n: 14, city: "Caracas", country: "VE", date: "20 jul", lat: 10.4806, lng: -66.9036 },
+  { n: 7, city: "Dallas", country: "US", date: "14 jul · Semifinal", lat: 32.7767, lng: -96.797 },
+  { n: 8, city: "Atlanta", country: "US", date: "15 jul · Semifinal", lat: 33.749, lng: -84.388 },
+  { n: 9, city: "New York", country: "US", date: "19 jul · Final", lat: 40.7128, lng: -74.006 },
 ];
 
 const FLAGS: Record<MapStop["country"], string> = { MX: "🇲🇽", US: "🇺🇸", FR: "🇫🇷", VE: "🇻🇪" };
@@ -71,7 +66,7 @@ export default function RouteMap() {
       <div className="relative rounded-3xl border-2 border-foreground overflow-hidden sticker-shadow-lg-primary bg-background">
         <div className="absolute top-3 left-3 z-[400] bg-foreground text-background px-3 py-1.5 rounded-full border-2 border-foreground shadow-[3px_3px_0_hsl(var(--accent))]">
           <span className="font-display font-black text-[10px] uppercase tracking-widest">
-            ★ Alternativa 1 · 14 paradas
+            ★ Alternativa 1 · 9 paradas
           </span>
         </div>
         <MapContainer

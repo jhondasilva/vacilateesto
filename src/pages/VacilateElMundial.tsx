@@ -69,7 +69,7 @@ const HERO_TICKER = [
 const stats = [
   { value: "2M+", label: "Seguidores", icon: Users },
   { value: "24/7", label: "Presencia", icon: Clock },
-  { value: "15", label: "Ciudades", icon: MapPin },
+  { value: "9", label: "Ciudades", icon: MapPin },
   { value: "4", label: "Países", icon: Globe },
 ];
 
@@ -177,14 +177,9 @@ const routeStops: RouteStop[] = [
   { n: 4, city: "Cannes", country: "FR", date: "19 jun" },
   { n: 5, city: "Miami", country: "US", date: "26 jun" },
   { n: 6, city: "Caracas", country: "VE", date: "28 jun" },
-  { n: 7, city: "Kansas City", country: "US", date: "2 jul" },
-  { n: 8, city: "Dallas", country: "US", date: "5 jul" },
-  { n: 9, city: "Boston", country: "US", date: "7 jul" },
-  { n: 10, city: "Kansas City", country: "US", date: "10 jul" },
-  { n: 11, city: "Dallas", country: "US", date: "13 jul" },
-  { n: 12, city: "Atlanta", country: "US", date: "15 jul" },
-  { n: 13, city: "New York", country: "US", date: "17 jul" },
-  { n: 14, city: "Caracas", country: "VE", date: "20 jul" },
+  { n: 7, city: "Dallas", country: "US", date: "14 jul · Semifinal" },
+  { n: 8, city: "Atlanta", country: "US", date: "15 jul · Semifinal" },
+  { n: 9, city: "New York", country: "US", date: "19 jul · Final" },
 ];
 const countryLabel: Record<RouteStop["country"], string> = {
   MX: "México",
@@ -261,7 +256,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 16 ciudades. Por Vacílate Esto."
+          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 9 ciudades. Por Vacílate Esto."
         />
         <meta
           name="keywords"
@@ -272,7 +267,7 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 16 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 9 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
@@ -300,7 +295,7 @@ const VacilateElMundial = () => {
             "@context": "https://schema.org",
             "@type": "SportsEvent",
             "name": "Vacílate El Mundial 2026 - Cobertura del fútbol en el Mundial FIFA 2026",
-            "description": "Cobertura multiplataforma del fútbol en el Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 16 ciudades sede.",
+            "description": "Cobertura multiplataforma del fútbol en el Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 9 ciudades sede.",
             "startDate": "2026-06-11",
             "endDate": "2026-07-19",
             "eventStatus": "https://schema.org/EventScheduled",
