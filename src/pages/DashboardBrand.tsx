@@ -16,6 +16,7 @@ import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
+import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 
 const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
@@ -961,6 +962,7 @@ const MetricoolDashboard = ({
             </section>
           )}
 
+          {TIKTOK_LIVES_BRANDS.has(brand.slug) && <TikTokLivesSection />}
           {/* Posts del scope */}
           <section className="mb-12">
             <h2 className="text-xl font-black mb-4">
