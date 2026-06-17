@@ -962,9 +962,9 @@ const MetricoolDashboard = ({
             </section>
           )}
 
+          {TIKTOK_LIVES_BRANDS.has(brand.slug) && <TikTokLivesSection />}
           {/* Posts del scope */}
           <section className="mb-12">
-            {TIKTOK_LIVES_BRANDS.has(brand.slug) && <TikTokLivesSection />}
             <h2 className="text-xl font-black mb-4">
               {view === "all" ? "Todas las publicaciones" : `Publicaciones en ${PLATFORM_META[view].label}`}
               <span className="text-muted-foreground font-normal text-base ml-2">· {postsForView.length}</span>
