@@ -165,10 +165,10 @@ def page_audience(c):
 
     # ── Top KPI row (totales 4 meses)
     kpis = [
-        ("14.06M","ALCANCE + VISTAS",  PINK),
-        ("700K", "INTERACCIONES",      CYAN),
-        ("1,441","POSTS PUBLICADOS",   INK),
-        ("3",    "PLATAFORMAS CORE",   PINK),
+        ("11.35M","VISTAS DE VIDEO",   PINK),
+        ("2.71M", "ALCANCE INSTAGRAM", CYAN),
+        ("700K",  "INTERACCIONES",     INK),
+        ("1,441", "POSTS PUBLICADOS",  PINK),
     ]
     cw = (W-72-30)/4; cy = H-230
     for i,(big,small,col) in enumerate(kpis):
