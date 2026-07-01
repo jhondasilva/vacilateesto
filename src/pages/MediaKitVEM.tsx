@@ -37,6 +37,7 @@ const stats = [
 
 const reachStats = [
   { number: "11.35M", label: "Vistas de video", icon: Eye },
+  { number: "2.71M", label: "Alcance Instagram", icon: Eye },
   { number: "700K", label: "Interacciones", icon: Sparkles },
   { number: "1,441", label: "Publicaciones", icon: Megaphone },
 ];
