@@ -148,6 +148,10 @@ const AdminMediaKitVEM = () => {
   if (!isAdmin) return <Navigate to="/dashboard" replace />;
 
   const diffCell = (current: number, baseline: number) => {
+    if (baseline === 0) {
+      if (current === 0) return <span className="text-muted-foreground text-xs">—</span>;
+      return <span className="text-sky-600 text-xs font-medium">nuevo dato (+{fmt(current)})</span>;
+    }
     const diff = current - baseline;
     const pct = baseline > 0 ? (diff / baseline) * 100 : 0;
     if (Math.abs(pct) < 0.5) return <span className="text-muted-foreground text-xs">sin cambio</span>;
