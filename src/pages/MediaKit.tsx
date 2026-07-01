@@ -607,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero – 30 abril 2026 · Fuente: Metricool"
+                description="Datos: 01 febrero – 30 junio 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -619,7 +619,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
                     <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Views ene–abr</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views feb–jun</div>
                     <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
@@ -792,7 +792,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Top 6 publicaciones ene–abr 2026 · Fuente: Metricool"
+                description="Top 6 publicaciones feb–jun 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
