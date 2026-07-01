@@ -36,7 +36,7 @@ const stats = [
 ];
 
 const reachStats = [
-  { number: "14.06M", label: "Alcance + Vistas", icon: Eye },
+  { number: "11.35M", label: "Vistas de video", icon: Eye },
   { number: "700K", label: "Interacciones", icon: Sparkles },
   { number: "1,441", label: "Publicaciones", icon: Megaphone },
 ];
