@@ -570,17 +570,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre enero y abril de 2026 generamos <strong>7.99M de views</strong> y <strong>619K interacciones</strong> con
-                  1,131 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre febrero y junio de 2026 generamos <strong>13.08M de views</strong> y <strong>760.8K interacciones</strong> con
+                  1,762 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "7.99M", label: "Views ene–abr 2026", icon: Eye },
-                    { value: "6.49M", label: "Impresiones (IG+FB)", icon: TrendingUp },
-                    { value: "619.6K", label: "Interacciones", icon: Heart },
-                    { value: "1,131", label: "Publicaciones", icon: FileText },
+                    { value: "13.08M", label: "Views feb–jun 2026", icon: Eye },
+                    { value: "11.52M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "760.8K", label: "Interacciones", icon: Heart },
+                    { value: "1,762", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -596,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 7.99M VIEWS", "◆ 6.49M IMPRESIONES", "▲ 619.6K INTERACCIONES", "● 1,131 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–ABR 2026"]}
+              items={["★ 13.08M VIEWS", "◆ 11.52M IMPRESIONES", "▲ 760.8K INTERACCIONES", "● 1,762 PUBLICACIONES", "★ FUENTE: METRICOOL · FEB–JUN 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
