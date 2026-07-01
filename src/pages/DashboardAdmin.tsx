@@ -7,7 +7,7 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
   ArrowLeft, Loader2, UserPlus, Inbox, Check, X, Trash2, Users,
-  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp, Activity,
+  Shield, Plus, Clock, CheckCircle2, XCircle, Mail, ChevronDown, ChevronUp, Activity, FileText,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -346,6 +346,11 @@ const DashboardAdmin = () => {
           <Button asChild variant="outline" size="sm">
             <Link to="/dashboard/admin/ingest-health">
               <Activity className="w-4 h-4 mr-1.5" /> Salud del ingest
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/dashboard/admin/mediakit-vem">
+              <FileText className="w-4 h-4 mr-1.5" /> Media Kit VEM
             </Link>
           </Button>
         </div>
