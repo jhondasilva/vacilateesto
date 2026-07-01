@@ -36,9 +36,9 @@ const stats = [
 ];
 
 const reachStats = [
-  { number: "93.15M", label: "Impresiones", icon: Eye },
-  { number: "5.33M", label: "Interacciones", icon: Sparkles },
-  { number: "7,068", label: "Publicaciones", icon: Megaphone },
+  { number: "14.06M", label: "Alcance + Vistas", icon: Eye },
+  { number: "700K", label: "Interacciones", icon: Sparkles },
+  { number: "1,441", label: "Publicaciones", icon: Megaphone },
 ];
 
 const pillars = [
