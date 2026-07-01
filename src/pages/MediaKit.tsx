@@ -42,32 +42,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 ene – 30 abr 2026)
+// Datos de audiencia - Fuente: Metricool (01 feb – 30 jun 2026)
 // Métricas calculadas desde el edge function metricool-brand-mentions sobre
 // las publicaciones reales del período. No incluye seguidores ni crecimiento
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalViews: "7.99M",
-  totalImpressions: "6.49M",
-  totalInteractions: "619.6K",
-  totalPublications: "1,131",
+  totalViews: "13.08M",
+  totalImpressions: "11.52M",
+  totalInteractions: "760.8K",
+  totalPublications: "1,762",
   platforms: [
-    { name: "TikTok", views: "3.74M", publications: "192", icon: Play },
-    { name: "Instagram", views: "2.28M", publications: "458", icon: Instagram },
-    { name: "Facebook", views: "1.08M", publications: "249", icon: Facebook },
-    { name: "YouTube", views: "884.5K", publications: "232", icon: Youtube },
+    { name: "TikTok", views: "4.54M", publications: "297", icon: Play },
+    { name: "YouTube", views: "3.47M", publications: "346", icon: Youtube },
+    { name: "Instagram", views: "3.34M", publications: "798", icon: Instagram },
+    { name: "Facebook", views: "1.72M", publications: "321", icon: Facebook },
   ],
   views: {
-    tiktok: "3.74M",
-    instagram: "2.28M",
-    facebook: "1.08M",
-    youtube: "884.5K",
+    tiktok: "4.54M",
+    instagram: "3.34M",
+    facebook: "1.72M",
+    youtube: "3.47M",
   },
   interactions: {
-    tiktok: "327.6K",
-    instagram: "214.6K",
-    facebook: "54.1K",
-    youtube: "23.3K",
+    tiktok: "381.0K",
+    instagram: "278.6K",
+    facebook: "60.4K",
+    youtube: "40.8K",
   },
   demographics: {
     countries: [
@@ -570,17 +570,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre enero y abril de 2026 generamos <strong>7.99M de views</strong> y <strong>619K interacciones</strong> con
-                  1,131 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre febrero y junio de 2026 generamos <strong>13.08M de views</strong> y <strong>760.8K interacciones</strong> con
+                  1,762 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "7.99M", label: "Views ene–abr 2026", icon: Eye },
-                    { value: "6.49M", label: "Impresiones (IG+FB)", icon: TrendingUp },
-                    { value: "619.6K", label: "Interacciones", icon: Heart },
-                    { value: "1,131", label: "Publicaciones", icon: FileText },
+                    { value: "13.08M", label: "Views feb–jun 2026", icon: Eye },
+                    { value: "11.52M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "760.8K", label: "Interacciones", icon: Heart },
+                    { value: "1,762", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -596,7 +596,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 7.99M VIEWS", "◆ 6.49M IMPRESIONES", "▲ 619.6K INTERACCIONES", "● 1,131 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–ABR 2026"]}
+              items={["★ 13.08M VIEWS", "◆ 11.52M IMPRESIONES", "▲ 760.8K INTERACCIONES", "● 1,762 PUBLICACIONES", "★ FUENTE: METRICOOL · FEB–JUN 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -607,7 +607,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero – 30 abril 2026 · Fuente: Metricool"
+                description="Datos: 01 febrero – 30 junio 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -619,7 +619,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
                     <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Views ene–abr</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views feb–jun</div>
                     <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
@@ -792,7 +792,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Top 6 publicaciones ene–abr 2026 · Fuente: Metricool"
+                description="Top 6 publicaciones feb–jun 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
