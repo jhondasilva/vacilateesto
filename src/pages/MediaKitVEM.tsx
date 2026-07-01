@@ -37,6 +37,7 @@ const stats = [
 
 const reachStats = [
   { number: "11.35M", label: "Vistas de video", icon: Eye },
+  { number: "2.71M", label: "Alcance Instagram", icon: Eye },
   { number: "700K", label: "Interacciones", icon: Sparkles },
   { number: "1,441", label: "Publicaciones", icon: Megaphone },
 ];
@@ -459,7 +460,7 @@ const MediaKitVEM = () => {
                   01 feb 2026 — 30 jun 2026 · Fuente: Metricool
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {reachStats.map((s) => (
                   <div
                     key={s.label}
