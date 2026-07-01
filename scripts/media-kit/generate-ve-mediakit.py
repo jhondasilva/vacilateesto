@@ -128,20 +128,20 @@ def page_about(c):
         wrap(c, d, cx+16, cy+38, cw-32, fs=8, leading=11, color=MUT)
     footer(c, 2)
 
-# ───────── PAGE 3: AUDIENCIA ENE–ABR 2026 ─────────
+# ───────── PAGE 3: AUDIENCIA FEB–JUN 2026 ─────────
 def page_audience(c):
     header(c, 3)
-    sticker_pill(c, 36, H-66, 170, 20, "AUDIENCIA · ENE — ABR 2026", fill=PINK, fg=white)
+    sticker_pill(c, 36, H-66, 170, 20, "AUDIENCIA · FEB — JUN 2026", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
     wrap(c,
-        "Datos reales medidos en Metricool entre el 1 de enero y el 30 de abril de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube, Threads y Facebook de Vacílate Esto.",
+        "Datos reales medidos en Metricool entre el 1 de febrero y el 30 de junio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube, Threads y Facebook de Vacílate Esto.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
-        ("10.4M", "ALCANCE + VISTAS",  PINK),
-        ("299K",  "INTERACCIONES",     CYAN),
-        ("776",   "POSTS PUBLICADOS",  INK),
+        ("15.8M", "ALCANCE + VISTAS",  PINK),
+        ("760K",  "INTERACCIONES",     CYAN),
+        ("1,762", "POSTS PUBLICADOS",  INK),
         ("5",     "PLATAFORMAS",       PINK),
     ]
     cw = (W-72-30)/4; cy = H-230
@@ -155,10 +155,10 @@ def page_audience(c):
 
     sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
     months = [
-        ("ENE", "1.35M",  "126 posts",  PINK),
-        ("FEB", "3.39M",  "198 posts",  CYAN),
-        ("MAR", "2.84M",  "209 posts",  PINK),
-        ("ABR", "2.80M",  "243 posts",  CYAN),
+        ("MAR", "3.54M",  "328 posts",  PINK),
+        ("ABR", "4.11M",  "341 posts",  CYAN),
+        ("MAY", "5.00M",  "450 posts",  PINK),
+        ("JUN", "5.52M",  "370 posts",  CYAN),
     ]
     cw = (W-72-30)/4; cy = H-400
     for i,(m,big,sub,col) in enumerate(months):
@@ -175,11 +175,11 @@ def page_audience(c):
 
     sticker_pill(c, 36, H-440, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
     plats = [
-        ("INSTAGRAM", "4.3M",   "Reels + Stories + Feed",   "233 posts · 148K likes",   PINK),
-        ("TIKTOK",    "3.4M",   "Alcance acumulado",        "192 videos · alto share",  INK),
-        ("YOUTUBE",   "1.06M",  "Vistas en shorts + videos","24K likes · canal activo", CYAN),
+        ("INSTAGRAM", "3.34M",  "Reels + Stories + Feed",   "798 posts · 193K likes",   PINK),
+        ("TIKTOK",    "4.54M",  "Vistas acumuladas",        "297 videos · 341K likes",  INK),
+        ("YOUTUBE",   "3.47M",  "Vistas shorts + videos",   "346 posts · 40K likes",    CYAN),
         ("THREADS",   "478K",   "Vistas acumuladas",        "102 posts · 3.5K likes",   PINK),
-        ("FACEBOOK",  "1.15M",  "Reach + vistas (reels)",   "249 posts · 54K likes",    INK),
+        ("FACEBOOK",  "1.72M",  "Reach + vistas (reels)",   "321 posts · 60K reacciones", INK),
     ]
     cw = (W-72-40)/5; cy = H-580
     for i,(name,big,what,foot,col) in enumerate(plats):
@@ -194,7 +194,7 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    c.drawString(36, 50, "Fuente: Metricool · Vacílate Esto · período 1 ene – 30 abr 2026. Combina reach orgánico y views totales por plataforma. Comunidad total 1.84M+ acumulada históricamente.")
+    c.drawString(36, 50, "Fuente: Metricool · Vacílate Esto · período 1 feb – 30 jun 2026. Combina reach orgánico y views totales por plataforma. Comunidad total 1.84M+ acumulada históricamente.")
     footer(c, 3)
 
 # ───────── PAGE 4: HOSTS ─────────
