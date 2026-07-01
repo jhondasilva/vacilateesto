@@ -33,6 +33,11 @@ type CacheRow = {
 // Actualizar aquí cuando se regenere el PDF para que la comparación siga siendo útil.
 const PDF_BASELINE = {
   totals: { views: 11_350_000, reachIG: 2_710_000, interactions: 700_000, posts: 1_441 },
+  byPlatform: {
+    instagram: { views: 3_340_000, posts: 798, likes: 193_000, reach: 2_710_000 },
+    tiktok:    { views: 4_540_000, posts: 297, likes: 341_000, reach: 0 },
+    youtube:   { views: 3_470_000, posts: 346, likes:  40_000, reach: 0 },
+  } as Record<string, { views: number; posts: number; likes: number; reach: number }>,
   months: {
     "2026-02": { views: 2_520_000, posts: 212 },
     "2026-03": { views: 1_610_000, posts: 264 },
@@ -143,6 +148,10 @@ const AdminMediaKitVEM = () => {
   if (!isAdmin) return <Navigate to="/dashboard" replace />;
 
   const diffCell = (current: number, baseline: number) => {
+    if (baseline === 0) {
+      if (current === 0) return <span className="text-muted-foreground text-xs">—</span>;
+      return <span className="text-sky-600 text-xs font-medium">nuevo dato (+{fmt(current)})</span>;
+    }
     const diff = current - baseline;
     const pct = baseline > 0 ? (diff / baseline) * 100 : 0;
     if (Math.abs(pct) < 0.5) return <span className="text-muted-foreground text-xs">sin cambio</span>;
@@ -210,6 +219,92 @@ const AdminMediaKitVEM = () => {
                 </div>
               ))}
             </div>
+          </section>
+        )}
+
+        {cumulative && (
+          <section className="bg-card border border-border rounded-2xl p-6">
+            <h2 className="text-xl font-bold mb-1">Detalle por plataforma × KPI</h2>
+            <p className="text-xs text-muted-foreground mb-4">
+              Cada celda muestra el valor actual de Metricool, el valor publicado en el PDF y el delta absoluto + %.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs uppercase text-muted-foreground border-b border-border">
+                    <th className="py-2 pr-4">Plataforma</th>
+                    <th className="py-2 pr-4">Vistas</th>
+                    <th className="py-2 pr-4">Alcance</th>
+                    <th className="py-2 pr-4">Interacciones</th>
+                    <th className="py-2 pr-4">Posts</th>
+                    <th className="py-2 pr-4">Likes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(["instagram", "tiktok", "youtube"] as const).map((plat) => {
+                    const cur = cumulative.payload.byPlatform[plat];
+                    const base = PDF_BASELINE.byPlatform[plat];
+                    if (!cur) return null;
+                    const cell = (c: number, b: number, showBaseline = true) => (
+                      <td className="py-2 pr-4 align-top">
+                        <div className="font-medium">{fmt(c)}</div>
+                        {showBaseline && (
+                          <div className="text-[11px] text-muted-foreground">PDF: {fmt(b)}</div>
+                        )}
+                        <div className="mt-0.5">{diffCell(c, b)}</div>
+                      </td>
+                    );
+                    return (
+                      <tr key={plat} className="border-b border-border/50">
+                        <td className="py-2 pr-4 font-bold uppercase">{plat}</td>
+                        {cell(cur.views, base.views)}
+                        {cell(cur.reach, base.reach)}
+                        {cell(interactionsOf(cur), 0, false)}
+                        {cell(cur.posts, base.posts)}
+                        {cell(cur.likes, base.likes)}
+                      </tr>
+                    );
+                  })}
+                  {/* Fila TOTAL */}
+                  {(() => {
+                    const t = cumulative.payload.totals;
+                    const ig = cumulative.payload.byPlatform.instagram;
+                    return (
+                      <tr className="border-b border-border bg-muted/30">
+                        <td className="py-2 pr-4 font-bold uppercase">Total</td>
+                        <td className="py-2 pr-4">
+                          <div className="font-medium">{fmt(t.views)}</div>
+                          <div className="text-[11px] text-muted-foreground">PDF: {fmt(PDF_BASELINE.totals.views)}</div>
+                          <div className="mt-0.5">{diffCell(t.views, PDF_BASELINE.totals.views)}</div>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <div className="font-medium">{fmt(ig?.reach ?? 0)}</div>
+                          <div className="text-[11px] text-muted-foreground">PDF: {fmt(PDF_BASELINE.totals.reachIG)} (IG)</div>
+                          <div className="mt-0.5">{diffCell(ig?.reach ?? 0, PDF_BASELINE.totals.reachIG)}</div>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <div className="font-medium">{fmt(interactionsOf(t))}</div>
+                          <div className="text-[11px] text-muted-foreground">PDF: {fmt(PDF_BASELINE.totals.interactions)}</div>
+                          <div className="mt-0.5">{diffCell(interactionsOf(t), PDF_BASELINE.totals.interactions)}</div>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <div className="font-medium">{fmt(t.posts)}</div>
+                          <div className="text-[11px] text-muted-foreground">PDF: {fmt(PDF_BASELINE.totals.posts)}</div>
+                          <div className="mt-0.5">{diffCell(t.posts, PDF_BASELINE.totals.posts)}</div>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <div className="font-medium">{fmt(t.likes)}</div>
+                        </td>
+                      </tr>
+                    );
+                  })()}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-3">
+              Nota: el PDF no publica alcance de TikTok/YouTube ni interacciones por plataforma; esas celdas muestran solo el valor
+              actual (baseline 0 → Δ marcado como "nuevo dato").
+            </p>
           </section>
         )}
 
