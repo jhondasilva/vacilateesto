@@ -38,3 +38,6 @@ verify_jwt = false
 
 [functions.walking-ads-drive-list]
 verify_jwt = false
+
+[functions.vem-cache-refresh]
+verify_jwt = false
