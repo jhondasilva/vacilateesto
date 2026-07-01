@@ -444,7 +444,7 @@ const MediaKitVEM = () => {
               ))}
             </div>
 
-            {/* Acumulado de alcance — período enero 2025 / abril 2026 */}
+            {/* Acumulado de alcance — período febrero / junio 2026 */}
             <div className="mt-10">
               <div className="flex flex-wrap items-end justify-between gap-2 mb-5">
                 <div>
@@ -456,7 +456,7 @@ const MediaKitVEM = () => {
                   </h3>
                 </div>
                 <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground">
-                  01 ene 2025 — 30 abr 2026 · Fuente: Metricool
+                  01 feb 2026 — 30 jun 2026 · Fuente: Metricool
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
