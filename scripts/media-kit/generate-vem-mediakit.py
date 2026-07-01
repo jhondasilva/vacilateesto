@@ -182,12 +182,13 @@ def page_audience(c):
     # ── Monthly evolution
     sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
     months = [
-        ("MAR", "3.28M", "264 posts",  PINK),
-        ("ABR", "3.43M", "259 posts",  CYAN),
-        ("MAY", "4.06M", "363 posts",  PINK),
-        ("JUN", "5.47M", "346 posts",  CYAN),
+        ("FEB", "2.52M", "212 posts",  PINK),
+        ("MAR", "1.61M", "264 posts",  CYAN),
+        ("ABR", "1.98M", "259 posts",  PINK),
+        ("MAY", "1.70M", "363 posts",  CYAN),
+        ("JUN", "1.42M", "346 posts",  PINK),
     ]
-    cw = (W-72-30)/4; cy = H-400
+    cw = (W-72-40)/5; cy = H-400
     for i,(m,big,sub,col) in enumerate(months):
         cx = 36 + i*(cw+10)
         sticker_card(c, cx, cy, cw, 100, shadow=col)
@@ -196,7 +197,7 @@ def page_audience(c):
         c.setFillColor(INK); c.setFont("Helvetica-Bold", 22)
         c.drawString(cx+14, cy+50, big)
         c.setFillColor(MUT); c.setFont("Helvetica-Bold", 7)
-        c.drawString(cx+14, cy+34, "ALCANCE + VISTAS")
+        c.drawString(cx+14, cy+34, "VISTAS DE VIDEO")
         c.setFillColor(INK); c.setFont("Helvetica", 8)
         c.drawString(cx+14, cy+16, sub)
 
