@@ -58,11 +58,20 @@ const HERO_TICKER = [
 ];
 
 const stats = [
-  { value: "2M+", label: "Seguidores", icon: Users },
-  { value: "24/7", label: "Presencia", icon: Clock },
-  { value: "9", label: "Ciudades", icon: MapPin },
-  { value: "4", label: "Países", icon: Globe },
+  { value: "508", label: "Piezas publicadas", icon: BarChart3 },
+  { value: "6.3M+", label: "Impresiones", icon: Eye },
+  { value: "3.66M+", label: "Vistas de video", icon: Play },
+  { value: "95K+", label: "Interacciones", icon: Heart },
 ];
+
+const FINAL_PLATFORMS = [
+  { name: "Instagram", posts: 156, icon: Instagram },
+  { name: "YouTube", posts: 129, icon: Play },
+  { name: "TikTok", posts: 124, icon: Play },
+  { name: "Facebook", posts: 99, icon: Users },
+];
+
+const FINAL_LIVES = { lives: 6, minutes: 103, views: "40.6K", likes: "51.6K" };
 
 const platforms = [
   { name: "Instagram", icon: Instagram },
@@ -347,28 +356,14 @@ const VacilateElMundial = () => {
                     inesperados, al más puro estilo Vacílate Esto. ✦
                   </p>
 
-                  <div className="mb-6 md:mb-8">
-                    <WorldCupCountdown />
-                  </div>
-
                   <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
-                    <Link to="/media-kit-vem">
+                    <a href="#resultados">
                       <Button
                         size="lg"
                         className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver Media Kit Online
-                      </Button>
-                    </Link>
-                    <a href={MEDIAKIT_URL} download>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="bg-background text-foreground border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:bg-foreground hover:text-background hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Descargar PDF
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        Los resultados
                       </Button>
                     </a>
                     <a href="#la-ruta">
@@ -381,20 +376,6 @@ const VacilateElMundial = () => {
                         La Ruta
                       </Button>
                     </a>
-                    <a
-                      href="https://laquiniela.vacilateesto.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="lg"
-                        className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                      >
-                        <Gamepad2 className="w-4 h-4 mr-2" />
-                        Jugar Quiniela
-                        <ExternalLink className="w-3.5 h-3.5 ml-2" />
-                      </Button>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -402,8 +383,13 @@ const VacilateElMundial = () => {
           </section>
 
           {/* ───────────── STATS — sticker chips ───────────── */}
-          <section className="relative bg-background py-12 md:py-16 border-y-2 border-foreground">
+          <section id="resultados" className="relative bg-background py-12 md:py-16 border-y-2 border-foreground scroll-mt-24">
             <div className="container mx-auto px-4">
+              <div className="text-center mb-8">
+                <span className="inline-block bg-foreground text-background border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs">
+                  Resultados finales · Ene–Jul 2026
+                </span>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto">
                 {stats.map((stat, index) => {
                   const Icon = stat.icon;
@@ -427,6 +413,54 @@ const VacilateElMundial = () => {
                   );
                 })}
               </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto mt-8">
+                {FINAL_PLATFORMS.map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <div
+                      key={p.name}
+                      className="bg-background border-2 border-foreground rounded-2xl p-4 text-center shadow-[4px_4px_0_hsl(var(--foreground))]"
+                    >
+                      <Icon className="w-5 h-5 mx-auto mb-2 text-primary" />
+                      <div className="font-display font-black text-2xl text-foreground">{p.posts}</div>
+                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">
+                        {p.name}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="max-w-5xl mx-auto mt-8 bg-background border-2 border-foreground rounded-2xl p-5 shadow-[6px_6px_0_hsl(var(--primary))]">
+                <div className="flex items-center gap-2 mb-4">
+                  <RadioIcon className="w-4 h-4 text-primary" />
+                  <h3 className="font-display font-black uppercase tracking-widest text-xs sm:text-sm">
+                    Lives en TikTok durante el Mundial
+                  </h3>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.lives}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Lives</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.minutes}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Min al aire</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.views}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Views</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.likes}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Me gusta</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-center text-[10px] text-muted-foreground mt-4 uppercase tracking-widest font-bold">
+                Fuente: Metricool + TikTok Studio · Cierre de campaña
+              </p>
             </div>
           </section>
 
