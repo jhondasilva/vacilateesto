@@ -40,7 +40,6 @@ import {
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import logoVacilate from "@/assets/logo-vacilate-esto-dark.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
@@ -587,12 +586,6 @@ const MediaKit = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground border-2 border-background mb-8 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
                   <span className="font-display font-black text-xs uppercase tracking-widest">MediaKit 2026</span>
                 </div>
-                
-                <img 
-                  src={logoVacilate} 
-                  alt="Vacílate Esto" 
-                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-[8px_8px_0_hsl(var(--primary))] brightness-0 invert"
-                />
                 
                 <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[10vw] sm:text-5xl md:text-7xl text-background mb-6">
                   El Ecosistema de Contenido{" "}
