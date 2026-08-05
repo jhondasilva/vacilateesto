@@ -176,10 +176,7 @@ const routeStops: RouteStop[] = [
   { n: 3, city: "Houston", country: "US", date: "14 jun" },
   { n: 4, city: "Cannes", country: "FR", date: "19 jun" },
   { n: 5, city: "Miami", country: "US", date: "26 jun" },
-  { n: 6, city: "Caracas", country: "VE", date: "28 jun" },
-  { n: 7, city: "Dallas", country: "US", date: "14 jul · Semifinal" },
-  { n: 8, city: "Atlanta", country: "US", date: "15 jul · Semifinal" },
-  { n: 9, city: "New York", country: "US", date: "19 jul · Final" },
+  { n: 6, city: "Caracas", country: "VE", date: "28 jun – 19 jul · Semis y Final" },
 ];
 const countryLabel: Record<RouteStop["country"], string> = {
   MX: "México",
@@ -256,7 +253,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 9 ciudades. Por Vacílate Esto."
+          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 6 ciudades. Por Vacílate Esto."
         />
         <meta
           name="keywords"
@@ -267,7 +264,7 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 9 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 6 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
@@ -295,7 +292,7 @@ const VacilateElMundial = () => {
             "@context": "https://schema.org",
             "@type": "SportsEvent",
             "name": "Vacílate El Mundial 2026 - Cobertura del fútbol en el Mundial FIFA 2026",
-            "description": "Cobertura multiplataforma del fútbol en el Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 9 ciudades sede.",
+            "description": "Cobertura multiplataforma del fútbol en el Mundial FIFA 2026 (México, Estados Unidos y Canadá) producida por Vacílate Esto. Podcasts, shorts, lives y cobertura desde 6 ciudades sede.",
             "startDate": "2026-06-11",
             "endDate": "2026-07-19",
             "eventStatus": "https://schema.org/EventScheduled",
@@ -635,7 +632,7 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── LA RUTA — 9 paradas ───────────── */}
+          {/* ───────────── LA RUTA — 6 paradas ───────────── */}
           <section
             id="la-ruta"
             className="relative bg-background py-16 md:py-24 overflow-hidden scroll-mt-24"
@@ -647,7 +644,7 @@ const VacilateElMundial = () => {
             </div>
 
             <StickerMarquee
-              items={["LA GRAN EXPEDICIÓN", "★", "9 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
+              items={["LA GRAN EXPEDICIÓN", "★", "6 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
               variant="dark"
               className="mb-12 md:mb-16"
             />
@@ -658,7 +655,7 @@ const VacilateElMundial = () => {
                 badgeIcon={MapPin}
                 title="la gran"
                 highlight="expedición"
-                description="9 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
+                description="6 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
               />
 
               <div className="max-w-6xl mx-auto mb-10 md:mb-14">

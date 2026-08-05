@@ -137,7 +137,7 @@ def page_cover(c):
     c.setFillColor(white); c.drawString(cx+22, cy+ch-202, "2026")
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
     c.drawString(cx+22, cy+ch-224,
-        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  9 PARADAS  ·  4 PAÍSES")
+        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  6 PARADAS  ·  4 PAÍSES")
     # subtitle
     wrap(c,
         "Cobertura no-oficial del Mundial FIFA 2026 con presencia presencial en México y Estados Unidos. Streaming en vivo en TikTok, Reels y Stories de Instagram, y Podcasts desde la cancha, los bares y la calle.",
@@ -383,8 +383,8 @@ def page_eco(c):
     months = [
         ("JUN 9–28","Fase de grupos","México · New York · Houston · Miami · Caracas", PINK),
         ("JUN 19–26","Cannes Lions","Cortesía Hôtel Martinez · paralelo a la ruta", CYAN),
-        ("JUL 14–15","Semifinales","Dallas (AT&T) · Atlanta (Mercedes-Benz)", PINK),
-        ("JUL 19","La Final","New York / New Jersey · MetLife Stadium", INK),
+        ("JUL 14–15","Semifinales","Cobertura desde Caracas · streaming + redes", PINK),
+        ("JUL 19","La Final","Cobertura desde Caracas · streaming + redes", INK),
     ]
     cw = (W-72-30)/4; cy = H-510
     for i,(m,t,d,col) in enumerate(months):
@@ -403,9 +403,9 @@ def page_route(c):
     header(c, 7)
     sticker_pill(c, 36, H-66, 130, 20, "JUN — JUL 2026", fill=CYAN, fg=INK)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
-    c.drawString(36, H-110, "LA RUTA · 9 PARADAS")
+    c.drawString(36, H-110, "LA RUTA · 6 PARADAS")
     c.setFillColor(MUT); c.setFont("Helvetica", 10)
-    c.drawString(36, H-128, "9 paradas · 4 países · base en Caracas · presencial en México, EE.UU. y Francia")
+    c.drawString(36, H-128, "6 paradas · 4 países · base en Caracas · presencial en México, EE.UU. y Francia")
 
     stops = [
         (1,"MX","CIUDAD DE MÉXICO","9 jun"),
@@ -413,10 +413,7 @@ def page_route(c):
         (3,"US","HOUSTON","14 jun"),
         (4,"FR","CANNES","19 jun"),
         (5,"US","MIAMI","26 jun"),
-        (6,"VE","CARACAS","28 jun"),
-        (7,"US","DALLAS","14 jul · Semifinal"),
-        (8,"US","ATLANTA","15 jul · Semifinal"),
-        (9,"US","NEW YORK","19 jul · Final"),
+        (6,"VE","CARACAS","28 jun – 19 jul · Semis y Final"),
     ]
     cols = 3; cw = (W-72-40)/cols; ch = 96
     start_y = H-165
@@ -439,9 +436,9 @@ def page_route(c):
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 50, 10, fill=1, stroke=1)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 10)
-    c.drawString(50, cy+28, "JUN > FASE DE GRUPOS   ·   JUL > SEMIFINALES   ·   19 JUL > LA FINAL EN NEW YORK")
+    c.drawString(50, cy+28, "JUN > FASE DE GRUPOS EN RUTA   ·   JUL > SEMIS Y FINAL DESDE CARACAS")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 8)
-    c.drawString(50, cy+12, "Presencia presencial: 7 paradas en MÉXICO + EE.UU. · base en Caracas · Cannes Lions en Francia")
+    c.drawString(50, cy+12, "Presencia presencial: 4 paradas en MÉXICO + EE.UU. · base en Caracas · Cannes Lions en Francia")
     footer(c, 7)
 
 # ───────── PAGE 8: PLANES DE PARTICIPACIÓN ─────────
