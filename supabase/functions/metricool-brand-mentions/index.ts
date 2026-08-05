@@ -83,11 +83,13 @@ function unify(platform: Unified["platform"], p: any): Unified | null {
         text: fbText,
         thumbnail: p.picture ?? p.thumbnailUrl ?? null,
         metrics: {
-          impressions: p.impressions ?? p.postImpressionsUnique ?? 0,
-          reactions: p.reactions ?? p.postVideoReactions ?? 0,
-          comments: p.comments ?? 0,
-          shares: p.shares ?? 0,
-          views: fbViews,
+        impressions: p.impressions ?? p.impressionsUnique ?? p.postImpressionsUnique ?? 0,
+        reach: p.impressionsUnique ?? p.postImpressionsUnique ?? 0,
+        reactions: p.reactions ?? p.postVideoReactions ?? 0,
+        likes: p.reactions ?? p.postVideoReactions ?? 0,
+        comments: p.comments ?? 0,
+        shares: p.shares ?? p.postVideoSocialActions ?? 0,
+        views: fbViews || p.videoViews || 0,
         },
       };
     case "youtube":

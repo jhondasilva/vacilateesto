@@ -972,9 +972,10 @@ const MetricoolDashboard = ({
                       acc.views += q.metrics.views ?? 0;
                       acc.likes += q.metrics.likes ?? q.metrics.reactions ?? 0;
                       acc.comments += q.metrics.comments ?? 0;
+                      acc.impressions += q.metrics.impressions ?? 0;
                       return acc;
                     },
-                    { views: 0, likes: 0, comments: 0 },
+                    { views: 0, likes: 0, comments: 0, impressions: 0 },
                   );
                   return (
                     <button
@@ -991,9 +992,14 @@ const MetricoolDashboard = ({
                       <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">publicaciones</p>
                       <dl className="grid grid-cols-3 gap-2 text-xs pt-3 border-t border-border">
                         <div><dt className="text-muted-foreground">Views</dt><dd className="font-bold">{fmtNum(t.views)}</dd></div>
-                        <div><dt className="text-muted-foreground">Likes</dt><dd className="font-bold">{fmtNum(t.likes)}</dd></div>
+                        <div><dt className="text-muted-foreground">{p === "facebook" ? "Reacc." : "Likes"}</dt><dd className="font-bold">{fmtNum(t.likes)}</dd></div>
                         <div><dt className="text-muted-foreground">Coment.</dt><dd className="font-bold">{fmtNum(t.comments)}</dd></div>
                       </dl>
+                      {p === "facebook" && (
+                        <p className="mt-2 text-[10px] leading-tight text-muted-foreground">
+                          {t.impressions > 0 ? `${fmtNum(t.impressions)} impresiones · ` : ""}Reels de FB no reportan comentarios en Metricool
+                        </p>
+                      )}
                     </button>
                   );
                 })}
