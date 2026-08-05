@@ -721,9 +721,10 @@ const MetricoolDashboard = ({
         .maybeSingle();
       if (cached?.payload) {
         setCache({ [cacheKey]: cached.payload as MentionsResponse });
-        if (cached.refreshed_at) setLastRefreshed(new Date(cached.refreshed_at));
+        setLastRefreshed(cached.refreshed_at ? new Date(cached.refreshed_at) : new Date());
       } else {
         setCache({});
+        setLastRefreshed(new Date());
       }
       toast.success(`Dashboard de ${brand.name} actualizado`, { id: tId });
     } catch (e) {
@@ -801,14 +802,14 @@ const MetricoolDashboard = ({
             variant="outline"
             disabled={refreshing || loading}
             onClick={handleManualRefresh}
-            title="Refrescar datos desde Metricool"
+            title="Actualizar datos desde Metricool"
           >
             {refreshing ? (
               <Loader2 className="w-4 h-4 mr-1 animate-spin" />
             ) : (
               <RefreshCw className="w-4 h-4 mr-1" />
             )}
-            Refrescar
+            {refreshing ? "Actualizando…" : "Actualizar datos"}
           </Button>
           <Button
             size="sm"
