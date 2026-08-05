@@ -385,6 +385,8 @@ BRAND_LOGOS = {
     "Plumrose": "plumrose.png",
     "Nestea": "nestea.png",
     "Empire Keeway": "empire.png",
+    "Vatel": "vatel.webp",
+    "Maggi": "maggi.png",
 }
 BRAND_DIR = "/tmp/mk-brands"
 
@@ -413,24 +415,29 @@ def page_brands(c):
         ("Plumrose", "Integraciones en podcast, shorts y activaciones gastronómicas.", PINK),
         ("Nestea", "Branded content en reels, stories y contenido de calle.", CYAN),
         ("Empire Keeway", "Rutas, metrajes y cobertura Vacílate El Fútbol.", INK),
+        ("Vatel", "Branded content, lives de TikTok y activaciones en calle.", CYAN),
+        ("Maggi", "Integraciones en podcast, recetas y lives de TikTok.", PINK),
     ]
-    cw = (W-72-40)/3; ch = 200; cy = H-390
+    cw = (W-72-40)/3; ch = 190
+    row_y = [H-360, H-580]
     for i,(name,desc,col) in enumerate(brands):
-        cx = 36 + i*(cw+20)
+        row, colidx = divmod(i, 3)
+        cy = row_y[row]
+        cx = 36 + colidx*(cw+20)
         sticker_card(c, cx, cy, cw, ch, shadow=col)
-        logo_badge(c, _brand_logo(BRAND_LOGOS[name]), cx+16, cy+ch-112, cw-32, 96, shadow=col, pad=12)
+        logo_badge(c, _brand_logo(BRAND_LOGOS[name]), cx+16, cy+ch-106, cw-32, 92, shadow=col, pad=12)
         c.setFillColor(INK); c.setFont("Helvetica-Bold", 15)
-        c.drawString(cx+16, cy+66, name)
-        wrap(c, desc, cx+16, cy+48, cw-32, fs=9, leading=12, color=MUT)
+        c.drawString(cx+16, cy+62, name)
+        wrap(c, desc, cx+16, cy+44, cw-32, fs=9, leading=12, color=MUT)
 
-    cy2 = 150
-    sticker_card(c, 36, cy2, W-72, 120, shadow=INK)
+    cy2 = 90
+    sticker_card(c, 36, cy2, W-72, 110, shadow=INK)
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
-    c.drawString(56, cy2+90, "TAMBIÉN HEMOS ACTIVADO CON")
+    c.drawString(56, cy2+82, "TAMBIÉN HEMOS ACTIVADO CON")
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 13)
-    c.drawString(56, cy2+62, "Buchanan's · KFC · Maggi · BNC · Vatel · Covencaucho")
+    c.drawString(56, cy2+56, "Buchanan's · KFC · BNC · Covencaucho")
     c.setFillColor(MUT); c.setFont("Helvetica", 9)
-    c.drawString(56, cy2+38, "Campañas 2025–2026 en podcast, shorts, lives de TikTok y Vacílate El Fútbol.")
+    c.drawString(56, cy2+34, "Campañas 2025–2026 en podcast, shorts, lives de TikTok y Vacílate El Fútbol.")
     footer(c, 7)
 
 # ───────── PAGE 8: TRABAJA + CONTACTO ─────────
