@@ -185,12 +185,40 @@ const countryLabel: Record<RouteStop["country"], string> = {
   VE: "Venezuela",
 };
 
-const REELS = [
-  "https://www.instagram.com/p/DZDsiy2pwka/",
-  "https://www.instagram.com/p/DZLgY7MJzK4/",
-  "https://www.instagram.com/p/DZLuzWDBN8a/",
-  "https://www.instagram.com/p/DY-shj2h72u/",
-  "https://www.instagram.com/p/DZTZ2WdMz6n/",
+// Top 4 piezas por visualizaciones — fuente: dashboard Vacílate El Mundial (Metricool)
+const TOP_POSTS = [
+  {
+    platform: "YouTube",
+    title: "El portero que jugó con el cuello roto",
+    views: "1.30M",
+    likes: "5.6K",
+    url: "https://www.youtube.com/watch?v=KeavhpiMCj8",
+    thumb: "https://i.ytimg.com/vi/KeavhpiMCj8/hqdefault.jpg",
+  },
+  {
+    platform: "TikTok",
+    title: "Tito Rojas en Caracas: la historia que nadie contó",
+    views: "613K",
+    likes: "34.4K",
+    url: "https://www.tiktok.com/@vacilateesto/video/7603034324056739080",
+    thumb: "https://static.metricool.com/tkvideocovers/202602/1943481-7603034324056739080.jpeg",
+  },
+  {
+    platform: "YouTube",
+    title: "El último país sin televisión",
+    views: "581K",
+    likes: "3.9K",
+    url: "https://www.youtube.com/watch?v=I4QLbK3K9Ts",
+    thumb: "https://i.ytimg.com/vi/I4QLbK3K9Ts/hqdefault.jpg",
+  },
+  {
+    platform: "TikTok",
+    title: "La tonada: el vínculo sagrado del llanero con su tierra",
+    views: "422K",
+    likes: "38.4K",
+    url: "https://www.tiktok.com/@vacilateesto/video/7625301776450850068",
+    thumb: "https://static.metricool.com/tkvideocovers/202604/1943481-7625301776450850068.jpg",
+  },
 ];
 
 // ───────────────────────── Component ─────────────────────────
@@ -464,7 +492,7 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── REELS ───────────── */}
+          {/* ───────────── TOP POSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
               <div className="absolute top-20 left-10 w-[28rem] h-[28rem] bg-accent/15 rounded-full blur-[120px]" />
@@ -473,24 +501,52 @@ const VacilateElMundial = () => {
 
             <div className="container mx-auto px-4 relative z-10">
               <StickerHeader
-                badge="Contenido audiovisual"
+                badge="Lo más visto de la cobertura"
                 badgeIcon={Play}
-                title="míralo"
-                highlight="en acción"
-                description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
+                title="las 4 piezas"
+                highlight="más vistas"
+                description="Los contenidos que más visualizaciones alcanzaron durante Vacílate El Mundial 2026."
               />
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-7xl mx-auto items-start">
-                {REELS.map((url, i) => {
-                  const rot = [-1.5, 1.2, -0.8, 1.5, -1.2, 0.6, -0.5, 1][i] ?? 0;
+                {TOP_POSTS.map((post, i) => {
+                  const rot = [-1.5, 1.2, -0.8, 1.5][i] ?? 0;
                   return (
-                    <div
-                      key={url}
-                      className="bg-background border-2 border-foreground rounded-3xl overflow-hidden p-3 md:p-4 sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                    <a
+                      key={post.url}
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block bg-background border-2 border-foreground rounded-3xl overflow-hidden sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       style={{ transform: `rotate(${rot}deg)` }}
                     >
-                      <InstagramEmbed postUrl={url} className="w-full" />
-                    </div>
+                      <div className="relative aspect-video overflow-hidden border-b-2 border-foreground bg-muted">
+                        <img
+                          src={post.thumb}
+                          alt={`${post.title} — ${post.platform}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-2 left-2 bg-foreground text-background border-2 border-background rounded-full px-2.5 py-1 font-display font-black text-[9px] uppercase tracking-widest">
+                          #{i + 1} · {post.platform}
+                        </span>
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-display font-black text-sm uppercase tracking-tight leading-tight mb-3 line-clamp-2">
+                          {post.title}
+                        </h3>
+                        <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Eye className="w-3.5 h-3.5 text-primary" />
+                            {post.views}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Heart className="w-3.5 h-3.5 text-primary" />
+                            {post.likes}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                   );
                 })}
               </div>
@@ -502,7 +558,7 @@ const VacilateElMundial = () => {
                     className="bg-foreground text-background hover:bg-foreground/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--primary))] hover:shadow-[6px_6px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   >
                     <Instagram className="w-4 h-4 mr-2" />
-                    Ver más en Instagram
+                    Ver todo en Instagram
                     <ArrowUpRight className="w-3.5 h-3.5 ml-2" />
                   </Button>
                 </a>
