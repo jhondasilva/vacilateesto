@@ -116,6 +116,28 @@ const BRAND_KEYWORDS: Record<
   },
 };
 
+// Dashboard de campaña (no es una marca): agrupa TODO el contenido de
+// Vacílate El Mundial / El Fútbol / Hablemos de Fútbol, con o sin marcas.
+BRAND_KEYWORDS["vacilate-el-mundial"] = {
+  keywords: [
+    // Campaña
+    "#vacilateelmundial", "#vacilateelfutbol", "#vacílateelmundial", "#vacílateelfútbol",
+    "vacilate el mundial", "vacílate el mundial",
+    "vacilate el futbol", "vacílate el fútbol", "vacilate el fútbol", "vacílate el futbol",
+    "hablemos de futbol", "hablemos de fútbol", "#hablemosdefutbol", "#hablemosdefútbol",
+    "#mundial2026", "mundial 2026", "copa del mundo", "worldcup2026", "#worldcup2026",
+    // Marcas patrocinantes de la cobertura
+    "@bncbanco", "#bncbanco", "bncbanco", "#bnc",
+    "@buchananslatam", "#buchananslatam", "buchananslatam", "#buchanans",
+    "@kfc_vzla", "@kfcvzla", "#kfcvzla", "#kfc_vzla", "@kfcve", "#kfcve",
+    "@cocacola", "@cocacolave", "@cocacolavzla", "#cocacola", "#cocacolave", "#cocacolavzla",
+    "@maggivenezuela", "#maggivenezuela", "#maggi",
+  ],
+  excludeKeywords: [],
+  label:
+    "Campaña: #VacílateElMundial · #VacílateElFútbol · Hablemos de Fútbol · #Mundial2026 + menciones de BNC, Buchanans, KFC, Coca-Cola y Maggi",
+};
+
 type Report = {
   id: string;
   title: string;

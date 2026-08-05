@@ -87,6 +87,23 @@ const BRAND_KEYWORDS: Record<
   },
 };
 
+// Dashboard de campaña (no es una marca comercial)
+BRAND_KEYWORDS["vacilate-el-mundial"] = {
+  keywords: [
+    "#vacilateelmundial", "#vacilateelfutbol", "#vacílateelmundial", "#vacílateelfútbol",
+    "vacilate el mundial", "vacílate el mundial",
+    "vacilate el futbol", "vacílate el fútbol", "vacilate el fútbol", "vacílate el futbol",
+    "hablemos de futbol", "hablemos de fútbol", "#hablemosdefutbol", "#hablemosdefútbol",
+    "#mundial2026", "mundial 2026", "copa del mundo", "worldcup2026", "#worldcup2026",
+    "@bncbanco", "#bncbanco", "bncbanco", "#bnc",
+    "@buchananslatam", "#buchananslatam", "buchananslatam", "#buchanans",
+    "@kfc_vzla", "@kfcvzla", "#kfcvzla", "#kfc_vzla", "@kfcve", "#kfcve",
+    "@cocacola", "@cocacolave", "@cocacolavzla", "#cocacola", "#cocacolave", "#cocacolavzla",
+    "@maggivenezuela", "#maggivenezuela", "#maggi",
+  ],
+  excludeKeywords: [],
+};
+
 const fmtIso = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
 
@@ -94,11 +111,11 @@ function buildPeriods() {
   const now = new Date();
   const periods: { key: string; label: string; from: Date; to: Date }[] = [];
 
-  // Acumulado 2026 → hoy
+  // Acumulado 2026 (enero → hoy)
   periods.push({
     key: "cumulative-2026",
     label: "Acumulado 2026",
-    from: new Date(2026, 1, 1, 0, 0, 0),
+    from: new Date(2026, 0, 1, 0, 0, 0),
     to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
   });
 
