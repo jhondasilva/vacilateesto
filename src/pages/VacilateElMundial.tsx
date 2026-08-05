@@ -186,6 +186,14 @@ const countryLabel: Record<RouteStop["country"], string> = {
 // Fuente: dashboard Vacílate El Mundial (Metricool), ene — ago 2026
 const TOP_POSTS = [
   {
+    platform: "YouTube",
+    title: "El portero que jugó con el cuello roto",
+    views: "1.30M",
+    likes: "5.6K",
+    url: "https://www.youtube.com/watch?v=KeavhpiMCj8",
+    thumb: "https://i.ytimg.com/vi/KeavhpiMCj8/hqdefault.jpg",
+  },
+  {
     platform: "Facebook",
     title: "La deuda que le costó a Australia 32 años de sequía mundialista",
     views: "160.5K",
@@ -195,26 +203,18 @@ const TOP_POSTS = [
   },
   {
     platform: "Instagram",
+    title: "¿Las reglas estrictas matan el talento en la cancha?",
+    views: "114.7K",
+    likes: "2.4K",
+    url: "https://www.instagram.com/reel/DZOQM_Fh9-1/",
+    thumb: "",
+  },
+  {
+    platform: "Instagram",
     title: "Grande Manu: llegar al Mundial y entrevistar a puros grandes",
     views: "114.7K",
     likes: "7.7K",
     url: "https://www.instagram.com/reel/DaymtXrO_wh/",
-    thumb: "",
-  },
-  {
-    platform: "Instagram",
-    title: "El sueño hecho realidad del #10 de Argentina",
-    views: "49.1K",
-    likes: "1.1K",
-    url: "https://www.instagram.com/reel/DZ5q2K3JZqv/",
-    thumb: "",
-  },
-  {
-    platform: "Instagram",
-    title: "¡Historia pura! El físico y el rendimiento en el Mundial",
-    views: "31.7K",
-    likes: "1.1K",
-    url: "https://www.instagram.com/reel/DZ5wrvZJitZ/",
     thumb: "",
   },
 ];
