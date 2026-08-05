@@ -1,0 +1,1 @@
+DELETE FROM public.press_requests WHERE email = 'test@example.com';
