@@ -3,14 +3,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WorldCupCountdown from "@/components/WorldCupCountdown";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Globe,
   Tv,
@@ -34,18 +30,13 @@ import {
   Heart,
   Star,
   Flag,
-  Gamepad2,
   BarChart3,
   Award,
   Flame,
-  ExternalLink,
   CheckCircle,
-  Download,
-  Mail,
-  Send,
-  FileText,
-  Loader2,
   Sparkles,
+  MessageCircle,
+  Radio as RadioIcon,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
@@ -67,11 +58,20 @@ const HERO_TICKER = [
 ];
 
 const stats = [
-  { value: "2M+", label: "Seguidores", icon: Users },
-  { value: "24/7", label: "Presencia", icon: Clock },
-  { value: "9", label: "Ciudades", icon: MapPin },
-  { value: "4", label: "Países", icon: Globe },
+  { value: "508", label: "Piezas publicadas", icon: BarChart3 },
+  { value: "6.3M+", label: "Impresiones", icon: Eye },
+  { value: "3.66M+", label: "Vistas de video", icon: Play },
+  { value: "95K+", label: "Interacciones", icon: Heart },
 ];
+
+const FINAL_PLATFORMS = [
+  { name: "Instagram", posts: 156, icon: Instagram },
+  { name: "YouTube", posts: 129, icon: Play },
+  { name: "TikTok", posts: 124, icon: Play },
+  { name: "Facebook", posts: 99, icon: Users },
+];
+
+const FINAL_LIVES = { lives: 6, minutes: 103, views: "40.6K", likes: "51.6K" };
 
 const platforms = [
   { name: "Instagram", icon: Instagram },
@@ -196,56 +196,7 @@ const REELS = [
 // ───────────────────────── Component ─────────────────────────
 
 const VacilateElMundial = () => {
-  const { toast } = useToast();
-  const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
-
-  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805c";
   const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
-
-  const handleSendByEmail = async () => {
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast({
-        title: "Email inválido",
-        description: "Introduce un email válido.",
-        variant: "destructive",
-      });
-      return;
-    }
-    try {
-      setSending(true);
-      const res = await fetch(MEDIAKIT_URL);
-      const blob = await res.blob();
-      const reader = new FileReader();
-      const pdfBase64: string = await new Promise((resolve, reject) => {
-        reader.onload = () => {
-          const result = reader.result as string;
-          resolve(result.split(",")[1]);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-      const { error } = await supabase.functions.invoke("send-mediakit-email", {
-        body: { email, pdfBase64, kit: "mundial" },
-      });
-      if (error) throw error;
-      toast({ title: "¡Enviado!", description: `Media Kit enviado a ${email}` });
-      setEmail("");
-    } catch (err) {
-      console.error(err);
-      toast({
-        title: "Error al enviar",
-        description: "Inténtalo de nuevo en unos segundos.",
-        variant: "destructive",
-      });
-    } finally {
-      setSending(false);
-    }
-  };
-
-  const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(
-    `Vacílate El Mundial 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
-  )}`;
 
   return (
     <>
@@ -264,7 +215,7 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 6 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805c" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 508 piezas publicadas, 6.3M+ impresiones, 3.66M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
@@ -316,20 +267,6 @@ const VacilateElMundial = () => {
           })}
         </script>
 
-        {/* JSON-LD - CreativeWork (Media Kit descargable) */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "DigitalDocument",
-            "name": "Media Kit Vacílate El Mundial 2026",
-            "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Mundial 2026.",
-            "encodingFormat": "application/pdf",
-            "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805c",
-            "inLanguage": "es-VE",
-            "publisher": { "@type": "Organization", "name": "Vacílate Esto" }
-          })}
-        </script>
-
         {/* JSON-LD - BreadcrumbList */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -345,34 +282,6 @@ const VacilateElMundial = () => {
 
       <div className="min-h-screen bg-background">
         <Header />
-
-        {/* ───────────── TOP DOWNLOAD BANNER ───────────── */}
-        <div className="fixed top-20 left-0 right-0 z-40 bg-primary border-y-2 border-foreground">
-          <div className="container mx-auto px-4 py-2.5">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-              <span className="font-display font-black text-[10px] sm:text-xs uppercase tracking-widest text-primary-foreground">
-                Media Kit 2026 actualizado
-              </span>
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/media-kit-vem"
-                  className="inline-flex items-center gap-2 bg-background text-foreground border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-[3px_3px_0_hsl(var(--foreground))] hover:shadow-[4px_4px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  Ver online
-                </Link>
-                <a
-                  href={MEDIAKIT_URL}
-                  download
-                  className="inline-flex items-center gap-2 bg-foreground text-background border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-[3px_3px_0_hsl(var(--background))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Descargar PDF
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <main className="pt-10">
           {/* ───────────── HERO — Sticker Pack ───────────── */}
@@ -447,28 +356,14 @@ const VacilateElMundial = () => {
                     inesperados, al más puro estilo Vacílate Esto. ✦
                   </p>
 
-                  <div className="mb-6 md:mb-8">
-                    <WorldCupCountdown />
-                  </div>
-
                   <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
-                    <Link to="/media-kit-vem">
+                    <a href="#resultados">
                       <Button
                         size="lg"
                         className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver Media Kit Online
-                      </Button>
-                    </Link>
-                    <a href={MEDIAKIT_URL} download>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="bg-background text-foreground border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:bg-foreground hover:text-background hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Descargar PDF
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        Los resultados
                       </Button>
                     </a>
                     <a href="#la-ruta">
@@ -481,20 +376,6 @@ const VacilateElMundial = () => {
                         La Ruta
                       </Button>
                     </a>
-                    <a
-                      href="https://laquiniela.vacilateesto.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="lg"
-                        className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                      >
-                        <Gamepad2 className="w-4 h-4 mr-2" />
-                        Jugar Quiniela
-                        <ExternalLink className="w-3.5 h-3.5 ml-2" />
-                      </Button>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -502,8 +383,13 @@ const VacilateElMundial = () => {
           </section>
 
           {/* ───────────── STATS — sticker chips ───────────── */}
-          <section className="relative bg-background py-12 md:py-16 border-y-2 border-foreground">
+          <section id="resultados" className="relative bg-background py-12 md:py-16 border-y-2 border-foreground scroll-mt-24">
             <div className="container mx-auto px-4">
+              <div className="text-center mb-8">
+                <span className="inline-block bg-foreground text-background border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs">
+                  Resultados finales · Ene–Jul 2026
+                </span>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto">
                 {stats.map((stat, index) => {
                   const Icon = stat.icon;
@@ -527,6 +413,54 @@ const VacilateElMundial = () => {
                   );
                 })}
               </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto mt-8">
+                {FINAL_PLATFORMS.map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <div
+                      key={p.name}
+                      className="bg-background border-2 border-foreground rounded-2xl p-4 text-center shadow-[4px_4px_0_hsl(var(--foreground))]"
+                    >
+                      <Icon className="w-5 h-5 mx-auto mb-2 text-primary" />
+                      <div className="font-display font-black text-2xl text-foreground">{p.posts}</div>
+                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">
+                        {p.name}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="max-w-5xl mx-auto mt-8 bg-background border-2 border-foreground rounded-2xl p-5 shadow-[6px_6px_0_hsl(var(--primary))]">
+                <div className="flex items-center gap-2 mb-4">
+                  <RadioIcon className="w-4 h-4 text-primary" />
+                  <h3 className="font-display font-black uppercase tracking-widest text-xs sm:text-sm">
+                    Lives en TikTok durante el Mundial
+                  </h3>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.lives}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Lives</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.minutes}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Min al aire</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.views}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Views</div>
+                  </div>
+                  <div>
+                    <div className="font-display font-black text-2xl">{FINAL_LIVES.likes}</div>
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Me gusta</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-center text-[10px] text-muted-foreground mt-4 uppercase tracking-widest font-bold">
+                Fuente: Metricool + TikTok Studio · Cierre de campaña
+              </p>
             </div>
           </section>
 
@@ -703,214 +637,6 @@ const VacilateElMundial = () => {
 
           {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
           <PlanesParticipacion />
-
-          {/* ───────────── MEDIA KIT ───────────── */}
-          <section
-            id="media-kit"
-            className="relative bg-foreground text-background py-16 md:py-24 overflow-hidden border-y-2 border-foreground scroll-mt-24"
-          >
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-              <div className="absolute top-10 left-10 w-[28rem] h-[28rem] bg-primary/30 rounded-full blur-[140px]" />
-              <div className="absolute bottom-10 right-10 w-[32rem] h-[32rem] bg-accent/30 rounded-full blur-[140px]" />
-              <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(hsl(var(--background))_1px,transparent_1px)] [background-size:28px_28px]" />
-            </div>
-
-            <StickerMarquee
-              items={["MEDIA KIT", "★", "DESCARGAR PDF", "✦", "ENVIAR POR EMAIL", "★", "COMPARTIR EN LINE", "✦"]}
-              variant="primary"
-              className="mb-12 md:mb-16 -mt-16 md:-mt-24"
-            />
-
-            <div className="container mx-auto px-4 relative z-10">
-              <StickerHeader
-                badge="Media Kit Mundial 2026"
-                badgeIcon={FileText}
-                badgeVariant="primary"
-                title="llévate el"
-                highlight="media kit"
-                description="Toda la propuesta de Vacílate El Mundial: la ruta, los formatos, la audiencia y cómo activar tu marca."
-                onDark
-              />
-
-              <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-                {/* Download */}
-                <a
-                  href={MEDIAKIT_URL}
-                  download
-                  className="group bg-background text-foreground rounded-3xl border-2 border-primary p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  style={{ transform: "rotate(-1.5deg)" }}
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
-                    <Download className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Descargar PDF</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-4">8 páginas · Sticker pack</p>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-primary">
-                    Descargar <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </a>
-
-                {/* View online (web page) */}
-                <Link
-                  to="/media-kit-vem"
-                  className="group bg-background text-foreground rounded-3xl border-2 border-accent p-6 text-center shadow-[6px_6px_0_hsl(var(--accent))] hover:shadow-[8px_8px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  style={{ transform: "rotate(0.5deg)" }}
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-accent text-accent-foreground border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--foreground))] group-hover:rotate-6 transition-transform">
-                    <Eye className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Ver online</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-4">Web navegable, sin descarga</p>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-accent">
-                    Abrir Media Kit <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </Link>
-
-                {/* LINE */}
-                <a
-                  href={lineShareUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-background text-foreground rounded-3xl border-2 border-primary p-6 text-center shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  style={{ transform: "rotate(-0.5deg)" }}
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0_hsl(var(--primary))] group-hover:rotate-6 transition-transform">
-                    <Send className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-display font-black text-lg uppercase tracking-tight mb-1">Compartir en LINE</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-4">Envíalo a tu chat o grupo</p>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-foreground">
-                    Abrir LINE <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </a>
-              </div>
-
-              {/* Email form */}
-              <div className="mt-10 bg-background text-foreground border-2 border-accent rounded-3xl p-6 md:p-8 max-w-2xl mx-auto shadow-[8px_8px_0_hsl(var(--accent))]">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-foreground text-background border-2 border-foreground flex items-center justify-center shadow-[3px_3px_0_hsl(var(--primary))]">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-black text-base md:text-lg uppercase tracking-tight">Recíbelo por email</h3>
-                    <p className="font-body text-xs md:text-sm text-muted-foreground">Te lo enviamos como adjunto al instante.</p>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Input
-                    type="email"
-                    placeholder="tu@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-background text-foreground border-2 border-foreground h-12 rounded-full px-5"
-                    disabled={sending}
-                  />
-                  <Button
-                    onClick={handleSendByEmail}
-                    disabled={sending}
-                    className="h-12 bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs whitespace-nowrap shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  >
-                    {sending ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Enviando…
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 mr-2" />
-                        Enviar Media Kit
-                      </>
-                    )}
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mt-3">
-                  Contacto oficial:{" "}
-                  <a href="mailto:elpatio@hacemosloquenosgusta.com" className="underline font-semibold text-foreground">
-                    elpatio@hacemosloquenosgusta.com
-                  </a>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ───────────── LA QUINIELA ───────────── */}
-          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-              <div className="absolute -top-32 -left-32 w-[40rem] h-[40rem] bg-accent/25 rounded-full blur-[140px] animate-float" />
-              <div className="absolute -bottom-32 -right-32 w-[40rem] h-[40rem] bg-primary/25 rounded-full blur-[140px] animate-float-delayed" />
-              <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
-            </div>
-
-            <div className="container mx-auto px-4 relative z-10">
-              <StickerHeader
-                badge="Juego Interactivo"
-                badgeIcon={Gamepad2}
-                badgeVariant="accent"
-                title="la"
-                highlight="quiniela"
-                description="Predice los resultados, compite con la comunidad y demuestra que sabes más de fútbol que nadie."
-              />
-
-              <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-12 sticker-shadow-lg-foreground max-w-5xl mx-auto">
-                <div className="absolute -top-4 left-4 sm:left-8 bg-accent text-accent-foreground px-4 py-1.5 rounded-full border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))]">
-                  <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Juega gratis</span>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h3 className="font-display font-black text-2xl md:text-4xl uppercase tracking-tight mb-4 leading-tight">
-                      Demuestra que sabes
-                      <span className="block text-gradient italic">más que nadie</span>
-                    </h3>
-                    <p className="font-body text-muted-foreground mb-6 leading-relaxed">
-                      Haz tus pronósticos antes y durante los partidos, compite con miles de fanáticos y gana premios
-                      exclusivos. ¡Miles de fans ya están jugando!
-                    </p>
-                    <a href="https://laquiniela.vacilateesto.com" target="_blank" rel="noopener noreferrer">
-                      <Button
-                        size="lg"
-                        className="bg-foreground text-background hover:bg-foreground/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--accent))] hover:shadow-[6px_6px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                      >
-                        <Trophy className="w-4 h-4 mr-2" />
-                        Jugar La Quiniela
-                        <ExternalLink className="w-3.5 h-3.5 ml-2" />
-                      </Button>
-                    </a>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { icon: Gamepad2, title: "En Tiempo Real", desc: "Pronósticos antes y durante los partidos" },
-                      { icon: Award, title: "Rankings", desc: "Compite y gana premios exclusivos" },
-                      { icon: BarChart3, title: "Estadísticas", desc: "Analiza tendencias y mejora" },
-                      { icon: Users, title: "Comunidad", desc: "Debate con miles de fans" },
-                    ].map((f, i) => {
-                      const isAccent = i % 2 === 0;
-                      return (
-                        <div
-                          key={f.title}
-                          className={`bg-background border-2 border-foreground rounded-2xl p-3 sticker-shadow-${
-                            isAccent ? "accent" : "primary"
-                          }`}
-                          style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1}deg)` }}
-                        >
-                          <div
-                            className={`w-9 h-9 rounded-xl border-2 border-foreground flex items-center justify-center mb-2 shadow-[2px_2px_0_hsl(var(--foreground))] ${
-                              isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
-                            }`}
-                          >
-                            <f.icon className="w-4 h-4" />
-                          </div>
-                          <div className="font-display font-black text-xs uppercase tracking-tight mb-1">{f.title}</div>
-                          <p className="text-[11px] text-muted-foreground leading-tight">{f.desc}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* ───────────── HOSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
@@ -1146,13 +872,13 @@ const VacilateElMundial = () => {
               </div>
 
               <div className="text-center">
-                <a href="#media-kit">
+                <a href="mailto:elpatio@hacemosloquenosgusta.com">
                   <Button
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   >
-                    <FileText className="w-4 h-4 mr-2" />
-                    Quiero el Media Kit
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Hablemos de la próxima
                     <ArrowRight className="w-3.5 h-3.5 ml-2" />
                   </Button>
                 </a>
@@ -1199,50 +925,19 @@ const VacilateElMundial = () => {
                     Seguir en TikTok
                   </Button>
                 </a>
-                <Link to="/media-kit-vem">
+                <a href="#resultados">
                   <Button
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--background))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   >
-                    <Eye className="w-4 h-4 mr-2" />
-                    Ver Media Kit VEF
-                  </Button>
-                </Link>
-                <Link to="/media-kit">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-background text-foreground hover:bg-background/90 border-2 border-background rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  >
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    Ecosistema Vacílate Esto
+                    Ver resultados finales
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </section>
         </main>
-
-        {/* Floating Media Kit quick access */}
-        <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 items-end">
-          <Link
-            to="/media-kit-vem"
-            aria-label="Ver Media Kit online"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-4 py-2.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-          >
-            <Eye className="w-3.5 h-3.5" />
-            Media Kit
-          </Link>
-          <a
-            href={MEDIAKIT_URL}
-            download
-            aria-label="Descargar Media Kit PDF"
-            className="inline-flex items-center gap-2 bg-foreground text-background border-2 border-foreground rounded-full px-3 py-2 font-display font-black uppercase tracking-widest text-[10px] shadow-[3px_3px_0_hsl(var(--primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-          >
-            <Download className="w-3.5 h-3.5" />
-            PDF
-          </a>
-        </div>
 
         <Footer />
       </div>
