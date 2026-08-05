@@ -2,7 +2,7 @@ import { Eye, Heart, MessageCircle, Users, Gem, Gift, Radio, Clock } from "lucid
 
 // Datos manuales de TikTok Studio — cobertura Mundial / Vacílate El Fútbol
 // Fuente: TikTok Studio (capturas del 11–16 jun 2026, cuenta @vacilateesto)
-const LIVES = [
+export const TIKTOK_LIVES = [
   { title: "Arrancó la fiesta del fútbol", date: "11 jun, 12:16 p.m.", minutes: 31, views: 26800, donors: 13, diamonds: 34, followers: 541, comments: 1200, likes: 38100 },
   { title: "Previa Brasil vs Marruecos", date: "13 jun, 4:32 p.m.", minutes: 22, views: 7600, donors: 1, diamonds: 1, followers: 73, comments: 226, likes: 6400 },
   { title: "Termino Bra 1 Mar 1", date: "13 jun, 8:32 p.m.", minutes: 21, views: 3000, donors: 1, diamonds: 2, followers: 1, comments: 38, likes: 5500 },
@@ -15,7 +15,7 @@ const fmtNum = (n: number) =>
   n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : String(n);
 
 export const TikTokLivesSection = () => {
-  const totals = LIVES.reduce(
+  const totals = TIKTOK_LIVES.reduce(
     (a, l) => ({
       lives: a.lives + 1,
       minutes: a.minutes + l.minutes,
@@ -46,7 +46,7 @@ export const TikTokLivesSection = () => {
         <h2 className="text-xl font-black">Lives en TikTok · Cobertura Mundial</h2>
       </div>
       <p className="text-xs text-muted-foreground mb-4">
-        Acumulado de {LIVES.length} transmisiones LIVE desde @vacilateesto · Fuente: TikTok Studio
+        Acumulado de {TIKTOK_LIVES.length} transmisiones LIVE desde @vacilateesto · Fuente: TikTok Studio
       </p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -77,7 +77,7 @@ export const TikTokLivesSection = () => {
               </tr>
             </thead>
             <tbody>
-              {LIVES.map((l, i) => (
+              {TIKTOK_LIVES.map((l, i) => (
                 <tr key={i} className="border-t border-border">
                   <td className="px-4 py-3 font-bold">{l.title}</td>
                   <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{l.date}</td>
