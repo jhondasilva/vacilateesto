@@ -131,7 +131,7 @@ const CoberturaPrensa = () => {
     setErrors({});
     setSending(true);
     const d = parsed.data;
-    const { error } = await supabase.from("press_requests").insert({
+    const { error: dbError } = await supabase.from("press_requests").insert({
       full_name: d.full_name,
       outlet: d.outlet,
       email: d.email,
@@ -141,11 +141,31 @@ const CoberturaPrensa = () => {
       preferred_date: d.preferred_date || null,
       message: d.message,
     });
-    setSending(false);
-    if (error) {
+
+    if (dbError) {
+      setSending(false);
       toast.error("No pudimos enviar tu solicitud. Intenta de nuevo.");
       return;
     }
+
+    try {
+      await supabase.functions.invoke("send-press-request", {
+        body: {
+          full_name: d.full_name,
+          outlet: d.outlet,
+          email: d.email,
+          phone: d.phone || "",
+          request_type: d.request_type,
+          event: d.event || "",
+          preferred_date: d.preferred_date || "",
+          message: d.message,
+        },
+      });
+    } catch (err) {
+      console.error("Error sending press request email:", err);
+    }
+
+    setSending(false);
     setSent(true);
     toast.success("Solicitud enviada. Te respondemos en máximo 3 días hábiles.");
     setForm({ full_name: "", outlet: "", email: "", phone: "", request_type: "", event: "", preferred_date: "", message: "" });
