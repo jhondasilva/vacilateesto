@@ -50,7 +50,7 @@ const HERO_TICKER = [
   "★",
   "MX · USA · CAN",
   "✦",
-  "FEB — JUL 2026",
+  "ENE — AGO 2026",
   "★",
   "FUN EDUCAITMENT",
   "✦",
@@ -182,39 +182,40 @@ const countryLabel: Record<RouteStop["country"], string> = {
   VE: "Venezuela",
 };
 
-// Top 4 piezas por visualizaciones — fuente: dashboard Vacílate El Mundial (Metricool)
+// Top 4 piezas por visualizaciones con mención a Maggi, Buchanan's o Vatel
+// Fuente: dashboard Vacílate El Mundial (Metricool), ene — ago 2026
 const TOP_POSTS = [
   {
-    platform: "YouTube",
-    title: "El portero que jugó con el cuello roto",
-    views: "1.30M",
-    likes: "5.6K",
-    url: "https://www.youtube.com/watch?v=KeavhpiMCj8",
-    thumb: "https://i.ytimg.com/vi/KeavhpiMCj8/hqdefault.jpg",
+    platform: "Facebook",
+    title: "La deuda que le costó a Australia 32 años de sequía mundialista",
+    views: "160.5K",
+    likes: "143",
+    url: "https://www.facebook.com/reel/1326865336209256/",
+    thumb: "",
   },
   {
-    platform: "TikTok",
-    title: "Tito Rojas en Caracas: la historia que nadie contó",
-    views: "613K",
-    likes: "34.4K",
-    url: "https://www.tiktok.com/@vacilateesto/video/7603034324056739080",
-    thumb: "https://static.metricool.com/tkvideocovers/202602/1943481-7603034324056739080.jpeg",
+    platform: "Instagram",
+    title: "Grande Manu: llegar al Mundial y entrevistar a puros grandes",
+    views: "114.7K",
+    likes: "7.7K",
+    url: "https://www.instagram.com/reel/DaymtXrO_wh/",
+    thumb: "",
   },
   {
-    platform: "YouTube",
-    title: "El último país sin televisión",
-    views: "581K",
-    likes: "3.9K",
-    url: "https://www.youtube.com/watch?v=I4QLbK3K9Ts",
-    thumb: "https://i.ytimg.com/vi/I4QLbK3K9Ts/hqdefault.jpg",
+    platform: "Instagram",
+    title: "El sueño hecho realidad del #10 de Argentina",
+    views: "49.1K",
+    likes: "1.1K",
+    url: "https://www.instagram.com/reel/DZ5q2K3JZqv/",
+    thumb: "",
   },
   {
-    platform: "TikTok",
-    title: "La tonada: el vínculo sagrado del llanero con su tierra",
-    views: "422K",
-    likes: "38.4K",
-    url: "https://www.tiktok.com/@vacilateesto/video/7625301776450850068",
-    thumb: "https://static.metricool.com/tkvideocovers/202604/1943481-7625301776450850068.jpg",
+    platform: "Instagram",
+    title: "¡Historia pura! El físico y el rendimiento en el Mundial",
+    views: "31.7K",
+    likes: "1.1K",
+    url: "https://www.instagram.com/reel/DZ5wrvZJitZ/",
+    thumb: "",
   },
 ];
 
@@ -349,7 +350,7 @@ const VacilateElMundial = () => {
                     <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
                       <img src={logoVacilateElMundial} alt="Vacílate El Mundial 2026" className="w-full h-auto" />
                       <div className="mt-5 pt-5 border-t-2 border-dashed border-border flex items-center justify-between">
-                        <span className="font-display font-black text-xs uppercase tracking-wider">Feb — Jul</span>
+                        <span className="font-display font-black text-xs uppercase tracking-wider">Ene — Ago</span>
                         <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">MX · USA · CAN</span>
                       </div>
                     </div>
@@ -365,7 +366,7 @@ const VacilateElMundial = () => {
                 <div className="lg:col-span-7 order-1 lg:order-2 text-center lg:text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground text-background border-2 border-foreground mb-5">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span className="font-display font-black text-[10px] uppercase tracking-widest">Cobertura especial · Feb — Jul 2026</span>
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">Cobertura especial · Ene — Ago 2026</span>
                   </div>
 
                   <h1 className="font-display font-black text-foreground tracking-[-0.04em] leading-[0.88] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5rem] mb-5 sm:mb-6">
@@ -813,7 +814,7 @@ const VacilateElMundial = () => {
                 badgeIcon={Calendar}
                 title="seis meses"
                 highlight="de locura"
-                description="De febrero a julio: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del fútbol."
+                description="De enero a agosto: el ecosistema arranca en redes y va sumando capas hasta llegar a la locura total del fútbol."
               />
 
               {/* Ecosistema legend */}
