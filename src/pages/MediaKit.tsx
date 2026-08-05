@@ -237,6 +237,16 @@ const partnerBrands = [
     logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/empire.png",
     detail: "Presencia en rutas, metrajes y cobertura Vacílate El Fútbol.",
   },
+  {
+    name: "Vatel",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/vatel.webp",
+    detail: "Branded content, lives de TikTok y activaciones en calle.",
+  },
+  {
+    name: "Maggi",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/maggi.png",
+    detail: "Integraciones en podcast, recetas y lives de TikTok.",
+  },
 ];
 
 const ContactForm = () => {
