@@ -212,12 +212,31 @@ const sponsorshipPlans = [
 ];
 
 const topPosts = [
-  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "608.9K", interactions: "38.6K" },
-  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "383.0K", interactions: "37.5K" },
-  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "290.3K", interactions: "48.7K" },
-  { date: "19 Feb 2026", description: "TikTok · Don Nicanor, un personaje grabado en el ADN del país…", impressions: "259.0K", interactions: "21.4K" },
-  { date: "20 Feb 2026", description: "YouTube · El cine que conocías ya no existe — Ft. Jorge Roig", impressions: "149.5K", interactions: "94" },
-  { date: "04 Abr 2026", description: "Instagram · La tonada, el vínculo sagrado del llanero — Simón Díaz", impressions: "137.4K", interactions: "16.4K" },
+  { date: "09 May 2026", description: "YouTube · El portero que jugó con el cuello roto", impressions: "1.30M", interactions: "5.6K" },
+  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "613.3K", interactions: "34.8K" },
+  { date: "08 May 2026", description: "YouTube · El último país sin TV: vivir sin internet hasta 1999", impressions: "580.6K", interactions: "3.9K" },
+  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "421.7K", interactions: "39.1K" },
+  { date: "26 May 2026", description: "Instagram · La mega autopista con túneles que termina en la nada", impressions: "360.5K", interactions: "142" },
+  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "302.1K", interactions: "23.4K" },
+];
+
+// Marcas que trabajan con nosotros — activaciones 2026
+const partnerBrands = [
+  {
+    name: "Plumrose",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/plumrose.png",
+    detail: "Integraciones en podcast, shorts y activaciones gastronómicas.",
+  },
+  {
+    name: "Nestea",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/nestea.png",
+    detail: "Branded content en reels, stories y contenido de calle.",
+  },
+  {
+    name: "Empire Keeway",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/empire.png",
+    detail: "Presencia en rutas, metrajes y cobertura Vacílate El Fútbol.",
+  },
 ];
 
 const ContactForm = () => {
