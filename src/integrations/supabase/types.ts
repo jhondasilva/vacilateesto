@@ -71,6 +71,42 @@ export type Database = {
         }
         Relationships: []
       }
+      apify_metrics: {
+        Row: {
+          created_at: string | null
+          external_id: string | null
+          id: string
+          metric_type: string
+          platform: string
+          raw_data: Json | null
+          recorded_at: string | null
+          unit: string | null
+          value: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          external_id?: string | null
+          id?: string
+          metric_type: string
+          platform: string
+          raw_data?: Json | null
+          recorded_at?: string | null
+          unit?: string | null
+          value?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          external_id?: string | null
+          id?: string
+          metric_type?: string
+          platform?: string
+          raw_data?: Json | null
+          recorded_at?: string | null
+          unit?: string | null
+          value?: number | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           body_md: string
@@ -894,6 +930,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apify_metrics_by_month: {
+        Args: { p_handle: string; p_platform: string }
+        Returns: {
+          comments: number
+          key: string
+          label: string
+          last_sync: string
+          likes: number
+          shares: number
+          videos: number
+          views: number
+        }[]
+      }
       cleanup_duplicate_expense_reports: {
         Args: never
         Returns: {

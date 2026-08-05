@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Loader2, RefreshCw, FileText, Copy, Check } from "lucide-react";
+import { ArrowLeft, Loader2, RefreshCw, FileText, Copy, Check, Cloud, Database, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 
 type PlatformAgg = {
@@ -61,6 +61,9 @@ const AdminMediaKitVEM = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [loadingRows, setLoadingRows] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [apifyLoading, setApifyLoading] = useState(false);
+  const [apifySyncing, setApifySyncing] = useState(false);
+  const [apifyMonthly, setApifyMonthly] = useState<{ key: string; label: string; views: number; likes: number; comments: number; shares: number; videos: number; lastSync: string }[]>([]);
 
   const load = async () => {
     setLoadingRows(true);
@@ -75,8 +78,27 @@ const AdminMediaKitVEM = () => {
     setLoadingRows(false);
   };
 
+  const loadApify = async () => {
+    setApifyLoading(true);
+    try {
+      const { data, error } = await supabase.rpc("apify_metrics_by_month", {
+        p_platform: "tiktok",
+        p_handle: "vacilateesto",
+      });
+      if (error) throw error;
+      setApifyMonthly((data ?? []) as any[]);
+    } catch (e: any) {
+      toast.error(e?.message || "Error cargando Apify");
+    } finally {
+      setApifyLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (isAdmin) load();
+    if (isAdmin) {
+      load();
+      loadApify();
+    }
   }, [isAdmin]);
 
   const runRefresh = async () => {
@@ -90,6 +112,22 @@ const AdminMediaKitVEM = () => {
       toast.error(e?.message || "Error refrescando");
     } finally {
       setRefreshing(false);
+    }
+  };
+
+  const runApifySync = async (from: string, to: string, label: string) => {
+    setApifySyncing(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("apify-sync", {
+        body: { platform: "tiktok", handle: "vacilateesto", from, to },
+      });
+      if (error) throw error;
+      toast.success(`Apify · ${label}: ${data?.videos ?? 0} videos, ${fmt(data?.totals?.views ?? 0)} vistas`);
+      await loadApify();
+    } catch (e: any) {
+      toast.error(e?.message || "Error sincronizando Apify");
+    } finally {
+      setApifySyncing(false);
     }
   };
 
@@ -343,6 +381,160 @@ const AdminMediaKitVEM = () => {
                   })}
                 </tbody>
               </table>
+            </div>
+          )}
+        </section>
+
+        <section className="bg-card border border-border rounded-2xl p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Cloud className="w-5 h-5" /> Apify · TikTok (precisión)
+            </h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => runApifySync("2026-08-01", "2026-08-31", "Agosto")}
+                disabled={apifySyncing}
+              >
+                {apifySyncing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+                Agosto
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => runApifySync("2026-07-01", "2026-07-31", "Julio")}
+                disabled={apifySyncing}
+              >
+                Julio
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => runApifySync("2026-01-01", "2026-07-31", "Ene-Jul")}
+                disabled={apifySyncing}
+              >
+                Ene-Jul
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => runApifySync("2026-01-01", new Date().toISOString().split("T")[0], "Todo 2026")}
+                disabled={apifySyncing}
+              >
+                <Database className="w-4 h-4 mr-2" />
+                Sync actual
+              </Button>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground mb-4">
+            Datos de TikTok scrapeados directamente desde Apify. Úsalo para cruzar con Metricool y aumentar la precisión de vistas,
+            likes y shares por video.
+          </p>
+          {apifyLoading ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : apifyMonthly.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Aún no hay datos de Apify. Pulsa "Sync actual" para traer TikTok.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs uppercase text-muted-foreground border-b border-border">
+                    <th className="py-2 pr-4">Mes</th>
+                    <th className="py-2 pr-4">Videos</th>
+                    <th className="py-2 pr-4">Vistas</th>
+                    <th className="py-2 pr-4">Likes</th>
+                    <th className="py-2 pr-4">Comments</th>
+                    <th className="py-2 pr-4">Shares</th>
+                    <th className="py-2 pr-4">Último sync</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {apifyMonthly.map((m) => (
+                    <tr key={m.key} className="border-b border-border/50">
+                      <td className="py-2 pr-4 font-medium">{m.label}</td>
+                      <td className="py-2 pr-4">{m.videos}</td>
+                      <td className="py-2 pr-4">{fmt(Number(m.views))}</td>
+                      <td className="py-2 pr-4">{fmt(Number(m.likes))}</td>
+                      <td className="py-2 pr-4">{fmt(Number(m.comments))}</td>
+                      <td className="py-2 pr-4">{fmt(Number(m.shares))}</td>
+                      <td className="py-2 pr-4 text-xs text-muted-foreground">
+                        {m.lastSync ? new Date(m.lastSync).toLocaleString("es-VE") : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {cumulative && apifyMonthly.length > 0 && (
+            <div className="mt-6 bg-muted/40 border border-border rounded-xl p-4">
+              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" /> TikTok · Metricool vs Apify (Ene–Jul 2026)
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-xs uppercase text-muted-foreground border-b border-border">
+                      <th className="py-2 pr-4">Periodo</th>
+                      <th className="py-2 pr-4">Fuente</th>
+                      <th className="py-2 pr-4">Videos/Publicaciones</th>
+                      <th className="py-2 pr-4">Vistas</th>
+                      <th className="py-2 pr-4">Likes</th>
+                      <th className="py-2 pr-4">Interacciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(() => {
+                      const metricoolTt = cumulative.payload.byPlatform.tiktok;
+                      const apifyTotal = apifyMonthly.reduce(
+                        (acc, m) => ({
+                          videos: acc.videos + Number(m.videos),
+                          views: acc.views + Number(m.views),
+                          likes: acc.likes + Number(m.likes),
+                          comments: acc.comments + Number(m.comments),
+                          shares: acc.shares + Number(m.shares),
+                        }),
+                        { videos: 0, views: 0, likes: 0, comments: 0, shares: 0 },
+                      );
+                      const apifyInteractions = apifyTotal.likes + apifyTotal.comments + apifyTotal.shares;
+                      const metricoolInteractions = interactionsOf(metricoolTt);
+                      return (
+                        <>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2 pr-4 font-medium">Ene–Jul 2026</td>
+                            <td className="py-2 pr-4">Metricool</td>
+                            <td className="py-2 pr-4">{fmt(metricoolTt.posts)}</td>
+                            <td className="py-2 pr-4">{fmt(metricoolTt.views)}</td>
+                            <td className="py-2 pr-4">{fmt(metricoolTt.likes)}</td>
+                            <td className="py-2 pr-4">{fmt(metricoolInteractions)}</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2 pr-4 font-medium">Ene–Jul 2026</td>
+                            <td className="py-2 pr-4">Apify</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.videos)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.views)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.likes)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyInteractions)}</td>
+                          </tr>
+                          <tr className="bg-muted/60">
+                            <td className="py-2 pr-4 font-bold">Diferencia</td>
+                            <td className="py-2 pr-4">—</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.videos - metricoolTt.posts)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.views - metricoolTt.views)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyTotal.likes - metricoolTt.likes)}</td>
+                            <td className="py-2 pr-4">{fmt(apifyInteractions - metricoolInteractions)}</td>
+                          </tr>
+                        </>
+                      );
+                    })()}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-3">
+                Apify lee directamente los videos públicos de TikTok; Metricool puede incluir stories, duetos o clips que no aparecen
+                en el perfil. Usa la fuente que mejor represente tu campaña publicada.
+              </p>
             </div>
           )}
         </section>
