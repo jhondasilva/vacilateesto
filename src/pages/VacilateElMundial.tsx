@@ -688,7 +688,6 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
 
           {/* ───────────── HOSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
