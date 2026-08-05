@@ -678,6 +678,88 @@ const PodcastEnLaCumbre = () => {
           </article>
 
           {/* Aprendizajes / resultados de las dos primeras cumbres */}
+          {/* Frases de la cumbre — extraídas de las transcripciones */}
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="frases-heading">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="En sus palabras"
+                badgeIcon={Quote}
+                badgeVariant="dark"
+                title="Frases desde la"
+                highlight="cumbre"
+                description="Extractos textuales de las transcripciones de Naiguatá y Roraima."
+                align="center"
+              />
+              <div id="frases-heading" className="sr-only">Frases de Jhon y Juan en Naiguatá y Roraima</div>
+
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                {[
+                  {
+                    speaker: "JhonSnacks",
+                    ep: "Naiguatá · Ep. 1",
+                    text: "La perspectiva que yo tenía del Ávila, este viaje la transformó por completo.",
+                    tilt: "sticker-tilt-l-sm sticker-shadow-primary",
+                  },
+                  {
+                    speaker: "JuanSofa",
+                    ep: "Naiguatá · Ep. 1",
+                    text: "Esta mañana cuando hicimos cumbre me salieron dos lagrimitas. Por eso ya puedo decir: caraqueño soy.",
+                    tilt: "sticker-tilt-r-sm sticker-shadow-secondary",
+                  },
+                  {
+                    speaker: "JhonSnacks",
+                    ep: "Naiguatá · Ep. 1",
+                    text: "Me conmueve la cantidad de gente que dice: gracias por darnos esta ventana, yo ya no puedo subir, pero ahí estamos con ustedes.",
+                    tilt: "sticker-tilt-r-sm sticker-shadow-secondary",
+                  },
+                  {
+                    speaker: "JuanSofa",
+                    ep: "Naiguatá · Ep. 1",
+                    text: "Hay dos formas de verlo: lo que Caracas ve del Ávila y lo que el Ávila ve de Caracas.",
+                    tilt: "sticker-tilt-l-sm sticker-shadow-primary",
+                  },
+                  {
+                    speaker: "JhonSnacks",
+                    ep: "Roraima · Ep. 2",
+                    text: "Altura no es solo un destino. Es una manera de vivir.",
+                    tilt: "sticker-tilt-r-sm sticker-shadow-primary",
+                  },
+                  {
+                    speaker: "JuanSofa",
+                    ep: "Roraima · Ep. 2",
+                    text: "Es literalmente el mundo diciéndole a los seres humanos: ustedes son los que están de paso.",
+                    tilt: "sticker-tilt-l-sm sticker-shadow-secondary",
+                  },
+                  {
+                    speaker: "JhonSnacks",
+                    ep: "Roraima · Ep. 2",
+                    text: "Sentí el síndrome de Stendhal: la belleza te sobrecoge de una manera tan profunda que no entiendes lo que estás viendo.",
+                    tilt: "sticker-tilt-l-sm sticker-shadow-secondary",
+                  },
+                  {
+                    speaker: "JuanSofa",
+                    ep: "Roraima · Ep. 2",
+                    text: "Los Himalayas no existían cuando esta formación ya existía.",
+                    tilt: "sticker-tilt-r-sm sticker-shadow-primary",
+                  },
+                ].map((q) => (
+                  <figure
+                    key={`${q.speaker}-${q.text}`}
+                    className={`bg-card border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-card-rotate ${q.tilt}`}
+                  >
+                    <Quote className="w-6 h-6 text-foreground/40 mb-3" aria-hidden="true" />
+                    <blockquote className="font-display font-black text-lg sm:text-xl tracking-[-0.02em] leading-tight italic text-foreground">
+                      “{q.text}”
+                    </blockquote>
+                    <figcaption className="mt-4 font-body text-sm text-foreground/60">
+                      <span className="font-bold text-foreground">{q.speaker}</span> · {q.ep}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="aprendizajes-heading">
             <div className="container mx-auto px-4">
               <StickerHeader
