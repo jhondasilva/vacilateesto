@@ -589,17 +589,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre febrero y junio de 2026 generamos <strong>13.08M de views</strong> y <strong>760.8K interacciones</strong> con
-                  1,762 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre enero y julio de 2026 generamos <strong>16.66M de views</strong> y <strong>874.7K interacciones</strong> con
+                  2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "13.08M", label: "Views feb–jun 2026", icon: Eye },
-                    { value: "11.52M", label: "Impresiones (IG+FB)", icon: TrendingUp },
-                    { value: "760.8K", label: "Interacciones", icon: Heart },
-                    { value: "1,762", label: "Publicaciones", icon: FileText },
+                    { value: "16.66M", label: "Views ene–jul 2026", icon: Eye },
+                    { value: "12.64M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "874.7K", label: "Interacciones", icon: Heart },
+                    { value: "2,086", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -615,7 +615,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 13.08M VIEWS", "◆ 11.52M IMPRESIONES", "▲ 760.8K INTERACCIONES", "● 1,762 PUBLICACIONES", "★ FUENTE: METRICOOL · FEB–JUN 2026"]}
+              items={["★ 16.66M VIEWS", "◆ 12.64M IMPRESIONES", "▲ 874.7K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -626,7 +626,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 febrero – 30 junio 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 31 julio 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -638,7 +638,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
                     <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Views feb–jun</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views ene–jul</div>
                     <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
@@ -811,7 +811,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Top 6 publicaciones feb–jun 2026 · Fuente: Metricool"
+                description="Top 6 publicaciones ene–jul 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
