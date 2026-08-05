@@ -48,7 +48,7 @@ import StickerMarquee from "@/components/StickerMarquee";
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
   totalViews: "16.66M",
-  totalImpressions: "12.64M",
+  totalImpressions: "23.14M",
   totalInteractions: "874.7K",
   totalPublications: "2,086",
   platforms: [
