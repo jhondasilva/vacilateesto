@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
-import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles } from "lucide-react";
+import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles, Trophy, ArrowRight, CalendarDays, CheckCircle2, Handshake } from "lucide-react";
 import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
 
 // Custom TikTok icon
@@ -341,6 +341,24 @@ const PodcastEnLaCumbre = () => {
                 —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla{" "}
                 <span className="italic font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">aventura, humor y reflexión.</span>
               </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="#pico-bolivar"
+                  className="inline-flex items-center gap-2 px-6 py-4 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl font-display font-black text-sm uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_hsl(var(--foreground))] transition-all"
+                >
+                  <Trophy className="w-4 h-4" />
+                  Pico Bolívar · Récord Mundial · Nov 2026
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="#marcas-bolivar"
+                  className="inline-flex items-center gap-2 px-6 py-4 bg-background text-foreground border-2 border-foreground rounded-2xl font-display font-black text-sm uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--primary))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_hsl(var(--primary))] transition-all"
+                >
+                  <Handshake className="w-4 h-4" />
+                  Propuesta para marcas
+                </a>
+              </div>
             </div>
           </section>
 
@@ -658,6 +676,194 @@ const PodcastEnLaCumbre = () => {
               </div>
             </div>
           </article>
+
+          {/* Aprendizajes / resultados de las dos primeras cumbres */}
+          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="aprendizajes-heading">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="Lo que ya hicimos"
+                badgeIcon={TrendingUp}
+                badgeVariant="dark"
+                title="Dos cumbres, dos"
+                highlight="resultados"
+                description="Naiguatá y Roraima: la data que sostiene la apuesta por el Pico Bolívar."
+                align="center"
+              />
+              <div id="aprendizajes-heading" className="sr-only">Resultados de Naiguatá y Roraima</div>
+
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                {[
+                  {
+                    title: "Pico Naiguatá",
+                    meta: "2.765 m · Episodio 1",
+                    tilt: "sticker-tilt-l-sm sticker-shadow-primary",
+                    stats: [
+                      { k: "Expedición", v: "20 personas" },
+                      { k: "Formato", v: "Podcast completo en cima" },
+                      { k: "Lectura", v: "Prueba de concepto" },
+                    ],
+                    text: "El techo de Caracas validó el formato: se puede producir un podcast íntegro, con audio y cámara, por encima de las nubes.",
+                  },
+                  {
+                    title: "Monte Roraima",
+                    meta: "2.810 m · Episodio 2",
+                    tilt: "sticker-tilt-r-sm sticker-shadow-accent",
+                    stats: [
+                      { k: "Duración", v: "1h 01m en cima" },
+                      { k: "Formato", v: "Podcast + microdocumental" },
+                      { k: "Lectura", v: "Escala y narrativa" },
+                    ],
+                    text: "El tepuy elevó la producción: logística de varios días, cultura Pemón y una narrativa que trascendió el humor para tocar lo educativo.",
+                  },
+                ].map((c) => (
+                  <article key={c.title} className={`bg-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-card-rotate ${c.tilt}`}>
+                    <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] text-foreground">{c.title}</h3>
+                    <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mt-2 mb-5">{c.meta}</p>
+                    <div className="space-y-2 mb-5">
+                      {c.stats.map((s) => (
+                        <div key={s.k} className="flex items-center justify-between gap-3 p-3 bg-muted/40 border-2 border-foreground rounded-xl">
+                          <span className="font-display font-black text-[10px] uppercase tracking-widest text-foreground/70">{s.k}</span>
+                          <span className="font-body text-sm font-semibold text-foreground text-right">{s.v}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-foreground/70 font-body text-sm leading-relaxed">{c.text}</p>
+                  </article>
+                ))}
+              </div>
+
+              <div className="max-w-5xl mx-auto mt-10 bg-foreground text-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-primary">
+                <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-4">Consolidado del proyecto</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { v: "212", l: "Publicaciones" },
+                    { v: "2.6M", l: "Vistas" },
+                    { v: "137K", l: "Interacciones" },
+                    { v: "6.6%", l: "Engagement" },
+                  ].map((s) => (
+                    <div key={s.l} className="text-center">
+                      <div className="font-display font-black text-3xl md:text-4xl tracking-[-0.04em] text-primary leading-none mb-2">{s.v}</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Pico Bolívar — Récord Mundial */}
+          <section id="pico-bolivar" className="scroll-mt-24 py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="bolivar-heading">
+            <div className="container mx-auto px-4">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-background rounded-full mb-6 rotate-[-2deg]">
+                    <Trophy className="w-4 h-4" />
+                    <span className="font-display font-black text-xs uppercase tracking-widest">Noviembre 2026 · Gran Final</span>
+                  </div>
+                  <h2 id="bolivar-heading" className="font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-[-0.04em] leading-[0.9]">
+                    Pico <span className="italic text-primary">Bolívar</span>
+                  </h2>
+                  <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-4">
+                    4.978 m · La cumbre más alta de Venezuela
+                  </p>
+                  <p className="font-body text-background/80 max-w-3xl mx-auto mt-5 leading-relaxed">
+                    El cierre de la trilogía y el intento más ambicioso: grabar el{" "}
+                    <strong className="text-primary">podcast completo más alto del mundo</strong>, un episodio íntegro
+                    producido en la cima del Pico Bolívar, buscando el reconocimiento como récord mundial.
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                  {[
+                    { v: "4.978 m", l: "Altitud objetivo" },
+                    { v: "Nov 2026", l: "Fecha de expedición" },
+                    { v: "60 min+", l: "Podcast íntegro en cima" },
+                    { v: "Mérida", l: "Base de operaciones" },
+                  ].map((s) => (
+                    <div key={s.l} className="bg-background/5 border-2 border-background/30 rounded-2xl p-5 text-center">
+                      <div className="font-display font-black text-2xl md:text-3xl tracking-[-0.03em] text-primary leading-none mb-2">{s.v}</div>
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-background/70">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-background/5 border-2 border-background/30 rounded-2xl p-6 sm:p-8">
+                    <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] mb-4">El reto</h3>
+                    <ul className="space-y-3 text-background/85 font-body text-sm leading-relaxed">
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Aclimatación por etapas en la Sierra Nevada de Mérida.</li>
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Equipo de audio y cámara resistente a frío extremo y viento.</li>
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Energía autónoma para grabar más de 60 minutos continuos.</li>
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Registro certificable: testigos, GPS, timecode y material bruto.</li>
+                    </ul>
+                  </div>
+                  <div className="bg-primary text-primary-foreground border-2 border-background rounded-2xl p-6 sm:p-8 sticker-shadow-accent">
+                    <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] mb-4">La ruta de contenido</h3>
+                    <ul className="space-y-3 font-body text-sm leading-relaxed">
+                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 1 · Mérida: comida, historias y personajes de la ciudad.</li>
+                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 2 · Podcast en Mérida con invitados locales.</li>
+                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 3 · Ascenso: ruta, campamento y aclimatación en vivo.</li>
+                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 4 · Cumbre: podcast completo a 4.978 m y cierre.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Propuesta para marcas */}
+          <section id="marcas-bolivar" className="scroll-mt-24 py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="marcas-heading">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="Para marcas"
+                badgeIcon={Handshake}
+                badgeVariant="primary"
+                title="Sé parte de la"
+                highlight="cumbre"
+                description="Un mes completo de actividades alrededor de Podcast en la Cumbre · Pico Bolívar."
+                align="center"
+              />
+              <div id="marcas-heading" className="sr-only">Propuesta para marcas</div>
+
+              <div className="max-w-5xl mx-auto grid lg:grid-cols-[1.4fr_1fr] gap-6 sm:gap-8">
+                <div className="bg-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-primary">
+                  <h3 className="font-display font-black text-xl sm:text-2xl tracking-[-0.02em] text-foreground mb-6">Qué incluye</h3>
+                  <ul className="space-y-3">
+                    {[
+                      "2 podcasts con presencia de marca: uno grabado en Mérida y uno en la cima del Pico Bolívar.",
+                      "Posts en Instagram, Facebook y TikTok sobre la ruta, la comida y las historias de Mérida.",
+                      "Historias de Instagram dedicadas durante todo el mes de actividades.",
+                      "Posts dedicados a la marca dentro del contenido de los podcasts.",
+                      "2 reels dedicados exclusivamente a la marca.",
+                      "Mención de marca en todos los posts relacionados a Podcast en la Cumbre · Pico Bolívar.",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3 p-3 bg-muted/40 border-2 border-foreground rounded-xl">
+                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <span className="font-body text-sm text-foreground/85 leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <aside className="bg-foreground text-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-accent sticker-tilt-r-sm sticker-card-rotate h-fit">
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3">Inversión</p>
+                  <div className="font-display font-black text-5xl sm:text-6xl tracking-[-0.05em] leading-none mb-2">$3.500</div>
+                  <p className="font-display font-black text-xs uppercase tracking-widest text-background/70 mb-6">USD · 1 mes de actividades</p>
+                  <p className="font-body text-sm text-background/80 leading-relaxed mb-6">
+                    Incluye producción, cobertura editorial y distribución en todas nuestras plataformas
+                    durante el mes de la expedición al Pico Bolívar.
+                  </p>
+                  <a
+                    href="mailto:samira.rivas@hacemosloquenosgusta.com?subject=Propuesta%20de%20marca%20-%20Podcast%20en%20la%20Cumbre%20Pico%20Bol%C3%ADvar"
+                    className="inline-flex w-full items-center justify-center gap-2 px-5 py-4 bg-primary text-primary-foreground border-2 border-background rounded-xl font-display font-black text-xs uppercase tracking-widest hover:opacity-90 transition-opacity"
+                  >
+                    Quiero sumarme
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </aside>
+              </div>
+            </div>
+          </section>
 
           {/* About Section */}
           <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="about-heading">
