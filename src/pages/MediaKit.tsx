@@ -48,7 +48,7 @@ import StickerMarquee from "@/components/StickerMarquee";
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
   totalViews: "16.66M",
-  totalImpressions: "12.64M",
+  totalImpressions: "23.14M",
   totalInteractions: "874.7K",
   totalPublications: "2,086",
   platforms: [
@@ -599,15 +599,15 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre enero y julio de 2026 generamos <strong>16.66M de views</strong> y <strong>874.7K interacciones</strong> con
-                  2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre enero y julio de 2026 generamos <strong>23.14M de impresiones</strong>, <strong>16.66M de views</strong> y{" "}
+                  <strong>874.7K interacciones</strong> con 2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
                     { value: "16.66M", label: "Views ene–jul 2026", icon: Eye },
-                    { value: "12.64M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "23.14M", label: "Impresiones (4 redes)", icon: TrendingUp },
                     { value: "874.7K", label: "Interacciones", icon: Heart },
                     { value: "2,086", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
@@ -625,7 +625,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 16.66M VIEWS", "◆ 12.64M IMPRESIONES", "▲ 874.7K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
+              items={["★ 16.66M VIEWS", "◆ 23.14M IMPRESIONES", "▲ 874.7K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
