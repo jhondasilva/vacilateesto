@@ -766,12 +766,12 @@ const PodcastEnLaCumbre = () => {
               <StickerHeader
                 badge="Comentarios reales"
                 badgeIcon={Heart}
-                badgeVariant="light"
+                badgeVariant="outline"
                 title="Lo que dice la"
                 highlight="gente"
                 description="Comentarios publicados por la audiencia en YouTube en los episodios de Naiguatá y Roraima."
                 align="center"
-                inverted
+                onDark
               />
               <div id="comentarios-heading" className="sr-only">Comentarios de la audiencia en YouTube</div>
 
