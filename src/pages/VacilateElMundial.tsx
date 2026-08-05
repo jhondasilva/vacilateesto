@@ -373,12 +373,12 @@ const VacilateElMundial = () => {
                     <span className="block">
                       <span className="text-gradient italic">del fútbol</span>
                     </span>
-                    <span className="block">se vive en el feed.</span>
+                    <span className="block">se vivió en el feed.</span>
                   </h1>
 
                   <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
-                    Contenido multiplataforma en Instagram, YouTube y TikTok. Hablamos del fútbol pero desde ángulos
-                    inesperados, al más puro estilo Vacílate Esto. ✦
+                    Contamos el fútbol del Mundial 2026 en Instagram, YouTube, Facebook y TikTok desde ángulos
+                    inesperados, al más puro estilo Vacílate Esto. Cobertura cerrada en agosto 2026. ✦
                   </p>
 
                   <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
@@ -857,7 +857,7 @@ const VacilateElMundial = () => {
                       {isHighlight && (
                         <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-3 py-1 shadow-[3px_3px_0_hsl(var(--foreground))]">
                           <span className="font-display font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
-                            <Flame className="w-3 h-3" /> En vivo
+                            <Flame className="w-3 h-3" /> Cierre
                           </span>
                         </div>
                       )}
