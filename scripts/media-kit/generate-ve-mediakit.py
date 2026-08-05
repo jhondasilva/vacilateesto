@@ -477,21 +477,29 @@ def page_plan(c):
         end = wrap(c, desc, 82, y+8, W-72-70, font="Helvetica-Bold", fs=10, leading=13)
         y = end - 22
 
-    # Ejemplo real de mención de marca
-    ey = 170
-    sticker_card(c, 36, ey, W-72, 168, shadow=CYAN)
-    sticker_pill(c, 56, ey+168-30, 190, 20, "EJEMPLO · MENCIÓN DE MARCA", fill=INK, fg=white, fs=7)
-    c.setFillColor(MUT); c.setFont("Helvetica-Bold", 8)
-    c.drawString(56, ey+168-48, "TIKTOK · INSTAGRAM · FACEBOOK  ·  SHORT DE 45 SEG  ·  @vacilateesto")
-    c.setFillColor(SOFT)
-    c.roundRect(56, ey+52, W-72-40, 66, 8, fill=1, stroke=0)
-    wrap(c,
-         "\u201cLa historia del portero que jugó con el cuello roto. Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto\u201d",
-         66, ey+104, W-72-60, font="Helvetica-Oblique", fs=9.5, leading=13, color=INK)
-    c.setFillColor(MUT); c.setFont("Helvetica", 8.5)
-    c.drawString(56, ey+36, "Mención de marca en el body copy + branding visible en el estudio durante todo el short.")
-    c.setFillColor(PINK); c.setFont("Helvetica-Bold", 9)
-    c.drawString(56, ey+18, "Resultado: 1.30M impresiones · 5.6K interacciones")
+    # Ejemplos reales de mención de marca
+    ey, ECH = 132, 250
+    sticker_card(c, 36, ey, W-72, ECH, shadow=CYAN)
+    sticker_pill(c, 56, ey+ECH-30, 190, 20, "EJEMPLOS · MENCIÓN DE MARCA", fill=INK, fg=white, fs=7)
+
+    def example(top, meta, copy, result):
+        c.setFillColor(MUT); c.setFont("Helvetica-Bold", 8)
+        c.drawString(56, top, meta)
+        c.setFillColor(SOFT)
+        c.roundRect(56, top-52, W-72-40, 44, 8, fill=1, stroke=0)
+        wrap(c, copy, 66, top-24, W-72-60, font="Helvetica-Oblique", fs=9.5, leading=13, color=INK)
+        c.setFillColor(PINK); c.setFont("Helvetica-Bold", 8.5)
+        c.drawString(56, top-68, result)
+
+    example(ey+ECH-52,
+            "SHORT 45 SEG · TIKTOK · INSTAGRAM · FACEBOOK  ·  @vacilateesto",
+            "\u201cLa historia del portero que jugó con el cuello roto. Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto\u201d",
+            "Mención en body copy + branding en el estudio  ·  1.30M impresiones · 5.6K interacciones")
+
+    example(ey+ECH-152,
+            "LONG PODCAST · YOUTUBE  ·  MENCIÓN DEDICADA",
+            "\u201cEste episodio va con @bncbanco: hablamos de cómo se mueve la plata del venezolano — y sí, el patio está brandeado.\u201d",
+            "Segmento dedicado de 60–90 seg dentro del episodio  ·  branding visible en set")
 
     footer(c, 8)
 
