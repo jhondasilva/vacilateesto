@@ -3,6 +3,7 @@ import autoTable from "jspdf-autotable";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import { TIKTOK_LIVES } from "@/components/dashboard/TikTokLivesSection";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
@@ -29,6 +30,7 @@ type Args = {
   from: Date;
   to: Date;
   data: MentionsResponse;
+  includeTikTokLives?: boolean;
 };
 
 /* ───────── Identidad gráfica compartida con los Media Kits ───────── */
@@ -91,13 +93,14 @@ export const generateBrandReportPdf = async ({
   from,
   to,
   data,
+  includeTikTokLives = false,
 }: Args) => {
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 36;
   const ACCENT = hexToRgb(brandColor);
-  const PAGES = 4;
+  const PAGES = includeTikTokLives ? 5 : 4;
 
   let logo: string | null = null;
   try {
