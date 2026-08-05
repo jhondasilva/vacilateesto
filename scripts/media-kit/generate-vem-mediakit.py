@@ -551,6 +551,7 @@ def page_contact(c):
     cy = 110
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 120, 14, fill=1, stroke=1)
+    logo_badge(c, LOGO_VEF, W-36-130, cy+14, 110, 92, shadow=CYAN, pad=8)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 18)
     c.drawString(56, cy+88, "HABLEMOS")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 10)
