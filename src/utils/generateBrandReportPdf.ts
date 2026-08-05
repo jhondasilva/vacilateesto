@@ -52,6 +52,13 @@ const fmtNum = (n: number) =>
       ? `${(n / 1_000).toFixed(1)}K`
       : `${n}`;
 
+// jsPDF (Helvetica) sólo soporta latin-1: limpiamos emojis para evitar mojibake
+const clean = (t: string) =>
+  (t || "")
+    .replace(/[^\u0000-\u00FF]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const PLATFORM_LABEL: Record<MentionPost["platform"], string> = {
   instagram: "Instagram",
   tiktok: "TikTok",
@@ -188,7 +195,7 @@ export const generateBrandReportPdf = async ({
   const cx = 50;
   const cy = 150;
   const cw = W - 100;
-  const ch = 380;
+  const ch = 330;
   doc.setDrawColor(...INK);
   doc.setLineWidth(1.5);
   doc.setFillColor(...INK);
@@ -241,7 +248,7 @@ export const generateBrandReportPdf = async ({
   doc.setTextColor(...MUT);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  doc.text(`Filtros: ${scopeLabel}`, M, H - 76, { maxWidth: W - M * 2 });
+  doc.text(`Filtros: ${clean(scopeLabel)}`, M, H - 76, { maxWidth: W - M * 2 });
   doc.text(
     `Generado el ${format(new Date(), "d 'de' MMMM yyyy 'a las' HH:mm", { locale: es })}`,
     M,
@@ -382,7 +389,7 @@ export const generateBrandReportPdf = async ({
   autoTable(doc, {
     ...tableStyles,
     startY: 132,
-    head: [["#", "Red", "Fecha", "Views", "Likes", "Coment.", "Texto"]],
+    head: [["#", "Red", "Fecha", "Views", "Likes", "Com.", "Texto"]],
     body: topPosts.map((p, i) => [
       String(i + 1),
       PLATFORM_LABEL[p.platform],
@@ -390,7 +397,7 @@ export const generateBrandReportPdf = async ({
       fmtNum(p.metrics.views ?? 0),
       fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0),
       fmtNum(p.metrics.comments ?? 0),
-      (p.text || "").slice(0, 90).replace(/\s+/g, " "),
+      clean(p.text).slice(0, 95),
     ]),
     bodyStyles: { fontSize: 8, cellPadding: 5, valign: "top", textColor: INK },
     columnStyles: {
@@ -399,7 +406,7 @@ export const generateBrandReportPdf = async ({
       2: { cellWidth: 48 },
       3: { cellWidth: 42, halign: "right" },
       4: { cellWidth: 42, halign: "right" },
-      5: { cellWidth: 42, halign: "right" },
+      5: { cellWidth: 40, halign: "right" },
       6: { cellWidth: "auto" },
     },
   });
