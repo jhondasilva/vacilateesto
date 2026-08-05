@@ -6,6 +6,13 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import ImageReader
 from PIL import Image
 import os
+import json
+
+# Fuente única de métricas (compartida con la web: src/data/mediaKitMetrics.json)
+with open("src/data/mediaKitMetrics.json", encoding="utf-8") as _f:
+    M = json.load(_f)
+K = M["kpis"]
+FB = M["facebook"]
 
 OUT = "public/downloads/VacilateEsto-MediaKit-2026.pdf"
 W, H = letter
@@ -178,10 +185,10 @@ def page_audience(c):
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
-        ("16.66M", "VISTAS DE VIDEO",  PINK),
-        ("23.14M", "IMPRESIONES",      CYAN),
-        ("944.4K", "INTERACCIONES",    INK),
-        ("2,086",  "POSTS PUBLICADOS", PINK),
+        (K["totalViews"],        "VISTAS DE VIDEO",  PINK),
+        (K["totalImpressions"],  "IMPRESIONES",      CYAN),
+        (K["totalInteractions"], "INTERACCIONES",    INK),
+        (K["totalPublications"], "POSTS PUBLICADOS", PINK),
     ]
     cw = (W-72-30)/4; cy = H-230
     for i,(big,small,col) in enumerate(kpis):
@@ -220,7 +227,8 @@ def page_audience(c):
         ("INSTAGRAM", "4.23M",  "Reels + Stories + Feed",  "923 posts · 249K likes",  PINK),
         ("TIKTOK",    "5.44M",  "Vistas acumuladas",       "360 videos · 417K likes", INK),
         ("YOUTUBE",   "5.06M",  "Vistas shorts + videos",  "417 posts · 54K likes",   CYAN),
-        ("FACEBOOK",  "1.94M",  "Reach + vistas (reels)",  "386 posts · 69.7K reacc. · 681.8K impresiones", PINK),
+        ("FACEBOOK",  M["views"]["facebook"], "Reach + vistas (reels)",
+         f"{FB['posts']} posts · {FB['reactions']} reacc. · {FB['impressions']} impresiones", PINK),
     ]
     cw = (W-72-30)/4; cy = H-580
     for i,(name,big,what,foot,col) in enumerate(plats):
@@ -235,7 +243,7 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. En Facebook, la API reporta las interacciones de Reels como reacciones (postVideoReactions) y no devuelve comentarios, por lo que las 69.7K interacciones corresponden a reacciones verificadas. Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
+    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
          36, 150, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
