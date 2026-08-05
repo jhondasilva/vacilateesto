@@ -15,7 +15,7 @@ const fmtNum = (n: number) =>
   n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : String(n);
 
 export const TikTokLivesSection = () => {
-  const totals = LIVES.reduce(
+  const totals = TIKTOK_LIVES.reduce(
     (a, l) => ({
       lives: a.lives + 1,
       minutes: a.minutes + l.minutes,
@@ -46,7 +46,7 @@ export const TikTokLivesSection = () => {
         <h2 className="text-xl font-black">Lives en TikTok · Cobertura Mundial</h2>
       </div>
       <p className="text-xs text-muted-foreground mb-4">
-        Acumulado de {LIVES.length} transmisiones LIVE desde @vacilateesto · Fuente: TikTok Studio
+        Acumulado de {TIKTOK_LIVES.length} transmisiones LIVE desde @vacilateesto · Fuente: TikTok Studio
       </p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -77,7 +77,7 @@ export const TikTokLivesSection = () => {
               </tr>
             </thead>
             <tbody>
-              {LIVES.map((l, i) => (
+              {TIKTOK_LIVES.map((l, i) => (
                 <tr key={i} className="border-t border-border">
                   <td className="px-4 py-3 font-bold">{l.title}</td>
                   <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{l.date}</td>
