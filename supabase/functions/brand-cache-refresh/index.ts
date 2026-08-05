@@ -102,7 +102,10 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
     "@maggivenezuela", "#maggivenezuela", "#maggi",
     "@empirekeeway", "#empirekeeway", "empirekeeway", "#empire", "empire",
   ],
-  excludeKeywords: [],
+  excludeKeywords: [
+    "@plumrosevzla", "#plumrosevzla", "plumrosevzla", "#plumrose", "plumrose",
+    "@covencaucho", "#covencaucho", "covencaucho",
+  ],
 };
 
 const fmtIso = (d: Date) =>

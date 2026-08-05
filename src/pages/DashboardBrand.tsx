@@ -134,9 +134,12 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
     "@maggivenezuela", "#maggivenezuela", "#maggi",
     "@empirekeeway", "#empirekeeway", "empirekeeway", "#empire", "empire",
   ],
-  excludeKeywords: [],
+  excludeKeywords: [
+    "@plumrosevzla", "#plumrosevzla", "plumrosevzla", "#plumrose", "plumrose",
+    "@covencaucho", "#covencaucho", "covencaucho",
+  ],
   label:
-    "Campaña: #VacílateElMundial · #VacílateElFútbol · Hablemos de Fútbol · #Mundial2026 + menciones de BNC, Buchanans, KFC, Coca-Cola, Maggi y Empire Keeway",
+    "Campaña: #VacílateElMundial · #VacílateElFútbol · Hablemos de Fútbol · #Mundial2026 + menciones de BNC, Buchanans, KFC, Coca-Cola, Maggi y Empire Keeway (excluye Plumrose y Covencaucho)",
 };
 
 type Report = {
