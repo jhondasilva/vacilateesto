@@ -3,6 +3,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white, black
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.utils import ImageReader
+from PIL import Image
+import os
 
 OUT = "public/downloads/VacilateElFutbol-MediaKit-2026.pdf"
 W, H = letter  # 612 x 792
@@ -25,17 +28,55 @@ BG   = HexColor("#FAFAF9")
 PAGES = 9
 TITLE = "Vacílate El Mundial 2026 — Media Kit"
 
+# ───────── LOGOS (identidad gráfica) ─────────
+def _trim(src, dst):
+    """Recorta el PNG al bounding box de su contenido para alinearlo con precisión."""
+    if os.path.exists(dst):
+        return dst
+    im = Image.open(src).convert("RGBA")
+    bbox = im.split()[3].getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    im.save(dst)
+    return dst
+
+LOGO_VEF = _trim("src/assets/logo-vacilate-futbol.png", "/tmp/mk-logo-vef.png")
+LOGO_VE  = _trim("src/assets/logo-vacilate-esto.png",  "/tmp/mk-logo-ve.png")
+
+def draw_logo(c, path, x, y, max_w, max_h, align="left"):
+    """Dibuja el logo respetando su proporción dentro de la caja indicada."""
+    img = ImageReader(path)
+    iw, ih = img.getSize()
+    s = min(max_w/iw, max_h/ih)
+    w, h = iw*s, ih*s
+    if align == "right":
+        x = x - w
+    elif align == "center":
+        x = x - w/2
+    c.drawImage(img, x, y + (max_h-h)/2, width=w, height=h, mask="auto")
+    return w
+
+def logo_badge(c, path, x, y, w, h, shadow=CYAN, pad=8):
+    """Tarjeta sticker blanca con el logo dentro — legible sobre fondos oscuros."""
+    c.setFillColor(shadow); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(x+3, y-3, w, h, 10, fill=1, stroke=1)
+    c.setFillColor(white)
+    c.roundRect(x, y, w, h, 10, fill=1, stroke=1)
+    draw_logo(c, path, x+w/2, y+pad, w-2*pad, h-2*pad, align="center")
+
 def header(c, page):
+    draw_logo(c, LOGO_VEF, 36, H-34, 26, 22)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 7)
-    c.drawString(36, H-24,
-        "VACÍLATE EL MUNDIAL 2026  ·  MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  PRESENCIAL EN MÉXICO Y EE.UU.")
-    c.drawRightString(W-36, H-24, f"MEDIA KIT · {page} / {PAGES}")
+    c.drawString(68, H-26,
+        "VACÍLATE EL FÚTBOL · EL MUNDIAL 2026  ·  MX · USA · FRA · VEN  ·  JUN — JUL 2026")
+    c.drawRightString(W-36, H-26, f"MEDIA KIT · {page} / {PAGES}")
     c.setStrokeColor(INK); c.setLineWidth(0.6)
-    c.line(36, H-32, W-36, H-32)
+    c.line(36, H-40, W-36, H-40)
 
 def footer(c, page):
+    draw_logo(c, LOGO_VE, 36, 18, 20, 18)
     c.setFillColor(MUT); c.setFont("Helvetica", 7)
-    c.drawString(36, 24, "vacilateesto.com  ·  vacilateelmundial.com")
+    c.drawString(62, 24, "vacilateesto.com  ·  vacilateelmundial.com")
     c.drawRightString(W-36, 24, f"{page}/{PAGES}")
 
 def sticker_pill(c, x, y, w, h, text, fill=INK, fg=white, font="Helvetica-Bold", fs=8):
@@ -83,6 +124,8 @@ def page_cover(c):
     cx, cy, cw, ch = 50, H-560, W-100, 400
     c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.5)
     c.roundRect(cx, cy, cw, ch, 16, fill=1, stroke=1)
+    # logo oficial Vacílate El Fútbol sobre tarjeta blanca
+    logo_badge(c, LOGO_VEF, cx+cw-142, cy+ch-152, 120, 130, shadow=PINK, pad=10)
     # pill badge
     sticker_pill(c, cx+22, cy+ch-46, 130, 22, "FUN EDUCAITMENT", fill=CYAN, fg=INK)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
@@ -94,7 +137,7 @@ def page_cover(c):
     c.setFillColor(white); c.drawString(cx+22, cy+ch-202, "2026")
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
     c.drawString(cx+22, cy+ch-224,
-        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  15 PARADAS  ·  4 PAÍSES")
+        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  9 PARADAS  ·  4 PAÍSES")
     # subtitle
     wrap(c,
         "Cobertura no-oficial del Mundial FIFA 2026 con presencia presencial en México y Estados Unidos. Streaming en vivo en TikTok, Reels y Stories de Instagram, y Podcasts desde la cancha, los bares y la calle.",
@@ -126,7 +169,7 @@ def page_about(c):
         36, H-200, W-72, fs=10, leading=14, color=MUT)
 
     # KPI cards
-    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("15","PARADAS"),("4","PAÍSES")]
+    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("9","PARADAS"),("4","PAÍSES")]
     cw = (W-72-30)/4; cy = H-330
     for i,(big,small) in enumerate(kpis):
         cx = 36 + i*(cw+10)
@@ -338,10 +381,10 @@ def page_eco(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 22)
     c.drawString(36, H-400, "JUN → JUL 2026")
     months = [
-        ("JUN 9–28","Fase de grupos","México · NY · Austin · Houston · Miami · Caracas", PINK),
+        ("JUN 9–28","Fase de grupos","México · New York · Houston · Miami · Caracas", PINK),
         ("JUN 19–26","Cannes Lions","Cortesía Hôtel Martinez · paralelo a la ruta", CYAN),
-        ("JUL 2–16","Eliminatorias","Kansas City · Dallas · Boston · Atlanta · NY", PINK),
-        ("JUL 17–20","Final + cierre","New York · cierre triunfal en Caracas", INK),
+        ("JUL 14–15","Semifinales","Dallas (AT&T) · Atlanta (Mercedes-Benz)", PINK),
+        ("JUL 19","La Final","New York / New Jersey · MetLife Stadium", INK),
     ]
     cw = (W-72-30)/4; cy = H-510
     for i,(m,t,d,col) in enumerate(months):
@@ -360,51 +403,45 @@ def page_route(c):
     header(c, 7)
     sticker_pill(c, 36, H-66, 130, 20, "JUN — JUL 2026", fill=CYAN, fg=INK)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
-    c.drawString(36, H-110, "LA RUTA · ALTERNATIVA 1")
+    c.drawString(36, H-110, "LA RUTA · 9 PARADAS")
     c.setFillColor(MUT); c.setFont("Helvetica", 10)
-    c.drawString(36, H-128, "15 paradas · 4 países · base en Caracas · presencial en México y EE.UU.")
+    c.drawString(36, H-128, "9 paradas · 4 países · base en Caracas · presencial en México, EE.UU. y Francia")
 
     stops = [
-        (1,"MX","CIUDAD DE MÉXICO","9–12 jun"),
-        (2,"US","NEW YORK","12–14 jun"),
-        (3,"US","AUSTIN","14–16 jun"),
-        (4,"US","HOUSTON","16–20 jun"),
-        (5,"FR","CANNES","19–26 jun"),
-        (6,"US","MIAMI","26–28 jun"),
-        (7,"VE","CARACAS","28 jun – 1 jul"),
-        (8,"US","KANSAS CITY","2–5 jul"),
-        (9,"US","DALLAS","5–7 jul"),
-        (10,"US","BOSTON","7–10 jul"),
-        (11,"US","KANSAS CITY","10–13 jul"),
-        (12,"US","DALLAS","13–15 jul"),
-        (13,"US","ATLANTA","15–16 jul"),
-        (14,"US","NEW YORK","17–20 jul"),
-        (15,"VE","CARACAS","20 jul"),
+        (1,"MX","CIUDAD DE MÉXICO","9 jun"),
+        (2,"US","NEW YORK","12 jun"),
+        (3,"US","HOUSTON","14 jun"),
+        (4,"FR","CANNES","19 jun"),
+        (5,"US","MIAMI","26 jun"),
+        (6,"VE","CARACAS","28 jun"),
+        (7,"US","DALLAS","14 jul · Semifinal"),
+        (8,"US","ATLANTA","15 jul · Semifinal"),
+        (9,"US","NEW YORK","19 jul · Final"),
     ]
-    cols = 4; cw = (W-72-30)/cols; ch = 78
-    start_y = H-160
+    cols = 3; cw = (W-72-40)/cols; ch = 96
+    start_y = H-165
     for i,(n,co,city,date) in enumerate(stops):
         col_i = i%cols; row_i = i//cols
-        cx = 36 + col_i*(cw+10)
-        cy = start_y - (row_i+1)*ch - row_i*10
+        cx = 36 + col_i*(cw+20)
+        cy = start_y - (row_i+1)*ch - row_i*18
         shadow = PINK if i%2==0 else CYAN
         sticker_card(c, cx, cy, cw, ch, shadow=shadow)
-        numbered_dot(c, cx-2, cy+ch-2, 11, n, fill=shadow, fg=INK if shadow==CYAN else white)
+        numbered_dot(c, cx+2, cy+ch-2, 12, n, fill=shadow, fg=INK if shadow==CYAN else white)
         c.setFillColor(MUT); c.setFont("Helvetica-Bold", 7)
-        c.drawRightString(cx+cw-10, cy+ch-15, co)
-        c.setFillColor(INK); c.setFont("Helvetica-Bold", 11.5)
-        c.drawString(cx+12, cy+40, city)
+        c.drawRightString(cx+cw-12, cy+ch-16, co)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 13)
+        c.drawString(cx+14, cy+44, city)
         c.setFillColor(MUT); c.setFont("Helvetica", 8.5)
-        c.drawString(cx+12, cy+22, date)
+        c.drawString(cx+14, cy+26, date)
 
     # Bottom strip
     cy = 90
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 50, 10, fill=1, stroke=1)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 10)
-    c.drawString(50, cy+28, "JUN > A LAS SEDES   ·   JUL > LA LOCURA   ·   CIERRE EN CARACAS · 20 JUL")
+    c.drawString(50, cy+28, "JUN > FASE DE GRUPOS   ·   JUL > SEMIFINALES   ·   19 JUL > LA FINAL EN NEW YORK")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 8)
-    c.drawString(50, cy+12, "Presencia presencial: 13 paradas en MÉXICO + EE.UU.")
+    c.drawString(50, cy+12, "Presencia presencial: 7 paradas en MÉXICO + EE.UU. · base en Caracas · Cannes Lions en Francia")
     footer(c, 7)
 
 # ───────── PAGE 8: PLANES DE PARTICIPACIÓN ─────────
@@ -514,6 +551,7 @@ def page_contact(c):
     cy = 110
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 120, 14, fill=1, stroke=1)
+    logo_badge(c, LOGO_VEF, W-36-130, cy+14, 110, 92, shadow=CYAN, pad=8)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 18)
     c.drawString(56, cy+88, "HABLEMOS")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 10)

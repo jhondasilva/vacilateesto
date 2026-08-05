@@ -3,6 +3,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.utils import ImageReader
+from PIL import Image
+import os
 
 OUT = "public/downloads/VacilateEsto-MediaKit-2026.pdf"
 W, H = letter
@@ -21,17 +24,52 @@ MUT  = HexColor("#737373")
 PAGES = 7
 TITLE = "Vacílate Esto 2026 — Media Kit"
 
+# ───────── LOGOS (identidad gráfica) ─────────
+def _trim(src, dst):
+    if os.path.exists(dst):
+        return dst
+    im = Image.open(src).convert("RGBA")
+    bbox = im.split()[3].getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    im.save(dst)
+    return dst
+
+LOGO_VE  = _trim("src/assets/logo-vacilate-esto.png",  "/tmp/mk-logo-ve.png")
+LOGO_VEF = _trim("src/assets/logo-vacilate-futbol.png", "/tmp/mk-logo-vef.png")
+
+def draw_logo(c, path, x, y, max_w, max_h, align="left"):
+    img = ImageReader(path)
+    iw, ih = img.getSize()
+    s = min(max_w/iw, max_h/ih)
+    w, h = iw*s, ih*s
+    if align == "right":
+        x = x - w
+    elif align == "center":
+        x = x - w/2
+    c.drawImage(img, x, y + (max_h-h)/2, width=w, height=h, mask="auto")
+    return w
+
+def logo_badge(c, path, x, y, w, h, shadow=CYAN, pad=8):
+    c.setFillColor(shadow); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(x+3, y-3, w, h, 10, fill=1, stroke=1)
+    c.setFillColor(white)
+    c.roundRect(x, y, w, h, 10, fill=1, stroke=1)
+    draw_logo(c, path, x+w/2, y+pad, w-2*pad, h-2*pad, align="center")
+
 def header(c, page):
+    draw_logo(c, LOGO_VE, 36, H-34, 24, 22)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 7)
-    c.drawString(36, H-24,
+    c.drawString(66, H-26,
         "VACÍLATE ESTO  ·  FUN EDUCAITMENT  ·  CARACAS — MIAMI — MADRID  ·  PODCAST · STREAMING · REELS · LIVE")
-    c.drawRightString(W-36, H-24, f"MEDIA KIT 2026 · {page} / {PAGES}")
+    c.drawRightString(W-36, H-26, f"MEDIA KIT 2026 · {page} / {PAGES}")
     c.setStrokeColor(INK); c.setLineWidth(0.6)
-    c.line(36, H-32, W-36, H-32)
+    c.line(36, H-40, W-36, H-40)
 
 def footer(c, page):
+    draw_logo(c, LOGO_VE, 36, 18, 20, 18)
     c.setFillColor(MUT); c.setFont("Helvetica", 7)
-    c.drawString(36, 24, "vacilateesto.com  ·  elpatio@hacemosloquenosgusta.com")
+    c.drawString(62, 24, "vacilateesto.com  ·  elpatio@hacemosloquenosgusta.com")
     c.drawRightString(W-36, 24, f"{page}/{PAGES}")
 
 def sticker_pill(c, x, y, w, h, text, fill=INK, fg=white, font="Helvetica-Bold", fs=8):
@@ -65,6 +103,7 @@ def page_cover(c):
     cx, cy, cw, ch = 50, H-560, W-100, 400
     c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.5)
     c.roundRect(cx, cy, cw, ch, 16, fill=1, stroke=1)
+    logo_badge(c, LOGO_VE, cx+cw-142, cy+ch-152, 120, 130, shadow=CYAN, pad=10)
     sticker_pill(c, cx+22, cy+ch-46, 130, 22, "FUN EDUCAITMENT", fill=CYAN, fg=INK)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
     c.drawString(cx+22, cy+ch-72, "MEDIA KIT 2026  ·  ECOSISTEMA DE CONTENIDO")
@@ -366,6 +405,7 @@ def page_contact(c):
     cy = 110
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 120, 14, fill=1, stroke=1)
+    logo_badge(c, LOGO_VE, W-36-130, cy+14, 110, 92, shadow=PINK, pad=8)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 18)
     c.drawString(56, cy+88, "HABLEMOS")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 10)
