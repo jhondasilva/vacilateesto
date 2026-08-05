@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import PodcastEnLaCumbre from "./pages/PodcastEnLaCumbre";
 import PrensaPicoBolivar from "./pages/PrensaPicoBolivar";
+import PressKit from "./pages/PressKit";
 import PodcastEterno from "./pages/PodcastEterno";
 import VacilateElMundial from "./pages/VacilateElMundial";
 import MediaKit from "./pages/MediaKit";
@@ -70,6 +71,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
             <Route path="/prensa/pico-bolivar" element={<PrensaPicoBolivar />} />
+            <Route path="/press-kit" element={<PressKit />} />
+            <Route path="/prensa" element={<Navigate to="/press-kit" replace />} />
             <Route path="/podcast-eterno" element={<PodcastEterno />} />
             <Route path="/vacilate-el-futbol" element={<VacilateElMundial />} />
             <Route path="/vacilate-el-mundial" element={<Navigate to="/vacilate-el-futbol" replace />} />
