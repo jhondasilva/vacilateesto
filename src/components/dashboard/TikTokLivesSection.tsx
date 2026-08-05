@@ -98,4 +98,13 @@ export const TikTokLivesSection = () => {
   );
 };
 
-export const TIKTOK_LIVES_BRANDS = new Set(["vatel", "maggi", "bnc", "empire", "buchanans", "kfc"]);
+export const TIKTOK_LIVES_BRANDS = new Set([
+  "vatel",
+  "maggi",
+  "bnc",
+  "empire",
+  "buchanans",
+  "kfc",
+  "coca-cola",
+  "vacilate-el-mundial",
+]);
