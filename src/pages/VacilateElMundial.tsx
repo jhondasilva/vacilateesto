@@ -187,56 +187,7 @@ const REELS = [
 // ───────────────────────── Component ─────────────────────────
 
 const VacilateElMundial = () => {
-  const { toast } = useToast();
-  const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
-
-  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805c";
   const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
-
-  const handleSendByEmail = async () => {
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast({
-        title: "Email inválido",
-        description: "Introduce un email válido.",
-        variant: "destructive",
-      });
-      return;
-    }
-    try {
-      setSending(true);
-      const res = await fetch(MEDIAKIT_URL);
-      const blob = await res.blob();
-      const reader = new FileReader();
-      const pdfBase64: string = await new Promise((resolve, reject) => {
-        reader.onload = () => {
-          const result = reader.result as string;
-          resolve(result.split(",")[1]);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-      const { error } = await supabase.functions.invoke("send-mediakit-email", {
-        body: { email, pdfBase64, kit: "mundial" },
-      });
-      if (error) throw error;
-      toast({ title: "¡Enviado!", description: `Media Kit enviado a ${email}` });
-      setEmail("");
-    } catch (err) {
-      console.error(err);
-      toast({
-        title: "Error al enviar",
-        description: "Inténtalo de nuevo en unos segundos.",
-        variant: "destructive",
-      });
-    } finally {
-      setSending(false);
-    }
-  };
-
-  const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(
-    `Vacílate El Mundial 2026 — Media Kit\n${PAGE_URL}\nPDF: https://www.vacilateesto.com${MEDIAKIT_URL}`
-  )}`;
 
   return (
     <>
