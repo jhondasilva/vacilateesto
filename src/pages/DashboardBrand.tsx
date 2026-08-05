@@ -789,8 +789,11 @@ const MetricoolDashboard = ({
         <div className="flex items-center gap-2">
           {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
           {lastRefreshed && (
-            <span className="hidden sm:inline text-[10px] text-muted-foreground font-mono">
-              Actualizado {format(lastRefreshed, "d MMM HH:mm", { locale: es })}
+            <span
+              className="text-[10px] text-muted-foreground font-mono"
+              title={lastRefreshed.toISOString()}
+            >
+              Actualizado {format(lastRefreshed, "d MMM yyyy · HH:mm:ss", { locale: es })}
             </span>
           )}
           <Button
