@@ -42,32 +42,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 feb – 30 jun 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene – 31 jul 2026)
 // Métricas calculadas desde el edge function metricool-brand-mentions sobre
 // las publicaciones reales del período. No incluye seguidores ni crecimiento
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalViews: "13.08M",
-  totalImpressions: "11.52M",
-  totalInteractions: "760.8K",
-  totalPublications: "1,762",
+  totalViews: "16.66M",
+  totalImpressions: "12.64M",
+  totalInteractions: "874.7K",
+  totalPublications: "2,086",
   platforms: [
-    { name: "TikTok", views: "4.54M", publications: "297", icon: Play },
-    { name: "YouTube", views: "3.47M", publications: "346", icon: Youtube },
-    { name: "Instagram", views: "3.34M", publications: "798", icon: Instagram },
-    { name: "Facebook", views: "1.72M", publications: "321", icon: Facebook },
+    { name: "TikTok", views: "5.44M", publications: "360", icon: Play },
+    { name: "YouTube", views: "5.06M", publications: "417", icon: Youtube },
+    { name: "Instagram", views: "4.23M", publications: "923", icon: Instagram },
+    { name: "Facebook", views: "1.94M", publications: "386", icon: Facebook },
   ],
   views: {
-    tiktok: "4.54M",
-    instagram: "3.34M",
-    facebook: "1.72M",
-    youtube: "3.47M",
+    tiktok: "5.44M",
+    instagram: "4.23M",
+    facebook: "1.94M",
+    youtube: "5.06M",
   },
   interactions: {
-    tiktok: "381.0K",
-    instagram: "278.6K",
-    facebook: "60.4K",
-    youtube: "40.8K",
+    tiktok: "466.3K",
+    instagram: "353.7K",
+    facebook: "n/d",
+    youtube: "54.7K",
   },
   demographics: {
     countries: [
@@ -212,12 +212,31 @@ const sponsorshipPlans = [
 ];
 
 const topPosts = [
-  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "608.9K", interactions: "38.6K" },
-  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "383.0K", interactions: "37.5K" },
-  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "290.3K", interactions: "48.7K" },
-  { date: "19 Feb 2026", description: "TikTok · Don Nicanor, un personaje grabado en el ADN del país…", impressions: "259.0K", interactions: "21.4K" },
-  { date: "20 Feb 2026", description: "YouTube · El cine que conocías ya no existe — Ft. Jorge Roig", impressions: "149.5K", interactions: "94" },
-  { date: "04 Abr 2026", description: "Instagram · La tonada, el vínculo sagrado del llanero — Simón Díaz", impressions: "137.4K", interactions: "16.4K" },
+  { date: "09 May 2026", description: "YouTube · El portero que jugó con el cuello roto", impressions: "1.30M", interactions: "5.6K" },
+  { date: "04 Feb 2026", description: "TikTok · Tito Rojas vivió en Caracas a principios de los 80…", impressions: "613.3K", interactions: "34.8K" },
+  { date: "08 May 2026", description: "YouTube · El último país sin TV: vivir sin internet hasta 1999", impressions: "580.6K", interactions: "3.9K" },
+  { date: "05 Abr 2026", description: "TikTok · La tonada, el vínculo sagrado entre el llanero y su tierra…", impressions: "421.7K", interactions: "39.1K" },
+  { date: "26 May 2026", description: "Instagram · La mega autopista con túneles que termina en la nada", impressions: "360.5K", interactions: "142" },
+  { date: "18 Mar 2026", description: "Instagram · Maracay no solo nos dio a Canserbero y a Miguel Cabrera…", impressions: "302.1K", interactions: "23.4K" },
+];
+
+// Marcas que trabajan con nosotros — activaciones 2026
+const partnerBrands = [
+  {
+    name: "Plumrose",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/plumrose.png",
+    detail: "Integraciones en podcast, shorts y activaciones gastronómicas.",
+  },
+  {
+    name: "Nestea",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/nestea.png",
+    detail: "Branded content en reels, stories y contenido de calle.",
+  },
+  {
+    name: "Empire Keeway",
+    logo: "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/empire.png",
+    detail: "Presencia en rutas, metrajes y cobertura Vacílate El Fútbol.",
+  },
 ];
 
 const ContactForm = () => {
@@ -358,7 +377,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260517");
+      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805");
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -405,7 +424,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260517"
+            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805"
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
@@ -570,17 +589,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre febrero y junio de 2026 generamos <strong>13.08M de views</strong> y <strong>760.8K interacciones</strong> con
-                  1,762 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre enero y julio de 2026 generamos <strong>16.66M de views</strong> y <strong>874.7K interacciones</strong> con
+                  2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "13.08M", label: "Views feb–jun 2026", icon: Eye },
-                    { value: "11.52M", label: "Impresiones (IG+FB)", icon: TrendingUp },
-                    { value: "760.8K", label: "Interacciones", icon: Heart },
-                    { value: "1,762", label: "Publicaciones", icon: FileText },
+                    { value: "16.66M", label: "Views ene–jul 2026", icon: Eye },
+                    { value: "12.64M", label: "Impresiones (IG+FB)", icon: TrendingUp },
+                    { value: "874.7K", label: "Interacciones", icon: Heart },
+                    { value: "2,086", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -596,7 +615,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 13.08M VIEWS", "◆ 11.52M IMPRESIONES", "▲ 760.8K INTERACCIONES", "● 1,762 PUBLICACIONES", "★ FUENTE: METRICOOL · FEB–JUN 2026"]}
+              items={["★ 16.66M VIEWS", "◆ 12.64M IMPRESIONES", "▲ 874.7K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -607,7 +626,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 febrero – 30 junio 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 31 julio 2026 · Fuente: Metricool"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -619,7 +638,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
                     <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Views feb–jun</div>
+                    <div className="text-xs text-muted-foreground mb-1">Views ene–jul</div>
                     <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
@@ -792,7 +811,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Top 6 publicaciones feb–jun 2026 · Fuente: Metricool"
+                description="Top 6 publicaciones ene–jul 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
@@ -816,6 +835,40 @@ const MediaKit = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </section>
+
+          {/* Partner Brands Section */}
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="Marcas aliadas"
+                badgeIcon={Star}
+                badgeVariant="accent"
+                title="Marcas que"
+                highlight="trabajan con nosotros"
+                description="Activaciones vigentes 2026 con marcas líderes en Venezuela."
+              />
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 sticker-grid-safe max-w-5xl mx-auto">
+                {partnerBrands.map((brand, index) => (
+                  <div
+                    key={brand.name}
+                    className={`bg-card rounded-3xl p-6 border-2 border-foreground sticker-card-rotate ${index % 2 === 0 ? "sticker-shadow-primary sticker-tilt-l-sm" : "sticker-shadow-accent sticker-tilt-r-sm"} sticker-no-hover-mobile hover:-translate-y-1 transition-transform text-center`}
+                  >
+                    <div className="h-24 flex items-center justify-center mb-4 bg-white rounded-2xl border-2 border-foreground p-3">
+                      <img
+                        src={brand.logo}
+                        alt={`Logo de ${brand.name}`}
+                        loading="lazy"
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                    <h3 className="font-display text-xl font-black text-foreground tracking-tight">{brand.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-2">{brand.detail}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>

@@ -200,7 +200,7 @@ const VacilateElMundial = () => {
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
 
-  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517";
+  const MEDIAKIT_URL = "/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805";
   const PAGE_URL = "https://www.vacilateesto.com/vacilate-el-futbol";
 
   const handleSendByEmail = async () => {
@@ -264,7 +264,7 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 6 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517" />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) es la plataforma de cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Incluye podcasts, shorts, lives, brand placement y cobertura en vivo desde 6 ciudades. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Media Kit descargable: /downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
@@ -324,7 +324,7 @@ const VacilateElMundial = () => {
             "name": "Media Kit Vacílate El Mundial 2026",
             "description": "Media Kit oficial con formatos, métricas y oportunidades de patrocinio para Vacílate El Mundial 2026.",
             "encodingFormat": "application/pdf",
-            "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260517",
+            "url": "https://www.vacilateesto.com/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805",
             "inLanguage": "es-VE",
             "publisher": { "@type": "Organization", "name": "Vacílate Esto" }
           })}
