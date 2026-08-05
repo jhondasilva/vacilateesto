@@ -42,34 +42,29 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Button } from "@/components/ui/button";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
+import mediaKitMetrics from "@/data/mediaKitMetrics.json";
+
+// Cache-buster sincronizado con el PDF (lo actualiza scripts/media-kit/sync.mjs)
+const PDF_VERSION = mediaKitMetrics.version;
+const PDF_URL = `/downloads/VacilateEsto-MediaKit-2026.pdf?v=${PDF_VERSION}`;
 
 // Datos de audiencia - Fuente: Metricool (01 ene – 31 jul 2026)
 // Métricas calculadas desde el edge function metricool-brand-mentions sobre
 // las publicaciones reales del período. No incluye seguidores ni crecimiento
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalViews: "16.66M",
-  totalImpressions: "23.14M",
-  totalInteractions: "944.4K",
-  totalPublications: "2,086",
+  totalViews: mediaKitMetrics.kpis.totalViews,
+  totalImpressions: mediaKitMetrics.kpis.totalImpressions,
+  totalInteractions: mediaKitMetrics.kpis.totalInteractions,
+  totalPublications: mediaKitMetrics.kpis.totalPublications,
   platforms: [
-    { name: "TikTok", views: "5.44M", publications: "360", icon: Play },
-    { name: "YouTube", views: "5.06M", publications: "417", icon: Youtube },
-    { name: "Instagram", views: "4.23M", publications: "923", icon: Instagram },
-    { name: "Facebook", views: "1.94M", publications: "386", icon: Facebook },
+    { name: "TikTok", views: mediaKitMetrics.views.tiktok, publications: mediaKitMetrics.publications.tiktok, icon: Play },
+    { name: "YouTube", views: mediaKitMetrics.views.youtube, publications: mediaKitMetrics.publications.youtube, icon: Youtube },
+    { name: "Instagram", views: mediaKitMetrics.views.instagram, publications: mediaKitMetrics.publications.instagram, icon: Instagram },
+    { name: "Facebook", views: mediaKitMetrics.views.facebook, publications: mediaKitMetrics.publications.facebook, icon: Facebook },
   ],
-  views: {
-    tiktok: "5.44M",
-    instagram: "4.23M",
-    facebook: "1.94M",
-    youtube: "5.06M",
-  },
-  interactions: {
-    tiktok: "466.3K",
-    instagram: "353.7K",
-    facebook: "69.7K",
-    youtube: "54.7K",
-  },
+  views: mediaKitMetrics.views,
+  interactions: mediaKitMetrics.interactions,
   demographics: {
     countries: [
       { name: "Venezuela", percentage: "47.80%" },
@@ -388,7 +383,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805f");
+      const res = await fetch(PDF_URL);
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -435,7 +430,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805f"
+            href={PDF_URL}
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
