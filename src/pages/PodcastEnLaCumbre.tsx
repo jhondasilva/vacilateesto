@@ -760,6 +760,51 @@ const PodcastEnLaCumbre = () => {
             </div>
           </section>
 
+          {/* Comentarios reales de YouTube */}
+          <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="comentarios-heading">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="Comentarios reales"
+                badgeIcon={Heart}
+                badgeVariant="outline"
+                title="Lo que dice la"
+                highlight="gente"
+                description="Comentarios publicados por la audiencia en YouTube en los episodios de Naiguatá y Roraima."
+                align="center"
+                onDark
+              />
+              <div id="comentarios-heading" className="sr-only">Comentarios de la audiencia en YouTube</div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-6xl mx-auto">
+                {[
+                  { author: "@RaimerLuisQ", ep: "Naiguatá", text: "Gracias por regalarnos cultura, historia, tecnología, por no dejar que se pierda la identidad del venezolano. Estoy lejos de mi país y reconecto cada vez que los veo." },
+                  { author: "@danieljosegonzaleztineo2924", ep: "Naiguatá", text: "Mis amigos de montaña, qué orgulloso de ustedes. Qué bonita labor, me alegra siempre verlos subiendo la montaña." },
+                  { author: "@caromartinezleon", ep: "Naiguatá", text: "¡Bellísimo! Me gustó mucho el episodio. Qué esfuerzo y calidad de todo ese equipo." },
+                  { author: "@LeonardoJCaballeroG", ep: "Naiguatá", text: "Qué genial episodio, lo disfruté mucho 🎉❤" },
+                  { author: "@jesusbenitez5262", ep: "Roraima", text: "Wow, qué increíble. Definitivamente están a otro nivel. Me imagino que esto es un récord, nadie ha hecho un podcast en ese lugar tan maravilloso 🎉" },
+                  { author: "@magdalenapinto5125", ep: "Roraima", text: "Gracias por su valentía y su arduo trabajo... han hecho historia. Una manera de decirle al mundo que estamos en alto." },
+                  { author: "@navarromendiri", ep: "Roraima", text: "Tuve la oportunidad de ascender el Roraima tres veces. La belleza y la inmensidad es abrumadora. Fueron unas aventuras alucinantes." },
+                  { author: "@MariaGonzalez-xf1hl", ep: "Roraima", text: "Increíble muchachos, gracias por tremendo lugar y programa 🤗👍🙌" },
+                  { author: "@MayExplora", ep: "Naiguatá", text: "Solo quien ha estado ahí sabe lo que estoy sintiendo en este momento, y lo que deseo volver. Quien no lo haya hecho debe vivir la experiencia." },
+                ].map((c) => (
+                  <figure
+                    key={c.author + c.text.slice(0, 12)}
+                    className="bg-background text-foreground border-2 border-background rounded-2xl p-5 sm:p-6"
+                  >
+                    <blockquote className="font-body text-sm sm:text-base leading-relaxed text-foreground/85">
+                      “{c.text}”
+                    </blockquote>
+                    <figcaption className="mt-4 font-body text-xs sm:text-sm text-foreground/60 flex items-center gap-2">
+                      <Youtube className="w-4 h-4" aria-hidden="true" />
+                      <span className="font-bold text-foreground">{c.author}</span>
+                      <span>· {c.ep}</span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="aprendizajes-heading">
             <div className="container mx-auto px-4">
               <StickerHeader
