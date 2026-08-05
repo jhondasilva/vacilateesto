@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
-import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles, Trophy, ArrowRight, CalendarDays, CheckCircle2, Handshake } from "lucide-react";
+import { Mountain, Users, MapPin, Newspaper, TrendingUp, Eye, Heart, Instagram, Youtube, Facebook, Quote, Sparkles, Trophy, ArrowRight, CalendarDays, CheckCircle2, Handshake, Download } from "lucide-react";
 import logoCumbre from "@/assets/logo-podcast-cumbre.avif";
 
 // Custom TikTok icon
@@ -357,6 +357,25 @@ const PodcastEnLaCumbre = () => {
                 >
                   <Handshake className="w-4 h-4" />
                   Propuesta para marcas
+                </a>
+              </div>
+
+              <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href="/press/Nota_de_Prensa_Pico_Bolivar_2026.pdf"
+                  download
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-foreground text-background border-2 border-foreground rounded-full font-display font-black text-xs uppercase tracking-widest shadow-[4px_4px_0_hsl(var(--accent))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_hsl(var(--accent))] transition-all"
+                >
+                  <Newspaper className="w-4 h-4" />
+                  Nota de prensa Pico Bolívar (PDF)
+                </a>
+                <a
+                  href="/downloads/PodcastEnLaCumbre-PicoBolivar-MediaKit-2026.pdf"
+                  download
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-accent text-accent-foreground border-2 border-foreground rounded-full font-display font-black text-xs uppercase tracking-widest shadow-[4px_4px_0_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_hsl(var(--foreground))] transition-all"
+                >
+                  <Download className="w-4 h-4" />
+                  Media Kit Pico Bolívar (PDF)
                 </a>
               </div>
             </div>
