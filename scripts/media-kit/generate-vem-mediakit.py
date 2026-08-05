@@ -381,10 +381,10 @@ def page_eco(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 22)
     c.drawString(36, H-400, "JUN → JUL 2026")
     months = [
-        ("JUN 9–28","Fase de grupos","México · NY · Austin · Houston · Miami · Caracas", PINK),
+        ("JUN 9–28","Fase de grupos","México · New York · Houston · Miami · Caracas", PINK),
         ("JUN 19–26","Cannes Lions","Cortesía Hôtel Martinez · paralelo a la ruta", CYAN),
-        ("JUL 2–16","Eliminatorias","Kansas City · Dallas · Boston · Atlanta · NY", PINK),
-        ("JUL 17–20","Final + cierre","New York · cierre triunfal en Caracas", INK),
+        ("JUL 14–15","Semifinales","Dallas (AT&T) · Atlanta (Mercedes-Benz)", PINK),
+        ("JUL 19","La Final","New York / New Jersey · MetLife Stadium", INK),
     ]
     cw = (W-72-30)/4; cy = H-510
     for i,(m,t,d,col) in enumerate(months):
@@ -403,51 +403,45 @@ def page_route(c):
     header(c, 7)
     sticker_pill(c, 36, H-66, 130, 20, "JUN — JUL 2026", fill=CYAN, fg=INK)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
-    c.drawString(36, H-110, "LA RUTA · ALTERNATIVA 1")
+    c.drawString(36, H-110, "LA RUTA · 9 PARADAS")
     c.setFillColor(MUT); c.setFont("Helvetica", 10)
-    c.drawString(36, H-128, "15 paradas · 4 países · base en Caracas · presencial en México y EE.UU.")
+    c.drawString(36, H-128, "9 paradas · 4 países · base en Caracas · presencial en México, EE.UU. y Francia")
 
     stops = [
-        (1,"MX","CIUDAD DE MÉXICO","9–12 jun"),
-        (2,"US","NEW YORK","12–14 jun"),
-        (3,"US","AUSTIN","14–16 jun"),
-        (4,"US","HOUSTON","16–20 jun"),
-        (5,"FR","CANNES","19–26 jun"),
-        (6,"US","MIAMI","26–28 jun"),
-        (7,"VE","CARACAS","28 jun – 1 jul"),
-        (8,"US","KANSAS CITY","2–5 jul"),
-        (9,"US","DALLAS","5–7 jul"),
-        (10,"US","BOSTON","7–10 jul"),
-        (11,"US","KANSAS CITY","10–13 jul"),
-        (12,"US","DALLAS","13–15 jul"),
-        (13,"US","ATLANTA","15–16 jul"),
-        (14,"US","NEW YORK","17–20 jul"),
-        (15,"VE","CARACAS","20 jul"),
+        (1,"MX","CIUDAD DE MÉXICO","9 jun"),
+        (2,"US","NEW YORK","12 jun"),
+        (3,"US","HOUSTON","14 jun"),
+        (4,"FR","CANNES","19 jun"),
+        (5,"US","MIAMI","26 jun"),
+        (6,"VE","CARACAS","28 jun"),
+        (7,"US","DALLAS","14 jul · Semifinal"),
+        (8,"US","ATLANTA","15 jul · Semifinal"),
+        (9,"US","NEW YORK","19 jul · Final"),
     ]
-    cols = 4; cw = (W-72-30)/cols; ch = 78
-    start_y = H-160
+    cols = 3; cw = (W-72-40)/cols; ch = 96
+    start_y = H-165
     for i,(n,co,city,date) in enumerate(stops):
         col_i = i%cols; row_i = i//cols
-        cx = 36 + col_i*(cw+10)
-        cy = start_y - (row_i+1)*ch - row_i*10
+        cx = 36 + col_i*(cw+20)
+        cy = start_y - (row_i+1)*ch - row_i*18
         shadow = PINK if i%2==0 else CYAN
         sticker_card(c, cx, cy, cw, ch, shadow=shadow)
-        numbered_dot(c, cx-2, cy+ch-2, 11, n, fill=shadow, fg=INK if shadow==CYAN else white)
+        numbered_dot(c, cx+2, cy+ch-2, 12, n, fill=shadow, fg=INK if shadow==CYAN else white)
         c.setFillColor(MUT); c.setFont("Helvetica-Bold", 7)
-        c.drawRightString(cx+cw-10, cy+ch-15, co)
-        c.setFillColor(INK); c.setFont("Helvetica-Bold", 11.5)
-        c.drawString(cx+12, cy+40, city)
+        c.drawRightString(cx+cw-12, cy+ch-16, co)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 13)
+        c.drawString(cx+14, cy+44, city)
         c.setFillColor(MUT); c.setFont("Helvetica", 8.5)
-        c.drawString(cx+12, cy+22, date)
+        c.drawString(cx+14, cy+26, date)
 
     # Bottom strip
     cy = 90
     c.setFillColor(INK)
     c.roundRect(36, cy, W-72, 50, 10, fill=1, stroke=1)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 10)
-    c.drawString(50, cy+28, "JUN > A LAS SEDES   ·   JUL > LA LOCURA   ·   CIERRE EN CARACAS · 20 JUL")
+    c.drawString(50, cy+28, "JUN > FASE DE GRUPOS   ·   JUL > SEMIFINALES   ·   19 JUL > LA FINAL EN NEW YORK")
     c.setFillColor(CYAN); c.setFont("Helvetica-Bold", 8)
-    c.drawString(50, cy+12, "Presencia presencial: 13 paradas en MÉXICO + EE.UU.")
+    c.drawString(50, cy+12, "Presencia presencial: 7 paradas en MÉXICO + EE.UU. · base en Caracas · Cannes Lions en Francia")
     footer(c, 7)
 
 # ───────── PAGE 8: PLANES DE PARTICIPACIÓN ─────────
