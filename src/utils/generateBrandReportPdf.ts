@@ -369,7 +369,90 @@ export const generateBrandReportPdf = async ({
   );
   footer(3);
 
-  /* ───────── PÁGINA 4 · TOP PUBLICACIONES ───────── */
+  /* ───────── PÁGINA 4 (opcional) · LIVES EN TIKTOK ───────── */
+  if (includeTikTokLives) {
+    const lt = TIKTOK_LIVES.reduce(
+      (a, l) => ({
+        minutes: a.minutes + l.minutes,
+        views: a.views + l.views,
+        likes: a.likes + l.likes,
+        comments: a.comments + l.comments,
+        followers: a.followers + l.followers,
+        donors: a.donors + l.donors,
+        diamonds: a.diamonds + l.diamonds,
+      }),
+      { minutes: 0, views: 0, likes: 0, comments: 0, followers: 0, donors: 0, diamonds: 0 },
+    );
+
+    doc.addPage();
+    header(4);
+    stickerPill(M, 56, 150, 20, "LIVES EN TIKTOK", PINK, WHITE);
+    doc.setTextColor(...INK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.text("COBERTURA EN VIVO", M, 112);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(
+      `${TIKTOK_LIVES.length} transmisiones LIVE desde @vacilateesto  ·  Fuente: TikTok Studio`,
+      M,
+      130,
+    );
+
+    const liveKpis = [
+      { label: "LIVES", value: String(TIKTOK_LIVES.length), shadow: PINK },
+      { label: "MINUTOS AL AIRE", value: String(lt.minutes), shadow: CYAN },
+      { label: "VISUALIZACIONES", value: fmtNum(lt.views), shadow: ACCENT },
+      { label: "ME GUSTA", value: fmtNum(lt.likes), shadow: PINK },
+      { label: "COMENTARIOS", value: fmtNum(lt.comments), shadow: CYAN },
+      { label: "NUEVOS SEGUIDORES", value: fmtNum(lt.followers), shadow: ACCENT },
+      { label: "DONADORES", value: String(lt.donors), shadow: PINK },
+      { label: "DIAMANTES", value: String(lt.diamonds), shadow: CYAN },
+    ];
+    const lw = (W - M * 2 - 3 * 12) / 4;
+    liveKpis.forEach((k, i) => {
+      const x = M + (i % 4) * (lw + 12);
+      const y = 150 + Math.floor(i / 4) * (78 + 14);
+      stickerCard(x, y, lw, 78, k.shadow);
+      doc.setTextColor(...MUT);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(6.5);
+      doc.text(k.label, x + 10, y + 20);
+      doc.setTextColor(...INK);
+      doc.setFontSize(20);
+      doc.text(k.value, x + 10, y + 54);
+    });
+
+    autoTable(doc, {
+      ...tableStyles,
+      startY: 150 + 2 * (78 + 14) + 20,
+      head: [["Live", "Fecha", "Min", "Views", "Likes", "Com.", "Seg."]],
+      body: TIKTOK_LIVES.map((l) => [
+        clean(l.title).slice(0, 44),
+        clean(l.date),
+        String(l.minutes),
+        fmtNum(l.views),
+        fmtNum(l.likes),
+        fmtNum(l.comments),
+        fmtNum(l.followers),
+      ]),
+      headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
+      bodyStyles: { fontSize: 8.5, cellPadding: 6, textColor: INK },
+      columnStyles: {
+        0: { cellWidth: "auto" },
+        1: { cellWidth: 82 },
+        2: { cellWidth: 34, halign: "right" },
+        3: { cellWidth: 46, halign: "right" },
+        4: { cellWidth: 46, halign: "right" },
+        5: { cellWidth: 44, halign: "right" },
+        6: { cellWidth: 40, halign: "right" },
+      },
+    });
+    footer(4);
+  }
+
+  /* ───────── ÚLTIMA PÁGINA · TOP PUBLICACIONES ───────── */
   const topPosts = [...data.posts]
     .map((p) => ({
       ...p,
@@ -382,7 +465,7 @@ export const generateBrandReportPdf = async ({
     .slice(0, 15);
 
   doc.addPage();
-  header(4);
+  header(PAGES);
   stickerPill(M, 56, 130, 20, "TOP PUBLICACIONES", PINK, WHITE);
   doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
@@ -436,7 +519,7 @@ export const generateBrandReportPdf = async ({
   doc.setFontSize(9);
   doc.text("elpatio@hacemosloquenosgusta.com", M + 20, endY + 72);
   doc.text("vacilateesto.com  ·  @vacilateestopodcast", M + 20, endY + 88);
-  footer(4);
+  footer(PAGES);
 
   const safeBrand = brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const safePeriod = periodLabel.toLowerCase().replace(/[^a-z0-9]+/g, "-");
