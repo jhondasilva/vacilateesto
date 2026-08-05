@@ -100,6 +100,7 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
     "@kfc_vzla", "@kfcvzla", "#kfcvzla", "#kfc_vzla", "@kfcve", "#kfcve",
     "@cocacola", "@cocacolave", "@cocacolavzla", "#cocacola", "#cocacolave", "#cocacolavzla",
     "@maggivenezuela", "#maggivenezuela", "#maggi",
+    "@empirekeeway", "#empirekeeway", "empirekeeway", "#empire", "empire",
   ],
   excludeKeywords: [],
 };
