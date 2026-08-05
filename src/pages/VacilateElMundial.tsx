@@ -3,14 +3,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WorldCupCountdown from "@/components/WorldCupCountdown";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Globe,
   Tv,
@@ -34,18 +30,13 @@ import {
   Heart,
   Star,
   Flag,
-  Gamepad2,
   BarChart3,
   Award,
   Flame,
-  ExternalLink,
   CheckCircle,
-  Download,
-  Mail,
-  Send,
-  FileText,
-  Loader2,
   Sparkles,
+  MessageCircle,
+  Radio as RadioIcon,
 } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
