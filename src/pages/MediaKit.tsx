@@ -819,6 +819,37 @@ const MediaKit = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Ejemplos reales de mención de marca */}
+              <div className="max-w-4xl mx-auto mt-12 border-2 border-foreground bg-card p-6 sm:p-8 shadow-[6px_6px_0_hsl(var(--foreground))]">
+                <p className="font-display text-xs uppercase tracking-widest font-black mb-6 text-muted-foreground">
+                  Ejemplos · Mención de marca
+                </p>
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-xs font-display font-black uppercase tracking-wider text-muted-foreground mb-2">
+                      Short 45 seg · TikTok · Instagram · Facebook · @vacilateesto
+                    </p>
+                    <blockquote className="border-l-4 border-primary bg-muted/60 p-4 italic text-foreground/90">
+                      “La historia del portero que jugó con el cuello roto. Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto”
+                    </blockquote>
+                    <p className="text-xs mt-2 font-semibold text-primary">
+                      Mención en body copy + branding en el estudio · 1.30M impresiones · 5.6K interacciones
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-display font-black uppercase tracking-wider text-muted-foreground mb-2">
+                      Long Podcast · YouTube · Mención dedicada
+                    </p>
+                    <blockquote className="border-l-4 border-accent bg-muted/60 p-4 italic text-foreground/90">
+                      “Este episodio va con @bncbanco: hablamos de cómo se mueve la plata del venezolano — y sí, el patio está brandeado.”
+                    </blockquote>
+                    <p className="text-xs mt-2 font-semibold text-primary">
+                      Segmento dedicado de 60–90 seg dentro del episodio · branding visible en set
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
