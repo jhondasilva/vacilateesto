@@ -3,6 +3,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white, black
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.utils import ImageReader
+from PIL import Image
+import os
 
 OUT = "public/downloads/VacilateElFutbol-MediaKit-2026.pdf"
 W, H = letter  # 612 x 792
@@ -25,17 +28,55 @@ BG   = HexColor("#FAFAF9")
 PAGES = 9
 TITLE = "Vacílate El Mundial 2026 — Media Kit"
 
+# ───────── LOGOS (identidad gráfica) ─────────
+def _trim(src, dst):
+    """Recorta el PNG al bounding box de su contenido para alinearlo con precisión."""
+    if os.path.exists(dst):
+        return dst
+    im = Image.open(src).convert("RGBA")
+    bbox = im.split()[3].getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    im.save(dst)
+    return dst
+
+LOGO_VEF = _trim("src/assets/logo-vacilate-futbol.png", "/tmp/mk-logo-vef.png")
+LOGO_VE  = _trim("src/assets/logo-vacilate-esto.png",  "/tmp/mk-logo-ve.png")
+
+def draw_logo(c, path, x, y, max_w, max_h, align="left"):
+    """Dibuja el logo respetando su proporción dentro de la caja indicada."""
+    img = ImageReader(path)
+    iw, ih = img.getSize()
+    s = min(max_w/iw, max_h/ih)
+    w, h = iw*s, ih*s
+    if align == "right":
+        x = x - w
+    elif align == "center":
+        x = x - w/2
+    c.drawImage(img, x, y + (max_h-h)/2, width=w, height=h, mask="auto")
+    return w
+
+def logo_badge(c, path, x, y, w, h, shadow=CYAN, pad=8):
+    """Tarjeta sticker blanca con el logo dentro — legible sobre fondos oscuros."""
+    c.setFillColor(shadow); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(x+3, y-3, w, h, 10, fill=1, stroke=1)
+    c.setFillColor(white)
+    c.roundRect(x, y, w, h, 10, fill=1, stroke=1)
+    draw_logo(c, path, x+w/2, y+pad, w-2*pad, h-2*pad, align="center")
+
 def header(c, page):
+    draw_logo(c, LOGO_VEF, 36, H-34, 26, 22)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 7)
-    c.drawString(36, H-24,
-        "VACÍLATE EL MUNDIAL 2026  ·  MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  PRESENCIAL EN MÉXICO Y EE.UU.")
-    c.drawRightString(W-36, H-24, f"MEDIA KIT · {page} / {PAGES}")
+    c.drawString(68, H-26,
+        "VACÍLATE EL FÚTBOL · EL MUNDIAL 2026  ·  MX · USA · FRA · VEN  ·  JUN — JUL 2026")
+    c.drawRightString(W-36, H-26, f"MEDIA KIT · {page} / {PAGES}")
     c.setStrokeColor(INK); c.setLineWidth(0.6)
-    c.line(36, H-32, W-36, H-32)
+    c.line(36, H-40, W-36, H-40)
 
 def footer(c, page):
+    draw_logo(c, LOGO_VE, 36, 18, 20, 18)
     c.setFillColor(MUT); c.setFont("Helvetica", 7)
-    c.drawString(36, 24, "vacilateesto.com  ·  vacilateelmundial.com")
+    c.drawString(62, 24, "vacilateesto.com  ·  vacilateelmundial.com")
     c.drawRightString(W-36, 24, f"{page}/{PAGES}")
 
 def sticker_pill(c, x, y, w, h, text, fill=INK, fg=white, font="Helvetica-Bold", fs=8):
