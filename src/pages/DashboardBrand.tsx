@@ -771,6 +771,10 @@ const MetricoolDashboard = ({
   const basePosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
   const postsForView = view === "all" ? basePosts : basePosts.filter((p) => p.platform === view);
   const matchedCount = basePosts.length;
+  const byPlatform = ALL_PLATFORMS.reduce<Record<string, number>>((acc, p) => {
+    acc[p] = basePosts.filter((x) => x.platform === p).length;
+    return acc;
+  }, {});
 
   const totalsForView = postsForView.reduce(
     (acc, p) => {
