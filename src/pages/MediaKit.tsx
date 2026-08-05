@@ -620,6 +620,26 @@ const MediaKit = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Nota de fuente de datos */}
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-background/25 bg-background/10 px-4 py-2 text-[11px] md:text-xs text-background/70 backdrop-blur-sm hover:bg-background/20 transition-colors"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                        Fuente principal: Metricool · Apify solo como verificación
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs text-xs leading-relaxed">
+                      Todas las cifras publicadas provienen de Metricool (Instagram, Facebook, TikTok y YouTube),
+                      nuestra fuente oficial de medición. Apify se usa únicamente como verificación complementaria
+                      video por video en TikTok cuando aplica, y nunca reemplaza ni suma a los datos de Metricool.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
           </section>
