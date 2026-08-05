@@ -174,7 +174,7 @@ def page_audience(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
     wrap(c,
-        "Datos reales medidos en Metricool entre el 1 de enero y el 31 de julio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto.",
+        "Datos reales medidos en Metricool (fuente principal) entre el 1 de enero y el 31 de julio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto. Apify se usa solo como verificación complementaria.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
