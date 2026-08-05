@@ -872,13 +872,13 @@ const VacilateElMundial = () => {
               </div>
 
               <div className="text-center">
-                <a href="#media-kit">
+                <a href="mailto:elpatio@hacemosloquenosgusta.com">
                   <Button
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   >
-                    <FileText className="w-4 h-4 mr-2" />
-                    Quiero el Media Kit
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Hablemos de la próxima
                     <ArrowRight className="w-3.5 h-3.5 ml-2" />
                   </Button>
                 </a>
