@@ -95,6 +95,12 @@ const PressKit = () => (
             >
               <FileText className="w-4 h-4" /> Ver media kit
             </Link>
+            <Link
+              to="/prensa/cobertura"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-background border-2 border-background rounded-full font-display font-black text-sm uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+            >
+              <Users className="w-4 h-4" /> Cobertura para prensa
+            </Link>
           </div>
         </div>
       </section>
