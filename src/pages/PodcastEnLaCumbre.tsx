@@ -760,7 +760,6 @@ const PodcastEnLaCumbre = () => {
             </div>
           </section>
 
-          <section className="py-16 sm:py-24 bg-background border-b-4 border-foreground" aria-labelledby="aprendizajes-heading">
           {/* Comentarios reales de YouTube */}
           <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="comentarios-heading">
             <div className="container mx-auto px-4">
