@@ -448,9 +448,55 @@ def page_brands(c):
     c.drawString(56, cy2+34, "Campañas 2025–2026 en podcast, shorts, lives de TikTok y Vacílate El Fútbol.")
     footer(c, 7)
 
-# ───────── PAGE 8: TRABAJA + CONTACTO ─────────
-def page_contact(c):
+# ───────── PAGE 8: PLAN MENSUAL ─────────
+def page_plan(c):
     header(c, 8)
+    sticker_pill(c, 36, H-66, 170, 20, "CONTENT INTEGRATION", fill=CYAN, fg=INK)
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
+    c.drawString(36, H-110, "PLAN MENSUAL")
+    wrap(c,
+         "Paquete recomendado de integración de marca. Todos los entregables se producen en nuestro estudio, con presencia de marca en set.",
+         36, H-132, W-72, fs=10, leading=13, color=MUT)
+
+    items = [
+        ("30", "Menciones en el body copy de Shorts en TikTok, Instagram y Facebook, con presencia de marca en el estudio (todos los posts)"),
+        ("4",  "Long Podcast en YouTube con mención de marca dedicada"),
+        ("2",  "Historias en Instagram dedicadas"),
+        ("4",  "Presencia de marca en Newsletters"),
+        ("1",  "Short mensual con historia de marca dedicada a la marca"),
+    ]
+    cy = H-160 - 232
+    sticker_card(c, 36, cy, W-72, 232, shadow=PINK)
+    y = cy + 232 - 34
+    for qty, desc in items:
+        c.setFillColor(PINK); c.setStrokeColor(INK); c.setLineWidth(1.1)
+        c.circle(60, y+4, 12, fill=1, stroke=1)
+        c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
+        c.drawCentredString(60, y+1, qty)
+        end = wrap(c, desc, 82, y+8, W-72-70, font="Helvetica-Bold", fs=10, leading=13)
+        y = end - 22
+
+    # Ejemplo real de mención de marca
+    ey = 118
+    sticker_card(c, 36, ey, W-72, 168, shadow=CYAN)
+    sticker_pill(c, 56, ey+168-30, 190, 20, "EJEMPLO · MENCIÓN DE MARCA", fill=INK, fg=white, fs=7)
+    c.setFillColor(MUT); c.setFont("Helvetica-Bold", 8)
+    c.drawString(56, ey+168-48, "TIKTOK · INSTAGRAM · FACEBOOK  ·  SHORT DE 45 SEG  ·  @vacilateesto")
+    c.setFillColor(SOFT)
+    c.roundRect(56, ey+52, W-72-40, 66, 8, fill=1, stroke=0)
+    wrap(c,
+         "\u201cLa historia del portero que jugó con el cuello roto \U0001F9E4 Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto\u201d",
+         66, ey+104, W-72-60, font="Helvetica-Oblique", fs=9.5, leading=13, color=INK)
+    c.setFillColor(MUT); c.setFont("Helvetica", 8.5)
+    c.drawString(56, ey+36, "Mención de marca en el body copy + branding visible en el estudio durante todo el short.")
+    c.setFillColor(PINK); c.setFont("Helvetica-Bold", 9)
+    c.drawString(56, ey+18, "Resultado: 1.30M impresiones · 5.6K interacciones")
+
+    footer(c, 8)
+
+# ───────── PAGE 9: TRABAJA + CONTACTO ─────────
+def page_contact(c):
+    header(c, 9)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "ACTIVA TU MARCA")
@@ -490,7 +536,7 @@ def page_contact(c):
     c.setFillColor(white); c.setFont("Helvetica", 10)
     c.drawString(56, cy+16, "vacilateesto.com  ·  @vacilateestopodcast  ·  TikTok @vacilateesto")
 
-    footer(c, 8)
+    footer(c, 9)
 
 c = canvas.Canvas(OUT, pagesize=letter)
 c.setTitle(TITLE)
@@ -503,6 +549,7 @@ page_hosts(c);     c.showPage()
 page_formats(c);   c.showPage()
 page_platforms(c); c.showPage()
 page_brands(c);    c.showPage()
+page_plan(c);      c.showPage()
 page_contact(c);   c.showPage()
 c.save()
 print("written", OUT)
