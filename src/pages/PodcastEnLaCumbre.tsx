@@ -898,6 +898,21 @@ const PodcastEnLaCumbre = () => {
                     <strong className="text-primary">podcast completo más alto del mundo</strong>, un episodio íntegro
                     producido en la cima del Pico Bolívar, buscando el reconocimiento como récord mundial.
                   </p>
+                  <div className="flex flex-wrap justify-center gap-3 mt-6">
+                    <a
+                      href="/prensa/pico-bolivar"
+                      className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground border-2 border-background rounded-full font-display font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+                    >
+                      <Newspaper className="w-4 h-4" /> Nota de prensa
+                    </a>
+                    <a
+                      href="/press/Nota_de_Prensa_Pico_Bolivar_2026.pdf"
+                      download
+                      className="inline-flex items-center gap-2 px-5 py-3 bg-background text-foreground border-2 border-background rounded-full font-display font-black text-xs uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+                    >
+                      <ArrowRight className="w-4 h-4" /> Descargar PDF
+                    </a>
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
