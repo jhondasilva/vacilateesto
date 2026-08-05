@@ -883,16 +883,6 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── PATROCINIO ───────────── */}
-          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-              <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-accent/15 rounded-full blur-[140px]" />
-              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
-            </div>
-
-            <div className="container mx-auto px-4 relative z-10">
-              <StickerHeader
-                badge="Oportunidades de patrocinio"
                 badgeIcon={Trophy}
                 title="por qué"
                 highlight="patrocinar"
