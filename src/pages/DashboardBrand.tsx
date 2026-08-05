@@ -848,7 +848,7 @@ const MetricoolDashboard = ({
           <Button
             size="sm"
             variant="outline"
-            disabled={!data || data.matchedCount === 0}
+            disabled={!data || matchedCount === 0}
             onClick={() => {
               if (!data) return;
               generateBrandReportPdf({
@@ -861,7 +861,7 @@ const MetricoolDashboard = ({
                 periodLabel: month.label,
                 from: month.from,
                 to: month.to,
-                data,
+                data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
               });
               toast.success("Informe descargado");
             }}
