@@ -507,6 +507,48 @@ export type Database = {
         }
         Relationships: []
       }
+      press_requests: {
+        Row: {
+          created_at: string
+          email: string
+          event: string | null
+          full_name: string
+          id: string
+          message: string
+          outlet: string
+          phone: string | null
+          preferred_date: string | null
+          request_type: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event?: string | null
+          full_name: string
+          id?: string
+          message: string
+          outlet: string
+          phone?: string | null
+          preferred_date?: string | null
+          request_type: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event?: string | null
+          full_name?: string
+          id?: string
+          message?: string
+          outlet?: string
+          phone?: string | null
+          preferred_date?: string | null
+          request_type?: string
+          status?: string
+        }
+        Relationships: []
+      }
       trip_activities: {
         Row: {
           activity_date: string | null
