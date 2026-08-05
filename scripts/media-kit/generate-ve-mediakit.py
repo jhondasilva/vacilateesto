@@ -377,9 +377,64 @@ def page_platforms(c):
         c.drawString(cx+14, cy+26, s)
     footer(c, 6)
 
-# ───────── PAGE 7: TRABAJA + CONTACTO ─────────
-def page_contact(c):
+# ───────── PAGE 7: MARCAS ALIADAS ─────────
+import urllib.request
+
+BRAND_LOGOS = {
+    "Plumrose": "plumrose.png",
+    "Nestea": "nestea.png",
+    "Empire Keeway": "empire.png",
+}
+BRAND_DIR = "/tmp/mk-brands"
+
+def _brand_logo(fname):
+    os.makedirs(BRAND_DIR, exist_ok=True)
+    path = os.path.join(BRAND_DIR, fname)
+    if not os.path.exists(path):
+        urllib.request.urlretrieve(
+            "https://dpgvanocynbrmqvgvgvd.supabase.co/storage/v1/object/public/brand-logos/" + fname,
+            path)
+    rgba = os.path.join(BRAND_DIR, "rgba-" + fname)
+    if not os.path.exists(rgba):
+        Image.open(path).convert("RGBA").save(rgba)
+    return rgba
+
+def page_brands(c):
     header(c, 7)
+    sticker_pill(c, 36, H-66, 150, 20, "MARCAS ALIADAS", fill=CYAN, fg=INK)
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
+    c.drawString(36, H-110, "TRABAJAN CON NOSOTROS")
+    wrap(c,
+        "Marcas líderes que ya activan dentro del ecosistema Vacílate Esto — integraciones nativas en podcast, reels, stories, rutas y streaming en vivo.",
+        36, H-138, W-72, fs=10, leading=14, color=MUT)
+
+    brands = [
+        ("Plumrose", "Integraciones en podcast, shorts y activaciones gastronómicas.", PINK),
+        ("Nestea", "Branded content en reels, stories y contenido de calle.", CYAN),
+        ("Empire Keeway", "Rutas, metrajes y cobertura Vacílate El Fútbol.", INK),
+    ]
+    cw = (W-72-40)/3; ch = 240; cy = H-430
+    for i,(name,desc,col) in enumerate(brands):
+        cx = 36 + i*(cw+20)
+        sticker_card(c, cx, cy, cw, ch, shadow=col)
+        logo_badge(c, _brand_logo(BRAND_LOGOS[name]), cx+16, cy+ch-116, cw-32, 100, shadow=col, pad=12)
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 15)
+        c.drawString(cx+16, cy+96, name)
+        wrap(c, desc, cx+16, cy+78, cw-32, fs=9, leading=12, color=MUT)
+
+    cy2 = 150
+    sticker_card(c, 36, cy2, W-72, 120, shadow=INK)
+    c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
+    c.drawString(56, cy2+90, "TAMBIÉN HEMOS ACTIVADO CON")
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 15)
+    c.drawString(56, cy2+62, "Coca-Cola  ·  Buchanan's  ·  KFC  ·  Maggi  ·  BNC  ·  Vatel  ·  Covencaucho")
+    c.setFillColor(MUT); c.setFont("Helvetica", 9)
+    c.drawString(56, cy2+38, "Campañas 2025–2026 en podcast, shorts, lives de TikTok y Vacílate El Fútbol.")
+    footer(c, 7)
+
+# ───────── PAGE 8: TRABAJA + CONTACTO ─────────
+def page_contact(c):
+    header(c, 8)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "ACTIVA TU MARCA")
@@ -419,7 +474,7 @@ def page_contact(c):
     c.setFillColor(white); c.setFont("Helvetica", 10)
     c.drawString(56, cy+16, "vacilateesto.com  ·  @vacilateestopodcast  ·  TikTok @vacilateesto")
 
-    footer(c, 7)
+    footer(c, 8)
 
 c = canvas.Canvas(OUT, pagesize=letter)
 c.setTitle(TITLE)
@@ -431,6 +486,7 @@ page_audience(c);  c.showPage()
 page_hosts(c);     c.showPage()
 page_formats(c);   c.showPage()
 page_platforms(c); c.showPage()
+page_brands(c);    c.showPage()
 page_contact(c);   c.showPage()
 c.save()
 print("written", OUT)
