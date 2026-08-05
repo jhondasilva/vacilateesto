@@ -940,7 +940,7 @@ const MetricoolDashboard = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Consultando Metricool…</span>
         </div>
-      ) : !data || data.matchedCount === 0 ? (
+      ) : !data || matchedCount === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center">
           <p className="text-muted-foreground">
             {scope === "brand"
@@ -965,7 +965,7 @@ const MetricoolDashboard = ({
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {ALL_PLATFORMS.map((p) => {
                   const M = PLATFORM_META[p];
-                  const posts = data.posts.filter((x) => x.platform === p);
+                  const posts = basePosts.filter((x) => x.platform === p);
                   const t = posts.reduce(
                     (acc, q) => {
                       acc.views += q.metrics.views ?? 0;
