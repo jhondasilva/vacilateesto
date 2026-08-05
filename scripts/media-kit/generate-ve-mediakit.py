@@ -428,7 +428,7 @@ def page_brands(c):
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
     c.drawString(56, cy2+90, "TAMBIÉN HEMOS ACTIVADO CON")
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 13)
-    c.drawString(56, cy2+62, "Coca-Cola · Buchanan's · KFC · Maggi · BNC · Vatel · Covencaucho")
+    c.drawString(56, cy2+62, "Buchanan's · KFC · Maggi · BNC · Vatel · Covencaucho")
     c.setFillColor(MUT); c.setFont("Helvetica", 9)
     c.drawString(56, cy2+38, "Campañas 2025–2026 en podcast, shorts, lives de TikTok y Vacílate El Fútbol.")
     footer(c, 7)

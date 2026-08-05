@@ -288,7 +288,7 @@ const MediaKitVEM = () => {
                         className="group rounded-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground border-2 border-foreground shadow-[4px_4px_0_hsl(var(--primary))] sm:shadow-[6px_6px_0_hsl(var(--primary))] hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       >
                         <a
-                          href="/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805"
+                          href="/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805b"
                           target="_blank"
                           rel="noopener noreferrer"
                           download="Vacilate-El-Futbol-MediaKit-2026.pdf"
@@ -764,7 +764,7 @@ const MediaKitVEM = () => {
                   asChild
                 >
                   <a
-                    href="/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805"
+                    href="/downloads/VacilateElFutbol-MediaKit-2026.pdf?v=20260805b"
                     target="_blank"
                     rel="noopener noreferrer"
                     download="Vacilate-El-Futbol-MediaKit-2026.pdf"
