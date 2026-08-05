@@ -42,32 +42,32 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 
-// Datos de audiencia - Fuente: Metricool (01 feb – 30 jun 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene – 31 jul 2026)
 // Métricas calculadas desde el edge function metricool-brand-mentions sobre
 // las publicaciones reales del período. No incluye seguidores ni crecimiento
 // (esos datos no los expone la API que tenemos conectada).
 const audienceData = {
-  totalViews: "13.08M",
-  totalImpressions: "11.52M",
-  totalInteractions: "760.8K",
-  totalPublications: "1,762",
+  totalViews: "16.66M",
+  totalImpressions: "12.64M",
+  totalInteractions: "874.7K",
+  totalPublications: "2,086",
   platforms: [
-    { name: "TikTok", views: "4.54M", publications: "297", icon: Play },
-    { name: "YouTube", views: "3.47M", publications: "346", icon: Youtube },
-    { name: "Instagram", views: "3.34M", publications: "798", icon: Instagram },
-    { name: "Facebook", views: "1.72M", publications: "321", icon: Facebook },
+    { name: "TikTok", views: "5.44M", publications: "360", icon: Play },
+    { name: "YouTube", views: "5.06M", publications: "417", icon: Youtube },
+    { name: "Instagram", views: "4.23M", publications: "923", icon: Instagram },
+    { name: "Facebook", views: "1.94M", publications: "386", icon: Facebook },
   ],
   views: {
-    tiktok: "4.54M",
-    instagram: "3.34M",
-    facebook: "1.72M",
-    youtube: "3.47M",
+    tiktok: "5.44M",
+    instagram: "4.23M",
+    facebook: "1.94M",
+    youtube: "5.06M",
   },
   interactions: {
-    tiktok: "381.0K",
-    instagram: "278.6K",
-    facebook: "60.4K",
-    youtube: "40.8K",
+    tiktok: "466.3K",
+    instagram: "353.7K",
+    facebook: "n/d",
+    youtube: "54.7K",
   },
   demographics: {
     countries: [
