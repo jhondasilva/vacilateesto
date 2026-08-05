@@ -918,11 +918,11 @@ const MetricoolDashboard = ({
         <PlatformChip
           active={view === "all"}
           onClick={() => setView("all")}
-          label={`General · ${data?.matchedCount ?? 0}`}
+          label={`General · ${matchedCount}`}
         />
         {ALL_PLATFORMS.map((p) => {
           const M = PLATFORM_META[p];
-          const count = data?.byPlatform?.[p] ?? 0;
+          const count = byPlatform[p] ?? 0;
           return (
             <PlatformChip
               key={p}
