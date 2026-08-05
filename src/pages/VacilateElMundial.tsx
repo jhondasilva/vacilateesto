@@ -42,7 +42,6 @@ import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 import RouteMap from "@/components/vacilate-mundial/RouteMap";
-import PlanesParticipacion from "@/components/vacilate-mundial/PlanesParticipacion";
 
 // ───────────────────────── Data ─────────────────────────
 
@@ -111,32 +110,37 @@ const contentFormats = [
 const timeline = [
   {
     month: "Febrero 2026",
-    event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales",
-    status: "upcoming",
+    event: "Arrancaron los Reels, Shorts y TikToks: calentamos motores en redes sociales",
+    status: "done",
   },
   {
     month: "Marzo 2026",
     event: "Seguimos en redes con contenido de equipos, jugadores e historias",
-    status: "upcoming",
+    status: "done",
   },
   {
     month: "Abril 2026",
-    event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope",
-    status: "upcoming",
+    event: "Se sumó el streaming en vivo: martes 5 PM + redes a tope",
+    status: "done",
   },
   {
     month: "Mayo 2026",
-    event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas",
-    status: "upcoming",
+    event: "Arrancó el podcast (jueves) — streaming + redes desde Caracas",
+    status: "done",
   },
   {
     month: "Junio 2026",
-    event: "A las sedes del fútbol: cobertura en ruta según itinerario",
-    status: "highlight",
+    event: "Salimos a las sedes del fútbol: cobertura en ruta por 6 ciudades",
+    status: "done",
   },
   {
     month: "Julio 2026",
     event: "La locura total: todo, todo el tiempo, hasta la final",
+    status: "done",
+  },
+  {
+    month: "Agosto 2026",
+    event: "Cerramos la cobertura con 508 piezas publicadas y los números finales en la mano",
     status: "highlight",
   },
 ];
@@ -162,13 +166,6 @@ const hosts = [
   },
 ];
 
-const sponsorBenefits = [
-  { icon: Eye, title: "Visibilidad 24/7", description: "Presencia constante durante 6 meses de cobertura" },
-  { icon: Target, title: "Audiencia Segmentada", description: "Fans del fútbol y audiencia generalista" },
-  { icon: TrendingUp, title: "Engagement Alto", description: "Contenido que genera conversación y viralidad" },
-  { icon: Star, title: "Branded Content", description: "Integración natural de marca en el contenido" },
-];
-
 type RouteStop = { n: number; city: string; country: "MX" | "US" | "FR" | "VE"; date: string };
 const routeStops: RouteStop[] = [
   { n: 1, city: "Ciudad de México", country: "MX", date: "9 jun" },
@@ -185,12 +182,40 @@ const countryLabel: Record<RouteStop["country"], string> = {
   VE: "Venezuela",
 };
 
-const REELS = [
-  "https://www.instagram.com/p/DZDsiy2pwka/",
-  "https://www.instagram.com/p/DZLgY7MJzK4/",
-  "https://www.instagram.com/p/DZLuzWDBN8a/",
-  "https://www.instagram.com/p/DY-shj2h72u/",
-  "https://www.instagram.com/p/DZTZ2WdMz6n/",
+// Top 4 piezas por visualizaciones — fuente: dashboard Vacílate El Mundial (Metricool)
+const TOP_POSTS = [
+  {
+    platform: "YouTube",
+    title: "El portero que jugó con el cuello roto",
+    views: "1.30M",
+    likes: "5.6K",
+    url: "https://www.youtube.com/watch?v=KeavhpiMCj8",
+    thumb: "https://i.ytimg.com/vi/KeavhpiMCj8/hqdefault.jpg",
+  },
+  {
+    platform: "TikTok",
+    title: "Tito Rojas en Caracas: la historia que nadie contó",
+    views: "613K",
+    likes: "34.4K",
+    url: "https://www.tiktok.com/@vacilateesto/video/7603034324056739080",
+    thumb: "https://static.metricool.com/tkvideocovers/202602/1943481-7603034324056739080.jpeg",
+  },
+  {
+    platform: "YouTube",
+    title: "El último país sin televisión",
+    views: "581K",
+    likes: "3.9K",
+    url: "https://www.youtube.com/watch?v=I4QLbK3K9Ts",
+    thumb: "https://i.ytimg.com/vi/I4QLbK3K9Ts/hqdefault.jpg",
+  },
+  {
+    platform: "TikTok",
+    title: "La tonada: el vínculo sagrado del llanero con su tierra",
+    views: "422K",
+    likes: "38.4K",
+    url: "https://www.tiktok.com/@vacilateesto/video/7625301776450850068",
+    thumb: "https://static.metricool.com/tkvideocovers/202604/1943481-7625301776450850068.jpg",
+  },
 ];
 
 // ───────────────────────── Component ─────────────────────────
@@ -204,7 +229,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 6 ciudades. Por Vacílate Esto."
+          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 508 piezas, 6.3M+ impresiones y 3.66M+ vistas entre enero y agosto de 2026."
         />
         <meta
           name="keywords"
@@ -220,7 +245,7 @@ const VacilateElMundial = () => {
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Contenido multiplataforma sobre el fútbol en el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir la experiencia."
+          content="Así fue la cobertura del fútbol en el Mundial 2026: 508 piezas publicadas, 6.3M+ impresiones y 3.66M+ vistas. Resultados finales."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
@@ -348,12 +373,12 @@ const VacilateElMundial = () => {
                     <span className="block">
                       <span className="text-gradient italic">del fútbol</span>
                     </span>
-                    <span className="block">se vive en el feed.</span>
+                    <span className="block">se vivió en el feed.</span>
                   </h1>
 
                   <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed lg:mx-0 mx-auto mb-6 md:mb-8">
-                    Contenido multiplataforma en Instagram, YouTube y TikTok. Hablamos del fútbol pero desde ángulos
-                    inesperados, al más puro estilo Vacílate Esto. ✦
+                    Contamos el fútbol del Mundial 2026 en Instagram, YouTube, Facebook y TikTok desde ángulos
+                    inesperados, al más puro estilo Vacílate Esto. Cobertura cerrada en agosto 2026. ✦
                   </p>
 
                   <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start">
@@ -464,7 +489,7 @@ const VacilateElMundial = () => {
             </div>
           </section>
 
-          {/* ───────────── REELS ───────────── */}
+          {/* ───────────── TOP POSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
               <div className="absolute top-20 left-10 w-[28rem] h-[28rem] bg-accent/15 rounded-full blur-[120px]" />
@@ -473,24 +498,52 @@ const VacilateElMundial = () => {
 
             <div className="container mx-auto px-4 relative z-10">
               <StickerHeader
-                badge="Contenido audiovisual"
+                badge="Lo más visto de la cobertura"
                 badgeIcon={Play}
-                title="míralo"
-                highlight="en acción"
-                description="Reels, shorts y contenido exclusivo de Vacílate El Mundial 2026."
+                title="las 4 piezas"
+                highlight="más vistas"
+                description="Los contenidos que más visualizaciones alcanzaron durante Vacílate El Mundial 2026."
               />
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-7xl mx-auto items-start">
-                {REELS.map((url, i) => {
-                  const rot = [-1.5, 1.2, -0.8, 1.5, -1.2, 0.6, -0.5, 1][i] ?? 0;
+                {TOP_POSTS.map((post, i) => {
+                  const rot = [-1.5, 1.2, -0.8, 1.5][i] ?? 0;
                   return (
-                    <div
-                      key={url}
-                      className="bg-background border-2 border-foreground rounded-3xl overflow-hidden p-3 md:p-4 sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                    <a
+                      key={post.url}
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block bg-background border-2 border-foreground rounded-3xl overflow-hidden sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       style={{ transform: `rotate(${rot}deg)` }}
                     >
-                      <InstagramEmbed postUrl={url} className="w-full" />
-                    </div>
+                      <div className="relative aspect-video overflow-hidden border-b-2 border-foreground bg-muted">
+                        <img
+                          src={post.thumb}
+                          alt={`${post.title} — ${post.platform}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-2 left-2 bg-foreground text-background border-2 border-background rounded-full px-2.5 py-1 font-display font-black text-[9px] uppercase tracking-widest">
+                          #{i + 1} · {post.platform}
+                        </span>
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-display font-black text-sm uppercase tracking-tight leading-tight mb-3 line-clamp-2">
+                          {post.title}
+                        </h3>
+                        <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Eye className="w-3.5 h-3.5 text-primary" />
+                            {post.views}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Heart className="w-3.5 h-3.5 text-primary" />
+                            {post.likes}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
                   );
                 })}
               </div>
@@ -502,7 +555,7 @@ const VacilateElMundial = () => {
                     className="bg-foreground text-background hover:bg-foreground/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--primary))] hover:shadow-[6px_6px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                   >
                     <Instagram className="w-4 h-4 mr-2" />
-                    Ver más en Instagram
+                    Ver todo en Instagram
                     <ArrowUpRight className="w-3.5 h-3.5 ml-2" />
                   </Button>
                 </a>
@@ -636,7 +689,6 @@ const VacilateElMundial = () => {
           </section>
 
           {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
-          <PlanesParticipacion />
 
           {/* ───────────── HOSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
@@ -805,7 +857,7 @@ const VacilateElMundial = () => {
                       {isHighlight && (
                         <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full px-3 py-1 shadow-[3px_3px_0_hsl(var(--foreground))]">
                           <span className="font-display font-black text-[10px] uppercase tracking-widest flex items-center gap-1">
-                            <Flame className="w-3 h-3" /> En vivo
+                            <Flame className="w-3 h-3" /> Cierre
                           </span>
                         </div>
                       )}
@@ -823,65 +875,6 @@ const VacilateElMundial = () => {
                     </article>
                   );
                 })}
-              </div>
-            </div>
-          </section>
-
-          {/* ───────────── PATROCINIO ───────────── */}
-          <section className="relative bg-background py-16 md:py-24 overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-              <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] bg-accent/15 rounded-full blur-[140px]" />
-              <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--foreground))_1px,transparent_1px)] [background-size:28px_28px]" />
-            </div>
-
-            <div className="container mx-auto px-4 relative z-10">
-              <StickerHeader
-                badge="Oportunidades de patrocinio"
-                badgeIcon={Trophy}
-                title="por qué"
-                highlight="patrocinar"
-                description="No interrumpimos la experiencia, la potenciamos. Tu marca integrada de forma natural en el contenido que la audiencia ama."
-              />
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto mb-10">
-                {sponsorBenefits.map((benefit, index) => {
-                  const isAccent = index % 2 === 0;
-                  const rot = (index % 4 === 0 ? -1.5 : index % 4 === 1 ? 1 : index % 4 === 2 ? -0.5 : 1.5);
-                  return (
-                    <article
-                      key={benefit.title}
-                      className={`relative bg-background border-2 border-foreground rounded-3xl p-5 text-center sticker-shadow-${
-                        isAccent ? "accent" : "primary"
-                      } hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all`}
-                      style={{ transform: `rotate(${rot}deg)` }}
-                    >
-                      <div
-                        className={`w-12 h-12 rounded-2xl border-2 border-foreground flex items-center justify-center mx-auto mb-3 shadow-[3px_3px_0_hsl(var(--foreground))] ${
-                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
-                        }`}
-                      >
-                        <benefit.icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="font-display font-black text-sm md:text-base uppercase tracking-tight mb-2">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{benefit.description}</p>
-                    </article>
-                  );
-                })}
-              </div>
-
-              <div className="text-center">
-                <a href="mailto:elpatio@hacemosloquenosgusta.com">
-                  <Button
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    Hablemos de la próxima
-                    <ArrowRight className="w-3.5 h-3.5 ml-2" />
-                  </Button>
-                </a>
               </div>
             </div>
           </section>
