@@ -142,6 +142,11 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
     "Campaña: #VacílateElMundial · #VacílateElFútbol · Hablemos de Fútbol · #Mundial2026 + menciones de BNC, Buchanans, KFC, Coca-Cola, Maggi y Empire Keeway (excluye Plumrose y Covencaucho)",
 };
 
+// IDs de posts que no deben mostrarse en un dashboard específico.
+const EXCLUDED_POST_IDS: Record<string, string[]> = {
+  "vacilate-el-mundial": ["f317avMjOsk"], // "Lo que NADIE te cuenta... desde Houston" (vista previa/test, 6 views)
+};
+
 type Report = {
   id: string;
   title: string;
@@ -762,11 +767,14 @@ const MetricoolDashboard = ({
   };
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
-  const postsForView = !data
-    ? []
-    : view === "all"
-      ? data.posts
-      : data.posts.filter((p) => p.platform === view);
+  const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
+  const basePosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const postsForView = view === "all" ? basePosts : basePosts.filter((p) => p.platform === view);
+  const matchedCount = basePosts.length;
+  const byPlatform = ALL_PLATFORMS.reduce<Record<string, number>>((acc, p) => {
+    acc[p] = basePosts.filter((x) => x.platform === p).length;
+    return acc;
+  }, {});
 
   const totalsForView = postsForView.reduce(
     (acc, p) => {
@@ -840,7 +848,7 @@ const MetricoolDashboard = ({
           <Button
             size="sm"
             variant="outline"
-            disabled={!data || data.matchedCount === 0}
+            disabled={!data || matchedCount === 0}
             onClick={() => {
               if (!data) return;
               generateBrandReportPdf({
@@ -853,7 +861,7 @@ const MetricoolDashboard = ({
                 periodLabel: month.label,
                 from: month.from,
                 to: month.to,
-                data,
+                data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
               });
               toast.success("Informe descargado");
             }}
@@ -910,11 +918,11 @@ const MetricoolDashboard = ({
         <PlatformChip
           active={view === "all"}
           onClick={() => setView("all")}
-          label={`General · ${data?.matchedCount ?? 0}`}
+          label={`General · ${matchedCount}`}
         />
         {ALL_PLATFORMS.map((p) => {
           const M = PLATFORM_META[p];
-          const count = data?.byPlatform?.[p] ?? 0;
+          const count = byPlatform[p] ?? 0;
           return (
             <PlatformChip
               key={p}
@@ -932,7 +940,7 @@ const MetricoolDashboard = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Consultando Metricool…</span>
         </div>
-      ) : !data || data.matchedCount === 0 ? (
+      ) : !data || matchedCount === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center">
           <p className="text-muted-foreground">
             {scope === "brand"
@@ -957,7 +965,7 @@ const MetricoolDashboard = ({
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {ALL_PLATFORMS.map((p) => {
                   const M = PLATFORM_META[p];
-                  const posts = data.posts.filter((x) => x.platform === p);
+                  const posts = basePosts.filter((x) => x.platform === p);
                   const t = posts.reduce(
                     (acc, q) => {
                       acc.views += q.metrics.views ?? 0;
