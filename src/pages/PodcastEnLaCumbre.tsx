@@ -341,6 +341,24 @@ const PodcastEnLaCumbre = () => {
                 —Naiguatá, Roraima y Pico Bolívar— en un viaje que mezcla{" "}
                 <span className="italic font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">aventura, humor y reflexión.</span>
               </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="#pico-bolivar"
+                  className="inline-flex items-center gap-2 px-6 py-4 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl font-display font-black text-sm uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_hsl(var(--foreground))] transition-all"
+                >
+                  <Trophy className="w-4 h-4" />
+                  Pico Bolívar · Récord Mundial · Nov 2026
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="#marcas-bolivar"
+                  className="inline-flex items-center gap-2 px-6 py-4 bg-background text-foreground border-2 border-foreground rounded-2xl font-display font-black text-sm uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--primary))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_hsl(var(--primary))] transition-all"
+                >
+                  <Handshake className="w-4 h-4" />
+                  Propuesta para marcas
+                </a>
+              </div>
             </div>
           </section>
 
