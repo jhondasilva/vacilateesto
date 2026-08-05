@@ -38,7 +38,7 @@ import {
   Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoVacilate from "@/assets/logo-vacilate-esto.png";
+import logoVacilate from "@/assets/logo-vacilate-esto-dark.png";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 

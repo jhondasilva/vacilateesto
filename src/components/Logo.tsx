@@ -1,4 +1,4 @@
-import logoVacilateEsto from "@/assets/logo-vacilate-esto-dark.png";
+import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 
 interface LogoProps {
   className?: string;
