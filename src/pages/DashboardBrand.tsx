@@ -142,6 +142,11 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
     "Campaña: #VacílateElMundial · #VacílateElFútbol · Hablemos de Fútbol · #Mundial2026 + menciones de BNC, Buchanans, KFC, Coca-Cola, Maggi y Empire Keeway (excluye Plumrose y Covencaucho)",
 };
 
+// IDs de posts que no deben mostrarse en un dashboard específico.
+const EXCLUDED_POST_IDS: Record<string, string[]> = {
+  "vacilate-el-mundial": ["f317avMjOsk"], // "Lo que NADIE te cuenta... desde Houston" (vista previa/test, 6 views)
+};
+
 type Report = {
   id: string;
   title: string;
@@ -762,11 +767,10 @@ const MetricoolDashboard = ({
   };
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
-  const postsForView = !data
-    ? []
-    : view === "all"
-      ? data.posts
-      : data.posts.filter((p) => p.platform === view);
+  const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
+  const basePosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const postsForView = view === "all" ? basePosts : basePosts.filter((p) => p.platform === view);
+  const matchedCount = basePosts.length;
 
   const totalsForView = postsForView.reduce(
     (acc, p) => {
