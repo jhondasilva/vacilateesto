@@ -862,6 +862,7 @@ const MetricoolDashboard = ({
                 from: month.from,
                 to: month.to,
                 data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
+                includeTikTokLives: TIKTOK_LIVES_BRANDS.has(brand.slug),
               });
               toast.success("Informe descargado");
             }}
