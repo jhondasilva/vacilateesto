@@ -651,7 +651,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero – 31 julio 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 31 julio 2026 · Fuente principal: Metricool · Verificación complementaria Apify: 291 videos de TikTok con 5.07M vistas y perfil de 1.2M seguidores"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
