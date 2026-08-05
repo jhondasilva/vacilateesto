@@ -465,9 +465,10 @@ def page_plan(c):
         ("4",  "Presencia de marca en Newsletters"),
         ("1",  "Short mensual con historia de marca dedicada a la marca"),
     ]
-    cy = H-160 - 232
-    sticker_card(c, 36, cy, W-72, 232, shadow=PINK)
-    y = cy + 232 - 34
+    PCH = 205
+    cy = H-160 - PCH
+    sticker_card(c, 36, cy, W-72, PCH, shadow=PINK)
+    y = cy + PCH - 34
     for qty, desc in items:
         c.setFillColor(PINK); c.setStrokeColor(INK); c.setLineWidth(1.1)
         c.circle(60, y+4, 12, fill=1, stroke=1)
@@ -477,7 +478,7 @@ def page_plan(c):
         y = end - 22
 
     # Ejemplo real de mención de marca
-    ey = 118
+    ey = 170
     sticker_card(c, 36, ey, W-72, 168, shadow=CYAN)
     sticker_pill(c, 56, ey+168-30, 190, 20, "EJEMPLO · MENCIÓN DE MARCA", fill=INK, fg=white, fs=7)
     c.setFillColor(MUT); c.setFont("Helvetica-Bold", 8)
@@ -485,7 +486,7 @@ def page_plan(c):
     c.setFillColor(SOFT)
     c.roundRect(56, ey+52, W-72-40, 66, 8, fill=1, stroke=0)
     wrap(c,
-         "\u201cLa historia del portero que jugó con el cuello roto \U0001F9E4 Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto\u201d",
+         "\u201cLa historia del portero que jugó con el cuello roto. Este short te lo trae @bncbanco, la banca que se la juega contigo. #VacilateEsto\u201d",
          66, ey+104, W-72-60, font="Helvetica-Oblique", fs=9.5, leading=13, color=INK)
     c.setFillColor(MUT); c.setFont("Helvetica", 8.5)
     c.drawString(56, ey+36, "Mención de marca en el body copy + branding visible en el estudio durante todo el short.")
