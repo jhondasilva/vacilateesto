@@ -50,7 +50,7 @@ import StickerMarquee from "@/components/StickerMarquee";
 const audienceData = {
   totalViews: "16.66M",
   totalImpressions: "23.14M",
-  totalInteractions: "874.7K",
+  totalInteractions: "944.4K",
   totalPublications: "2,086",
   platforms: [
     { name: "TikTok", views: "5.44M", publications: "360", icon: Play },
@@ -67,7 +67,7 @@ const audienceData = {
   interactions: {
     tiktok: "466.3K",
     instagram: "353.7K",
-    facebook: "n/d",
+    facebook: "69.7K",
     youtube: "54.7K",
   },
   demographics: {
@@ -388,7 +388,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d");
+      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805e");
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -435,7 +435,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d"
+            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805e"
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
@@ -500,7 +500,7 @@ const MediaKit = () => {
     <>
       <Helmet>
         <title>Media Kit 2026 | Vacílate Esto</title>
-        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 93.15M impresiones. Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 23.14M impresiones (ene–jul 2026). Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
         
@@ -595,7 +595,7 @@ const MediaKit = () => {
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
                   Entre enero y julio de 2026 generamos <strong>23.14M de impresiones</strong>, <strong>16.66M de views</strong> y{" "}
-                  <strong>874.7K interacciones</strong> con 2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  <strong>944.4K interacciones</strong> con 2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
                 </p>
 
                 {/* Quick Stats */}
@@ -603,7 +603,7 @@ const MediaKit = () => {
                   {[
                     { value: "16.66M", label: "Views ene–jul 2026", icon: Eye },
                     { value: "23.14M", label: "Impresiones (4 redes)", icon: TrendingUp },
-                    { value: "874.7K", label: "Interacciones", icon: Heart },
+                    { value: "944.4K", label: "Interacciones", icon: Heart },
                     { value: "2,086", label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
@@ -640,7 +640,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 16.66M VIEWS", "◆ 23.14M IMPRESIONES", "▲ 874.7K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
+              items={["★ 16.66M VIEWS", "◆ 23.14M IMPRESIONES", "▲ 944.4K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -651,7 +651,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero – 31 julio 2026 · Fuente: Metricool"
+                description="Datos: 01 enero – 31 julio 2026 · Fuente principal: Metricool · Verificación complementaria Apify: 291 videos de TikTok con 5.07M vistas y perfil de 1.2M seguidores"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
