@@ -124,6 +124,8 @@ def page_cover(c):
     cx, cy, cw, ch = 50, H-560, W-100, 400
     c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.5)
     c.roundRect(cx, cy, cw, ch, 16, fill=1, stroke=1)
+    # logo oficial Vacílate El Fútbol sobre tarjeta blanca
+    logo_badge(c, LOGO_VEF, cx+cw-142, cy+ch-152, 120, 130, shadow=PINK, pad=10)
     # pill badge
     sticker_pill(c, cx+22, cy+ch-46, 130, 22, "FUN EDUCAITMENT", fill=CYAN, fg=INK)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
@@ -135,7 +137,7 @@ def page_cover(c):
     c.setFillColor(white); c.drawString(cx+22, cy+ch-202, "2026")
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
     c.drawString(cx+22, cy+ch-224,
-        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  15 PARADAS  ·  4 PAÍSES")
+        "MX · USA · FRA · VEN  ·  JUN — JUL 2026  ·  9 PARADAS  ·  4 PAÍSES")
     # subtitle
     wrap(c,
         "Cobertura no-oficial del Mundial FIFA 2026 con presencia presencial en México y Estados Unidos. Streaming en vivo en TikTok, Reels y Stories de Instagram, y Podcasts desde la cancha, los bares y la calle.",
@@ -167,7 +169,7 @@ def page_about(c):
         36, H-200, W-72, fs=10, leading=14, color=MUT)
 
     # KPI cards
-    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("15","PARADAS"),("4","PAÍSES")]
+    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("9","PARADAS"),("4","PAÍSES")]
     cw = (W-72-30)/4; cy = H-330
     for i,(big,small) in enumerate(kpis):
         cx = 36 + i*(cw+10)
