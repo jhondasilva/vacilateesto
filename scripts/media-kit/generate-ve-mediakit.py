@@ -220,7 +220,7 @@ def page_audience(c):
         ("INSTAGRAM", "4.23M",  "Reels + Stories + Feed",  "923 posts · 249K likes",  PINK),
         ("TIKTOK",    "5.44M",  "Vistas acumuladas",       "360 videos · 417K likes", INK),
         ("YOUTUBE",   "5.06M",  "Vistas shorts + videos",  "417 posts · 54K likes",   CYAN),
-        ("FACEBOOK",  "1.94M",  "Reach + vistas (reels)",  "386 posts",               PINK),
+        ("FACEBOOK",  "1.94M",  "Reach + vistas (reels)",  "386 posts · 69.7K reacc. · 681.8K impresiones", PINK),
     ]
     cw = (W-72-30)/4; cy = H-580
     for i,(name,big,what,foot,col) in enumerate(plats):
@@ -235,7 +235,7 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
+    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. En Facebook, la API reporta las interacciones de Reels como reacciones (postVideoReactions) y no devuelve comentarios, por lo que las 69.7K interacciones corresponden a reacciones verificadas. Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
          36, 58, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
