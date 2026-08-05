@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import logoVacilate from "@/assets/logo-vacilate-esto.png";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
@@ -23,11 +24,25 @@ type MentionsResponse = {
 type Args = {
   brandName: string;
   brandColor: string; // hex
-  scopeLabel: string; // p.ej. keywords activos
-  periodLabel: string; // "Acumulado 2026" / "May 26"
+  scopeLabel: string;
+  periodLabel: string;
   from: Date;
   to: Date;
   data: MentionsResponse;
+};
+
+/* ───────── Identidad gráfica compartida con los Media Kits ───────── */
+const INK: [number, number, number] = [10, 10, 10];
+const PINK: [number, number, number] = [233, 30, 99];
+const CYAN: [number, number, number] = [34, 211, 238];
+const MUT: [number, number, number] = [115, 115, 115];
+const WHITE: [number, number, number] = [255, 255, 255];
+
+const hexToRgb = (hex: string): [number, number, number] => {
+  const h = hex.replace("#", "");
+  const v = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const n = parseInt(v, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 };
 
 const fmtNum = (n: number) =>
@@ -37,6 +52,13 @@ const fmtNum = (n: number) =>
       ? `${(n / 1_000).toFixed(1)}K`
       : `${n}`;
 
+// jsPDF (Helvetica) sólo soporta latin-1: limpiamos emojis para evitar mojibake
+const clean = (t: string) =>
+  (t || "")
+    .replace(/[^\u0000-\u00FF]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const PLATFORM_LABEL: Record<MentionPost["platform"], string> = {
   instagram: "Instagram",
   tiktok: "TikTok",
@@ -44,15 +66,24 @@ const PLATFORM_LABEL: Record<MentionPost["platform"], string> = {
   youtube: "YouTube",
 };
 
-// Convierte hex (#RRGGBB) a [r,g,b]
-const hexToRgb = (hex: string): [number, number, number] => {
-  const h = hex.replace("#", "");
-  const v = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
-  const n = parseInt(v, 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-};
+const loadImageAsBase64 = (src: string): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("no canvas ctx"));
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = reject;
+    img.src = src;
+  });
 
-export const generateBrandReportPdf = ({
+export const generateBrandReportPdf = async ({
   brandName,
   brandColor,
   scopeLabel,
@@ -61,105 +92,172 @@ export const generateBrandReportPdf = ({
   to,
   data,
 }: Args) => {
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
-  const pageW = doc.internal.pageSize.getWidth();
-  const pageH = doc.internal.pageSize.getHeight();
-  const margin = 40;
-  const [r, g, b] = hexToRgb(brandColor);
+  const doc = new jsPDF({ unit: "pt", format: "letter" });
+  const W = doc.internal.pageSize.getWidth();
+  const H = doc.internal.pageSize.getHeight();
+  const M = 36;
+  const ACCENT = hexToRgb(brandColor);
+  const PAGES = 4;
 
-  // ============ Portada ============
-  doc.setFillColor(15, 15, 18);
-  doc.rect(0, 0, pageW, pageH, "F");
+  let logo: string | null = null;
+  try {
+    logo = await loadImageAsBase64(logoVacilate);
+  } catch {
+    logo = null;
+  }
 
-  // Banda de color de marca
-  doc.setFillColor(r, g, b);
-  doc.rect(0, 0, pageW, 6, "F");
+  /* ───────── helpers sticker ───────── */
+  const stickerCard = (
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    shadow: [number, number, number] = PINK,
+    fill: [number, number, number] = WHITE,
+  ) => {
+    doc.setDrawColor(...INK);
+    doc.setLineWidth(1.2);
+    doc.setFillColor(...shadow);
+    doc.roundedRect(x + 4, y + 4, w, h, 12, 12, "FD");
+    doc.setFillColor(...fill);
+    doc.roundedRect(x, y, w, h, 12, 12, "FD");
+  };
 
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.text("VACÍLATE ESTO · INFORME ANALÍTICO", margin, 80);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(42);
-  doc.text(brandName, margin, 160);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(16);
-  doc.setTextColor(180, 180, 185);
-  doc.text(`× Vacílate Esto`, margin, 188);
-
-  // Periodo
-  doc.setDrawColor(r, g, b);
-  doc.setLineWidth(2);
-  doc.line(margin, 230, margin + 60, 230);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(20);
-  doc.setTextColor(255, 255, 255);
-  doc.text(periodLabel, margin, 270);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(11);
-  doc.setTextColor(180, 180, 185);
-  const fromStr = format(from, "d MMM yyyy", { locale: es });
-  const toStr = format(to, "d MMM yyyy", { locale: es });
-  doc.text(`${fromStr} — ${toStr}`, margin, 290);
-
-  // KPIs grandes en portada — Totales generales de todas las redes acumulado
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Resumen General · Todas las redes acumulado", margin, 330);
-
-  const kpis = [
-    { label: "Publicaciones", value: String(data.matchedCount) },
-    { label: "Views", value: fmtNum(data.totals.views) },
-    { label: "Likes", value: fmtNum(data.totals.likes) },
-    { label: "Comentarios", value: fmtNum(data.totals.comments) },
-  ];
-  const kpiBoxW = (pageW - margin * 2 - 30) / 2;
-  const kpiBoxH = 90;
-  const kpiTop = 360;
-  kpis.forEach((k, i) => {
-    const col = i % 2;
-    const row = Math.floor(i / 2);
-    const x = margin + col * (kpiBoxW + 10);
-    const y = kpiTop + row * (kpiBoxH + 10);
-    doc.setFillColor(28, 28, 32);
-    doc.roundedRect(x, y, kpiBoxW, kpiBoxH, 8, 8, "F");
-    doc.setFillColor(r, g, b);
-    doc.rect(x, y, 4, kpiBoxH, "F");
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(170, 170, 175);
-    doc.text(k.label.toUpperCase(), x + 18, y + 28);
+  const stickerPill = (
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    text: string,
+    fill: [number, number, number] = INK,
+    fg: [number, number, number] = WHITE,
+    fs = 8,
+  ) => {
+    doc.setDrawColor(...INK);
+    doc.setLineWidth(1);
+    doc.setFillColor(...fill);
+    doc.roundedRect(x, y, w, h, h / 2, h / 2, "FD");
+    doc.setTextColor(...fg);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(28);
-    doc.setTextColor(255, 255, 255);
-    doc.text(k.value, x + 18, y + 65);
-  });
+    doc.setFontSize(fs);
+    doc.text(text, x + w / 2, y + h / 2 + fs * 0.35, { align: "center" });
+  };
 
-  // Footer portada
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  doc.setTextColor(140, 140, 145);
-  doc.text(`Filtros: ${scopeLabel}`, margin, pageH - 60, {
-    maxWidth: pageW - margin * 2,
-  });
+  const drawLogo = (x: number, y: number, maxW: number, maxH: number) => {
+    if (!logo) return;
+    const props = doc.getImageProperties(logo);
+    const s = Math.min(maxW / props.width, maxH / props.height);
+    doc.addImage(logo, "PNG", x, y, props.width * s, props.height * s);
+  };
+
+  const logoBadge = (x: number, y: number, w: number, h: number, shadow: [number, number, number]) => {
+    doc.setDrawColor(...INK);
+    doc.setLineWidth(1.2);
+    doc.setFillColor(...shadow);
+    doc.roundedRect(x + 3, y + 3, w, h, 10, 10, "FD");
+    doc.setFillColor(...WHITE);
+    doc.roundedRect(x, y, w, h, 10, 10, "FD");
+    drawLogo(x + 10, y + 10, w - 20, h - 20);
+  };
+
+  const header = (page: number) => {
+    drawLogo(M, 14, 24, 22);
+    doc.setTextColor(...INK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7);
+    doc.text(
+      `VACÍLATE ESTO · INFORME ANALÍTICO  ·  ${brandName.toUpperCase()}  ·  ${periodLabel.toUpperCase()}`,
+      M + 32,
+      28,
+    );
+    doc.text(`INFORME · ${page} / ${PAGES}`, W - M, 28, { align: "right" });
+    doc.setDrawColor(...INK);
+    doc.setLineWidth(0.6);
+    doc.line(M, 40, W - M, 40);
+  };
+
+  const footer = (page: number) => {
+    drawLogo(M, H - 34, 20, 18);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.text("vacilateesto.com  ·  elpatio@hacemosloquenosgusta.com", M + 26, H - 22);
+    doc.text(`${page}/${PAGES}`, W - M, H - 22, { align: "right" });
+  };
+
+  /* ───────── PÁGINA 1 · PORTADA ───────── */
+  doc.setFillColor(...PINK);
+  doc.circle(60, 220, 100, "F");
+  doc.setFillColor(...CYAN);
+  doc.circle(W - 60, 150, 75, "F");
+  header(1);
+
+  const cx = 50;
+  const cy = 150;
+  const cw = W - 100;
+  const ch = 330;
+  doc.setDrawColor(...INK);
+  doc.setLineWidth(1.5);
+  doc.setFillColor(...INK);
+  doc.roundedRect(cx, cy, cw, ch, 16, 16, "FD");
+
+  logoBadge(cx + cw - 142, cy + 22, 120, 120, ACCENT);
+  stickerPill(cx + 22, cy + 24, 130, 22, "INFORME DE MARCA", CYAN, INK);
+
+  doc.setTextColor(...WHITE);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.text(`${periodLabel.toUpperCase()}  ·  VACÍLATE ESTO 2026`, cx + 22, cy + 68);
+
+  doc.setFontSize(40);
+  doc.text(brandName.toUpperCase().slice(0, 18), cx + 22, cy + 120);
+  doc.setTextColor(...ACCENT);
+  doc.setFontSize(28);
+  doc.text("× VACÍLATE ESTO", cx + 22, cy + 156);
+
+  doc.setTextColor(...WHITE);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
   doc.text(
-    `Generado el ${format(new Date(), "d 'de' MMMM yyyy 'a las' HH:mm", { locale: es })}`,
-    margin,
-    pageH - 40,
+    `${format(from, "d MMM yyyy", { locale: es })} — ${format(to, "d MMM yyyy", { locale: es })}  ·  TODAS LAS REDES`,
+    cx + 22,
+    cy + 184,
   );
 
-  // Helper: calcular filas por plataforma (reutilizado)
-  const platformOrder: MentionPost["platform"][] = [
-    "instagram",
-    "tiktok",
-    "facebook",
-    "youtube",
+  // KPIs sticker sobre la tarjeta oscura
+  const kpis = [
+    { label: "PUBLICACIONES", value: String(data.matchedCount), shadow: PINK },
+    { label: "VIEWS", value: fmtNum(data.totals.views), shadow: CYAN },
+    { label: "LIKES", value: fmtNum(data.totals.likes), shadow: ACCENT },
+    { label: "COMENTARIOS", value: fmtNum(data.totals.comments), shadow: PINK },
   ];
+  const kw = (cw - 44 - 3 * 12) / 4;
+  kpis.forEach((k, i) => {
+    const x = cx + 22 + i * (kw + 12);
+    const y = cy + 210;
+    stickerCard(x, y, kw, 92, k.shadow);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7);
+    doc.text(k.label, x + 12, y + 22);
+    doc.setTextColor(...INK);
+    doc.setFontSize(22);
+    doc.text(k.value, x + 12, y + 58);
+  });
+
+  doc.setTextColor(...MUT);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.text(`Filtros: ${clean(scopeLabel)}`, M, H - 76, { maxWidth: W - M * 2 });
+  doc.text(
+    `Generado el ${format(new Date(), "d 'de' MMMM yyyy 'a las' HH:mm", { locale: es })}`,
+    M,
+    H - 58,
+  );
+  footer(1);
+
+  /* filas por plataforma */
+  const platformOrder: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const platformRows = platformOrder.map((p) => {
     const posts = data.posts.filter((x) => x.platform === p);
     const totals = posts.reduce(
@@ -180,122 +278,95 @@ export const generateBrandReportPdf = ({
     ];
   });
 
-  // ============ Página 2: Resumen General (totales de todas las redes acumulado) ============
+  const tableStyles = {
+    theme: "grid" as const,
+    margin: { left: M, right: M },
+    styles: { lineColor: INK, lineWidth: 0.8, font: "helvetica" },
+    headStyles: { fillColor: INK, textColor: WHITE, fontStyle: "bold" as const, fontSize: 9 },
+    bodyStyles: { fontSize: 10, cellPadding: 7, textColor: INK },
+    alternateRowStyles: { fillColor: [245, 245, 244] as [number, number, number] },
+  };
+
+  /* ───────── PÁGINA 2 · RESUMEN GENERAL ───────── */
   doc.addPage();
-  doc.setFillColor(255, 255, 255);
-  doc.rect(0, 0, pageW, pageH, "F");
-
-  doc.setFillColor(r, g, b);
-  doc.rect(0, 0, pageW, 6, "F");
-
+  header(2);
+  stickerPill(M, 56, 130, 20, "RESUMEN GENERAL", PINK, WHITE);
+  doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.setTextColor(120, 120, 125);
-  doc.text(`${brandName.toUpperCase()} · ${periodLabel.toUpperCase()}`, margin, 50);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(26);
-  doc.setTextColor(20, 20, 25);
-  doc.text("Resumen General", margin, 90);
-
+  doc.setFontSize(28);
+  doc.text("TODAS LAS REDES", M, 112);
+  doc.setTextColor(...MUT);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(12);
-  doc.setTextColor(100, 100, 105);
-  doc.text("Datos totales generales de todas las redes acumulado", margin, 112);
-
-  // KPIs grandes — totales generales
-  const summaryKpis = [
-    { label: "Publicaciones totales", value: String(data.matchedCount), sub: `${Object.keys(data.byPlatform).filter(k => data.byPlatform[k] > 0).length} redes con actividad` },
-    { label: "Views totales", value: fmtNum(data.totals.views), sub: "Todas las plataformas" },
-    { label: "Likes totales", value: fmtNum(data.totals.likes), sub: "Reacciones acumuladas" },
-    { label: "Comentarios totales", value: fmtNum(data.totals.comments), sub: "Interacciones totales" },
-  ];
-
-  const sumBoxW = (pageW - margin * 2 - 24) / 2;
-  const sumBoxH = 100;
-  const sumTop = 140;
-  summaryKpis.forEach((k, i) => {
-    const col = i % 2;
-    const row = Math.floor(i / 2);
-    const x = margin + col * (sumBoxW + 12);
-    const y = sumTop + row * (sumBoxH + 12);
-    doc.setFillColor(248, 248, 252);
-    doc.roundedRect(x, y, sumBoxW, sumBoxH, 8, 8, "F");
-    doc.setFillColor(r, g, b);
-    doc.rect(x, y, sumBoxW, 4, "F");
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(120, 120, 125);
-    doc.text(k.label.toUpperCase(), x + 14, y + 26);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(32);
-    doc.setTextColor(20, 20, 25);
-    doc.text(k.value, x + 14, y + 62);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(160, 160, 165);
-    doc.text(k.sub, x + 14, y + 82);
-  });
-
-  // Tabla resumen por red (vista compacta)
-  const lastSummaryY = sumTop + 2 * (sumBoxH + 12) + 20;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(20, 20, 25);
-  doc.text("Distribución por red", margin, lastSummaryY);
-
-  autoTable(doc, {
-    startY: lastSummaryY + 14,
-    head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]],
-    body: platformRows,
-    theme: "grid",
-    margin: { left: margin, right: margin },
-    headStyles: {
-      fillColor: [r, g, b],
-      textColor: [255, 255, 255],
-      fontStyle: "bold",
-      fontSize: 10,
-    },
-    bodyStyles: { fontSize: 11, cellPadding: 8 },
-    alternateRowStyles: { fillColor: [248, 248, 250] },
-  });
-
-  // ============ Página 3: Aporte por red detallado ============
-  doc.addPage();
-  doc.setFillColor(255, 255, 255);
-  doc.rect(0, 0, pageW, pageH, "F");
-
-  doc.setFillColor(r, g, b);
-  doc.rect(0, 0, pageW, 6, "F");
-
-  doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
-  doc.setTextColor(120, 120, 125);
-  doc.text(`${brandName.toUpperCase()} · ${periodLabel.toUpperCase()}`, margin, 50);
+  doc.text("Datos totales acumulados del período seleccionado", M, 130);
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor(20, 20, 25);
-  doc.text("Aporte por red", margin, 90);
-
-  // Tabla por plataforma
-  autoTable(doc, {
-    startY: 110,
-    head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]],
-    body: platformRows,
-    theme: "grid",
-    margin: { left: margin, right: margin },
-    headStyles: {
-      fillColor: [r, g, b],
-      textColor: [255, 255, 255],
-      fontStyle: "bold",
-      fontSize: 10,
+  const sumKpis = [
+    {
+      label: "PUBLICACIONES TOTALES",
+      value: String(data.matchedCount),
+      sub: `${Object.keys(data.byPlatform).filter((k) => data.byPlatform[k] > 0).length} redes con actividad`,
+      shadow: PINK,
     },
-    bodyStyles: { fontSize: 11, cellPadding: 8 },
-    alternateRowStyles: { fillColor: [248, 248, 250] },
+    { label: "VIEWS TOTALES", value: fmtNum(data.totals.views), sub: "Todas las plataformas", shadow: CYAN },
+    { label: "LIKES TOTALES", value: fmtNum(data.totals.likes), sub: "Reacciones acumuladas", shadow: ACCENT },
+    { label: "COMENTARIOS", value: fmtNum(data.totals.comments), sub: "Interacciones totales", shadow: PINK },
+  ];
+  const sw = (W - M * 2 - 16) / 2;
+  const sh = 100;
+  sumKpis.forEach((k, i) => {
+    const x = M + (i % 2) * (sw + 16);
+    const y = 150 + Math.floor(i / 2) * (sh + 18);
+    stickerCard(x, y, sw, sh, k.shadow);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7.5);
+    doc.text(k.label, x + 14, y + 24);
+    doc.setTextColor(...INK);
+    doc.setFontSize(30);
+    doc.text(k.value, x + 14, y + 64);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.text(k.sub, x + 14, y + 84);
   });
 
-  // ============ Top publicaciones ============
+  const distY = 150 + 2 * (sh + 18) + 24;
+  stickerPill(M, distY - 16, 140, 20, "DISTRIBUCIÓN POR RED", CYAN, INK);
+  autoTable(doc, { ...tableStyles, startY: distY + 20, head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]], body: platformRows });
+  footer(2);
+
+  /* ───────── PÁGINA 3 · APORTE POR RED ───────── */
+  doc.addPage();
+  header(3);
+  stickerPill(M, 56, 120, 20, "APORTE POR RED", PINK, WHITE);
+  doc.setTextColor(...INK);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(28);
+  doc.text("DESGLOSE DE REDES", M, 112);
+  autoTable(doc, {
+    ...tableStyles,
+    startY: 132,
+    head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]],
+    body: platformRows,
+    headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
+  });
+
+  const netY = ((doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? 200) + 30;
+  stickerCard(M, netY, W - M * 2, 78, CYAN, INK);
+  doc.setTextColor(...WHITE);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("ALCANCE DE LA ALIANZA", M + 18, netY + 28);
+  doc.setTextColor(...CYAN);
+  doc.setFontSize(9);
+  doc.text(
+    `${data.matchedCount} piezas  ·  ${fmtNum(data.totals.views)} views  ·  ${fmtNum(data.totals.likes)} likes  ·  ${fmtNum(data.totals.comments)} comentarios`,
+    M + 18,
+    netY + 50,
+  );
+  footer(3);
+
+  /* ───────── PÁGINA 4 · TOP PUBLICACIONES ───────── */
   const topPosts = [...data.posts]
     .map((p) => ({
       ...p,
@@ -307,64 +378,62 @@ export const generateBrandReportPdf = ({
     .sort((a, b) => b.score - a.score)
     .slice(0, 15);
 
-  if (topPosts.length > 0) {
-    const lastY = (doc as any).lastAutoTable?.finalY ?? 200;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.setTextColor(20, 20, 25);
-    doc.text("Top publicaciones", margin, lastY + 50);
+  doc.addPage();
+  header(4);
+  stickerPill(M, 56, 130, 20, "TOP PUBLICACIONES", PINK, WHITE);
+  doc.setTextColor(...INK);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(28);
+  doc.text("LO QUE MÁS PEGÓ", M, 112);
 
-    autoTable(doc, {
-      startY: lastY + 70,
-      head: [["#", "Red", "Fecha", "Views", "Likes", "Coment.", "Texto"]],
-      body: topPosts.map((p, i) => [
-        String(i + 1),
-        PLATFORM_LABEL[p.platform],
-        p.publishedAt
-          ? format(new Date(p.publishedAt), "d MMM yy", { locale: es })
-          : "—",
-        fmtNum(p.metrics.views ?? 0),
-        fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0),
-        fmtNum(p.metrics.comments ?? 0),
-        (p.text || "").slice(0, 90).replace(/\s+/g, " "),
-      ]),
-      theme: "striped",
-      margin: { left: margin, right: margin },
-      headStyles: {
-        fillColor: [20, 20, 25],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-        fontSize: 9,
-      },
-      bodyStyles: { fontSize: 8.5, cellPadding: 5, valign: "top" },
-      columnStyles: {
-        0: { cellWidth: 20 },
-        1: { cellWidth: 55 },
-        2: { cellWidth: 50 },
-        3: { cellWidth: 45, halign: "right" },
-        4: { cellWidth: 45, halign: "right" },
-        5: { cellWidth: 45, halign: "right" },
-        6: { cellWidth: "auto" },
-      },
-      didDrawPage: () => {
-        // Footer en cada página
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(8);
-        doc.setTextColor(140, 140, 145);
-        doc.text(
-          `${brandName} × Vacílate Esto · ${periodLabel}`,
-          margin,
-          pageH - 20,
-        );
-        doc.text(
-          `Página ${doc.getCurrentPageInfo().pageNumber}`,
-          pageW - margin,
-          pageH - 20,
-          { align: "right" },
-        );
-      },
-    });
-  }
+  autoTable(doc, {
+    ...tableStyles,
+    startY: 132,
+    head: [["#", "Red", "Fecha", "Views", "Likes", "Com.", "Texto"]],
+    body: topPosts.map((p, i) => [
+      String(i + 1),
+      PLATFORM_LABEL[p.platform],
+      p.publishedAt ? format(new Date(p.publishedAt), "d MMM yy", { locale: es }) : "—",
+      fmtNum(p.metrics.views ?? 0),
+      fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0),
+      fmtNum(p.metrics.comments ?? 0),
+      clean(p.text).slice(0, 95),
+    ]),
+    bodyStyles: { fontSize: 8, cellPadding: 5, valign: "top", textColor: INK },
+    columnStyles: {
+      0: { cellWidth: 20 },
+      1: { cellWidth: 52 },
+      2: { cellWidth: 48 },
+      3: { cellWidth: 42, halign: "right" },
+      4: { cellWidth: 42, halign: "right" },
+      5: { cellWidth: 40, halign: "right" },
+      6: { cellWidth: "auto" },
+    },
+  });
+
+  // Panel de cierre — mismo bloque HABLEMOS de los media kits
+  const endY = Math.min(
+    ((doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? 400) + 24,
+    H - 170,
+  );
+  doc.setDrawColor(...INK);
+  doc.setLineWidth(1.2);
+  doc.setFillColor(...INK);
+  doc.roundedRect(M, endY, W - M * 2, 110, 14, 14, "FD");
+  logoBadge(W - M - 118, endY + 12, 100, 86, ACCENT);
+  doc.setTextColor(...WHITE);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("HABLEMOS", M + 20, endY + 34);
+  doc.setTextColor(...CYAN);
+  doc.setFontSize(9);
+  doc.text("CONTACTO COMERCIAL", M + 20, endY + 56);
+  doc.setTextColor(...WHITE);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.text("elpatio@hacemosloquenosgusta.com", M + 20, endY + 72);
+  doc.text("vacilateesto.com  ·  @vacilateestopodcast", M + 20, endY + 88);
+  footer(4);
 
   const safeBrand = brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const safePeriod = periodLabel.toLowerCase().replace(/[^a-z0-9]+/g, "-");
