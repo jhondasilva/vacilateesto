@@ -110,32 +110,37 @@ const contentFormats = [
 const timeline = [
   {
     month: "Febrero 2026",
-    event: "Arrancan los Reels, Shorts y TikToks: calentamos motores en redes sociales",
-    status: "upcoming",
+    event: "Arrancaron los Reels, Shorts y TikToks: calentamos motores en redes sociales",
+    status: "done",
   },
   {
     month: "Marzo 2026",
     event: "Seguimos en redes con contenido de equipos, jugadores e historias",
-    status: "upcoming",
+    status: "done",
   },
   {
     month: "Abril 2026",
-    event: "Se suma el Streaming en vivo: martes 5 PM + redes a tope",
-    status: "upcoming",
+    event: "Se sumó el streaming en vivo: martes 5 PM + redes a tope",
+    status: "done",
   },
   {
     month: "Mayo 2026",
-    event: "Arranca el Podcast (jueves) — Streaming + Redes desde Caracas",
-    status: "upcoming",
+    event: "Arrancó el podcast (jueves) — streaming + redes desde Caracas",
+    status: "done",
   },
   {
     month: "Junio 2026",
-    event: "A las sedes del fútbol: cobertura en ruta según itinerario",
-    status: "highlight",
+    event: "Salimos a las sedes del fútbol: cobertura en ruta por 6 ciudades",
+    status: "done",
   },
   {
     month: "Julio 2026",
     event: "La locura total: todo, todo el tiempo, hasta la final",
+    status: "done",
+  },
+  {
+    month: "Agosto 2026",
+    event: "Cerramos la cobertura con 508 piezas publicadas y los números finales en la mano",
     status: "highlight",
   },
 ];
@@ -159,13 +164,6 @@ const hosts = [
     instagram: "@juansofa",
     color: "accent" as const,
   },
-];
-
-const sponsorBenefits = [
-  { icon: Eye, title: "Visibilidad 24/7", description: "Presencia constante durante 6 meses de cobertura" },
-  { icon: Target, title: "Audiencia Segmentada", description: "Fans del fútbol y audiencia generalista" },
-  { icon: TrendingUp, title: "Engagement Alto", description: "Contenido que genera conversación y viralidad" },
-  { icon: Star, title: "Branded Content", description: "Integración natural de marca en el contenido" },
 ];
 
 type RouteStop = { n: number; city: string; country: "MX" | "US" | "FR" | "VE"; date: string };
