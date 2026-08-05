@@ -389,7 +389,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805c");
+      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d");
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -436,7 +436,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805c"
+            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d"
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
