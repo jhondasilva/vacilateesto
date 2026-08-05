@@ -180,7 +180,7 @@ def page_audience(c):
     kpis = [
         ("16.66M", "VISTAS DE VIDEO",  PINK),
         ("23.14M", "IMPRESIONES",      CYAN),
-        ("874.7K", "INTERACCIONES",    INK),
+        ("944.4K", "INTERACCIONES",    INK),
         ("2,086",  "POSTS PUBLICADOS", PINK),
     ]
     cw = (W-72-30)/4; cy = H-230
