@@ -42,7 +42,6 @@ import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 import jhonDaSilva from "@/assets/jhon-da-silva.jpg";
 import juanCarlosMartinez from "@/assets/juan-carlos-martinez.jpg";
 import RouteMap from "@/components/vacilate-mundial/RouteMap";
-import PlanesParticipacion from "@/components/vacilate-mundial/PlanesParticipacion";
 
 // ───────────────────────── Data ─────────────────────────
 
@@ -692,7 +691,6 @@ const VacilateElMundial = () => {
           </section>
 
           {/* ───────────── PLANES DE PARTICIPACIÓN ───────────── */}
-          <PlanesParticipacion />
 
           {/* ───────────── HOSTS ───────────── */}
           <section className="relative bg-background py-16 md:py-24 overflow-hidden">
@@ -879,55 +877,6 @@ const VacilateElMundial = () => {
                     </article>
                   );
                 })}
-              </div>
-            </div>
-          </section>
-
-                badgeIcon={Trophy}
-                title="por qué"
-                highlight="patrocinar"
-                description="No interrumpimos la experiencia, la potenciamos. Tu marca integrada de forma natural en el contenido que la audiencia ama."
-              />
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-5xl mx-auto mb-10">
-                {sponsorBenefits.map((benefit, index) => {
-                  const isAccent = index % 2 === 0;
-                  const rot = (index % 4 === 0 ? -1.5 : index % 4 === 1 ? 1 : index % 4 === 2 ? -0.5 : 1.5);
-                  return (
-                    <article
-                      key={benefit.title}
-                      className={`relative bg-background border-2 border-foreground rounded-3xl p-5 text-center sticker-shadow-${
-                        isAccent ? "accent" : "primary"
-                      } hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all`}
-                      style={{ transform: `rotate(${rot}deg)` }}
-                    >
-                      <div
-                        className={`w-12 h-12 rounded-2xl border-2 border-foreground flex items-center justify-center mx-auto mb-3 shadow-[3px_3px_0_hsl(var(--foreground))] ${
-                          isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
-                        }`}
-                      >
-                        <benefit.icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="font-display font-black text-sm md:text-base uppercase tracking-tight mb-2">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{benefit.description}</p>
-                    </article>
-                  );
-                })}
-              </div>
-
-              <div className="text-center">
-                <a href="mailto:elpatio@hacemosloquenosgusta.com">
-                  <Button
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 border-2 border-foreground rounded-full font-display font-black uppercase tracking-widest text-xs sm:text-sm shadow-[4px_4px_0_hsl(var(--foreground))] hover:shadow-[6px_6px_0_hsl(var(--foreground))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    Hablemos de la próxima
-                    <ArrowRight className="w-3.5 h-3.5 ml-2" />
-                  </Button>
-                </a>
               </div>
             </div>
           </section>
