@@ -35,8 +35,10 @@ import {
   Star,
   MessageCircle,
   Trophy,
-  Video
+  Video,
+  Info
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto-dark.png";
 import StickerHeader from "@/components/StickerHeader";
@@ -387,7 +389,7 @@ const PdfActions = () => {
 
     try {
       // Fetch static PDF and convert to base64
-      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805c");
+      const res = await fetch("/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d");
       const blob = await res.blob();
       const pdfBase64 = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -434,7 +436,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805c"
+            href="/downloads/VacilateEsto-MediaKit-2026.pdf?v=20260805d"
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
@@ -618,6 +620,26 @@ const MediaKit = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Nota de fuente de datos */}
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-background/25 bg-background/10 px-4 py-2 text-[11px] md:text-xs text-background/70 backdrop-blur-sm hover:bg-background/20 transition-colors"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                        Fuente principal: Metricool · Apify solo como verificación
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs text-xs leading-relaxed">
+                      Todas las cifras publicadas provienen de Metricool (Instagram, Facebook, TikTok y YouTube),
+                      nuestra fuente oficial de medición. Apify se usa únicamente como verificación complementaria
+                      video por video en TikTok cuando aplica, y nunca reemplaza ni suma a los datos de Metricool.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
           </section>

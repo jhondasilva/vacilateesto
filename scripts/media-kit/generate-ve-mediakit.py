@@ -174,7 +174,7 @@ def page_audience(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
     wrap(c,
-        "Datos reales medidos en Metricool entre el 1 de enero y el 31 de julio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto.",
+        "Datos reales medidos en Metricool (fuente principal) entre el 1 de enero y el 31 de julio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto. Apify se usa solo como verificación complementaria.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
@@ -235,7 +235,7 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    wrap(c, "Fuente: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. Comunidad total 1.84M+ acumulada históricamente.",
+    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok cuando aplica; no reemplaza ni se suma a las cifras de Metricool.",
          36, 58, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
