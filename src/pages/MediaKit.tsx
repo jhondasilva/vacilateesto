@@ -588,12 +588,6 @@ const MediaKit = () => {
                   <span className="font-display font-black text-xs uppercase tracking-widest">MediaKit 2026</span>
                 </div>
                 
-                <img 
-                  src={logoVacilate} 
-                  alt="Vacílate Esto" 
-                  className="h-24 md:h-32 mx-auto mb-8 drop-shadow-[8px_8px_0_hsl(var(--primary))] brightness-0 invert"
-                />
-                
                 <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[10vw] sm:text-5xl md:text-7xl text-background mb-6">
                   El Ecosistema de Contenido{" "}
                   <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Fun Educaitment</span>
