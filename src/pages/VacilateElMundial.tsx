@@ -518,13 +518,19 @@ const VacilateElMundial = () => {
                       className="group block bg-background border-2 border-foreground rounded-3xl overflow-hidden sticker-shadow-primary hover:shadow-[8px_8px_0_hsl(var(--accent))] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                       style={{ transform: `rotate(${rot}deg)` }}
                     >
-                      <div className="relative aspect-video overflow-hidden border-b-2 border-foreground bg-muted">
-                        <img
-                          src={post.thumb}
-                          alt={`${post.title} — ${post.platform}`}
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+                      <div className="relative aspect-video overflow-hidden border-b-2 border-foreground bg-gradient-to-br from-primary/20 via-muted to-accent/20 flex items-center justify-center">
+                        {post.thumb ? (
+                          <img
+                            src={post.thumb}
+                            alt={`${post.title} — ${post.platform}`}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <span className="font-display font-black text-3xl uppercase tracking-tight text-foreground/25">
+                            {post.platform}
+                          </span>
+                        )}
                         <span className="absolute top-2 left-2 bg-foreground text-background border-2 border-background rounded-full px-2.5 py-1 font-display font-black text-[9px] uppercase tracking-widest">
                           #{i + 1} · {post.platform}
                         </span>
