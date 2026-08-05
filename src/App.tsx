@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import PodcastEnLaCumbre from "./pages/PodcastEnLaCumbre";
 import PrensaPicoBolivar from "./pages/PrensaPicoBolivar";
 import PressKit from "./pages/PressKit";
+import CoberturaPrensa from "./pages/CoberturaPrensa";
 import PodcastEterno from "./pages/PodcastEterno";
 import VacilateElMundial from "./pages/VacilateElMundial";
 import MediaKit from "./pages/MediaKit";
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
             <Route path="/prensa/pico-bolivar" element={<PrensaPicoBolivar />} />
             <Route path="/press-kit" element={<PressKit />} />
+            <Route path="/prensa/cobertura" element={<CoberturaPrensa />} />
             <Route path="/prensa" element={<Navigate to="/press-kit" replace />} />
             <Route path="/podcast-eterno" element={<PodcastEterno />} />
             <Route path="/vacilate-el-futbol" element={<VacilateElMundial />} />
