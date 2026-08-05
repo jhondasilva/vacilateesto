@@ -851,7 +851,7 @@ const MetricoolDashboard = ({
             disabled={!data || matchedCount === 0}
             onClick={() => {
               if (!data) return;
-              generateBrandReportPdf({
+              void generateBrandReportPdf({
                 brandName: brand.name,
                 brandColor: accent.startsWith("#") ? accent : "#E91E63",
                 scopeLabel:
