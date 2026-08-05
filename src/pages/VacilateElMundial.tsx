@@ -413,7 +413,7 @@ const VacilateElMundial = () => {
             <div className="container mx-auto px-4">
               <div className="text-center mb-8">
                 <span className="inline-block bg-foreground text-background border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs">
-                  Resultados finales · Ene–Jul 2026
+                  Resultados finales · Ene–Ago 2026
                 </span>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto">
@@ -649,7 +649,7 @@ const VacilateElMundial = () => {
                 badgeIcon={MapPin}
                 title="la gran"
                 highlight="expedición"
-                description="6 paradas · 4 países · 6 meses cubriendo el fútbol en vivo desde donde pasa la acción."
+                description="6 paradas · 4 países · 8 meses cubriendo el fútbol en vivo desde donde pasa la acción."
               />
 
               <div className="max-w-6xl mx-auto mb-10 md:mb-14">
