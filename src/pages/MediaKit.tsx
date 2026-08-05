@@ -430,7 +430,7 @@ const PdfActions = () => {
           asChild
         >
           <a
-            href=PDF_URL
+            href={PDF_URL}
             download="Media Kit Vacilate Esto 2026.pdf"
           >
             <Download className="w-5 h-5 mr-2" />
