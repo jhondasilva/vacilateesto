@@ -2,7 +2,7 @@ import { Eye, Heart, MessageCircle, Users, Gem, Gift, Radio, Clock } from "lucid
 
 // Datos manuales de TikTok Studio — cobertura Mundial / Vacílate El Fútbol
 // Fuente: TikTok Studio (capturas del 11–16 jun 2026, cuenta @vacilateesto)
-const LIVES = [
+export const TIKTOK_LIVES = [
   { title: "Arrancó la fiesta del fútbol", date: "11 jun, 12:16 p.m.", minutes: 31, views: 26800, donors: 13, diamonds: 34, followers: 541, comments: 1200, likes: 38100 },
   { title: "Previa Brasil vs Marruecos", date: "13 jun, 4:32 p.m.", minutes: 22, views: 7600, donors: 1, diamonds: 1, followers: 73, comments: 226, likes: 6400 },
   { title: "Termino Bra 1 Mar 1", date: "13 jun, 8:32 p.m.", minutes: 21, views: 3000, donors: 1, diamonds: 2, followers: 1, comments: 38, likes: 5500 },
