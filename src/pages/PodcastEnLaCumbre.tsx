@@ -945,9 +945,19 @@ const PodcastEnLaCumbre = () => {
                     description: "Cámara en mano, ojo entrenado para encontrar encuadres que cuentan historias."
                   },
                   {
-                    name: "Joel",
-                    role: "Equipo audiovisual",
-                    description: "Cámara en mano, responsable del documental."
+                    name: "Andreina",
+                    role: "Dirección de producción",
+                    description: "Tiene la visión completa del proyecto y orquesta cada pieza para que todo llegue a la cima."
+                  },
+                  {
+                    name: "Samira",
+                    role: "Logística",
+                    description: "Coordina traslados, equipos y tiempos para que la expedición funcione sin contratiempos."
+                  },
+                  {
+                    name: "Estrella",
+                    role: "Pauta y equipos",
+                    description: "Organiza la pauta de contenido y cuida que cada equipo esté listo para rodar en altura."
                   },
                 ].map((member) => (
                   <article
