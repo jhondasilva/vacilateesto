@@ -839,6 +839,40 @@ const MediaKit = () => {
             </div>
           </section>
 
+          {/* Partner Brands Section */}
+          <section className="py-16 md:py-24 bg-background">
+            <div className="container mx-auto px-4">
+              <StickerHeader
+                badge="Marcas aliadas"
+                badgeIcon={Star}
+                badgeVariant="accent"
+                title="Marcas que"
+                highlight="trabajan con nosotros"
+                description="Activaciones vigentes 2026 con marcas líderes en Venezuela."
+              />
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 sticker-grid-safe max-w-5xl mx-auto">
+                {partnerBrands.map((brand, index) => (
+                  <div
+                    key={brand.name}
+                    className={`bg-card rounded-3xl p-6 border-2 border-foreground sticker-card-rotate ${index % 2 === 0 ? "sticker-shadow-primary sticker-tilt-l-sm" : "sticker-shadow-accent sticker-tilt-r-sm"} sticker-no-hover-mobile hover:-translate-y-1 transition-transform text-center`}
+                  >
+                    <div className="h-24 flex items-center justify-center mb-4 bg-white rounded-2xl border-2 border-foreground p-3">
+                      <img
+                        src={brand.logo}
+                        alt={`Logo de ${brand.name}`}
+                        loading="lazy"
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                    <h3 className="font-display text-xl font-black text-foreground tracking-tight">{brand.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-2">{brand.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Sponsorship Plans Section */}
           <section className="py-16 md:py-24 bg-foreground relative overflow-hidden border-b-4 border-foreground">
             <div className="absolute inset-0 opacity-10">
