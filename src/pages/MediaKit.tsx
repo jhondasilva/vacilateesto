@@ -35,8 +35,10 @@ import {
   Star,
   MessageCircle,
   Trophy,
-  Video
+  Video,
+  Info
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import logoVacilate from "@/assets/logo-vacilate-esto-dark.png";
 import StickerHeader from "@/components/StickerHeader";
