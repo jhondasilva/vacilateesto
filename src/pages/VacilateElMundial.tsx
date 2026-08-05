@@ -229,7 +229,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Mundial 2026: contenido multiplataforma sobre el fútbol en el Mundial FIFA 2026. Fun Educaitment con datos insólitos, gastronomía y cobertura en vivo desde 6 ciudades. Por Vacílate Esto."
+          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 508 piezas, 6.3M+ impresiones y 3.66M+ vistas entre enero y agosto de 2026."
         />
         <meta
           name="keywords"
@@ -245,7 +245,7 @@ const VacilateElMundial = () => {
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Contenido multiplataforma sobre el fútbol en el Mundial 2026. Fun Educaitment, gastronomía y cobertura en vivo. 2M+ seguidores listos para vivir la experiencia."
+          content="Así fue la cobertura del fútbol en el Mundial 2026: 508 piezas publicadas, 6.3M+ impresiones y 3.66M+ vistas. Resultados finales."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
