@@ -18,6 +18,7 @@ const MONTHS: Array<{ key: string; label: string; year: number; month: number }>
   { key: "2026-05", label: "May 2026", year: 2026, month: 5 },
   { key: "2026-06", label: "Jun 2026", year: 2026, month: 6 },
   { key: "2026-07", label: "Jul 2026", year: 2026, month: 7 },
+  { key: "2026-08", label: "Ago 2026", year: 2026, month: 8 },
 ];
 
 const fmtIso = (d: Date) =>
