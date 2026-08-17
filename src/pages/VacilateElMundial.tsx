@@ -57,17 +57,17 @@ const HERO_TICKER = [
 ];
 
 const stats = [
-  { value: "508", label: "Piezas publicadas", icon: BarChart3 },
-  { value: "6.3M+", label: "Impresiones", icon: Eye },
-  { value: "3.66M+", label: "Vistas de video", icon: Play },
-  { value: "95K+", label: "Interacciones", icon: Heart },
+  { value: "552", label: "Piezas publicadas", icon: BarChart3 },
+  { value: "6.8M+", label: "Impresiones", icon: Eye },
+  { value: "3.83M+", label: "Vistas de video", icon: Play },
+  { value: "101K+", label: "Interacciones", icon: Heart },
 ];
 
 const FINAL_PLATFORMS = [
-  { name: "Instagram", posts: 156, icon: Instagram },
-  { name: "YouTube", posts: 129, icon: Play },
-  { name: "TikTok", posts: 124, icon: Play },
-  { name: "Facebook", posts: 99, icon: Users },
+  { name: "Instagram", posts: 168, icon: Instagram },
+  { name: "YouTube", posts: 138, icon: Play },
+  { name: "TikTok", posts: 135, icon: Play },
+  { name: "Facebook", posts: 111, icon: Users },
 ];
 
 const FINAL_LIVES = { lives: 6, minutes: 103, views: "40.6K", likes: "51.6K" };
