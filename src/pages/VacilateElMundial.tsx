@@ -231,7 +231,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 508 piezas, 6.3M+ impresiones y 3.66M+ vistas entre enero y agosto de 2026."
+          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 552 piezas, 6.8M+ impresiones y 3.83M+ vistas entre enero y agosto de 2026."
         />
         <meta
           name="keywords"
@@ -242,12 +242,12 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 508 piezas publicadas, 6.3M+ impresiones, 3.66M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 552 piezas publicadas, 6.8M+ impresiones, 3.83M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Así fue la cobertura del fútbol en el Mundial 2026: 508 piezas publicadas, 6.3M+ impresiones y 3.66M+ vistas. Resultados finales."
+          content="Así fue la cobertura del fútbol en el Mundial 2026: 552 piezas publicadas, 6.8M+ impresiones y 3.83M+ vistas. Resultados finales."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
