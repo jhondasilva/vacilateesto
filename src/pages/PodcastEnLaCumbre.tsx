@@ -1007,9 +1007,10 @@ const PodcastEnLaCumbre = () => {
                 </div>
 
                 <aside className="bg-foreground text-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-shadow-accent sticker-tilt-r-sm sticker-card-rotate h-fit">
-                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3">Inversión</p>
-                  <div className="font-display font-black text-5xl sm:text-6xl tracking-[-0.05em] leading-none mb-2">$3.500</div>
-                  <p className="font-display font-black text-xs uppercase tracking-widest text-background/70 mb-6">USD · 1 mes de actividades</p>
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-3">Hablemos</p>
+                  <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] leading-tight mb-4">
+                    Sé parte de la expedición al Pico Bolívar
+                  </h3>
                   <p className="font-body text-sm text-background/80 leading-relaxed mb-6">
                     Incluye producción, cobertura editorial y distribución en todas nuestras plataformas
                     durante el mes de la expedición al Pico Bolívar.
