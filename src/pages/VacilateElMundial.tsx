@@ -57,17 +57,17 @@ const HERO_TICKER = [
 ];
 
 const stats = [
-  { value: "508", label: "Piezas publicadas", icon: BarChart3 },
-  { value: "6.3M+", label: "Impresiones", icon: Eye },
-  { value: "3.66M+", label: "Vistas de video", icon: Play },
-  { value: "95K+", label: "Interacciones", icon: Heart },
+  { value: "552", label: "Piezas publicadas", icon: BarChart3 },
+  { value: "6.8M+", label: "Impresiones", icon: Eye },
+  { value: "3.83M+", label: "Vistas de video", icon: Play },
+  { value: "101K+", label: "Interacciones", icon: Heart },
 ];
 
 const FINAL_PLATFORMS = [
-  { name: "Instagram", posts: 156, icon: Instagram },
-  { name: "YouTube", posts: 129, icon: Play },
-  { name: "TikTok", posts: 124, icon: Play },
-  { name: "Facebook", posts: 99, icon: Users },
+  { name: "Instagram", posts: 168, icon: Instagram },
+  { name: "YouTube", posts: 138, icon: Play },
+  { name: "TikTok", posts: 135, icon: Play },
+  { name: "Facebook", posts: 111, icon: Users },
 ];
 
 const FINAL_LIVES = { lives: 6, minutes: 103, views: "40.6K", likes: "51.6K" };
@@ -140,7 +140,8 @@ const timeline = [
   },
   {
     month: "Agosto 2026",
-    event: "Cerramos la cobertura con 508 piezas publicadas y los números finales en la mano",
+    event:
+      "Cerramos la cobertura el domingo 16 de agosto con 552 piezas publicadas y los números finales en la mano",
     status: "highlight",
   },
 ];
@@ -202,17 +203,17 @@ const TOP_POSTS = [
     thumb: "",
   },
   {
-    platform: "Instagram",
-    title: "¿Las reglas estrictas matan el talento en la cancha?",
-    views: "114.7K",
-    likes: "2.4K",
-    url: "https://www.instagram.com/reel/DZOQM_Fh9-1/",
+    platform: "Facebook",
+    title: "El portero que “enderezó” el camino de un país",
+    views: "117.1K",
+    likes: "1.1K",
+    url: "https://www.facebook.com/reel/4476452179300511/",
     thumb: "",
   },
   {
     platform: "Instagram",
     title: "Grande Manu: llegar al Mundial y entrevistar a puros grandes",
-    views: "114.7K",
+    views: "115.4K",
     likes: "7.7K",
     url: "https://www.instagram.com/reel/DaymtXrO_wh/",
     thumb: "",
@@ -230,7 +231,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 508 piezas, 6.3M+ impresiones y 3.66M+ vistas entre enero y agosto de 2026."
+          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 552 piezas, 6.8M+ impresiones y 3.83M+ vistas entre enero y agosto de 2026."
         />
         <meta
           name="keywords"
@@ -241,12 +242,12 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 508 piezas publicadas, 6.3M+ impresiones, 3.66M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 552 piezas publicadas, 6.8M+ impresiones, 3.83M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Así fue la cobertura del fútbol en el Mundial 2026: 508 piezas publicadas, 6.3M+ impresiones y 3.66M+ vistas. Resultados finales."
+          content="Así fue la cobertura del fútbol en el Mundial 2026: 552 piezas publicadas, 6.8M+ impresiones y 3.83M+ vistas. Resultados finales."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
