@@ -140,7 +140,8 @@ const timeline = [
   },
   {
     month: "Agosto 2026",
-    event: "Cerramos la cobertura con 508 piezas publicadas y los números finales en la mano",
+    event:
+      "Cerramos la cobertura el domingo 16 de agosto con 552 piezas publicadas y los números finales en la mano",
     status: "highlight",
   },
 ];
@@ -202,17 +203,17 @@ const TOP_POSTS = [
     thumb: "",
   },
   {
-    platform: "Instagram",
-    title: "¿Las reglas estrictas matan el talento en la cancha?",
-    views: "114.7K",
-    likes: "2.4K",
-    url: "https://www.instagram.com/reel/DZOQM_Fh9-1/",
+    platform: "Facebook",
+    title: "El portero que “enderezó” el camino de un país",
+    views: "117.1K",
+    likes: "1.1K",
+    url: "https://www.facebook.com/reel/4476452179300511/",
     thumb: "",
   },
   {
     platform: "Instagram",
     title: "Grande Manu: llegar al Mundial y entrevistar a puros grandes",
-    views: "114.7K",
+    views: "115.4K",
     likes: "7.7K",
     url: "https://www.instagram.com/reel/DaymtXrO_wh/",
     thumb: "",
