@@ -163,7 +163,7 @@ c.setFont("Helvetica", 8.5)
 contacts = [
     "Andreína Ascensión · Dirección de producción · andreina.ascension@hacemosloquenosgusta.com",
     "Samira Rivas · Logística · samira.rivas@hacemosloquenosgusta.com",
-    "Estrella Rodríguez · Pauta y equipos · estrella.rodriguez@hacemosloquenosgusta.com",
+    "Estrella Rodríguez · Coordinadora de producción · estrella.rodriguez@hacemosloquenosgusta.com",
 ]
 ty = cy-14
 for t in contacts:
