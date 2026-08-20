@@ -9,6 +9,8 @@ import PrensaPicoBolivar from "./pages/PrensaPicoBolivar";
 import PressKit from "./pages/PressKit";
 import CoberturaPrensa from "./pages/CoberturaPrensa";
 import PodcastEterno from "./pages/PodcastEterno";
+import Premios from "./pages/Premios";
+import PrensaFIAP2026 from "./pages/PrensaFIAP2026";
 import VacilateElMundial from "./pages/VacilateElMundial";
 import MediaKit from "./pages/MediaKit";
 import MediaKitVEM from "./pages/MediaKitVEM";
