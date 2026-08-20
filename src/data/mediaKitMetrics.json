@@ -1,5 +1,5 @@
 {
-  "version": "20260805h",
+  "version": "20260820",
   "period": {
     "label": "ene – jul 2026",
     "from": "2026-01-01",
@@ -36,5 +36,5 @@
     "impressions": "681.8K",
     "note": "En Facebook, la API reporta las interacciones de Reels como reacciones (postVideoReactions) y no devuelve comentarios, por lo que las interacciones corresponden a reacciones verificadas."
   },
-  "generatedAt": "2026-08-05T13:41:24.706Z"
+  "generatedAt": "2026-08-20T13:30:30.814Z"
 }
