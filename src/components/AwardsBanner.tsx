@@ -3,7 +3,7 @@ import { Trophy, ArrowRight } from "lucide-react";
 
 const AwardsBanner = () => {
   return (
-    <section className="relative z-20 bg-primary text-primary-foreground border-y-2 border-foreground overflow-hidden">
+    <section className="relative z-[60] bg-primary text-primary-foreground border-y-2 border-foreground overflow-hidden">
       <div className="container mx-auto px-4 py-3 sm:py-4">
         <Link
           to="/premios"
