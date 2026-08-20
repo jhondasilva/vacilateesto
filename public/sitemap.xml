@@ -321,6 +321,16 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Blog: Resultados y favoritos del Mundial 2026 -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/favoritos-mundial-2026-que-paso-resultados</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+
+
   <!-- Gira Vacílate El Fútbol: Políticas -->
   <url>
     <loc>https://www.vacilateesto.com/gira/politicas</loc>
