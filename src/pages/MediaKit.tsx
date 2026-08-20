@@ -900,7 +900,7 @@ const MediaKit = () => {
               ★ FIAP 2026
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-              ◆ 5 finalistas
+              ◆ 8 shortlist CIMA
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
@@ -910,14 +910,16 @@ const MediaKit = () => {
                   <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
                 </div>
                 <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.04em] leading-[0.92] text-background mb-6">
-                  5 finalistas en los{" "}
-                  <span className="italic text-primary">FIAP 2026</span>
+                  5 finalistas en los <span className="italic text-primary">FIAP 2026</span> y 8 shortlist en{" "}
+                  <span className="italic text-primary">Premios CIMA 2026</span>
                 </h2>
                 <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
                   Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
                   <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
                   <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
-                  categorías del Festival Iberoamericano de Publicidad.
+                  categorías del Festival Iberoamericano de Publicidad, y el ecosistema suma ocho menciones en el
+                  shortlist de los Premios CIMA 2026, incluyendo{" "}
+                  <strong className="text-primary">Creativo del Año</strong> para Jhon da Silva.
                 </p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -938,12 +940,38 @@ const MediaKit = () => {
                   ))}
                 </div>
 
+                <p className="font-display font-black text-xs uppercase tracking-widest text-background/60 mt-12 mb-5">
+                  Shortlist Premios CIMA 2026 · Creatividad venezolana
+                </p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                  {[
+                    { project: "Walking Ads Above the Algorithm", category: "Contenido para Plataformas Digitales" },
+                    { project: "Walking Ads Above the Algorithm", category: "Campaña en Plataformas Digitales" },
+                    { project: "The Soul of Slang: The Efficiency of Immortality", category: "Contenido de Campaña Generada con IA" },
+                    { project: "Movilnet en Pelotica de Goma", category: "Experiencia Figital" },
+                    { project: "Streaming from the Lost World", category: "Plataforma de Streaming de Medios" },
+                    { project: "Podcast en la Cumbre", category: "Podcast" },
+                    { project: "Pelotica de Goma: The Legacy", category: "Premio Ápice" },
+                    { project: "Jhon da Silva", category: "Creativo del Año" },
+                  ].map((item, index) => (
+                    <div
+                      key={`cima-${index}`}
+                      className="bg-background/10 rounded-2xl p-4 border-2 border-background/30 text-left"
+                    >
+                      <div className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-1">
+                        {item.category}
+                      </div>
+                      <div className="font-display font-black text-sm text-background leading-tight">{item.project}</div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="mt-10">
                   <a
                     href="/premios"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground border-2 border-background rounded-full font-display font-black text-sm uppercase tracking-widest hover:-translate-y-0.5 transition-transform shadow-[4px_4px_0_hsl(var(--background))]"
                   >
-                    <Trophy className="w-4 h-4" /> Ver detalle de los finalistas
+                    <Trophy className="w-4 h-4" /> Ver todos los reconocimientos
                   </a>
                 </div>
               </div>

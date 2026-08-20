@@ -40,6 +40,17 @@ const FINALISTS = [
   },
 ];
 
+const CIMA_SHORTLIST = [
+  { category: "Contenido para Plataformas Digitales", project: "Walking Ads Above the Algorithm" },
+  { category: "Campaña en Plataformas Digitales", project: "Walking Ads Above the Algorithm" },
+  { category: "Contenido de Campaña Generada con IA", project: "The Soul of Slang: The Efficiency of Immortality" },
+  { category: "Experiencia Figital", project: "Movilnet en Pelotica de Goma" },
+  { category: "Plataforma de Streaming de Medios", project: "Streaming from the Lost World" },
+  { category: "Podcast", project: "Podcast en la Cumbre" },
+  { category: "Premio Ápice", project: "Pelotica de Goma: The Legacy" },
+  { category: "Creativo del Año", project: "Jhon da Silva" },
+];
+
 const CONTACTS = [
   { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
   { name: "Samira Rivas", role: "Logística", email: "samira.rivas@hacemosloquenosgusta.com" },
@@ -50,34 +61,34 @@ const Premios = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    headline: "Vacílate Esto: 5 finalistas en FIAP 2026",
+    headline: "Vacílate Esto: 5 finalistas FIAP 2026 y 8 shortlist Premios CIMA 2026",
     description:
-      "Vacílate Esto es finalista en cinco categorías de los FIAP 2026 con los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy.",
+      "Vacílate Esto es finalista en cinco categorías de los FIAP 2026 y suma ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva.",
     datePublished: "2026-08-20",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
     publisher: { "@type": "Organization", name: "Vacílate Esto" },
-    about: "FIAP 2026 · Premios Iberoamericanos de Publicidad · Finalistas",
+    about: "FIAP 2026 · Premios CIMA 2026 · Finalistas y shortlist",
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Vacílate Esto: 5 finalistas en FIAP 2026</title>
+        <title>Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026</title>
         <meta
           name="description"
-          content="Vacílate Esto es finalista en cinco categorías de los FIAP 2026 con Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy."
+          content="Cinco finalistas en FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Vacílate Esto: 5 finalistas en FIAP 2026" />
+        <meta property="og:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
         <meta
           property="og:description"
-          content="Cinco nominaciones en los FIAP 2026 para los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy."
+          content="Cinco nominaciones FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, la creatividad venezolana."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/premios" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto: 5 finalistas en FIAP 2026" />
+        <meta name="twitter:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
@@ -98,14 +109,17 @@ const Premios = () => {
               <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
             </div>
             <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-[-0.04em] leading-[0.92]">
-              5 finalistas en los{" "}
-              <span className="italic text-primary">FIAP 2026</span>
+              5 finalistas en los <span className="italic text-primary">FIAP 2026</span> y 8 shortlist en{" "}
+              <span className="italic text-primary">Premios CIMA 2026</span>
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
               Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
               <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
-              categorías de los FIAP, los premios iberoamericanos de publicidad y comunicación.
+              categorías de los FIAP, los premios iberoamericanos de publicidad y comunicación. Además, Vacílate Esto
+              suma <strong className="text-primary">ocho menciones en el shortlist de los Premios CIMA 2026</strong>,
+              los premios de la creatividad venezolana, incluyendo{" "}
+              <strong className="text-primary">Creativo del Año</strong> para Jhon da Silva.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -160,6 +174,38 @@ const Premios = () => {
             </div>
             <p className="text-xs text-muted-foreground mt-4 text-center">
               Listado según comunicación oficial de FIAP 2026. Los ganadores se anunciarán en la ceremonia de premiación.
+            </p>
+          </div>
+        </section>
+
+        {/* Shortlist CIMA 2026 */}
+        <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <StickerHeader
+              badge="Shortlist Premios CIMA 2026"
+              badgeIcon={Trophy}
+              badgeVariant="accent"
+              title="8 menciones en los"
+              highlight="Premios de la Creatividad Venezolana"
+              align="center"
+            />
+            <div className="grid sm:grid-cols-2 gap-4 mt-8">
+              {CIMA_SHORTLIST.map((item, idx) => (
+                <div
+                  key={`${item.category}-${idx}`}
+                  className={`bg-card rounded-2xl p-5 border-2 border-foreground ${idx % 2 === 0 ? "sticker-shadow-primary" : "sticker-shadow-accent"} hover:-translate-y-1 transition-transform`}
+                >
+                  <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-2">
+                    {item.category}
+                  </p>
+                  <p className="font-display font-black text-base sm:text-lg text-foreground tracking-[-0.02em] leading-tight">
+                    {item.project}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground mt-6 text-center">
+              Listado según comunicación oficial de los Premios CIMA 2026 (Premios de la Creatividad Venezolana).
             </p>
           </div>
         </section>
