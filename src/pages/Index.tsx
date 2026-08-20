@@ -241,6 +241,7 @@ const Index = () => {
       </Helmet>
       <div className="min-h-screen bg-background">
         <Header />
+        <AwardsBanner />
         <main role="main" aria-label="Contenido principal del podcast Vacílate Esto">
           <article itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Vacílate Esto" />
