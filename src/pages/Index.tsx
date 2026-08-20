@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
+import AwardsBanner from "@/components/AwardsBanner";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
 import MediaHoldingSection from "@/components/MediaHoldingSection";
@@ -240,6 +241,7 @@ const Index = () => {
       </Helmet>
       <div className="min-h-screen bg-background">
         <Header />
+        <AwardsBanner />
         <main role="main" aria-label="Contenido principal del podcast Vacílate Esto">
           <article itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Vacílate Esto" />

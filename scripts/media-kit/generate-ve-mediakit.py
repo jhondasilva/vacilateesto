@@ -28,7 +28,7 @@ INK  = HexColor("#0A0A0A")
 SOFT = HexColor("#F5F5F4")
 MUT  = HexColor("#737373")
 
-PAGES = 9
+PAGES = 10
 TITLE = "Vacílate Esto 2026 — Media Kit"
 
 # ───────── LOGOS (identidad gráfica) ─────────
@@ -503,7 +503,48 @@ def page_plan(c):
 
     footer(c, 8)
 
-# ───────── PAGE 9: TRABAJA + CONTACTO ─────────
+# ───────── PAGE 9: RECONOCIMIENTOS / FIAP 2026 ─────────
+def page_awards(c):
+    header(c, 9)
+    sticker_pill(c, 36, H-66, 140, 20, "RECONOCIMIENTOS", fill=PINK, fg=white)
+    c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
+    c.drawString(36, H-110, "5 FINALISTAS EN FIAP 2026")
+    wrap(c,
+        "Los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy fueron seleccionados en cinco categorías del Festival Iberoamericano de Publicidad.",
+        36, H-138, W-72, fs=10, leading=14, color=MUT)
+
+    finalists = [
+        ("Técnicas de Producción de Contenidos", "Contenido con mejor estrategia digital", "Streaming from the Lost World", "Vacílate Esto Podcast"),
+        ("Formatos", "Mejor estrategia de lanzamiento de programa", "Walking Ads Above the Algorithm", "Vacílate Esto"),
+        ("Producción", "Técnicas de Producción — Promoción de Broadcast", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Formatos", "Evento en Vivo o Híbrido", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
+        ("Formatos", "Contenido con mejor estrategia digital", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+    ]
+    cw = (W-72-20)/2; ch = 110
+    for i,(disc,cat,proj,brand) in enumerate(finalists):
+        col_i = i%2; row_i = i//2
+        cx = 36 + col_i*(cw+20)
+        cy = H-190 - row_i*(ch+18) - ch
+        sticker_card(c, cx, cy, cw, ch, shadow=PINK if i%2==0 else CYAN)
+        c.setFillColor(PINK if i%2==0 else CYAN); c.setFont("Helvetica-Bold", 8)
+        c.drawString(cx+14, cy+ch-22, disc.upper())
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 13)
+        c.drawString(cx+14, cy+ch-42, proj)
+        c.setFillColor(MUT); c.setFont("Helvetica", 8)
+        c.drawString(cx+14, cy+ch-56, cat)
+        c.setFillColor(INK); c.setFont("Helvetica", 8)
+        c.drawString(cx+14, cy+ch-70, brand)
+
+    cy = 110
+    sticker_card(c, 36, cy, W-72, 90, shadow=INK)
+    c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
+    c.drawString(56, cy+68, "FIAP 2026")
+    wrap(c,
+        "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
+        56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=INK)
+    footer(c, 9)
+
+# ───────── PAGE 10: TRABAJA + CONTACTO ─────────
 def page_contact(c):
     header(c, 9)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
@@ -559,6 +600,7 @@ page_formats(c);   c.showPage()
 page_platforms(c); c.showPage()
 page_brands(c);    c.showPage()
 page_plan(c);      c.showPage()
+page_awards(c);    c.showPage()
 page_contact(c);   c.showPage()
 c.save()
 print("written", OUT)

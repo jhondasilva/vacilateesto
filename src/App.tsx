@@ -9,6 +9,8 @@ import PrensaPicoBolivar from "./pages/PrensaPicoBolivar";
 import PressKit from "./pages/PressKit";
 import CoberturaPrensa from "./pages/CoberturaPrensa";
 import PodcastEterno from "./pages/PodcastEterno";
+import Premios from "./pages/Premios";
+import PrensaFIAP2026 from "./pages/PrensaFIAP2026";
 import VacilateElMundial from "./pages/VacilateElMundial";
 import MediaKit from "./pages/MediaKit";
 import MediaKitVEM from "./pages/MediaKitVEM";
@@ -76,6 +78,8 @@ const App = () => (
             <Route path="/prensa/cobertura" element={<CoberturaPrensa />} />
             <Route path="/prensa" element={<Navigate to="/press-kit" replace />} />
             <Route path="/podcast-eterno" element={<PodcastEterno />} />
+            <Route path="/premios" element={<Premios />} />
+            <Route path="/prensa/fiap-2026" element={<PrensaFIAP2026 />} />
             <Route path="/vacilate-el-futbol" element={<VacilateElMundial />} />
             <Route path="/vacilate-el-mundial" element={<Navigate to="/vacilate-el-futbol" replace />} />
             <Route path="/media-kit" element={<MediaKit />} />

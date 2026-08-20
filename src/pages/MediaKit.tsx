@@ -890,6 +890,66 @@ const MediaKit = () => {
             </div>
           </section>
 
+          {/* Awards / Recognitions Section */}
+          <section className="py-16 md:py-24 bg-foreground relative overflow-hidden border-y-4 border-foreground">
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
+              <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl" />
+            </div>
+            <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
+              ★ FIAP 2026
+            </div>
+            <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
+              ◆ 5 finalistas
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="text-center max-w-4xl mx-auto">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground border-2 border-background mb-8 shadow-[4px_4px_0_hsl(var(--background))] rotate-[-2deg]">
+                  <Trophy className="w-4 h-4" />
+                  <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
+                </div>
+                <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.04em] leading-[0.92] text-background mb-6">
+                  5 finalistas en los{" "}
+                  <span className="italic text-primary">FIAP 2026</span>
+                </h2>
+                <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
+                  Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
+                  <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
+                  <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
+                  categorías del Festival Iberoamericano de Publicidad.
+                </p>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                  {[
+                    { project: "Streaming from the Lost World", category: "Contenido con mejor estrategia digital" },
+                    { project: "Walking Ads Above the Algorithm", category: "Mejor estrategia de lanzamiento de programa" },
+                    { project: "Walking Ads Above the Algorithm", category: "Promoción de Broadcast" },
+                    { project: "Pelotica de Goma: The Legacy", category: "Evento en Vivo o Híbrido" },
+                    { project: "Walking Ads Above the Algorithm", category: "Contenido con mejor estrategia digital" },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className={`bg-background rounded-2xl p-5 border-2 border-background ${index % 2 === 0 ? "sticker-shadow-primary" : "sticker-shadow-accent"} sticker-card-rotate hover:-translate-y-1 transition-transform text-left`}
+                    >
+                      <div className="font-display font-black text-sm text-foreground mb-1">{item.project}</div>
+                      <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{item.category}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-10">
+                  <a
+                    href="/premios"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground border-2 border-background rounded-full font-display font-black text-sm uppercase tracking-widest hover:-translate-y-0.5 transition-transform shadow-[4px_4px_0_hsl(var(--background))]"
+                  >
+                    <Trophy className="w-4 h-4" /> Ver detalle de los finalistas
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Partner Brands Section */}
           <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto px-4">

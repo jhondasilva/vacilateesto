@@ -35,6 +35,7 @@ const DOCS = [
   { name: "Media Kit Vacílate El Fútbol 2026", href: "/downloads/VacilateElFutbol-MediaKit-2026.pdf" },
   { name: "Media Kit Podcast en la Cumbre · Pico Bolívar 2026", href: "/downloads/PodcastEnLaCumbre-PicoBolivar-MediaKit-2026.pdf" },
   { name: "Nota de prensa · Pico Bolívar 2026", href: "/press/Nota_de_Prensa_Pico_Bolivar_2026.pdf" },
+  { name: "Nota de prensa · 5 finalistas FIAP 2026", href: "/press/Nota_de_Prensa_FIAP_2026.pdf" },
 ];
 
 const CONTACTS = [
