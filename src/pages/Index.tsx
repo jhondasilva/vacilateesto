@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
+import AwardsBanner from "@/components/AwardsBanner";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
 import MediaHoldingSection from "@/components/MediaHoldingSection";
