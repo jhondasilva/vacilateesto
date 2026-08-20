@@ -35,6 +35,12 @@ def draw_logo(c, path, x, y, mw, mh, align="left"):
     elif align == "center": x -= w/2
     c.drawImage(img, x, y+(mh-h)/2, width=w, height=h, mask="auto")
 
+def logo_badge(c, path, x, y, w, h, shadow=PINK, pad=8):
+    c.setFillColor(shadow); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(x+3, y-3, w, h, 10, fill=1, stroke=1)
+    c.setFillColor(white); c.roundRect(x, y, w, h, 10, fill=1, stroke=1)
+    draw_logo(c, path, x+w/2, y+pad, w-2*pad, h-2*pad, align="center")
+
 def header(c, page):
     draw_logo(c, LOGO, 36, H-34, 24, 22)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 7)
