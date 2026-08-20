@@ -61,34 +61,34 @@ const Premios = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    headline: "Vacílate Esto: 5 finalistas en FIAP 2026",
+    headline: "Vacílate Esto: 5 finalistas FIAP 2026 y 8 shortlist Premios CIMA 2026",
     description:
-      "Vacílate Esto es finalista en cinco categorías de los FIAP 2026 con los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy.",
+      "Vacílate Esto es finalista en cinco categorías de los FIAP 2026 y suma ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva.",
     datePublished: "2026-08-20",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
     publisher: { "@type": "Organization", name: "Vacílate Esto" },
-    about: "FIAP 2026 · Premios Iberoamericanos de Publicidad · Finalistas",
+    about: "FIAP 2026 · Premios CIMA 2026 · Finalistas y shortlist",
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Vacílate Esto: 5 finalistas en FIAP 2026</title>
+        <title>Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026</title>
         <meta
           name="description"
-          content="Vacílate Esto es finalista en cinco categorías de los FIAP 2026 con Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy."
+          content="Cinco finalistas en FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Vacílate Esto: 5 finalistas en FIAP 2026" />
+        <meta property="og:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
         <meta
           property="og:description"
-          content="Cinco nominaciones en los FIAP 2026 para los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy."
+          content="Cinco nominaciones FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, la creatividad venezolana."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/premios" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto: 5 finalistas en FIAP 2026" />
+        <meta name="twitter:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
