@@ -28,7 +28,7 @@ INK  = HexColor("#0A0A0A")
 SOFT = HexColor("#F5F5F4")
 MUT  = HexColor("#737373")
 
-PAGES = 9
+PAGES = 10
 TITLE = "Vacílate Esto 2026 — Media Kit"
 
 # ───────── LOGOS (identidad gráfica) ─────────
