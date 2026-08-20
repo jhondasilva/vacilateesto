@@ -105,7 +105,7 @@ y = wrap(c, "Las dos primeras cumbres suman 212 publicaciones, 2,6 millones de v
          36, y-6, W-72)
 y = wrap(c, "Para validar el logro, la producción introdujo la solicitud formal de récord ante Guinness World Records y registrará la grabación con testigos, GPS, timecode y material bruto completo, conforme a los requisitos de evidencia del organismo.",
          36, y-6, W-72)
-y = wrap(c, "Podcast en la Cumbre es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por JhonSnacks y JuanSofa, con dirección de producción de Andreína Ascensión, logística de Samira Rivas, y pauta y equipos a cargo de Estrella Rodríguez.",
+y = wrap(c, "Podcast en la Cumbre es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por JhonSnacks y JuanSofa, con dirección de producción de Andreína Ascensión, logística de Samira Rivas, y coordinación de producción a cargo de Estrella Rodríguez.",
          36, y-6, W-72)
 
 # KPIs
@@ -173,7 +173,7 @@ c.setFont("Helvetica", 8.5)
 contacts = [
     "Andreína Ascensión · Dirección de producción · andreina.ascension@hacemosloquenosgusta.com",
     "Samira Rivas · Logística · samira.rivas@hacemosloquenosgusta.com",
-    "Estrella Rodríguez · Pauta y equipos · estrella.rodriguez@hacemosloquenosgusta.com",
+    "Estrella Rodríguez · Coordinadora de producción · estrella.rodriguez@hacemosloquenosgusta.com",
 ]
 ty = cy-14
 for t in contacts:

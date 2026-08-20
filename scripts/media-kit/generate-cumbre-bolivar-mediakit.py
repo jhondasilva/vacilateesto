@@ -299,7 +299,7 @@ team = [
     ("JhonSnacks", "Jhon Da Silva · Co-host"),
     ("Andreína Ascensión", "Dirección de producción"),
     ("Samira Rivas", "Logística"),
-    ("Estrella Rodríguez", "Pauta y equipos"),
+    ("Estrella Rodríguez", "Coordinadora de producción"),
     ("Darwins y Daniel", "Producción audiovisual"),
 ]
 cw = (W - 72 - 12) / 2
@@ -324,7 +324,7 @@ ty = cy - 16
 for t in [
     "Samira Rivas · Logística · samira.rivas@hacemosloquenosgusta.com",
     "Andreína Ascensión · Dirección de producción · andreina.ascension@hacemosloquenosgusta.com",
-    "Estrella Rodríguez · Pauta y equipos · estrella.rodriguez@hacemosloquenosgusta.com",
+    "Estrella Rodríguez · Coordinadora de producción · estrella.rodriguez@hacemosloquenosgusta.com",
 ]:
     c.setFillColor(HexColor("#E5E5E5")); c.setFont("Helvetica", 8.5)
     c.drawString(52, ty, t); ty -= 15
