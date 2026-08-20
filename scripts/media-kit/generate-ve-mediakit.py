@@ -541,7 +541,7 @@ def page_awards(c):
     c.drawString(56, cy+68, "FIAP 2026")
     wrap(c,
         "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
-        56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=white)
+        56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=INK)
     footer(c, 9)
 
 # ───────── PAGE 10: TRABAJA + CONTACTO ─────────
