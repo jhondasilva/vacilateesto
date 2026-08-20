@@ -12,7 +12,7 @@ const BRANDS = ["Plan B", "Harina P.A.N.", "Club Social", "Ronco", "Planeta Spor
 const CONTACTS = [
   { name: "Samira Rivas", role: "Logística", email: "samira.rivas@hacemosloquenosgusta.com" },
   { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
-  { name: "Estrella Rodríguez", role: "Pauta y equipos", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
+  { name: "Estrella Rodríguez", role: "Coordinadora de producción", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
 ];
 
 const PrensaPicoBolivar = () => {
@@ -105,7 +105,7 @@ const PrensaPicoBolivar = () => {
             </p>
             <p>
               El proyecto es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por <strong>JhonSnacks</strong> y
-              <strong> JuanSofa</strong>, con dirección de producción de Andreína Ascensión, logística de Samira Rivas y pauta y equipos a cargo de Estrella Rodríguez.
+              <strong> JuanSofa</strong>, con dirección de producción de Andreína Ascensión, logística de Samira Rivas y coordinación de producción a cargo de Estrella Rodríguez.
             </p>
           </div>
         </section>

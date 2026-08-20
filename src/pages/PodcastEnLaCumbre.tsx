@@ -1118,8 +1118,8 @@ const PodcastEnLaCumbre = () => {
                   },
                   {
                     name: "Estrella",
-                    role: "Pauta y equipos",
-                    description: "Organiza la pauta de contenido y cuida que cada equipo esté listo para rodar en altura."
+                    role: "Coordinadora de producción",
+                    description: "Coordina la pauta de contenido, equipos y tiempos de producción para que cada grabación en altura salga como está planeado."
                   },
                 ].map((member) => (
                   <article

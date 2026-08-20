@@ -41,7 +41,7 @@ const DOCS = [
 const CONTACTS = [
   { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
   { name: "Samira Rivas", role: "Logística", email: "samira.rivas@hacemosloquenosgusta.com" },
-  { name: "Estrella Rodríguez", role: "Pauta y equipos", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
+  { name: "Estrella Rodríguez", role: "Coordinadora de producción", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
 ];
 
 const BOILERPLATE =
