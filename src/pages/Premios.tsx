@@ -42,6 +42,21 @@ const FINALISTS = [
 
 const CONTACTS = [
   { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
+];
+
+const CIMA_SHORTLIST = [
+  { category: "Contenido para Plataformas Digitales", project: "Walking Ads Above the Algorithm" },
+  { category: "Campaña en Plataformas Digitales", project: "Walking Ads Above the Algorithm" },
+  { category: "Contenido de Campaña Generada con IA", project: "The Soul of Slang: The Efficiency of Immortality" },
+  { category: "Experiencia Figital", project: "Movilnet en Pelotica de Goma" },
+  { category: "Plataforma de Streaming de Medios", project: "Streaming from the Lost World" },
+  { category: "Podcast", project: "Podcast en la Cumbre" },
+  { category: "Premio Ápice", project: "Pelotica de Goma: The Legacy" },
+  { category: "Creativo del Año", project: "Jhon da Silva" },
+];
+
+const CONTACTS_OLD = [
+  { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
   { name: "Samira Rivas", role: "Logística", email: "samira.rivas@hacemosloquenosgusta.com" },
   { name: "Estrella Rodríguez", role: "Pauta y equipos", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
 ];
