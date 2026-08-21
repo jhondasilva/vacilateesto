@@ -26,8 +26,15 @@ const BRAND_LOGOS: Record<string, string> = {
 // Configuración de keywords por marca (filtros de menciones en redes)
 const BRAND_KEYWORDS: Record<
   string,
-  { keywords: string[]; excludeKeywords: string[]; label: string }
+  {
+    keywords: string[];
+    excludeKeywords: string[];
+    label: string;
+    blogIds?: number[];
+    includeAllFromBlogIds?: number[];
+  }
 > = {
+
   "coca-cola": {
     keywords: [
       "@cocacola", "@cocacolavzla", "@cocacolave",
