@@ -7,7 +7,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 // Mismas keywords que el frontend (src/pages/DashboardBrand.tsx)
 const BRAND_KEYWORDS: Record<
   string,
-  { keywords: string[]; excludeKeywords: string[]; blogIds?: number[]; includeAllFromBlogIds?: number[] }
+  { keywords: string[]; excludeKeywords: string[]; blogIds?: number[]; includeAllFromBlogIds?: number[]; requireKeywords?: string[] }
 > = {
 
   "coca-cola": {
@@ -118,9 +118,33 @@ const BRAND_KEYWORDS: Record<
   },
 };
 
+// Marcas patrocinantes de Podcast en la Cumbre: requieren su @ Y el #PodcastEnLaCumbre
+const CUMBRE_KEYWORDS = [
+  "#podcastenlacumbre", "podcastenlacumbre", "@podcastenlacumbre", "podcast en la cumbre",
+];
+const CUMBRE_BRANDS: Record<string, string[]> = {
+  "harina-pan": ["@panvenezuela", "#panvenezuela", "panvenezuela", "#harinapan", "harina pan"],
+  ronco: ["@roncovzla", "#roncovzla", "roncovzla"],
+  "planeta-sport": ["@planeta_sports", "#planeta_sports", "planeta_sports", "planeta sport"],
+  "club-social": ["@clubsocialvzla", "#clubsocialvzla", "clubsocialvzla", "club social"],
+  quimicolor: ["@quimicolor.ve", "quimicolor.ve", "#quimicolor", "quimicolor"],
+  "plan-b": ["@comeplanb", "#comeplanb", "comeplanb"],
+  solera: ["@solerapremium", "#solerapremium", "solerapremium", "solera"],
+  "banco-de-venezuela": ["@bancodevenezuela", "#bancodevenezuela", "bancodevenezuela", "banco de venezuela"],
+};
+for (const [slug, kws] of Object.entries(CUMBRE_BRANDS)) {
+  BRAND_KEYWORDS[slug] = {
+    blogIds: [1943481, 1908520],
+    keywords: kws,
+    excludeKeywords: [],
+    requireKeywords: CUMBRE_KEYWORDS,
+  };
+}
+
 // Año de inicio del análisis por dashboard (por defecto 2026)
 const BRAND_START_YEAR: Record<string, number> = {
   "podcast-en-la-cumbre": 2025,
+  ...Object.fromEntries(Object.keys(CUMBRE_BRANDS).map((s) => [s, 2025])),
 };
 
 
@@ -305,6 +329,9 @@ Deno.serve(async (req) => {
                   ? {
                       keywords: cfg.keywords,
                       excludeKeywords: cfg.excludeKeywords,
+                      ...((cfg as any).requireKeywords
+                        ? { requireKeywords: (cfg as any).requireKeywords }
+                        : {}),
                       ...((cfg as any).includeAllFromBlogIds
                         ? { includeAllFromBlogIds: (cfg as any).includeAllFromBlogIds }
                         : {}),
