@@ -747,9 +747,17 @@ const MetricoolDashboard = ({
           from: fmtIso(month.from),
           to: fmtIso(month.to),
           scope,
+          ...(brandConfig.blogIds ? { blogIds: brandConfig.blogIds } : {}),
           ...(scope === "brand"
-            ? { keywords: brandConfig.keywords, excludeKeywords: brandConfig.excludeKeywords }
+            ? {
+                keywords: brandConfig.keywords,
+                excludeKeywords: brandConfig.excludeKeywords,
+                ...(brandConfig.includeAllFromBlogIds
+                  ? { includeAllFromBlogIds: brandConfig.includeAllFromBlogIds }
+                  : {}),
+              }
             : {}),
+
         },
       });
       if (error) {
