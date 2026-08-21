@@ -31,6 +31,16 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  cashea: {
+    blogIds: [1943481, 1908520],
+    keywords: [
+      "@somoscashea", "#somoscashea", "somoscashea",
+      "#cashea", "cashea",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+    ],
+    excludeKeywords: [],
+  },
   vatel: {
     blogIds: [1943481, 1908520],
     keywords: [

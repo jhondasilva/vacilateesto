@@ -64,6 +64,18 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
+  cashea: {
+    handles: ["@somoscashea"],
+    blogIds: [1943481, 1908520],
+    keywords: [
+      "@somoscashea", "#somoscashea", "somoscashea",
+      "#cashea", "cashea",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+    ],
+    excludeKeywords: [],
+    label: "@somoscashea · #cashea · cruce #PeloticaDeGoma / #AmoAJuga",
+  },
   vatel: {
     handles: ["@vatelvenezuela"],
     blogIds: [1943481, 1908520],
@@ -206,7 +218,7 @@ const BRAND_START_YEAR: Record<string, number> = {
 
 
 // Marcas donde además se cruza el análisis con Pelotica de Goma
-const PELOTICA_CROSS_BRANDS = new Set(["empire", "vatel", "maggi", "nestea", "diablitos"]);
+const PELOTICA_CROSS_BRANDS = new Set(["empire", "vatel", "maggi", "nestea", "diablitos", "cashea"]);
 const PELOTICA_KEYWORDS = [
   "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
   "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
