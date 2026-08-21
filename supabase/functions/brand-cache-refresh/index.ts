@@ -245,10 +245,18 @@ Deno.serve(async (req) => {
                 from: fmtIso(period.from),
                 to: fmtIso(period.to),
                 scope,
+                ...((cfg as any).blogIds ? { blogIds: (cfg as any).blogIds } : {}),
                 ...(scope === "brand"
-                  ? { keywords: cfg.keywords, excludeKeywords: cfg.excludeKeywords }
+                  ? {
+                      keywords: cfg.keywords,
+                      excludeKeywords: cfg.excludeKeywords,
+                      ...((cfg as any).includeAllFromBlogIds
+                        ? { includeAllFromBlogIds: (cfg as any).includeAllFromBlogIds }
+                        : {}),
+                    }
                   : {}),
               });
+
               if (scope === "all") allByPeriod.set(period.key, payload);
               // Pequeña pausa para no saturar a Metricool entre llamadas.
               await new Promise((res) => setTimeout(res, 800));
