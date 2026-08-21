@@ -132,8 +132,28 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
+  diablitos: {
+    keywords: [
+      "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
+      "#diablitos", "diablitos",
+    ],
+    excludeKeywords: [],
+    label: "@diablitos_vzla · #diablitos",
+  },
 
 };
+
+// Marcas donde además se cruza el análisis con Pelotica de Goma
+const PELOTICA_CROSS_BRANDS = new Set(["empire", "vatel", "maggi", "nestea", "diablitos"]);
+const PELOTICA_KEYWORDS = [
+  "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+  "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+];
+const matchesPelotica = (text?: string | null) => {
+  const t = (text ?? "").toLowerCase();
+  return PELOTICA_KEYWORDS.some((k) => t.includes(k));
+};
+
 
 
 // Dashboard de campaña (no es una marca): agrupa TODO el contenido de
