@@ -313,6 +313,14 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Blog: Pelotica de Goma 4to Split -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/pelotica-de-goma-split-4</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Blog: Marcas venezolanas nostálgicas -->
   <url>
     <loc>https://www.vacilateesto.com/blog/marcas-venezolanas-nostalgicas</loc>
