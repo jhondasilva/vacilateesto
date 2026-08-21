@@ -172,6 +172,18 @@ const matchesPelotica = (text?: string | null) => {
   return PELOTICA_KEYWORDS.some((k) => t.includes(k));
 };
 
+/**
+ * Regla: una pieza de Pelotica de Goma solo cuenta para la marca si además
+ * menciona el handle oficial de la marca (ej. @vatelvenezuela). Si trae
+ * #AmoAJuga / #PeloticaDeGoma pero no el @ de la marca, no aplica.
+ */
+const peloticaCountsForBrand = (text: string | null | undefined, handles?: string[]) => {
+  const t = (text ?? "").toLowerCase();
+  if (!handles || handles.length === 0) return false;
+  return handles.some((h) => t.includes(h.toLowerCase()));
+};
+
+
 
 
 // Dashboard de campaña (no es una marca): agrupa TODO el contenido de
