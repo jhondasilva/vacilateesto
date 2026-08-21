@@ -771,6 +771,7 @@ const MetricoolDashboard = ({
   const data = cache[cacheKey];
   const brandConfig = BRAND_KEYWORDS[brand.slug] ?? {
     keywords: undefined as unknown as string[],
+    handles: undefined as string[] | undefined,
     excludeKeywords: [] as string[],
     label: brand.name,
   };
