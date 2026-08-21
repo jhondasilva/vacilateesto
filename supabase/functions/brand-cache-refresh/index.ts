@@ -96,7 +96,9 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   diablitos: {
+    blogIds: [1908520, 1943481],
     keywords: [
+
       "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
       "#diablitos", "diablitos",
     ],
