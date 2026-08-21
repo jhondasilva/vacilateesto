@@ -728,6 +728,9 @@ const MetricoolDashboard = ({
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
   type Scope = "brand" | "all";
   const [scope, setScope] = useState<Scope>("brand");
+  const showPelotica = PELOTICA_CROSS_BRANDS.has(brand.slug);
+  const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
+
   const [cache, setCache] = useState<Record<string, MentionsResponse>>({});
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
