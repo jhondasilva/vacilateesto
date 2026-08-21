@@ -62,6 +62,7 @@ const BRAND_KEYWORDS: Record<
     label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
   vatel: {
+    handles: ["@vatelvenezuela"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
@@ -71,6 +72,7 @@ const BRAND_KEYWORDS: Record<
     label: "@vatelvenezuela · #vatel · #vatelvenezuela",
   },
   maggi: {
+    handles: ["@maggivenezuela"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
@@ -80,6 +82,7 @@ const BRAND_KEYWORDS: Record<
     label: "@maggivenezuela · #maggi · #maggivenezuela",
   },
   empire: {
+    handles: ["@empirekeeway"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@empirekeeway", "#empirekeeway", "empirekeeway",
@@ -106,6 +109,7 @@ const BRAND_KEYWORDS: Record<
     label: "@plumrosevzla · #plumrose",
   },
   nestea: {
+    handles: ["@nesteavzla"],
     blogIds: [1943481, 1908520],
     keywords: [
 
