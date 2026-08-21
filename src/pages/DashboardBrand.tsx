@@ -857,9 +857,14 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const allPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const rawPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca
+  const allPosts = rawPosts.filter(
+    (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
+  );
   const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
   const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
+
   const sumMetrics = (list: MentionPost[]) =>
     list.reduce(
       (acc, p) => {
