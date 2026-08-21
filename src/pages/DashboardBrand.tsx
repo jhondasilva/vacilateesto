@@ -32,6 +32,9 @@ const BRAND_KEYWORDS: Record<
     label: string;
     blogIds?: number[];
     includeAllFromBlogIds?: number[];
+    /** Handles oficiales de la marca (IG). Requeridos para contar piezas de Pelotica de Goma. */
+    handles?: string[];
+
   }
 > = {
 
