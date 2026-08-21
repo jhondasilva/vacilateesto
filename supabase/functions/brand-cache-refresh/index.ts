@@ -86,15 +86,16 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   "pelotica-de-goma": {
+    blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
-      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
-      "pelotica de goma",
-      "#amoajuga", "amoajuga", "@amoajuga",
-      "amo a juga", "amo a jugá",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
     ],
     excludeKeywords: [],
   },
 };
+
 
 
 // Dashboard de campaña (no es una marca comercial)
