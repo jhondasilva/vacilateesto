@@ -993,7 +993,67 @@ const MetricoolDashboard = ({
         </div>
       </div>
 
+      {/* Cruce con Pelotica de Goma */}
+      {showPelotica && data && allPosts.length > 0 && (
+        <section className="mb-6 rounded-2xl border border-border bg-card p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div className="min-w-0">
+              <h2 className="text-lg font-black">Cruce con Pelotica de Goma</h2>
+              <p className="text-[11px] text-muted-foreground font-mono">
+                #PeloticaDeGoma · #AmoAJuga · @peloticadegomave
+              </p>
+            </div>
+            <div className="inline-flex shrink-0 rounded-full border border-border p-1 bg-background self-start">
+              {([
+                { k: "all", label: `Incluido · ${allPosts.length}` },
+                { k: "with", label: `Solo Pelotica · ${peloticaPosts.length}` },
+                { k: "without", label: `Sin Pelotica · ${nonPeloticaPosts.length}` },
+              ] as const).map((o) => (
+                <button
+                  key={o.k}
+                  onClick={() => { setPeloticaFilter(o.k); setView("all"); }}
+                  className={cn(
+                    "px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-colors",
+                    peloticaFilter === o.k
+                      ? "bg-foreground text-background"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {([
+              { title: `${brand.name} total`, list: allPosts },
+              { title: "Con Pelotica de Goma", list: peloticaPosts },
+              { title: "Sin Pelotica de Goma", list: nonPeloticaPosts },
+            ] as const).map((b) => {
+              const t = sumMetrics(b.list as MentionPost[]);
+              return (
+                <div
+                  key={b.title}
+                  className="rounded-xl border border-border p-4"
+                  style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+                >
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{b.title}</p>
+                  <p className="text-2xl font-black">{b.list.length}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">publicaciones</p>
+                  <dl className="grid grid-cols-3 gap-2 text-xs pt-3 border-t border-border">
+                    <div><dt className="text-muted-foreground">Views</dt><dd className="font-bold">{fmtNum(t.views)}</dd></div>
+                    <div><dt className="text-muted-foreground">Likes</dt><dd className="font-bold">{fmtNum(t.likes)}</dd></div>
+                    <div><dt className="text-muted-foreground">Coment.</dt><dd className="font-bold">{fmtNum(t.comments)}</dd></div>
+                  </dl>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Selector de red: General + cada plataforma */}
+
       <div className="flex flex-wrap gap-2 mb-6">
         <PlatformChip
           active={view === "all"}
