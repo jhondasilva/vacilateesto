@@ -7,8 +7,9 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 // Mismas keywords que el frontend (src/pages/DashboardBrand.tsx)
 const BRAND_KEYWORDS: Record<
   string,
-  { keywords: string[]; excludeKeywords: string[] }
+  { keywords: string[]; excludeKeywords: string[]; blogIds?: number[]; includeAllFromBlogIds?: number[] }
 > = {
+
   "coca-cola": {
     keywords: [
       "@cocacola", "@cocacolavzla", "@cocacolave",
@@ -86,15 +87,16 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   "pelotica-de-goma": {
+    blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
-      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
-      "pelotica de goma",
-      "#amoajuga", "amoajuga", "@amoajuga",
-      "amo a juga", "amo a jugá",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
     ],
     excludeKeywords: [],
   },
 };
+
 
 
 // Dashboard de campaña (no es una marca comercial)
@@ -238,18 +240,28 @@ Deno.serve(async (req) => {
         for (const scope of ["brand", "all"] as const) {
           try {
             let payload: any;
-            if (scope === "all" && allByPeriod.has(period.key)) {
+            const sharesAllCache = !cfg.blogIds;
+            if (scope === "all" && sharesAllCache && allByPeriod.has(period.key)) {
               payload = allByPeriod.get(period.key);
             } else {
               payload = await callMetricool({
                 from: fmtIso(period.from),
                 to: fmtIso(period.to),
                 scope,
+                ...((cfg as any).blogIds ? { blogIds: (cfg as any).blogIds } : {}),
                 ...(scope === "brand"
-                  ? { keywords: cfg.keywords, excludeKeywords: cfg.excludeKeywords }
+                  ? {
+                      keywords: cfg.keywords,
+                      excludeKeywords: cfg.excludeKeywords,
+                      ...((cfg as any).includeAllFromBlogIds
+                        ? { includeAllFromBlogIds: (cfg as any).includeAllFromBlogIds }
+                        : {}),
+                    }
                   : {}),
               });
-              if (scope === "all") allByPeriod.set(period.key, payload);
+
+              if (scope === "all" && sharesAllCache) allByPeriod.set(period.key, payload);
+
               // Pequeña pausa para no saturar a Metricool entre llamadas.
               await new Promise((res) => setTimeout(res, 800));
             }

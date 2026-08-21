@@ -26,8 +26,15 @@ const BRAND_LOGOS: Record<string, string> = {
 // Configuración de keywords por marca (filtros de menciones en redes)
 const BRAND_KEYWORDS: Record<
   string,
-  { keywords: string[]; excludeKeywords: string[]; label: string }
+  {
+    keywords: string[];
+    excludeKeywords: string[];
+    label: string;
+    blogIds?: number[];
+    includeAllFromBlogIds?: number[];
+  }
 > = {
+
   "coca-cola": {
     keywords: [
       "@cocacola", "@cocacolavzla", "@cocacolave",
@@ -115,15 +122,17 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
+    // Cuenta propia de Pelotica de Goma (todos sus posts) + menciones en Vacílate Esto
+    blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
-      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
-      "pelotica de goma",
-      "#amoajuga", "amoajuga", "@amoajuga",
-      "amo a juga", "amo a jugá",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
     ],
     excludeKeywords: [],
-    label: "#PeloticaDeGoma · #AmoAJuga · @peloticadegoma",
+    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
+
 };
 
 
@@ -156,7 +165,15 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
 // IDs de posts que no deben mostrarse en un dashboard específico.
 const EXCLUDED_POST_IDS: Record<string, string[]> = {
   "vacilate-el-mundial": ["f317avMjOsk"], // "Lo que NADIE te cuenta... desde Houston" (vista previa/test, 6 views)
+  // Post de arquitectura UCV: solo nombra la pelotica de pasada, no es contenido de la marca
+  "pelotica-de-goma": [
+    "497bx9wbW6A",
+    "3945643808420838654_11371492563",
+    "7664702085916609810",
+    "1589414276031681",
+  ],
 };
+
 
 type Report = {
   id: string;
@@ -730,9 +747,17 @@ const MetricoolDashboard = ({
           from: fmtIso(month.from),
           to: fmtIso(month.to),
           scope,
+          ...(brandConfig.blogIds ? { blogIds: brandConfig.blogIds } : {}),
           ...(scope === "brand"
-            ? { keywords: brandConfig.keywords, excludeKeywords: brandConfig.excludeKeywords }
+            ? {
+                keywords: brandConfig.keywords,
+                excludeKeywords: brandConfig.excludeKeywords,
+                ...(brandConfig.includeAllFromBlogIds
+                  ? { includeAllFromBlogIds: brandConfig.includeAllFromBlogIds }
+                  : {}),
+              }
             : {}),
+
         },
       });
       if (error) {
