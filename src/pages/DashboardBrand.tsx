@@ -32,6 +32,9 @@ const BRAND_KEYWORDS: Record<
     label: string;
     blogIds?: number[];
     includeAllFromBlogIds?: number[];
+    /** Handles oficiales de la marca (IG). Requeridos para contar piezas de Pelotica de Goma. */
+    handles?: string[];
+
   }
 > = {
 
@@ -59,6 +62,7 @@ const BRAND_KEYWORDS: Record<
     label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
   vatel: {
+    handles: ["@vatelvenezuela"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
@@ -68,6 +72,7 @@ const BRAND_KEYWORDS: Record<
     label: "@vatelvenezuela · #vatel · #vatelvenezuela",
   },
   maggi: {
+    handles: ["@maggivenezuela"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
@@ -77,6 +82,7 @@ const BRAND_KEYWORDS: Record<
     label: "@maggivenezuela · #maggi · #maggivenezuela",
   },
   empire: {
+    handles: ["@empirekeeway"],
     blogIds: [1943481, 1908520],
     keywords: [
       "@empirekeeway", "#empirekeeway", "empirekeeway",
@@ -103,6 +109,7 @@ const BRAND_KEYWORDS: Record<
     label: "@plumrosevzla · #plumrose",
   },
   nestea: {
+    handles: ["@nesteavzla"],
     blogIds: [1943481, 1908520],
     keywords: [
 
@@ -139,8 +146,10 @@ const BRAND_KEYWORDS: Record<
     label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
   diablitos: {
+    handles: ["@diablitos_vzla"],
     // Las menciones a @diablitos_vzla aparecen en la cuenta de Pelotica de Goma y en Vacílate Esto
     blogIds: [1908520, 1943481],
+
     keywords: [
 
       "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
@@ -162,6 +171,18 @@ const matchesPelotica = (text?: string | null) => {
   const t = (text ?? "").toLowerCase();
   return PELOTICA_KEYWORDS.some((k) => t.includes(k));
 };
+
+/**
+ * Regla: una pieza de Pelotica de Goma solo cuenta para la marca si además
+ * menciona el handle oficial de la marca (ej. @vatelvenezuela). Si trae
+ * #AmoAJuga / #PeloticaDeGoma pero no el @ de la marca, no aplica.
+ */
+const peloticaCountsForBrand = (text: string | null | undefined, handles?: string[]) => {
+  const t = (text ?? "").toLowerCase();
+  if (!handles || handles.length === 0) return false;
+  return handles.some((h) => t.includes(h.toLowerCase()));
+};
+
 
 
 
@@ -750,6 +771,7 @@ const MetricoolDashboard = ({
   const data = cache[cacheKey];
   const brandConfig = BRAND_KEYWORDS[brand.slug] ?? {
     keywords: undefined as unknown as string[],
+    handles: undefined as string[] | undefined,
     excludeKeywords: [] as string[],
     label: brand.name,
   };
@@ -836,9 +858,14 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const allPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const rawPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca
+  const allPosts = rawPosts.filter(
+    (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
+  );
   const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
   const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
+
   const sumMetrics = (list: MentionPost[]) =>
     list.reduce(
       (acc, p) => {
