@@ -158,8 +158,23 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@diablitos_vzla · #diablitos",
   },
+  "podcast-en-la-cumbre": {
+    blogIds: [1943481, 1908520],
+    keywords: [
+      "#podcastenlacumbre", "podcastenlacumbre", "@podcastenlacumbre",
+      "podcast en la cumbre",
+    ],
+    excludeKeywords: [],
+    label: "#PodcastEnLaCumbre · desde 2025",
+  },
 
 };
+
+// Año de inicio del análisis por dashboard (por defecto 2026)
+const BRAND_START_YEAR: Record<string, number> = {
+  "podcast-en-la-cumbre": 2025,
+};
+
 
 // Marcas donde además se cruza el análisis con Pelotica de Goma
 const PELOTICA_CROSS_BRANDS = new Set(["empire", "vatel", "maggi", "nestea", "diablitos"]);
