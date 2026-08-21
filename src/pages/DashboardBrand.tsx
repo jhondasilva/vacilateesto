@@ -103,7 +103,9 @@ const BRAND_KEYWORDS: Record<
     label: "@plumrosevzla · #plumrose",
   },
   nestea: {
+    blogIds: [1943481, 1908520],
     keywords: [
+
       "@nesteavzla", "#nesteavzla", "nesteavzla",
       "#nestea", "nestea",
     ],
