@@ -169,6 +169,15 @@ Deno.serve(async (req) => {
       });
     }
     const blogId = Number(body.blogId ?? 1943481);
+    // Se pueden consultar varias cuentas de Metricool a la vez (p. ej. Vacílate Esto + Pelotica de Goma)
+    const blogIds: number[] = Array.isArray(body.blogIds) && body.blogIds.length
+      ? body.blogIds.map((b: any) => Number(b)).filter((b: number) => !Number.isNaN(b))
+      : [blogId];
+    // Posts de estas cuentas se incluyen siempre (son la cuenta propia de la marca)
+    const includeAllFromBlogIds = new Set<number>(
+      (Array.isArray(body.includeAllFromBlogIds) ? body.includeAllFromBlogIds : []).map((b: any) => Number(b)),
+    );
+
 
     const keywords: string[] = body.keywords ?? [
       "@cocacola",
