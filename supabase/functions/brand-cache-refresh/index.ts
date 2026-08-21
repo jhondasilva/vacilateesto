@@ -32,6 +32,7 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   vatel: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
       "#vatel", "vatel",
@@ -39,6 +40,7 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   maggi: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
       "#maggi", "maggi",
@@ -46,6 +48,7 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   empire: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@empirekeeway", "#empirekeeway", "empirekeeway",
       "#empire", "empire",
@@ -67,6 +70,7 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
   },
   nestea: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@nesteavzla", "#nesteavzla", "nesteavzla",
       "#nestea", "nestea",
