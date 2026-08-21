@@ -7,8 +7,9 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 // Mismas keywords que el frontend (src/pages/DashboardBrand.tsx)
 const BRAND_KEYWORDS: Record<
   string,
-  { keywords: string[]; excludeKeywords: string[] }
+  { keywords: string[]; excludeKeywords: string[]; blogIds?: number[]; includeAllFromBlogIds?: number[] }
 > = {
+
   "coca-cola": {
     keywords: [
       "@cocacola", "@cocacolavzla", "@cocacolave",
