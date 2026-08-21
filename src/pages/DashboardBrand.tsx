@@ -1036,8 +1036,15 @@ const MetricoolDashboard = ({
             <div className="min-w-0">
               <h2 className="text-lg font-black">Cruce con Pelotica de Goma</h2>
               <p className="text-[11px] text-muted-foreground font-mono">
-                #PeloticaDeGoma · #AmoAJuga · @peloticadegomave
+                (#PeloticaDeGoma · #AmoAJuga · @peloticadegomave)
+                {brandConfig.handles?.length ? ` + ${brandConfig.handles.join(" / ")}` : ""}
               </p>
+              {brandConfig.handles?.length ? (
+                <p className="text-[11px] text-muted-foreground mt-1">
+                  Solo cuentan las piezas de Pelotica que además mencionan {brandConfig.handles.join(" o ")}.
+                </p>
+              ) : null}
+
             </div>
             <div className="inline-flex shrink-0 rounded-full border border-border p-1 bg-background self-start">
               {([
