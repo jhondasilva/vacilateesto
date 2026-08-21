@@ -146,8 +146,10 @@ const BRAND_KEYWORDS: Record<
     label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
   diablitos: {
+    handles: ["@diablitos_vzla"],
     // Las menciones a @diablitos_vzla aparecen en la cuenta de Pelotica de Goma y en Vacílate Esto
     blogIds: [1908520, 1943481],
+
     keywords: [
 
       "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
