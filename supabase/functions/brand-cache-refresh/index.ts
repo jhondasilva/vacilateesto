@@ -108,6 +108,19 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  "podcast-en-la-cumbre": {
+    blogIds: [1943481, 1908520],
+    keywords: [
+      "#podcastenlacumbre", "podcastenlacumbre", "@podcastenlacumbre",
+      "podcast en la cumbre",
+    ],
+    excludeKeywords: [],
+  },
+};
+
+// Año de inicio del análisis por dashboard (por defecto 2026)
+const BRAND_START_YEAR: Record<string, number> = {
+  "podcast-en-la-cumbre": 2025,
 };
 
 
@@ -137,9 +150,34 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
 const fmtIso = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
 
-function buildPeriods() {
+function buildPeriods(brandSlug?: string) {
   const now = new Date();
   const periods: { key: string; label: string; from: Date; to: Date }[] = [];
+  const startYear = (brandSlug && BRAND_START_YEAR[brandSlug]) || 2026;
+
+  if (startYear < 2026) {
+    // Acumulado histórico (enero del año inicial → hoy)
+    periods.push({
+      key: "cumulative-all",
+      label: `Acumulado ${startYear}-${now.getFullYear()}`,
+      from: new Date(startYear, 0, 1, 0, 0, 0),
+      to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+    });
+    // Meses completos desde el año inicial
+    let y = startYear;
+    let m = 0;
+    while (y < now.getFullYear() || (y === now.getFullYear() && m <= now.getMonth())) {
+      periods.push({
+        key: `${y}-${String(m + 1).padStart(2, "0")}`,
+        label: `${y}-${String(m + 1).padStart(2, "0")}`,
+        from: new Date(y, m, 1, 0, 0, 0),
+        to: new Date(y, m + 1, 0, 23, 59, 59),
+      });
+      m++;
+      if (m > 11) { m = 0; y++; }
+    }
+    return periods;
+  }
 
   // Acumulado 2026 (enero → hoy)
   periods.push({
@@ -237,7 +275,6 @@ Deno.serve(async (req) => {
     const { data: brands, error: brandsErr } = await brandsQuery;
     if (brandsErr) throw brandsErr;
 
-    const periods = buildPeriods();
     const results: any[] = [];
 
     // Cache de scope="all" por periodo: el payload no depende de la marca,
@@ -250,6 +287,7 @@ Deno.serve(async (req) => {
         results.push({ brand: brand.slug, skipped: "no keywords configured" });
         continue;
       }
+      const periods = buildPeriods(brand.slug);
       for (const period of periods) {
         for (const scope of ["brand", "all"] as const) {
           try {
