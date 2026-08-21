@@ -240,7 +240,8 @@ Deno.serve(async (req) => {
         for (const scope of ["brand", "all"] as const) {
           try {
             let payload: any;
-            if (scope === "all" && allByPeriod.has(period.key)) {
+            const sharesAllCache = !cfg.blogIds;
+            if (scope === "all" && sharesAllCache && allByPeriod.has(period.key)) {
               payload = allByPeriod.get(period.key);
             } else {
               payload = await callMetricool({
@@ -259,7 +260,8 @@ Deno.serve(async (req) => {
                   : {}),
               });
 
-              if (scope === "all") allByPeriod.set(period.key, payload);
+              if (scope === "all" && sharesAllCache) allByPeriod.set(period.key, payload);
+
               // Pequeña pausa para no saturar a Metricool entre llamadas.
               await new Promise((res) => setTimeout(res, 800));
             }
