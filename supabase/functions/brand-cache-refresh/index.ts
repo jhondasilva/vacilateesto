@@ -85,7 +85,17 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  "pelotica-de-goma": {
+    keywords: [
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
+      "pelotica de goma",
+      "#amoajuga", "amoajuga", "@amoajuga",
+      "amo a juga", "amo a jugá",
+    ],
+    excludeKeywords: [],
+  },
 };
+
 
 // Dashboard de campaña (no es una marca comercial)
 BRAND_KEYWORDS["vacilate-el-mundial"] = {
