@@ -114,7 +114,18 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@bncbanco · #bnc · #bncbanco",
   },
+  "pelotica-de-goma": {
+    keywords: [
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
+      "pelotica de goma",
+      "#amoajuga", "amoajuga", "@amoajuga",
+      "amo a juga", "amo a jugá",
+    ],
+    excludeKeywords: [],
+    label: "#PeloticaDeGoma · #AmoAJuga · @peloticadegoma",
+  },
 };
+
 
 // Dashboard de campaña (no es una marca): agrupa TODO el contenido de
 // Vacílate El Mundial / El Fútbol / Hablemos de Fútbol, con o sin marcas.
