@@ -52,6 +52,7 @@ import TioSimonTributoFrases from "./pages/blog/TioSimonTributoFrases";
 import MejorPerroCalienteCaracas from "./pages/blog/MejorPerroCalienteCaracas";
 import QueEsLlaneridad from "./pages/blog/QueEsLlaneridad";
 import MarcasVenezolanasNostalgicas from "./pages/blog/MarcasVenezolanasNostalgicas";
+import PeloticaSplit4 from "./pages/blog/PeloticaSplit4";
 import BlogPostDynamic from "./pages/blog/BlogPostDynamic";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
@@ -123,6 +124,7 @@ const App = () => (
             <Route path="/blog/mejor-perro-caliente-caracas" element={<MejorPerroCalienteCaracas />} />
             <Route path="/blog/que-es-la-llaneridad" element={<QueEsLlaneridad />} />
             <Route path="/blog/marcas-venezolanas-nostalgicas" element={<MarcasVenezolanasNostalgicas />} />
+            <Route path="/blog/pelotica-de-goma-split-4" element={<PeloticaSplit4 />} />
             {/* Dynamic AI-generated blog posts (must be last among /blog/* routes) */}
             <Route path="/blog/:slug" element={<BlogPostDynamic />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

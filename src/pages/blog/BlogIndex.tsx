@@ -8,6 +8,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
+    slug: "pelotica-de-goma-split-4",
+    title: "Pelotica de Goma 4to Split: 35 juegos en septiembre por La Guaira",
+    excerpt:
+      "Fechas, sedes, formato del Final Four y los 8 equipos del 4to Split de la Liga Pelotica de Goma Vacílate Esto.",
+    category: "Deporte",
+    minutes: 7,
+    date: "2026-08-21",
+  },
+  {
     slug: "tio-simon-frases-tributo",
     title: "Tío Simón Díaz: frases, tributo y por qué sigue siendo el alma de Venezuela",
     excerpt:
