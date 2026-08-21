@@ -211,7 +211,14 @@ Deno.serve(async (req) => {
     const requested: Unified["platform"][] = Array.isArray(body.platforms) && body.platforms.length
       ? body.platforms.filter((p: string) => platforms.includes(p as any))
       : platforms;
-    const results = await Promise.all(requested.map((p) => fetchPlatform(p, blogId, from, to)));
+    const results = await Promise.all(
+      requested.flatMap((p) =>
+        blogIds.map(async (b) => {
+          const posts = await fetchPlatform(p, b, from, to);
+          return posts.map((x) => ({ ...x, blogId: b }));
+        }),
+      ),
+    );
     const all = results.flat();
     const fromMs = new Date(from).getTime();
     const toMs = new Date(to).getTime();
@@ -220,8 +227,10 @@ Deno.serve(async (req) => {
     const matched = all
       .filter((p) => {
         if (scope === "all") return true;
+        if (includeAllFromBlogIds.has((p as any).blogId)) return true;
         return matchesKeywords(p.text, keywords) && !excludesKeywords(p.text, excludeKeywords);
       })
+
       .filter((p) => {
         if (!p.publishedAt) return false;
         const t = new Date(p.publishedAt).getTime();
