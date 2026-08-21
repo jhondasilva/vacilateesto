@@ -95,7 +95,15 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
   },
+  diablitos: {
+    keywords: [
+      "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
+      "#diablitos", "diablitos",
+    ],
+    excludeKeywords: [],
+  },
 };
+
 
 
 
