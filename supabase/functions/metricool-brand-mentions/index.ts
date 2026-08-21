@@ -224,10 +224,13 @@ Deno.serve(async (req) => {
     const toMs = new Date(to).getTime();
     const scope: "all" | "brand" = body.scope === "all" ? "all" : "brand";
     const excludeKeywords: string[] = body.excludeKeywords ?? [];
+    // Keywords obligatorias adicionales: el post debe cumplir keywords Y requireKeywords
+    const requireKeywords: string[] = Array.isArray(body.requireKeywords) ? body.requireKeywords : [];
     const matched = all
       .filter((p) => {
         if (scope === "all") return true;
         if (includeAllFromBlogIds.has((p as any).blogId)) return true;
+        if (requireKeywords.length && !matchesKeywords(p.text, requireKeywords)) return false;
         return matchesKeywords(p.text, keywords) && !excludesKeywords(p.text, excludeKeywords);
       })
 

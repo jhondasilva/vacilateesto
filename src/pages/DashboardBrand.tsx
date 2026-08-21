@@ -34,6 +34,9 @@ const BRAND_KEYWORDS: Record<
     includeAllFromBlogIds?: number[];
     /** Handles oficiales de la marca (IG). Requeridos para contar piezas de Pelotica de Goma. */
     handles?: string[];
+    /** Keywords obligatorias adicionales: el post debe cumplir keywords Y requireKeywords. */
+    requireKeywords?: string[];
+
 
   }
 > = {
@@ -170,9 +173,35 @@ const BRAND_KEYWORDS: Record<
 
 };
 
+// Marcas patrocinantes de Podcast en la Cumbre: requieren su @ Y el #PodcastEnLaCumbre
+const CUMBRE_KEYWORDS = [
+  "#podcastenlacumbre", "podcastenlacumbre", "@podcastenlacumbre", "podcast en la cumbre",
+];
+const CUMBRE_BRANDS: Record<string, { handle: string; keywords: string[] }> = {
+  "harina-pan": { handle: "@panvenezuela", keywords: ["@panvenezuela", "#panvenezuela", "panvenezuela", "#harinapan", "harina pan"] },
+  ronco: { handle: "@roncovzla", keywords: ["@roncovzla", "#roncovzla", "roncovzla"] },
+  "planeta-sport": { handle: "@planeta_sports", keywords: ["@planeta_sports", "#planeta_sports", "planeta_sports", "planeta sport"] },
+  "club-social": { handle: "@clubsocialvzla", keywords: ["@clubsocialvzla", "#clubsocialvzla", "clubsocialvzla", "club social"] },
+  quimicolor: { handle: "@quimicolor.ve", keywords: ["@quimicolor.ve", "quimicolor.ve", "#quimicolor", "quimicolor"] },
+  "plan-b": { handle: "@comeplanb", keywords: ["@comeplanb", "#comeplanb", "comeplanb"] },
+  solera: { handle: "@solerapremium", keywords: ["@solerapremium", "#solerapremium", "solerapremium", "solera"] },
+  "banco-de-venezuela": { handle: "@bancodevenezuela", keywords: ["@bancodevenezuela", "#bancodevenezuela", "bancodevenezuela", "banco de venezuela"] },
+};
+for (const [slug, cfg] of Object.entries(CUMBRE_BRANDS)) {
+  BRAND_KEYWORDS[slug] = {
+    blogIds: [1943481, 1908520],
+    keywords: cfg.keywords,
+    excludeKeywords: [],
+    requireKeywords: CUMBRE_KEYWORDS,
+    handles: [cfg.handle],
+    label: `${cfg.handle} + #PodcastEnLaCumbre · desde 2025`,
+  };
+}
+
 // Año de inicio del análisis por dashboard (por defecto 2026)
 const BRAND_START_YEAR: Record<string, number> = {
   "podcast-en-la-cumbre": 2025,
+  ...Object.fromEntries(Object.keys(CUMBRE_BRANDS).map((s) => [s, 2025])),
 };
 
 
@@ -830,6 +859,9 @@ const MetricoolDashboard = ({
             ? {
                 keywords: brandConfig.keywords,
                 excludeKeywords: brandConfig.excludeKeywords,
+                ...((brandConfig as { requireKeywords?: string[] }).requireKeywords
+                  ? { requireKeywords: (brandConfig as { requireKeywords?: string[] }).requireKeywords }
+                  : {}),
                 ...(brandConfig.includeAllFromBlogIds
                   ? { includeAllFromBlogIds: brandConfig.includeAllFromBlogIds }
                   : {}),
