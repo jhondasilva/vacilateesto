@@ -270,6 +270,8 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
 
 // IDs de posts que no deben mostrarse en un dashboard específico.
 const EXCLUDED_POST_IDS: Record<string, string[]> = {
+  // "Marcas que viven en tus recuerdos": no menciona @somoscashea ni cumple los parámetros
+  cashea: ["O1MNft72Ono"],
   "vacilate-el-mundial": ["f317avMjOsk"], // "Lo que NADIE te cuenta... desde Houston" (vista previa/test, 6 views)
   // Post de arquitectura UCV: solo nombra la pelotica de pasada, no es contenido de la marca
   "pelotica-de-goma": [
