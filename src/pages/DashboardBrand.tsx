@@ -827,9 +827,29 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const basePosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const allPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
+  const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
+  const sumMetrics = (list: MentionPost[]) =>
+    list.reduce(
+      (acc, p) => {
+        acc.views += p.metrics.views ?? 0;
+        acc.likes += p.metrics.likes ?? p.metrics.reactions ?? 0;
+        acc.comments += p.metrics.comments ?? 0;
+        acc.impressions += p.metrics.impressions ?? 0;
+        return acc;
+      },
+      { views: 0, likes: 0, comments: 0, impressions: 0 },
+    );
+  const basePosts =
+    showPelotica && peloticaFilter === "with"
+      ? peloticaPosts
+      : showPelotica && peloticaFilter === "without"
+        ? nonPeloticaPosts
+        : allPosts;
   const postsForView = view === "all" ? basePosts : basePosts.filter((p) => p.platform === view);
   const matchedCount = basePosts.length;
+
   const byPlatform = ALL_PLATFORMS.reduce<Record<string, number>>((acc, p) => {
     acc[p] = basePosts.filter((x) => x.platform === p).length;
     return acc;
