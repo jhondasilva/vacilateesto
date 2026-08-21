@@ -720,9 +720,9 @@ const fmtNum = (n: number) =>
 
 type MonthKey = string; // "YYYY-MM"
 
-const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[] => {
+const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: Date; to: Date }[] => {
   const out: { key: MonthKey; label: string; from: Date; to: Date }[] = [];
-  const startYear = 2026;
+  const startYear = brandSlug ? (BRAND_START_YEAR[brandSlug] ?? 2026) : 2026;
   const startMonth = 0; // enero (0-indexed)
   const now = new Date();
   const endYear = now.getFullYear();
@@ -741,19 +741,28 @@ const buildMonths = (): { key: MonthKey; label: string; from: Date; to: Date }[]
     }
   }
   const monthly = out.reverse(); // más reciente primero
-  const cumulative = {
-    key: "cumulative-2026" as MonthKey,
-    label: "Acumulado 2026",
-    from: new Date(2026, 1, 1, 0, 0, 0),
-    to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
-  };
+  const cumulative =
+    startYear < 2026
+      ? {
+          key: "cumulative-all" as MonthKey,
+          label: `Acumulado ${startYear}-${now.getFullYear()}`,
+          from: new Date(startYear, 0, 1, 0, 0, 0),
+          to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+        }
+      : {
+          key: "cumulative-2026" as MonthKey,
+          label: "Acumulado 2026",
+          from: new Date(2026, 1, 1, 0, 0, 0),
+          to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+        };
   return [cumulative, ...monthly];
 };
 
 const MetricoolDashboard = ({
   brand, brandLogo, accent,
 }: { brand: Brand; brandLogo: string | null; accent: string }) => {
-  const months = useState(() => buildMonths())[0];
+  const months = useState(() => buildMonths(brand.slug))[0];
+
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
   type Scope = "brand" | "all";
