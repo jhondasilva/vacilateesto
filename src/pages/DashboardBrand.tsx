@@ -59,6 +59,7 @@ const BRAND_KEYWORDS: Record<
     label: "@kfc_vzla · @kfcvzla · #kfcvzla",
   },
   vatel: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@vatelvenezuela", "#vatelvenezuela", "vatelvenezuela",
       "#vatel", "vatel",
@@ -67,6 +68,7 @@ const BRAND_KEYWORDS: Record<
     label: "@vatelvenezuela · #vatel · #vatelvenezuela",
   },
   maggi: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@maggivenezuela", "#maggivenezuela", "maggivenezuela",
       "#maggi", "maggi",
@@ -75,6 +77,7 @@ const BRAND_KEYWORDS: Record<
     label: "@maggivenezuela · #maggi · #maggivenezuela",
   },
   empire: {
+    blogIds: [1943481, 1908520],
     keywords: [
       "@empirekeeway", "#empirekeeway", "empirekeeway",
       "#empire", "empire",
@@ -82,6 +85,7 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@empirekeeway · #empire · #empirekeeway",
   },
+
   buchanans: {
     keywords: [
       "@buchananslatam", "#buchananslatam", "buchananslatam",
@@ -99,7 +103,9 @@ const BRAND_KEYWORDS: Record<
     label: "@plumrosevzla · #plumrose",
   },
   nestea: {
+    blogIds: [1943481, 1908520],
     keywords: [
+
       "@nesteavzla", "#nesteavzla", "nesteavzla",
       "#nestea", "nestea",
     ],
@@ -132,8 +138,31 @@ const BRAND_KEYWORDS: Record<
     excludeKeywords: [],
     label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
+  diablitos: {
+    // Las menciones a @diablitos_vzla aparecen en la cuenta de Pelotica de Goma y en Vacílate Esto
+    blogIds: [1908520, 1943481],
+    keywords: [
+
+      "@diablitos_vzla", "#diablitos_vzla", "diablitos_vzla",
+      "#diablitos", "diablitos",
+    ],
+    excludeKeywords: [],
+    label: "@diablitos_vzla · #diablitos",
+  },
 
 };
+
+// Marcas donde además se cruza el análisis con Pelotica de Goma
+const PELOTICA_CROSS_BRANDS = new Set(["empire", "vatel", "maggi", "nestea", "diablitos"]);
+const PELOTICA_KEYWORDS = [
+  "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+  "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+];
+const matchesPelotica = (text?: string | null) => {
+  const t = (text ?? "").toLowerCase();
+  return PELOTICA_KEYWORDS.some((k) => t.includes(k));
+};
+
 
 
 // Dashboard de campaña (no es una marca): agrupa TODO el contenido de
@@ -708,6 +737,9 @@ const MetricoolDashboard = ({
   const [view, setView] = useState<"all" | MentionPost["platform"]>("all");
   type Scope = "brand" | "all";
   const [scope, setScope] = useState<Scope>("brand");
+  const showPelotica = PELOTICA_CROSS_BRANDS.has(brand.slug);
+  const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
+
   const [cache, setCache] = useState<Record<string, MentionsResponse>>({});
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -804,9 +836,29 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const basePosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const allPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
+  const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
+  const sumMetrics = (list: MentionPost[]) =>
+    list.reduce(
+      (acc, p) => {
+        acc.views += p.metrics.views ?? 0;
+        acc.likes += p.metrics.likes ?? p.metrics.reactions ?? 0;
+        acc.comments += p.metrics.comments ?? 0;
+        acc.impressions += p.metrics.impressions ?? 0;
+        return acc;
+      },
+      { views: 0, likes: 0, comments: 0, impressions: 0 },
+    );
+  const basePosts =
+    showPelotica && peloticaFilter === "with"
+      ? peloticaPosts
+      : showPelotica && peloticaFilter === "without"
+        ? nonPeloticaPosts
+        : allPosts;
   const postsForView = view === "all" ? basePosts : basePosts.filter((p) => p.platform === view);
   const matchedCount = basePosts.length;
+
   const byPlatform = ALL_PLATFORMS.reduce<Record<string, number>>((acc, p) => {
     acc[p] = basePosts.filter((x) => x.platform === p).length;
     return acc;
@@ -950,7 +1002,67 @@ const MetricoolDashboard = ({
         </div>
       </div>
 
+      {/* Cruce con Pelotica de Goma */}
+      {showPelotica && data && allPosts.length > 0 && (
+        <section className="mb-6 rounded-2xl border border-border bg-card p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div className="min-w-0">
+              <h2 className="text-lg font-black">Cruce con Pelotica de Goma</h2>
+              <p className="text-[11px] text-muted-foreground font-mono">
+                #PeloticaDeGoma · #AmoAJuga · @peloticadegomave
+              </p>
+            </div>
+            <div className="inline-flex shrink-0 rounded-full border border-border p-1 bg-background self-start">
+              {([
+                { k: "all", label: `Incluido · ${allPosts.length}` },
+                { k: "with", label: `Solo Pelotica · ${peloticaPosts.length}` },
+                { k: "without", label: `Sin Pelotica · ${nonPeloticaPosts.length}` },
+              ] as const).map((o) => (
+                <button
+                  key={o.k}
+                  onClick={() => { setPeloticaFilter(o.k); setView("all"); }}
+                  className={cn(
+                    "px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-colors",
+                    peloticaFilter === o.k
+                      ? "bg-foreground text-background"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {([
+              { title: `${brand.name} total`, list: allPosts },
+              { title: "Con Pelotica de Goma", list: peloticaPosts },
+              { title: "Sin Pelotica de Goma", list: nonPeloticaPosts },
+            ] as const).map((b) => {
+              const t = sumMetrics(b.list as MentionPost[]);
+              return (
+                <div
+                  key={b.title}
+                  className="rounded-xl border border-border p-4"
+                  style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+                >
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{b.title}</p>
+                  <p className="text-2xl font-black">{b.list.length}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">publicaciones</p>
+                  <dl className="grid grid-cols-3 gap-2 text-xs pt-3 border-t border-border">
+                    <div><dt className="text-muted-foreground">Views</dt><dd className="font-bold">{fmtNum(t.views)}</dd></div>
+                    <div><dt className="text-muted-foreground">Likes</dt><dd className="font-bold">{fmtNum(t.likes)}</dd></div>
+                    <div><dt className="text-muted-foreground">Coment.</dt><dd className="font-bold">{fmtNum(t.comments)}</dd></div>
+                  </dl>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Selector de red: General + cada plataforma */}
+
       <div className="flex flex-wrap gap-2 mb-6">
         <PlatformChip
           active={view === "all"}
