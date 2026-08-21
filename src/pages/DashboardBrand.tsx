@@ -165,7 +165,15 @@ BRAND_KEYWORDS["vacilate-el-mundial"] = {
 // IDs de posts que no deben mostrarse en un dashboard específico.
 const EXCLUDED_POST_IDS: Record<string, string[]> = {
   "vacilate-el-mundial": ["f317avMjOsk"], // "Lo que NADIE te cuenta... desde Houston" (vista previa/test, 6 views)
+  // Post de arquitectura UCV: solo nombra la pelotica de pasada, no es contenido de la marca
+  "pelotica-de-goma": [
+    "497bx9wbW6A",
+    "3945643808420838654_11371492563",
+    "7664702085916609810",
+    "1589414276031681",
+  ],
 };
+
 
 type Report = {
   id: string;
