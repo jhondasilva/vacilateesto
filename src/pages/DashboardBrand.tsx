@@ -122,15 +122,17 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
+    // Cuenta propia de Pelotica de Goma (todos sus posts) + menciones en Vacílate Esto
+    blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
-      "#peloticadegoma", "peloticadegoma", "@peloticadegoma",
-      "pelotica de goma",
-      "#amoajuga", "amoajuga", "@amoajuga",
-      "amo a juga", "amo a jugá",
+      "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
     ],
     excludeKeywords: [],
-    label: "#PeloticaDeGoma · #AmoAJuga · @peloticadegoma",
+    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
   },
+
 };
 
 
