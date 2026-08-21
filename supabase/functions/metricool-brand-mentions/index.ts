@@ -157,7 +157,19 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   try {
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
+    if (body.listBrands) {
+      const r = await fetch(
+        `https://app.metricool.com/api/admin/simpleProfiles?userId=${USER_ID}`,
+        { headers: { "X-Mc-Auth": TOKEN } },
+      );
+      const txt = await r.text();
+      return new Response(txt, {
+        status: r.status,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     const blogId = Number(body.blogId ?? 1943481);
+
     const keywords: string[] = body.keywords ?? [
       "@cocacola",
       "@cocacolavzla",
