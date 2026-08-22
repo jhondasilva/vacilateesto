@@ -1003,6 +1003,18 @@ const MetricoolDashboard = ({
         </div>
       </div>
 
+      {brand.slug === "vacilate-el-mundial" && (
+        <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3">
+          <p className="text-sm font-bold">Proyecto culminado</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            La cobertura de Vacílate El Mundial / El Fútbol cerró el 22 de agosto de 2026. Estas son
+            las cifras finales y consolidadas: no se sumará contenido nuevo a este dashboard.
+          </p>
+        </div>
+      )}
+
+
+
       {/* Selector de mes */}
       <div className="mb-2 flex items-center justify-between gap-3">
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
