@@ -14,7 +14,7 @@ import AgendaSection from "@/components/AgendaSection";
 import PeloticaSection from "@/components/PeloticaSection";
 import GuerraComercialesSection from "@/components/GuerraComercialesSection";
 import VacilateElMundialSection from "@/components/VacilateElMundialSection";
-import RutaRamenSection from "@/components/RutaRamenSection";
+import RutasSection from "@/components/RutasSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
@@ -220,7 +220,7 @@ const Index = () => {
               { "@type": "ListItem", "position": 11, "name": "Agenda y eventos", "url": "https://www.vacilateesto.com/#agenda" },
               { "@type": "ListItem", "position": 12, "name": "Pelotica de Goma · Béisbol", "url": "https://www.vacilateesto.com/#pelotica-de-goma" },
               { "@type": "ListItem", "position": 13, "name": "Guerra de Comerciales", "url": "https://www.vacilateesto.com/#guerra-comerciales" },
-              { "@type": "ListItem", "position": 14, "name": "Ruta Ramen", "url": "https://www.vacilateesto.com/#ruta-ramen" },
+              { "@type": "ListItem", "position": 14, "name": "Rutas (Ramen y BBQ)", "url": "https://www.vacilateesto.com/#rutas" },
               { "@type": "ListItem", "position": 15, "name": "Newsletter", "url": "https://www.vacilateesto.com/#newsletter" }
             ]
           })}
@@ -261,7 +261,7 @@ const Index = () => {
             <AgendaSection />
             <PeloticaSection />
             <GuerraComercialesSection />
-            <RutaRamenSection />
+            <RutasSection />
             <NewsletterSection />
           </article>
         </main>
