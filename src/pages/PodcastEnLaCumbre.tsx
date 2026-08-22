@@ -223,7 +223,7 @@ const PodcastEnLaCumbre = () => {
             "name": "¿Cuál es el manifiesto de Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El manifiesto del proyecto afirma que 'Altura no es solo un destino, es una manera de vivir'. Es un recordatorio de que Venezuela tiene historias, paisajes y gente 'a la altura', sin envidiarle nada a nadie. El mantra es: 'Desde arriba, todo tiene sentido'."
+              "text": "El manifiesto del proyecto afirma que 'la altura es una manera de vivir'. Es un recordatorio de que Venezuela tiene historias, paisajes y gente 'a la altura', sin envidiarle nada a nadie. El mantra es: 'Desde arriba, todo tiene sentido'."
             }
           },
           {
@@ -390,14 +390,14 @@ const PodcastEnLaCumbre = () => {
                   badge="Manifiesto"
                   badgeIcon={Quote}
                   badgeVariant="primary"
-                  title="Altura no es solo un"
-                  highlight="destino"
+                  title="La altura es"
+                  highlight="una manera de vivir"
                   align="center"
                   onDark
                 />
                 <div className="bg-background/5 border-2 border-background/30 rounded-2xl p-8 sm:p-10 space-y-6 text-background/90 text-base sm:text-lg leading-relaxed text-center">
                   <p className="text-2xl font-bold text-primary">
-                    Altura no es solo un destino. Es una manera de vivir.
+                    La altura es una manera de vivir.
                   </p>
                   
                   <p>
@@ -417,7 +417,7 @@ const PodcastEnLaCumbre = () => {
                   </p>
                   
                   <p className="text-xl font-semibold">
-                    Venezuela no es solo un territorio. Es carácter. Es talento. Es dignidad.
+                    Venezuela es carácter. Es talento. Es dignidad.
                   </p>
                   
                   <div className="pt-6 border-t border-background/20">
@@ -740,7 +740,7 @@ const PodcastEnLaCumbre = () => {
                   {
                     speaker: "JhonSnacks",
                     ep: "Roraima · Ep. 2",
-                    text: "Altura no es solo un destino. Es una manera de vivir.",
+                    text: "La altura es una manera de vivir.",
                     tilt: "sticker-tilt-r-sm sticker-shadow-primary",
                   },
                   {
