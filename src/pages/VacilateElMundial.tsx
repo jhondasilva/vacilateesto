@@ -582,9 +582,9 @@ const VacilateElMundial = () => {
               <StickerHeader
                 badge="Fun Educaitment"
                 badgeIcon={Zap}
-                title="qué es"
+                title="qué fue"
                 highlight="vacílate el mundial"
-                description="No somos creadores buscando audiencia desde cero. Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
+                description="Somos una comunidad masiva lista para amplificar tu marca desde el día uno."
               />
 
               {/* Platforms */}

@@ -16,7 +16,7 @@ const navLinks = [
   { label: "Guerra de Comerciales", href: "/#guerra-comerciales" },
   { label: "Creative Hub", href: "https://creativehub.vacilateesto.com", external: true },
   { label: "Vacílalo", href: "https://vacilalo.vacilateesto.com", external: true },
-  { label: "El Patio", href: "https://www.elpatiocontentstudio.com", external: true },
+  
   { label: "Dashboard", href: "https://www.vacilateesto.com/dashboard/login", external: true },
   { label: "Contacto", href: "/#contact" },
 ];
