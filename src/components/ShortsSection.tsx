@@ -24,6 +24,7 @@ const TICKER = ["SHORTS DIARIOS", "★", "1 MIN", "✦", "TIKTOK · IG · YT", "
 
 const ShortsSection = () => {
   const [shorts, setShorts] = useState<Short[] | null>(null);
+  const [broken, setBroken] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     let active = true;
@@ -33,12 +34,23 @@ const ShortsSection = () => {
         .select("video_id,title,view_count,thumbnail_url")
         .eq("kind", "short")
         .order("published_at", { ascending: false, nullsFirst: false })
-        .limit(4);
+        .limit(12);
       if (!active) return;
-      setShorts((data as Short[]) ?? []);
+      // Evita títulos repetidos (re-subidas del mismo short)
+      const seen = new Set<string>();
+      const unique = ((data as Short[]) ?? []).filter((s) => {
+        const key = s.title.trim().toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setShorts(unique);
     })();
     return () => { active = false; };
   }, []);
+
+  const visible = shorts?.filter((s) => !broken[s.video_id]).slice(0, 4) ?? null;
+
 
   return (
     <section id="shorts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="shorts-title" itemScope itemType="https://schema.org/ItemList">
