@@ -13,7 +13,7 @@ const AwardsBanner = () => {
             <Trophy className="w-4 h-4 sm:w-5 sm:h-5" />
           </span>
           <span className="font-display font-black text-xs sm:text-sm md:text-base uppercase tracking-widest text-center leading-tight">
-            ★ 5 finalistas FIAP 2026 · 8 shortlist Premios CIMA 2026 · Creativo del Año: Jhon da Silva
+            ★ 5 finalistas FIAP 2026 · 8 shortlist Premios CIMA 2026
           </span>
           <span className="inline-flex items-center gap-1 font-display font-black text-[10px] uppercase tracking-widest border-b-2 border-background group-hover:border-primary-foreground transition-colors shrink-0">
             Ver más <ArrowRight className="w-3.5 h-3.5" />
