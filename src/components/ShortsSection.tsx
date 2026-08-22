@@ -24,6 +24,7 @@ const TICKER = ["SHORTS DIARIOS", "★", "1 MIN", "✦", "TIKTOK · IG · YT", "
 
 const ShortsSection = () => {
   const [shorts, setShorts] = useState<Short[] | null>(null);
+  const [broken, setBroken] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     let active = true;
@@ -33,12 +34,23 @@ const ShortsSection = () => {
         .select("video_id,title,view_count,thumbnail_url")
         .eq("kind", "short")
         .order("published_at", { ascending: false, nullsFirst: false })
-        .limit(4);
+        .limit(12);
       if (!active) return;
-      setShorts((data as Short[]) ?? []);
+      // Evita títulos repetidos (re-subidas del mismo short)
+      const seen = new Set<string>();
+      const unique = ((data as Short[]) ?? []).filter((s) => {
+        const key = s.title.trim().toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setShorts(unique);
     })();
     return () => { active = false; };
   }, []);
+
+  const visible = shorts?.filter((s) => !broken[s.video_id]).slice(0, 4) ?? null;
+
 
   return (
     <section id="shorts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="shorts-title" itemScope itemType="https://schema.org/ItemList">
@@ -61,16 +73,16 @@ const ShortsSection = () => {
 
         <div
           className={`grid gap-5 md:gap-6 mx-auto ${
-            shorts && shorts.length <= 2
+            visible && visible.length <= 2
               ? "grid-cols-1 sm:grid-cols-2 max-w-2xl"
               : "grid-cols-2 md:grid-cols-4 max-w-5xl"
           }`}
         >
-          {shorts === null
+          {visible === null
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="aspect-[9/16] w-full rounded-3xl" />
               ))
-            : shorts.map((s, i) => {
+            : visible.map((s, i) => {
                 const accentColor = i % 2 === 0 ? "accent" : "primary";
                 const rotation = (i % 2 === 0 ? -1 : 1) * 1.5;
                 return (
@@ -83,12 +95,22 @@ const ShortsSection = () => {
                     style={{ transform: `rotate(${rotation}deg)` }}
                   >
                     <img
-                      src={s.thumbnail_url || `https://img.youtube.com/vi/${s.video_id}/hqdefault.jpg`}
+                      src={s.thumbnail_url || `https://i.ytimg.com/vi/${s.video_id}/hqdefault.jpg`}
                       alt={`Short: ${s.title} - Vacílate Esto`}
                       loading="lazy"
                       decoding="async"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        const fallback = `https://i.ytimg.com/vi/${s.video_id}/hqdefault.jpg`;
+                        if (img.src !== fallback) {
+                          img.src = fallback;
+                        } else {
+                          setBroken((prev) => ({ ...prev, [s.video_id]: true }));
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
+
                     <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/10 to-transparent" />
 
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
