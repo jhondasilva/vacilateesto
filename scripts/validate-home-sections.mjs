@@ -40,7 +40,7 @@ const SECTIONS = [
   { file: "src/components/AgendaSection.tsx" },
   { file: "src/components/PeloticaSection.tsx", canonicalKind: "external" },
   { file: "src/components/GuerraComercialesSection.tsx" },
-  { file: "src/components/RutaRamenSection.tsx" },
+  { file: "src/components/RutasSection.tsx" },
   { file: "src/components/NewsletterSection.tsx" },
 ];
 const SECTION_FILES = SECTIONS.map((s) => s.file);
