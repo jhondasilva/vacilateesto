@@ -141,7 +141,7 @@ const timeline = [
   {
     month: "Agosto 2026",
     event:
-      "Cerramos la cobertura el domingo 16 de agosto con 552 piezas publicadas y los números finales en la mano",
+      "Proyecto culminado: cerramos el 22 de agosto de 2026 con 567 piezas publicadas y los números finales auditados",
     status: "highlight",
   },
 ];
@@ -231,7 +231,7 @@ const VacilateElMundial = () => {
         <title>Vacílate El Fútbol 2026 | Cobertura Mundial FIFA</title>
         <meta
           name="description"
-          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. 552 piezas, 6.8M+ impresiones y 3.83M+ vistas entre enero y agosto de 2026."
+          content="Vacílate El Fútbol 2026: así fue la cobertura del Mundial FIFA 2026 por Vacílate Esto. Proyecto culminado: 567 piezas, 7.1M+ impresiones y 4.13M+ vistas entre enero y agosto de 2026."
         />
         <meta
           name="keywords"
@@ -242,12 +242,12 @@ const VacilateElMundial = () => {
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="geo.region" content="VE" />
         <meta name="geo.country" content="Venezuela" />
-        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Resultados finales: 552 piezas publicadas, 6.8M+ impresiones, 3.83M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
+        <meta name="ai-content-summary" content="Vacílate El Mundial 2026 (VEM 2026) fue la cobertura del fútbol en el Mundial FIFA 2026 (México, EE.UU. y Canadá) producida por Vacílate Esto. Proyecto culminado el 22 de agosto de 2026. Resultados finales: 567 piezas publicadas, 7.1M+ impresiones, 4.13M+ vistas de video y 6 lives en TikTok. Hosts: JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva)." />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Vacílate El Mundial 2026 | La Magia del Fútbol en el Feed" />
         <meta
           property="og:description"
-          content="Así fue la cobertura del fútbol en el Mundial 2026: 552 piezas publicadas, 6.8M+ impresiones y 3.83M+ vistas. Resultados finales."
+          content="Así fue la cobertura del fútbol en el Mundial 2026: 567 piezas publicadas, 7.1M+ impresiones y 4.13M+ vistas. Proyecto culminado."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/vacilate-el-futbol" />
         <meta property="og:site_name" content="Vacílate Esto" />
@@ -414,7 +414,7 @@ const VacilateElMundial = () => {
             <div className="container mx-auto px-4">
               <div className="text-center mb-8">
                 <span className="inline-block bg-foreground text-background border-2 border-foreground rounded-full px-4 py-1.5 font-display font-black uppercase tracking-widest text-[10px] sm:text-xs">
-                  Resultados finales · Ene–Ago 2026
+                  Proyecto culminado · Resultados finales Ene–Ago 2026
                 </span>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 max-w-5xl mx-auto">
@@ -486,7 +486,7 @@ const VacilateElMundial = () => {
                 </div>
               </div>
               <p className="text-center text-[10px] text-muted-foreground mt-4 uppercase tracking-widest font-bold">
-                Fuente: Metricool + TikTok Studio · Cierre de campaña
+                Fuente: Metricool + TikTok Studio · Cifras finales al 22 de agosto de 2026
               </p>
             </div>
           </section>
