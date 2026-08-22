@@ -23,6 +23,7 @@ Deno.serve(async (req) => {
     let q = supabase
       .from("yt_videos")
       .select("video_id, title, description, thumbnail_url, published_at, duration_seconds, kind, view_count")
+      .eq("is_available", true)
       .order("published_at", { ascending: false })
       .limit(limit);
     if (kind) q = q.eq("kind", kind);
