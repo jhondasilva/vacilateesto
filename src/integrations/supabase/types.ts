@@ -926,6 +926,7 @@ export type Database = {
           duration_seconds: number | null
           id: string
           indexed_at: string | null
+          is_available: boolean
           kind: string
           published_at: string | null
           thumbnail_url: string | null
@@ -941,6 +942,7 @@ export type Database = {
           duration_seconds?: number | null
           id?: string
           indexed_at?: string | null
+          is_available?: boolean
           kind: string
           published_at?: string | null
           thumbnail_url?: string | null
@@ -956,6 +958,7 @@ export type Database = {
           duration_seconds?: number | null
           id?: string
           indexed_at?: string | null
+          is_available?: boolean
           kind?: string
           published_at?: string | null
           thumbnail_url?: string | null

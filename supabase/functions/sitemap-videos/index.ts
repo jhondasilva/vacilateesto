@@ -30,6 +30,7 @@ Deno.serve(async (req) => {
       .from("yt_videos")
       .select("video_id, title, description, thumbnail_url, published_at, duration_seconds")
       .eq("kind", "podcast")
+      .eq("is_available", true)
       .order("published_at", { ascending: false })
       .limit(1000);
 

@@ -33,6 +33,7 @@ const ShortsSection = () => {
         .from("yt_videos")
         .select("video_id,title,view_count,thumbnail_url")
         .eq("kind", "short")
+        .eq("is_available", true)
         .order("published_at", { ascending: false, nullsFirst: false })
         .limit(12);
       if (!active) return;

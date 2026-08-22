@@ -49,6 +49,7 @@ const EpisodesSection = () => {
         .from("yt_videos")
         .select("video_id,title,published_at,view_count,thumbnail_url")
         .eq("kind", "podcast")
+        .eq("is_available", true)
         .not("title", "ilike", "Live %")
         .order("published_at", { ascending: false, nullsFirst: false })
         .limit(4);
