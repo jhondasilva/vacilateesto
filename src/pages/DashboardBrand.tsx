@@ -935,10 +935,23 @@ const MetricoolDashboard = ({
     setRefreshing(true);
     const tId = toast.loading(`Refrescando datos de ${brand.name}…`);
     try {
+      if (brand.slug === "pelotica-de-goma") {
+        // La cuenta de TikTok de @peloticadegomave no está en Metricool: se captura vía Apify
+        await supabase.functions.invoke("apify-sync", {
+          body: {
+            platform: "tiktok",
+            handle: "peloticadegomave",
+            from: "2026-01-01",
+            to: format(new Date(), "yyyy-MM-dd"),
+            wait: true,
+          },
+        });
+      }
       const { error: refreshErr } = await supabase.functions.invoke("brand-cache-refresh", {
         body: { brands: [brand.slug] },
       });
       if (refreshErr) throw refreshErr;
+
       // Vuelve a leer el caché para el período/scope actual
       const { data: cached } = await supabase
         .from("brand_metricool_cache")
