@@ -832,6 +832,43 @@ const MetricoolDashboard = ({
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
+  // TikTok de @peloticadegomave: la cuenta no está conectada en Metricool,
+  // se completa con los datos capturados vía Apify.
+  const [apifyTikToks, setApifyTikToks] = useState<MentionPost[]>([]);
+
+  useEffect(() => {
+    if (brand.slug !== "pelotica-de-goma") return;
+    (async () => {
+      const { data: rows } = await supabase
+        .from("apify_metrics")
+        .select("external_id, value, unit, recorded_at, raw_data")
+        .eq("platform", "tiktok")
+        .eq("metric_type", "video")
+        .limit(2000);
+      if (!rows?.length) return;
+      const byId = new Map<string, MentionPost>();
+      for (const r of rows) {
+        const id = r.external_id as string;
+        if (!id) continue;
+        const raw = (r.raw_data ?? {}) as Record<string, any>;
+        const author = raw.authorMeta?.uniqueId ?? raw.authorMeta?.name ?? "";
+        if (author && author.toLowerCase() !== "peloticadegomave") continue;
+        const existing = byId.get(id) ?? {
+          platform: "tiktok" as const,
+          id,
+          url: (raw.webVideoUrl as string) ?? `https://www.tiktok.com/@peloticadegomave/video/${id}`,
+          publishedAt: r.recorded_at as string,
+          text: (raw.text as string) ?? (raw.description as string) ?? "",
+          thumbnail: (raw.videoMeta?.coverUrl as string) ?? (raw.covers?.default as string) ?? null,
+          metrics: {} as Record<string, number>,
+        };
+        if (r.unit) existing.metrics[r.unit as string] = Number(r.value) || 0;
+        byId.set(id, existing);
+      }
+      setApifyTikToks([...byId.values()]);
+    })();
+  }, [brand.slug]);
+
 
   const month = months.find((m) => m.key === monthKey)!;
   const cacheKey = `${monthKey}::${scope}`;
@@ -898,10 +935,23 @@ const MetricoolDashboard = ({
     setRefreshing(true);
     const tId = toast.loading(`Refrescando datos de ${brand.name}…`);
     try {
+      if (brand.slug === "pelotica-de-goma") {
+        // La cuenta de TikTok de @peloticadegomave no está en Metricool: se captura vía Apify
+        await supabase.functions.invoke("apify-sync", {
+          body: {
+            platform: "tiktok",
+            handle: "peloticadegomave",
+            from: "2026-01-01",
+            to: format(new Date(), "yyyy-MM-dd"),
+            wait: true,
+          },
+        });
+      }
       const { error: refreshErr } = await supabase.functions.invoke("brand-cache-refresh", {
         body: { brands: [brand.slug] },
       });
       if (refreshErr) throw refreshErr;
+
       // Vuelve a leer el caché para el período/scope actual
       const { data: cached } = await supabase
         .from("brand_metricool_cache")
@@ -928,11 +978,24 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const rawPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
-  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca
-  const allPosts = rawPosts.filter(
-    (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
+  const metricoolPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const existingIds = new Set(metricoolPosts.map((p) => p.id));
+  const apifyInRange = apifyTikToks.filter((p) => {
+    if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
+    if (!p.publishedAt) return false;
+    const t = new Date(p.publishedAt).getTime();
+    return t >= month.from.getTime() && t <= month.to.getTime();
+  });
+  const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
+    (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
   );
+  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca.
+  // No aplica en el propio dashboard de Pelotica de Goma.
+  const allPosts = showPelotica
+    ? rawPosts.filter(
+        (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
+      )
+    : rawPosts;
   const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
   const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
 

@@ -104,6 +104,7 @@ async function pollAndStore(
     .delete()
     .eq("platform", "tiktok")
     .eq("metric_type", "video")
+    .filter("raw_data->authorMeta->>uniqueId", "eq", handle.replace(/^@/, ""))
     .gte("recorded_at", `${fromDate}T00:00:00Z`)
     .lte("recorded_at", `${toDate}T23:59:59Z`);
   if (delErr) console.error("delete previous apify metrics error", delErr);
