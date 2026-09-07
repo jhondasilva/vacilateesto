@@ -832,6 +832,43 @@ const MetricoolDashboard = ({
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
+  // TikTok de @peloticadegomave: la cuenta no está conectada en Metricool,
+  // se completa con los datos capturados vía Apify.
+  const [apifyTikToks, setApifyTikToks] = useState<MentionPost[]>([]);
+
+  useEffect(() => {
+    if (brand.slug !== "pelotica-de-goma") return;
+    (async () => {
+      const { data: rows } = await supabase
+        .from("apify_metrics")
+        .select("external_id, value, unit, recorded_at, raw_data")
+        .eq("platform", "tiktok")
+        .eq("metric_type", "video")
+        .limit(2000);
+      if (!rows?.length) return;
+      const byId = new Map<string, MentionPost>();
+      for (const r of rows) {
+        const id = r.external_id as string;
+        if (!id) continue;
+        const raw = (r.raw_data ?? {}) as Record<string, any>;
+        const author = raw.authorMeta?.uniqueId ?? raw.authorMeta?.name ?? "";
+        if (author && author.toLowerCase() !== "peloticadegomave") continue;
+        const existing = byId.get(id) ?? {
+          platform: "tiktok" as const,
+          id,
+          url: (raw.webVideoUrl as string) ?? `https://www.tiktok.com/@peloticadegomave/video/${id}`,
+          publishedAt: r.recorded_at as string,
+          text: (raw.text as string) ?? (raw.description as string) ?? "",
+          thumbnail: (raw.videoMeta?.coverUrl as string) ?? (raw.covers?.default as string) ?? null,
+          metrics: {} as Record<string, number>,
+        };
+        if (r.unit) existing.metrics[r.unit as string] = Number(r.value) || 0;
+        byId.set(id, existing);
+      }
+      setApifyTikToks([...byId.values()]);
+    })();
+  }, [brand.slug]);
+
 
   const month = months.find((m) => m.key === monthKey)!;
   const cacheKey = `${monthKey}::${scope}`;
