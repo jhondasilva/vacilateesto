@@ -965,7 +965,17 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const rawPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const metricoolPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const existingIds = new Set(metricoolPosts.map((p) => p.id));
+  const apifyInRange = apifyTikToks.filter((p) => {
+    if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
+    if (!p.publishedAt) return false;
+    const t = new Date(p.publishedAt).getTime();
+    return t >= month.from.getTime() && t <= month.to.getTime();
+  });
+  const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
+    (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+  );
   // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca
   const allPosts = rawPosts.filter(
     (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
