@@ -976,10 +976,13 @@ const MetricoolDashboard = ({
   const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
     (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
   );
-  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca
-  const allPosts = rawPosts.filter(
-    (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
-  );
+  // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca.
+  // No aplica en el propio dashboard de Pelotica de Goma.
+  const allPosts = showPelotica
+    ? rawPosts.filter(
+        (p) => !matchesPelotica(p.text) || peloticaCountsForBrand(p.text, brandConfig.handles),
+      )
+    : rawPosts;
   const peloticaPosts = allPosts.filter((p) => matchesPelotica(p.text));
   const nonPeloticaPosts = allPosts.filter((p) => !matchesPelotica(p.text));
 
