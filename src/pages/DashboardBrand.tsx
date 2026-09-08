@@ -1104,10 +1104,34 @@ const MetricoolDashboard = ({
           </p>
         </div>
       )}
+      {showInfluencers && (
+        <div className="mb-6 inline-flex rounded-full border border-border p-1 bg-card">
+          {([
+            { k: "general", label: "Cuentas oficiales" },
+            { k: "influencers", label: "Influencers" },
+          ] as const).map((t) => (
+            <button
+              key={t.k}
+              onClick={() => setMainTab(t.k)}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors",
+                mainTab === t.k ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
 
+      {showInfluencers && mainTab === "influencers" && (
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} />
+      )}
 
+      <div className={showInfluencers && mainTab === "influencers" ? "hidden" : ""}>
 
       {/* Selector de mes */}
+
       <div className="mb-2 flex items-center justify-between gap-3">
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
         <div className="flex items-center gap-2">
