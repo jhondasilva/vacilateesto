@@ -149,13 +149,19 @@ Deno.serve(async (req) => {
             });
             const datasetId = await waitForRun(TIKTOK_HASHTAG_ACTOR, runId);
             if (!datasetId) throw new Error("sin dataset");
-            const items = await getItems(datasetId);
+            const items = await getItems(
+              datasetId,
+              "webVideoUrl,authorMeta,text,videoMeta,createTimeISO,playCount,diggCount,commentCount,shareCount",
+            );
             console.log("tiktok dataset", datasetId, "items", items.length);
 
             for (const it of items) {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
-              const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
+              const handle = String(
+                it.authorMeta?.uniqueId ?? it.authorMeta?.name ?? "",
+              ).toLowerCase();
+
               if (!handle || OFFICIAL_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
