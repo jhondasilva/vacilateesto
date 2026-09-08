@@ -269,14 +269,18 @@ Deno.serve(async (req) => {
 
     await Promise.all(jobs);
 
-    // Filtro obligatorio: el post debe traer explícitamente uno de los hashtags
-    // buscados (#peloticadegoma / #amoajuga). Apify devuelve coincidencias sueltas.
-    const required = hashtags.map((h) => `#${h}`);
+    // Filtro obligatorio: el post debe traer los DOS hashtags (#peloticadegoma
+    // y #amoajuga) o mencionar a un equipo de la liga / un chivo.
+    const MENTIONS = [...TEAM_HANDLES, ...CHIVO_HANDLES, ...SUPER_CHIVO_HANDLES, "peloticadegomave"];
     const hasRequiredTag = (r: any) => {
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      return required.some((h) => norm.includes(h));
+      const ambosHT =
+        norm.includes("#peloticadegoma") &&
+        (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
+      const mencionaEquipo = MENTIONS.some((h) => norm.includes(`@${h}`));
+      return ambosHT || mencionaEquipo;
     };
     const valid = rows.filter(hasRequiredTag);
     rows.length = 0;
