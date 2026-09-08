@@ -38,8 +38,6 @@ const TIER = (followers: number | null) => {
 const GROUP_LABELS: Record<string, string> = {
   equipo: "Equipos",
   chivo: "Chivos",
-  "super-chivo": "Super chivos",
-  oficial: "Liga oficial",
 };
 
 export const InfluencersSection = ({
@@ -85,19 +83,13 @@ export const InfluencersSection = ({
     const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
-      // Cuentas oficiales de los equipos: todos sus posts son válidos.
+      // Equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
-      // Cuenta principal de la liga: todos sus posts son válidos.
-      if ((p.author_handle ?? "").toLowerCase() === "@peloticadegomave") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
       if ((p.category ?? "") === "chivo") {
-        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
-      }
-      // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
-      if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
         return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       // Influencers: SIEMPRE deben tener #PeloticaDeGoma y #AmoAJuga,
@@ -107,7 +99,6 @@ export const InfluencersSection = ({
         return false;
       }
       return norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
-
     });
     setPosts(valid);
     setLoading(false);
