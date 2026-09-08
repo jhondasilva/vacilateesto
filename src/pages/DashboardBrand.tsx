@@ -766,6 +766,8 @@ type MentionPost = {
   text: string;
   thumbnail: string | null;
   metrics: Record<string, number>;
+  /** Metricool blogId de origen; permite incluir todo el contenido de la cuenta propia. */
+  blogId?: number;
 };
 
 type MentionsResponse = {
