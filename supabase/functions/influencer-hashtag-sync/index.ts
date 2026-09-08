@@ -9,6 +9,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const TIKTOK_HASHTAG_ACTOR = "clockworks~tiktok-scraper";
 const IG_HASHTAG_ACTOR = "apify~instagram-hashtag-scraper";
+const IG_PROFILE_ACTOR = "apify~instagram-scraper";
 
 // Cuentas oficiales del ecosistema: NO son influencers.
 const OFFICIAL_HANDLES = new Set([
