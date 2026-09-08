@@ -81,6 +81,10 @@ export const InfluencersSection = ({
     ];
     // Publicaciones descartadas manualmente (no son de Pelotica de Goma).
     const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
+    // Cuentas que NO son influencers: marcas y canales.
+    const NON_INFLUENCER_HANDLES = new Set([
+      "@vatelvenezuela", "@mykonosvzla", "@ivcnetworks",
+    ]);
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
       // Equipos: todos sus posts son válidos.
@@ -96,7 +100,12 @@ export const InfluencersSection = ({
       if ((p.category ?? "") === "chivo") return hasCriteria;
       // Influencers: nunca pueden ser cuentas oficiales, de equipos o de chivos.
       const handle = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
-      if (MENTIONS.includes(handle) || handle === "@vacilateestopodcast" || handle === "@vacilateesto") {
+      if (
+        NON_INFLUENCER_HANDLES.has(handle) ||
+        MENTIONS.includes(handle) ||
+        handle === "@vacilateestopodcast" ||
+        handle === "@vacilateesto"
+      ) {
         return false;
       }
       return hasCriteria;
