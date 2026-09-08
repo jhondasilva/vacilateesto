@@ -167,9 +167,9 @@ export const generateBrandReportPdf = async ({
     doc.setLineWidth(1.2);
     doc.setFillColor(...shadow);
     doc.roundedRect(x + 3, y + 3, w, h, 10, 10, "FD");
-    doc.setFillColor(...WHITE);
+    doc.setFillColor(...BLACK);
     doc.roundedRect(x, y, w, h, 10, 10, "FD");
-    drawLogo(x + 10, y + 10, w - 20, h - 20);
+    drawLogo(x + 10, y + 10, w - 20, h - 20, true);
   };
 
   const header = (page: number) => {
