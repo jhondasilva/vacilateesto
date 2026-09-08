@@ -355,7 +355,7 @@ export const InfluencersSection = ({
                   {creators.slice(0, 25).map((c) => (
                     <tr key={c.handle} className="border-b border-border/50 last:border-0">
                       <td className="p-3 font-bold">{c.handle}</td>
-                      <td className="p-3 capitalize text-muted-foreground">{TIER(c.followers)}</td>
+                      <td className="p-3 capitalize text-muted-foreground">{isTeams ? (c.kind === "equipo" ? "Equipo" : c.kind === "chivo" ? "Chivo" : "—") : TIER(c.followers)}</td>
                       <td className="p-3">{c.followers ? fmt(c.followers) : "—"}</td>
                       <td className="p-3">{c.posts}</td>
                       <td className="p-3">{fmt(c.views)}</td>
