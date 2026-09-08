@@ -390,15 +390,23 @@ Deno.serve(async (req) => {
             if (!datasetId) throw new Error("sin dataset");
             const items = await getItems(
               datasetId,
-              "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+              "url,id,shortCode,inputUrl,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
               900,
             );
             for (const it of items) {
               const url = (it.url as string | undefined) ?? null;
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
-              const handle = String(it.ownerUsername ?? "").toLowerCase();
+              // Los posts en colaboración vienen con el dueño de la otra cuenta:
+              // se atribuyen al perfil que se pidió scrapear (inputUrl).
+              const fromInput = String(it.inputUrl ?? "")
+                .toLowerCase()
+                .replace(/^https?:\/\/(www\.)?instagram\.com\//, "")
+                .replace(/\/.*$/, "");
+              const owner = String(it.ownerUsername ?? "").toLowerCase();
+              const handle = TEAM_HANDLES.has(fromInput) ? fromInput : owner;
               if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
