@@ -1448,7 +1448,9 @@ const MetricoolDashboard = ({
           </section>
         </>
       )}
+      </div>
     </>
+
   );
 };
 
