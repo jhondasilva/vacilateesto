@@ -49,12 +49,15 @@ export const InfluencersSection = ({
 }: {
   campaignSlug?: string;
   accent?: string;
-  mode?: "influencers" | "equipos";
+  mode?: "influencers" | "equipos" | "oficiales";
 }) => {
   const isTeams = mode === "equipos";
+  const isOfficial = mode === "oficiales";
   const allowedCategories = isTeams
-    ? ["equipo", "chivo", "super-chivo", "oficial"]
-    : ["influencer"];
+    ? ["equipo", "chivo"]
+    : isOfficial
+      ? ["oficial", "super-chivo"]
+      : ["influencer"];
 
   const [posts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -89,8 +92,8 @@ export const InfluencersSection = ({
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if ((p.category ?? "") === "chivo") {
+      // Chivos y cuentas oficiales: basta con uno de los hashtags oficiales.
+      if ((p.category ?? "") === "chivo" || (p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
         return (
           norm.includes("#peloticadegoma") ||
           norm.includes("#amoajuga") ||
@@ -131,7 +134,7 @@ export const InfluencersSection = ({
       posts.filter(
         (p) =>
           (platform === "all" || p.platform === platform) &&
-          (!isTeams ? tier === "all" || TIER(p.author_followers) === tier : true) &&
+          (!isTeams && !isOfficial ? tier === "all" || TIER(p.author_followers) === tier : true) &&
           (group === "all" || (p.category ?? "influencer") === group),
       ),
     [posts, platform, tier, group, isTeams],
@@ -181,12 +184,18 @@ export const InfluencersSection = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
           <h2 className="text-xl font-black">
-            {isTeams ? "Equipos, chivos y liga oficial" : "Influencers nano y micro"}
+            {isTeams
+              ? "Equipos y chivos"
+              : isOfficial
+                ? "Cuentas oficiales"
+                : "Influencers nano y micro"}
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
-              ? "#PeloticaDeGoma · #AmoAJuga — equipos, chivos, super chivos (@jhonsnacks · @juansofa) y cuentas de la liga"
-              : "#PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales, equipos ni chivos"}
+              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma, #AmoAJuga o #VamoAJuga"
+              : isOfficial
+                ? "@peloticadegomave · @vacilateestopodcast · @jhonsnacks · @juansofa — solo con #PeloticaDeGoma o #AmoAJuga"
+                : "#PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales, equipos ni chivos"}
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -216,8 +225,8 @@ export const InfluencersSection = ({
           </button>
         ))}
         <span className="w-px bg-border mx-1" />
-        {isTeams
-          ? ["all", "equipo", "chivo", "super-chivo", "oficial"].map((g) => (
+        {isTeams || isOfficial
+          ? (isTeams ? ["all", "equipo", "chivo"] : ["all", "oficial", "super-chivo"]).map((g) => (
               <button
                 key={g}
                 onClick={() => setGroup(g)}
