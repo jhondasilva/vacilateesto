@@ -150,8 +150,10 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
-    // Solo piezas con los HT del proyecto o que mencionen las cuentas oficiales/equipos
+    // Todos los posts del blog oficial de Pelotica de Goma (Metricool) se incluyen
+    // aunque no traigan hashtag. Los demás deben cumplir los criterios de la liga.
     blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
       "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
@@ -168,7 +170,6 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
     label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · equipos",
-
   },
 
   diablitos: {
