@@ -267,6 +267,110 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Cuentas oficiales de los equipos: se traen TODOS sus posts, sin filtro.
+    const teamHandles = [...TEAM_HANDLES];
+
+    if (platforms.includes("tiktok")) {
+      jobs.push(
+        (async () => {
+          try {
+            const { runId } = await startRun(TIKTOK_HASHTAG_ACTOR, {
+              profiles: teamHandles,
+              resultsPerPage: 100,
+              shouldDownloadVideos: false,
+              shouldDownloadCovers: false,
+            });
+            const datasetId = await waitForRun(TIKTOK_HASHTAG_ACTOR, runId);
+            if (!datasetId) throw new Error("sin dataset");
+            const items = await getItems(
+              datasetId,
+              "webVideoUrl,authorMeta,text,videoMeta,createTimeISO,playCount,diggCount,commentCount,shareCount",
+              900,
+            );
+            for (const it of items) {
+              const url = it.webVideoUrl as string | undefined;
+              if (!url) continue;
+              const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
+              if (!TEAM_HANDLES.has(handle)) continue;
+              const text = String(it.text ?? "");
+              rows.push({
+                campaign_slug: campaignSlug,
+                category: "equipo",
+                platform: "tiktok",
+                external_id: url.split("/video/").pop() || url,
+                author_handle: `@${handle}`,
+                author_name: it.authorMeta?.nickName ?? null,
+                author_followers: Number(it.authorMeta?.fans) || null,
+                url,
+                text,
+                thumbnail: it.videoMeta?.coverUrl ?? null,
+                published_at: it.createTimeISO ?? null,
+                views: Number(it.playCount) || 0,
+                likes: Number(it.diggCount) || 0,
+                comments: Number(it.commentCount) || 0,
+                shares: Number(it.shareCount) || 0,
+                hashtags: extractHashtags(text),
+                synced_at: new Date().toISOString(),
+              });
+            }
+          } catch (e: any) {
+            errors.push(`tiktok-equipos: ${e?.message || String(e)}`);
+          }
+        })(),
+      );
+    }
+
+    if (platforms.includes("instagram")) {
+      jobs.push(
+        (async () => {
+          try {
+            const { runId } = await startRun(IG_PROFILE_ACTOR, {
+              directUrls: teamHandles.map((h) => `https://www.instagram.com/${h}/`),
+              resultsType: "posts",
+              resultsLimit: 100,
+            });
+            const datasetId = await waitForRun(IG_PROFILE_ACTOR, runId);
+            if (!datasetId) throw new Error("sin dataset");
+            const items = await getItems(
+              datasetId,
+              "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+              900,
+            );
+            for (const it of items) {
+              const url = (it.url as string | undefined) ?? null;
+              const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
+              if (!url || !id) continue;
+              const handle = String(it.ownerUsername ?? "").toLowerCase();
+              if (!TEAM_HANDLES.has(handle)) continue;
+              const text = String(it.caption ?? "");
+              const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
+              rows.push({
+                campaign_slug: campaignSlug,
+                category: "equipo",
+                platform: "instagram",
+                external_id: id,
+                author_handle: `@${handle}`,
+                author_name: it.ownerFullName ?? null,
+                author_followers: null,
+                url,
+                text,
+                thumbnail: it.displayUrl ?? null,
+                published_at: it.timestamp ?? null,
+                views: Number(it.videoViewCount ?? it.videoPlayCount) || 0,
+                likes: Number(it.likesCount) || 0,
+                comments: Number(it.commentsCount) || 0,
+                shares: 0,
+                hashtags: tags.length ? tags : extractHashtags(text),
+                synced_at: new Date().toISOString(),
+              });
+            }
+          } catch (e: any) {
+            errors.push(`instagram-equipos: ${e?.message || String(e)}`);
+          }
+        })(),
+      );
+    }
+
     await Promise.all(jobs);
 
     // Filtro obligatorio: el post debe traer los DOS hashtags (#peloticadegoma
