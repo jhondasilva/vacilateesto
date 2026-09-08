@@ -991,12 +991,19 @@ const MetricoolDashboard = ({
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
   const metricoolPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
   const existingIds = new Set(metricoolPosts.map((p) => p.id));
+  const brandKeywordList = (brandConfig?.keywords ?? []).map((k) => k.toLowerCase());
+  const matchesBrandKeywords = (text?: string | null) => {
+    const t = (text ?? "").toLowerCase();
+    return brandKeywordList.some((k) => t.includes(k));
+  };
   const apifyInRange = apifyTikToks.filter((p) => {
     if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
     if (!p.publishedAt) return false;
+    if (!matchesBrandKeywords(p.text)) return false;
     const t = new Date(p.publishedAt).getTime();
     return t >= month.from.getTime() && t <= month.to.getTime();
   });
+
   const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
     (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
   );
