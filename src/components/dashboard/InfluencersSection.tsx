@@ -188,18 +188,12 @@ export const InfluencersSection = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
           <h2 className="text-xl font-black">
-            {isTeams
-              ? "Equipos y chivos"
-              : isOfficial
-                ? "Cuentas oficiales"
-                : "Influencers nano y micro"}
+            {isTeams ? "Equipos y chivos" : "Influencers nano y micro"}
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
               ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma o #AmoAJuga · Fuente: Apify + sincronización manual"
-              : isOfficial
-                ? "@peloticadegomave (todos) · @vacilateestopodcast · @jhonsnacks · @juansofa (solo con #PeloticaDeGoma o #AmoAJuga) · Fuente: Apify + sincronización manual"
-                : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
+              : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -229,8 +223,8 @@ export const InfluencersSection = ({
           </button>
         ))}
         <span className="w-px bg-border mx-1" />
-        {isTeams || isOfficial
-          ? (isTeams ? ["all", "equipo", "chivo"] : ["all", "oficial", "super-chivo"]).map((g) => (
+        {isTeams
+          ? (["all", "equipo", "chivo"] as const).map((g) => (
               <button
                 key={g}
                 onClick={() => setGroup(g)}
