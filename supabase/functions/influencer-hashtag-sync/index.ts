@@ -269,7 +269,8 @@ Deno.serve(async (req) => {
     }
 
     // Cuentas oficiales de los equipos: se traen TODOS sus posts, sin filtro.
-    const teamHandles = [...TEAM_HANDLES];
+    // Cuentas de chivos: son personales, se traen y luego se filtran por hashtag.
+    const teamHandles = [...TEAM_HANDLES, ...CHIVO_HANDLES];
 
     if (platforms.includes("tiktok")) {
       jobs.push(
@@ -295,11 +296,11 @@ Deno.serve(async (req) => {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
               const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
-                category: "equipo",
+                category: classify(handle),
                 platform: "tiktok",
                 external_id: url.split("/video/").pop() || url,
                 author_handle: `@${handle}`,
@@ -345,12 +346,12 @@ Deno.serve(async (req) => {
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
               const handle = String(it.ownerUsername ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
                 campaign_slug: campaignSlug,
-                category: "equipo",
+                category: classify(handle),
                 platform: "instagram",
                 external_id: id,
                 author_handle: `@${handle}`,
@@ -383,6 +384,15 @@ Deno.serve(async (req) => {
     const hasRequiredTag = (r: any) => {
       // Las cuentas oficiales de los equipos entran completas, sin filtro.
       if (r.category === "equipo") return true;
+      const tags = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
+        .toLowerCase()
+        .replace(/\s+/g, "");
+      const algunHT =
+        tags.includes("#peloticadegoma") ||
+        tags.includes("#amoajuga") ||
+        tags.includes("#vamoajuga");
+      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      if (r.category === "chivo") return algunHT;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
