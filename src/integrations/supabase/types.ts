@@ -492,6 +492,7 @@ export type Database = {
           author_handle: string | null
           author_name: string | null
           campaign_slug: string
+          category: string
           comments: number | null
           created_at: string
           external_id: string
@@ -512,6 +513,7 @@ export type Database = {
           author_handle?: string | null
           author_name?: string | null
           campaign_slug?: string
+          category?: string
           comments?: number | null
           created_at?: string
           external_id: string
@@ -532,6 +534,7 @@ export type Database = {
           author_handle?: string | null
           author_name?: string | null
           campaign_slug?: string
+          category?: string
           comments?: number | null
           created_at?: string
           external_id?: string

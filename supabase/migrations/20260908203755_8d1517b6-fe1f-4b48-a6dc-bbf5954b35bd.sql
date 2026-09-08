@@ -1,0 +1,2 @@
+ALTER TABLE public.influencer_posts ADD COLUMN IF NOT EXISTS category text NOT NULL DEFAULT 'influencer';
+CREATE INDEX IF NOT EXISTS influencer_posts_category_idx ON public.influencer_posts (campaign_slug, category);
