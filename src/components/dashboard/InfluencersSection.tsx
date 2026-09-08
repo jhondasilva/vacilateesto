@@ -49,15 +49,10 @@ export const InfluencersSection = ({
 }: {
   campaignSlug?: string;
   accent?: string;
-  mode?: "influencers" | "equipos" | "oficiales";
+  mode?: "influencers" | "equipos";
 }) => {
   const isTeams = mode === "equipos";
-  const isOfficial = mode === "oficiales";
-  const allowedCategories = isTeams
-    ? ["equipo", "chivo"]
-    : isOfficial
-      ? ["oficial", "super-chivo"]
-      : ["influencer"];
+  const allowedCategories = isTeams ? ["equipo", "chivo"] : ["influencer"];
 
   const [posts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -143,7 +138,7 @@ export const InfluencersSection = ({
       posts.filter(
         (p) =>
           (platform === "all" || p.platform === platform) &&
-          (!isTeams && !isOfficial ? tier === "all" || TIER(p.author_followers) === tier : true) &&
+          (!isTeams ? tier === "all" || TIER(p.author_followers) === tier : true) &&
           (group === "all" || (p.category ?? "influencer") === group),
       ),
     [posts, platform, tier, group, isTeams],
