@@ -106,10 +106,14 @@ export const InfluencersSection = ({
       if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
         return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
-      const ambosHT =
-        norm.includes("#peloticadegoma") &&
-        (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
-      return ambosHT || MENTIONS.some((h) => norm.includes(h));
+      // Influencers: SIEMPRE deben tener #PeloticaDeGoma y #AmoAJuga,
+      // y nunca pueden ser cuentas oficiales, de equipos o de chivos.
+      const handle = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
+      if (MENTIONS.includes(handle) || handle === "@vacilateestopodcast" || handle === "@vacilateesto") {
+        return false;
+      }
+      return norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
+
     });
     setPosts(valid);
     setLoading(false);
