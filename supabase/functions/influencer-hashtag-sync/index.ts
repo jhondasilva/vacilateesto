@@ -10,6 +10,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const TIKTOK_HASHTAG_ACTOR = "clockworks~tiktok-scraper";
 const IG_HASHTAG_ACTOR = "apify~instagram-hashtag-scraper";
 const IG_PROFILE_ACTOR = "apify~instagram-scraper";
+const IG_REEL_ACTOR = "apify~instagram-reel-scraper";
 
 // Cuentas oficiales del ecosistema: NO son influencers.
 const OFFICIAL_HANDLES = new Set([
@@ -389,6 +390,63 @@ Deno.serve(async (req) => {
             if (!datasetId) throw new Error("sin dataset");
             const items = await getItems(
               datasetId,
+              "url,id,shortCode,inputUrl,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+              900,
+            );
+            for (const it of items) {
+              const url = (it.url as string | undefined) ?? null;
+              const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
+              if (!url || !id) continue;
+              // Los posts en colaboración vienen con el dueño de la otra cuenta:
+              // se atribuyen al perfil que se pidió scrapear (inputUrl).
+              const fromInput = String(it.inputUrl ?? "")
+                .toLowerCase()
+                .replace(/^https?:\/\/(www\.)?instagram\.com\//, "")
+                .replace(/\/.*$/, "");
+              const owner = String(it.ownerUsername ?? "").toLowerCase();
+              const handle = TEAM_HANDLES.has(fromInput) ? fromInput : owner;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+
+              const text = String(it.caption ?? "");
+              const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
+              rows.push({
+                campaign_slug: campaignSlug,
+                category: classify(handle),
+                platform: "instagram",
+                external_id: id,
+                author_handle: `@${handle}`,
+                author_name: it.ownerFullName ?? null,
+                author_followers: null,
+                url,
+                text,
+                thumbnail: it.displayUrl ?? null,
+                published_at: it.timestamp ?? null,
+                views: Number(it.videoViewCount ?? it.videoPlayCount) || 0,
+                likes: Number(it.likesCount) || 0,
+                comments: Number(it.commentsCount) || 0,
+                shares: 0,
+                hashtags: tags.length ? tags : extractHashtags(text),
+                synced_at: new Date().toISOString(),
+              });
+            }
+          } catch (e: any) {
+            errors.push(`instagram-equipos: ${e?.message || String(e)}`);
+          }
+        })(),
+      );
+
+      // Reels: el scraper de perfil a veces no devuelve los reels, se completan aparte.
+      jobs.push(
+        (async () => {
+          try {
+            const { runId } = await startRun(IG_REEL_ACTOR, {
+              username: teamHandles,
+              resultsLimit: profileLimit,
+            });
+            const datasetId = await waitForRun(IG_REEL_ACTOR, runId);
+            if (!datasetId) throw new Error("sin dataset");
+            const items = await getItems(
+              datasetId,
               "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
               900,
             );
@@ -421,13 +479,18 @@ Deno.serve(async (req) => {
               });
             }
           } catch (e: any) {
-            errors.push(`instagram-equipos: ${e?.message || String(e)}`);
+            errors.push(`instagram-reels-equipos: ${e?.message || String(e)}`);
           }
         })(),
       );
     }
 
+    // Nota: los posts en colaboración se recuperan atribuyendo cada item
+    // al perfil solicitado (inputUrl) en el job de perfiles de arriba.
+
+
     await Promise.all(jobs);
+
 
     // Filtro obligatorio: el post debe traer los DOS hashtags (#peloticadegoma
     // y #amoajuga) o mencionar a un equipo de la liga / un chivo.
