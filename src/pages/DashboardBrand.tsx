@@ -169,7 +169,7 @@ const BRAND_KEYWORDS: Record<
       "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · @vacilateestopodcast · equipos",
+    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · equipos",
 
   },
 
