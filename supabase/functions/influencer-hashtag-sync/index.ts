@@ -10,6 +10,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const TIKTOK_HASHTAG_ACTOR = "clockworks~tiktok-scraper";
 const IG_HASHTAG_ACTOR = "apify~instagram-hashtag-scraper";
 const IG_PROFILE_ACTOR = "apify~instagram-scraper";
+const IG_REEL_ACTOR = "apify~instagram-reel-scraper";
 
 // Cuentas oficiales del ecosistema: NO son influencers.
 const OFFICIAL_HANDLES = new Set([
@@ -425,9 +426,117 @@ Deno.serve(async (req) => {
           }
         })(),
       );
+
+      // Reels: el scraper de perfil a veces no devuelve los reels, se completan aparte.
+      jobs.push(
+        (async () => {
+          try {
+            const { runId } = await startRun(IG_REEL_ACTOR, {
+              username: teamHandles,
+              resultsLimit: profileLimit,
+            });
+            const datasetId = await waitForRun(IG_REEL_ACTOR, runId);
+            if (!datasetId) throw new Error("sin dataset");
+            const items = await getItems(
+              datasetId,
+              "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+              900,
+            );
+            for (const it of items) {
+              const url = (it.url as string | undefined) ?? null;
+              const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
+              if (!url || !id) continue;
+              const handle = String(it.ownerUsername ?? "").toLowerCase();
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+              const text = String(it.caption ?? "");
+              const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
+              rows.push({
+                campaign_slug: campaignSlug,
+                category: classify(handle),
+                platform: "instagram",
+                external_id: id,
+                author_handle: `@${handle}`,
+                author_name: it.ownerFullName ?? null,
+                author_followers: null,
+                url,
+                text,
+                thumbnail: it.displayUrl ?? null,
+                published_at: it.timestamp ?? null,
+                views: Number(it.videoViewCount ?? it.videoPlayCount) || 0,
+                likes: Number(it.likesCount) || 0,
+                comments: Number(it.commentsCount) || 0,
+                shares: 0,
+                hashtags: tags.length ? tags : extractHashtags(text),
+                synced_at: new Date().toISOString(),
+              });
+            }
+          } catch (e: any) {
+            errors.push(`instagram-reels-equipos: ${e?.message || String(e)}`);
+          }
+        })(),
+      );
+    }
+
+    // Rejilla pública del perfil: recupera también los posts en colaboración,
+    // que el scraper atribuye a la otra cuenta y por eso se perdían.
+    if (platforms.includes("instagram") && !skipProfiles) {
+      for (const h of teamHandles) {
+        if (!TEAM_HANDLES.has(h)) continue;
+        jobs.push(
+          (async () => {
+            try {
+              const res = await fetch(
+                `https://www.instagram.com/api/v1/users/web_profile_info/?username=${h}`,
+                {
+                  headers: {
+                    "X-IG-App-ID": "936619743392459",
+                    "User-Agent":
+                      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+                  },
+                },
+              );
+              if (!res.ok) throw new Error(`grid ${h} ${res.status}`);
+              const data = await res.json();
+              const user = data?.data?.user;
+              const edges = user?.edge_owner_to_timeline_media?.edges ?? [];
+              for (const e of edges) {
+                const n = e?.node;
+                if (!n?.shortcode) continue;
+                const text = String(
+                  n?.edge_media_to_caption?.edges?.[0]?.node?.text ?? "",
+                );
+                rows.push({
+                  campaign_slug: campaignSlug,
+                  category: "equipo",
+                  platform: "instagram",
+                  external_id: String(n.id ?? n.shortcode),
+                  author_handle: `@${h}`,
+                  author_name: user?.full_name ?? null,
+                  author_followers: Number(user?.edge_followed_by?.count) || null,
+                  url: `https://www.instagram.com/p/${n.shortcode}/`,
+                  text,
+                  thumbnail: n.display_url ?? n.thumbnail_src ?? null,
+                  published_at: n.taken_at_timestamp
+                    ? new Date(n.taken_at_timestamp * 1000).toISOString()
+                    : null,
+                  views: Number(n.video_view_count ?? n.video_play_count) || 0,
+                  likes: Number(n?.edge_liked_by?.count ?? n?.edge_media_preview_like?.count) || 0,
+                  comments: Number(n?.edge_media_to_comment?.count) || 0,
+                  shares: 0,
+                  hashtags: extractHashtags(text),
+                  synced_at: new Date().toISOString(),
+                });
+              }
+            } catch (e: any) {
+              errors.push(`instagram-grid-${h}: ${e?.message || String(e)}`);
+            }
+          })(),
+        );
+      }
     }
 
     await Promise.all(jobs);
+
 
     // Filtro obligatorio: el post debe traer los DOS hashtags (#peloticadegoma
     // y #amoajuga) o mencionar a un equipo de la liga / un chivo.
