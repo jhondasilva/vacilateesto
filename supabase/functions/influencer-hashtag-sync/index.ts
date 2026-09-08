@@ -186,10 +186,12 @@ Deno.serve(async (req) => {
                 it.authorMeta?.uniqueId ?? it.authorMeta?.name ?? "",
               ).toLowerCase();
 
-              if (!handle || OFFICIAL_HANDLES.has(handle)) continue;
+              if (!handle) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
+                category: classify(handle),
+
                 platform: "tiktok",
                 external_id: url.split("/video/").pop() || url,
                 author_handle: `@${handle}`,
