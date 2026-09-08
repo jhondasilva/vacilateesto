@@ -38,8 +38,6 @@ const TIER = (followers: number | null) => {
 const GROUP_LABELS: Record<string, string> = {
   equipo: "Equipos",
   chivo: "Chivos",
-  "super-chivo": "Super chivos",
-  oficial: "Liga oficial",
 };
 
 export const InfluencersSection = ({
@@ -49,15 +47,10 @@ export const InfluencersSection = ({
 }: {
   campaignSlug?: string;
   accent?: string;
-  mode?: "influencers" | "equipos" | "oficiales";
+  mode?: "influencers" | "equipos";
 }) => {
   const isTeams = mode === "equipos";
-  const isOfficial = mode === "oficiales";
-  const allowedCategories = isTeams
-    ? ["equipo", "chivo"]
-    : isOfficial
-      ? ["oficial", "super-chivo"]
-      : ["influencer"];
+  const allowedCategories = isTeams ? ["equipo", "chivo"] : ["influencer"];
 
   const [posts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -90,19 +83,13 @@ export const InfluencersSection = ({
     const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
-      // Cuentas oficiales de los equipos: todos sus posts son válidos.
+      // Equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
-      // Cuenta principal de la liga: todos sus posts son válidos.
-      if ((p.author_handle ?? "").toLowerCase() === "@peloticadegomave") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
       if ((p.category ?? "") === "chivo") {
-        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
-      }
-      // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
-      if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
         return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       // Influencers: SIEMPRE deben tener #PeloticaDeGoma y #AmoAJuga,
@@ -112,7 +99,6 @@ export const InfluencersSection = ({
         return false;
       }
       return norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
-
     });
     setPosts(valid);
     setLoading(false);
@@ -143,7 +129,7 @@ export const InfluencersSection = ({
       posts.filter(
         (p) =>
           (platform === "all" || p.platform === platform) &&
-          (!isTeams && !isOfficial ? tier === "all" || TIER(p.author_followers) === tier : true) &&
+          (!isTeams ? tier === "all" || TIER(p.author_followers) === tier : true) &&
           (group === "all" || (p.category ?? "influencer") === group),
       ),
     [posts, platform, tier, group, isTeams],
@@ -193,18 +179,12 @@ export const InfluencersSection = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
           <h2 className="text-xl font-black">
-            {isTeams
-              ? "Equipos y chivos"
-              : isOfficial
-                ? "Cuentas oficiales"
-                : "Influencers nano y micro"}
+            {isTeams ? "Equipos y chivos" : "Influencers nano y micro"}
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
               ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma o #AmoAJuga · Fuente: Apify + sincronización manual"
-              : isOfficial
-                ? "@peloticadegomave (todos) · @vacilateestopodcast · @jhonsnacks · @juansofa (solo con #PeloticaDeGoma o #AmoAJuga) · Fuente: Apify + sincronización manual"
-                : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
+              : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -234,8 +214,8 @@ export const InfluencersSection = ({
           </button>
         ))}
         <span className="w-px bg-border mx-1" />
-        {isTeams || isOfficial
-          ? (isTeams ? ["all", "equipo", "chivo"] : ["all", "oficial", "super-chivo"]).map((g) => (
+        {isTeams
+          ? (["all", "equipo", "chivo"] as const).map((g) => (
               <button
                 key={g}
                 onClick={() => setGroup(g)}
