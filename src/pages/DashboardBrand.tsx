@@ -1015,9 +1015,13 @@ const MetricoolDashboard = ({
   );
   // En el dashboard de Pelotica de Goma, los videos de YouTube solo cuentan
   // si el copy trae explícitamente #PeloticaDeGoma (el resto es Vacílate Esto).
+  // Excepción: todo post del blog oficial de @peloticadegomave (blogId 1908520)
+  // se incluye en General, con o sin hashtags.
+  const PELOTICA_OFICIAL_BLOG_ID = 1908520;
   const rawPosts =
     brand.slug === "pelotica-de-goma"
       ? rawPostsAll.filter((p) => {
+          if (p.blogId === PELOTICA_OFICIAL_BLOG_ID) return true;
           const t = (p.text ?? "").toLowerCase();
           // Todo post debe mencionar explícitamente algo de Pelotica de Goma.
           if (!matchesBrandKeywords(p.text)) return false;
