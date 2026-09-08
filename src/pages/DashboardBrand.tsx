@@ -157,7 +157,7 @@ const BRAND_KEYWORDS: Record<
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
       "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
-      "@vacilateestopodcast", "vacilateestopodcast",
+      // NOTA: @vacilateestopodcast NO se incluye: aparece en todo el contenido del podcast
       // Equipos de la liga
       "@diablosdelabastidas", "diablosdelabastidas",
       "@bombillosdepetare", "bombillosdepetare",
@@ -169,7 +169,7 @@ const BRAND_KEYWORDS: Record<
       "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · @vacilateestopodcast · equipos",
+    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · equipos",
 
   },
 
