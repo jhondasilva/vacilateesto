@@ -198,7 +198,7 @@ export const InfluencersSection = ({
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
-              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma, #AmoAJuga o #VamoAJuga · Fuente: Apify + sincronización manual"
+              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma o #AmoAJuga · Fuente: Apify + sincronización manual"
               : isOfficial
                 ? "@peloticadegomave (todos) · @vacilateestopodcast · @jhonsnacks · @juansofa (solo con #PeloticaDeGoma o #AmoAJuga) · Fuente: Apify + sincronización manual"
                 : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
