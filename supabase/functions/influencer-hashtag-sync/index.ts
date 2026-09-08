@@ -485,63 +485,9 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Rejilla pública del perfil: recupera también los posts en colaboración,
-    // que el scraper atribuye a la otra cuenta y por eso se perdían.
-    if (platforms.includes("instagram") && !skipProfiles) {
-      for (const h of teamHandles) {
-        if (!TEAM_HANDLES.has(h)) continue;
-        jobs.push(
-          (async () => {
-            try {
-              const res = await fetch(
-                `https://www.instagram.com/api/v1/users/web_profile_info/?username=${h}`,
-                {
-                  headers: {
-                    "X-IG-App-ID": "936619743392459",
-                    "User-Agent":
-                      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
-                  },
-                },
-              );
-              if (!res.ok) throw new Error(`grid ${h} ${res.status}`);
-              const data = await res.json();
-              const user = data?.data?.user;
-              const edges = user?.edge_owner_to_timeline_media?.edges ?? [];
-              for (const e of edges) {
-                const n = e?.node;
-                if (!n?.shortcode) continue;
-                const text = String(
-                  n?.edge_media_to_caption?.edges?.[0]?.node?.text ?? "",
-                );
-                rows.push({
-                  campaign_slug: campaignSlug,
-                  category: "equipo",
-                  platform: "instagram",
-                  external_id: String(n.id ?? n.shortcode),
-                  author_handle: `@${h}`,
-                  author_name: user?.full_name ?? null,
-                  author_followers: Number(user?.edge_followed_by?.count) || null,
-                  url: `https://www.instagram.com/p/${n.shortcode}/`,
-                  text,
-                  thumbnail: n.display_url ?? n.thumbnail_src ?? null,
-                  published_at: n.taken_at_timestamp
-                    ? new Date(n.taken_at_timestamp * 1000).toISOString()
-                    : null,
-                  views: Number(n.video_view_count ?? n.video_play_count) || 0,
-                  likes: Number(n?.edge_liked_by?.count ?? n?.edge_media_preview_like?.count) || 0,
-                  comments: Number(n?.edge_media_to_comment?.count) || 0,
-                  shares: 0,
-                  hashtags: extractHashtags(text),
-                  synced_at: new Date().toISOString(),
-                });
-              }
-            } catch (e: any) {
-              errors.push(`instagram-grid-${h}: ${e?.message || String(e)}`);
-            }
-          })(),
-        );
-      }
-    }
+    // Nota: los posts en colaboración se recuperan atribuyendo cada item
+    // al perfil solicitado (inputUrl) en el job de perfiles de arriba.
+
 
     await Promise.all(jobs);
 
