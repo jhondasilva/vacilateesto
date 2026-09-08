@@ -275,10 +275,15 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
   doc.text("MEDIAKIT 2026", pageWidth / 2, 43, { align: "center" });
 
   if (logoBase64) {
-    // Logo with proper aspect ratio (taller, not landscape)
+    // Logo with proper aspect ratio (taller, not landscape) — black box sized to the logo
     const logoWidth = 70;
     const logoHeight = 70;
-    doc.addImage(logoBase64, "PNG", (pageWidth - logoWidth) / 2, 50, logoWidth, logoHeight);
+    const pad = 10;
+    const logoX = (pageWidth - logoWidth) / 2;
+    const logoY = 50;
+    doc.setFillColor(0, 0, 0);
+    doc.roundedRect(logoX - pad, logoY - pad, logoWidth + pad * 2, logoHeight + pad * 2, 10, 10, "F");
+    doc.addImage(logoBase64, "PNG", logoX, logoY, logoWidth, logoHeight);
   } else {
     doc.setTextColor(...PRIMARY_COLOR);
     doc.setFontSize(40);
