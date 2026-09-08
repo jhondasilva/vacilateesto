@@ -96,11 +96,7 @@ export const InfluencersSection = ({
         .replace(/\s+/g, "");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
       if ((p.category ?? "") === "chivo") {
-        return (
-          norm.includes("#peloticadegoma") ||
-          norm.includes("#amoajuga") ||
-          norm.includes("#vamoajuga")
-        );
+        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
       if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
@@ -202,7 +198,7 @@ export const InfluencersSection = ({
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
-              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma, #AmoAJuga o #VamoAJuga · Fuente: Apify + sincronización manual"
+              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma o #AmoAJuga · Fuente: Apify + sincronización manual"
               : isOfficial
                 ? "@peloticadegomave (todos) · @vacilateestopodcast · @jhonsnacks · @juansofa (solo con #PeloticaDeGoma o #AmoAJuga) · Fuente: Apify + sincronización manual"
                 : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}

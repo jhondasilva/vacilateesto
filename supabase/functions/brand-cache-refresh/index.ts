@@ -105,7 +105,7 @@ const BRAND_KEYWORDS: Record<
     includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
-      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
       // @vacilateestopodcast excluido: aparece en todo el contenido del podcast
       "@diablosdelabastidas", "diablosdelabastidas",
       "@bombillosdepetare", "bombillosdepetare",

@@ -442,19 +442,14 @@ Deno.serve(async (req) => {
         .replace(/\s+/g, "");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
       if (r.category === "chivo") {
-        return (
-          norm.includes("#peloticadegoma") ||
-          norm.includes("#amoajuga") ||
-          norm.includes("#vamoajuga")
-        );
+        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
       if (r.category === "oficial" || r.category === "super-chivo") {
         return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       const ambosHT =
-        norm.includes("#peloticadegoma") &&
-        (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
+        norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
       const mencionaEquipo = MENTIONS.some((h) => norm.includes(`@${h}`));
       return ambosHT || mencionaEquipo;
     };
