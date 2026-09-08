@@ -10,6 +10,7 @@ import { es } from "date-fns/locale";
 type InfluencerPost = {
   id: string;
   platform: string;
+  category?: string | null;
   external_id: string;
   author_handle: string | null;
   author_name: string | null;
@@ -34,18 +35,33 @@ const TIER = (followers: number | null) => {
   return "macro";
 };
 
+const GROUP_LABELS: Record<string, string> = {
+  equipo: "Equipos",
+  chivo: "Chivos",
+  "super-chivo": "Super chivos",
+  oficial: "Liga oficial",
+};
+
 export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
+  mode = "influencers",
 }: {
   campaignSlug?: string;
   accent?: string;
+  mode?: "influencers" | "equipos";
 }) => {
+  const isTeams = mode === "equipos";
+  const allowedCategories = isTeams
+    ? ["equipo", "chivo", "super-chivo", "oficial"]
+    : ["influencer"];
+
   const [posts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [platform, setPlatform] = useState<"all" | "tiktok" | "instagram">("all");
   const [tier, setTier] = useState<"all" | "nano" | "micro" | "macro">("all");
+  const [group, setGroup] = useState<string>("all");
 
   const load = async () => {
     setLoading(true);
@@ -53,9 +69,10 @@ export const InfluencersSection = ({
       .from("influencer_posts")
       .select("*")
       .eq("campaign_slug", campaignSlug)
+      .in("category", allowedCategories)
       .order("published_at", { ascending: false })
       .limit(1000);
-    if (error) toast.error("No se pudieron cargar los influencers");
+    if (error) toast.error("No se pudieron cargar las publicaciones");
     setPosts((data as InfluencerPost[]) ?? []);
     setLoading(false);
   };
@@ -63,11 +80,11 @@ export const InfluencersSection = ({
   useEffect(() => {
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campaignSlug]);
+  }, [campaignSlug, mode]);
 
   const handleSync = async () => {
     setSyncing(true);
-    toast.info("Buscando contenido nuevo de influencers…");
+    toast.info("Buscando contenido nuevo…");
     const { data, error } = await supabase.functions.invoke("influencer-hashtag-sync", {
       body: { campaignSlug, limit: 100 },
     });
@@ -85,10 +102,12 @@ export const InfluencersSection = ({
       posts.filter(
         (p) =>
           (platform === "all" || p.platform === platform) &&
-          (tier === "all" || TIER(p.author_followers) === tier),
+          (!isTeams ? tier === "all" || TIER(p.author_followers) === tier : true) &&
+          (group === "all" || (p.category ?? "influencer") === group),
       ),
-    [posts, platform, tier],
+    [posts, platform, tier, group, isTeams],
   );
+
 
   const totals = useMemo(
     () =>
