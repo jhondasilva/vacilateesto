@@ -150,12 +150,12 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
-    // Cuenta propia de Pelotica de Goma (todos sus posts) + menciones en Vacílate Esto
+    // Solo piezas con los HT del proyecto o que mencionen las cuentas oficiales/equipos
     blogIds: [1908520, 1943481],
-    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
-      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
+      "@vacilateestopodcast", "vacilateestopodcast",
       // Equipos de la liga
       "@diablosdelabastidas", "diablosdelabastidas",
       "@bombillosdepetare", "bombillosdepetare",
@@ -167,9 +167,10 @@ const BRAND_KEYWORDS: Record<
       "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga · equipos",
+    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · @vacilateestopodcast · equipos",
 
   },
+
   diablitos: {
     handles: ["@diablitos_vzla"],
     // Las menciones a @diablitos_vzla aparecen en la cuenta de Pelotica de Goma y en Vacílate Esto
@@ -990,12 +991,19 @@ const MetricoolDashboard = ({
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
   const metricoolPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
   const existingIds = new Set(metricoolPosts.map((p) => p.id));
+  const brandKeywordList = (brandConfig?.keywords ?? []).map((k) => k.toLowerCase());
+  const matchesBrandKeywords = (text?: string | null) => {
+    const t = (text ?? "").toLowerCase();
+    return brandKeywordList.some((k) => t.includes(k));
+  };
   const apifyInRange = apifyTikToks.filter((p) => {
     if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
     if (!p.publishedAt) return false;
+    if (!matchesBrandKeywords(p.text)) return false;
     const t = new Date(p.publishedAt).getTime();
     return t >= month.from.getTime() && t <= month.to.getTime();
   });
+
   const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
     (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
   );
