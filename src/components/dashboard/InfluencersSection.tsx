@@ -73,7 +73,15 @@ export const InfluencersSection = ({
       .order("published_at", { ascending: false })
       .limit(1000);
     if (error) toast.error("No se pudieron cargar las publicaciones");
-    setPosts((data as InfluencerPost[]) ?? []);
+    // Criterio obligatorio: debe traer #PeloticaDeGoma o #AmoAJuga en el copy.
+    const REQUIRED = ["#peloticadegoma", "#amoajuga", "#vamoajuga"];
+    const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
+      const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
+        .toLowerCase()
+        .replace(/\s+/g, "");
+      return REQUIRED.some((h) => norm.includes(h));
+    });
+    setPosts(valid);
     setLoading(false);
   };
 

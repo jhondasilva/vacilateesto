@@ -269,6 +269,19 @@ Deno.serve(async (req) => {
 
     await Promise.all(jobs);
 
+    // Filtro obligatorio: el post debe traer explícitamente uno de los hashtags
+    // buscados (#peloticadegoma / #amoajuga). Apify devuelve coincidencias sueltas.
+    const required = hashtags.map((h) => `#${h}`);
+    const hasRequiredTag = (r: any) => {
+      const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
+        .toLowerCase()
+        .replace(/\s+/g, "");
+      return required.some((h) => norm.includes(h));
+    };
+    const valid = rows.filter(hasRequiredTag);
+    rows.length = 0;
+    rows.push(...valid);
+
     // Deduplica por (plataforma, id) antes del upsert.
     const seen = new Set<string>();
     const unique = rows.filter((r) => {
