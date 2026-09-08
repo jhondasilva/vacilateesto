@@ -139,6 +139,8 @@ Deno.serve(async (req) => {
             const datasetId = await waitForRun(TIKTOK_HASHTAG_ACTOR, runId);
             if (!datasetId) throw new Error("sin dataset");
             const items = await getItems(datasetId);
+            console.log("tiktok dataset", datasetId, "items", items.length);
+
             for (const it of items) {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
