@@ -15,6 +15,7 @@ import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
+import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
@@ -23,6 +24,7 @@ import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
 const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
   kfc: logoKfc,
+  "pelotica-de-goma": logoPeloticaDeGoma.url,
 };
 
 // Configuración de keywords por marca (filtros de menciones en redes)
