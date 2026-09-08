@@ -11,22 +11,46 @@ const TIKTOK_HASHTAG_ACTOR = "clockworks~tiktok-scraper";
 const IG_HASHTAG_ACTOR = "apify~instagram-hashtag-scraper";
 
 // Cuentas oficiales del ecosistema: NO son influencers.
-const OFFICIAL_HANDLES = new Set(
-  [
-    "peloticadegomave",
-    "peloticadegoma",
-    "vacilateestopodcast",
-    "vacilateesto",
-    "diablosdelabastidas",
-    "bombillosdepetare",
-    "vikingosdecharallave",
-    "torosdelavega",
-    "losperrosdelosguayos",
-    "losvipdepintoo",
-    "coquitoysucombopdg",
-    "losrelampagoskk",
-  ].map((h) => h.toLowerCase()),
-);
+const OFFICIAL_HANDLES = new Set([
+  "peloticadegomave",
+  "peloticadegoma",
+  "vacilateestopodcast",
+  "vacilateesto",
+]);
+
+const TEAM_HANDLES = new Set([
+  "diablosdelabastidas",
+  "bombillosdepetare",
+  "vikingosdecharallave",
+  "torosdelavega",
+  "losperrosdelosguayos",
+  "losvipdepintoo",
+  "coquitoysucombopdg",
+  "losrelampagoskk",
+]);
+
+const CHIVO_HANDLES = new Set([
+  "mabastidas",
+  "luis_sojo19",
+  "gesaria",
+  "luchomosqueda",
+  "azuaje.230",
+  "lamentedepinto",
+  "coquitooriginal",
+  "diazkarate",
+]);
+
+const SUPER_CHIVO_HANDLES = new Set(["jhonsnacks", "juansofa"]);
+
+function classify(handle: string) {
+  const h = handle.toLowerCase();
+  if (OFFICIAL_HANDLES.has(h)) return "oficial";
+  if (TEAM_HANDLES.has(h)) return "equipo";
+  if (CHIVO_HANDLES.has(h)) return "chivo";
+  if (SUPER_CHIVO_HANDLES.has(h)) return "super-chivo";
+  return "influencer";
+}
+
 
 const DEFAULT_HASHTAGS = ["peloticadegoma", "amoajuga"];
 
