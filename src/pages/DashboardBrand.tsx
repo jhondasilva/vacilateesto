@@ -17,6 +17,8 @@ import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
+import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
+
 
 const BRAND_LOGOS: Record<string, string> = {
   "coca-cola": logoCocaCola,
