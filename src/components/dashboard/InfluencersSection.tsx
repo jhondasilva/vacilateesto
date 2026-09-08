@@ -89,6 +89,14 @@ export const InfluencersSection = ({
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
+      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      if ((p.category ?? "") === "chivo") {
+        return (
+          norm.includes("#peloticadegoma") ||
+          norm.includes("#amoajuga") ||
+          norm.includes("#vamoajuga")
+        );
+      }
       const ambosHT =
         norm.includes("#peloticadegoma") &&
         (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
