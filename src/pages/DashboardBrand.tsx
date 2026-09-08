@@ -878,6 +878,8 @@ const MetricoolDashboard = ({
           text: (raw.text as string) ?? (raw.description as string) ?? "",
           thumbnail: (raw.videoMeta?.coverUrl as string) ?? (raw.covers?.default as string) ?? null,
           metrics: {} as Record<string, number>,
+          // Los TikToks de Apify son de @peloticadegomave, así que se tratan como oficiales.
+          blogId: 1908520,
         };
         if (r.unit) existing.metrics[r.unit as string] = Number(r.value) || 0;
         byId.set(id, existing);
