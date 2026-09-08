@@ -277,7 +277,10 @@ Deno.serve(async (req) => {
           try {
             const { runId } = await startRun(TIKTOK_HASHTAG_ACTOR, {
               profiles: teamHandles,
+              profileScrapeSections: ["videos"],
+              profileSorting: "latest",
               resultsPerPage: 100,
+              excludePinnedPosts: false,
               shouldDownloadVideos: false,
               shouldDownloadCovers: false,
             });
