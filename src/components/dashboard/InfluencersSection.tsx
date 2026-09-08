@@ -84,6 +84,8 @@ export const InfluencersSection = ({
       "@jhonsnacks", "@juansofa",
     ];
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
+      // Cuentas oficiales de los equipos: todos sus posts son válidos.
+      if ((p.category ?? "") === "equipo") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
