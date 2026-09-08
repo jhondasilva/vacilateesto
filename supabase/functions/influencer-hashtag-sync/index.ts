@@ -236,11 +236,13 @@ Deno.serve(async (req) => {
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
               const handle = String(it.ownerUsername ?? "").toLowerCase();
-              if (!handle || OFFICIAL_HANDLES.has(handle)) continue;
+              if (!handle) continue;
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
                 campaign_slug: campaignSlug,
+                category: classify(handle),
+
                 platform: "instagram",
                 external_id: id,
                 author_handle: `@${handle}`,
