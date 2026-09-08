@@ -434,6 +434,7 @@ Deno.serve(async (req) => {
     const hasRequiredTag = (r: any) => {
       // Las cuentas oficiales de los equipos entran completas, sin filtro.
       if (r.category === "equipo") return true;
+      if ((r.author_handle ?? "").toLowerCase() === "@peloticadegomave") return true;
       const tags = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");

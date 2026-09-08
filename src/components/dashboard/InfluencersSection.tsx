@@ -89,6 +89,8 @@ export const InfluencersSection = ({
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
       // Cuentas oficiales de los equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
+      // Cuenta principal de la liga: todos sus posts son válidos.
+      if ((p.author_handle ?? "").toLowerCase() === "@peloticadegomave") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
