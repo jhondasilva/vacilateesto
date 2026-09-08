@@ -88,17 +88,19 @@ export const InfluencersSection = ({
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if ((p.category ?? "") === "chivo") {
-        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
-      }
-      // Influencers: SIEMPRE deben tener #PeloticaDeGoma y #AmoAJuga,
-      // y nunca pueden ser cuentas oficiales, de equipos o de chivos.
+      // Criterio: basta UNO de los hashtags oficiales, o mencionar @peloticadegomave.
+      const hasCriteria =
+        norm.includes("#peloticadegoma") ||
+        norm.includes("#amoajuga") ||
+        norm.includes("@peloticadegomave");
+      if ((p.category ?? "") === "chivo") return hasCriteria;
+      // Influencers: nunca pueden ser cuentas oficiales, de equipos o de chivos.
       const handle = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
       if (MENTIONS.includes(handle) || handle === "@vacilateestopodcast" || handle === "@vacilateesto") {
         return false;
       }
-      return norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
+      return hasCriteria;
+
     });
     setPosts(valid);
     setLoading(false);
@@ -183,9 +185,10 @@ export const InfluencersSection = ({
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
-              ? "Equipos: todos sus posts · Chivos: solo con #PeloticaDeGoma o #AmoAJuga · Fuente: Apify + sincronización manual"
-              : "#PeloticaDeGoma + #AmoAJuga obligatorios · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
+              ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · Fuente: Apify + sincronización manual"
+              : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
           </p>
+
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
           {syncing ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-1" />}
