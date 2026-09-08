@@ -347,7 +347,7 @@ Deno.serve(async (req) => {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
               const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
