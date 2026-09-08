@@ -151,14 +151,18 @@ export const InfluencersSection = ({
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
-          <h2 className="text-xl font-black">Influencers nano y micro</h2>
+          <h2 className="text-xl font-black">
+            {isTeams ? "Equipos, chivos y liga oficial" : "Influencers nano y micro"}
+          </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            #PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales ni equipos
+            {isTeams
+              ? "#PeloticaDeGoma · #AmoAJuga — equipos, chivos, super chivos (@jhonsnacks · @juansofa) y cuentas de la liga"
+              : "#PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales, equipos ni chivos"}
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
           {syncing ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-1" />}
-          {syncing ? "Buscando…" : "Actualizar influencers"}
+          {syncing ? "Buscando…" : "Actualizar datos"}
         </Button>
       </div>
 
@@ -183,20 +187,39 @@ export const InfluencersSection = ({
           </button>
         ))}
         <span className="w-px bg-border mx-1" />
-        {(["all", "nano", "micro", "macro"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTier(t)}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
-              tier === t
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-foreground border-border hover:border-foreground/40",
-            )}
-          >
-            {t === "all" ? "Todos los tamaños" : t}
-          </button>
-        ))}
+        {isTeams
+          ? ["all", "equipo", "chivo", "super-chivo", "oficial"].map((g) => (
+              <button
+                key={g}
+                onClick={() => setGroup(g)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
+                  group === g
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-foreground border-border hover:border-foreground/40",
+                )}
+              >
+                {g === "all"
+                  ? `Todas · ${posts.length}`
+                  : `${GROUP_LABELS[g]} · ${posts.filter((p) => (p.category ?? "") === g).length}`}
+              </button>
+            ))
+          : (["all", "nano", "micro", "macro"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTier(t)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
+                  tier === t
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-foreground border-border hover:border-foreground/40",
+                )}
+              >
+                {t === "all" ? "Todos los tamaños" : t}
+              </button>
+            ))}
+      </div>
+
       </div>
 
       {loading ? (
