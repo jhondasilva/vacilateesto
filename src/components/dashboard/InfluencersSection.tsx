@@ -93,6 +93,10 @@ export const InfluencersSection = ({
     ];
     // Publicaciones descartadas manualmente (no son de Pelotica de Goma).
     const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
+    // Publicaciones incluidas manualmente (validadas aunque no traigan hashtags).
+    const INCLUDED_EXTERNAL_IDS = new Set([
+      "7683301114023939348", "7682173924817358100",
+    ]);
     // Cuentas que NO son influencers: marcas y canales.
     const NON_INFLUENCER_HANDLES = new Set([
       "@vatelvenezuela", "@mykonosvzla", "@ivcnetworks",
@@ -103,6 +107,7 @@ export const InfluencersSection = ({
       const ts = p.published_at ? Date.parse(p.published_at) : NaN;
       if (!Number.isFinite(ts) || ts < CAMPAIGN_START) return false;
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
+      if (INCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return true;
       // Equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
