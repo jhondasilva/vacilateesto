@@ -146,11 +146,20 @@ export const generateBrandReportPdf = async ({
     doc.text(text, x + w / 2, y + h / 2 + fs * 0.35, { align: "center" });
   };
 
-  const drawLogo = (x: number, y: number, maxW: number, maxH: number) => {
+  const BLACK: [number, number, number] = [0, 0, 0];
+  // Logo always on a black box sized to the logo itself.
+  const drawLogo = (x: number, y: number, maxW: number, maxH: number, skipBox = false) => {
     if (!logo) return;
     const props = doc.getImageProperties(logo);
     const s = Math.min(maxW / props.width, maxH / props.height);
-    doc.addImage(logo, "PNG", x, y, props.width * s, props.height * s);
+    const w = props.width * s;
+    const h = props.height * s;
+    if (!skipBox) {
+      const pad = Math.max(2, Math.min(w, h) * 0.12);
+      doc.setFillColor(...BLACK);
+      doc.roundedRect(x - pad, y - pad, w + pad * 2, h + pad * 2, pad, pad, "F");
+    }
+    doc.addImage(logo, "PNG", x, y, w, h);
   };
 
   const logoBadge = (x: number, y: number, w: number, h: number, shadow: [number, number, number]) => {
