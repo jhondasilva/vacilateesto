@@ -107,6 +107,7 @@ export const InfluencersSection = ({
       const ts = p.published_at ? Date.parse(p.published_at) : NaN;
       if (!Number.isFinite(ts) || ts < CAMPAIGN_START) return false;
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
+      if (INCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return true;
       // Equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
