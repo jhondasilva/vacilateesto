@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,18 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
+import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import logoPodcastCumbre from "@/assets/logo-podcast-cumbre.avif";
+import logoMundial from "@/assets/logo-mundial-2026.png";
+
+/** Proyectos propios: se destacan arriba y con logo del proyecto. */
+const PROJECT_LOGOS: Record<string, string> = {
+  "pelotica-de-goma": logoPeloticaDeGoma.url,
+  "podcast-en-la-cumbre": logoPodcastCumbre,
+  "vacilate-el-mundial": logoMundial,
+};
+const PROJECT_SLUGS = Object.keys(PROJECT_LOGOS);
+
 
 const DashboardHome = () => {
   // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
@@ -51,9 +62,9 @@ const DashboardHome = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12 max-w-3xl">
+      <main className="container mx-auto px-4 py-12 max-w-4xl">
         <h1 className="text-3xl md:text-4xl font-black mb-2">Tus dashboards</h1>
-        <p className="text-muted-foreground mb-8">Selecciona la marca para ver sus resultados.</p>
+        <p className="text-muted-foreground mb-8">Selecciona un proyecto o una marca para ver sus resultados.</p>
 
         {loading ? (
           <Loader2 className="w-6 h-6 animate-spin text-primary" />
@@ -68,24 +79,91 @@ const DashboardHome = () => {
             </p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 gap-4">
-            {brands.map((b) => (
-              <Link
-                key={b.brand.id}
-                to={`/dashboard/${b.brand.slug}`}
-                className="group bg-card border border-border rounded-2xl p-6 hover:border-primary transition-colors flex items-center justify-between"
-                style={{ borderLeftColor: b.brand.brand_color ?? undefined, borderLeftWidth: 4 }}
-              >
-                <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Marca</p>
-                  <p className="text-xl font-bold">{b.brand.name}</p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-            ))}
-          </div>
+          (() => {
+            const projects = brands.filter((b) => PROJECT_SLUGS.includes(b.brand.slug));
+            const clients = brands.filter((b) => !PROJECT_SLUGS.includes(b.brand.slug));
+            return (
+              <div className="space-y-12">
+                {projects.length > 0 && (
+                  <section>
+                    <div className="flex items-center gap-3 mb-4">
+                      <h2 className="text-sm font-black uppercase tracking-[0.2em] text-primary">
+                        Proyectos Vacílate Esto
+                      </h2>
+                      <div className="h-px flex-1 bg-primary/30" />
+                    </div>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      {projects.map((b) => (
+                        <Link
+                          key={b.brand.id}
+                          to={`/dashboard/${b.brand.slug}`}
+                          className="group relative overflow-hidden bg-card border-2 border-primary/40 rounded-2xl p-6 hover:border-primary hover:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all flex flex-col gap-4"
+                        >
+                          <div className="inline-flex bg-black rounded-xl p-2 w-fit">
+                            <img
+                              src={PROJECT_LOGOS[b.brand.slug]}
+                              alt={`Logo de ${b.brand.name}`}
+                              className="h-12 w-auto object-contain"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div>
+                            <p className="text-[10px] text-primary uppercase tracking-[0.18em] font-bold">
+                              Proyecto propio
+                            </p>
+                            <p className="text-lg font-black leading-tight">{b.brand.name}</p>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {clients.length > 0 && (
+                  <section>
+                    <div className="flex items-center gap-3 mb-4">
+                      <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
+                        Dashboards de clientes
+                      </h2>
+                      <div className="h-px flex-1 bg-border" />
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {clients.map((b) => (
+                        <Link
+                          key={b.brand.id}
+                          to={`/dashboard/${b.brand.slug}`}
+                          className="group bg-card border border-border rounded-2xl p-5 hover:border-primary transition-colors flex items-center justify-between gap-4"
+                          style={{ borderLeftColor: b.brand.brand_color ?? undefined, borderLeftWidth: 4 }}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            {b.brand.logo_url && (
+                              <span className="inline-flex bg-black rounded-lg p-1.5 shrink-0">
+                                <img
+                                  src={b.brand.logo_url}
+                                  alt={`Logo de ${b.brand.name}`}
+                                  className="h-8 w-auto object-contain"
+                                  loading="lazy"
+                                />
+                              </span>
+                            )}
+                            <div className="min-w-0">
+                              <p className="text-xs text-muted-foreground uppercase tracking-wider">Marca</p>
+                              <p className="text-lg font-bold truncate">{b.brand.name}</p>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </div>
+            );
+          })()
         )}
       </main>
+
     </div>
   );
 };
