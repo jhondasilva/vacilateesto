@@ -1156,6 +1156,24 @@ const MetricoolDashboard = ({
         <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="oficiales" />
       )}
 
+      {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
+        <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 flex gap-3">
+          <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-bold">Criterio de esta pestaña</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Incluye todos los posts de <strong>@peloticadegomave</strong> (con o sin hashtag) más las
+              publicaciones de otras cuentas que mencionen <strong>#PeloticaDeGoma</strong>,{" "}
+              <strong>#AmoAJuga</strong>, <strong>#VamoAJuga</strong> o a alguno de los equipos de la liga.
+              En YouTube se exige el hashtag #PeloticaDeGoma explícito.
+            </p>
+            <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">
+              Fuente: Metricool (IG · FB · YT · TikTok) + Apify como respaldo de TikTok.
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className={showInfluencers && mainTab !== "general" ? "hidden" : ""}>
 
 
