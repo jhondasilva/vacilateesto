@@ -97,7 +97,15 @@ export const InfluencersSection = ({
         norm.includes("#peloticadegoma") ||
         norm.includes("#amoajuga") ||
         norm.includes("@peloticadegomave");
-      if ((p.category ?? "") === "chivo") return hasCriteria;
+      // Chivos: también valen si mencionan a alguna cuenta de equipo.
+      const TEAM_MENTIONS = [
+        "@diablosdelabastidas", "@bombillosdepetare", "@vikingosdecharallave",
+        "@torosdelavega", "@losperrosdelosguayos", "@losvipdepintoo",
+        "@coquitoysucombopdg", "@losrelampagoskk",
+      ];
+      const mencionaEquipo = TEAM_MENTIONS.some((h) => norm.includes(h));
+      if ((p.category ?? "") === "chivo") return hasCriteria || mencionaEquipo;
+
       // Influencers: nunca pueden ser cuentas oficiales, de equipos o de chivos.
       const handle = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
       if (
@@ -194,7 +202,7 @@ export const InfluencersSection = ({
           </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
-              ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · Fuente: Apify + sincronización manual"
+              ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a una cuenta de equipo · Fuente: Apify + sincronización manual"
               : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
           </p>
 
