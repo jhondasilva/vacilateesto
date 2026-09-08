@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,18 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
+import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import logoPodcastCumbre from "@/assets/logo-podcast-cumbre.avif";
+import logoMundial from "@/assets/logo-mundial-2026.png";
+
+/** Proyectos propios: se destacan arriba y con logo del proyecto. */
+const PROJECT_LOGOS: Record<string, string> = {
+  "pelotica-de-goma": logoPeloticaDeGoma.url,
+  "podcast-en-la-cumbre": logoPodcastCumbre,
+  "vacilate-el-mundial": logoMundial,
+};
+const PROJECT_SLUGS = Object.keys(PROJECT_LOGOS);
+
 
 const DashboardHome = () => {
   // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
