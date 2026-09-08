@@ -845,7 +845,7 @@ const MetricoolDashboard = ({
   const [scope, setScope] = useState<Scope>("brand");
   const showPelotica = PELOTICA_CROSS_BRANDS.has(brand.slug);
   const showInfluencers = brand.slug === "pelotica-de-goma";
-  const [mainTab, setMainTab] = useState<"general" | "equipos" | "oficiales" | "influencers">("general");
+  const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers">("general");
   const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
 
 
@@ -1133,7 +1133,6 @@ const MetricoolDashboard = ({
           {([
             { k: "general", label: "General" },
             { k: "equipos", label: "Equipos y chivos" },
-            { k: "oficiales", label: "Cuentas oficiales" },
             { k: "influencers", label: "Influencers" },
           ] as const).map((t) => (
             <button
@@ -1155,9 +1154,6 @@ const MetricoolDashboard = ({
       )}
       {showInfluencers && mainTab === "equipos" && (
         <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
-      )}
-      {showInfluencers && mainTab === "oficiales" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="oficiales" />
       )}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
