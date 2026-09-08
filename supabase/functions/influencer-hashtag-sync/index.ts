@@ -273,6 +273,8 @@ Deno.serve(async (req) => {
     // y #amoajuga) o mencionar a un equipo de la liga / un chivo.
     const MENTIONS = [...TEAM_HANDLES, ...CHIVO_HANDLES, ...SUPER_CHIVO_HANDLES, "peloticadegomave"];
     const hasRequiredTag = (r: any) => {
+      // Las cuentas oficiales de los equipos entran completas, sin filtro.
+      if (r.category === "equipo") return true;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
