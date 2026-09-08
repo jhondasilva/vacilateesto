@@ -156,9 +156,19 @@ const BRAND_KEYWORDS: Record<
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
       "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+      // Equipos de la liga
+      "@diablosdelabastidas", "diablosdelabastidas",
+      "@bombillosdepetare", "bombillosdepetare",
+      "@vikingosdecharallave", "vikingosdecharallave",
+      "@torosdelavega", "torosdelavega",
+      "@losperrosdelosguayos", "losperrosdelosguayos",
+      "@losvipdepintoo", "losvipdepintoo",
+      "@coquitoysucombopdg", "coquitoysucombopdg",
+      "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga",
+    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga · equipos",
+
   },
   diablitos: {
     handles: ["@diablitos_vzla"],
