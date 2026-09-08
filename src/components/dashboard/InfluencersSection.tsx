@@ -88,17 +88,19 @@ export const InfluencersSection = ({
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if ((p.category ?? "") === "chivo") {
-        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
-      }
-      // Influencers: SIEMPRE deben tener #PeloticaDeGoma y #AmoAJuga,
-      // y nunca pueden ser cuentas oficiales, de equipos o de chivos.
+      // Criterio: basta UNO de los hashtags oficiales, o mencionar @peloticadegomave.
+      const hasCriteria =
+        norm.includes("#peloticadegoma") ||
+        norm.includes("#amoajuga") ||
+        norm.includes("@peloticadegomave");
+      if ((p.category ?? "") === "chivo") return hasCriteria;
+      // Influencers: nunca pueden ser cuentas oficiales, de equipos o de chivos.
       const handle = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
       if (MENTIONS.includes(handle) || handle === "@vacilateestopodcast" || handle === "@vacilateesto") {
         return false;
       }
-      return norm.includes("#peloticadegoma") && norm.includes("#amoajuga");
+      return hasCriteria;
+
     });
     setPosts(valid);
     setLoading(false);
