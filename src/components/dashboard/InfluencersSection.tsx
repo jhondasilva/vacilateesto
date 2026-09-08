@@ -86,7 +86,10 @@ export const InfluencersSection = ({
       "@azuaje.230", "@lamentedepinto", "@coquitooriginal", "@diazkarate",
       "@jhonsnacks", "@juansofa",
     ];
+    // Publicaciones descartadas manualmente (no son de Pelotica de Goma).
+    const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
+      if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
       // Cuentas oficiales de los equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
       // Cuenta principal de la liga: todos sus posts son válidos.
