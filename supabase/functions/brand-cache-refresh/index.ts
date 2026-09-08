@@ -102,10 +102,10 @@ const BRAND_KEYWORDS: Record<
   },
   "pelotica-de-goma": {
     blogIds: [1908520, 1943481],
-    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
-      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
+      "@vacilateestopodcast", "vacilateestopodcast",
       "@diablosdelabastidas", "diablosdelabastidas",
       "@bombillosdepetare", "bombillosdepetare",
       "@vikingosdecharallave", "vikingosdecharallave",
@@ -118,6 +118,7 @@ const BRAND_KEYWORDS: Record<
 
     excludeKeywords: [],
   },
+
   diablitos: {
     blogIds: [1908520, 1943481],
     keywords: [
