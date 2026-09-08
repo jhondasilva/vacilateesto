@@ -151,7 +151,8 @@ Deno.serve(async (req) => {
     );
     const perHashtag: number = Math.min(Number(body.limit) || 100, 300);
     const platforms: string[] = body.platforms ?? ["tiktok", "instagram"];
-    const skipHashtags: boolean = body.skipHashtags === true;
+    const skipHashtags: boolean = body.skipHashtags === true || !!body.importDatasetId;
+    const skipProfiles: boolean = body.skipProfiles === true || !!body.importDatasetId;
     const profileLimit: number = Math.min(Number(body.profileLimit) || 100, 200);
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, {
@@ -163,6 +164,51 @@ Deno.serve(async (req) => {
 
     // Lanza ambos actores en paralelo y espera a que terminen.
     const jobs: Promise<void>[] = [];
+
+    // Importa un dataset de Apify ya ejecutado (Instagram, perfiles).
+    if (body.importDatasetId) {
+      jobs.push(
+        (async () => {
+          try {
+            const items = await getItems(
+              String(body.importDatasetId),
+              "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+              1000,
+            );
+            for (const it of items) {
+              const url = (it.url as string | undefined) ?? null;
+              const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
+              if (!url || !id) continue;
+              const handle = String(it.ownerUsername ?? "").toLowerCase();
+              if (!handle) continue;
+              const text = String(it.caption ?? "");
+              const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
+              rows.push({
+                campaign_slug: campaignSlug,
+                category: classify(handle),
+                platform: "instagram",
+                external_id: id,
+                author_handle: `@${handle}`,
+                author_name: it.ownerFullName ?? null,
+                author_followers: null,
+                url,
+                text,
+                thumbnail: it.displayUrl ?? null,
+                published_at: it.timestamp ?? null,
+                views: Number(it.videoViewCount ?? it.videoPlayCount) || 0,
+                likes: Number(it.likesCount) || 0,
+                comments: Number(it.commentsCount) || 0,
+                shares: 0,
+                hashtags: tags.length ? tags : extractHashtags(text),
+                synced_at: new Date().toISOString(),
+              });
+            }
+          } catch (e: any) {
+            errors.push(`import: ${e?.message || String(e)}`);
+          }
+        })(),
+      );
+    }
 
     if (platforms.includes("tiktok") && !skipHashtags) {
       jobs.push(
@@ -276,7 +322,7 @@ Deno.serve(async (req) => {
       ? body.handles.map((h: string) => String(h).replace(/^@/, "").toLowerCase())
       : [...TEAM_HANDLES, ...CHIVO_HANDLES];
 
-    if (platforms.includes("tiktok")) {
+    if (platforms.includes("tiktok") && !skipProfiles) {
       jobs.push(
         (async () => {
           try {
@@ -329,7 +375,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (platforms.includes("instagram")) {
+    if (platforms.includes("instagram") && !skipProfiles) {
       jobs.push(
         (async () => {
           try {
@@ -396,7 +442,8 @@ Deno.serve(async (req) => {
         tags.includes("#amoajuga") ||
         tags.includes("#vamoajuga");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if (r.category === "chivo") return algunHT;
+      if (r.category === "chivo" || r.category === "oficial" || r.category === "super-chivo")
+        return algunHT;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
