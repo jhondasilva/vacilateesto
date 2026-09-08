@@ -94,13 +94,17 @@ export const InfluencersSection = ({
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      // Chivos y cuentas oficiales: basta con uno de los hashtags oficiales.
-      if ((p.category ?? "") === "chivo" || (p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
+      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      if ((p.category ?? "") === "chivo") {
         return (
           norm.includes("#peloticadegoma") ||
           norm.includes("#amoajuga") ||
           norm.includes("#vamoajuga")
         );
+      }
+      // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
+      if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
+        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       const ambosHT =
         norm.includes("#peloticadegoma") &&

@@ -316,11 +316,12 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Cuentas oficiales de los equipos: se traen TODOS sus posts, sin filtro.
-    // Cuentas de chivos: son personales, se traen y luego se filtran por hashtag.
-    const teamHandles: string[] = Array.isArray(body.handles) && body.handles.length
-      ? body.handles.map((h: string) => String(h).replace(/^@/, "").toLowerCase())
-      : [...TEAM_HANDLES, ...CHIVO_HANDLES];
+      // Cuentas oficiales de los equipos: se traen TODOS sus posts, sin filtro.
+      // Cuentas de chivos: son personales, se traen y luego se filtran por hashtag.
+      // Super chivos: cuentas personales de los hosts, se filtran por hashtag.
+      const teamHandles: string[] = Array.isArray(body.handles) && body.handles.length
+        ? body.handles.map((h: string) => String(h).replace(/^@/, "").toLowerCase())
+        : [...TEAM_HANDLES, ...CHIVO_HANDLES, ...SUPER_CHIVO_HANDLES];
 
     if (platforms.includes("tiktok") && !skipProfiles) {
       jobs.push(
@@ -346,7 +347,7 @@ Deno.serve(async (req) => {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
               const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
@@ -396,7 +397,7 @@ Deno.serve(async (req) => {
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
               const handle = String(it.ownerUsername ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
@@ -434,20 +435,23 @@ Deno.serve(async (req) => {
     const hasRequiredTag = (r: any) => {
       // Las cuentas oficiales de los equipos entran completas, sin filtro.
       if (r.category === "equipo") return true;
+      // Cuenta principal de la liga: todos sus posts son válidos.
       if ((r.author_handle ?? "").toLowerCase() === "@peloticadegomave") return true;
-      const tags = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
-        .toLowerCase()
-        .replace(/\s+/g, "");
-      const algunHT =
-        tags.includes("#peloticadegoma") ||
-        tags.includes("#amoajuga") ||
-        tags.includes("#vamoajuga");
-      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if (r.category === "chivo" || r.category === "oficial" || r.category === "super-chivo")
-        return algunHT;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
+      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      if (r.category === "chivo") {
+        return (
+          norm.includes("#peloticadegoma") ||
+          norm.includes("#amoajuga") ||
+          norm.includes("#vamoajuga")
+        );
+      }
+      // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
+      if (r.category === "oficial" || r.category === "super-chivo") {
+        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
+      }
       const ambosHT =
         norm.includes("#peloticadegoma") &&
         (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
