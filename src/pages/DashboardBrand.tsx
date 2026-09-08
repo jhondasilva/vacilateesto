@@ -1004,9 +1004,20 @@ const MetricoolDashboard = ({
     return t >= month.from.getTime() && t <= month.to.getTime();
   });
 
-  const rawPosts = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
+  const rawPostsAll = [...metricoolPosts, ...apifyInRange].sort((a, b) =>
     (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
   );
+  // En el dashboard de Pelotica de Goma, los videos de YouTube solo cuentan
+  // si el copy trae explícitamente #PeloticaDeGoma (el resto es Vacílate Esto).
+  const rawPosts =
+    brand.slug === "pelotica-de-goma"
+      ? rawPostsAll.filter(
+          (p) =>
+            p.platform !== "youtube" ||
+            (p.text ?? "").toLowerCase().replace(/\s+/g, "").includes("#peloticadegoma"),
+        )
+      : rawPostsAll;
+
   // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca.
   // No aplica en el propio dashboard de Pelotica de Goma.
   const allPosts = showPelotica
