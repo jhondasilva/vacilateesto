@@ -220,7 +220,6 @@ export const InfluencersSection = ({
             ))}
       </div>
 
-      </div>
 
       {loading ? (
         <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
