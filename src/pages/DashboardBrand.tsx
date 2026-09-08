@@ -1219,7 +1219,10 @@ const MetricoolDashboard = ({
             </button>
           ))}
         </div>
-        <div className="inline-flex shrink-0 rounded-full border border-border p-1 bg-card self-start sm:self-auto">
+        <div className={cn(
+          "inline-flex shrink-0 rounded-full border border-border p-1 bg-card self-start sm:self-auto",
+          brand.slug === "pelotica-de-goma" && "hidden",
+        )}>
           <button
             onClick={() => { setScope("brand"); setView("all"); }}
             className={cn(
