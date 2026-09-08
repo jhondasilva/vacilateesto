@@ -38,8 +38,6 @@ const BRAND_KEYWORDS: Record<
     handles?: string[];
     /** Keywords obligatorias adicionales: el post debe cumplir keywords Y requireKeywords. */
     requireKeywords?: string[];
-
-
   }
 > = {
 
