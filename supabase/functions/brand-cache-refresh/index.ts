@@ -102,6 +102,7 @@ const BRAND_KEYWORDS: Record<
   },
   "pelotica-de-goma": {
     blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
       "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
@@ -115,7 +116,6 @@ const BRAND_KEYWORDS: Record<
       "@coquitoysucombopdg", "coquitoysucombopdg",
       "@losrelampagoskk", "losrelampagoskk",
     ],
-
     excludeKeywords: [],
   },
 
