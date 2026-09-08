@@ -85,7 +85,11 @@ export const InfluencersSection = ({
     const NON_INFLUENCER_HANDLES = new Set([
       "@vatelvenezuela", "@mykonosvzla", "@ivcnetworks",
     ]);
+    // La liga arranca en 2026: publicaciones anteriores no son de Pelotica de Goma.
+    const CAMPAIGN_START = Date.parse("2026-01-01T00:00:00Z");
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
+      const ts = p.published_at ? Date.parse(p.published_at) : NaN;
+      if (!Number.isFinite(ts) || ts < CAMPAIGN_START) return false;
       if (EXCLUDED_EXTERNAL_IDS.has(String((p as { external_id?: string }).external_id ?? ""))) return false;
       // Equipos: todos sus posts son válidos.
       if ((p.category ?? "") === "equipo") return true;
@@ -159,10 +163,10 @@ export const InfluencersSection = ({
     () =>
       filtered.reduce(
         (acc, p) => {
-          acc.views += p.views ?? 0;
-          acc.likes += p.likes ?? 0;
-          acc.comments += p.comments ?? 0;
-          acc.shares += p.shares ?? 0;
+          acc.views += Math.max(0, p.views ?? 0);
+          acc.likes += Math.max(0, p.likes ?? 0);
+          acc.comments += Math.max(0, p.comments ?? 0);
+          acc.shares += Math.max(0, p.shares ?? 0);
           return acc;
         },
         { views: 0, likes: 0, comments: 0, shares: 0 },
@@ -176,8 +180,8 @@ export const InfluencersSection = ({
       const h = p.author_handle ?? "—";
       const c = map.get(h) ?? { handle: h, posts: 0, views: 0, likes: 0, followers: p.author_followers ?? 0 };
       c.posts += 1;
-      c.views += p.views ?? 0;
-      c.likes += p.likes ?? 0;
+      c.views += Math.max(0, p.views ?? 0);
+      c.likes += Math.max(0, p.likes ?? 0);
       c.followers = Math.max(c.followers, p.author_followers ?? 0);
       map.set(h, c);
     }
@@ -203,7 +207,7 @@ export const InfluencersSection = ({
           <p className="text-[11px] text-muted-foreground font-mono">
             {isTeams
               ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a una cuenta de equipo · Fuente: Apify + sincronización manual"
-              : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Fuente: Apify + sincronización manual"}
+              : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Solo publicaciones desde enero 2026 · Fuente: Apify + sincronización manual"}
           </p>
 
         </div>
