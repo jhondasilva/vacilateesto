@@ -200,7 +200,11 @@ Deno.serve(async (req) => {
             });
             const datasetId = await waitForRun(IG_HASHTAG_ACTOR, runId);
             if (!datasetId) throw new Error("sin dataset");
-            const items = await getItems(datasetId);
+            const items = await getItems(
+              datasetId,
+              "url,id,shortCode,ownerUsername,ownerFullName,caption,displayUrl,timestamp,videoViewCount,videoPlayCount,likesCount,commentsCount,hashtags",
+            );
+
             for (const it of items) {
               const url = (it.url as string | undefined) ?? null;
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
