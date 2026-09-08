@@ -1112,7 +1112,8 @@ const MetricoolDashboard = ({
       {showInfluencers && (
         <div className="mb-6 inline-flex rounded-full border border-border p-1 bg-card">
           {([
-            { k: "general", label: "Cuentas oficiales" },
+            { k: "general", label: "General" },
+            { k: "equipos", label: "Equipos y chivos" },
             { k: "influencers", label: "Influencers" },
           ] as const).map((t) => (
             <button
@@ -1130,10 +1131,14 @@ const MetricoolDashboard = ({
       )}
 
       {showInfluencers && mainTab === "influencers" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} />
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="influencers" />
+      )}
+      {showInfluencers && mainTab === "equipos" && (
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
       )}
 
-      <div className={showInfluencers && mainTab === "influencers" ? "hidden" : ""}>
+      <div className={showInfluencers && mainTab !== "general" ? "hidden" : ""}>
+
 
       {/* Selector de mes */}
 
