@@ -151,6 +151,8 @@ Deno.serve(async (req) => {
     );
     const perHashtag: number = Math.min(Number(body.limit) || 100, 300);
     const platforms: string[] = body.platforms ?? ["tiktok", "instagram"];
+    const skipHashtags: boolean = body.skipHashtags === true;
+    const profileLimit: number = Math.min(Number(body.profileLimit) || 100, 200);
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, {
       auth: { persistSession: false },
@@ -162,7 +164,7 @@ Deno.serve(async (req) => {
     // Lanza ambos actores en paralelo y espera a que terminen.
     const jobs: Promise<void>[] = [];
 
-    if (platforms.includes("tiktok")) {
+    if (platforms.includes("tiktok") && !skipHashtags) {
       jobs.push(
         (async () => {
           try {
@@ -217,7 +219,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (platforms.includes("instagram")) {
+    if (platforms.includes("instagram") && !skipHashtags) {
       jobs.push(
         (async () => {
           try {
@@ -269,7 +271,10 @@ Deno.serve(async (req) => {
     }
 
     // Cuentas oficiales de los equipos: se traen TODOS sus posts, sin filtro.
-    const teamHandles = [...TEAM_HANDLES];
+    // Cuentas de chivos: son personales, se traen y luego se filtran por hashtag.
+    const teamHandles: string[] = Array.isArray(body.handles) && body.handles.length
+      ? body.handles.map((h: string) => String(h).replace(/^@/, "").toLowerCase())
+      : [...TEAM_HANDLES, ...CHIVO_HANDLES];
 
     if (platforms.includes("tiktok")) {
       jobs.push(
@@ -279,7 +284,7 @@ Deno.serve(async (req) => {
               profiles: teamHandles,
               profileScrapeSections: ["videos"],
               profileSorting: "latest",
-              resultsPerPage: 100,
+              resultsPerPage: profileLimit,
               excludePinnedPosts: false,
               shouldDownloadVideos: false,
               shouldDownloadCovers: false,
@@ -295,11 +300,11 @@ Deno.serve(async (req) => {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
               const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
-                category: "equipo",
+                category: classify(handle),
                 platform: "tiktok",
                 external_id: url.split("/video/").pop() || url,
                 author_handle: `@${handle}`,
@@ -331,7 +336,7 @@ Deno.serve(async (req) => {
             const { runId } = await startRun(IG_PROFILE_ACTOR, {
               directUrls: teamHandles.map((h) => `https://www.instagram.com/${h}/`),
               resultsType: "posts",
-              resultsLimit: 100,
+              resultsLimit: profileLimit,
             });
             const datasetId = await waitForRun(IG_PROFILE_ACTOR, runId);
             if (!datasetId) throw new Error("sin dataset");
@@ -345,12 +350,12 @@ Deno.serve(async (req) => {
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
               const handle = String(it.ownerUsername ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle)) continue;
+              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
                 campaign_slug: campaignSlug,
-                category: "equipo",
+                category: classify(handle),
                 platform: "instagram",
                 external_id: id,
                 author_handle: `@${handle}`,
@@ -383,6 +388,15 @@ Deno.serve(async (req) => {
     const hasRequiredTag = (r: any) => {
       // Las cuentas oficiales de los equipos entran completas, sin filtro.
       if (r.category === "equipo") return true;
+      const tags = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
+        .toLowerCase()
+        .replace(/\s+/g, "");
+      const algunHT =
+        tags.includes("#peloticadegoma") ||
+        tags.includes("#amoajuga") ||
+        tags.includes("#vamoajuga");
+      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      if (r.category === "chivo") return algunHT;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
