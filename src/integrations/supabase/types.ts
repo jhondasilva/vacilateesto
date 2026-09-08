@@ -486,6 +486,69 @@ export type Database = {
         }
         Relationships: []
       }
+      influencer_posts: {
+        Row: {
+          author_followers: number | null
+          author_handle: string | null
+          author_name: string | null
+          campaign_slug: string
+          comments: number | null
+          created_at: string
+          external_id: string
+          hashtags: string[] | null
+          id: string
+          likes: number | null
+          platform: string
+          published_at: string | null
+          shares: number | null
+          synced_at: string
+          text: string | null
+          thumbnail: string | null
+          url: string | null
+          views: number | null
+        }
+        Insert: {
+          author_followers?: number | null
+          author_handle?: string | null
+          author_name?: string | null
+          campaign_slug?: string
+          comments?: number | null
+          created_at?: string
+          external_id: string
+          hashtags?: string[] | null
+          id?: string
+          likes?: number | null
+          platform: string
+          published_at?: string | null
+          shares?: number | null
+          synced_at?: string
+          text?: string | null
+          thumbnail?: string | null
+          url?: string | null
+          views?: number | null
+        }
+        Update: {
+          author_followers?: number | null
+          author_handle?: string | null
+          author_name?: string | null
+          campaign_slug?: string
+          comments?: number | null
+          created_at?: string
+          external_id?: string
+          hashtags?: string[] | null
+          id?: string
+          likes?: number | null
+          platform?: string
+          published_at?: string | null
+          shares?: number | null
+          synced_at?: string
+          text?: string | null
+          thumbnail?: string | null
+          url?: string | null
+          views?: number | null
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           email: string
