@@ -10,6 +10,7 @@ import { es } from "date-fns/locale";
 type InfluencerPost = {
   id: string;
   platform: string;
+  category?: string | null;
   external_id: string;
   author_handle: string | null;
   author_name: string | null;
@@ -34,18 +35,33 @@ const TIER = (followers: number | null) => {
   return "macro";
 };
 
+const GROUP_LABELS: Record<string, string> = {
+  equipo: "Equipos",
+  chivo: "Chivos",
+  "super-chivo": "Super chivos",
+  oficial: "Liga oficial",
+};
+
 export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
+  mode = "influencers",
 }: {
   campaignSlug?: string;
   accent?: string;
+  mode?: "influencers" | "equipos";
 }) => {
+  const isTeams = mode === "equipos";
+  const allowedCategories = isTeams
+    ? ["equipo", "chivo", "super-chivo", "oficial"]
+    : ["influencer"];
+
   const [posts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [platform, setPlatform] = useState<"all" | "tiktok" | "instagram">("all");
   const [tier, setTier] = useState<"all" | "nano" | "micro" | "macro">("all");
+  const [group, setGroup] = useState<string>("all");
 
   const load = async () => {
     setLoading(true);
@@ -53,9 +69,10 @@ export const InfluencersSection = ({
       .from("influencer_posts")
       .select("*")
       .eq("campaign_slug", campaignSlug)
+      .in("category", allowedCategories)
       .order("published_at", { ascending: false })
       .limit(1000);
-    if (error) toast.error("No se pudieron cargar los influencers");
+    if (error) toast.error("No se pudieron cargar las publicaciones");
     setPosts((data as InfluencerPost[]) ?? []);
     setLoading(false);
   };
@@ -63,11 +80,11 @@ export const InfluencersSection = ({
   useEffect(() => {
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campaignSlug]);
+  }, [campaignSlug, mode]);
 
   const handleSync = async () => {
     setSyncing(true);
-    toast.info("Buscando contenido nuevo de influencers…");
+    toast.info("Buscando contenido nuevo…");
     const { data, error } = await supabase.functions.invoke("influencer-hashtag-sync", {
       body: { campaignSlug, limit: 100 },
     });
@@ -85,10 +102,12 @@ export const InfluencersSection = ({
       posts.filter(
         (p) =>
           (platform === "all" || p.platform === platform) &&
-          (tier === "all" || TIER(p.author_followers) === tier),
+          (!isTeams ? tier === "all" || TIER(p.author_followers) === tier : true) &&
+          (group === "all" || (p.category ?? "influencer") === group),
       ),
-    [posts, platform, tier],
+    [posts, platform, tier, group, isTeams],
   );
+
 
   const totals = useMemo(
     () =>
@@ -132,14 +151,18 @@ export const InfluencersSection = ({
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
-          <h2 className="text-xl font-black">Influencers nano y micro</h2>
+          <h2 className="text-xl font-black">
+            {isTeams ? "Equipos, chivos y liga oficial" : "Influencers nano y micro"}
+          </h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            #PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales ni equipos
+            {isTeams
+              ? "#PeloticaDeGoma · #AmoAJuga — equipos, chivos, super chivos (@jhonsnacks · @juansofa) y cuentas de la liga"
+              : "#PeloticaDeGoma · #AmoAJuga — sin cuentas oficiales, equipos ni chivos"}
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
           {syncing ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-1" />}
-          {syncing ? "Buscando…" : "Actualizar influencers"}
+          {syncing ? "Buscando…" : "Actualizar datos"}
         </Button>
       </div>
 
@@ -164,21 +187,39 @@ export const InfluencersSection = ({
           </button>
         ))}
         <span className="w-px bg-border mx-1" />
-        {(["all", "nano", "micro", "macro"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTier(t)}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
-              tier === t
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-foreground border-border hover:border-foreground/40",
-            )}
-          >
-            {t === "all" ? "Todos los tamaños" : t}
-          </button>
-        ))}
+        {isTeams
+          ? ["all", "equipo", "chivo", "super-chivo", "oficial"].map((g) => (
+              <button
+                key={g}
+                onClick={() => setGroup(g)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
+                  group === g
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-foreground border-border hover:border-foreground/40",
+                )}
+              >
+                {g === "all"
+                  ? `Todas · ${posts.length}`
+                  : `${GROUP_LABELS[g]} · ${posts.filter((p) => (p.category ?? "") === g).length}`}
+              </button>
+            ))
+          : (["all", "nano", "micro", "macro"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTier(t)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
+                  tier === t
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-foreground border-border hover:border-foreground/40",
+                )}
+              >
+                {t === "all" ? "Todos los tamaños" : t}
+              </button>
+            ))}
       </div>
+
 
       {loading ? (
         <div className="bg-card border border-border rounded-2xl p-8 flex items-center gap-3">
