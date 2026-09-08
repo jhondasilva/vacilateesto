@@ -1016,11 +1016,19 @@ const MetricoolDashboard = ({
   // si el copy trae explícitamente #PeloticaDeGoma (el resto es Vacílate Esto).
   const rawPosts =
     brand.slug === "pelotica-de-goma"
-      ? rawPostsAll.filter(
-          (p) =>
-            p.platform !== "youtube" ||
-            (p.text ?? "").toLowerCase().replace(/\s+/g, "").includes("#peloticadegoma"),
-        )
+      ? rawPostsAll.filter((p) => {
+          const t = (p.text ?? "").toLowerCase();
+          // Todo post debe mencionar explícitamente algo de Pelotica de Goma.
+          if (!matchesBrandKeywords(p.text)) return false;
+          // El contenido general de Vacílate Esto no aplica si no habla de Pelotica.
+          const esVacilate = t.includes("@vacilateestopodcast") || t.replace(/\s+/g, "").includes("#vacilateesto");
+          const hablaDePelotica = PELOTICA_KEYWORDS.some((k) => t.includes(k));
+          if (esVacilate && !hablaDePelotica) return false;
+          if (p.platform === "youtube") {
+            return t.replace(/\s+/g, "").includes("#peloticadegoma");
+          }
+          return true;
+        })
       : rawPostsAll;
 
   // Las piezas de Pelotica de Goma solo cuentan si mencionan el handle oficial de la marca.
