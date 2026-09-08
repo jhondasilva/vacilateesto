@@ -391,12 +391,14 @@ const DashboardBrand = () => {
             <div className="h-6 w-px bg-border hidden sm:block" />
             <div className="flex items-center gap-2 min-w-0">
               {brandLogo && (
-                <img
-                  src={brandLogo}
-                  alt={brand?.name ?? ""}
-                  className="h-8 w-auto object-contain"
-                  loading="lazy"
-                />
+                <div className="bg-black rounded-md p-1.5 inline-flex items-center justify-center">
+                  <img
+                    src={brandLogo}
+                    alt={brand?.name ?? ""}
+                    className="h-8 w-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
               )}
               <div className="min-w-0">
                 <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Dashboard</p>
