@@ -38,8 +38,6 @@ const BRAND_KEYWORDS: Record<
     handles?: string[];
     /** Keywords obligatorias adicionales: el post debe cumplir keywords Y requireKeywords. */
     requireKeywords?: string[];
-
-
   }
 > = {
 
@@ -152,8 +150,10 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
-    // Solo piezas con los HT del proyecto o que mencionen las cuentas oficiales/equipos
+    // Todos los posts del blog oficial de Pelotica de Goma (Metricool) se incluyen
+    // aunque no traigan hashtag. Los demás deben cumplir los criterios de la liga.
     blogIds: [1908520, 1943481],
+    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
       "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
@@ -170,7 +170,6 @@ const BRAND_KEYWORDS: Record<
     ],
     excludeKeywords: [],
     label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · equipos",
-
   },
 
   diablitos: {
@@ -767,6 +766,8 @@ type MentionPost = {
   text: string;
   thumbnail: string | null;
   metrics: Record<string, number>;
+  /** Metricool blogId de origen; permite incluir todo el contenido de la cuenta propia. */
+  blogId?: number;
 };
 
 type MentionsResponse = {
@@ -877,6 +878,8 @@ const MetricoolDashboard = ({
           text: (raw.text as string) ?? (raw.description as string) ?? "",
           thumbnail: (raw.videoMeta?.coverUrl as string) ?? (raw.covers?.default as string) ?? null,
           metrics: {} as Record<string, number>,
+          // Los TikToks de Apify son de @peloticadegomave, así que se tratan como oficiales.
+          blogId: 1908520,
         };
         if (r.unit) existing.metrics[r.unit as string] = Number(r.value) || 0;
         byId.set(id, existing);
@@ -1014,9 +1017,13 @@ const MetricoolDashboard = ({
   );
   // En el dashboard de Pelotica de Goma, los videos de YouTube solo cuentan
   // si el copy trae explícitamente #PeloticaDeGoma (el resto es Vacílate Esto).
+  // Excepción: todo post del blog oficial de @peloticadegomave (blogId 1908520)
+  // se incluye en General, con o sin hashtags.
+  const PELOTICA_OFICIAL_BLOG_ID = 1908520;
   const rawPosts =
     brand.slug === "pelotica-de-goma"
       ? rawPostsAll.filter((p) => {
+          if (p.blogId === PELOTICA_OFICIAL_BLOG_ID) return true;
           const t = (p.text ?? "").toLowerCase();
           // Todo post debe mencionar explícitamente algo de Pelotica de Goma.
           if (!matchesBrandKeywords(p.text)) return false;
