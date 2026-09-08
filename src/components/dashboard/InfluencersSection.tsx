@@ -73,13 +73,24 @@ export const InfluencersSection = ({
       .order("published_at", { ascending: false })
       .limit(1000);
     if (error) toast.error("No se pudieron cargar las publicaciones");
-    // Criterio obligatorio: debe traer #PeloticaDeGoma o #AmoAJuga en el copy.
-    const REQUIRED = ["#peloticadegoma", "#amoajuga", "#vamoajuga"];
+    // Criterio obligatorio: #PeloticaDeGoma + #AmoAJuga, o mención a un equipo
+    // de la liga / un chivo.
+    const MENTIONS = [
+      "@diablosdelabastidas", "@bombillosdepetare", "@vikingosdecharallave",
+      "@torosdelavega", "@losperrosdelosguayos", "@losvipdepintoo",
+      "@coquitoysucombopdg", "@losrelampagoskk", "@peloticadegomave",
+      "@mabastidas", "@luis_sojo19", "@gesaria", "@luchomosqueda",
+      "@azuaje.230", "@lamentedepinto", "@coquitooriginal", "@diazkarate",
+      "@jhonsnacks", "@juansofa",
+    ];
     const valid = ((data as InfluencerPost[]) ?? []).filter((p) => {
       const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      return REQUIRED.some((h) => norm.includes(h));
+      const ambosHT =
+        norm.includes("#peloticadegoma") &&
+        (norm.includes("#amoajuga") || norm.includes("#vamoajuga"));
+      return ambosHT || MENTIONS.some((h) => norm.includes(h));
     });
     setPosts(valid);
     setLoading(false);
