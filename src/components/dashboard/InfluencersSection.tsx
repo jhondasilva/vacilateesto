@@ -40,6 +40,18 @@ const GROUP_LABELS: Record<string, string> = {
   chivo: "Chivos",
 };
 
+const TEAM_ROSTER = [
+  "@diablosdelabastidas", "@bombillosdepetare", "@vikingosdecharallave",
+  "@torosdelavega", "@losperrosdelosguayos", "@losvipdepintoo",
+  "@coquitoysucombopdg", "@losrelampagoskk",
+];
+
+const CHIVO_ROSTER = [
+  "@mabastidas", "@luis_sojo19", "@Gesaria", "@luchomosqueda",
+  "@azuaje.230", "@lamentedepinto", "@coquitooriginal", "@diazkarate",
+];
+
+
 export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
