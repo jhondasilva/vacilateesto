@@ -40,6 +40,18 @@ const GROUP_LABELS: Record<string, string> = {
   chivo: "Chivos",
 };
 
+const TEAM_ROSTER = [
+  "@diablosdelabastidas", "@bombillosdepetare", "@vikingosdecharallave",
+  "@torosdelavega", "@losperrosdelosguayos", "@losvipdepintoo",
+  "@coquitoysucombopdg", "@losrelampagoskk",
+];
+
+const CHIVO_ROSTER = [
+  "@mabastidas", "@luis_sojo19", "@Gesaria", "@luchomosqueda",
+  "@azuaje.230", "@lamentedepinto", "@coquitooriginal", "@diazkarate",
+];
+
+
 export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
@@ -175,18 +187,42 @@ export const InfluencersSection = ({
   );
 
   const creators = useMemo(() => {
-    const map = new Map<string, { handle: string; posts: number; views: number; likes: number; followers: number }>();
+    type Row = { handle: string; posts: number; views: number; likes: number; followers: number; kind?: string };
+    const key = (h: string) => h.toLowerCase().replace(/^@/, "");
+    const map = new Map<string, Row>();
+    // En Equipos y chivos siempre listamos los 8 equipos y los 8 chivos,
+    // aunque todavía no tengan piezas válidas.
+    if (isTeams) {
+      const seed = (handles: string[], kind: string) => {
+        for (const h of handles) {
+          if (group !== "all" && group !== kind) continue;
+          map.set(key(h), { handle: h, posts: 0, views: 0, likes: 0, followers: 0, kind });
+        }
+      };
+      seed(TEAM_ROSTER, "equipo");
+      seed(CHIVO_ROSTER, "chivo");
+    }
     for (const p of filtered) {
       const h = p.author_handle ?? "—";
-      const c = map.get(h) ?? { handle: h, posts: 0, views: 0, likes: 0, followers: p.author_followers ?? 0 };
+      const k = key(h);
+      const c = map.get(k) ?? {
+        handle: h.startsWith("@") || h === "—" ? h : `@${h}`,
+        posts: 0,
+        views: 0,
+        likes: 0,
+        followers: p.author_followers ?? 0,
+        kind: p.category ?? undefined,
+      };
       c.posts += 1;
       c.views += Math.max(0, p.views ?? 0);
       c.likes += Math.max(0, p.likes ?? 0);
       c.followers = Math.max(c.followers, p.author_followers ?? 0);
-      map.set(h, c);
+      c.kind = c.kind ?? p.category ?? undefined;
+      map.set(k, c);
     }
     return [...map.values()].sort((a, b) => b.views - a.views || b.posts - a.posts);
-  }, [filtered]);
+  }, [filtered, isTeams, group]);
+
 
   const counts = useMemo(
     () => ({
@@ -319,7 +355,7 @@ export const InfluencersSection = ({
                   {creators.slice(0, 25).map((c) => (
                     <tr key={c.handle} className="border-b border-border/50 last:border-0">
                       <td className="p-3 font-bold">{c.handle}</td>
-                      <td className="p-3 capitalize text-muted-foreground">{TIER(c.followers)}</td>
+                      <td className="p-3 capitalize text-muted-foreground">{isTeams ? (c.kind === "equipo" ? "Equipo" : c.kind === "chivo" ? "Chivo" : "—") : TIER(c.followers)}</td>
                       <td className="p-3">{c.followers ? fmt(c.followers) : "—"}</td>
                       <td className="p-3">{c.posts}</td>
                       <td className="p-3">{fmt(c.views)}</td>
