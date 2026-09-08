@@ -150,12 +150,12 @@ const BRAND_KEYWORDS: Record<
     label: "@bncbanco · #bnc · #bncbanco",
   },
   "pelotica-de-goma": {
-    // Cuenta propia de Pelotica de Goma (todos sus posts) + menciones en Vacílate Esto
+    // Solo piezas con los HT del proyecto o que mencionen las cuentas oficiales/equipos
     blogIds: [1908520, 1943481],
-    includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
-      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
+      "@vacilateestopodcast", "vacilateestopodcast",
       // Equipos de la liga
       "@diablosdelabastidas", "diablosdelabastidas",
       "@bombillosdepetare", "bombillosdepetare",
@@ -167,9 +167,10 @@ const BRAND_KEYWORDS: Record<
       "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "@peloticadegomave · #PeloticaDeGoma · #AmoAJuga · equipos",
+    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · @vacilateestopodcast · equipos",
 
   },
+
   diablitos: {
     handles: ["@diablitos_vzla"],
     // Las menciones a @diablitos_vzla aparecen en la cuenta de Pelotica de Goma y en Vacílate Esto
