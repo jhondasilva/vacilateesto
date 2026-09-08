@@ -156,7 +156,7 @@ const BRAND_KEYWORDS: Record<
     includeAllFromBlogIds: [1908520],
     keywords: [
       "#peloticadegoma", "peloticadegoma", "@peloticadegoma", "@peloticadegomave",
-      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar", "#vamoajuga", "vamoajuga",
+      "#amoajuga", "amoajuga", "@amoajuga", "#amoajugar",
       // NOTA: @vacilateestopodcast NO se incluye: aparece en todo el contenido del podcast
       // Equipos de la liga
       "@diablosdelabastidas", "diablosdelabastidas",
@@ -169,7 +169,7 @@ const BRAND_KEYWORDS: Record<
       "@losrelampagoskk", "losrelampagoskk",
     ],
     excludeKeywords: [],
-    label: "#PeloticaDeGoma · #AmoAJuga · #VamoAJuga · @peloticadegomave · equipos",
+    label: "#PeloticaDeGoma · #AmoAJuga · @peloticadegomave · equipos",
   },
 
   diablitos: {
@@ -1164,7 +1164,7 @@ const MetricoolDashboard = ({
             <p className="text-xs text-muted-foreground mt-1">
               Incluye todos los posts de <strong>@peloticadegomave</strong> (con o sin hashtag) más las
               publicaciones de otras cuentas que mencionen <strong>#PeloticaDeGoma</strong>,{" "}
-              <strong>#AmoAJuga</strong>, <strong>#VamoAJuga</strong> o a alguno de los equipos de la liga.
+              <strong>#AmoAJuga</strong> o a alguno de los equipos de la liga.
               En YouTube se exige el hashtag #PeloticaDeGoma explícito.
             </p>
             <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">

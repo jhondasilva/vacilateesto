@@ -96,11 +96,7 @@ export const InfluencersSection = ({
         .replace(/\s+/g, "");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
       if ((p.category ?? "") === "chivo") {
-        return (
-          norm.includes("#peloticadegoma") ||
-          norm.includes("#amoajuga") ||
-          norm.includes("#vamoajuga")
-        );
+        return norm.includes("#peloticadegoma") || norm.includes("#amoajuga");
       }
       // Cuentas oficiales de la liga y super chivos: solo #AmoAJuga o #PeloticaDeGoma.
       if ((p.category ?? "") === "oficial" || (p.category ?? "") === "super-chivo") {
