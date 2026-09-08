@@ -396,7 +396,8 @@ Deno.serve(async (req) => {
         tags.includes("#amoajuga") ||
         tags.includes("#vamoajuga");
       // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
-      if (r.category === "chivo") return algunHT;
+      if (r.category === "chivo" || r.category === "oficial" || r.category === "super-chivo")
+        return algunHT;
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
