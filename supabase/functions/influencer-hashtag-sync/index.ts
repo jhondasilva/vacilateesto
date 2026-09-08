@@ -503,7 +503,7 @@ Deno.serve(async (req) => {
       const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`
         .toLowerCase()
         .replace(/\s+/g, "");
-      // Chivos: cuentas personales, basta con uno de los hashtags oficiales.
+      
       // Chivos: cuentas personales, basta uno de los hashtags oficiales
       // o mencionar a alguna cuenta de equipo.
       if (r.category === "chivo") {
