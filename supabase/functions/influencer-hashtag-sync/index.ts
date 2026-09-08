@@ -77,16 +77,27 @@ async function waitForRun(actorId: string, runId: string, maxMs = 150000) {
   return datasetId;
 }
 
-async function getItems(datasetId: string, limit = 1000) {
-  const res = await apifyFetch(`/datasets/${datasetId}/items?limit=${limit}`);
-  const text = await res.text();
-  if (!res.ok) throw new Error(`dataset ${res.status}: ${text.slice(0, 300)}`);
-  try {
-    return JSON.parse(text) as any[];
-  } catch {
-    return [];
+async function getItems(datasetId: string, fields: string, limit = 500) {
+  const items: any[] = [];
+  // Se pagina para evitar respuestas gigantes que rompen el parseo.
+  for (let offset = 0; offset < limit; offset += 100) {
+    const res = await apifyFetch(
+      `/datasets/${datasetId}/items?clean=true&limit=100&offset=${offset}&fields=${encodeURIComponent(fields)}`,
+    );
+    const text = await res.text();
+    if (!res.ok) throw new Error(`dataset ${res.status}: ${text.slice(0, 300)}`);
+    let page: any[] = [];
+    try {
+      page = JSON.parse(text);
+    } catch (e) {
+      throw new Error(`dataset parse: ${String(e)} :: ${text.slice(0, 200)}`);
+    }
+    items.push(...page);
+    if (page.length < 100) break;
   }
+  return items;
 }
+
 
 function extractHashtags(text: string) {
   return (text.match(/#[\p{L}\p{N}_]+/gu) ?? []).map((h) => h.toLowerCase());
