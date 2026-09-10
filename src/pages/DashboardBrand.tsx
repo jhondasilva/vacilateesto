@@ -1135,6 +1135,7 @@ const MetricoolDashboard = ({
             { k: "general", label: "General" },
             { k: "equipos", label: "Equipos y chivos" },
             { k: "influencers", label: "Influencers" },
+            { k: "todo", label: "Todo unificado" },
           ] as const).map((t) => (
             <button
               key={t.k}
