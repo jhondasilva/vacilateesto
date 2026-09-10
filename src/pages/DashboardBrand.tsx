@@ -1157,6 +1157,7 @@ const MetricoolDashboard = ({
       {showInfluencers && mainTab === "equipos" && (
         <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
       )}
+      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
         <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 flex gap-3">
