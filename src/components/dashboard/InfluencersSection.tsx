@@ -95,7 +95,7 @@ export const InfluencersSection = ({
     const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
     // Publicaciones incluidas manualmente (validadas aunque no traigan hashtags).
     const INCLUDED_EXTERNAL_IDS = new Set([
-      "7683301114023939348", "7682173924817358100",
+      "7683301114023939348", "7682173924817358100", "7682929732656188693",
     ]);
     // Cuentas que NO son influencers: marcas y canales.
     const NON_INFLUENCER_HANDLES = new Set([
