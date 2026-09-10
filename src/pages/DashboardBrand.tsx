@@ -19,6 +19,7 @@ import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
+import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
 
 
 const BRAND_LOGOS: Record<string, string> = {
@@ -845,7 +846,7 @@ const MetricoolDashboard = ({
   const [scope, setScope] = useState<Scope>("brand");
   const showPelotica = PELOTICA_CROSS_BRANDS.has(brand.slug);
   const showInfluencers = brand.slug === "pelotica-de-goma";
-  const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers">("general");
+  const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers" | "todo">("general");
   const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
 
 
@@ -1134,6 +1135,7 @@ const MetricoolDashboard = ({
             { k: "general", label: "General" },
             { k: "equipos", label: "Equipos y chivos" },
             { k: "influencers", label: "Influencers" },
+            { k: "todo", label: "Todo unificado" },
           ] as const).map((t) => (
             <button
               key={t.k}
@@ -1155,6 +1157,7 @@ const MetricoolDashboard = ({
       {showInfluencers && mainTab === "equipos" && (
         <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
       )}
+      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
         <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 flex gap-3">
