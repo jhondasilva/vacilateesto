@@ -19,6 +19,7 @@ import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
+import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
 
 
 const BRAND_LOGOS: Record<string, string> = {
