@@ -220,9 +220,17 @@
   <!-- Blog Index -->
   <url>
     <loc>https://www.vacilateesto.com/blog</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Qué es Pelotica de Goma -->
+  <url>
+    <loc>https://www.vacilateesto.com/blog/que-es-pelotica-de-goma</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Blog: Mejores podcasts venezolanos 2026 -->
