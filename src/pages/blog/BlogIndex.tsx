@@ -8,6 +8,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
+    slug: "que-es-pelotica-de-goma",
+    title: "Qué es Pelotica de Goma: historia, equipos y formato de la liga",
+    excerpt:
+      "Pelotica de Goma es el podcast y la liga de béisbol callejero de Vacílate Esto. Descubrí su historia, los 8 equipos y cómo se juega cada split.",
+    category: "Deporte",
+    minutes: 9,
+    date: "2026-09-14",
+  },
+  {
     slug: "pelotica-de-goma-split-4",
     title: "Pelotica de Goma 4to Split: 35 juegos en septiembre por La Guaira",
     excerpt:
