@@ -8,6 +8,7 @@ import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import logoPodcastCumbre from "@/assets/logo-podcast-cumbre.avif";
 import logoMundial from "@/assets/logo-mundial-2026.png";
+import { resolveBrandLogo, logoBoxClass } from "@/lib/brandLogos";
 
 /** Proyectos propios: se destacan arriba y con logo del proyecto. */
 const PROJECT_LOGOS: Record<string, string> = {
@@ -137,16 +138,16 @@ const DashboardHome = () => {
                           style={{ borderLeftColor: b.brand.brand_color ?? undefined, borderLeftWidth: 4 }}
                         >
                           <div className="flex items-center gap-3 min-w-0">
-                            {b.brand.logo_url && (
-                              <span className="inline-flex bg-black rounded-lg p-1.5 shrink-0">
+                            {(() => { const l = resolveBrandLogo(b.brand.slug, b.brand.logo_url); return l && (
+                              <span className={`inline-flex ${logoBoxClass(l.bg)} rounded-lg p-1.5 shrink-0`}>
                                 <img
-                                  src={b.brand.logo_url}
+                                  src={l.src}
                                   alt={`Logo de ${b.brand.name}`}
-                                  className="h-8 w-auto object-contain"
+                                  className="h-8 md:h-10 max-w-[7rem] w-auto object-contain"
                                   loading="lazy"
                                 />
                               </span>
-                            )}
+                            ); })()}
                             <div className="min-w-0">
                               <p className="text-xs text-muted-foreground uppercase tracking-wider">Marca</p>
                               <p className="text-lg font-bold truncate">{b.brand.name}</p>

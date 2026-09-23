@@ -20,6 +20,7 @@ import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
 import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
+import { resolveBrandLogo, logoBoxClass } from "@/lib/brandLogos";
 
 
 const BRAND_LOGOS: Record<string, string> = {
@@ -357,7 +358,9 @@ const DashboardBrand = () => {
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
-  const brandLogo = brand ? (brand.logo_url ?? BRAND_LOGOS[brand.slug] ?? null) : null;
+  const resolvedLogo = brand ? resolveBrandLogo(brand.slug, brand.logo_url ?? BRAND_LOGOS[brand.slug] ?? null) : null;
+  const brandLogo = resolvedLogo?.src ?? null;
+  const logoBox = logoBoxClass(resolvedLogo?.bg ?? "dark");
   const isMundialReport = (title: string) =>
     /mundial|fútbol|futbol/i.test(title);
 
@@ -392,7 +395,7 @@ const DashboardBrand = () => {
             <div className="h-6 w-px bg-border hidden sm:block" />
             <div className="flex items-center gap-2 min-w-0">
               {brandLogo && (
-                <div className="bg-black rounded-md p-1.5 inline-flex items-center justify-center">
+                <div className={`${logoBox} rounded-md p-1.5 inline-flex items-center justify-center`}>
                   <img
                     src={brandLogo}
                     alt={brand?.name ?? ""}
@@ -419,7 +422,7 @@ const DashboardBrand = () => {
         ) : !brand ? (
           <p className="text-muted-foreground">Marca no disponible.</p>
         ) : BRAND_KEYWORDS[brand.slug] ? (
-          <MetricoolDashboard brand={brand} brandLogo={brandLogo} accent={accent} />
+          <MetricoolDashboard brand={brand} brandLogo={brandLogo} logoBox={logoBox} accent={accent} />
         ) : reports.length === 0 ? (
           <div className="bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-muted-foreground">Aún no hay reportes publicados para {brand.name}.</p>
@@ -456,12 +459,14 @@ const DashboardBrand = () => {
                   <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div className="flex items-center gap-5 min-w-0">
                       {brandLogo && (
-                        <img
-                          src={brandLogo}
-                          alt={brand?.name ?? ""}
-                          className="h-14 md:h-20 w-auto object-contain shrink-0"
-                          loading="lazy"
-                        />
+                        <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}>
+                          <img
+                            src={brandLogo}
+                            alt={brand?.name ?? ""}
+                            className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain"
+                            loading="lazy"
+                          />
+                        </span>
                       )}
                       <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
                       <img
@@ -836,8 +841,8 @@ const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: 
 };
 
 const MetricoolDashboard = ({
-  brand, brandLogo, accent,
-}: { brand: Brand; brandLogo: string | null; accent: string }) => {
+  brand, brandLogo, logoBox = "bg-black", accent,
+}: { brand: Brand; brandLogo: string | null; logoBox?: string; accent: string }) => {
   const months = useState(() => buildMonths(brand.slug))[0];
 
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
@@ -1103,7 +1108,7 @@ const MetricoolDashboard = ({
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex items-center gap-5 min-w-0">
             {brandLogo && (
-              <img src={brandLogo} alt={brand.name} className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
+              <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}><img src={brandLogo} alt={brand.name} className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain" loading="lazy" /></span>
             )}
             <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
             <img src={logoVacilateEsto} alt="Vacílate Esto" className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
