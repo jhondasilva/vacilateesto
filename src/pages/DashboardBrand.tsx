@@ -459,12 +459,14 @@ const DashboardBrand = () => {
                   <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div className="flex items-center gap-5 min-w-0">
                       {brandLogo && (
-                        <img
-                          src={brandLogo}
-                          alt={brand?.name ?? ""}
-                          className="h-14 md:h-20 w-auto object-contain shrink-0"
-                          loading="lazy"
-                        />
+                        <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}>
+                          <img
+                            src={brandLogo}
+                            alt={brand?.name ?? ""}
+                            className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain"
+                            loading="lazy"
+                          />
+                        </span>
                       )}
                       <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
                       <img
@@ -1106,7 +1108,7 @@ const MetricoolDashboard = ({
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex items-center gap-5 min-w-0">
             {brandLogo && (
-              <img src={brandLogo} alt={brand.name} className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
+              <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}><img src={brandLogo} alt={brand.name} className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain" loading="lazy" /></span>
             )}
             <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
             <img src={logoVacilateEsto} alt="Vacílate Esto" className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
