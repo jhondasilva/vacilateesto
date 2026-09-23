@@ -3,9 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import {
-  Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users,
+  Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
 } from "lucide-react";
+
 
 type Platform = "instagram" | "tiktok" | "facebook" | "youtube";
 
@@ -281,7 +285,53 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
 
   const periodLabel = PERIODS.find((p) => p.key === periodKey)?.label ?? periodKey;
 
+  const handleDownloadPdf = () => {
+    if (!filtered.length) return;
+    const { from, to } = periodRange(periodKey);
+    const byPlatform = filtered.reduce<Record<string, number>>((acc, r) => {
+      acc[r.platform] = (acc[r.platform] ?? 0) + 1;
+      return acc;
+    }, {});
+    void generateBrandReportPdf({
+      brandName: "Pelotica de Goma · Todo unificado",
+      brandColor: accent.startsWith("#") ? accent : "#E91E63",
+      scopeLabel:
+        "General + Equipos y chivos + Influencers, sin duplicar piezas" +
+        (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
+      periodLabel,
+      from,
+      to,
+      data: {
+        matchedCount: filtered.length,
+        byPlatform,
+        totals: {
+          views: totals.views,
+          likes: totals.likes,
+          comments: totals.comments,
+          impressions: totals.impressions,
+        },
+        posts: filtered.map((r) => ({
+          platform: r.platform,
+          id: r.key,
+          url: r.url,
+          publishedAt: r.publishedAt,
+          text: r.text,
+          thumbnail: r.thumbnail,
+          metrics: {
+            views: r.views,
+            likes: r.likes,
+            comments: r.comments,
+            shares: r.shares,
+            impressions: r.impressions,
+          },
+        })),
+      },
+    });
+    toast.success("Informe unificado descargado");
+  };
+
   return (
+
     <div>
       <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 flex gap-3">
         <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
@@ -304,7 +354,14 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         </div>
       </div>
 
+      <div className="flex justify-end mb-3">
+        <Button size="sm" variant="outline" disabled={loading || filtered.length === 0} onClick={handleDownloadPdf}>
+          <Download className="w-4 h-4 mr-1" /> Informe PDF unificado
+        </Button>
+      </div>
+
       <div className="flex flex-wrap gap-2 mb-4">
+
         {PERIODS.map((p) => (
           <button
             key={p.key}
