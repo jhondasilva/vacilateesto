@@ -292,49 +292,69 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
 
   const periodLabel = PERIODS.find((p) => p.key === periodKey)?.label ?? periodKey;
 
-  const handleDownloadPdf = () => {
-    if (!filtered.length) return;
-    const { from, to } = periodRange(periodKey);
-    const byPlatform = filtered.reduce<Record<string, number>>((acc, r) => {
-      acc[r.platform] = (acc[r.platform] ?? 0) + 1;
-      return acc;
-    }, {});
-    void generateBrandReportPdf({
-      brandName: "Pelotica de Goma · Todo unificado",
-      brandColor: accent.startsWith("#") ? accent : "#E91E63",
-      scopeLabel:
-        "General + Equipos y chivos + Influencers, sin duplicar piezas" +
-        (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
-      periodLabel,
-      from,
-      to,
-      data: {
-        matchedCount: filtered.length,
-        byPlatform,
-        totals: {
-          views: totals.views,
-          likes: totals.likes,
-          comments: totals.comments,
-          impressions: totals.impressions,
+  const handleDownloadPdf = async () => {
+    setPdfBusy(true);
+    try {
+      // El informe unificado siempre asume el criterio Acumulado 2026,
+      // sin importar el período que esté visible en la pestaña.
+      let source = filtered;
+      if (periodKey !== "cumulative-2026") {
+        source = (await loadRows("cumulative-2026")).filter(
+          (r) => platform === "all" || r.platform === platform,
+        );
+      }
+      if (!source.length) {
+        toast.error("No hay piezas en Acumulado 2026 con esos filtros.");
+        return;
+      }
+      const byPlatform = source.reduce<Record<string, number>>((acc, r) => {
+        acc[r.platform] = (acc[r.platform] ?? 0) + 1;
+        return acc;
+      }, {});
+      const totalsPdf = source.reduce(
+        (acc, r) => {
+          acc.views += r.views;
+          acc.likes += r.likes;
+          acc.comments += r.comments;
+          acc.impressions += r.impressions;
+          return acc;
         },
-        posts: filtered.map((r) => ({
-          platform: r.platform,
-          id: r.key,
-          url: r.url,
-          publishedAt: r.publishedAt,
-          text: r.text,
-          thumbnail: r.thumbnail,
-          metrics: {
-            views: r.views,
-            likes: r.likes,
-            comments: r.comments,
-            shares: r.shares,
-            impressions: r.impressions,
-          },
-        })),
-      },
-    });
-    toast.success("Informe unificado descargado");
+        { views: 0, likes: 0, comments: 0, impressions: 0 },
+      );
+      void generateBrandReportPdf({
+        brandName: "Pelotica de Goma · Todo unificado",
+        brandColor: accent.startsWith("#") ? accent : "#E91E63",
+        scopeLabel:
+          "General + Equipos y chivos + Influencers, sin duplicar piezas" +
+          (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
+        periodLabel: "Acumulado 2026",
+        from: periodRange("cumulative-2026").from,
+        to: new Date(),
+        data: {
+          matchedCount: source.length,
+          byPlatform,
+          totals: totalsPdf,
+          posts: source.map((r) => ({
+            platform: r.platform,
+            id: r.key,
+            url: r.url,
+            publishedAt: r.publishedAt,
+            text: r.text,
+            thumbnail: r.thumbnail,
+            metrics: {
+              views: r.views,
+              likes: r.likes,
+              comments: r.comments,
+              shares: r.shares,
+              impressions: r.impressions,
+            },
+          })),
+        },
+      });
+      toast.success("Informe unificado descargado · Acumulado 2026");
+    } finally {
+      setPdfBusy(false);
+    }
   };
 
   return (
