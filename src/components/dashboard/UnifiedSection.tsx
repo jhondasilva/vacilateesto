@@ -6,7 +6,7 @@ import { es } from "date-fns/locale";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
-import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.png";
 import {
   Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
 } from "lucide-react";
@@ -380,7 +380,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         periodLabel: "Acumulado 2026",
         from: periodRange("cumulative-2026").from,
         to: new Date(),
-        brandLogoSrc: logoPeloticaDeGoma.url,
+        brandLogoSrc: logoPeloticaDeGoma,
         reportAnalysis: {
           result: `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones.`,
           visibility: leadingPlatform
