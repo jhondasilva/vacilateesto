@@ -92,7 +92,7 @@ export const InfluencersSection = ({
       "@jhonsnacks", "@juansofa",
     ];
     // Publicaciones descartadas manualmente (no son de Pelotica de Goma).
-    const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853"]);
+    const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853", "3990082622452650566"]);
     // Publicaciones incluidas manualmente (validadas aunque no traigan hashtags).
     const INCLUDED_EXTERNAL_IDS = new Set([
       "7683301114023939348", "7682173924817358100", "7682929732656188693",
