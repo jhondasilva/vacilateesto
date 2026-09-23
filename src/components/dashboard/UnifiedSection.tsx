@@ -282,6 +282,30 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     return { general: agg("general"), equipos: agg("equipos"), influencers: agg("influencers") };
   }, [rows]);
 
+  const conclusions = useMemo(() => {
+    if (filtered.length === 0) return null;
+    const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
+      .map((key) => {
+        const list = filtered.filter((r) => r.platform === key);
+        return {
+          key,
+          pieces: list.length,
+          views: list.reduce((sum, r) => sum + r.views, 0),
+        };
+      })
+      .sort((a, b) => b.views - a.views);
+    const leadingPlatform = platformRows[0];
+    const sourceRows = [
+      { label: "General", ...bySource.general },
+      { label: "Equipos y chivos", ...bySource.equipos },
+      { label: "Influencers", ...bySource.influencers },
+    ].sort((a, b) => b.views - a.views);
+    const leadingSource = sourceRows[0];
+    const interactions = totals.likes + totals.comments + totals.shares;
+    const interactionRate = totals.views > 0 ? (interactions / totals.views) * 100 : 0;
+    return { leadingPlatform, leadingSource, interactions, interactionRate };
+  }, [bySource, filtered, totals]);
+
   const counts = useMemo(
     () => ({
       all: rows.length,
@@ -484,6 +508,32 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               </div>
             ))}
           </section>
+
+          {conclusions && (
+            <section className="mb-8 border-y border-border py-5">
+              <h3 className="text-lg font-black mb-3">Resultados y conclusiones</h3>
+              <div className="grid gap-3 md:grid-cols-3 text-sm">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Resultado unificado</p>
+                  <p className="font-bold">
+                    {fmt(filtered.length)} piezas únicas acumulan {fmt(totals.views)} vistas y {fmt(conclusions.interactions)} interacciones.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Motor de visibilidad</p>
+                  <p className="font-bold">
+                    {PLATFORM_META[conclusions.leadingPlatform.key].label} lidera con {fmt(conclusions.leadingPlatform.views)} vistas en {fmt(conclusions.leadingPlatform.pieces)} piezas.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Conclusión</p>
+                  <p className="font-bold">
+                    {conclusions.leadingSource.label} aporta la mayor cantidad de vistas. La interacción equivale a {conclusions.interactionRate.toFixed(1)}% de las reproducciones registradas.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
 
           <section className="mb-12">
             <h3 className="text-lg font-black mb-3">
