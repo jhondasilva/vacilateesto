@@ -382,8 +382,9 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       </div>
 
       <div className="flex justify-end mb-3">
-        <Button size="sm" variant="outline" disabled={loading || filtered.length === 0} onClick={handleDownloadPdf}>
-          <Download className="w-4 h-4 mr-1" /> Informe PDF unificado
+        <Button size="sm" variant="outline" disabled={loading || pdfBusy || filtered.length === 0} onClick={handleDownloadPdf}>
+          {pdfBusy ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Download className="w-4 h-4 mr-1" />}
+          {pdfBusy ? "Generando Acumulado 2026…" : "Informe PDF unificado"}
         </Button>
       </div>
 
