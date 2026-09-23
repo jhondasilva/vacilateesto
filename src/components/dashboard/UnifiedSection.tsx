@@ -353,10 +353,18 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         <>
           <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {[
-              { label: `Piezas · ${periodLabel}`, value: fmt(filtered.length) },
-              { label: "Views", value: fmt(totals.views) },
-              { label: "Interacciones", value: fmt(totals.likes + totals.comments + totals.shares) },
-              { label: "Impresiones", value: fmt(totals.impressions) },
+              { label: `Piezas · ${periodLabel}`, value: fmt(filtered.length), hint: "Sin duplicar" },
+              { label: "Vistas (reproducciones)", value: fmt(totals.views), hint: "Todas las fuentes" },
+              {
+                label: "Interacciones",
+                value: fmt(totals.likes + totals.comments + totals.shares),
+                hint: "Me gusta + comentarios + compartidos",
+              },
+              {
+                label: "Impresiones",
+                value: fmt(totals.impressions),
+                hint: "Solo cuentas propias (Metricool)",
+              },
             ].map((c) => (
               <div
                 key={c.label}
@@ -365,6 +373,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               >
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{c.label}</p>
                 <p className="text-2xl font-black">{c.value}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">{c.hint}</p>
               </div>
             ))}
           </section>
@@ -377,7 +386,8 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
             ].map((c) => (
               <div key={c.label} className="bg-card border border-border rounded-2xl p-4">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{c.label}</p>
-                <p className="text-xl font-black">{fmt(c.value)}</p>
+                <p className="text-xl font-black">{fmt(c.value.count)}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(c.value.views)} vistas</p>
               </div>
             ))}
           </section>
