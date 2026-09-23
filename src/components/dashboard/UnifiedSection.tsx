@@ -81,10 +81,10 @@ const OFFICIAL_OR_ROSTER = [
 const CAMPAIGN_START = Date.parse("2026-01-01T00:00:00Z");
 
 const PERIODS: { key: string; label: string }[] = [
+  { key: "cumulative-2026", label: "Acumulado 2026" },
   { key: "2026-09", label: "Septiembre 2026" },
   { key: "2026-08", label: "Agosto 2026" },
   { key: "2026-07", label: "Julio 2026" },
-  { key: "cumulative-2026", label: "Acumulado 2026" },
 ];
 
 const periodRange = (key: string) => {
@@ -104,7 +104,7 @@ const normKey = (platform: string, id: string, url?: string | null) => {
  * Pestaña "Todo": une General + Equipos y chivos + Influencers sin duplicar piezas.
  */
 export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
-  const [periodKey, setPeriodKey] = useState<string>("2026-09");
+  const [periodKey, setPeriodKey] = useState<string>("cumulative-2026");
   const [platform, setPlatform] = useState<"all" | Platform>("all");
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<Row[]>([]);
@@ -260,14 +260,13 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     [filtered],
   );
 
-  const bySource = useMemo(
-    () => ({
-      general: rows.filter((r) => r.source === "general").length,
-      equipos: rows.filter((r) => r.source === "equipos").length,
-      influencers: rows.filter((r) => r.source === "influencers").length,
-    }),
-    [rows],
-  );
+  const bySource = useMemo(() => {
+    const agg = (s: Row["source"]) => {
+      const list = rows.filter((r) => r.source === s);
+      return { count: list.length, views: list.reduce((a, r) => a + r.views, 0) };
+    };
+    return { general: agg("general"), equipos: agg("equipos"), influencers: agg("influencers") };
+  }, [rows]);
 
   const counts = useMemo(
     () => ({
@@ -292,7 +291,12 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
             Une <strong>General</strong> + <strong>Equipos y chivos</strong> +{" "}
             <strong>Influencers</strong> en una sola vista, sin duplicar piezas: si una publicación
             aparece en más de una pestaña, se cuenta una sola vez. Cada pestaña conserva su criterio
-            original.
+            original. Por eso el total es menor que sumar las pestañas por separado.
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            <strong>Vistas</strong> son reproducciones reales de todas las fuentes.{" "}
+            <strong>Impresiones</strong> solo existen para las cuentas propias medidas en Metricool,
+            así que las dos cifras no son comparables entre sí.
           </p>
           <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">
             Fuente: Metricool (IG · FB · YT · TikTok) + Apify (equipos, chivos e influencers).
@@ -354,10 +358,18 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         <>
           <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {[
-              { label: `Piezas · ${periodLabel}`, value: fmt(filtered.length) },
-              { label: "Views", value: fmt(totals.views) },
-              { label: "Interacciones", value: fmt(totals.likes + totals.comments + totals.shares) },
-              { label: "Impresiones", value: fmt(totals.impressions) },
+              { label: `Piezas · ${periodLabel}`, value: fmt(filtered.length), hint: "Sin duplicar" },
+              { label: "Vistas (reproducciones)", value: fmt(totals.views), hint: "Todas las fuentes" },
+              {
+                label: "Interacciones",
+                value: fmt(totals.likes + totals.comments + totals.shares),
+                hint: "Me gusta + comentarios + compartidos",
+              },
+              {
+                label: "Impresiones",
+                value: fmt(totals.impressions),
+                hint: "Solo cuentas propias (Metricool)",
+              },
             ].map((c) => (
               <div
                 key={c.label}
@@ -366,6 +378,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               >
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{c.label}</p>
                 <p className="text-2xl font-black">{c.value}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">{c.hint}</p>
               </div>
             ))}
           </section>
@@ -378,7 +391,8 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
             ].map((c) => (
               <div key={c.label} className="bg-card border border-border rounded-2xl p-4">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{c.label}</p>
-                <p className="text-xl font-black">{fmt(c.value)}</p>
+                <p className="text-xl font-black">{fmt(c.value.count)}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">{fmt(c.value.views)} vistas</p>
               </div>
             ))}
           </section>
