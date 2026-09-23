@@ -586,7 +586,7 @@ def page_contact(c):
     c.setFillColor(white); c.setFont("Helvetica", 10)
     c.drawString(56, cy+16, "vacilateesto.com  ·  @vacilateestopodcast  ·  TikTok @vacilateesto")
 
-    footer(c, 9)
+    footer(c, 10)
 
 c = canvas.Canvas(OUT, pagesize=letter)
 c.setTitle(TITLE)
