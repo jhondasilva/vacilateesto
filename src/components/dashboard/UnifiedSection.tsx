@@ -81,10 +81,10 @@ const OFFICIAL_OR_ROSTER = [
 const CAMPAIGN_START = Date.parse("2026-01-01T00:00:00Z");
 
 const PERIODS: { key: string; label: string }[] = [
+  { key: "cumulative-2026", label: "Acumulado 2026" },
   { key: "2026-09", label: "Septiembre 2026" },
   { key: "2026-08", label: "Agosto 2026" },
   { key: "2026-07", label: "Julio 2026" },
-  { key: "cumulative-2026", label: "Acumulado 2026" },
 ];
 
 const periodRange = (key: string) => {
@@ -104,7 +104,7 @@ const normKey = (platform: string, id: string, url?: string | null) => {
  * Pestaña "Todo": une General + Equipos y chivos + Influencers sin duplicar piezas.
  */
 export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
-  const [periodKey, setPeriodKey] = useState<string>("2026-09");
+  const [periodKey, setPeriodKey] = useState<string>("cumulative-2026");
   const [platform, setPlatform] = useState<"all" | Platform>("all");
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<Row[]>([]);
