@@ -241,6 +241,17 @@ export const InfluencersSection = ({
     [posts],
   );
 
+  const conclusions = useMemo(() => {
+    if (!isTeams || filtered.length === 0) return null;
+    const activeCreators = creators.filter((c) => c.posts > 0);
+    const leader = activeCreators[0] ?? null;
+    const azuaje = activeCreators.find((c) => c.handle.toLowerCase().replace(/^@/, "") === "azuaje.230") ?? null;
+    const interactions = totals.likes + totals.comments + totals.shares;
+    const avgViews = filtered.length > 0 ? totals.views / filtered.length : 0;
+    const azuajeShare = azuaje && totals.views > 0 ? (azuaje.views / totals.views) * 100 : 0;
+    return { leader, azuaje, interactions, avgViews, azuajeShare };
+  }, [creators, filtered.length, isTeams, totals]);
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
@@ -344,6 +355,36 @@ export const InfluencersSection = ({
               </div>
             ))}
           </section>
+
+          {conclusions && (
+            <section className="mb-8 border-y border-border py-5">
+              <h3 className="text-lg font-black mb-3">Resultados y conclusiones</h3>
+              <div className="grid gap-3 md:grid-cols-3 text-sm">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Resultado acumulado</p>
+                  <p className="font-bold">
+                    {fmt(filtered.length)} piezas generaron {fmt(totals.views)} vistas y {fmt(conclusions.interactions)} interacciones.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Mayor aporte</p>
+                  <p className="font-bold">
+                    {conclusions.leader
+                      ? `${conclusions.leader.handle} lidera con ${fmt(conclusions.leader.views)} vistas en ${fmt(conclusions.leader.posts)} piezas.`
+                      : "Todavía no hay una cuenta líder con publicaciones válidas."}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Lectura</p>
+                  <p className="font-bold">
+                    {conclusions.azuaje
+                      ? `Azuaje aporta ${fmt(conclusions.azuaje.views)} vistas (${conclusions.azuajeShare.toFixed(1)}% del total) y confirma el peso de los chivos en la conversación.`
+                      : `El promedio es de ${fmt(conclusions.avgViews)} vistas por pieza válida.`}
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
 
           <section className="mb-8">
             <h3 className="text-lg font-black mb-3">Top creadores</h3>
