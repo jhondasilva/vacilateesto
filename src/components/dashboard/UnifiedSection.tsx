@@ -111,132 +111,139 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
   const [periodKey, setPeriodKey] = useState<string>("cumulative-2026");
   const [platform, setPlatform] = useState<"all" | Platform>("all");
   const [loading, setLoading] = useState(true);
+  const [pdfBusy, setPdfBusy] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
+
+  const loadRows = async (key: string): Promise<Row[]> => {
+    const { from, to } = periodRange(key);
+    const inRange = (iso: string | null) => {
+      if (!iso) return false;
+      const t = Date.parse(iso);
+      return Number.isFinite(t) && t >= from.getTime() && t <= to.getTime();
+    };
+
+    const [{ data: cached }, { data: influencerRows }] = await Promise.all([
+      supabase
+        .from("brand_metricool_cache")
+        .select("payload")
+        .eq("brand_slug", "pelotica-de-goma")
+        .eq("scope", "brand")
+        .eq("period_key", key)
+        .maybeSingle(),
+      supabase
+        .from("influencer_posts")
+        .select("*")
+        .eq("campaign_slug", "pelotica-de-goma")
+        .order("published_at", { ascending: false })
+        .limit(2000),
+    ]);
+
+    const out = new Map<string, Row>();
+
+    // 1. General (Metricool)
+    const posts = ((cached?.payload as any)?.posts ?? []) as any[];
+    for (const p of posts) {
+      if (EXCLUDED_GENERAL_IDS.has(p.id)) continue;
+      if (!inRange(p.publishedAt)) continue;
+      const t = String(p.text ?? "").toLowerCase();
+      const oficial = p.blogId === PELOTICA_OFICIAL_BLOG_ID;
+      if (!oficial) {
+        if (!GENERAL_KEYWORDS.some((k) => t.includes(k))) continue;
+        const esVacilate =
+          t.includes("@vacilateestopodcast") || t.replace(/\s+/g, "").includes("#vacilateesto");
+        if (esVacilate && !PELOTICA_KEYWORDS.some((k) => t.includes(k))) continue;
+        if (p.platform === "youtube" && !t.replace(/\s+/g, "").includes("#peloticadegoma")) continue;
+      }
+      const key2 = normKey(p.platform, p.id, p.url);
+      out.set(key2, {
+        key: key2,
+        source: "general",
+        platform: p.platform,
+        url: p.url,
+        author: oficial ? "@peloticadegomave" : null,
+        text: p.text ?? "",
+        thumbnail: p.thumbnail ?? null,
+        publishedAt: p.publishedAt ?? null,
+        views: Math.max(0, p.metrics?.views ?? 0),
+        likes: Math.max(0, p.metrics?.likes ?? p.metrics?.reactions ?? 0),
+        comments: Math.max(0, p.metrics?.comments ?? 0),
+        shares: Math.max(0, p.metrics?.shares ?? 0),
+        impressions: Math.max(0, p.metrics?.impressions ?? 0),
+      });
+    }
+
+    // 2. Equipos y chivos + Influencers (influencer_posts)
+    for (const p of (influencerRows ?? []) as any[]) {
+      const ts = p.published_at ? Date.parse(p.published_at) : NaN;
+      if (!Number.isFinite(ts) || ts < CAMPAIGN_START) continue;
+      if (!inRange(p.published_at)) continue;
+      const external = String(p.external_id ?? "");
+      if (EXCLUDED_EXTERNAL_IDS.has(external)) continue;
+
+      const category = String(p.category ?? "influencer");
+      const handle = String(p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
+      const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`.toLowerCase().replace(/\s+/g, "");
+      const hasCriteria =
+        norm.includes("#peloticadegoma") ||
+        norm.includes("#amoajuga") ||
+        norm.includes("@peloticadegomave");
+      const mencionaEquipo = TEAM_MENTIONS.some((h) => norm.includes(h));
+
+      let valid = false;
+      let source: Row["source"] = "influencers";
+      if (INCLUDED_EXTERNAL_IDS.has(external)) {
+        valid = true;
+        source = "equipos";
+      } else if (category === "equipo") {
+        valid = true;
+        source = "equipos";
+      } else if (category === "chivo") {
+        valid = hasCriteria || mencionaEquipo;
+        source = "equipos";
+      } else {
+        valid =
+          hasCriteria &&
+          !NON_INFLUENCER_HANDLES.has(handle) &&
+          !OFFICIAL_OR_ROSTER.includes(handle) &&
+          handle !== "@vacilateestopodcast" &&
+          handle !== "@vacilateesto";
+        source = "influencers";
+      }
+      if (!valid) continue;
+
+      const key2 = normKey(p.platform, external, p.url);
+      if (out.has(key2)) continue; // ya contabilizado en General
+      out.set(key2, {
+        key: key2,
+        source,
+        platform: p.platform as Platform,
+        url: p.url ?? "#",
+        author: p.author_handle ?? null,
+        text: p.text ?? "",
+        thumbnail: p.thumbnail ?? null,
+        publishedAt: p.published_at ?? null,
+        views: Math.max(0, p.views ?? 0),
+        likes: Math.max(0, p.likes ?? 0),
+        comments: Math.max(0, p.comments ?? 0),
+        shares: Math.max(0, p.shares ?? 0),
+        impressions: 0,
+      });
+    }
+
+    return [...out.values()].sort((a, b) =>
+      (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+    );
+  };
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       setLoading(true);
-      const { from, to } = periodRange(periodKey);
-      const inRange = (iso: string | null) => {
-        if (!iso) return false;
-        const t = Date.parse(iso);
-        return Number.isFinite(t) && t >= from.getTime() && t <= to.getTime();
-      };
-
-      const [{ data: cached }, { data: influencerRows }] = await Promise.all([
-        supabase
-          .from("brand_metricool_cache")
-          .select("payload")
-          .eq("brand_slug", "pelotica-de-goma")
-          .eq("scope", "brand")
-          .eq("period_key", periodKey)
-          .maybeSingle(),
-        supabase
-          .from("influencer_posts")
-          .select("*")
-          .eq("campaign_slug", "pelotica-de-goma")
-          .order("published_at", { ascending: false })
-          .limit(2000),
-      ]);
-
-      const out = new Map<string, Row>();
-
-      // 1. General (Metricool)
-      const posts = ((cached?.payload as any)?.posts ?? []) as any[];
-      for (const p of posts) {
-        if (EXCLUDED_GENERAL_IDS.has(p.id)) continue;
-        if (!inRange(p.publishedAt)) continue;
-        const t = String(p.text ?? "").toLowerCase();
-        const oficial = p.blogId === PELOTICA_OFICIAL_BLOG_ID;
-        if (!oficial) {
-          if (!GENERAL_KEYWORDS.some((k) => t.includes(k))) continue;
-          const esVacilate =
-            t.includes("@vacilateestopodcast") || t.replace(/\s+/g, "").includes("#vacilateesto");
-          if (esVacilate && !PELOTICA_KEYWORDS.some((k) => t.includes(k))) continue;
-          if (p.platform === "youtube" && !t.replace(/\s+/g, "").includes("#peloticadegoma")) continue;
-        }
-        const key = normKey(p.platform, p.id, p.url);
-        out.set(key, {
-          key,
-          source: "general",
-          platform: p.platform,
-          url: p.url,
-          author: oficial ? "@peloticadegomave" : null,
-          text: p.text ?? "",
-          thumbnail: p.thumbnail ?? null,
-          publishedAt: p.publishedAt ?? null,
-          views: Math.max(0, p.metrics?.views ?? 0),
-          likes: Math.max(0, p.metrics?.likes ?? p.metrics?.reactions ?? 0),
-          comments: Math.max(0, p.metrics?.comments ?? 0),
-          shares: Math.max(0, p.metrics?.shares ?? 0),
-          impressions: Math.max(0, p.metrics?.impressions ?? 0),
-        });
+      const r = await loadRows(periodKey);
+      if (!cancelled) {
+        setRows(r);
+        setLoading(false);
       }
-
-      // 2. Equipos y chivos + Influencers (influencer_posts)
-      for (const p of (influencerRows ?? []) as any[]) {
-        const ts = p.published_at ? Date.parse(p.published_at) : NaN;
-        if (!Number.isFinite(ts) || ts < CAMPAIGN_START) continue;
-        if (!inRange(p.published_at)) continue;
-        const external = String(p.external_id ?? "");
-        if (EXCLUDED_EXTERNAL_IDS.has(external)) continue;
-
-        const category = String(p.category ?? "influencer");
-        const handle = String(p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
-        const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`.toLowerCase().replace(/\s+/g, "");
-        const hasCriteria =
-          norm.includes("#peloticadegoma") ||
-          norm.includes("#amoajuga") ||
-          norm.includes("@peloticadegomave");
-        const mencionaEquipo = TEAM_MENTIONS.some((h) => norm.includes(h));
-
-        let valid = false;
-        let source: Row["source"] = "influencers";
-        if (INCLUDED_EXTERNAL_IDS.has(external)) {
-          valid = true;
-          source = "equipos";
-        } else if (category === "equipo") {
-          valid = true;
-          source = "equipos";
-        } else if (category === "chivo") {
-          valid = hasCriteria || mencionaEquipo;
-          source = "equipos";
-        } else {
-          valid =
-            hasCriteria &&
-            !NON_INFLUENCER_HANDLES.has(handle) &&
-            !OFFICIAL_OR_ROSTER.includes(handle) &&
-            handle !== "@vacilateestopodcast" &&
-            handle !== "@vacilateesto";
-          source = "influencers";
-        }
-        if (!valid) continue;
-
-        const key = normKey(p.platform, external, p.url);
-        if (out.has(key)) continue; // ya contabilizado en General
-        out.set(key, {
-          key,
-          source,
-          platform: p.platform as Platform,
-          url: p.url ?? "#",
-          author: p.author_handle ?? null,
-          text: p.text ?? "",
-          thumbnail: p.thumbnail ?? null,
-          publishedAt: p.published_at ?? null,
-          views: Math.max(0, p.views ?? 0),
-          likes: Math.max(0, p.likes ?? 0),
-          comments: Math.max(0, p.comments ?? 0),
-          shares: Math.max(0, p.shares ?? 0),
-          impressions: 0,
-        });
-      }
-
-      if (cancelled) return;
-      setRows(
-        [...out.values()].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "")),
-      );
-      setLoading(false);
     })();
     return () => {
       cancelled = true;
@@ -285,49 +292,69 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
 
   const periodLabel = PERIODS.find((p) => p.key === periodKey)?.label ?? periodKey;
 
-  const handleDownloadPdf = () => {
-    if (!filtered.length) return;
-    const { from, to } = periodRange(periodKey);
-    const byPlatform = filtered.reduce<Record<string, number>>((acc, r) => {
-      acc[r.platform] = (acc[r.platform] ?? 0) + 1;
-      return acc;
-    }, {});
-    void generateBrandReportPdf({
-      brandName: "Pelotica de Goma · Todo unificado",
-      brandColor: accent.startsWith("#") ? accent : "#E91E63",
-      scopeLabel:
-        "General + Equipos y chivos + Influencers, sin duplicar piezas" +
-        (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
-      periodLabel,
-      from,
-      to,
-      data: {
-        matchedCount: filtered.length,
-        byPlatform,
-        totals: {
-          views: totals.views,
-          likes: totals.likes,
-          comments: totals.comments,
-          impressions: totals.impressions,
+  const handleDownloadPdf = async () => {
+    setPdfBusy(true);
+    try {
+      // El informe unificado siempre asume el criterio Acumulado 2026,
+      // sin importar el período que esté visible en la pestaña.
+      let source = filtered;
+      if (periodKey !== "cumulative-2026") {
+        source = (await loadRows("cumulative-2026")).filter(
+          (r) => platform === "all" || r.platform === platform,
+        );
+      }
+      if (!source.length) {
+        toast.error("No hay piezas en Acumulado 2026 con esos filtros.");
+        return;
+      }
+      const byPlatform = source.reduce<Record<string, number>>((acc, r) => {
+        acc[r.platform] = (acc[r.platform] ?? 0) + 1;
+        return acc;
+      }, {});
+      const totalsPdf = source.reduce(
+        (acc, r) => {
+          acc.views += r.views;
+          acc.likes += r.likes;
+          acc.comments += r.comments;
+          acc.impressions += r.impressions;
+          return acc;
         },
-        posts: filtered.map((r) => ({
-          platform: r.platform,
-          id: r.key,
-          url: r.url,
-          publishedAt: r.publishedAt,
-          text: r.text,
-          thumbnail: r.thumbnail,
-          metrics: {
-            views: r.views,
-            likes: r.likes,
-            comments: r.comments,
-            shares: r.shares,
-            impressions: r.impressions,
-          },
-        })),
-      },
-    });
-    toast.success("Informe unificado descargado");
+        { views: 0, likes: 0, comments: 0, impressions: 0 },
+      );
+      void generateBrandReportPdf({
+        brandName: "Pelotica de Goma · Todo unificado",
+        brandColor: accent.startsWith("#") ? accent : "#E91E63",
+        scopeLabel:
+          "General + Equipos y chivos + Influencers, sin duplicar piezas" +
+          (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
+        periodLabel: "Acumulado 2026",
+        from: periodRange("cumulative-2026").from,
+        to: new Date(),
+        data: {
+          matchedCount: source.length,
+          byPlatform,
+          totals: totalsPdf,
+          posts: source.map((r) => ({
+            platform: r.platform,
+            id: r.key,
+            url: r.url,
+            publishedAt: r.publishedAt,
+            text: r.text,
+            thumbnail: r.thumbnail,
+            metrics: {
+              views: r.views,
+              likes: r.likes,
+              comments: r.comments,
+              shares: r.shares,
+              impressions: r.impressions,
+            },
+          })),
+        },
+      });
+      toast.success("Informe unificado descargado · Acumulado 2026");
+    } finally {
+      setPdfBusy(false);
+    }
   };
 
   return (
@@ -355,8 +382,9 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       </div>
 
       <div className="flex justify-end mb-3">
-        <Button size="sm" variant="outline" disabled={loading || filtered.length === 0} onClick={handleDownloadPdf}>
-          <Download className="w-4 h-4 mr-1" /> Informe PDF unificado
+        <Button size="sm" variant="outline" disabled={loading || pdfBusy || filtered.length === 0} onClick={handleDownloadPdf}>
+          {pdfBusy ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Download className="w-4 h-4 mr-1" />}
+          {pdfBusy ? "Generando Acumulado 2026…" : "Informe PDF unificado"}
         </Button>
       </div>
 
