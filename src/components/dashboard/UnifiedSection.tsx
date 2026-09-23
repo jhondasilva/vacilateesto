@@ -260,14 +260,13 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     [filtered],
   );
 
-  const bySource = useMemo(
-    () => ({
-      general: rows.filter((r) => r.source === "general").length,
-      equipos: rows.filter((r) => r.source === "equipos").length,
-      influencers: rows.filter((r) => r.source === "influencers").length,
-    }),
-    [rows],
-  );
+  const bySource = useMemo(() => {
+    const agg = (s: Row["source"]) => {
+      const list = rows.filter((r) => r.source === s);
+      return { count: list.length, views: list.reduce((a, r) => a + r.views, 0) };
+    };
+    return { general: agg("general"), equipos: agg("equipos"), influencers: agg("influencers") };
+  }, [rows]);
 
   const counts = useMemo(
     () => ({
