@@ -278,7 +278,7 @@ def page_hosts(c):
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 36)
     c.drawString(50, cy2+70, "“")
     wrap(c,
-        "No buscamos audiencia desde cero. Somos una comunidad masiva, fiel y conversadora — lista para amplificar tu marca desde el día uno.",
+        "Somos una comunidad masiva, fiel y conversadora — lista para amplificar tu marca desde el día uno.",
         80, cy2+82, W-72-60, font="Helvetica-Oblique", fs=11, leading=15)
     footer(c, 4)
 
@@ -546,7 +546,7 @@ def page_awards(c):
 
 # ───────── PAGE 10: TRABAJA + CONTACTO ─────────
 def page_contact(c):
-    header(c, 9)
+    header(c, 10)
     sticker_pill(c, 36, H-66, 160, 20, "TRABAJA CON NOSOTROS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "ACTIVA TU MARCA")
