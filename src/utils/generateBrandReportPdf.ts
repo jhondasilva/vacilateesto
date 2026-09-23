@@ -31,6 +31,12 @@ type Args = {
   to: Date;
   data: MentionsResponse;
   includeTikTokLives?: boolean;
+  brandLogoSrc?: string;
+  reportAnalysis?: {
+    result: string;
+    visibility: string;
+    conclusion: string;
+  };
 };
 
 /* ───────── Identidad gráfica compartida con los Media Kits ───────── */
@@ -94,17 +100,19 @@ export const generateBrandReportPdf = async ({
   to,
   data,
   includeTikTokLives = false,
+  brandLogoSrc,
+  reportAnalysis,
 }: Args) => {
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 36;
   const ACCENT = hexToRgb(brandColor);
-  const PAGES = includeTikTokLives ? 5 : 4;
+  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0);
 
   let logo: string | null = null;
   try {
-    logo = await loadImageAsBase64(logoVacilate);
+    logo = await loadImageAsBase64(brandLogoSrc ?? logoVacilate);
   } catch {
     logo = null;
   }
@@ -378,7 +386,39 @@ export const generateBrandReportPdf = async ({
   );
   footer(3);
 
-  /* ───────── PÁGINA 4 (opcional) · LIVES EN TIKTOK ───────── */
+  /* ───────── PÁGINA 4 (opcional) · RESULTADOS Y CONCLUSIONES ───────── */
+  let nextPage = 4;
+  if (reportAnalysis) {
+    doc.addPage();
+    header(nextPage);
+    stickerPill(M, 56, 170, 20, "RESULTADOS Y CONCLUSIONES", PINK, WHITE);
+    doc.setTextColor(...INK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.text("LECTURA DEL RESULTADO", M, 112);
+
+    const analysisCards = [
+      { label: "RESULTADO UNIFICADO", text: reportAnalysis.result, shadow: PINK },
+      { label: "MOTOR DE VISIBILIDAD", text: reportAnalysis.visibility, shadow: CYAN },
+      { label: "CONCLUSIÓN", text: reportAnalysis.conclusion, shadow: ACCENT },
+    ];
+    analysisCards.forEach((item, index) => {
+      const y = 148 + index * 142;
+      stickerCard(M, y, W - M * 2, 112, item.shadow);
+      doc.setTextColor(...MUT);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text(item.label, M + 18, y + 25);
+      doc.setTextColor(...INK);
+      doc.setFontSize(13);
+      const lines = doc.splitTextToSize(clean(item.text), W - M * 2 - 36);
+      doc.text(lines, M + 18, y + 53, { lineHeightFactor: 1.35 });
+    });
+    footer(nextPage);
+    nextPage += 1;
+  }
+
+  /* ───────── PÁGINA OPCIONAL · LIVES EN TIKTOK ───────── */
   if (includeTikTokLives) {
     const lt = TIKTOK_LIVES.reduce(
       (a, l) => ({
@@ -394,7 +434,7 @@ export const generateBrandReportPdf = async ({
     );
 
     doc.addPage();
-    header(4);
+    header(nextPage);
     stickerPill(M, 56, 150, 20, "LIVES EN TIKTOK", PINK, WHITE);
     doc.setTextColor(...INK);
     doc.setFont("helvetica", "bold");
@@ -458,7 +498,8 @@ export const generateBrandReportPdf = async ({
         6: { cellWidth: 40, halign: "right" },
       },
     });
-    footer(4);
+    footer(nextPage);
+    nextPage += 1;
   }
 
   /* ───────── ÚLTIMA PÁGINA · TOP PUBLICACIONES ───────── */
