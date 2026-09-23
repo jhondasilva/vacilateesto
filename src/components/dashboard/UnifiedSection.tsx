@@ -291,7 +291,12 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
             Une <strong>General</strong> + <strong>Equipos y chivos</strong> +{" "}
             <strong>Influencers</strong> en una sola vista, sin duplicar piezas: si una publicación
             aparece en más de una pestaña, se cuenta una sola vez. Cada pestaña conserva su criterio
-            original.
+            original. Por eso el total es menor que sumar las pestañas por separado.
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            <strong>Vistas</strong> son reproducciones reales de todas las fuentes.{" "}
+            <strong>Impresiones</strong> solo existen para las cuentas propias medidas en Metricool,
+            así que las dos cifras no son comparables entre sí.
           </p>
           <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">
             Fuente: Metricool (IG · FB · YT · TikTok) + Apify (equipos, chivos e influencers).
