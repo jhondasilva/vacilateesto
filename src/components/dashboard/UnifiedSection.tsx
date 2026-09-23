@@ -3,9 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import {
-  Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users,
+  Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
 } from "lucide-react";
+
 
 type Platform = "instagram" | "tiktok" | "facebook" | "youtube";
 
