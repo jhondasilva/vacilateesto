@@ -354,7 +354,14 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         </div>
       </div>
 
+      <div className="flex justify-end mb-3">
+        <Button size="sm" variant="outline" disabled={loading || filtered.length === 0} onClick={handleDownloadPdf}>
+          <Download className="w-4 h-4 mr-1" /> Informe PDF unificado
+        </Button>
+      </div>
+
       <div className="flex flex-wrap gap-2 mb-4">
+
         {PERIODS.map((p) => (
           <button
             key={p.key}
