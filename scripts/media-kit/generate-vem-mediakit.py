@@ -169,7 +169,7 @@ def page_about(c):
         36, H-200, W-72, fs=10, leading=14, color=MUT)
 
     # KPI cards
-    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("9","PARADAS"),("4","PAÍSES")]
+    kpis = [("2M+","SEGUIDORES"),("24/7","PRESENCIA"),("6","PARADAS"),("4","PAÍSES")]
     cw = (W-72-30)/4; cy = H-330
     for i,(big,small) in enumerate(kpis):
         cx = 36 + i*(cw+10)
