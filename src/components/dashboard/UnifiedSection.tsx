@@ -6,6 +6,7 @@ import { es } from "date-fns/locale";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
+import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import {
   Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
 } from "lucide-react";
@@ -348,7 +349,29 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         },
         { views: 0, likes: 0, comments: 0, impressions: 0 },
       );
-      void generateBrandReportPdf({
+      const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
+        .map((key) => {
+          const list = source.filter((r) => r.platform === key);
+          return { key, pieces: list.length, views: list.reduce((sum, r) => sum + r.views, 0) };
+        })
+        .sort((a, b) => b.views - a.views);
+      const sourceRows = (["general", "equipos", "influencers"] as Row["source"][])
+        .map((key) => {
+          const list = source.filter((r) => r.source === key);
+          return { key, views: list.reduce((sum, r) => sum + r.views, 0) };
+        })
+        .sort((a, b) => b.views - a.views);
+      const sourceLabels: Record<Row["source"], string> = {
+        general: "General",
+        equipos: "Equipos y chivos",
+        influencers: "Influencers",
+      };
+      const interactions = totalsPdf.likes + totalsPdf.comments + source.reduce((sum, r) => sum + r.shares, 0);
+      const interactionRate = totalsPdf.views > 0 ? (interactions / totalsPdf.views) * 100 : 0;
+      const leadingPlatform = platformRows[0];
+      const leadingSource = sourceRows[0];
+
+      await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",
         scopeLabel:
@@ -357,6 +380,16 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         periodLabel: "Acumulado 2026",
         from: periodRange("cumulative-2026").from,
         to: new Date(),
+        brandLogoSrc: logoPeloticaDeGoma.url,
+        reportAnalysis: {
+          result: `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones.`,
+          visibility: leadingPlatform
+            ? `${PLATFORM_META[leadingPlatform.key].label} lidera con ${fmt(leadingPlatform.views)} vistas en ${fmt(leadingPlatform.pieces)} piezas.`
+            : "No hay publicaciones válidas para identificar una plataforma líder.",
+          conclusion: leadingSource
+            ? `${sourceLabels[leadingSource.key]} aporta la mayor cantidad de vistas. La interacción equivale a ${interactionRate.toFixed(1)}% de las reproducciones registradas.`
+            : "No hay publicaciones válidas para establecer una conclusión.",
+        },
         data: {
           matchedCount: source.length,
           byPlatform,
@@ -379,6 +412,9 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         },
       });
       toast.success("Informe unificado descargado · Acumulado 2026");
+    } catch (error) {
+      console.error("No se pudo generar el informe PDF unificado", error);
+      toast.error("No se pudo descargar el informe. Intenta de nuevo.");
     } finally {
       setPdfBusy(false);
     }
