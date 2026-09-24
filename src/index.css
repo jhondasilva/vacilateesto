@@ -57,6 +57,14 @@
     --font-display: 'Sora', system-ui, sans-serif;
     --font-body: 'Manrope', system-ui, sans-serif;
 
+    /* FALI editorial palette */
+    --fali-ink: 240 6% 7%;
+    --fali-paper: 50 30% 96%;
+    --fali-yellow: 58 100% 54%;
+    --fali-pink: 342 100% 58%;
+    --fali-green: 88 100% 45%;
+    --fali-violet: 264 85% 61%;
+
     /* Sidebar */
     --sidebar-background: 0 0% 99%;
     --sidebar-foreground: 230 25% 15%;
@@ -96,6 +104,71 @@
     --sidebar-accent-foreground: 230 25% 15%;
     --sidebar-border: 230 15% 90%;
     --sidebar-ring: 348 100% 66%;
+  }
+}
+
+@layer components {
+  .fali-page { background: hsl(var(--fali-ink)); color: hsl(var(--fali-paper)); }
+  .fali-hero { background: hsl(var(--fali-ink)); position: relative; overflow: hidden; }
+  .fali-hero::after { content: ""; position: absolute; inset: auto -10% -7rem 38%; height: 10rem; background: hsl(var(--fali-yellow)); transform: rotate(-4deg); }
+  .fali-kicker { display: inline-flex; border: 2px solid currentColor; padding: .45rem .7rem; font: 800 .7rem/1 var(--font-display); text-transform: uppercase; }
+  .fali-display { font: 800 clamp(6.5rem, 22vw, 17rem)/.72 var(--font-display); color: hsl(var(--fali-yellow)); }
+  .fali-hand-note { margin-top: 1rem; color: hsl(var(--fali-pink)); font: 800 clamp(1.1rem, 3vw, 2rem)/1.05 var(--font-display); text-transform: uppercase; transform: rotate(-1.5deg); }
+  .fali-hero-art { position: relative; z-index: 1; border: 4px solid hsl(var(--fali-paper)); box-shadow: 14px 14px 0 hsl(var(--fali-pink)); transform: rotate(1.5deg); }
+  .fali-hero-art img, .fali-home-image img, .fali-slide img { display: block; width: 100%; height: auto; }
+  .fali-cta { background: hsl(var(--fali-yellow)); color: hsl(var(--fali-ink)); border: 2px solid hsl(var(--fali-yellow)); border-radius: 0; box-shadow: 5px 5px 0 hsl(var(--fali-pink)); }
+  .fali-outline-button { color: hsl(var(--fali-paper)) !important; border-color: hsl(var(--fali-paper)) !important; border-radius: 0; }
+  .fali-paper-band { background: hsl(var(--fali-paper)); color: hsl(var(--fali-ink)); }
+  .fali-ink-band { background: hsl(var(--fali-ink)); color: hsl(var(--fali-paper)); }
+  .fali-infographic-band { background: hsl(var(--fali-violet)); color: hsl(var(--fali-paper)); }
+  .fali-section-number { color: hsl(var(--fali-pink)); font: 800 .75rem/1 var(--font-display); text-transform: uppercase; }
+  .fali-section-number.is-light { color: hsl(var(--fali-yellow)); }
+  .fali-section-title { font: 800 clamp(2.5rem, 7vw, 6rem)/.9 var(--font-display); text-transform: uppercase; }
+  .fali-highlight { display: inline; background: hsl(var(--fali-yellow)); font-weight: 800; box-shadow: .35rem 0 0 hsl(var(--fali-yellow)), -.35rem 0 0 hsl(var(--fali-yellow)); }
+  .fali-cycle-grid { display: grid; gap: 1px; background: hsl(var(--fali-paper) / .2); }
+  .fali-cycle-step { min-height: 15rem; padding: 1.5rem; background: hsl(var(--fali-ink)); }
+  .fali-cycle-step span { color: hsl(var(--fali-yellow)); font-weight: 800; }
+  .fali-cycle-step svg { color: hsl(var(--fali-pink)); }
+  .fali-cycle-step h3 { margin-top: 2.75rem; font-size: 1.35rem; text-transform: uppercase; }
+  .fali-cycle-step p { margin-top: .75rem; color: hsl(var(--fali-paper) / .65); line-height: 1.6; }
+  .fali-outcome { min-height: 14rem; padding: 1.75rem; border: 3px solid hsl(var(--fali-ink)); color: hsl(var(--fali-ink)); }
+  .fali-outcome h3 { font-size: clamp(1.7rem, 4vw, 3rem); text-transform: uppercase; }
+  .fali-outcome p { margin-top: 1.5rem; max-width: 30rem; font-weight: 600; }
+  .fali-outcome-pink { background: hsl(var(--fali-pink)); }
+  .fali-outcome-yellow { background: hsl(var(--fali-yellow)); }
+  .fali-outcome-green { background: hsl(var(--fali-green)); }
+  .fali-outcome-violet { background: hsl(var(--fali-violet)); color: hsl(var(--fali-paper)); }
+  .fali-hypothesis { min-height: 22rem; padding: 1.5rem; background: hsl(var(--fali-ink)); }
+  .fali-hypothesis span { color: hsl(var(--fali-pink)); font: 800 2rem/1 var(--font-display); }
+  .fali-hypothesis h3 { margin-top: 3rem; font-size: 1.25rem; text-transform: uppercase; }
+  .fali-hypothesis p { margin-top: 1rem; color: hsl(var(--fali-paper) / .65); font-size: .9rem; line-height: 1.6; }
+  .fali-carousel { max-width: 100%; min-width: 0; overflow: hidden; }
+  .fali-carousel-track { display: grid; max-width: 100%; min-width: 0; grid-auto-flow: column; grid-auto-columns: min(80vw, 24rem); gap: 1rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; padding: .5rem .5rem 1rem; }
+  .fali-slide { scroll-snap-align: center; border: 3px solid hsl(var(--fali-ink)); box-shadow: 7px 7px 0 hsl(var(--fali-pink)); }
+  .fali-carousel-dot { width: .55rem; height: .55rem; border-radius: 999px; background: hsl(var(--fali-ink) / .25); transition: width .2s ease, background .2s ease; }
+  .fali-carousel-dot.is-active { width: 1.75rem; background: hsl(var(--fali-pink)); }
+  .fali-thesis { border: 4px solid hsl(var(--fali-ink)); padding: clamp(1.5rem, 5vw, 4rem); box-shadow: 12px 12px 0 hsl(var(--fali-yellow)); }
+  .fali-thesis svg { color: hsl(var(--fali-pink)); width: 2.5rem; height: 2.5rem; }
+  .fali-thesis h2 { margin-top: 1.5rem; max-width: 66rem; font-size: clamp(2rem, 6vw, 5.5rem); line-height: .95; text-transform: uppercase; }
+  .fali-thesis p { margin-top: 2rem; max-width: 50rem; font-size: 1.05rem; line-height: 1.75; }
+  .fali-final-band { background: hsl(var(--fali-yellow)); color: hsl(var(--fali-ink)); }
+  .fali-dark-button { background: hsl(var(--fali-ink)); color: hsl(var(--fali-paper)); border-radius: 0; }
+  .fali-dark-outline { color: hsl(var(--fali-ink)); border-color: hsl(var(--fali-ink)); border-radius: 0; }
+  .fali-home-section { background: hsl(var(--fali-ink)); color: hsl(var(--fali-paper)); overflow: hidden; }
+  .fali-home-grid { display: grid; gap: 3rem; align-items: center; }
+  .fali-home-title { margin-top: 1rem; color: hsl(var(--fali-yellow)); font: 800 clamp(5.5rem, 16vw, 12rem)/.75 var(--font-display); }
+  .fali-home-image { display: block; border: 4px solid hsl(var(--fali-paper)); box-shadow: 12px 12px 0 hsl(var(--fali-pink)); transform: rotate(1.5deg); transition: transform .25s ease; }
+  .fali-home-image:hover { transform: rotate(0) translateY(-4px); }
+
+  @media (min-width: 768px) {
+    .fali-cycle-grid { grid-template-columns: repeat(3, 1fr); }
+    .fali-carousel-track { grid-auto-columns: min(42vw, 28rem); }
+    .fali-home-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .fali-cycle-grid { grid-template-columns: repeat(6, 1fr); }
+    .fali-cycle-step { min-height: 20rem; }
+    .fali-carousel-track { grid-auto-columns: min(29vw, 28rem); }
   }
 }
 

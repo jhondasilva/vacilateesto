@@ -1,0 +1,6 @@
+- [x] Crear página editorial /fali
+- [x] Añadir FALI al menú
+- [x] Añadir sección FALI en Home
+- [x] Añadir imágenes y carrusel
+- [x] Actualizar sitemap y metadatos
+- [x] Verificar escritorio, móvil y build

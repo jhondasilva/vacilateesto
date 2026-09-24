@@ -52,6 +52,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        fali: {
+          ink: "hsl(var(--fali-ink))",
+          paper: "hsl(var(--fali-paper))",
+          yellow: "hsl(var(--fali-yellow))",
+          pink: "hsl(var(--fali-pink))",
+          green: "hsl(var(--fali-green))",
+          violet: "hsl(var(--fali-violet))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
