@@ -117,7 +117,7 @@
   .fali-hero-art { position: relative; z-index: 1; border: 4px solid hsl(var(--fali-paper)); box-shadow: 14px 14px 0 hsl(var(--fali-pink)); transform: rotate(1.5deg); }
   .fali-hero-art img, .fali-home-image img, .fali-slide img { display: block; width: 100%; height: auto; }
   .fali-cta { background: hsl(var(--fali-yellow)); color: hsl(var(--fali-ink)); border: 2px solid hsl(var(--fali-yellow)); border-radius: 0; box-shadow: 5px 5px 0 hsl(var(--fali-pink)); }
-  .fali-outline-button { color: hsl(var(--fali-paper)); border-color: hsl(var(--fali-paper)); border-radius: 0; }
+  .fali-outline-button { color: hsl(var(--fali-paper)) !important; border-color: hsl(var(--fali-paper)) !important; border-radius: 0; }
   .fali-paper-band { background: hsl(var(--fali-paper)); color: hsl(var(--fali-ink)); }
   .fali-ink-band { background: hsl(var(--fali-ink)); color: hsl(var(--fali-paper)); }
   .fali-infographic-band { background: hsl(var(--fali-violet)); color: hsl(var(--fali-paper)); }
@@ -142,7 +142,8 @@
   .fali-hypothesis span { color: hsl(var(--fali-pink)); font: 800 2rem/1 var(--font-display); }
   .fali-hypothesis h3 { margin-top: 3rem; font-size: 1.25rem; text-transform: uppercase; }
   .fali-hypothesis p { margin-top: 1rem; color: hsl(var(--fali-paper) / .65); font-size: .9rem; line-height: 1.6; }
-  .fali-carousel-track { display: grid; grid-auto-flow: column; grid-auto-columns: min(80vw, 24rem); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .5rem 1rem; }
+  .fali-carousel { max-width: 100%; min-width: 0; overflow: hidden; }
+  .fali-carousel-track { display: grid; max-width: 100%; min-width: 0; grid-auto-flow: column; grid-auto-columns: min(80vw, 24rem); gap: 1rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; padding: .5rem .5rem 1rem; }
   .fali-slide { scroll-snap-align: center; border: 3px solid hsl(var(--fali-ink)); box-shadow: 7px 7px 0 hsl(var(--fali-pink)); }
   .fali-carousel-dot { width: .55rem; height: .55rem; border-radius: 999px; background: hsl(var(--fali-ink) / .25); transition: width .2s ease, background .2s ease; }
   .fali-carousel-dot.is-active { width: 1.75rem; background: hsl(var(--fali-pink)); }
