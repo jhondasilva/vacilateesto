@@ -7,6 +7,7 @@ import Logo from "@/components/Logo";
 const navLinks = [
   { label: "Inicio", href: "/" },
   { label: "Blog", href: "/blog" },
+  { label: "FALI", href: "/fali" },
   { label: "Hosts", href: "/hosts" },
   { label: "Media Kit", href: "/media-kit" },
   { label: "Podcast en la Cumbre", href: "/podcast-en-la-cumbre" },

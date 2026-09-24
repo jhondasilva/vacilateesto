@@ -17,6 +17,7 @@ import VacilateElMundialSection from "@/components/VacilateElMundialSection";
 import RutasSection from "@/components/RutasSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import BlogSection from "@/components/BlogSection";
+import FaliHomeSection from "@/components/FaliHomeSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -251,6 +252,7 @@ const Index = () => {
             <HeroSection />
             <HomeSearchSection />
             <BlogSection />
+            <FaliHomeSection />
             <MediaHoldingSection />
             <VacilateElMundialSection />
             <EpisodesSection />
