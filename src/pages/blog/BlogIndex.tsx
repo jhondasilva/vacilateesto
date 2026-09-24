@@ -8,6 +8,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
+    slug: "fali-frustracion-latencia-inutil",
+    title: "FALI: la frustración por la espera de la inteligencia artificial",
+    excerpt:
+      "Vacílate Esto lanza el concepto FALI: frustración atencional por latencia inútil. Qué le pasa a tu atención y a tus ideas mientras la IA te hace esperar.",
+    category: "Tecnología",
+    minutes: 8,
+    date: "2026-09-24",
+  },
+  {
     slug: "que-es-pelotica-de-goma",
     title: "Qué es Pelotica de Goma: historia, equipos y formato de la liga",
     excerpt:
