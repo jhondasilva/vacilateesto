@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BlogArticleLayout from "@/components/blog/BlogArticleLayout";
 
 const FaliFrustracionLatencia = () => (
@@ -49,6 +50,16 @@ const FaliFrustracionLatencia = () => (
       { id: "episodio", label: "El episodio completo" },
     ]}
   >
+    <div className="my-8 rounded-2xl border border-primary/30 bg-primary/5 p-6">
+      <p className="text-lg leading-relaxed">
+        ¿Quieres ver el FALI explicado con infografía, carrusel y el episodio completo? Explora la{' '}
+        <Link to="/fali" className="font-semibold underline underline-offset-4 hover:text-primary">
+          página editorial de FALI
+        </Link>{' '}
+        con todo el material del concepto.
+      </p>
+    </div>
+
     <p className="text-xl leading-relaxed">
       En el último episodio de <strong>Vacílate Esto</strong>, <strong>Jhon Da Silva</strong> (@jhonsnacks) y <strong>Juan Carlos Martínez</strong> (@juansofa) lanzaron un concepto nuevo para nombrar algo que casi todos vivimos a diario y nadie había bautizado: el <strong>FALI</strong>, la <strong>frustración atencional por latencia inútil</strong>. Es esa emoción que aparece cuando le pides algo a una inteligencia artificial, la respuesta tarda, y en ese vacío tu atención se va a cualquier otro lado.
     </p>
@@ -98,7 +109,11 @@ const FaliFrustracionLatencia = () => (
       Esta reflexión nace del episodio <strong>"FALI: el nuevo tiempo muerto de la era digital"</strong> de Vacílate Esto, disponible en YouTube y Spotify. La ambición del episodio es que la próxima vez que la IA te deje esperando, lo identifiques y lo digas: <em>acabo de vivir un FALI</em>.
     </p>
     <p>
-      <a href="https://www.youtube.com/watch?v=4t6r4ys5O58" target="_blank" rel="noopener noreferrer">Mira el episodio completo en YouTube</a> y cuéntanos en los comentarios cuándo fue tu último momento FALI.
+      <Link to="/fali" className="font-semibold underline underline-offset-4 hover:text-primary">
+        Visita la página editorial de FALI
+      </Link>{' '}
+      para ver la infografía, el carrusel de láminas y el episodio incrustado, o{' '}
+      <a href="https://www.youtube.com/watch?v=4t6r4ys5O58" target="_blank" rel="noopener noreferrer">mira el episodio completo en YouTube</a> y cuéntanos en los comentarios cuándo fue tu último momento FALI.
     </p>
   </BlogArticleLayout>
 );
