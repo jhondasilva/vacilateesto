@@ -16,6 +16,7 @@ const POSTS = [
     minutes: 8,
     date: "2026-09-24",
   },
+  {
     slug: "que-es-pelotica-de-goma",
     title: "Qué es Pelotica de Goma: historia, equipos y formato de la liga",
     excerpt:
