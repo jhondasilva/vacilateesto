@@ -3,4 +3,4 @@
 - [x] Añadir sección FALI en Home
 - [x] Añadir imágenes y carrusel
 - [x] Actualizar sitemap y metadatos
-- [ ] Verificar escritorio, móvil y build
+- [x] Verificar escritorio, móvil y build
