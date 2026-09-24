@@ -156,6 +156,25 @@ const Fali = () => (
 
       <section className="fali-paper-band py-20 md:py-28">
         <div className="container mx-auto px-4">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><span className="fali-section-number">05 / El episodio</span><h2 className="fali-section-title mt-4">Escucha la conversación completa</h2></div>
+            <p className="max-w-md text-fali-ink/65">El episodio que dio origen a esta página, directamente desde el canal de Vacílate Esto en YouTube.</p>
+          </div>
+          <div className="mx-auto aspect-video max-w-5xl overflow-hidden border-4 border-fali-ink shadow-[12px_12px_0_hsl(var(--fali-yellow))]">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/4t6r4ys5O58?start=1201&rel=0"
+              title="FALI: el nuevo tiempo muerto de la era digital — Vacílate Esto"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              className="h-full w-full"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="fali-paper-band py-20 md:py-28">
+        <div className="container mx-auto px-4">
           <div className="fali-thesis">
             <Sparkles aria-hidden="true" />
             <span className="fali-section-number">Tesis provisional</span>
