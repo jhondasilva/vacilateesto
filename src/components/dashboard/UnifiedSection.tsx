@@ -1,4 +1,4 @@
-import { PeloticaLivesSection, PELOTICA_LIVES } from "@/components/dashboard/PeloticaLivesSection";
+import { PELOTICA_LIVES, sumLives } from "@/components/dashboard/PeloticaLivesSection";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -630,7 +630,23 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           </section>
         </>
       )}
-      <PeloticaLivesSection />
+<section className="rounded-3xl border border-border bg-card p-6">
+        {(() => {
+          const lv = sumLives(PELOTICA_LIVES);
+          const f = (n: number) => n.toLocaleString("es-VE");
+          return (
+            <>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Total con Lives · TikTok + YouTube</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div><p className="text-xs text-muted-foreground">Vistas publicaciones</p><p className="text-2xl font-black">{f(totals.views)}</p></div>
+                <div><p className="text-xs text-muted-foreground">Vistas lives ({lv.lives} lives · {Math.floor(lv.minutes / 60)}h {lv.minutes % 60}m)</p><p className="text-2xl font-black">{f(lv.views)}</p></div>
+                <div><p className="text-xs text-muted-foreground">Total unificado</p><p className="text-2xl font-black">{f(totals.views + lv.views)}</p></div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">El detalle de cada live está en la pestaña Lives.</p>
+            </>
+          );
+        })()}
+      </section>
     </div>
   );
 };
