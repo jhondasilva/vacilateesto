@@ -1,3 +1,4 @@
+import { PeloticaLivesSection, PELOTICA_LIVES } from "@/components/dashboard/PeloticaLivesSection";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -381,6 +382,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         from: periodRange("cumulative-2026").from,
         to: new Date(),
         brandLogoSrc: logoPeloticaDeGoma,
+        lives: PELOTICA_LIVES,
         reportAnalysis: {
           result: `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones.`,
           visibility: leadingPlatform
