@@ -630,6 +630,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           </section>
         </>
       )}
+      <PeloticaLivesSection />
     </div>
   );
 };
