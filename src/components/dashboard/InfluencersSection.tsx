@@ -252,30 +252,6 @@ export const InfluencersSection = ({
     return { leader, azuaje, interactions, avgViews, azuajeShare };
   }, [creators, filtered.length, isTeams, totals]);
 
-  // Influencers: quién publicó la misma pieza en Instagram y en TikTok.
-  const crossPlatform = useMemo(() => {
-    if (isTeams) return null;
-    const by = new Map<string, { ig: InfluencerPost[]; tt: InfluencerPost[] }>();
-    for (const p of posts) {
-      const h = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
-      const e = by.get(h) ?? { ig: [], tt: [] };
-      (p.platform === "tiktok" ? e.tt : e.ig).push(p);
-      by.set(h, e);
-    }
-    const both = [...by.entries()].filter(([, e]) => e.ig.length && e.tt.length);
-    const igOnly = [...by.entries()].filter(([, e]) => e.ig.length && !e.tt.length).map(([h]) => h);
-    return {
-      both: both.map(([h, e]) => ({
-        handle: h,
-        ig: e.ig.length,
-        tt: e.tt.length,
-        igViews: e.ig.reduce((s, p) => s + Math.max(0, p.views ?? 0), 0),
-        ttViews: e.tt.reduce((s, p) => s + Math.max(0, p.views ?? 0), 0),
-      })).sort((a, b) => b.igViews + b.ttViews - (a.igViews + a.ttViews)),
-      igOnly,
-    };
-  }, [posts, isTeams]);
-
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
