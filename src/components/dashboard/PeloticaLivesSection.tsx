@@ -97,7 +97,7 @@ export const PeloticaLivesSection = () => {
       </div>
       <p className="text-xs text-muted-foreground mb-4">
         TikTok: capturas de TikTok Studio de @vacilateesto y @peloticadegomave. YouTube: transmisiones del 4to Split en
-        @Vacilateestopodcast. Los lives no se suman a las piezas de arriba.
+        @Vacilateestopodcast. Estos totales se suman en la pestaña Todo unificado.
       </p>
       <div className="grid md:grid-cols-3 gap-3 mb-6">
         <Card title="TikTok" icon={Radio} t={tk} extra />
