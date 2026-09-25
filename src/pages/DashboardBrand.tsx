@@ -1136,7 +1136,7 @@ const MetricoolDashboard = ({
         </div>
       )}
       {showInfluencers && (
-        <div className="mb-6 inline-flex rounded-full border border-border p-1 bg-card">
+        <div className="mb-6 flex max-w-full overflow-x-auto sm:inline-flex rounded-full border border-border p-1 bg-card">
           {([
             { k: "general", label: "General" },
             { k: "equipos", label: "Equipos y chivos" },
@@ -1148,7 +1148,7 @@ const MetricoolDashboard = ({
               key={t.k}
               onClick={() => setMainTab(t.k)}
               className={cn(
-                "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors",
+                "shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-colors",
                 mainTab === t.k ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -1190,9 +1190,9 @@ const MetricoolDashboard = ({
 
       {/* Selector de mes */}
 
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
-        <div className="flex items-center gap-2">
+      <div className="mb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <p className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
+        <div className="flex flex-wrap items-center gap-2">
           {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
           {lastRefreshed && (
             <span
