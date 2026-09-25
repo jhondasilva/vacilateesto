@@ -384,7 +384,10 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         brandLogoSrc: logoPeloticaDeGoma,
         lives: PELOTICA_LIVES,
         reportAnalysis: {
-          result: `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones.`,
+          result: (() => {
+            const lvViews = PELOTICA_LIVES.reduce((s, l) => s + (l.views ?? 0), 0);
+            return `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones. Sumando ${PELOTICA_LIVES.length} lives (${fmt(lvViews)} vistas), el total unificado llega a ${fmt(totalsPdf.views + lvViews)} vistas. Criterios: equipos con todos sus posts; chivos e influencers con #PeloticaDeGoma, #AmoAJuga o mención a @peloticadegomave.`;
+          })(),
           visibility: leadingPlatform
             ? `${PLATFORM_META[leadingPlatform.key].label} lidera con ${fmt(leadingPlatform.views)} vistas en ${fmt(leadingPlatform.pieces)} piezas.`
             : "No hay publicaciones válidas para identificar una plataforma líder.",
