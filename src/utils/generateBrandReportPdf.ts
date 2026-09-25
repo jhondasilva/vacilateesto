@@ -232,8 +232,9 @@ export const generateBrandReportPdf = async ({
   doc.setFontSize(9);
   doc.text(`${periodLabel.toUpperCase()}  ·  VACÍLATE ESTO 2026`, cx + 22, cy + 68);
 
-  doc.setFontSize(40);
-  doc.text(brandName.toUpperCase().slice(0, 18), cx + 22, cy + 120);
+  const coverTitle = brandName.toUpperCase().split(" · ")[0].slice(0, 18);
+  doc.setFontSize(coverTitle.length > 14 ? 34 : 40);
+  doc.text(coverTitle, cx + 22, cy + 120);
   doc.setTextColor(...ACCENT);
   doc.setFontSize(28);
   doc.text("× VACÍLATE ESTO", cx + 22, cy + 156);
