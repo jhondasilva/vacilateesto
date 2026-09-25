@@ -372,7 +372,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       const leadingPlatform = platformRows[0];
       const leadingSource = sourceRows[0];
 
-      await generateBrandReportPdf({
+      const pdf = await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",
         scopeLabel:
