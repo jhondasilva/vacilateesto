@@ -637,5 +637,18 @@ export const generateBrandReportPdf = async ({
 
   const safeBrand = brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const safePeriod = periodLabel.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  doc.save(`informe-${safeBrand}-${safePeriod}.pdf`);
+  const fileName = `informe-${safeBrand}-${safePeriod}.pdf`;
+  const blob = doc.output("blob");
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  a.rel = "noopener";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  // Se conserva la URL para poder abrir el PDF manualmente si el navegador
+  // (o la vista previa embebida) bloquea la descarga automática.
+  setTimeout(() => URL.revokeObjectURL(url), 10 * 60 * 1000);
+  return { url, fileName };
 };

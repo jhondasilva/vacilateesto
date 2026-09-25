@@ -372,7 +372,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       const leadingPlatform = platformRows[0];
       const leadingSource = sourceRows[0];
 
-      await generateBrandReportPdf({
+      const pdf = await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",
         scopeLabel:
@@ -416,7 +416,11 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           })),
         },
       });
-      toast.success("Informe unificado descargado · Acumulado 2026");
+      toast.success("Informe unificado listo · Acumulado 2026", {
+        description: "Si no se descargó solo, toca «Abrir PDF».",
+        duration: 20000,
+        action: { label: "Abrir PDF", onClick: () => window.open(pdf.url, "_blank", "noopener") },
+      });
     } catch (error) {
       console.error("No se pudo generar el informe PDF unificado", error);
       toast.error("No se pudo descargar el informe. Intenta de nuevo.");
