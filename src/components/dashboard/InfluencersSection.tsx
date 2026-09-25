@@ -386,45 +386,6 @@ export const InfluencersSection = ({
             </section>
           )}
 
-          {crossPlatform && (
-            <section className="mb-8 border-y border-border py-5">
-              <h3 className="text-lg font-black mb-3">Mismo contenido en Instagram y TikTok</h3>
-              {crossPlatform.both.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Ningún creador replicó su pieza en TikTok.</p>
-              ) : (
-                <div className="overflow-x-auto rounded-2xl border border-border bg-card mb-3">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-[10px] uppercase tracking-wider text-muted-foreground border-b border-border">
-                        <th className="p-3">Creador</th>
-                        <th className="p-3">Piezas IG</th>
-                        <th className="p-3">Views IG</th>
-                        <th className="p-3">Piezas TikTok</th>
-                        <th className="p-3">Views TikTok</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {crossPlatform.both.map((c) => (
-                        <tr key={c.handle} className="border-b border-border/50 last:border-0">
-                          <td className="p-3 font-bold">{c.handle}</td>
-                          <td className="p-3">{c.ig}</td>
-                          <td className="p-3">{fmt(c.igViews)}</td>
-                          <td className="p-3">{c.tt}</td>
-                          <td className="p-3">{fmt(c.ttViews)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-              {crossPlatform.igOnly.length > 0 && (
-                <p className="text-xs text-muted-foreground">
-                  Solo en Instagram: {crossPlatform.igOnly.join(", ")}
-                </p>
-              )}
-            </section>
-          )}
-
           <section className="mb-8">
             <h3 className="text-lg font-black mb-3">Top creadores</h3>
             <div className="overflow-x-auto rounded-2xl border border-border bg-card">
