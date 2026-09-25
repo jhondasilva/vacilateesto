@@ -252,30 +252,6 @@ export const InfluencersSection = ({
     return { leader, azuaje, interactions, avgViews, azuajeShare };
   }, [creators, filtered.length, isTeams, totals]);
 
-  // Influencers: quién publicó la misma pieza en Instagram y en TikTok.
-  const crossPlatform = useMemo(() => {
-    if (isTeams) return null;
-    const by = new Map<string, { ig: InfluencerPost[]; tt: InfluencerPost[] }>();
-    for (const p of posts) {
-      const h = (p.author_handle ?? "").toLowerCase().replace(/^@?/, "@");
-      const e = by.get(h) ?? { ig: [], tt: [] };
-      (p.platform === "tiktok" ? e.tt : e.ig).push(p);
-      by.set(h, e);
-    }
-    const both = [...by.entries()].filter(([, e]) => e.ig.length && e.tt.length);
-    const igOnly = [...by.entries()].filter(([, e]) => e.ig.length && !e.tt.length).map(([h]) => h);
-    return {
-      both: both.map(([h, e]) => ({
-        handle: h,
-        ig: e.ig.length,
-        tt: e.tt.length,
-        igViews: e.ig.reduce((s, p) => s + Math.max(0, p.views ?? 0), 0),
-        ttViews: e.tt.reduce((s, p) => s + Math.max(0, p.views ?? 0), 0),
-      })).sort((a, b) => b.igViews + b.ttViews - (a.igViews + a.ttViews)),
-      igOnly,
-    };
-  }, [posts, isTeams]);
-
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
@@ -407,45 +383,6 @@ export const InfluencersSection = ({
                   </p>
                 </div>
               </div>
-            </section>
-          )}
-
-          {crossPlatform && (
-            <section className="mb-8 border-y border-border py-5">
-              <h3 className="text-lg font-black mb-3">Mismo contenido en Instagram y TikTok</h3>
-              {crossPlatform.both.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Ningún creador replicó su pieza en TikTok.</p>
-              ) : (
-                <div className="overflow-x-auto rounded-2xl border border-border bg-card mb-3">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-[10px] uppercase tracking-wider text-muted-foreground border-b border-border">
-                        <th className="p-3">Creador</th>
-                        <th className="p-3">Piezas IG</th>
-                        <th className="p-3">Views IG</th>
-                        <th className="p-3">Piezas TikTok</th>
-                        <th className="p-3">Views TikTok</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {crossPlatform.both.map((c) => (
-                        <tr key={c.handle} className="border-b border-border/50 last:border-0">
-                          <td className="p-3 font-bold">{c.handle}</td>
-                          <td className="p-3">{c.ig}</td>
-                          <td className="p-3">{fmt(c.igViews)}</td>
-                          <td className="p-3">{c.tt}</td>
-                          <td className="p-3">{fmt(c.ttViews)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-              {crossPlatform.igOnly.length > 0 && (
-                <p className="text-xs text-muted-foreground">
-                  Solo en Instagram: {crossPlatform.igOnly.join(", ")}
-                </p>
-              )}
             </section>
           )}
 
