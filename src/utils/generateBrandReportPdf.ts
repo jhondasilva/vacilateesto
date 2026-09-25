@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import { TIKTOK_LIVES } from "@/components/dashboard/TikTokLivesSection";
+import type { LiveRow } from "@/components/dashboard/PeloticaLivesSection";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
@@ -31,6 +32,7 @@ type Args = {
   to: Date;
   data: MentionsResponse;
   includeTikTokLives?: boolean;
+  lives?: LiveRow[];
   brandLogoSrc?: string;
   reportAnalysis?: {
     result: string;
@@ -100,6 +102,7 @@ export const generateBrandReportPdf = async ({
   to,
   data,
   includeTikTokLives = false,
+  lives,
   brandLogoSrc,
   reportAnalysis,
 }: Args) => {
@@ -108,7 +111,7 @@ export const generateBrandReportPdf = async ({
   const H = doc.internal.pageSize.getHeight();
   const M = 36;
   const ACCENT = hexToRgb(brandColor);
-  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0);
+  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0) + (lives?.length ? 1 : 0);
 
   let logo: string | null = null;
   try {
@@ -413,6 +416,66 @@ export const generateBrandReportPdf = async ({
       doc.setFontSize(13);
       const lines = doc.splitTextToSize(clean(item.text), W - M * 2 - 36);
       doc.text(lines, M + 18, y + 53, { lineHeightFactor: 1.35 });
+    });
+    footer(nextPage);
+    nextPage += 1;
+  }
+
+  /* ───────── PÁGINA OPCIONAL · LIVES TIKTOK + YOUTUBE ───────── */
+  if (lives?.length) {
+    const sum = (rows: LiveRow[]) => rows.reduce((a, l) => ({ n: a.n + 1, min: a.min + l.minutes, views: a.views + l.views, fol: a.fol + (l.followers ?? 0), don: a.don + (l.donors ?? 0) }), { n: 0, min: 0, views: 0, fol: 0, don: 0 });
+    const tk = sum(lives.filter((l) => l.platform === "tiktok"));
+    const yt = sum(lives.filter((l) => l.platform === "youtube"));
+    const all = sum(lives);
+    const hrs = (m: number) => `${Math.floor(m / 60)}h ${m % 60}m`;
+    doc.addPage();
+    header(nextPage);
+    stickerPill(M, 56, 150, 20, "LIVES", PINK, WHITE);
+    doc.setTextColor(...INK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.text("TIKTOK + YOUTUBE", M, 112);
+    doc.setTextColor(...MUT);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("TikTok: TikTok Studio (@vacilateesto, @peloticadegomave) · YouTube: @Vacilateestopodcast", M, 130);
+    const cards = [
+      { label: "TIKTOK", t: tk, sub: `${fmtNum(tk.fol)} seguidores nuevos · ${tk.don} donadores`, shadow: PINK },
+      { label: "YOUTUBE", t: yt, sub: "Transmisiones del 4to Split", shadow: CYAN },
+      { label: "TOTAL LIVES", t: all, sub: "TikTok + YouTube", shadow: ACCENT },
+    ];
+    const cw3 = (W - M * 2 - 24) / 3;
+    cards.forEach((c, i) => {
+      const x = M + i * (cw3 + 12);
+      const y = 150;
+      stickerCard(x, y, cw3, 110, c.shadow);
+      doc.setTextColor(...MUT); doc.setFont("helvetica", "bold"); doc.setFontSize(7.5);
+      doc.text(c.label, x + 12, y + 20);
+      doc.setTextColor(...INK); doc.setFontSize(24);
+      doc.text(fmtNum(c.t.views), x + 12, y + 54);
+      doc.setFontSize(8.5);
+      doc.text(`${c.t.n} lives · ${hrs(c.t.min)} al aire`, x + 12, y + 74);
+      doc.setTextColor(...MUT); doc.setFont("helvetica", "normal"); doc.setFontSize(7);
+      doc.text(c.sub, x + 12, y + 92, { maxWidth: cw3 - 20 });
+    });
+    autoTable(doc, {
+      ...tableStyles,
+      startY: 290,
+      head: [["Fecha", "Red", "Cuenta", "Live", "Duración", "Vistas", "Seg.", "Don."]],
+      body: lives.map((l) => [
+        l.date.split("-").reverse().slice(0, 2).join("/"),
+        l.platform === "tiktok" ? "TikTok" : "YouTube",
+        l.account,
+        clean(l.title),
+        hrs(l.minutes),
+        fmtNum(l.views),
+        l.followers == null ? "-" : String(l.followers),
+        l.donors == null ? "-" : String(l.donors),
+      ]),
+      foot: [["", "", "", "TOTAL", hrs(all.min), fmtNum(all.views), String(all.fol), String(all.don)]],
+      footStyles: { fillColor: INK, textColor: WHITE, fontStyle: "bold", fontSize: 9 },
+      headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
+      bodyStyles: { fontSize: 8.5, cellPadding: 5, textColor: INK },
     });
     footer(nextPage);
     nextPage += 1;
