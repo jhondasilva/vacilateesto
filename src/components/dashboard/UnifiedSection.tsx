@@ -199,11 +199,15 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       if (INCLUDED_EXTERNAL_IDS.has(external)) {
         valid = true;
         source = "equipos";
+      } else if (category === "oficial") {
+        // @peloticadegomave: todos sus posts; otras cuentas oficiales solo con criterio
+        valid = handle === "@peloticadegomave" || hasCriteria;
+        source = "general";
       } else if (category === "equipo") {
         valid = true;
         source = "equipos";
-      } else if (category === "chivo") {
-        valid = hasCriteria || mencionaEquipo;
+      } else if (category === "chivo" || category === "super-chivo") {
+        valid = hasCriteria || (category === "chivo" && mencionaEquipo);
         source = "equipos";
       } else {
         valid =
