@@ -22,7 +22,6 @@ export const PELOTICA_TIKTOK_LIVES: LiveRow[] = [
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma", date: "2026-09-19", minutes: 198, views: 18000, followers: 182, donors: 10, comments: null },
   { platform: "tiktok", account: "@peloticadegomave", title: "Live Pelotica de Goma", date: "2026-09-20", minutes: 214, views: 2000, followers: 34, donors: null, comments: 143 },
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma", date: "2026-09-20", minutes: 222, views: 73000, followers: 619, donors: 27, comments: null },
-  { platform: "tiktok", account: "@peloticadegomave", title: "Live Pelotica de Goma · 7ma Jornada", date: "2026-09-26", minutes: 139, views: 2000, followers: 40, donors: 2, comments: null },
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma · 7ma Jornada", date: "2026-09-26", minutes: 223, views: 26000, followers: 209, donors: 4, comments: null },
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma · Gran Final", date: "2026-09-27", minutes: 388, views: 31000, followers: 258, donors: 8, comments: null },
 ];
