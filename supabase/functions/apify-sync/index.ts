@@ -218,9 +218,21 @@ Deno.serve(async (req) => {
       { headers: addCors({ "Content-Type": "application/json" }) },
     );
   } catch (e: any) {
+    const msg = e?.message || String(e);
+    if (msg.includes("Monthly usage hard limit") || msg.includes("platform-feature-disabled")) {
+      console.warn("apify-sync: Apify monthly limit reached");
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          code: "apify_limit",
+          error: "Se alcanzó el límite mensual de uso de Apify. Sube el límite en tu cuenta de Apify o espera al reinicio del ciclo. Los datos ya cargados siguen disponibles.",
+        }),
+        { status: 200, headers: addCors({ "Content-Type": "application/json" }) },
+      );
+    }
     console.error("apify-sync error", e);
     return new Response(
-      JSON.stringify({ ok: false, error: e?.message || String(e) }),
+      JSON.stringify({ ok: false, error: msg }),
       { status: 500, headers: addCors({ "Content-Type": "application/json" }) },
     );
   }
