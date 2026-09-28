@@ -22,21 +22,26 @@ export const PELOTICA_TIKTOK_LIVES: LiveRow[] = [
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma", date: "2026-09-19", minutes: 198, views: 18000, followers: 182, donors: 10, comments: null },
   { platform: "tiktok", account: "@peloticadegomave", title: "Live Pelotica de Goma", date: "2026-09-20", minutes: 214, views: 2000, followers: 34, donors: null, comments: 143 },
   { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma", date: "2026-09-20", minutes: 222, views: 73000, followers: 619, donors: 27, comments: null },
+  { platform: "tiktok", account: "@peloticadegomave", title: "Live Pelotica de Goma · 7ma Jornada", date: "2026-09-26", minutes: 139, views: 2000, followers: 40, donors: 2, comments: null },
+  { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma · 7ma Jornada", date: "2026-09-26", minutes: 223, views: 26000, followers: 209, donors: 4, comments: null },
+  { platform: "tiktok", account: "@vacilateesto", title: "Live Pelotica de Goma · Gran Final", date: "2026-09-27", minutes: 388, views: 31000, followers: 258, donors: 8, comments: null },
 ];
 
-// Lives YouTube — transmisiones del 4to Split en @Vacilateestopodcast (vistas al 25 sep 2026).
+// Lives YouTube — transmisiones del 4to Split en @Vacilateestopodcast (vistas al 28 sep 2026, API de YouTube).
 const yt = (id: string, title: string, date: string, seconds: number, views: number): LiveRow => ({
   platform: "youtube", account: "@Vacilateestopodcast", title, date,
   minutes: Math.round(seconds / 60), views, followers: null, donors: null, comments: null,
   url: `https://www.youtube.com/watch?v=${id}`,
 });
 export const PELOTICA_YOUTUBE_LIVES: LiveRow[] = [
-  yt("KNQ-7-Xwj1s", "4to Split · 3era Jornada", "2026-09-13", 6480, 1614),
-  yt("mux_H2hkRFk", "4to Split · 3era Jornada", "2026-09-13", 6396, 1501),
-  yt("ftjVZQhzDWU", "4to Split · 3era Jornada", "2026-09-13", 13700, 3495),
-  yt("FaEN9YPHYbM", "4to Split · 3era Jornada", "2026-09-19", 2759, 842),
-  yt("cIJWiz3-Uik", "4to Split · 5ta Jornada", "2026-09-19", 8063, 1823),
-  yt("dUawp5IHSkE", "4to Split · 6ta Jornada", "2026-09-20", 14684, 3790),
+  yt("KNQ-7-Xwj1s", "4to Split · 3era Jornada", "2026-09-12", 6480, 1616),
+  yt("mux_H2hkRFk", "4to Split · 3era Jornada", "2026-09-12", 6396, 1505),
+  yt("ftjVZQhzDWU", "4to Split · 4ta Jornada", "2026-09-13", 13700, 3510),
+  yt("FaEN9YPHYbM", "4to Split · 3era Jornada", "2026-09-19", 2759, 854),
+  yt("cIJWiz3-Uik", "4to Split · 5ta Jornada", "2026-09-19", 8063, 1844),
+  yt("dUawp5IHSkE", "4to Split · 6ta Jornada", "2026-09-20", 14684, 3864),
+  yt("Wpo2onz9Trg", "4to Split · 7ma Jornada", "2026-09-26", 14179, 2256),
+  yt("i5dAKQtDBgs", "4to Split · 8va Jornada · Gran Final", "2026-09-27", 22025, 5063),
 ];
 
 export const PELOTICA_LIVES: LiveRow[] = [...PELOTICA_TIKTOK_LIVES, ...PELOTICA_YOUTUBE_LIVES].sort((a, b) =>
