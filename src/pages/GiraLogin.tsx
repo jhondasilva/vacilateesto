@@ -31,20 +31,15 @@ const GiraLogin = () => {
     setSubmitting(true);
     try {
       if (needsSetup) {
-        // Setear contraseña vía edge function admin (valida allowed_users server-side)
-        const { data, error } = await supabase.functions.invoke("admin-set-password", {
-          body: { email, password },
+        // Primera vez: enviar enlace por correo para crear contraseña de forma segura
+        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+          redirectTo: `${window.location.origin}/reset-password`,
         });
-        if (error || (data as { error?: string })?.error) {
-          toast.error((data as { error?: string })?.error ?? error?.message ?? "No se pudo crear");
+        if (error) {
+          toast.error("No se pudo enviar el correo");
           return;
         }
-        const { error: signInErr } = await trySignIn(email, password);
-        if (signInErr) {
-          toast.error(signInErr.message);
-          return;
-        }
-        toast.success("Contraseña creada");
+        toast.success("Te enviamos un enlace a tu correo para crear tu contraseña");
       } else {
         const { error } = await trySignIn(email, password);
         if (error) {
