@@ -12,6 +12,7 @@ import {
   OFFICIAL_AUDIENCE,
   TOP_HASHTAGS,
 } from "@/data/peloticaOfficialAccounts";
+import { SITE_ANALYTICS, GOOGLE_TRENDS } from "@/data/peloticaSiteAnalytics";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
@@ -47,6 +48,7 @@ type Args = {
     conclusion: string;
   };
   officialAccounts?: boolean;
+  siteAnalytics?: boolean;
 };
 
 /* ───────── Identidad gráfica compartida con los Media Kits ───────── */
@@ -114,13 +116,14 @@ export const generateBrandReportPdf = async ({
   brandLogoSrc,
   reportAnalysis,
   officialAccounts = false,
+  siteAnalytics = false,
 }: Args) => {
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 36;
   const ACCENT = hexToRgb(brandColor);
-  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0) + (lives?.length ? 1 : 0) + (officialAccounts ? 1 : 0);
+  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0) + (lives?.length ? 1 : 0) + (officialAccounts ? 1 : 0) + (siteAnalytics ? 1 : 0);
 
   let logo: string | null = null;
   try {
@@ -546,6 +549,55 @@ export const generateBrandReportPdf = async ({
       `Top hashtags IG: ${TOP_HASHTAGS.slice(0, 4).map((h) => `${h.tag.replace(/á/g, "a")} (${fmtNum(h.views)})`).join(" · ")}`,
       `Septiembre concentro ${fmtNum(PELOTICA_OFFICIAL.september.impressions.total)} impresiones (${Math.round((PELOTICA_OFFICIAL.september.impressions.total / o.impressions.total) * 100)}% del ano).`,
     ].forEach((t) => { y += 16; doc.text(clean(t), M, y, { maxWidth: W - M * 2 }); });
+    footer(nextPage);
+    nextPage += 1;
+  }
+
+  /* ───────── PÁGINA OPCIONAL · SITIO WEB + GOOGLE TRENDS ───────── */
+  if (siteAnalytics) {
+    const S = SITE_ANALYTICS;
+    doc.addPage();
+    header(nextPage);
+    stickerPill(M, 56, 190, 20, "SITIO WEB", PINK, WHITE);
+    doc.setTextColor(...INK); doc.setFont("helvetica", "bold"); doc.setFontSize(26);
+    doc.text("ANALITICA DEL SITIO", M, 112);
+    doc.setTextColor(...MUT); doc.setFont("helvetica", "normal"); doc.setFontSize(9);
+    doc.text(S.label, M, 130);
+    const cards = [
+      ["VISITANTES", fmtNum(S.visitors)],
+      ["PAGINAS VISTAS", fmtNum(S.pageviews)],
+      ["PAGINAS / VISITA", "1,90"],
+      ["DESDE MOVILES", "82,7%"],
+    ];
+    const cw4 = (W - M * 2 - 36) / 4;
+    cards.forEach(([l, v], i) => {
+      const x = M + i * (cw4 + 12);
+      stickerCard(x, 150, cw4, 70, i % 2 ? CYAN : PINK);
+      doc.setTextColor(...MUT); doc.setFont("helvetica", "bold"); doc.setFontSize(7.5);
+      doc.text(l, x + 10, 170);
+      doc.setTextColor(...INK); doc.setFontSize(20);
+      doc.text(v, x + 10, 200);
+    });
+    autoTable(doc, {
+      ...tableStyles,
+      startY: 240,
+      head: [S.monthly.map(([m]) => m)],
+      body: [S.monthly.map(([, v]) => fmtNum(v))],
+      headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
+      bodyStyles: { fontSize: 9, cellPadding: 5, textColor: INK },
+    });
+    let y = (doc as any).lastAutoTable.finalY + 22;
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(...MUT);
+    [S.keyReading, S.peaks, `Canales: ${S.channels}`, `Paginas: ${S.pages}`].forEach((t) => {
+      const lines = doc.splitTextToSize(clean(t), W - M * 2);
+      doc.text(lines, M, y); y += lines.length * 12 + 6;
+    });
+    y += 10;
+    doc.setTextColor(...INK); doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+    doc.text("IMPACTO EN GOOGLE TRENDS", M, y); y += 16;
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(...MUT);
+    const g = doc.splitTextToSize(clean(`${GOOGLE_TRENDS.label}. ${GOOGLE_TRENDS.reading}`), W - M * 2);
+    doc.text(g, M, y);
     footer(nextPage);
     nextPage += 1;
   }
