@@ -16,6 +16,7 @@ import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
 import PeloticaOfficialAccounts from "@/components/dashboard/PeloticaOfficialAccounts";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
@@ -853,7 +854,7 @@ const MetricoolDashboard = ({
   const [scope, setScope] = useState<Scope>("brand");
   const showPelotica = PELOTICA_CROSS_BRANDS.has(brand.slug);
   const showInfluencers = brand.slug === "pelotica-de-goma";
-  const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers" | "lives" | "todo">("general");
+  const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers" | "lives" | "web" | "trends" | "todo">("general");
   const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
 
 
@@ -1143,6 +1144,8 @@ const MetricoolDashboard = ({
             { k: "equipos", label: "Equipos y chivos" },
             { k: "influencers", label: "Influencers" },
             { k: "lives", label: "Lives" },
+            { k: "web", label: "Sitio web" },
+            { k: "trends", label: "Google Trends" },
             { k: "todo", label: "Todo unificado" },
           ] as const).map((t) => (
             <button
@@ -1166,6 +1169,8 @@ const MetricoolDashboard = ({
         <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
       )}
       {showInfluencers && mainTab === "lives" && <PeloticaLivesSection />}
+      {showInfluencers && mainTab === "web" && <PeloticaSiteAnalytics part="web" />}
+      {showInfluencers && mainTab === "trends" && <PeloticaSiteAnalytics part="trends" />}
       {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && <PeloticaOfficialAccounts />}

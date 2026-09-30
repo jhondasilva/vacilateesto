@@ -3,12 +3,13 @@ import { SITE_ANALYTICS, GOOGLE_TRENDS as G, loadLiveSiteAnalytics } from "@/dat
 
 const f = (n: number) => n.toLocaleString("es-VE");
 
-const PeloticaSiteAnalytics = () => {
+const PeloticaSiteAnalytics = ({ part = "all" }: { part?: "all" | "web" | "trends" }) => {
   const [S, setS] = useState({ ...SITE_ANALYTICS });
   useEffect(() => { loadLiveSiteAnalytics().then((d) => setS({ ...d })); }, []);
   const max = Math.max(1, ...S.monthly.map(([, v]) => v));
   return (
     <section className="rounded-3xl border border-border bg-card p-6 space-y-6">
+      {part !== "trends" && (<>
       <div>
         <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold">Analítica del sitio · {S.label}</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
@@ -37,7 +38,9 @@ const PeloticaSiteAnalytics = () => {
         <li><b className="text-foreground">Canales:</b> {S.channels}</li>
         <li><b className="text-foreground">Páginas:</b> {S.pages}</li>
       </ul>
-      <div className="border-t border-border pt-4">
+      </>)}
+      {part !== "web" && (
+      <div className={part === "all" ? "border-t border-border pt-4" : ""}>
         <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold">{G.label}</p>
         <div className="flex gap-6 mt-2">
           <div><p className="text-xs text-muted-foreground">Interés promedio · {G.termMain} (azul)</p><p className="text-2xl font-black">{G.avgMain}</p></div>
@@ -46,6 +49,7 @@ const PeloticaSiteAnalytics = () => {
         </div>
         <p className="text-sm text-muted-foreground mt-2">{G.reading}</p>
       </div>
+      )}
     </section>
   );
 };
