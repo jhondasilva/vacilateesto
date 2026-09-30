@@ -1,6 +1,21 @@
 import { PELOTICA_LIVES, sumLives } from "@/components/dashboard/PeloticaLivesSection";
-import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
-import { loadLiveSiteAnalytics } from "@/data/peloticaSiteAnalytics";
+import { loadLiveSiteAnalytics, SITE_ANALYTICS } from "@/data/peloticaSiteAnalytics";
+
+// Total anual de impresiones de las cuentas oficiales según Metricool (1 ene – 29 sep 2026).
+const OFFICIAL_ACCOUNTS_IMPRESSIONS = 13940000;
+
+type ImpRow = { source: string; author: string | null; impressions: number };
+export function impressionBreakdown(rows: ImpRow[], sitePageviews: number) {
+  const isOfficial = (r: ImpRow) => (r.author ?? "").toLowerCase().includes("peloticadegomave");
+  const sum = (f: (r: ImpRow) => boolean) => rows.filter(f).reduce((a, r) => a + r.impressions, 0);
+  const official = Math.max(OFFICIAL_ACCOUNTS_IMPRESSIONS, sum(isOfficial));
+  const generalOther = sum((r) => r.source === "general" && !isOfficial(r));
+  const equipos = sum((r) => r.source === "equipos" && !isOfficial(r));
+  const influencers = sum((r) => r.source === "influencers" && !isOfficial(r)) + generalOther;
+  const lives = sumLives(PELOTICA_LIVES).views;
+  const web = sitePageviews;
+  return { official, equipos, influencers, lives, web, total: official + equipos + influencers + lives + web };
+}
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -291,6 +306,11 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     return { general: agg("general"), equipos: agg("equipos"), influencers: agg("influencers") };
   }, [rows]);
 
+  const [sitePv, setSitePv] = useState(SITE_ANALYTICS.pageviews);
+  useEffect(() => { loadLiveSiteAnalytics().then(() => setSitePv(SITE_ANALYTICS.pageviews)); }, []);
+  const imp = useMemo(() => impressionBreakdown(rows, sitePv), [rows, sitePv]);
+
+
   const conclusions = useMemo(() => {
     if (filtered.length === 0) return null;
     const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
@@ -357,7 +377,10 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         },
         { views: 0, likes: 0, comments: 0, impressions: 0 },
       );
-      if (platform === "all") totalsPdf.impressions += sumLives(PELOTICA_LIVES).views;
+      if (platform === "all") {
+        await loadLiveSiteAnalytics();
+        totalsPdf.impressions = impressionBreakdown(rows, SITE_ANALYTICS.pageviews).total;
+      }
       const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
         .map((key) => {
           const list = source.filter((r) => r.platform === key);
@@ -535,8 +558,10 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               },
               {
                 label: "Impresiones",
-                value: fmt(totals.impressions + (platform === "all" ? sumLives(PELOTICA_LIVES).views : 0)),
-                hint: "Todas las fuentes + lives · si la red no da impresiones, se usan las vistas",
+                value: fmt(platform === "all" ? imp.total : totals.impressions),
+                hint: platform === "all"
+                  ? "Cuentas oficiales (Metricool) + equipos y chivos + influencers + lives + páginas vistas del sitio"
+                  : "Si la red no da impresiones, se usan las vistas",
               },
               ...(platform === "all"
                 ? [
@@ -674,7 +699,26 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           );
         })()}
       </section>
-      <PeloticaSiteAnalytics />
+      {platform === "all" && (
+        <section className="rounded-3xl border border-border bg-card p-6">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Impresiones · de dónde sale el total</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+            {[
+              ["Cuentas oficiales", imp.official],
+              ["Equipos y chivos", imp.equipos],
+              ["Influencers", imp.influencers],
+              ["Lives", imp.lives],
+              ["Sitio web (páginas vistas)", imp.web],
+              ["Total", imp.total],
+            ].map(([l, v]) => (
+              <div key={l as string}><p className="text-xs text-muted-foreground">{l}</p><p className="text-2xl font-black">{(v as number).toLocaleString("es-VE")}</p></div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            Cuentas oficiales: se usa el total anual de Metricool ({OFFICIAL_ACCOUNTS_IMPRESSIONS.toLocaleString("es-VE")}) o la suma de sus publicaciones, lo que sea mayor. En las demás fuentes, si la red no da impresiones, se usan las vistas. Cada publicación cuenta una sola vez.
+          </p>
+        </section>
+      )}
     </div>
   );
 };
