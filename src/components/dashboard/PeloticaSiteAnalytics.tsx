@@ -1,9 +1,12 @@
-import { SITE_ANALYTICS as S, GOOGLE_TRENDS as G } from "@/data/peloticaSiteAnalytics";
+import { useEffect, useState } from "react";
+import { SITE_ANALYTICS, GOOGLE_TRENDS as G, loadLiveSiteAnalytics } from "@/data/peloticaSiteAnalytics";
 
 const f = (n: number) => n.toLocaleString("es-VE");
 
 const PeloticaSiteAnalytics = () => {
-  const max = Math.max(...S.monthly.map(([, v]) => v));
+  const [S, setS] = useState({ ...SITE_ANALYTICS });
+  useEffect(() => { loadLiveSiteAnalytics().then((d) => setS({ ...d })); }, []);
+  const max = Math.max(1, ...S.monthly.map(([, v]) => v));
   return (
     <section className="rounded-3xl border border-border bg-card p-6 space-y-6">
       <div>
