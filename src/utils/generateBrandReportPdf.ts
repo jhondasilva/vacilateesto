@@ -5,6 +5,13 @@ import { es } from "date-fns/locale";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import { TIKTOK_LIVES } from "@/components/dashboard/TikTokLivesSection";
 import type { LiveRow } from "@/components/dashboard/PeloticaLivesSection";
+import {
+  PELOTICA_OFFICIAL,
+  OFFICIAL_PLATFORMS,
+  FOLLOWER_GROWTH_YEAR,
+  OFFICIAL_AUDIENCE,
+  TOP_HASHTAGS,
+} from "@/data/peloticaOfficialAccounts";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
@@ -39,6 +46,7 @@ type Args = {
     visibility: string;
     conclusion: string;
   };
+  officialAccounts?: boolean;
 };
 
 /* ───────── Identidad gráfica compartida con los Media Kits ───────── */
@@ -105,13 +113,14 @@ export const generateBrandReportPdf = async ({
   lives,
   brandLogoSrc,
   reportAnalysis,
+  officialAccounts = false,
 }: Args) => {
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 36;
   const ACCENT = hexToRgb(brandColor);
-  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0) + (lives?.length ? 1 : 0);
+  const PAGES = 4 + (includeTikTokLives ? 1 : 0) + (reportAnalysis ? 1 : 0) + (lives?.length ? 1 : 0) + (officialAccounts ? 1 : 0);
 
   let logo: string | null = null;
   try {
@@ -478,6 +487,65 @@ export const generateBrandReportPdf = async ({
       headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
       bodyStyles: { fontSize: 8.5, cellPadding: 5, textColor: INK },
     });
+    footer(nextPage);
+    nextPage += 1;
+  }
+
+  /* ───────── PÁGINA OPCIONAL · CUENTAS OFICIALES ───────── */
+  if (officialAccounts) {
+    const o = PELOTICA_OFFICIAL.year;
+    doc.addPage();
+    header(nextPage);
+    stickerPill(M, 56, 190, 20, "CUENTAS OFICIALES", PINK, WHITE);
+    doc.setTextColor(...INK); doc.setFont("helvetica", "bold"); doc.setFontSize(26);
+    doc.text("@PELOTICADEGOMAVE", M, 112);
+    doc.setTextColor(...MUT); doc.setFont("helvetica", "normal"); doc.setFontSize(9);
+    doc.text(`Metricool · ${o.label} · Solo cuentas propias, bloque aparte del total unificado`, M, 130);
+    const cards = [
+      { label: "SEGUIDORES", m: o.followers, shadow: PINK },
+      { label: "IMPRESIONES", m: o.impressions, shadow: CYAN },
+      { label: "INTERACCIONES", m: o.interactions, shadow: ACCENT },
+      { label: "PUBLICACIONES", m: o.publications, shadow: PINK },
+    ];
+    const cw4 = (W - M * 2 - 36) / 4;
+    cards.forEach((c, i) => {
+      const x = M + i * (cw4 + 12);
+      stickerCard(x, 150, cw4, 84, c.shadow);
+      doc.setTextColor(...MUT); doc.setFont("helvetica", "bold"); doc.setFontSize(7.5);
+      doc.text(c.label, x + 10, 170);
+      doc.setTextColor(...INK); doc.setFontSize(20);
+      doc.text(fmtNum(c.m.total), x + 10, 200);
+      doc.setFontSize(8); doc.setTextColor(...PINK);
+      doc.text(`${c.m.change} vs. periodo anterior`, x + 10, 220);
+    });
+    autoTable(doc, {
+      ...tableStyles,
+      startY: 256,
+      head: [["Red", "Seguidores", "Crec. año", "Impresiones", "Interacciones", "Publicaciones"]],
+      body: OFFICIAL_PLATFORMS.map((p) => [
+        p.label,
+        fmtNum(o.followers.by[p.key]),
+        FOLLOWER_GROWTH_YEAR[p.key],
+        fmtNum(o.impressions.by[p.key]),
+        fmtNum(o.interactions.by[p.key]),
+        String(o.publications.by[p.key]),
+      ]),
+      headStyles: { ...tableStyles.headStyles, fillColor: ACCENT },
+      bodyStyles: { fontSize: 9, cellPadding: 5, textColor: INK },
+    });
+    const aud = (rows: [string, number][]) => rows.slice(0, 3).map(([n, v]) => `${n} ${v}%`).join(" · ");
+    let y = (doc as any).lastAutoTable.finalY + 26;
+    doc.setTextColor(...INK); doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+    doc.text("PUBLICO Y HASHTAGS", M, y);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(...MUT);
+    [
+      `Instagram: ${aud(OFFICIAL_AUDIENCE.instagram)}`,
+      `Ciudades IG: ${aud(OFFICIAL_AUDIENCE.instagramCities)}`,
+      `Facebook: ${aud(OFFICIAL_AUDIENCE.facebook)}`,
+      `YouTube: ${aud(OFFICIAL_AUDIENCE.youtube)}`,
+      `Top hashtags IG: ${TOP_HASHTAGS.slice(0, 4).map((h) => `${h.tag.replace(/á/g, "a")} (${fmtNum(h.views)})`).join(" · ")}`,
+      `Septiembre concentro ${fmtNum(PELOTICA_OFFICIAL.september.impressions.total)} impresiones (${Math.round((PELOTICA_OFFICIAL.september.impressions.total / o.impressions.total) * 100)}% del ano).`,
+    ].forEach((t) => { y += 16; doc.text(clean(t), M, y, { maxWidth: W - M * 2 }); });
     footer(nextPage);
     nextPage += 1;
   }

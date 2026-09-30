@@ -387,6 +387,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         to: new Date(),
         brandLogoSrc: logoPeloticaDeGoma,
         lives: PELOTICA_LIVES,
+        officialAccounts: true,
         reportAnalysis: {
           result: (() => {
             const lvViews = PELOTICA_LIVES.reduce((s, l) => s + (l.views ?? 0), 0);
