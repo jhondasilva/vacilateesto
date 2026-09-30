@@ -16,6 +16,7 @@ import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import PeloticaOfficialAccounts from "@/components/dashboard/PeloticaOfficialAccounts";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
@@ -1167,6 +1168,7 @@ const MetricoolDashboard = ({
       {showInfluencers && mainTab === "lives" && <PeloticaLivesSection />}
       {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
 
+      {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && <PeloticaOfficialAccounts />}
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
         <div className="mb-6 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 flex gap-3">
           <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
