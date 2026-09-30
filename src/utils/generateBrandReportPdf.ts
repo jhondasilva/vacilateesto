@@ -366,25 +366,7 @@ export const generateBrandReportPdf = async ({
     doc.text(k.sub, x + 14, y + 84);
   });
 
-  const reachY = 150 + 2 * (sh + 18) + 20;
-  stickerCard(M, reachY, W - M * 2, 66, ACCENT);
-  doc.setTextColor(...MUT);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(7.5);
-  doc.text("ALCANCE ESTIMADO", M + 14, reachY + 22);
-  doc.setTextColor(...INK);
-  doc.setFontSize(26);
-  doc.text("5.4M personas", M + 14, reachY + 50);
-  doc.setTextColor(...MUT);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  doc.text(
-    "unicas (estimado) · calculado sobre las vistas unificadas sin contar personas repetidas · no incluye lives",
-    M + 150,
-    reachY + 46,
-  );
-
-  const distY = reachY + 66 + 24;
+  const distY = 150 + 2 * (sh + 18) + 30;
   stickerPill(M, distY - 16, 140, 20, "DISTRIBUCIÓN POR RED", CYAN, INK);
   autoTable(doc, { ...tableStyles, startY: distY + 20, head: [["Red", "Publicaciones", "Views", "Likes", "Comentarios"]], body: platformRows });
   footer(2);
