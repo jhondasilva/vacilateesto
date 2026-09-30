@@ -1,5 +1,6 @@
 import { PELOTICA_LIVES, sumLives } from "@/components/dashboard/PeloticaLivesSection";
 import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
+import { loadLiveSiteAnalytics } from "@/data/peloticaSiteAnalytics";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -379,6 +380,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       const leadingPlatform = platformRows[0];
       const leadingSource = sourceRows[0];
 
+      await loadLiveSiteAnalytics();
       const pdf = await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",

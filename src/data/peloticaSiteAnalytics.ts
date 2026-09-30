@@ -1,5 +1,59 @@
-// Analítica del sitio web de Pelotica de Goma y Google Trends (datos entregados por el equipo, al 30/09/2026).
+// Analítica del sitio web de Pelotica de Goma. Valores iniciales = respaldo (captura al 30/09/2026);
+// loadLiveSiteAnalytics() los reemplaza con el contador real del sitio (función site-analytics-summary).
+export const SITE_ANALYTICS_URL = "https://ondsdpljrnqhaosknxct.supabase.co/functions/v1/site-analytics-summary";
+
+const MES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+const fmt = (n: number) => n.toLocaleString("es-VE");
+const fecha = (iso: string, withYear = false) => {
+  const [y, m, d] = iso.split("-").map(Number);
+  const s = `${d} de ${["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][m - 1]}`;
+  return withYear ? `${s} de ${y}` : s;
+};
+
+let pending: Promise<typeof SITE_ANALYTICS> | null = null;
+let loadedAt = 0;
+
+export function loadLiveSiteAnalytics(): Promise<typeof SITE_ANALYTICS> {
+  if (pending && Date.now() - loadedAt < 10 * 60 * 1000) return pending;
+  loadedAt = Date.now();
+  pending = (async () => {
+    try {
+      const r = await fetch(SITE_ANALYTICS_URL);
+      if (!r.ok) throw new Error(String(r.status));
+      const d = await r.json();
+      const monthly: [string, number][] = (d.visitantes_por_mes || []).map((x: any) => [MES[Number(x.mes.slice(5, 7)) - 1], x.visitantes]);
+      const sorted = [...monthly].sort((a, b) => b[1] - a[1]);
+      const top2 = sorted.slice(0, 2);
+      const top2sum = top2.reduce((s, x) => s + x[1], 0);
+      const totalMonthly = monthly.reduce((s, x) => s + x[1], 0) || 1;
+      const dias = (d.top_dias || []).slice(0, 5).map((x: any) => `${fecha(x.fecha)} (${fmt(x.visitantes)})`);
+      const orig = (d.top_origenes || []).map((x: any) => `${x.origen} ${fmt(x.visitas)}`);
+      const pags = (d.top_paginas || []).slice(0, 8).map((x: any) => (x.pagina === "/" ? "Inicio" : x.pagina) + ` (${fmt(x.vistas)})`);
+      Object.assign(SITE_ANALYTICS, {
+        label: `${fecha(d.rango.from, true)} al ${fecha(d.rango.to, true)} · en vivo`,
+        visitors: d.visitantes_unicos,
+        pageviews: d.paginas_vistas,
+        pagesPerVisit: d.paginas_por_visita,
+        mobilePct: d.porcentaje_movil,
+        monthly,
+        keyReading: top2.length === 2
+          ? `${top2[0][0]} y ${top2[1][0]} concentraron ${fmt(top2sum)} visitantes, el ${((top2sum / totalMonthly) * 100).toLocaleString("es-VE", { maximumFractionDigits: 1 })}% del tráfico del periodo.`
+          : SITE_ANALYTICS.keyReading,
+        peaks: dias.length ? `Días con más visitantes: ${dias.join(", ")}.` : SITE_ANALYTICS.peaks,
+        channels: orig.length ? `Visitas por origen: ${orig.join(" · ")}.` : SITE_ANALYTICS.channels,
+        pages: pags.length ? `Más vistas: ${pags.join(", ")}.` : SITE_ANALYTICS.pages,
+        live: true,
+      });
+    } catch (e) {
+      console.warn("Analítica del sitio: usando datos de respaldo", e);
+    }
+    return SITE_ANALYTICS;
+  })();
+  return pending;
+}
+
 export const SITE_ANALYTICS = {
+  live: false,
   label: "1 de enero al 30 de septiembre de 2026",
   visitors: 12498,
   pageviews: 23795,
