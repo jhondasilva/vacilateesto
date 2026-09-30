@@ -1,4 +1,5 @@
 import { PELOTICA_LIVES, sumLives } from "@/components/dashboard/PeloticaLivesSection";
+import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -355,6 +356,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         },
         { views: 0, likes: 0, comments: 0, impressions: 0 },
       );
+      if (platform === "all") totalsPdf.impressions += sumLives(PELOTICA_LIVES).views;
       const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
         .map((key) => {
           const list = source.filter((r) => r.platform === key);
@@ -389,6 +391,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         brandLogoSrc: logoPeloticaDeGoma,
         lives: PELOTICA_LIVES,
         officialAccounts: true,
+        siteAnalytics: true,
         reportAnalysis: {
           result: (() => {
             const lvViews = PELOTICA_LIVES.reduce((s, l) => s + (l.views ?? 0), 0);
@@ -530,8 +533,8 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               },
               {
                 label: "Impresiones",
-                value: fmt(totals.impressions),
-                hint: "Todas las fuentes · si la red no da impresiones, se usan las vistas",
+                value: fmt(totals.impressions + (platform === "all" ? sumLives(PELOTICA_LIVES).views : 0)),
+                hint: "Todas las fuentes + lives · si la red no da impresiones, se usan las vistas",
               },
             ].map((c) => (
               <div
@@ -660,6 +663,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           );
         })()}
       </section>
+      <PeloticaSiteAnalytics />
     </div>
   );
 };
