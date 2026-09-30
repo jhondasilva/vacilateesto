@@ -37,8 +37,9 @@ const PeloticaSiteAnalytics = () => {
       <div className="border-t border-border pt-4">
         <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold">{G.label}</p>
         <div className="flex gap-6 mt-2">
-          <div><p className="text-xs text-muted-foreground">Interés promedio · Pelotica de Goma</p><p className="text-2xl font-black">{G.avgMain}</p></div>
-          <div><p className="text-xs text-muted-foreground">Término comparado</p><p className="text-2xl font-black">{G.avgCompare}</p></div>
+          <div><p className="text-xs text-muted-foreground">Interés promedio · {G.termMain} (azul)</p><p className="text-2xl font-black">{G.avgMain}</p></div>
+          <div><p className="text-xs text-muted-foreground">Interés promedio · {G.termCompare} (rojo)</p><p className="text-2xl font-black">{G.avgCompare}</p></div>
+          <div><p className="text-xs text-muted-foreground">Interés combinado (ambas válidas)</p><p className="text-2xl font-black">{G.avgCombined}</p></div>
         </div>
         <p className="text-sm text-muted-foreground mt-2">{G.reading}</p>
       </div>

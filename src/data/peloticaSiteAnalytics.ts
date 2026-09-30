@@ -21,8 +21,11 @@ export const SITE_ANALYTICS = {
 
 export const GOOGLE_TRENDS = {
   label: "Google Trends · Venezuela · 2004 a la fecha · Búsqueda web",
+  termMain: "Pelotica de Goma",
+  termCompare: "Pelota de Goma",
   avgMain: 8,
   avgCompare: 3,
+  avgCombined: 11,
   reading:
-    "El interés de búsqueda de Pelotica de Goma (azul) promedia 8 frente a 3 del término comparado (rojo): casi el triple. Tocó su máximo histórico (100) en 2024 y en 2026 volvió a repuntar hasta ~64 con el Split 4, muy por encima de su nivel previo a 2019.",
+    "Ambos términos son válidos: la gente busca la marca como \"Pelotica de Goma\" (azul, promedio 8) y como \"Pelota de Goma\" (rojo, promedio 3). Sumados, el interés promedio es 11. La marca tocó su máximo histórico (100) en 2024 y en 2026 volvió a repuntar hasta ~64 con el Split 4, muy por encima de su nivel previo a 2019.",
 };
