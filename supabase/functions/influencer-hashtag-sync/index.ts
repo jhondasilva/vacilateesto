@@ -156,6 +156,9 @@ Deno.serve(async (req) => {
     const skipProfiles: boolean = body.skipProfiles === true || !!body.importDatasetId;
     const profileLimit: number = Math.min(Number(body.profileLimit) || 100, 200);
 
+    // La búsqueda en Apify puede tardar varios minutos: se ejecuta en segundo
+    // plano y se responde de inmediato para no superar el límite de 150 s.
+    const work = async () => {
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, {
       auth: { persistSession: false },
     });
@@ -545,9 +548,18 @@ Deno.serve(async (req) => {
       upserted += chunk.length;
     }
 
+    console.log("influencer-hashtag-sync done", { found: unique.length, upserted, errors });
+    };
+
+    const task = work().catch((e) => console.error("influencer-hashtag-sync bg error", e));
+    // deno-lint-ignore no-explicit-any
+    const rt = (globalThis as any).EdgeRuntime;
+    if (rt?.waitUntil) rt.waitUntil(task);
+    else await task;
+
     return new Response(
-      JSON.stringify({ ok: true, hashtags, found: unique.length, upserted, errors }),
-      { headers: addCors({ "Content-Type": "application/json" }) },
+      JSON.stringify({ ok: true, started: true, hashtags }),
+      { status: 202, headers: addCors({ "Content-Type": "application/json" }) },
     );
   } catch (e: any) {
     console.error("influencer-hashtag-sync error", e);

@@ -158,13 +158,15 @@ export const InfluencersSection = ({
     const { data, error } = await supabase.functions.invoke("influencer-hashtag-sync", {
       body: { campaignSlug, limit: 100 },
     });
-    setSyncing(false);
-    if (error) {
-      toast.error("No se pudo actualizar");
+    if (error || (data as any)?.ok === false) {
+      setSyncing(false);
+      toast.error("No se pudo iniciar la actualización");
       return;
     }
-    toast.success(`Actualizado · ${(data as any)?.upserted ?? 0} piezas`);
-    void load();
+    toast.success("Búsqueda en curso · los datos se actualizarán en unos minutos");
+    // La búsqueda corre en segundo plano; recargamos a los 2 y 5 minutos.
+    setTimeout(() => void load(), 120_000);
+    setTimeout(() => { void load(); setSyncing(false); }, 300_000);
   };
 
   const filtered = useMemo(
