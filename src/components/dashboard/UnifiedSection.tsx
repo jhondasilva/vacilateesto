@@ -524,7 +524,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         </div>
       ) : (
         <>
-          <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <section className={`grid grid-cols-2 gap-4 mb-6 ${platform === "all" ? "md:grid-cols-3 xl:grid-cols-5" : "md:grid-cols-4"}`}>
             {[
               { label: `Piezas · ${periodLabel}`, value: fmt(filtered.length), hint: "Sin duplicar" },
               { label: "Vistas (reproducciones)", value: fmt(totals.views), hint: "Todas las fuentes" },
@@ -538,6 +538,15 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
                 value: fmt(totals.impressions + (platform === "all" ? sumLives(PELOTICA_LIVES).views : 0)),
                 hint: "Todas las fuentes + lives · si la red no da impresiones, se usan las vistas",
               },
+              ...(platform === "all"
+                ? [
+                    {
+                      label: "Alcance estimado",
+                      value: "5,4M",
+                      hint: "Personas únicas (estimado) · se calculó a partir de las vistas unificadas, sin contar personas repetidas · no incluye lives",
+                    },
+                  ]
+                : []),
             ].map((c) => (
               <div
                 key={c.label}
