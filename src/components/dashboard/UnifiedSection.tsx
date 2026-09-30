@@ -173,7 +173,8 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         likes: Math.max(0, p.metrics?.likes ?? p.metrics?.reactions ?? 0),
         comments: Math.max(0, p.metrics?.comments ?? 0),
         shares: Math.max(0, p.metrics?.shares ?? 0),
-        impressions: Math.max(0, p.metrics?.impressions ?? 0),
+        // Si la red no reporta impresiones (TikTok, YouTube, reels), cada vista cuenta como mínimo una impresión.
+        impressions: Math.max(p.metrics?.impressions ?? 0, p.metrics?.views ?? 0, 0),
       });
     }
 
@@ -235,7 +236,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         likes: Math.max(0, p.likes ?? 0),
         comments: Math.max(0, p.comments ?? 0),
         shares: Math.max(0, p.shares ?? 0),
-        impressions: 0,
+        impressions: Math.max(0, p.views ?? 0),
       });
     }
 
@@ -530,7 +531,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
               {
                 label: "Impresiones",
                 value: fmt(totals.impressions),
-                hint: "Solo cuentas propias (Metricool)",
+                hint: "Todas las fuentes · si la red no da impresiones, se usan las vistas",
               },
             ].map((c) => (
               <div
