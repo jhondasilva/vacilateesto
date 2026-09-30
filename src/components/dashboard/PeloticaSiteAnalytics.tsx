@@ -48,6 +48,15 @@ const PeloticaSiteAnalytics = ({ part = "all" }: { part?: "all" | "web" | "trend
           <div><p className="text-xs text-muted-foreground">Interés combinado (ambas válidas)</p><p className="text-2xl font-black">{G.avgCombined}</p></div>
         </div>
         <p className="text-sm text-muted-foreground mt-2">{G.reading}</p>
+        {part === "trends" && (
+          <ul className="text-sm space-y-2 text-muted-foreground mt-4 list-disc pl-5">
+            <li><b className="text-foreground">Dos formas de buscarlo:</b> la gente escribe "Pelotica de Goma" (promedio {G.avgMain}) y "Pelota de Goma" (promedio {G.avgCompare}). Juntas suman un interés de {G.avgCombined}.</li>
+            <li><b className="text-foreground">El máximo histórico (100) fue en 2024.</b> Todos los demás valores se miden en relación con ese pico.</li>
+            <li><b className="text-foreground">Repunte en 2026:</b> el interés vuelve a subir con el Split 4 (agosto y septiembre). Coincide con el salto de visitantes del sitio web en esos mismos meses.</li>
+            <li><b className="text-foreground">Qué significa:</b> la conversación en redes se convierte en búsquedas en Google. Esas búsquedas son hoy la fuente principal de tráfico del sitio.</li>
+            <li className="text-xs">Google Trends da un índice relativo de 0 a 100, no un número de búsquedas. Estos datos vienen de una captura y no se actualizan solos.</li>
+          </ul>
+        )}
       </div>
       )}
     </section>
