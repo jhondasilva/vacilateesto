@@ -478,8 +478,8 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           </p>
           <p className="text-xs text-muted-foreground mt-1">
             <strong>Vistas</strong> son reproducciones reales de todas las fuentes.{" "}
-            <strong>Impresiones</strong> solo existen para las cuentas propias medidas en Metricool,
-            así que las dos cifras no son comparables entre sí.
+            <strong>Impresiones</strong> suman las cuentas oficiales (total de Metricool), equipos y chivos,
+            influencers, lives y las páginas vistas del sitio; si una red no da impresiones, se usan sus vistas.
           </p>
           <p className="text-[10px] text-muted-foreground mt-1.5 font-mono">
             Fuente: Metricool (IG · FB · YT · TikTok) + Apify (equipos, chivos e influencers).
