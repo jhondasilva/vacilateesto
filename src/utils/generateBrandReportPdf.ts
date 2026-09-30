@@ -5,6 +5,13 @@ import { es } from "date-fns/locale";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import { TIKTOK_LIVES } from "@/components/dashboard/TikTokLivesSection";
 import type { LiveRow } from "@/components/dashboard/PeloticaLivesSection";
+import {
+  PELOTICA_OFFICIAL,
+  OFFICIAL_PLATFORMS,
+  FOLLOWER_GROWTH_YEAR,
+  OFFICIAL_AUDIENCE,
+  TOP_HASHTAGS,
+} from "@/data/peloticaOfficialAccounts";
 
 type MentionPost = {
   platform: "instagram" | "tiktok" | "facebook" | "youtube";
