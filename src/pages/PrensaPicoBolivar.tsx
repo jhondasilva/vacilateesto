@@ -10,7 +10,6 @@ const PDF = "/press/Nota_de_Prensa_Pico_Bolivar_2026.pdf";
 const BRANDS = ["Plan B", "Harina P.A.N.", "Club Social", "Ronco", "Planeta Sport", "Restaurant Alazán"];
 
 const CONTACTS = [
-  { name: "Samira Rivas", role: "Logística", email: "samira.rivas@hacemosloquenosgusta.com" },
   { name: "Andreína Ascensión", role: "Dirección de producción", email: "andreina.ascension@hacemosloquenosgusta.com" },
   { name: "Estrella Rodríguez", role: "Coordinadora de producción", email: "estrella.rodriguez@hacemosloquenosgusta.com" },
 ];
@@ -105,7 +104,7 @@ const PrensaPicoBolivar = () => {
             </p>
             <p>
               El proyecto es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por <strong>JhonSnacks</strong> y
-              <strong> JuanSofa</strong>, con dirección de producción de Andreína Ascensión, logística de Samira Rivas y coordinación de producción a cargo de Estrella Rodríguez.
+              <strong> JuanSofa</strong>, con dirección de producción de Andreína Ascensión, coordinación de producción a cargo de Estrella Rodríguez.
             </p>
           </div>
         </section>
