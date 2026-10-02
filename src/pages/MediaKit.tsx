@@ -48,7 +48,7 @@ import mediaKitMetrics from "@/data/mediaKitMetrics.json";
 const PDF_VERSION = mediaKitMetrics.version;
 const PDF_URL = `/downloads/VacilateEsto-MediaKit-2026.pdf?v=${PDF_VERSION}`;
 
-// Datos de audiencia - Fuente: Metricool (01 ene – 31 jul 2026)
+// Datos de audiencia - Fuente: Metricool (01 ene – 30 sep 2026)
 // Métricas calculadas desde el edge function metricool-brand-mentions sobre
 // las publicaciones reales del período. No incluye seguidores ni crecimiento
 // (esos datos no los expone la API que tenemos conectada).
@@ -495,7 +495,7 @@ const MediaKit = () => {
     <>
       <Helmet>
         <title>Media Kit 2026 | Vacílate Esto</title>
-        <meta name="description" content="Media Kit oficial de Vacílate Esto. 1.84M+ seguidores, 23.14M impresiones (ene–jul 2026). Descubre oportunidades de patrocinio: Vacílate El Fútbol 2026, Campeonato de Comerciales, Podcast en la Cumbre y más formatos." />
+        <meta name="description" content={`Media Kit oficial de Vacílate Esto. ${audienceData.totalViews} vistas y ${audienceData.totalImpressions} impresiones (ene–sep 2026, Metricool). Descubre nuestros formatos de contenido.`} />
         <meta name="keywords" content="media kit venezuela, patrocinio podcast, publicidad podcast, vacilate esto sponsors, mundial 2026 patrocinio, influencer marketing venezuela" />
         <link rel="canonical" href="https://www.vacilateesto.com/media-kit" />
         
@@ -589,17 +589,17 @@ const MediaKit = () => {
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre enero y julio de 2026 generamos <strong>23.14M de impresiones</strong>, <strong>16.66M de views</strong> y{" "}
-                  <strong>944.4K interacciones</strong> con 2,086 publicaciones en TikTok, Instagram, Facebook y YouTube.
+                  Entre enero y septiembre de 2026 registramos <strong>{audienceData.totalImpressions} de impresiones reportadas</strong>, <strong>{audienceData.totalViews} de vistas</strong> y{" "}
+                  <strong>{audienceData.totalInteractions} interacciones</strong> (me gusta, comentarios y compartidos) en {audienceData.totalPublications} publicaciones de TikTok, Instagram, Facebook y YouTube. Metricool no reporta impresiones para todas las redes.
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-12">
                   {[
-                    { value: "16.66M", label: "Views ene–jul 2026", icon: Eye },
-                    { value: "23.14M", label: "Impresiones (4 redes)", icon: TrendingUp },
-                    { value: "944.4K", label: "Interacciones", icon: Heart },
-                    { value: "2,086", label: "Publicaciones", icon: FileText },
+                    { value: audienceData.totalViews, label: "Vistas ene–sep 2026", icon: Eye },
+                    { value: audienceData.totalImpressions, label: "Impresiones reportadas", icon: TrendingUp },
+                    { value: audienceData.totalInteractions, label: "Interacciones", icon: Heart },
+                    { value: audienceData.totalPublications, label: "Publicaciones", icon: FileText },
                   ].map((stat, index) => (
                     <div key={index} className="bg-background/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-background/20">
                       <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2" />
@@ -635,7 +635,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={["★ 16.66M VIEWS", "◆ 23.14M IMPRESIONES", "▲ 944.4K INTERACCIONES", "● 2,086 PUBLICACIONES", "★ FUENTE: METRICOOL · ENE–JUL 2026"]}
+              items={[`★ ${audienceData.totalViews} VISTAS`, `◆ ${audienceData.totalImpressions} IMPRESIONES REPORTADAS`, `▲ ${audienceData.totalInteractions} INTERACCIONES`, `● ${audienceData.totalPublications} PUBLICACIONES`, "★ FUENTE: METRICOOL · ENE–SEP 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -646,7 +646,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Nuestra"
                 highlight="presencia digital"
-                description="Datos: 01 enero – 31 julio 2026 · Fuente principal: Metricool · Verificación complementaria Apify: 291 videos de TikTok con 5.07M vistas y perfil de 1.2M seguidores"
+                description="Datos: 01 enero – 30 septiembre 2026 · Fuente: Metricool, cuentas oficiales de Vacílate Esto"
               />
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
@@ -658,7 +658,7 @@ const MediaKit = () => {
                     <platform.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
                     <div className="text-[10px] uppercase tracking-widest font-display font-black text-muted-foreground mb-1">{platform.name}</div>
                     <div className="font-display text-2xl sm:text-3xl font-black text-foreground tracking-tight">{platform.views}</div>
-                    <div className="text-xs text-muted-foreground mb-1">Views ene–jul</div>
+                    <div className="text-xs text-muted-foreground mb-1">Vistas ene–sep</div>
                     <div className="inline-block mt-1 px-2 py-0.5 bg-foreground text-background text-xs font-display font-black">{platform.publications} pubs</div>
                   </div>
                 ))}
@@ -862,7 +862,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Top 6 publicaciones ene–jul 2026 · Fuente: Metricool"
+                description="Selección de publicaciones · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
