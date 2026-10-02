@@ -938,7 +938,7 @@ const MediaKit = () => {
                 </div>
 
                 <p className="font-display font-black text-xs uppercase tracking-widest text-background/60 mt-12 mb-5">
-                  Premios CIMA 2026 · 8 categorías identificadas de 8 nominaciones · premiación 19 de octubre
+                  Premios CIMA 2026 · 8 nominaciones de Vacílate Esto · premiación 19 de octubre
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
                   {[

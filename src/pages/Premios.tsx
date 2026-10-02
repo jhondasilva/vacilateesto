@@ -210,7 +210,7 @@ const Premios = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground mt-6 text-center">
-              Estas ocho categorías ya publicadas forman parte de las 8 nominaciones anunciadas. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
+              Estas son las 8 nominaciones de Vacílate Esto. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
             </p>
           </div>
         </section>

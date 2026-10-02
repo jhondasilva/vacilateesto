@@ -7,5 +7,5 @@ FIAP 2026: La Web Figital Agency fue Agencia País Venezuela por segundo año co
 Cannes 2025: Silver Lion para Saving Pelotica de Goma, Entertainment for Sport. Cannes 2026: shortlist de Pelotica de Goma: The Legacy, Entertainment for Sport · Cultural Engagement.
 El Dorado 2026: Saving Pelotica de Goma, shortlist en Creative Effectiveness y Creative Strategy; sin metales. Effie Latam 2026: Salvando Pelotica de Goma, shortlist en Deportes y Entretenimiento.
 Todos los casos anteriores son de Vacílate Esto Podcast, NO de Movilnet. Movilnet en Pelotica de Goma es otro caso: premio P&M 2025 y nominación CIMA 2026 Experiencia Figital.
-CIMA: 12 nominaciones 2026; ceremonia 19 de octubre. No presentar nominaciones CIMA 2026 como premios ganados.
+CIMA: 12 nominaciones 2026 en total, de las cuales SOLO 8 son de Vacílate Esto (las otras 4 son de otros clientes / La Web Figital Agency). Publicar solo las 8 de Vacílate Esto, nunca "12 nominaciones". Ceremonia 19 de octubre. No presentar nominaciones CIMA 2026 como premios ganados.
 REGLA (Jhon, 02/10/2026): en premios y comunicaciones solo se celebra a Vacílate Esto como marca (sus premios y shortlists); NUNCA mencionar "Agencia País" ni "La Web Figital Agency" en el site, media kits ni notas. El dato del ranking CIMA y de Agencia País queda aquí solo como contexto interno, no para publicar.
