@@ -185,8 +185,8 @@ def page_audience(c):
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
-        (K["totalViews"],        "VISTAS DE VIDEO",  PINK),
-        (K["totalImpressions"],  "IMPRESIONES",      CYAN),
+        (K["totalViews"],        "VISTAS",  PINK),
+        (K["totalImpressions"],  "IMPRESIONES REG.", CYAN),
         (K["totalInteractions"], "INTERACCIONES",    INK),
         (K["totalPublications"], "POSTS PUBLICADOS", PINK),
     ]
@@ -218,14 +218,14 @@ def page_audience(c):
         c.setFillColor(INK); c.setFont("Helvetica", 7)
         c.drawString(cx+10, cy+11, sub)
 
-    sticker_pill(c, 36, H-440, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
+    sticker_pill(c, 36, H-455, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
     plats = [
         ("INSTAGRAM", M["views"]["instagram"], "Reels + Stories + Feed", f'{M["publications"]["instagram"]} posts · {M["likes"]["instagram"]} likes', PINK),
         ("TIKTOK", M["views"]["tiktok"], "Vistas acumuladas", f'{M["publications"]["tiktok"]} videos · {M["likes"]["tiktok"]} likes', INK),
         ("YOUTUBE", M["views"]["youtube"], "Shorts + videos", f'{M["publications"]["youtube"]} posts · {M["likes"]["youtube"]} likes', CYAN),
         ("FACEBOOK", M["views"]["facebook"], "Vistas de contenido", f'{FB["posts"]} posts · {FB["reactions"]} reacc. · {FB["impressions"]} impresiones', PINK),
     ]
-    cw = (W-72-30)/4; cy = H-580
+    cw = (W-72-30)/4; cy = H-588
     for i,(name,big,what,foot,col) in enumerate(plats):
         cx = 36 + i*(cw+10)
         sticker_card(c, cx, cy, cw, 125, shadow=col)
@@ -503,17 +503,17 @@ def page_awards(c):
     header(c, 9)
     sticker_pill(c, 36, H-66, 140, 20, "RECONOCIMIENTOS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
-    c.drawString(36, H-110, "5 FINALISTAS EN FIAP 2026")
+    c.drawString(36, H-110, "4 SOLES DE BRONCE · FIAP 2026")
     wrap(c,
-        "Los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy fueron seleccionados en cinco categorías del Festival Iberoamericano de Publicidad.",
+        "Cuatro Soles de Bronce para casos de Vacílate Esto Podcast y una mención de honor / shortlist; 8 nominaciones CIMA 2026 de Vacílate Esto.",
         36, H-138, W-72, fs=10, leading=14, color=MUT)
 
     finalists = [
-        ("Técnicas de Producción de Contenidos", "Contenido con mejor estrategia digital", "Streaming from the Lost World", "Vacílate Esto Podcast"),
-        ("Formatos", "Mejor estrategia de lanzamiento de programa", "Walking Ads Above the Algorithm", "Vacílate Esto"),
-        ("Producción", "Técnicas de Producción — Promoción de Broadcast", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
-        ("Formatos", "Evento en Vivo o Híbrido", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
-        ("Formatos", "Contenido con mejor estrategia digital", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Producción", "Técnicas de Producción de Contenidos · Bronce", "Streaming from the Lost World", "Vacílate Esto Podcast"),
+        ("Formatos", "Mejor estrategia de lanzamiento · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Producción", "Promoción de Broadcast · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Formatos", "Evento en Vivo · Mención / Shortlist", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
+        ("Formatos", "Estrategia digital · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
     ]
     cw = (W-72-20)/2; ch = 110
     for i,(disc,cat,proj,brand) in enumerate(finalists):
@@ -533,7 +533,7 @@ def page_awards(c):
     cy = 110
     sticker_card(c, 36, cy, W-72, 90, shadow=INK)
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
-    c.drawString(56, cy+68, "FIAP 2026")
+    c.drawString(56, cy+68, "FIAP 2026 · CIMA 2026")
     wrap(c,
         "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
         56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=INK)
