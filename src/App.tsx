@@ -56,6 +56,7 @@ import MarcasVenezolanasNostalgicas from "./pages/blog/MarcasVenezolanasNostalgi
 import PeloticaSplit4 from "./pages/blog/PeloticaSplit4";
 import QueEsPeloticaDeGoma from "./pages/blog/QueEsPeloticaDeGoma";
 import FaliFrustracionLatencia from "./pages/blog/FaliFrustracionLatencia";
+import FiapPremios from "./pages/blog/FiapPremios";
 import BlogPostDynamic from "./pages/blog/BlogPostDynamic";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 
@@ -131,6 +132,7 @@ const App = () => (
             <Route path="/blog/pelotica-de-goma-split-4" element={<PeloticaSplit4 />} />
             <Route path="/blog/que-es-pelotica-de-goma" element={<QueEsPeloticaDeGoma />} />
             <Route path="/blog/fali-frustracion-latencia-inutil" element={<FaliFrustracionLatencia />} />
+            <Route path="/blog/fiap-2026-4-soles-de-bronce" element={<FiapPremios />} />
             {/* Dynamic AI-generated blog posts (must be last among /blog/* routes) */}
             <Route path="/blog/:slug" element={<BlogPostDynamic />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

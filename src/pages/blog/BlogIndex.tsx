@@ -8,6 +8,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
+    slug: "fiap-2026-4-soles-de-bronce",
+    title: "FIAP 2026: qué es el festival y los 4 Soles de Bronce de Vacílate Esto",
+    excerpt:
+      "Qué es FIAP, por qué importa en Iberoamérica y cómo los 5 finalistas de Vacílate Esto se convirtieron en 4 Soles de Bronce en 2026.",
+    category: "Premios",
+    minutes: 7,
+    date: "2026-10-02",
+  },
+  {
     slug: "fali-frustracion-latencia-inutil",
     title: "FALI: la frustración por la espera de la inteligencia artificial",
     excerpt:
