@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import AwardsBanner from "@/components/AwardsBanner";
 import HeroBanner from "@/components/HeroBanner";
 import HeroSection from "@/components/HeroSection";
+import ImpactSection from "@/components/ImpactSection";
 import MediaHoldingSection from "@/components/MediaHoldingSection";
 import EpisodesSection from "@/components/EpisodesSection";
 import ShortsSection from "@/components/ShortsSection";
@@ -250,6 +251,7 @@ const Index = () => {
             <meta itemProp="inLanguage" content="es-VE" />
             <HeroBanner />
             <HeroSection />
+            <ImpactSection />
             <HomeSearchSection />
             <BlogSection />
             <FaliHomeSection />
