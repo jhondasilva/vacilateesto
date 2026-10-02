@@ -146,14 +146,24 @@ const Premios = () => {
               highlight="y una mención de honor"
               align="center"
             />
-            <div className="overflow-x-auto mt-8">
+            <div className="grid gap-3 mt-8 sm:hidden">
+              {FINALISTS.map((f) => (
+                <div key={`${f.project}-${f.category}`} className="border-2 border-foreground bg-card rounded-md p-4">
+                  <p className="text-xs font-display font-black uppercase text-primary mb-2">{f.result}</p>
+                  <h3 className="font-display font-black text-base text-foreground leading-tight">{f.project}</h3>
+                  <p className="text-sm text-foreground mt-2">{f.category}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{f.discipline}</p>
+                </div>
+              ))}
+            </div>
+            <div className="hidden sm:block overflow-x-auto mt-8">
               <table className="w-full bg-card rounded-2xl border-2 border-foreground sticker-shadow-foreground overflow-hidden">
                 <thead className="bg-foreground text-background">
                   <tr>
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Disciplina</th>
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Categoría</th>
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Proyecto</th>
-                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Resultado</th>
+                    <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Resultado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -162,7 +172,7 @@ const Premios = () => {
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-muted-foreground font-medium whitespace-nowrap">{f.discipline}</td>
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground font-semibold">{f.category}</td>
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground">{f.project}</td>
-                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground font-bold">{f.result}</td>
+                      <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground font-bold">{f.result}</td>
                     </tr>
                   ))}
                 </tbody>

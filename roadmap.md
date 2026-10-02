@@ -4,5 +4,5 @@
 - [x] Añadir imágenes y carrusel
 - [x] Actualizar sitemap y metadatos
 - [x] Verificar escritorio, móvil y build
-- [ ] Actualizar reconocimientos 2026 en inicio, premios y media kit web
-- [ ] Distinguir notas históricas de los resultados finales y verificar la vista
+- [x] Actualizar reconocimientos 2026 en inicio, premios y media kit web
+- [x] Distinguir notas históricas de los resultados finales y verificar la vista
