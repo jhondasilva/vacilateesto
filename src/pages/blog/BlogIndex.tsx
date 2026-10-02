@@ -8,6 +8,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 const POSTS = [
   {
+    slug: "numeros-vacilate-esto-2026",
+    title: "Los números de Vacílate Esto en 2026: 47M de impresiones y 1,85M de seguidores",
+    excerpt:
+      "El balance de enero a septiembre de 2026 según Metricool: impresiones, interacciones y comunidad red por red, con septiembre como mes destacado.",
+    category: "Comunidad",
+    minutes: 5,
+    date: "2026-10-02",
+  },
+  {
     slug: "fiap-2026-4-soles-de-bronce",
     title: "FIAP 2026: qué es el festival y los 4 Soles de Bronce de Vacílate Esto",
     excerpt:
