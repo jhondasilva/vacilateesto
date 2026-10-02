@@ -63,7 +63,7 @@ const Premios = () => {
     "@type": "WebPage",
     headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 12 nominaciones CIMA 2026",
     description:
-      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast. La Web Figital Agency, Agencia País Venezuela por segundo año consecutivo; 12 nominaciones CIMA 2026.",
+      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast; 12 nominaciones CIMA 2026.",
     datePublished: "2026-10-02",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
@@ -77,7 +77,7 @@ const Premios = () => {
         <title>Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026</title>
         <meta
           name="description"
-          content="Cuatro Soles de Bronce FIAP 2026, Agencia País Venezuela para La Web Figital Agency y 12 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto Podcast y 12 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
@@ -113,9 +113,8 @@ const Premios = () => {
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
-              <strong className="text-primary">Streaming from the Lost World</strong> uno. La Web Figital Agency fue
-              reconocida como <strong className="text-primary">Agencia País Venezuela</strong> por segundo año consecutivo.
-              Los casos son de Vacílate Esto Podcast. Además, hay 12 nominaciones en los Premios CIMA 2026.
+              <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto
+              Podcast. Además, hay 12 nominaciones en los Premios CIMA 2026.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -220,8 +219,8 @@ const Premios = () => {
         <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-3xl space-y-5 font-body text-foreground/85 leading-relaxed">
             <p className="text-lg text-foreground font-semibold">
-              En FIAP 2026, La Web Figital Agency fue Agencia País Venezuela por segundo año consecutivo (2025 y 2026).
-              De cinco finalistas obtuvo cuatro Soles de Bronce en Producción y Formatos.
+              En FIAP 2026, los casos de Vacílate Esto Podcast fueron cinco finalistas y obtuvieron cuatro Soles de Bronce
+              en Producción y Formatos.
             </p>
             <p>
               <strong>Walking Ads Above the Algorithm</strong> ganó tres bronces: lanzamiento de programa, estrategia digital y promoción de broadcast.
@@ -250,11 +249,10 @@ const Premios = () => {
               </div>
               <div className="border-2 border-foreground bg-card p-6 rounded-md">
                 <h3 className="font-display font-black text-xl mb-3">Effie Latam 2026</h3>
-                <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento. La Web Figital Agency es la única agencia venezolana con shortlist en Effie Latam 2026.</p>
+                <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento, el único shortlist venezolano en Effie Latam 2026.</p>
               </div>
             </div>
             <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto Podcast. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
-            <p className="mt-3 text-sm text-muted-foreground">La Web Figital Agency lidera el ranking histórico de Premios CIMA con 100 puntos (segundo lugar: 43), y fue primera en 2022, 2024 —junto a Farmatodo— y 2025.</p>
           </div>
         </section>
 
