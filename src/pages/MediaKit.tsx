@@ -900,7 +900,7 @@ const MediaKit = () => {
               ★ FIAP 2026
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-              ◆ 12 nominaciones CIMA
+              ◆ 8 nominaciones CIMA
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
@@ -910,7 +910,7 @@ const MediaKit = () => {
                   <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
                 </div>
                 <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.04em] leading-[0.92] text-background mb-6">
-                  4 Soles de Bronce en <span className="italic text-primary">FIAP 2026</span> y 12 nominaciones en{" "}
+                  4 Soles de Bronce en <span className="italic text-primary">FIAP 2026</span> y 8 nominaciones en{" "}
                   <span className="italic text-primary">Premios CIMA 2026</span>
                 </h2>
                 <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
@@ -938,7 +938,7 @@ const MediaKit = () => {
                 </div>
 
                 <p className="font-display font-black text-xs uppercase tracking-widest text-background/60 mt-12 mb-5">
-                  Premios CIMA 2026 · 8 categorías identificadas de 12 nominaciones · premiación 19 de octubre
+                  Premios CIMA 2026 · 8 categorías identificadas de 8 nominaciones · premiación 19 de octubre
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
                   {[
