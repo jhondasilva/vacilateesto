@@ -915,8 +915,7 @@ const MediaKit = () => {
                 </h2>
                 <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
                   <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
-                  <strong className="text-primary">Streaming from the Lost World</strong> uno. La Web Figital Agency fue
-                  Agencia País Venezuela por segundo año consecutivo. <strong className="text-primary">Pelotica de Goma: The Legacy</strong> recibió
+                  <strong className="text-primary">Streaming from the Lost World</strong> uno. <strong className="text-primary">Pelotica de Goma: The Legacy</strong> recibió
                   mención de honor / shortlist. Los casos son de Vacílate Esto Podcast, no de Movilnet.
                 </p>
 
