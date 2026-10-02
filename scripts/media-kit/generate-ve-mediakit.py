@@ -218,14 +218,14 @@ def page_audience(c):
         c.setFillColor(INK); c.setFont("Helvetica", 7)
         c.drawString(cx+10, cy+11, sub)
 
-    sticker_pill(c, 36, H-455, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
+    sticker_pill(c, 36, H-480, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
     plats = [
         ("INSTAGRAM", M["views"]["instagram"], "Reels + Stories + Feed", f'{M["publications"]["instagram"]} posts · {M["likes"]["instagram"]} likes', PINK),
         ("TIKTOK", M["views"]["tiktok"], "Vistas acumuladas", f'{M["publications"]["tiktok"]} videos · {M["likes"]["tiktok"]} likes', INK),
         ("YOUTUBE", M["views"]["youtube"], "Shorts + videos", f'{M["publications"]["youtube"]} posts · {M["likes"]["youtube"]} likes', CYAN),
         ("FACEBOOK", M["views"]["facebook"], "Vistas de contenido", f'{FB["posts"]} posts · {FB["reactions"]} reacc. · {FB["impressions"]} impresiones', PINK),
     ]
-    cw = (W-72-30)/4; cy = H-588
+    cw = (W-72-30)/4; cy = H-622
     for i,(name,big,what,foot,col) in enumerate(plats):
         cx = 36 + i*(cw+10)
         sticker_card(c, cx, cy, cw, 125, shadow=col)
@@ -239,7 +239,7 @@ def page_audience(c):
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
     wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 30 sep 2026. Vistas e impresiones se reportan por separado; TikTok y YouTube no aportan impresiones a este total. Interacciones = likes + comentarios + compartidos. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
-         36, 150, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
+         36, 100, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
 # ───────── PAGE 4: HOSTS ─────────
