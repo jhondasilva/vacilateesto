@@ -238,7 +238,7 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 30 sep 2026. Vistas e impresiones se reportan por separado; TikTok y YouTube no aportan impresiones a este total. Interacciones = likes + comentarios + compartidos. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
+    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 30 sep 2026. Vistas e impresiones se reportan por separado; TikTok y YouTube no aportan impresiones a este total. Interacciones = likes + comentarios + compartidos. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente.",
          36, 100, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
