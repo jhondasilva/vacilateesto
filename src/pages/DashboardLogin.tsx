@@ -36,6 +36,10 @@ const DashboardLogin = () => {
 
   if (!loading && session && (brands.length > 0 || isAdmin)) {
     if (brands.length === 1) return <Navigate to={`/dashboard/${brands[0].brand.slug}`} replace />;
+    // Por defecto, entra directo al dashboard de Pelotica de Goma (Todo unificado).
+    if (isAdmin || brands.some((b) => b.brand.slug === "pelotica-de-goma")) {
+      return <Navigate to="/dashboard/pelotica-de-goma" replace />;
+    }
     return <Navigate to="/dashboard" replace />;
   }
 
