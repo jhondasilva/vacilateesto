@@ -61,9 +61,9 @@ const Premios = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 12 nominaciones CIMA 2026",
+    headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 8 nominaciones CIMA 2026",
     description:
-      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast; 12 nominaciones CIMA 2026.",
+      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast; 8 nominaciones CIMA 2026.",
     datePublished: "2026-10-02",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
@@ -74,21 +74,21 @@ const Premios = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026</title>
+        <title>Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026</title>
         <meta
           name="description"
-          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto Podcast y 12 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto Podcast y 8 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026" />
+        <meta property="og:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026" />
         <meta
           property="og:description"
-          content="Cuatro Soles de Bronce FIAP 2026, 12 nominaciones CIMA y selecciones en Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026, 8 nominaciones CIMA y selecciones en Cannes, El Dorado y Effie Latam."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/premios" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026" />
+        <meta name="twitter:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
@@ -114,7 +114,7 @@ const Premios = () => {
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
               <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto
-              Podcast. Además, hay 12 nominaciones en los Premios CIMA 2026.
+              Podcast. Además, hay 8 nominaciones en los Premios CIMA 2026.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -190,7 +190,7 @@ const Premios = () => {
               badge="Premios CIMA 2026"
               badgeIcon={Trophy}
               badgeVariant="accent"
-              title="12 nominaciones en los"
+              title="8 nominaciones en los"
               highlight="Premios de la Creatividad Venezolana"
               align="center"
             />
@@ -210,7 +210,7 @@ const Premios = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground mt-6 text-center">
-              Estas ocho categorías ya publicadas forman parte de las 12 nominaciones anunciadas. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
+              Estas son las 8 nominaciones de Vacílate Esto. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
             </p>
           </div>
         </section>
