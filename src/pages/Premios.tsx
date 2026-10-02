@@ -9,34 +9,34 @@ const PDF = "/press/Nota_de_Prensa_FIAP_2026.pdf";
 
 const FINALISTS = [
   {
-    discipline: "Técnicas de Producción de Contenidos",
-    category: "Contenido con mejor estrategia digital",
+    discipline: "Producción",
+    category: "Técnicas de Producción de Contenidos",
     project: "Streaming from the Lost World",
-    brand: "Vacílate Esto Podcast",
+    result: "Sol de Bronce",
   },
   {
     discipline: "Formatos",
     category: "Mejor estrategia de lanzamiento de programa",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto",
+    result: "Sol de Bronce",
   },
   {
     discipline: "Producción",
     category: "Técnicas de Producción — Promoción de Broadcast",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto Podcast",
+    result: "Sol de Bronce",
   },
   {
     discipline: "Formatos",
     category: "Evento en Vivo o Híbrido",
     project: "Pelotica de Goma: The Legacy",
-    brand: "Vacílate Esto Podcast",
+    result: "Mención de Honor · Shortlist",
   },
   {
     discipline: "Formatos",
     category: "Contenido con mejor estrategia digital",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto Podcast",
+    result: "Sol de Bronce",
   },
 ];
 
@@ -61,34 +61,34 @@ const Premios = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    headline: "Vacílate Esto: 5 finalistas FIAP 2026 y 8 shortlist Premios CIMA 2026",
+    headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 12 nominaciones CIMA 2026",
     description:
-      "Vacílate Esto es finalista en cinco categorías de los FIAP 2026 y suma ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva.",
+      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast. La Web Figital Agency, Agencia País Venezuela por segundo año consecutivo; 12 nominaciones CIMA 2026.",
     datePublished: "2026-08-20",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
     publisher: { "@type": "Organization", name: "Vacílate Esto" },
-    about: "FIAP 2026 · Premios CIMA 2026 · Finalistas y shortlist",
+    about: "FIAP 2026 · Premios CIMA 2026 · Cannes Lions · El Dorado · Effie Latam",
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026</title>
+        <title>Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026</title>
         <meta
           name="description"
-          content="Cinco finalistas en FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, incluyendo Creativo del Año para Jhon da Silva."
+          content="Cuatro Soles de Bronce FIAP 2026, Agencia País Venezuela para La Web Figital Agency y 12 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
+        <meta property="og:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026" />
         <meta
           property="og:description"
-          content="Cinco nominaciones FIAP 2026 y ocho menciones en el shortlist de los Premios CIMA 2026, la creatividad venezolana."
+          content="Cuatro Soles de Bronce FIAP 2026, 12 nominaciones CIMA y selecciones en Cannes, El Dorado y Effie Latam."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/premios" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto: finalistas FIAP 2026 y shortlist CIMA 2026" />
+        <meta name="twitter:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 12 nominaciones CIMA 2026" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
@@ -109,17 +109,13 @@ const Premios = () => {
               <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
             </div>
             <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-[-0.04em] leading-[0.92]">
-              5 finalistas en los <span className="italic text-primary">FIAP 2026</span> y 8 shortlist en{" "}
-              <span className="italic text-primary">Premios CIMA 2026</span>
+              4 Soles de Bronce en <span className="italic text-primary">FIAP 2026</span>
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
-              Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
-              <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
-              <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
-              categorías de los FIAP, los premios iberoamericanos de publicidad y comunicación. Además, Vacílate Esto
-              suma <strong className="text-primary">ocho menciones en el shortlist de los Premios CIMA 2026</strong>,
-              los premios de la creatividad venezolana, incluyendo{" "}
-              <strong className="text-primary">Creativo del Año</strong> para Jhon da Silva.
+              <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
+              <strong className="text-primary">Streaming from the Lost World</strong> uno. La Web Figital Agency fue
+              reconocida como <strong className="text-primary">Agencia País Venezuela</strong> por segundo año consecutivo.
+              Los casos son de Vacílate Esto Podcast. Además, hay 12 nominaciones en los Premios CIMA 2026.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -143,11 +139,11 @@ const Premios = () => {
         <section className="py-14 sm:py-20 bg-background border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-5xl">
             <StickerHeader
-              badge="Finalistas FIAP 2026"
+              badge="Resultados FIAP 2026"
               badgeIcon={Star}
               badgeVariant="primary"
-              title="Los cinco reconocimientos"
-              highlight="por categoría"
+              title="4 Soles de Bronce"
+              highlight="y una mención de honor"
               align="center"
             />
             <div className="overflow-x-auto mt-8">
@@ -157,7 +153,7 @@ const Premios = () => {
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Disciplina</th>
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Categoría</th>
                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Proyecto</th>
-                    <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Marca / Anunciante</th>
+                     <th className="px-4 sm:px-6 py-4 text-left text-[10px] sm:text-xs font-display font-black uppercase tracking-widest">Resultado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,14 +162,14 @@ const Premios = () => {
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-muted-foreground font-medium whitespace-nowrap">{f.discipline}</td>
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground font-semibold">{f.category}</td>
                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground">{f.project}</td>
-                      <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground">{f.brand}</td>
+                       <td className="px-4 sm:px-6 py-4 text-xs sm:text-sm text-foreground font-bold">{f.result}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-4 text-center">
-              Listado según comunicación oficial de FIAP 2026. Los ganadores se anunciarán en la ceremonia de premiación.
+              Cinco finalistas, cuatro metales: 80 % de conversión. Todos los casos son de Vacílate Esto Podcast.
             </p>
           </div>
         </section>
@@ -182,10 +178,10 @@ const Premios = () => {
         <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-5xl">
             <StickerHeader
-              badge="Shortlist Premios CIMA 2026"
+              badge="Premios CIMA 2026"
               badgeIcon={Trophy}
               badgeVariant="accent"
-              title="8 menciones en los"
+              title="12 nominaciones en los"
               highlight="Premios de la Creatividad Venezolana"
               align="center"
             />
@@ -205,7 +201,7 @@ const Premios = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground mt-6 text-center">
-              Listado según comunicación oficial de los Premios CIMA 2026 (Premios de la Creatividad Venezolana).
+              Estas ocho categorías ya publicadas forman parte de las 12 nominaciones anunciadas. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
             </p>
           </div>
         </section>
@@ -214,22 +210,41 @@ const Premios = () => {
         <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-3xl space-y-5 font-body text-foreground/85 leading-relaxed">
             <p className="text-lg text-foreground font-semibold">
-              <strong>Caracas, Venezuela — 20 de agosto de 2026.</strong> Vacílate Esto suma cinco finalistas en la
-              edición 2026 de los FIAP (Festival Iberoamericano de Publicidad), el certamen que reconoce las mejores
-              piezas y estrategias de comunicación de Iberoamérica.
+              En FIAP 2026, La Web Figital Agency fue Agencia País Venezuela por segundo año consecutivo (2025 y 2026).
+              De cinco finalistas obtuvo cuatro Soles de Bronce en Producción y Formatos.
             </p>
             <p>
-              Las nominaciones abarcan tres proyectos del ecosistema Vacílate Esto: la docuserie{" "}
-              <strong>Streaming from the Lost World</strong>, la campaña{" "}
-              <strong>Walking Ads Above the Algorithm</strong> y el evento{" "}
-              <strong>Pelotica de Goma: The Legacy</strong>. Las categorías reconocen tanto la producción de contenidos
-              como la estrategia digital, el lanzamiento de programas y la realización de eventos en vivo o híbridos.
+              <strong>Walking Ads Above the Algorithm</strong> ganó tres bronces: lanzamiento de programa, estrategia digital y promoción de broadcast.
+              <strong> Streaming from the Lost World</strong> ganó uno en Técnicas de Producción de Contenidos.
+              <strong> Pelotica de Goma: The Legacy</strong> recibió mención de honor / shortlist en Evento en Vivo o Híbrido.
             </p>
             <p>
-              Los FIAP 2026 consolidan a Vacílate Esto como una de las marcas de entretenimiento digital más relevantes
+              Estos reconocimientos consolidan a Vacílate Esto como una de las marcas de entretenimiento digital más relevantes
               de Venezuela, hecha en Venezuela, con capacidad de producir formatos propios que compiten a nivel
               iberoamericano en creatividad, ejecución y estrategia.
             </p>
+          </div>
+        </section>
+
+        <section className="py-14 sm:py-20 bg-background border-b-4 border-foreground">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-foreground mb-8">Más reconocimientos</h2>
+            <div className="grid md:grid-cols-3 gap-5">
+              <div className="border-2 border-foreground bg-card p-6 rounded-md">
+                <h3 className="font-display font-black text-xl mb-3">Cannes Lions</h3>
+                <p className="font-body text-sm leading-relaxed">Silver Lion 2025 para <strong>Saving Pelotica de Goma</strong> (Entertainment for Sport). En 2026, <strong>Pelotica de Goma: The Legacy</strong> fue shortlist en Entertainment for Sport · Cultural Engagement.</p>
+              </div>
+              <div className="border-2 border-foreground bg-card p-6 rounded-md">
+                <h3 className="font-display font-black text-xl mb-3">El Dorado 2026</h3>
+                <p className="font-body text-sm leading-relaxed"><strong>Saving Pelotica de Goma</strong>: selección oficial / shortlist en Creative Effectiveness y Creative Strategy. Sin metales en esta edición.</p>
+              </div>
+              <div className="border-2 border-foreground bg-card p-6 rounded-md">
+                <h3 className="font-display font-black text-xl mb-3">Effie Latam 2026</h3>
+                <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento, la única agencia venezolana seleccionada en esa categoría.</p>
+              </div>
+            </div>
+            <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto Podcast. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
+            <p className="mt-3 text-sm text-muted-foreground">La Web Figital Agency lidera el ranking histórico de Premios CIMA con 100 puntos (segundo lugar: 43), y fue primera en 2022, 2024 —junto a Farmatodo— y 2025.</p>
           </div>
         </section>
 
