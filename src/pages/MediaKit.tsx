@@ -900,7 +900,7 @@ const MediaKit = () => {
               ★ FIAP 2026
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-              ◆ 8 shortlist CIMA
+              ◆ 12 nominaciones CIMA
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
@@ -910,25 +910,23 @@ const MediaKit = () => {
                   <span className="font-display font-black text-xs uppercase tracking-widest">Reconocimientos 2026</span>
                 </div>
                 <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-[-0.04em] leading-[0.92] text-background mb-6">
-                  5 finalistas en los <span className="italic text-primary">FIAP 2026</span> y 8 shortlist en{" "}
+                  4 Soles de Bronce en <span className="italic text-primary">FIAP 2026</span> y 12 nominaciones en{" "}
                   <span className="italic text-primary">Premios CIMA 2026</span>
                 </h2>
                 <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
-                  Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
-                  <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
-                  <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
-                  categorías del Festival Iberoamericano de Publicidad, y el ecosistema suma ocho menciones en el
-                  shortlist de los Premios CIMA 2026, incluyendo{" "}
-                  <strong className="text-primary">Creativo del Año</strong> para Jhon da Silva.
+                  <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
+                  <strong className="text-primary">Streaming from the Lost World</strong> uno. La Web Figital Agency fue
+                  Agencia País Venezuela por segundo año consecutivo. <strong className="text-primary">Pelotica de Goma: The Legacy</strong> recibió
+                  mención de honor / shortlist. Los casos son de Vacílate Esto Podcast, no de Movilnet.
                 </p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
                   {[
-                    { project: "Streaming from the Lost World", category: "Contenido con mejor estrategia digital" },
-                    { project: "Walking Ads Above the Algorithm", category: "Mejor estrategia de lanzamiento de programa" },
-                    { project: "Walking Ads Above the Algorithm", category: "Promoción de Broadcast" },
-                    { project: "Pelotica de Goma: The Legacy", category: "Evento en Vivo o Híbrido" },
-                    { project: "Walking Ads Above the Algorithm", category: "Contenido con mejor estrategia digital" },
+                    { project: "Streaming from the Lost World", category: "Sol de Bronce · Técnicas de Producción de Contenidos" },
+                    { project: "Walking Ads Above the Algorithm", category: "Sol de Bronce · Lanzamiento de programa" },
+                    { project: "Walking Ads Above the Algorithm", category: "Sol de Bronce · Promoción de Broadcast" },
+                    { project: "Pelotica de Goma: The Legacy", category: "Mención de Honor · Evento en Vivo o Híbrido" },
+                    { project: "Walking Ads Above the Algorithm", category: "Sol de Bronce · Estrategia digital" },
                   ].map((item, index) => (
                     <div
                       key={index}
@@ -941,7 +939,7 @@ const MediaKit = () => {
                 </div>
 
                 <p className="font-display font-black text-xs uppercase tracking-widest text-background/60 mt-12 mb-5">
-                  Shortlist Premios CIMA 2026 · Creatividad venezolana
+                  Premios CIMA 2026 · 8 categorías identificadas de 12 nominaciones · premiación 19 de octubre
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
                   {[
@@ -965,6 +963,11 @@ const MediaKit = () => {
                     </div>
                   ))}
                 </div>
+
+                <p className="font-body text-sm text-background/75 mt-8 max-w-3xl mx-auto">
+                  También: shortlist Cannes Lions 2026 para Pelotica de Goma: The Legacy; dos shortlists El Dorado 2026
+                  para Saving Pelotica de Goma y uno Effie Latam 2026 para Salvando Pelotica de Goma. Son selecciones, no metales.
+                </p>
 
                 <div className="mt-10">
                   <a

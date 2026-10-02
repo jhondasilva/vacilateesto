@@ -64,7 +64,7 @@ const Premios = () => {
     headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 12 nominaciones CIMA 2026",
     description:
       "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast. La Web Figital Agency, Agencia País Venezuela por segundo año consecutivo; 12 nominaciones CIMA 2026.",
-    datePublished: "2026-08-20",
+    datePublished: "2026-10-02",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
     publisher: { "@type": "Organization", name: "Vacílate Esto" },
@@ -123,7 +123,7 @@ const Premios = () => {
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground border-2 border-background rounded-full font-display font-black text-sm uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
               >
-                <Download className="w-4 h-4" /> Descargar nota de prensa (PDF)
+                <Download className="w-4 h-4" /> Nota histórica de finalistas (PDF)
               </a>
               <Link
                 to="/media-kit"
@@ -240,7 +240,7 @@ const Premios = () => {
               </div>
               <div className="border-2 border-foreground bg-card p-6 rounded-md">
                 <h3 className="font-display font-black text-xl mb-3">Effie Latam 2026</h3>
-                <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento, la única agencia venezolana seleccionada en esa categoría.</p>
+                <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento. La Web Figital Agency es la única agencia venezolana con shortlist en Effie Latam 2026.</p>
               </div>
             </div>
             <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto Podcast. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
@@ -265,7 +265,7 @@ const Premios = () => {
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground border-2 border-foreground rounded-full font-display font-black text-sm uppercase tracking-widest hover:-translate-y-0.5 transition-transform sticker-shadow-foreground"
               >
-                <Download className="w-4 h-4" /> Nota de prensa FIAP 2026
+                <Download className="w-4 h-4" /> Nota histórica de finalistas FIAP
               </a>
               <Link
                 to="/press-kit"

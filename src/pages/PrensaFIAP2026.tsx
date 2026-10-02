@@ -9,8 +9,8 @@ const PDF = "/press/Nota_de_Prensa_FIAP_2026.pdf";
 
 const FINALISTS = [
   {
-    discipline: "Técnicas de Producción de Contenidos",
-    category: "Contenido con mejor estrategia digital",
+    discipline: "Producción",
+    category: "Técnicas de Producción de Contenidos",
     project: "Streaming from the Lost World",
     brand: "Vacílate Esto Podcast",
   },
@@ -18,7 +18,7 @@ const FINALISTS = [
     discipline: "Formatos",
     category: "Mejor estrategia de lanzamiento de programa",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto",
+    brand: "Vacílate Esto Podcast",
   },
   {
     discipline: "Producción",
@@ -101,7 +101,8 @@ const PrensaFIAP2026 = () => {
               Los proyectos <strong className="text-primary">Streaming from the Lost World</strong>,{" "}
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> y{" "}
               <strong className="text-primary">Pelotica de Goma: The Legacy</strong> fueron seleccionados en cinco
-              categorías de los premios iberoamericanos de publicidad.
+              categorías de los premios iberoamericanos de publicidad. Esta nota recoge el anuncio de finalistas del 20 de agosto.
+              <Link to="/premios" className="ml-1 underline text-primary">Consulta los resultados: cuatro Soles de Bronce y una mención de honor.</Link>
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -126,7 +127,7 @@ const PrensaFIAP2026 = () => {
           <div className="container mx-auto px-4 max-w-3xl space-y-5 font-body text-foreground/85 leading-relaxed">
             <p className="text-lg text-foreground font-semibold">
               <strong>Caracas, Venezuela — 20 de agosto de 2026.</strong> Vacílate Esto anunció que cinco de sus
-              proyectos fueron seleccionados como finalistas en la edición 2026 de los FIAP (Festival Iberoamericano
+              candidaturas fueron seleccionadas como finalistas en la edición 2026 de los FIAP (Festival Iberoamericano
               de Publicidad), el certamen que reconoce las mejores piezas y estrategias de comunicación de Iberoamérica.
             </p>
             <p>
