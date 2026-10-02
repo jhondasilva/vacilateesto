@@ -174,19 +174,19 @@ def page_about(c):
         wrap(c, d, cx+16, cy+38, cw-32, fs=8, leading=11, color=MUT)
     footer(c, 2)
 
-# ───────── PAGE 3: AUDIENCIA ENE–JUL 2026 ─────────
+# ───────── PAGE 3: AUDIENCIA ENE–SEP 2026 ─────────
 def page_audience(c):
     header(c, 3)
-    sticker_pill(c, 36, H-66, 170, 20, "AUDIENCIA · ENE — JUL 2026", fill=PINK, fg=white)
+    sticker_pill(c, 36, H-66, 170, 20, "AUDIENCIA · ENE — SEP 2026", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
     wrap(c,
-        "Datos reales medidos en Metricool (fuente principal) entre el 1 de enero y el 31 de julio de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto. Apify se usa solo como verificación complementaria.",
+        "Datos reales medidos en Metricool (fuente principal) entre el 1 de enero y el 30 de septiembre de 2026 — Instagram (Feed + Reels + Stories), TikTok, YouTube y Facebook de Vacílate Esto. Apify se usa solo como verificación complementaria.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     kpis = [
-        (K["totalViews"],        "VISTAS DE VIDEO",  PINK),
-        (K["totalImpressions"],  "IMPRESIONES",      CYAN),
+        (K["totalViews"],        "VISTAS",  PINK),
+        (K["totalImpressions"],  "IMPRESIONES REG.", CYAN),
         (K["totalInteractions"], "INTERACCIONES",    INK),
         (K["totalPublications"], "POSTS PUBLICADOS", PINK),
     ]
@@ -200,37 +200,32 @@ def page_audience(c):
         c.drawCentredString(cx+cw/2, cy+22, small)
 
     sticker_pill(c, 36, H-275, 130, 18, "EVOLUCIÓN MENSUAL", fill=INK, fg=white, fs=7)
-    months = [
-        ("ENE", "1.10M", "187 posts", PINK),
-        ("FEB", "3.05M", "276 posts", CYAN),
-        ("MAR", "1.91M", "327 posts", PINK),
-        ("ABR", "2.51M", "340 posts", CYAN),
-        ("MAY", "5.59M", "449 posts", PINK),
-        ("JUN", "1.60M", "370 posts", CYAN),
-        ("JUL", "0.91M", "137 posts", PINK),
-    ]
-    cw = (W-72-60)/7; cy = H-400
+    months = [(row["label"], row["views"], f'{row["posts"]} posts', PINK if i % 2 == 0 else CYAN)
+              for i, row in enumerate(M["monthly"])]
+    # Nueve meses en dos filas, sin encoger la tipografía.
+    cw = (W-72-40)/5
     for i,(m,big,sub,col) in enumerate(months):
-        cx = 36 + i*(cw+10)
-        sticker_card(c, cx, cy, cw, 100, shadow=col)
-        c.setFillColor(col); c.setFont("Helvetica-Bold", 10)
-        c.drawString(cx+14, cy+82, m + " 2026")
-        c.setFillColor(INK); c.setFont("Helvetica-Bold", 15)
-        c.drawString(cx+14, cy+50, big)
+        row, col_index = divmod(i, 5)
+        cx = 36 + col_index*(cw+10)
+        cy = H-359-row*87
+        sticker_card(c, cx, cy, cw, 78, shadow=col)
+        c.setFillColor(col); c.setFont("Helvetica-Bold", 9)
+        c.drawString(cx+10, cy+62, m + " 2026")
+        c.setFillColor(INK); c.setFont("Helvetica-Bold", 14)
+        c.drawString(cx+10, cy+37, big)
         c.setFillColor(MUT); c.setFont("Helvetica-Bold", 6)
-        c.drawString(cx+14, cy+34, "VISTAS")
+        c.drawString(cx+10, cy+25, "VISTAS")
         c.setFillColor(INK); c.setFont("Helvetica", 7)
-        c.drawString(cx+14, cy+16, sub)
+        c.drawString(cx+10, cy+11, sub)
 
-    sticker_pill(c, 36, H-440, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
+    sticker_pill(c, 36, H-480, 100, 18, "POR PLATAFORMA", fill=CYAN, fg=INK, fs=7)
     plats = [
-        ("INSTAGRAM", "4.23M",  "Reels + Stories + Feed",  "923 posts · 249K likes",  PINK),
-        ("TIKTOK",    "5.44M",  "Vistas acumuladas",       "360 videos · 417K likes", INK),
-        ("YOUTUBE",   "5.06M",  "Vistas shorts + videos",  "417 posts · 54K likes",   CYAN),
-        ("FACEBOOK",  M["views"]["facebook"], "Reach + vistas (reels)",
-         f"{FB['posts']} posts · {FB['reactions']} reacc. · {FB['impressions']} impresiones", PINK),
+        ("INSTAGRAM", M["views"]["instagram"], "Reels + Stories + Feed", f'{M["publications"]["instagram"]} posts · {M["likes"]["instagram"]} likes', PINK),
+        ("TIKTOK", M["views"]["tiktok"], "Vistas acumuladas", f'{M["publications"]["tiktok"]} videos · {M["likes"]["tiktok"]} likes', INK),
+        ("YOUTUBE", M["views"]["youtube"], "Shorts + videos", f'{M["publications"]["youtube"]} posts · {M["likes"]["youtube"]} likes', CYAN),
+        ("FACEBOOK", M["views"]["facebook"], "Vistas de contenido", f'{FB["posts"]} posts · {FB["reactions"]} reacc. · {FB["impressions"]} impresiones', PINK),
     ]
-    cw = (W-72-30)/4; cy = H-580
+    cw = (W-72-30)/4; cy = H-622
     for i,(name,big,what,foot,col) in enumerate(plats):
         cx = 36 + i*(cw+10)
         sticker_card(c, cx, cy, cw, 125, shadow=col)
@@ -243,8 +238,8 @@ def page_audience(c):
         wrap(c, foot, cx+10, cy+34, cw-20, fs=7, leading=9, color=MUT)
 
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 31 jul 2026. Vistas e impresiones se reportan por separado para evitar duplicidad. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente. Apify se emplea únicamente como verificación complementaria video por video en TikTok (291 videos verificados · 5.07M vistas · perfil de 1.2M seguidores); no reemplaza ni se suma a las cifras de Metricool.",
-         36, 150, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
+    wrap(c, "Fuente principal: Metricool · Vacílate Esto · período 1 ene – 30 sep 2026. Vistas e impresiones se reportan por separado; TikTok y YouTube no aportan impresiones a este total. Interacciones = likes + comentarios + compartidos. " + FB["note"] + " Comunidad total 1.84M+ acumulada históricamente.",
+         36, 100, W-72, font="Helvetica-Oblique", fs=7, leading=10, color=MUT)
     footer(c, 3)
 
 # ───────── PAGE 4: HOSTS ─────────
@@ -508,17 +503,17 @@ def page_awards(c):
     header(c, 9)
     sticker_pill(c, 36, H-66, 140, 20, "RECONOCIMIENTOS", fill=PINK, fg=white)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
-    c.drawString(36, H-110, "5 FINALISTAS EN FIAP 2026")
+    c.drawString(36, H-110, "4 SOLES DE BRONCE · FIAP 2026")
     wrap(c,
-        "Los proyectos Streaming from the Lost World, Walking Ads Above the Algorithm y Pelotica de Goma: The Legacy fueron seleccionados en cinco categorías del Festival Iberoamericano de Publicidad.",
+        "Cuatro Soles de Bronce para casos de Vacílate Esto Podcast y una mención de honor / shortlist; 8 nominaciones CIMA 2026 de Vacílate Esto.",
         36, H-138, W-72, fs=10, leading=14, color=MUT)
 
     finalists = [
-        ("Técnicas de Producción de Contenidos", "Contenido con mejor estrategia digital", "Streaming from the Lost World", "Vacílate Esto Podcast"),
-        ("Formatos", "Mejor estrategia de lanzamiento de programa", "Walking Ads Above the Algorithm", "Vacílate Esto"),
-        ("Producción", "Técnicas de Producción — Promoción de Broadcast", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
-        ("Formatos", "Evento en Vivo o Híbrido", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
-        ("Formatos", "Contenido con mejor estrategia digital", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Producción", "Técnicas de Producción de Contenidos · Bronce", "Streaming from the Lost World", "Vacílate Esto Podcast"),
+        ("Formatos", "Mejor estrategia de lanzamiento · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Producción", "Promoción de Broadcast · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Formatos", "Evento en Vivo · Mención / Shortlist", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
+        ("Formatos", "Estrategia digital · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
     ]
     cw = (W-72-20)/2; ch = 110
     for i,(disc,cat,proj,brand) in enumerate(finalists):
@@ -538,7 +533,7 @@ def page_awards(c):
     cy = 110
     sticker_card(c, 36, cy, W-72, 90, shadow=INK)
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
-    c.drawString(56, cy+68, "FIAP 2026")
+    c.drawString(56, cy+68, "FIAP 2026 · CIMA 2026")
     wrap(c,
         "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
         56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=INK)

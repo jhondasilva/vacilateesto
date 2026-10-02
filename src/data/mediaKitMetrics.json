@@ -1,40 +1,93 @@
 {
-  "version": "20260923b",
+  "version": "20261002",
   "period": {
-    "label": "ene – jul 2026",
+    "label": "ene – sep 2026",
     "from": "2026-01-01",
-    "to": "2026-07-31"
+    "to": "2026-09-30"
   },
   "source": "Metricool (fuente principal) · Apify solo como verificación complementaria",
   "kpis": {
-    "totalViews": "16.66M",
-    "totalImpressions": "23.14M",
-    "totalInteractions": "944.4K",
-    "totalPublications": "2,086"
+    "totalViews": "21.90M",
+    "totalImpressions": "18.83M",
+    "totalInteractions": "1.04M",
+    "totalPublications": "2,619"
   },
   "views": {
-    "tiktok": "5.44M",
-    "instagram": "4.23M",
-    "facebook": "1.94M",
-    "youtube": "5.06M"
+    "tiktok": "6.38M",
+    "facebook": "2.06M",
+    "instagram": "5.26M",
+    "youtube": "8.19M"
   },
   "interactions": {
-    "tiktok": "466.3K",
-    "instagram": "353.7K",
-    "facebook": "69.7K",
-    "youtube": "54.7K"
+    "tiktok": "508.2K",
+    "facebook": "79.4K",
+    "instagram": "382.2K",
+    "youtube": "70.8K"
   },
   "publications": {
-    "tiktok": "360",
-    "instagram": "923",
-    "facebook": "386",
-    "youtube": "417"
+    "tiktok": "456",
+    "facebook": "496",
+    "instagram": "1,139",
+    "youtube": "528"
   },
   "facebook": {
-    "posts": "386",
-    "reactions": "69.7K",
-    "impressions": "681.8K",
+    "posts": "496",
+    "reactions": "72.9K",
+    "impressions": "388.2K",
     "note": "En Facebook, la API reporta las interacciones de Reels como reacciones (postVideoReactions) y no devuelve comentarios, por lo que las interacciones corresponden a reacciones verificadas."
   },
-  "generatedAt": "2026-09-23T14:23:48.382Z"
+  "generatedAt": "2026-10-02T00:00:00.000Z",
+  "monthly": [
+    {
+      "label": "ENE",
+      "views": "1.10M",
+      "posts": 187
+    },
+    {
+      "label": "FEB",
+      "views": "3.05M",
+      "posts": 276
+    },
+    {
+      "label": "MAR",
+      "views": "1.92M",
+      "posts": 327
+    },
+    {
+      "label": "ABR",
+      "views": "2.54M",
+      "posts": 340
+    },
+    {
+      "label": "MAY",
+      "views": "8.53M",
+      "posts": 449
+    },
+    {
+      "label": "JUN",
+      "views": "1.62M",
+      "posts": 369
+    },
+    {
+      "label": "JUL",
+      "views": "956.1K",
+      "posts": 137
+    },
+    {
+      "label": "AGO",
+      "views": "800.3K",
+      "posts": 254
+    },
+    {
+      "label": "SEP",
+      "views": "1.39M",
+      "posts": 280
+    }
+  ],
+  "likes": {
+    "tiktok": "456.5K",
+    "facebook": "72.9K",
+    "instagram": "283.9K",
+    "youtube": "69.8K"
+  }
 }

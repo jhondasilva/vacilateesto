@@ -1016,7 +1016,7 @@ const PodcastEnLaCumbre = () => {
                     durante el mes de la expedición al Pico Bolívar.
                   </p>
                   <a
-                    href="mailto:samira.rivas@hacemosloquenosgusta.com?subject=Propuesta%20de%20marca%20-%20Podcast%20en%20la%20Cumbre%20Pico%20Bol%C3%ADvar"
+                    href="mailto:andreina.ascension@hacemosloquenosgusta.com?subject=Propuesta%20de%20marca%20-%20Podcast%20en%20la%20Cumbre%20Pico%20Bol%C3%ADvar"
                     className="inline-flex w-full items-center justify-center gap-2 px-5 py-4 bg-primary text-primary-foreground border-2 border-background rounded-xl font-display font-black text-xs uppercase tracking-widest hover:opacity-90 transition-opacity"
                   >
                     Quiero sumarme
@@ -1110,11 +1110,6 @@ const PodcastEnLaCumbre = () => {
                     name: "Andreina",
                     role: "Dirección de producción",
                     description: "Tiene la visión completa del proyecto y orquesta cada pieza para que todo llegue a la cima."
-                  },
-                  {
-                    name: "Samira",
-                    role: "Logística",
-                    description: "Coordina traslados, equipos y tiempos para que la expedición funcione sin contratiempos."
                   },
                   {
                     name: "Estrella",
@@ -1256,13 +1251,6 @@ const PodcastEnLaCumbre = () => {
                   <p className="font-display font-black text-[10px] uppercase tracking-widest text-primary mb-2">Contacto</p>
                   <h3 className="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] mb-6">Para solicitudes de prensa</h3>
                   <div className="flex flex-col items-center justify-center gap-4">
-                    <a 
-                      href="mailto:samira.rivas@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
-                    >
-                      <span className="text-xl">📩</span>
-                      samira.rivas@hacemosloquenosgusta.com
-                    </a>
                     <a 
                       href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
                       className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"

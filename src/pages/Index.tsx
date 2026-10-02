@@ -167,7 +167,7 @@ const Index = () => {
                 "name": "¿Cuál es el mejor podcast de Venezuela?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Vacílate Esto es considerado el mejor podcast de Venezuela, liderando en entretenimiento con más de 2 millones de seguidores. Es un ecosistema completo de Fun Educaitment que combina fútbol, gastronomía, historia, leyendas y mitos urbanos."
+                  "text": "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela. Es un ecosistema completo de Fun Educaitment que combina fútbol, gastronomía, historia, leyendas y mitos urbanos."
                 }
               },
               {

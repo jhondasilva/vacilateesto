@@ -65,7 +65,7 @@ def header(c, page, label):
 def footer(c, page):
     draw_logo(c, LOGO, 36, 18, 20, 18)
     c.setFillColor(MUT); c.setFont("Helvetica", 7)
-    c.drawString(62, 24, "vacilateesto.com/podcast-en-la-cumbre  ·  samira.rivas@hacemosloquenosgusta.com")
+    c.drawString(62, 24, "vacilateesto.com/podcast-en-la-cumbre  ·  andreina.ascension@hacemosloquenosgusta.com")
     c.drawRightString(W - 36, 24, f"{page}/{PAGES}")
 
 
@@ -298,7 +298,6 @@ team = [
     ("JuanSofa", "Juan Carlos Martínez · Co-host"),
     ("JhonSnacks", "Jhon Da Silva · Co-host"),
     ("Andreína Ascensión", "Dirección de producción"),
-    ("Samira Rivas", "Logística"),
     ("Estrella Rodríguez", "Coordinadora de producción"),
     ("Darwins y Daniel", "Producción audiovisual"),
 ]
@@ -322,7 +321,6 @@ c.setFillColor(white); c.setFont("Helvetica-Bold", 13)
 c.drawString(52, cy + 4, "Contacto comercial y de prensa")
 ty = cy - 16
 for t in [
-    "Samira Rivas · Logística · samira.rivas@hacemosloquenosgusta.com",
     "Andreína Ascensión · Dirección de producción · andreina.ascension@hacemosloquenosgusta.com",
     "Estrella Rodríguez · Coordinadora de producción · estrella.rodriguez@hacemosloquenosgusta.com",
 ]:
