@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Play, Headphones, Sparkles, ArrowUpRight, Star } from "lucide-react";
 import studioSet from "@/assets/studio-set.jpg";
+import mediaKitMetrics from "@/data/mediaKitMetrics.json";
 
 const marqueeItems = [
   "VACÍLATE ESTO",
@@ -221,11 +222,11 @@ const HeroSection = () => {
               </span>
               <span className="mx-6 text-background/70">✦</span>
               <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
-                89.6M Impresiones
+                {mediaKitMetrics.kpis.totalViews} Vistas · ene–sep 2026
               </span>
               <span className="mx-6 text-background/70">✦</span>
               <span className="font-display font-black text-sm md:text-base tracking-[0.15em] uppercase">
-                5.2M Interacciones
+                {mediaKitMetrics.kpis.totalImpressions} Impresiones reportadas · ene–sep 2026
               </span>
               <span className="mx-6 text-background/70">✦</span>
             </span>
