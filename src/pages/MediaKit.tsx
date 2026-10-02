@@ -862,7 +862,7 @@ const MediaKit = () => {
                 badgeVariant="primary"
                 title="Contenido que"
                 highlight="genera impacto"
-                description="Selección de publicaciones · Fuente: Metricool"
+                description="Selección histórica de publicaciones hasta julio de 2026 · Fuente: Metricool"
               />
 
               <div className="overflow-x-auto">
