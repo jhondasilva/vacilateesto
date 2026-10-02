@@ -1259,13 +1259,6 @@ const PodcastEnLaCumbre = () => {
                       andreina.ascension@hacemosloquenosgusta.com
                     </a>
                     <a 
-                      href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
-                      className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
-                    >
-                      <span className="text-xl">📩</span>
-                      andreina.ascension@hacemosloquenosgusta.com
-                    </a>
-                    <a 
                       href="mailto:estrella.rodriguez@hacemosloquenosgusta.com" 
                       className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
