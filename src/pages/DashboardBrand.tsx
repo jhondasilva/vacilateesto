@@ -1003,6 +1003,12 @@ const MetricoolDashboard = ({
     setRefreshing(true);
     const tId = toast.loading(`Refrescando datos de ${brand.name}…`);
     try {
+      if (showPelotica) {
+        // TikTok de @peloticadegomave para marcas patrocinantes (en segundo plano).
+        void supabase.functions.invoke("influencer-hashtag-sync", {
+          body: { campaignSlug: "pelotica-de-goma", skipHashtags: true, handles: ["peloticadegomave"], platforms: ["tiktok"], profileLimit: 100 },
+        });
+      }
       if (brand.slug === "pelotica-de-goma") {
         // La cuenta de TikTok de @peloticadegomave no está en Metricool: se captura vía Apify
         await supabase.functions.invoke("apify-sync", {
@@ -1057,6 +1063,8 @@ const MetricoolDashboard = ({
     if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
     if (!p.publishedAt) return false;
     if (!matchesBrandKeywords(p.text)) return false;
+    // Mismo criterio en todas las marcas: el post debe mencionar la cuenta de la marca.
+    if (showPelotica && !(brandConfig.handles ?? []).some((h) => (p.text ?? "").toLowerCase().includes(h.toLowerCase()))) return false;
     const t = new Date(p.publishedAt).getTime();
     return t >= month.from.getTime() && t <= month.to.getTime();
   });
