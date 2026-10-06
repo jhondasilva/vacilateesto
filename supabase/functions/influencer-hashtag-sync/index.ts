@@ -525,7 +525,13 @@ Deno.serve(async (req) => {
       const mencionaEquipo = MENTIONS.some((h) => norm.includes(`@${h}`));
       return ambosHT || mencionaEquipo;
     };
-    const valid = rows.filter(hasRequiredTag);
+    // Campañas por hashtag propio (ej. Speed Stick): vale cualquier cuenta con ese hashtag.
+    const valid = campaignSlug === "pelotica-de-goma"
+      ? rows.filter(hasRequiredTag)
+      : rows.filter((r) => {
+          const norm = `${(r.text ?? "")} ${(r.hashtags ?? []).join(" ")}`.toLowerCase().replace(/\s+/g, "");
+          return hashtags.some((h) => norm.includes(`#${h}`));
+        });
     rows.length = 0;
     rows.push(...valid);
 

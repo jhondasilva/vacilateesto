@@ -16,6 +16,7 @@ import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
 import logoCocaCola from "@/assets/logo-coca-cola.png";
 import logoKfc from "@/assets/logo-kfc.png";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
+import { SpeedStickSection } from "@/components/dashboard/SpeedStickSection";
 import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
 import PeloticaOfficialAccounts from "@/components/dashboard/PeloticaOfficialAccounts";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
@@ -425,6 +426,8 @@ const DashboardBrand = () => {
           <Loader2 className="w-6 h-6 animate-spin text-primary" />
         ) : !brand ? (
           <p className="text-muted-foreground">Marca no disponible.</p>
+        ) : brand.slug === "speed-stick" ? (
+          <SpeedStickSection accent={accent} />
         ) : BRAND_KEYWORDS[brand.slug] ? (
           <MetricoolDashboard brand={brand} brandLogo={brandLogo} logoBox={logoBox} accent={accent} />
         ) : reports.length === 0 ? (
