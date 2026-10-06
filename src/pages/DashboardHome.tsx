@@ -5,19 +5,8 @@ import { useBrandAuth } from "@/hooks/useBrandAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
-import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.png";
-import logoPodcastCumbre from "@/assets/logo-podcast-cumbre.avif";
-import logoMundial from "@/assets/logo-mundial-2026.png";
-import { resolveBrandLogo, logoBoxClass } from "@/lib/brandLogos";
-
-/** Proyectos propios: se destacan arriba y con logo del proyecto. */
-const PROJECT_LOGOS: Record<string, string> = {
-  "pelotica-de-goma": logoPeloticaDeGoma,
-  "podcast-en-la-cumbre": logoPodcastCumbre,
-  "vacilate-el-mundial": logoMundial,
-};
-const PROJECT_SLUGS = Object.keys(PROJECT_LOGOS);
-
+import DashboardLogo from "@/components/dashboard/DashboardLogo";
+import { PROJECT_SLUGS } from "@/lib/brandLogos";
 
 const DashboardHome = () => {
   // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
@@ -100,14 +89,7 @@ const DashboardHome = () => {
                           to={`/dashboard/${b.brand.slug}`}
                           className="group relative overflow-hidden bg-card border-2 border-primary/40 rounded-2xl p-6 hover:border-primary hover:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all flex flex-col gap-4"
                         >
-                            <div className="inline-flex rounded-xl p-2 w-fit">
-                              <img
-                                src={PROJECT_LOGOS[b.brand.slug]}
-                                alt={`Logo de ${b.brand.name}`}
-                                className="h-12 w-auto object-contain"
-                                loading="lazy"
-                              />
-                            </div>
+                          <DashboardLogo slug={b.brand.slug} name={b.brand.name} fallback={b.brand.logo_url} size="feature" />
                           <div>
                             <p className="text-[10px] text-primary uppercase tracking-[0.18em] font-bold">
                               Proyecto propio
@@ -137,20 +119,11 @@ const DashboardHome = () => {
                           className="group bg-card border border-border rounded-2xl p-5 hover:border-primary transition-colors flex items-center justify-between gap-4"
                           style={{ borderLeftColor: b.brand.brand_color ?? undefined, borderLeftWidth: 4 }}
                         >
-                          <div className="flex items-center gap-3 min-w-0">
-                            {(() => { const l = resolveBrandLogo(b.brand.slug, b.brand.logo_url); return l && (
-                              <span className={`inline-flex ${logoBoxClass(l.bg)} rounded-lg p-1.5 shrink-0`}>
-                                <img
-                                  src={l.src}
-                                  alt={`Logo de ${b.brand.name}`}
-                                  className="h-8 md:h-10 max-w-[7rem] w-auto object-contain"
-                                  loading="lazy"
-                                />
-                              </span>
-                            ); })()}
+                          <div className="flex flex-1 items-center gap-3 min-w-0">
+                            <DashboardLogo slug={b.brand.slug} name={b.brand.name} fallback={b.brand.logo_url} />
                             <div className="min-w-0">
                               <p className="text-xs text-muted-foreground uppercase tracking-wider">Marca</p>
-                              <p className="text-lg font-bold truncate">{b.brand.name}</p>
+                              <p className="text-lg font-bold break-words">{b.brand.name}</p>
                             </div>
                           </div>
                           <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />

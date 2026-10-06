@@ -1,0 +1,7 @@
+.dashboard-logo { --logo-height: 3rem; --logo-width: 6rem; height: var(--logo-height); width: var(--logo-width); }
+.dashboard-logo--compact { --logo-height: 2rem; --logo-width: 4rem; }
+.dashboard-logo--feature { --logo-height: 4rem; --logo-width: 8rem; }
+@media (min-width: 768px) {
+  .dashboard-logo--card { --logo-height: 3.5rem; --logo-width: 7rem; }
+  .dashboard-logo--feature { --logo-height: 5rem; --logo-width: 10rem; }
+}

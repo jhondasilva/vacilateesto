@@ -1,0 +1,1 @@
+- Resolve and render dashboard logos through the shared dashboard logo registry and viewport component, so cards and all dashboard headers use identical assets and safe image failure handling without changing data flows.

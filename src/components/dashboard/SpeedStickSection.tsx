@@ -1,3 +1,4 @@
+import DashboardLogo from "@/components/dashboard/DashboardLogo";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -144,8 +145,9 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
-        <div>
-          <h2 className="text-xl font-black">Speed Stick · @ladyspeedstick.ve / @speedstick.ve</h2>
+        <div className="min-w-0">
+          <DashboardLogo slug="speed-stick" name="Speed Stick" size="feature" />
+          <h2 className="text-xl font-black break-words">Speed Stick · @ladyspeedstick.ve / @speedstick.ve</h2>
           <p className="text-[11px] text-muted-foreground font-mono">
             General de marca: todo lo de @ladyspeedstick.ve y @speedstick.ve en @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
           </p>

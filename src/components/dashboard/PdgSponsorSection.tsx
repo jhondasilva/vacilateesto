@@ -1,3 +1,4 @@
+import DashboardLogo from "@/components/dashboard/DashboardLogo";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Eye, Heart, Loader2, Music2, Instagram } from "lucide-react";
@@ -64,8 +65,9 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
 
   return (
     <div>
-      <div className="mb-5">
-        <h2 className="text-xl font-black">{cfg.name} · @{cfg.handle} en Pelotica de Goma</h2>
+      <div className="mb-5 min-w-0">
+        <DashboardLogo slug={slug} name={cfg.name} size="feature" />
+        <h2 className="text-xl font-black break-words">{cfg.name} · @{cfg.handle} en Pelotica de Goma</h2>
         <p className="text-[11px] text-muted-foreground font-mono">
           Publicaciones de @peloticadegomave que mencionan a @{cfg.handle} · desde el inicio de 2026 · cada publicación se cuenta una vez · Fuente: Apify
         </p>
