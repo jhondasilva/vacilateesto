@@ -873,6 +873,35 @@ const MetricoolDashboard = ({
   // se completa con los datos capturados vía Apify.
   const [apifyTikToks, setApifyTikToks] = useState<MentionPost[]>([]);
 
+  // Marcas patrocinantes: TikTok de @peloticadegomave (no está en Metricool) vía Apify.
+  useEffect(() => {
+    if (!showPelotica) return;
+    (async () => {
+      const { data: rows } = await supabase
+        .from("influencer_posts")
+        .select("external_id,url,text,thumbnail,published_at,views,likes,comments,shares")
+        .eq("author_handle", "@peloticadegomave")
+        .eq("platform", "tiktok")
+        .gte("published_at", "2026-01-01T04:00:00Z")
+        .limit(2000);
+      const byId = new Map<string, MentionPost>();
+      for (const r of rows ?? []) {
+        if (!r.external_id || byId.has(r.external_id)) continue;
+        byId.set(r.external_id, {
+          platform: "tiktok",
+          id: r.external_id,
+          url: r.url ?? `https://www.tiktok.com/@peloticadegomave/video/${r.external_id}`,
+          publishedAt: r.published_at,
+          text: r.text ?? "",
+          thumbnail: r.thumbnail ?? null,
+          metrics: { views: r.views ?? 0, likes: r.likes ?? 0, comments: r.comments ?? 0, shares: r.shares ?? 0 },
+          blogId: 1908520,
+        } as MentionPost);
+      }
+      setApifyTikToks([...byId.values()]);
+    })();
+  }, [brand.slug, showPelotica]);
+
   useEffect(() => {
     if (brand.slug !== "pelotica-de-goma") return;
     (async () => {
