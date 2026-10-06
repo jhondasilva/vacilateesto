@@ -13,7 +13,7 @@ import clubSocial from "@/assets/dashboard-club-social.png.asset.json";
 import ronco from "@/assets/dashboard-ronco.png.asset.json";
 import quimicolor from "@/assets/dashboard-quimicolor.png.asset.json";
 import solera from "@/assets/dashboard-solera.png.asset.json";
-import pilsen from "@/assets/dashboard-pilsen.png.asset.json";
+import pilsen from "@/assets/dashboard-pilsen-polar-color.png.asset.json";
 import pelotica from "@/assets/logo-pelotica-de-goma.png";
 import podcast from "@/assets/logo-podcast-cumbre.avif";
 import mundial from "@/assets/logo-mundial-2026.png";
@@ -40,7 +40,7 @@ export const BRAND_LOGO_MAP: Record<string, BrandLogo> = {
   ronco: { src: ronco.url, bg: "dark", viewport: { imageWidth: 1000, imageHeight: 1000, x: 127, y: 337, width: 770, height: 444 } },
   quimicolor: { src: quimicolor.url, bg: "light", viewport: { imageWidth: 682, imageHeight: 137, x: 0, y: 1, width: 682, height: 135 } },
   solera: { src: solera.url, bg: "dark", viewport: { imageWidth: 374, imageHeight: 283, x: 42, y: 31, width: 290, height: 207 } },
-  "pilsen-pdg": { src: pilsen.url, bg: "dark", viewport: { imageWidth: 1080, imageHeight: 1080, x: 143, y: 315, width: 795, height: 450 } },
+  "pilsen-pdg": { src: pilsen.url, bg: "dark", viewport: { imageWidth: 756, imageHeight: 632, x: 54, y: 62, width: 678, height: 536 } },
   "pelotica-de-goma": { src: pelotica, bg: "dark" },
   "podcast-en-la-cumbre": { src: podcast, bg: "dark" },
   "vacilate-el-mundial": { src: mundial, bg: "dark" },
