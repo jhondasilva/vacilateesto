@@ -6,5 +6,5 @@
 - [x] Verificar escritorio, móvil y build
 - [x] Actualizar reconocimientos 2026 en inicio, premios y media kit web
 - [x] Distinguir notas históricas de los resultados finales y verificar la vista
-- [ ] Completar logos oficiales y presentación compartida en dashboards, sin cambios de datos ni publicación
-- [ ] Verificar diff, controles relevantes y logos en escritorio y móvil mediante fixture aislado
+- [x] Completar logos oficiales y presentación compartida en dashboards, sin cambios de datos ni publicación
+- [x] Verificar diff, controles relevantes y logos en escritorio y móvil mediante fixture aislado
