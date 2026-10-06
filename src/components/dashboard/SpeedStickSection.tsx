@@ -49,7 +49,6 @@ export const groupOf = (handle: string | null): Group => {
 
 // Cuentas oficiales de la marca: cuentan todas sus publicaciones.
 export const BRAND_HANDLES = ["ladyspeedstick.ve", "speedstick.ve"];
-const MENTIONS = ["@ladyspeedstick.ve", "@speedstick.ve"];
 const handleOf = (h: string | null) => (h ?? "").replace(/^@/, "").toLowerCase();
 
 // General de marca = todo lo de las cuentas de la marca + lo de @peloticadegomave
