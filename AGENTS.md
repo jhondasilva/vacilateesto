@@ -1,1 +1,2 @@
 - Resolve and render dashboard logos through the shared dashboard logo registry and viewport component, so cards and all dashboard headers use identical assets and safe image failure handling without changing data flows.
+- Collapse duplicate dashboard brand identities only within the already authorized card list, preserving existing routes and permissions so presentation changes cannot grant access.
