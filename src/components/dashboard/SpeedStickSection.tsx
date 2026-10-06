@@ -63,6 +63,8 @@ export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_
 };
 
 type TabKey = "all" | "pdg";
+const mentionsBrand = (p: Post) =>
+  /@(lady)?speedstick\.ve\b/i.test(`${p.text ?? ""}`);
 const isPdg = (h: string | null) => (h ?? "").replace(/^@/, "").toLowerCase() === "peloticadegomave";
 const TABS: { k: TabKey; label: string }[] = [
   { k: "all", label: "General de marca" },
@@ -115,7 +117,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
   };
 
   const filtered = useMemo(
-    () => (tab === "all" ? posts : posts.filter((p) => isPdg(p.author_handle))),
+    () => (tab === "all" ? posts.filter(mentionsBrand) : posts.filter((p) => isPdg(p.author_handle))),
     [posts, tab],
   );
   const totals = useMemo(() => filtered.reduce((a, p) => {
@@ -145,7 +147,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
         <div>
           <h2 className="text-xl font-black">Speed Stick · @ladyspeedstick.ve / @speedstick.ve</h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            General de marca: todo lo de @ladyspeedstick.ve y @speedstick.ve + todas las publicaciones de @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
+            General de marca: todo lo de @ladyspeedstick.ve y @speedstick.ve en @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -164,7 +166,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
               tab === t.k ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
             )}
           >
-            {t.label} · {t.k === "all" ? posts.length : posts.filter((p) => isPdg(p.author_handle)).length}
+            {t.label} · {t.k === "all" ? posts.filter(mentionsBrand).length : posts.filter((p) => isPdg(p.author_handle)).length}
           </button>
         ))}
       </div>
