@@ -326,6 +326,8 @@ Deno.serve(async (req) => {
       const teamHandles: string[] = Array.isArray(body.handles) && body.handles.length
         ? body.handles.map((h: string) => String(h).replace(/^@/, "").toLowerCase())
         : [...TEAM_HANDLES, ...CHIVO_HANDLES, ...SUPER_CHIVO_HANDLES];
+      // Si se piden cuentas concretas, se aceptan aunque no sean de Pelotica.
+      const customHandles = new Set<string>(Array.isArray(body.handles) ? teamHandles : []);
 
     if (platforms.includes("tiktok") && !skipProfiles) {
       jobs.push(
@@ -351,7 +353,7 @@ Deno.serve(async (req) => {
               const url = it.webVideoUrl as string | undefined;
               if (!url) continue;
               const handle = String(it.authorMeta?.uniqueId ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+              if (!customHandles.has(handle) && !TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.text ?? "");
               rows.push({
                 campaign_slug: campaignSlug,
@@ -407,8 +409,8 @@ Deno.serve(async (req) => {
                 .replace(/^https?:\/\/(www\.)?instagram\.com\//, "")
                 .replace(/\/.*$/, "");
               const owner = String(it.ownerUsername ?? "").toLowerCase();
-              const handle = TEAM_HANDLES.has(fromInput) ? fromInput : owner;
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+              const handle = TEAM_HANDLES.has(fromInput) || customHandles.has(fromInput) ? fromInput : owner;
+              if (!customHandles.has(handle) && !TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
 
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
@@ -458,7 +460,7 @@ Deno.serve(async (req) => {
               const id = (it.id as string | undefined) ?? (it.shortCode as string | undefined);
               if (!url || !id) continue;
               const handle = String(it.ownerUsername ?? "").toLowerCase();
-              if (!TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
+              if (!customHandles.has(handle) && !TEAM_HANDLES.has(handle) && !CHIVO_HANDLES.has(handle) && !SUPER_CHIVO_HANDLES.has(handle)) continue;
               const text = String(it.caption ?? "");
               const tags = (it.hashtags ?? []).map((h: string) => `#${String(h).toLowerCase()}`);
               rows.push({
