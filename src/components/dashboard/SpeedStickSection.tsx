@@ -26,7 +26,7 @@ type Post = {
   hashtags: string[] | null;
 };
 
-export const SPEED_STICK_HASHTAG = "#ladyspeedstick";
+export const SPEED_STICK_HASHTAGS = ["#ladyspeedstick", "#speedstick"];
 export const SPEED_STICK_START = Date.parse("2026-09-25T00:00:00-04:00");
 
 const fmt = (n: number) => new Intl.NumberFormat("es-VE").format(Math.round(n || 0));
@@ -47,12 +47,12 @@ export const groupOf = (handle: string | null): Group => {
   return "otras";
 };
 
-// Solo cuenta lo de Pelotica: #LadySpeedStick + (cuenta de Pelotica o mención a @peloticadegomave).
+// Solo cuenta lo de Pelotica: #LadySpeedStick o #SpeedStick + (cuenta de Pelotica o mención a @peloticadegomave).
 export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_at" | "author_handle">) => {
   const ts = p.published_at ? Date.parse(p.published_at) : NaN;
   if (!Number.isFinite(ts) || ts < SPEED_STICK_START) return false;
   const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`.toLowerCase().replace(/\s+/g, "");
-  if (!norm.includes(SPEED_STICK_HASHTAG)) return false;
+  if (!SPEED_STICK_HASHTAGS.some((ht) => norm.includes(ht))) return false;
   return groupOf(p.author_handle) !== "otras" || norm.includes("@peloticadegomave");
 };
 
@@ -76,7 +76,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
       .from("influencer_posts")
       .select("*")
       .gte("published_at", new Date(SPEED_STICK_START).toISOString())
-      .or("text.ilike.%ladyspeedstick%,hashtags.cs.{#ladyspeedstick}")
+      .or("text.ilike.%ladyspeedstick%,text.ilike.%speedstick%,hashtags.cs.{#ladyspeedstick},hashtags.cs.{#speedstick}")
       .order("published_at", { ascending: false })
       .limit(2000);
     if (error) toast.error("No se pudieron cargar las publicaciones");
@@ -97,7 +97,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
   const handleSync = async () => {
     setSyncing(true);
     const { data, error } = await supabase.functions.invoke("influencer-hashtag-sync", {
-      body: { campaignSlug: "speed-stick", hashtags: ["ladyspeedstick"], skipProfiles: true, limit: 200 },
+      body: { campaignSlug: "speed-stick", hashtags: ["ladyspeedstick", "speedstick"], skipProfiles: true, limit: 200 },
     });
     if (error || (data as { ok?: boolean })?.ok === false) {
       setSyncing(false);
@@ -138,9 +138,9 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
         <div>
-          <h2 className="text-xl font-black">Speed Stick · #LadySpeedStick</h2>
+          <h2 className="text-xl font-black">Speed Stick · #LadySpeedStick / #SpeedStick</h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            Solo Pelotica: #LadySpeedStick en cuentas de Pelotica (oficial, equipos, chivos) o con mención a @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
+            Solo Pelotica: #LadySpeedStick o #SpeedStick en cuentas de Pelotica (oficial, equipos, chivos) o con mención a @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -171,7 +171,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
         </div>
       ) : filtered.length === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
-          Todavía no hay publicaciones con #LadySpeedStick en esta pestaña. Usa “Actualizar datos”.
+          Todavía no hay publicaciones con #LadySpeedStick ni #SpeedStick en esta pestaña. Usa “Actualizar datos”.
         </div>
       ) : (
         <>
