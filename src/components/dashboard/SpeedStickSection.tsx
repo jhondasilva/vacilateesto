@@ -56,19 +56,18 @@ export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_
   return groupOf(p.author_handle) !== "otras" || norm.includes("@peloticadegomave");
 };
 
-const TABS: { k: "all" | Group; label: string }[] = [
-  { k: "all", label: "Todo unificado" },
-  { k: "oficial", label: "Pelotica oficial" },
-  { k: "equipo", label: "Equipos" },
-  { k: "chivo", label: "Chivos" },
-  { k: "otras", label: "Otras con @peloticadegomave" },
+type TabKey = "all" | "pdg";
+const isPdg = (h: string | null) => (h ?? "").replace(/^@/, "").toLowerCase() === "peloticadegomave";
+const TABS: { k: TabKey; label: string }[] = [
+  { k: "all", label: "General de marca" },
+  { k: "pdg", label: "@peloticadegomave" },
 ];
 
 export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?: string }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
-  const [tab, setTab] = useState<"all" | Group>("all");
+  const [tab, setTab] = useState<TabKey>("all");
 
   const load = async () => {
     setLoading(true);
@@ -110,7 +109,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
   };
 
   const filtered = useMemo(
-    () => (tab === "all" ? posts : posts.filter((p) => groupOf(p.author_handle) === tab)),
+    () => (tab === "all" ? posts : posts.filter((p) => isPdg(p.author_handle))),
     [posts, tab],
   );
   const totals = useMemo(() => filtered.reduce((a, p) => {
@@ -159,7 +158,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
               tab === t.k ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
             )}
           >
-            {t.label} · {t.k === "all" ? posts.length : posts.filter((p) => groupOf(p.author_handle) === t.k).length}
+            {t.label} · {t.k === "all" ? posts.length : posts.filter((p) => isPdg(p.author_handle)).length}
           </button>
         ))}
       </div>
