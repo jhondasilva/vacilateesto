@@ -14,7 +14,6 @@ import ronco from "@/assets/dashboard-ronco.png.asset.json";
 import quimicolor from "@/assets/dashboard-quimicolor.png.asset.json";
 import solera from "@/assets/dashboard-solera.png.asset.json";
 import pilsen from "@/assets/dashboard-pilsen-polar-color.png.asset.json";
-import pelotica from "@/assets/logo-pelotica-de-goma.png";
 import peloticaDashboard from "@/assets/pelotica-texto-negro-oficial.png.asset.json";
 import podcast from "@/assets/logo-podcast-cumbre.avif";
 import mundial from "@/assets/logo-mundial-2026.png";
