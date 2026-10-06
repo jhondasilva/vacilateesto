@@ -7,6 +7,7 @@ import { Loader2, LogOut, ArrowRight, Settings } from "lucide-react";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 import DashboardLogo from "@/components/dashboard/DashboardLogo";
 import { PROJECT_SLUGS } from "@/lib/brandLogos";
+import { distinctDashboardBrands } from "@/lib/dashboardBrandIdentity";
 
 const DashboardHome = () => {
   // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
@@ -71,7 +72,7 @@ const DashboardHome = () => {
         ) : (
           (() => {
             const projects = brands.filter((b) => PROJECT_SLUGS.includes(b.brand.slug));
-            const clients = brands.filter((b) => !PROJECT_SLUGS.includes(b.brand.slug));
+            const clients = distinctDashboardBrands(brands.filter((b) => !PROJECT_SLUGS.includes(b.brand.slug)));
             return (
               <div className="space-y-12">
                 {projects.length > 0 && (
