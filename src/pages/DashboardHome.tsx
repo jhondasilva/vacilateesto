@@ -100,14 +100,14 @@ const DashboardHome = () => {
                           to={`/dashboard/${b.brand.slug}`}
                           className="group relative overflow-hidden bg-card border-2 border-primary/40 rounded-2xl p-6 hover:border-primary hover:shadow-[0_0_0_4px_hsl(var(--primary)/0.12)] transition-all flex flex-col gap-4"
                         >
-                          <div className="inline-flex bg-black rounded-xl p-2 w-fit">
-                            <img
-                              src={PROJECT_LOGOS[b.brand.slug]}
-                              alt={`Logo de ${b.brand.name}`}
-                              className="h-12 w-auto object-contain"
-                              loading="lazy"
-                            />
-                          </div>
+                            <div className="inline-flex rounded-xl p-2 w-fit">
+                              <img
+                                src={PROJECT_LOGOS[b.brand.slug]}
+                                alt={`Logo de ${b.brand.name}`}
+                                className="h-12 w-auto object-contain"
+                                loading="lazy"
+                              />
+                            </div>
                           <div>
                             <p className="text-[10px] text-primary uppercase tracking-[0.18em] font-bold">
                               Proyecto propio
