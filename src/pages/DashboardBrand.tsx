@@ -851,7 +851,7 @@ const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: 
 };
 
 const MetricoolDashboard = ({
-  brand, brandLogo, logoBox = "bg-black", accent,
+  brand, brandLogo, logoBox = "", accent,
 }: { brand: Brand; brandLogo: string | null; logoBox?: string; accent: string }) => {
   const months = useState(() => buildMonths(brand.slug))[0];
 
