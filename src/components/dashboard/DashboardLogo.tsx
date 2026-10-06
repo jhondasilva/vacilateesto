@@ -15,7 +15,7 @@ export default function DashboardLogo({ slug, name, fallback, size = "card" }: P
     <span className={cn("dashboard-logo inline-flex shrink-0 items-center justify-center overflow-hidden rounded-md", `dashboard-logo--${size}`, logoBoxClass(logo.bg))}>
       {viewport ? (
         <span className="relative block overflow-hidden" style={{ width: `min(100%, calc(var(--logo-height) * ${viewport.width / viewport.height}))`, aspectRatio: `${viewport.width} / ${viewport.height}` }}>
-          <img src={logo.src} alt={`Logo de ${name}`} loading="lazy" onError={() => setFailedSrc(logo.src)} className="absolute max-w-none" style={{ width: `${viewport.size / viewport.width * 100}%`, height: "auto", left: `${-viewport.x / viewport.width * 100}%`, top: `${-viewport.y / viewport.height * 100}%` }} />
+          <img src={logo.src} alt={`Logo de ${name}`} loading="lazy" onError={() => setFailedSrc(logo.src)} className="absolute max-w-none" style={{ width: `${viewport.imageWidth / viewport.width * 100}%`, height: `${viewport.imageHeight / viewport.height * 100}%`, left: `${-viewport.x / viewport.width * 100}%`, top: `${-viewport.y / viewport.height * 100}%` }} />
         </span>
       ) : (
         <img src={logo.src} alt={`Logo de ${name}`} loading="lazy" onError={() => setFailedSrc(logo.src)} className="h-full w-full object-contain" />

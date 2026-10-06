@@ -12,6 +12,8 @@
 
     --card: 0 0% 100%;
     --card-foreground: 230 25% 9%;
+    /* Fixed white backing for dashboard logos with dark ink, independent of theme surfaces. */
+    --dashboard-logo-paper: 0 0% 100%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 230 25% 9%;
