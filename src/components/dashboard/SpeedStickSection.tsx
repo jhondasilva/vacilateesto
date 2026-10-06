@@ -49,7 +49,6 @@ export const groupOf = (handle: string | null): Group => {
 
 // Cuentas oficiales de la marca: cuentan todas sus publicaciones.
 export const BRAND_HANDLES = ["ladyspeedstick.ve", "speedstick.ve"];
-const MENTIONS = ["@ladyspeedstick.ve", "@speedstick.ve"];
 const handleOf = (h: string | null) => (h ?? "").replace(/^@/, "").toLowerCase();
 
 // General de marca = todo lo de las cuentas de la marca + lo de @peloticadegomave
@@ -59,9 +58,8 @@ export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_
   if (!Number.isFinite(ts) || ts < SPEED_STICK_START) return false;
   const h = handleOf(p.author_handle);
   if (BRAND_HANDLES.includes(h)) return true;
-  if (h !== "peloticadegomave") return false;
-  const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`.toLowerCase();
-  return MENTIONS.some((m) => norm.includes(m)) || SPEED_STICK_HASHTAGS.some((ht) => norm.replace(/\s+/g, "").includes(ht));
+  // @peloticadegomave: todas sus publicaciones, sin filtro.
+  return h === "peloticadegomave";
 };
 
 type TabKey = "all" | "pdg";
@@ -147,7 +145,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
         <div>
           <h2 className="text-xl font-black">Speed Stick · @ladyspeedstick.ve / @speedstick.ve</h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            General de marca: todo lo de @ladyspeedstick.ve y @speedstick.ve + lo de @peloticadegomave que los menciona · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
+            General de marca: todo lo de @ladyspeedstick.ve y @speedstick.ve + todas las publicaciones de @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
