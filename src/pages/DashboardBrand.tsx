@@ -13,9 +13,6 @@ import { es } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import logoVacilateEsto from "@/assets/logo-vacilate-esto.png";
 import logoVacilateFutbol from "@/assets/logo-vacilate-futbol.png";
-import logoCocaCola from "@/assets/logo-coca-cola.png";
-import logoKfc from "@/assets/logo-kfc.png";
-import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.avif.asset.json";
 import { SpeedStickSection } from "@/components/dashboard/SpeedStickSection";
 import { PdgSponsorSection, PDG_SPONSORS } from "@/components/dashboard/PdgSponsorSection";
 import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
@@ -26,14 +23,7 @@ import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
 import { TeamRankingSection } from "@/components/dashboard/TeamRankingSection";
 import { PeloticaLivesSection } from "@/components/dashboard/PeloticaLivesSection";
 import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
-import { resolveBrandLogo, logoBoxClass } from "@/lib/brandLogos";
-
-
-const BRAND_LOGOS: Record<string, string> = {
-  "coca-cola": logoCocaCola,
-  kfc: logoKfc,
-  "pelotica-de-goma": logoPeloticaDeGoma.url,
-};
+import DashboardLogo from "@/components/dashboard/DashboardLogo";
 
 // Configuración de keywords por marca (filtros de menciones en redes)
 const BRAND_KEYWORDS: Record<
@@ -364,9 +354,6 @@ const DashboardBrand = () => {
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
-  const resolvedLogo = brand ? resolveBrandLogo(brand.slug, brand.logo_url ?? BRAND_LOGOS[brand.slug] ?? null) : null;
-  const brandLogo = resolvedLogo?.src ?? null;
-  const logoBox = logoBoxClass(resolvedLogo?.bg ?? "dark");
   const isMundialReport = (title: string) =>
     /mundial|fútbol|futbol/i.test(title);
 
@@ -388,7 +375,7 @@ const DashboardBrand = () => {
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex flex-1 items-center gap-3 min-w-0">
             <Button asChild variant="ghost" size="sm">
               <Link to="/dashboard"><ArrowLeft className="w-4 h-4" /></Link>
             </Button>
@@ -400,23 +387,14 @@ const DashboardBrand = () => {
             />
             <div className="h-6 w-px bg-border hidden sm:block" />
             <div className="flex items-center gap-2 min-w-0">
-              {brandLogo && (
-                <div className={`${logoBox} rounded-md p-1.5 inline-flex items-center justify-center`}>
-                  <img
-                    src={brandLogo}
-                    alt={brand?.name ?? ""}
-                    className="h-8 w-auto object-contain"
-                    loading="lazy"
-                  />
-                </div>
-              )}
+              {brand && <DashboardLogo slug={brand.slug} name={brand.name} fallback={brand.logo_url} size="compact" />}
               <div className="min-w-0">
                 <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Dashboard</p>
-                <p className="font-bold truncate text-sm">{brand?.name ?? "—"}</p>
+                <p className="font-bold break-words text-sm">{brand?.name ?? "—"}</p>
               </div>
             </div>
           </div>
-          <Button onClick={() => supabase.auth.signOut()} variant="outline" size="sm">
+          <Button className="shrink-0" onClick={() => supabase.auth.signOut()} variant="outline" size="sm">
             <LogOut className="w-4 h-4 mr-1" /> Salir
           </Button>
         </div>
@@ -432,7 +410,7 @@ const DashboardBrand = () => {
         ) : PDG_SPONSORS[brand.slug] ? (
           <PdgSponsorSection slug={brand.slug} />
         ) : BRAND_KEYWORDS[brand.slug] ? (
-          <MetricoolDashboard brand={brand} brandLogo={brandLogo} logoBox={logoBox} accent={accent} />
+          <MetricoolDashboard brand={brand} accent={accent} />
         ) : reports.length === 0 ? (
           <div className="bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-muted-foreground">Aún no hay reportes publicados para {brand.name}.</p>
@@ -467,17 +445,8 @@ const DashboardBrand = () => {
                     style={{ background: `radial-gradient(circle at 100% 0%, ${accent}, transparent 60%)` }}
                   />
                   <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                    <div className="flex items-center gap-5 min-w-0">
-                      {brandLogo && (
-                        <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}>
-                          <img
-                            src={brandLogo}
-                            alt={brand?.name ?? ""}
-                            className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain"
-                            loading="lazy"
-                          />
-                        </span>
-                      )}
+                    <div className="flex flex-wrap items-center gap-5 min-w-0">
+                      <DashboardLogo slug={brand.slug} name={brand.name} fallback={brand.logo_url} size="feature" />
                       <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
                       <img
                         src={isMundialReport(active.title) ? logoVacilateFutbol : logoVacilateEsto}
@@ -851,8 +820,8 @@ const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: 
 };
 
 const MetricoolDashboard = ({
-  brand, brandLogo, logoBox = "", accent,
-}: { brand: Brand; brandLogo: string | null; logoBox?: string; accent: string }) => {
+  brand, accent,
+}: { brand: Brand; accent: string }) => {
   const months = useState(() => buildMonths(brand.slug))[0];
 
   const [monthKey, setMonthKey] = useState<MonthKey>(months[0].key);
@@ -1153,10 +1122,8 @@ const MetricoolDashboard = ({
           style={{ background: `radial-gradient(circle at 100% 0%, ${accent}, transparent 60%)` }}
         />
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="flex items-center gap-5 min-w-0">
-            {brandLogo && (
-              <span className={`${logoBox} rounded-lg p-2 inline-flex shrink-0`}><img src={brandLogo} alt={brand.name} className="h-12 md:h-16 max-w-[10rem] md:max-w-[14rem] w-auto object-contain" loading="lazy" /></span>
-            )}
+          <div className="flex flex-wrap items-center gap-5 min-w-0">
+            <DashboardLogo slug={brand.slug} name={brand.name} fallback={brand.logo_url} size="feature" />
             <span className="text-2xl md:text-3xl font-black text-muted-foreground shrink-0">×</span>
             <img src={logoVacilateEsto} alt="Vacílate Esto" className="h-14 md:h-20 w-auto object-contain shrink-0" loading="lazy" />
           </div>
