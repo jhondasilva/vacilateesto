@@ -873,6 +873,35 @@ const MetricoolDashboard = ({
   // se completa con los datos capturados vía Apify.
   const [apifyTikToks, setApifyTikToks] = useState<MentionPost[]>([]);
 
+  // Marcas patrocinantes: TikTok de @peloticadegomave (no está en Metricool) vía Apify.
+  useEffect(() => {
+    if (!showPelotica) return;
+    (async () => {
+      const { data: rows } = await supabase
+        .from("influencer_posts")
+        .select("external_id,url,text,thumbnail,published_at,views,likes,comments,shares")
+        .eq("author_handle", "@peloticadegomave")
+        .eq("platform", "tiktok")
+        .gte("published_at", "2026-01-01T04:00:00Z")
+        .limit(2000);
+      const byId = new Map<string, MentionPost>();
+      for (const r of rows ?? []) {
+        if (!r.external_id || byId.has(r.external_id)) continue;
+        byId.set(r.external_id, {
+          platform: "tiktok",
+          id: r.external_id,
+          url: r.url ?? `https://www.tiktok.com/@peloticadegomave/video/${r.external_id}`,
+          publishedAt: r.published_at,
+          text: r.text ?? "",
+          thumbnail: r.thumbnail ?? null,
+          metrics: { views: r.views ?? 0, likes: r.likes ?? 0, comments: r.comments ?? 0, shares: r.shares ?? 0 },
+          blogId: 1908520,
+        } as MentionPost);
+      }
+      setApifyTikToks([...byId.values()]);
+    })();
+  }, [brand.slug, showPelotica]);
+
   useEffect(() => {
     if (brand.slug !== "pelotica-de-goma") return;
     (async () => {
@@ -974,6 +1003,12 @@ const MetricoolDashboard = ({
     setRefreshing(true);
     const tId = toast.loading(`Refrescando datos de ${brand.name}…`);
     try {
+      if (showPelotica) {
+        // TikTok de @peloticadegomave para marcas patrocinantes (en segundo plano).
+        void supabase.functions.invoke("influencer-hashtag-sync", {
+          body: { campaignSlug: "pelotica-de-goma", skipHashtags: true, handles: ["peloticadegomave"], platforms: ["tiktok"], profileLimit: 100 },
+        });
+      }
       if (brand.slug === "pelotica-de-goma") {
         // La cuenta de TikTok de @peloticadegomave no está en Metricool: se captura vía Apify
         await supabase.functions.invoke("apify-sync", {
@@ -1028,6 +1063,8 @@ const MetricoolDashboard = ({
     if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
     if (!p.publishedAt) return false;
     if (!matchesBrandKeywords(p.text)) return false;
+    // Mismo criterio en todas las marcas: el post debe mencionar la cuenta de la marca.
+    if (showPelotica && !(brandConfig.handles ?? []).some((h) => (p.text ?? "").toLowerCase().includes(h.toLowerCase()))) return false;
     const t = new Date(p.publishedAt).getTime();
     return t >= month.from.getTime() && t <= month.to.getTime();
   });
