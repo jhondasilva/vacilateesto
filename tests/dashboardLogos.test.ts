@@ -30,3 +30,17 @@ test("PAN reuses Harina P.A.N. and rectangular original dimensions are preserved
   strictEqual(viewport?.width, 2012);
   strictEqual(viewport?.height, 600);
 });
+
+test("Pelotica de Goma dashboard uses the official black-text artwork on white", () => {
+  const logo = resolveBrandLogo("pelotica-de-goma");
+  strictEqual(logo?.bg, "light");
+  ok(logo?.src.includes("pelotica-texto-negro-oficial.png"));
+  deepStrictEqual(logo?.viewport, {
+    imageWidth: 2000,
+    imageHeight: 2000,
+    x: 638,
+    y: 278,
+    width: 807,
+    height: 1466,
+  });
+});
