@@ -26,4 +26,4 @@ export const resolveBrandLogo = (
   return fallback ? { src: fallback, bg: "dark" } : null;
 };
 
-export const logoBoxClass = (bg: LogoBg) => (bg === "light" ? "bg-white" : "bg-black");
+export const logoBoxClass = (bg: LogoBg) => (bg === "light" ? "bg-white" : "");
