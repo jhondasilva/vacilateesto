@@ -1,5 +1,5 @@
 import { test } from "node:test";
-import { ok, strictEqual } from "node:assert";
+import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { resolveBrandLogo, BRAND_LOGO_MAP } from "../src/lib/brandLogos";
 
 // Read-only inventory of the 28 existing brand slugs; existing remote logos stay untouched.
