@@ -47,11 +47,13 @@ export const groupOf = (handle: string | null): Group => {
   return "otras";
 };
 
-export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_at">) => {
+// Solo cuenta lo de Pelotica: #LadySpeedStick + (cuenta de Pelotica o mención a @peloticadegomave).
+export const isSpeedStickPost = (p: Pick<Post, "text" | "hashtags" | "published_at" | "author_handle">) => {
   const ts = p.published_at ? Date.parse(p.published_at) : NaN;
   if (!Number.isFinite(ts) || ts < SPEED_STICK_START) return false;
   const norm = `${p.text ?? ""} ${(p.hashtags ?? []).join(" ")}`.toLowerCase().replace(/\s+/g, "");
-  return norm.includes(SPEED_STICK_HASHTAG);
+  if (!norm.includes(SPEED_STICK_HASHTAG)) return false;
+  return groupOf(p.author_handle) !== "otras" || norm.includes("@peloticadegomave");
 };
 
 const TABS: { k: "all" | Group; label: string }[] = [
@@ -59,7 +61,7 @@ const TABS: { k: "all" | Group; label: string }[] = [
   { k: "oficial", label: "Pelotica oficial" },
   { k: "equipo", label: "Equipos" },
   { k: "chivo", label: "Chivos" },
-  { k: "otras", label: "Otras cuentas" },
+  { k: "otras", label: "Otras con @peloticadegomave" },
 ];
 
 export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?: string }) => {
@@ -138,7 +140,7 @@ export const SpeedStickSection = ({ accent = "hsl(var(--primary))" }: { accent?:
         <div>
           <h2 className="text-xl font-black">Speed Stick · #LadySpeedStick</h2>
           <p className="text-[11px] text-muted-foreground font-mono">
-            Cualquier cuenta con #LadySpeedStick · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
+            Solo Pelotica: #LadySpeedStick en cuentas de Pelotica (oficial, equipos, chivos) o con mención a @peloticadegomave · desde el 25 de septiembre de 2026 · cada publicación se cuenta una vez · Fuente: Apify
           </p>
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
