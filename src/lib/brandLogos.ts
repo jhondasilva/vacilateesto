@@ -14,7 +14,7 @@ import ronco from "@/assets/dashboard-ronco.png.asset.json";
 import quimicolor from "@/assets/dashboard-quimicolor.png.asset.json";
 import solera from "@/assets/dashboard-solera.png.asset.json";
 import pilsen from "@/assets/dashboard-pilsen-polar-color.png.asset.json";
-import pelotica from "@/assets/logo-pelotica-de-goma.png";
+import peloticaDashboard from "@/assets/pelotica-texto-negro-oficial.png.asset.json";
 import podcast from "@/assets/logo-podcast-cumbre.avif";
 import mundial from "@/assets/logo-mundial-2026.png";
 import cocaCola from "@/assets/logo-coca-cola.png";
@@ -41,7 +41,7 @@ export const BRAND_LOGO_MAP: Record<string, BrandLogo> = {
   quimicolor: { src: quimicolor.url, bg: "light", viewport: { imageWidth: 682, imageHeight: 137, x: 0, y: 1, width: 682, height: 135 } },
   solera: { src: solera.url, bg: "dark", viewport: { imageWidth: 374, imageHeight: 283, x: 42, y: 31, width: 290, height: 207 } },
   "pilsen-pdg": { src: pilsen.url, bg: "dark", viewport: { imageWidth: 756, imageHeight: 632, x: 54, y: 62, width: 678, height: 536 } },
-  "pelotica-de-goma": { src: pelotica, bg: "dark" },
+  "pelotica-de-goma": { src: peloticaDashboard.url, bg: "light", viewport: { imageWidth: 2000, imageHeight: 2000, x: 638, y: 278, width: 807, height: 1466 } },
   "podcast-en-la-cumbre": { src: podcast, bg: "dark" },
   "vacilate-el-mundial": { src: mundial, bg: "dark" },
   "coca-cola": { src: cocaCola, bg: "dark" },
