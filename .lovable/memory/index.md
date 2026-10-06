@@ -10,3 +10,4 @@ Gira Mundial 2026: NO drones, NO alquiler de equipos AV, NO estabilizadores. Ún
 - [Diarization Manual Overrides](mem://pipeline/diarization-manual-overrides) — Correcciones admin desde /lab/hosts persisten en columna `manual_override` y diarize.py las respeta
 - [Pico Bolívar Record](mem://podcast/pico-bolivar-record) — Marcas confirmadas, Guinness y nota de prensa del Pico Bolívar
 - [Pelotica reach estimate](mem://features/pelotica-reach-estimate) — Alcance estimado 3,2–5,4M + datos Metricool, solo memoria
+- [PDG sponsor dashboards](mem://features/pdg-sponsor-dashboards) — Patrocinantes con tablero vs aliados sin tablero
