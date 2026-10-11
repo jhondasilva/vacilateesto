@@ -60,6 +60,7 @@ import FiapPremios from "./pages/blog/FiapPremios";
 import NumerosVacilateEsto2026 from "./pages/blog/NumerosVacilateEsto2026";
 import BlogPostDynamic from "./pages/blog/BlogPostDynamic";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
+import AnalyticsPageViews from "./components/AnalyticsPageViews";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <DomainRedirectHandler>
+          <AnalyticsPageViews />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />

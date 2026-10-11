@@ -59,22 +59,9 @@ const SpotifyIcon = ({ className }: { className?: string }) => (
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  // Analytics Scripts (Google Analytics + Metricool)
+  // Metricool (Google Analytics is loaded in index.html)
   useEffect(() => {
-    // Google Analytics 4
-    const gtagScript = document.createElement("script");
-    gtagScript.async = true;
-    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-8C1W3N2FBE";
-    document.head.appendChild(gtagScript);
 
-    gtagScript.onload = () => {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      function gtag(...args: any[]) {
-        (window as any).dataLayer.push(args);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-8C1W3N2FBE');
-    };
 
     // Metricool
     const metricoolScript = document.createElement("script");
