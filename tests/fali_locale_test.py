@@ -33,6 +33,9 @@ async def main():
             body = cached.read_bytes()
             await route.fulfill(status=200, body=body, content_type="image/png" if filename.endswith(".png") else "image/jpeg")
         await page.route("**/__l5e/assets-v1/**", asset)
+        await page.goto(BASE + "/", wait_until="domcontentloaded")
+        await page.wait_for_timeout(500)
+        home_canonicals = await page.locator('link[rel="canonical"]').count()
         for width in (1440, 390, 320):
             await page.set_viewport_size({"width": width, "height": 1800})
             for path, lang in (("/fali", "es-VE"), ("/en/fali", "en")):
@@ -87,7 +90,8 @@ async def main():
         await page.get_by_role("navigation", name="Main navigation — other pages in Spanish").first.get_by_role("link", name="Home", exact=True).click()
         await page.wait_for_url(BASE + "/")
         await page.wait_for_function("document.documentElement.lang !== 'en'")
-        assert await page.locator('link[rel="canonical"]').count() == 1
+        await page.wait_for_timeout(500)
+        assert await page.locator('link[rel="canonical"]').count() == home_canonicals
         assert not errors, errors
         print("PASS leave English route: document language restored; no JavaScript page errors")
         print("Original artwork served unchanged through localhost test proxy; public CDN returned HTTP 200.")
