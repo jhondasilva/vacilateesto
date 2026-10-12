@@ -82,10 +82,12 @@ async def main():
                 await page.wait_for_url(BASE + expected)
                 await page.wait_for_function("document.documentElement.lang === '" + ("es-VE" if english else "en") + "'")
                 print(f"PASS {path} width={width}: refresh, SEO, language, overflow, carousel boundaries and language switch")
+        await page.set_viewport_size({"width": 1440, "height": 1800})
         await page.goto(BASE + "/en/fali")
         await page.get_by_role("navigation", name="Main navigation — other pages in Spanish").first.get_by_role("link", name="Home", exact=True).click()
         await page.wait_for_url(BASE + "/")
         await page.wait_for_function("document.documentElement.lang !== 'en'")
+        assert await page.locator('link[rel="canonical"]').count() == 1
         assert not errors, errors
         print("PASS leave English route: document language restored; no JavaScript page errors")
         print("Original artwork served unchanged through localhost test proxy; public CDN returned HTTP 200.")
