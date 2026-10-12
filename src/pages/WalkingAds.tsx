@@ -644,6 +644,7 @@ const WalkingAds = () => {
           </div>
 
           <h3 className="!mt-14">The Conversation Shifted</h3>
+          <p>The audience comments below express personal opinions. References to a Guinness Record are not certifications; any possible recognition remains subject to verification and the relevant organization’s criteria.</p>
           <p>
             What started as a media hack turned into an outpouring of national pride. Real viewers flooded the comments with messages of love for Venezuela, its people, and its landscapes.
           </p>

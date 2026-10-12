@@ -102,7 +102,7 @@
     <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/NZWSKJvOdXg/maxresdefault.jpg</video:thumbnail_loc>
       <video:title>Podcast en la Cumbre - Episodio Naiguatá</video:title>
-      <video:description>Primer episodio de Podcast en la Cumbre grabado en el Pico Naiguatá a 2.765 metros, el techo de Caracas, Venezuela.</video:description>
+      <video:description>Episodio 1 de la serie: expedición y grabación en Pico Naiguatá (2.765 m). La duración corresponde al video editado, no al tiempo grabado en cumbre.</video:description>
       <video:content_loc>https://www.youtube.com/watch?v=NZWSKJvOdXg</video:content_loc>
       <video:player_loc>https://www.youtube.com/embed/NZWSKJvOdXg</video:player_loc>
       <video:duration>5400</video:duration>
@@ -115,7 +115,7 @@
     <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/NdrcKpsD0UU/maxresdefault.jpg</video:thumbnail_loc>
       <video:title>Podcast en la Cumbre - Episodio Roraima</video:title>
-      <video:description>Expedición al Monte Roraima grabando podcast a 2.810 metros. 2.000 millones de años de ancestralidad venezolana.</video:description>
+      <video:description>Episodio 2: expedición al Monte Roraima (2.810 m). Duración del episodio editado: 1 h 01 min 29 s, incluida una introducción desde Santa Elena; no mide tiempo grabado en cumbre ni acredita una primicia mundial.</video:description>
       <video:content_loc>https://www.youtube.com/watch?v=NdrcKpsD0UU</video:content_loc>
       <video:player_loc>https://www.youtube.com/embed/NdrcKpsD0UU</video:player_loc>
       <video:duration>3689</video:duration>

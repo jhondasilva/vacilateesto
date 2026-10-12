@@ -7,6 +7,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import ImageReader
 from PIL import Image
 import os
+from io import BytesIO
+from pypdf import PdfReader, PdfWriter
 
 OUT = "public/press/Nota_de_Prensa_Pico_Bolivar_2026.pdf"
 W, H = letter
@@ -78,6 +80,11 @@ def wrap(c, text, x, y, w, font="Helvetica", fs=10, lead=14, color=INK):
     if line: c.drawString(x, y, line); y -= lead
     return y
 
+existing_annex = []
+if os.path.exists(OUT):
+    existing = PdfReader(BytesIO(open(OUT, "rb").read()))
+    existing_annex = list(existing.pages[PAGES:])
+
 c = canvas.Canvas(OUT, pagesize=letter)
 c.setTitle("Nota de Prensa · Podcast en la Cumbre · Pico Bolívar 2026")
 
@@ -87,23 +94,23 @@ c.setFillColor(INK); c.rect(0, H-300, W, 250, fill=1, stroke=0)
 logo_badge(c, LOGO_C, 36, H-140, 88, 78)
 pill(c, 140, H-96, 210, 18, "PARA PUBLICACIÓN INMEDIATA", fill=PINK)
 c.setFillColor(white); c.setFont("Helvetica-Bold", 22)
-c.drawString(140, H-128, "Vacílate Esto va por el récord")
+c.drawString(140, H-128, "Vacílate Esto prepara")
 c.setFillColor(PINK); c.setFont("Helvetica-Bold", 22)
-c.drawString(140, H-152, "mundial del podcast más alto")
+c.drawString(140, H-152, "un estudio de podcast")
 c.setFillColor(white)
-c.drawString(140, H-176, "del mundo: Pico Bolívar, 4.978 m")
+c.drawString(140, H-176, "en la cumbre del Pico Bolívar")
 c.setFont("Helvetica", 9); c.setFillColor(HexColor("#D4D4D4"))
-y = wrap(c, "Noviembre 2026 · Sierra Nevada de Mérida, Venezuela. Solicitud de récord introducida ante Guinness World Records.",
+y = wrap(c, "15 al 23 de noviembre de 2026 · Sierra Nevada de Mérida. Plan sujeto a condiciones de seguridad y viabilidad.",
          140, H-198, W-176, fs=9, lead=12, color=HexColor("#D4D4D4"))
 
 y = H-330
 c.setFillColor(INK); c.setFont("Helvetica-Bold", 10)
 c.drawString(36, y, "Caracas, Venezuela — 5 de agosto de 2026.")
-y = wrap(c, "Vacílate Esto anunció que en noviembre de 2026 intentará grabar el podcast completo más alto del mundo desde la cima del Pico Bolívar (4.978 m), la montaña más alta de Venezuela. El intento cierra Podcast en la Cumbre, la travesía audiovisual que ya grabó episodios íntegros en el Pico Naiguatá (2.765 m) y en el Monte Roraima (2.810 m).",
+y = wrap(c, "Vacílate Esto prepara el plan de grabar un episodio completo con un estudio de podcast en la cumbre del Pico Bolívar, del 15 al 23 de noviembre de 2026, sujeto a condiciones de seguridad y viabilidad. La montaña alcanza aproximadamente 4.978 m; la altitud exacta del punto de grabación está por certificar. Naiguatá y Roraima son los episodios 1 y 2 de la serie.",
          36, y-16, W-72)
-y = wrap(c, "Las dos primeras cumbres suman 212 publicaciones, 2,6 millones de vistas y 137 mil interacciones, con un engagement promedio de 6,6%. La expedición al Pico Bolívar tendrá a Mérida como base de operaciones e incluirá un mes completo de contenidos: recorrido de comida e historias de la ciudad, un podcast grabado en Mérida con invitados locales, el ascenso documentado por la Sierra Nevada y, como cierre, un episodio de más de 60 minutos grabado íntegramente en la cumbre.",
+y = wrap(c, "Las dos primeras cumbres suman 212 publicaciones, 2,6 millones de vistas y 137 mil interacciones, con un engagement promedio de 6,6%. La expedición al Pico Bolívar tendrá a Mérida como base de operaciones e incluirá un mes completo de contenidos: recorrido de comida e historias de la ciudad, un podcast grabado en Mérida con invitados locales, el ascenso documentado por la Sierra Nevada y, como cierre previsto, un episodio con estudio de podcast en la cumbre, sujeto a seguridad y viabilidad, sin mínimo continuo de duración confirmado.",
          36, y-6, W-72)
-y = wrap(c, "Para validar el logro, la producción introdujo la solicitud formal de récord ante Guinness World Records y registrará la grabación con testigos, GPS, timecode y material bruto completo, conforme a los requisitos de evidencia del organismo.",
+y = wrap(c, "Cualquier posible reconocimiento como récord queda sujeto a verificación y a los criterios del organismo correspondiente. La duración de los videos editados no mide el tiempo grabado en cumbre. Roraima dura 1 h 01 min 29 s e incluye una introducción desde Santa Elena; no se afirma grabación íntegra en cima ni primicia mundial.",
          36, y-6, W-72)
 y = wrap(c, "Podcast en la Cumbre es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por JhonSnacks y JuanSofa, con dirección de producción de Andreína Ascensión, coordinación de producción a cargo de Estrella Rodríguez.",
          36, y-6, W-72)
@@ -111,7 +118,7 @@ y = wrap(c, "Podcast en la Cumbre es una producción de Vacílate Esto junto a E
 # KPIs
 kw = (W-72-3*10)/4
 ky = y-70
-for i, (v, l) in enumerate([("4.978 m","Altitud objetivo"),("Nov 2026","Expedición"),("60 min+","Podcast en cima"),("2,6M","Vistas previas")]):
+for i, (v, l) in enumerate([("~4.978 m","Altitud de la montaña"),("15–23 nov","Ventana 2026"),("Estudio","En cumbre · previsto"),("2,6M","Vistas previas")]):
     x = 36 + i*(kw+10)
     card(c, x, ky, kw, 56, shadow=CYAN if i % 2 else PINK)
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 16)
@@ -140,8 +147,8 @@ c.drawString(36, y, "El reto")
 items = [
     "Aclimatación por etapas en la Sierra Nevada de Mérida.",
     "Equipo de audio y cámara resistente a frío extremo y viento.",
-    "Energía autónoma para grabar más de 60 minutos continuos.",
-    "Registro certificable: testigos, GPS, timecode y material bruto.",
+    "Energía autónoma para la grabación, sin mínimo continuo confirmado.",
+    "Documentación: GPS, timecode y material bruto; no implica certificación.",
 ]
 yy = y-22
 for it in items:
@@ -155,7 +162,7 @@ route = [
     ("Semana 1", "Mérida: comida, historias y personajes de la ciudad."),
     ("Semana 2", "Podcast en Mérida con invitados locales."),
     ("Semana 3", "Ascenso: ruta, campamento y aclimatación en vivo."),
-    ("Semana 4", "Cumbre: podcast completo a 4.978 m y cierre de la trilogía."),
+    ("Semana 4", "Cumbre: estudio de podcast previsto, sujeto a seguridad y viabilidad."),
 ]
 yy = y-24
 for k, v in route:
@@ -180,4 +187,13 @@ for t in contacts:
 c.setFillColor(PINK); c.setFont("Helvetica-Bold", 8)
 c.drawString(52, ty-2, "vacilateesto.com/prensa/pico-bolivar")
 footer(c, 2); c.save()
+if existing_annex:
+    writer = PdfWriter()
+    generated = PdfReader(OUT)
+    writer.append(generated)
+    for page in existing_annex:
+        writer.add_page(page)
+    writer.add_metadata(dict(generated.metadata or {}))
+    with open(OUT, "wb") as output:
+        writer.write(output)
 print("OK", OUT)

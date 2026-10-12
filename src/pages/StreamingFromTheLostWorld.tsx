@@ -118,11 +118,11 @@ const StreamingFromTheLostWorld = () => {
         <title>Streaming From The Lost World — Vacílate Esto · Cannes Lions 2026</title>
         <meta
           name="description"
-          content="The first live broadcast from the summit of Mount Roraima. A community-powered expedition by Vacílate Esto — zero paid media, pure human connection."
+          content="A live broadcast from the summit of Mount Roraima; no worldwide first is claimed. A community-powered expedition by Vacílate Esto — zero paid media, pure human connection."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:title" content="Streaming From The Lost World" />
-        <meta property="og:description" content="The first live broadcast from the summit of Mount Roraima." />
+        <meta property="og:description" content="A live broadcast from the summit of Mount Roraima; no worldwide first is claimed." />
         <meta property="og:url" content={URL} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
       </Helmet>
@@ -220,14 +220,14 @@ const StreamingFromTheLostWorld = () => {
               <Reveal>
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-[10px] tracking-[0.25em] uppercase text-white/60 mb-8">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                  A historical first
+                  A summit expedition
                 </div>
               </Reveal>
 
               <h1 className="font-black leading-[1.02] tracking-tight">
                 <Reveal delay={50}>
                   <span className="block text-[2.6rem] sm:text-5xl md:text-6xl lg:text-7xl text-white">
-                    The First
+                    A Shared
                   </span>
                 </Reveal>
                 <Reveal delay={150}>
@@ -362,7 +362,7 @@ const StreamingFromTheLostWorld = () => {
               { big: "76K+", label: "Organic Likes", sub: "No paid promotion" },
               { big: "1.4M+", label: "Organic Reach", sub: "Total impressions" },
               { big: "98%", label: "Positive Sentiment", sub: "Narrative shift" },
-              { big: "1st", label: "Historical Milestone", sub: "Live from Roraima" },
+              { big: "Live", label: "Expedition Broadcast", sub: "From Roraima · not a certified first" },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="bg-[#070b14] p-6 sm:p-8 hover:bg-[#0a1020] transition-colors h-full">
@@ -383,7 +383,7 @@ const StreamingFromTheLostWorld = () => {
             Mount Roraima — the tabletop mountain that inspired Arthur Conan Doyle's <em>"The Lost World"</em> — stands at 2,810 meters on the triple border of Venezuela, Brazil, and Guyana. It is one of the oldest geological formations on Earth, a <strong>tepui</strong> shrouded in clouds and mystery, home to endemic species found nowhere else on the planet.
           </p>
           <p>
-            Despite being a UNESCO-worthy natural wonder, Roraima had <strong>never been live-streamed from its summit</strong>. No internet infrastructure, no power grid, no cellular signal — the summit exists in complete <em>digital isolation</em>.
+            Despite being a UNESCO-worthy natural wonder, Roraima presented <strong>major challenges for live streaming from its summit</strong>; this project does not establish a worldwide first. No internet infrastructure, no power grid, no cellular signal — the summit exists in complete <em>digital isolation</em>.
           </p>
           <p>
             Venezuela's social media landscape was trapped in a cycle of negative news. The algorithm rewarded despair. We saw an opportunity: to use the most remote place in the country to create <strong>the most connected moment in its digital history</strong>.
@@ -393,13 +393,13 @@ const StreamingFromTheLostWorld = () => {
         {/* 02 Idea */}
         <SectionWrap id="idea" num="02" title="The Idea">
           <p>
-            <strong>Stream live from the summit of Mount Roraima</strong> — a place where no internet signal has ever reached — and turn an entire nation into a real-time community of witnesses.
+            <strong>Stream live from the summit of Mount Roraima</strong> — a place with major connectivity challenges — and turn an entire nation into a real-time community of witnesses.
           </p>
           <p>
             For <em>"Vacílate Esto"</em> — a digital ecosystem built around a podcast and social media channels — we designed an expedition that would carry portable satellite technology to the top of one of Earth's oldest mountains. The goal wasn't just to broadcast — it was to create a <strong>shared moment of collective wonder</strong> that would break through the algorithm's negativity bias.
           </p>
           <p>
-            By streaming from a place that had never been connected, we would prove that <strong>human ambition can still outpace technological limitations</strong> — and that community engagement doesn't need paid promotion when the content is genuinely extraordinary.
+            By streaming from a remote place with connectivity challenges, we would prove that <strong>human ambition can still outpace technological limitations</strong> — and that community engagement doesn't need paid promotion when the content is genuinely extraordinary.
           </p>
         </SectionWrap>
 
@@ -438,10 +438,10 @@ const StreamingFromTheLostWorld = () => {
             A <strong>6-day expedition</strong> through the Gran Sabana to the summit of Mount Roraima. The team — including indigenous Pemón guides who have ancestral knowledge of the mountain's paths — carried the portable satellite system through dense jungle, river crossings, and the famous vertical wall that guards the summit.
           </p>
           <p>
-            Upon reaching the top, the <em>Starlink antenna was deployed</em> for the first time ever on a Venezuelan tepui. Within minutes, a live signal was established — connecting one of the most isolated places on Earth directly to millions of screens.
+            Upon reaching the top, the <em>Starlink antenna was deployed</em> for this expedition. Within minutes, a live signal was established — connecting one of the most isolated places on Earth directly to millions of screens. No worldwide first or certification is claimed.
           </p>
           <p>
-            The live stream captured <strong>never-before-seen views</strong> from the summit: endemic plants, crystal-clear pools, and the vast stone landscape that has existed for over 2 billion years. Audiences watched in real-time as the team explored a world most Venezuelans had never seen — despite it being their own.
+            The live stream captured <strong>views from the expedition</strong> on the summit: endemic plants, crystal-clear pools, and the vast stone landscape that has existed for over 2 billion years. Audiences watched in real-time as the team explored a world most Venezuelans had never seen — despite it being their own.
           </p>
           <p>
             <strong>No paid promotion was used.</strong> Every share, every comment, every like was earned organically through the sheer power of authentic, extraordinary content shared in real-time with a community that chose to participate.
@@ -519,7 +519,7 @@ const StreamingFromTheLostWorld = () => {
           </div>
           <h3 className="!mt-14">Social Insight</h3>
           <p>
-            The algorithm is designed to amplify what already has momentum. By creating content so inherently extraordinary — a <strong>first-ever live stream from an unreachable summit</strong> — we didn't need to fight the algorithm. We gave the community something worth sharing, and they became the distribution engine.
+            The algorithm is designed to amplify what already has momentum. By creating content so inherently extraordinary — a <strong>live stream from a remote summit</strong> — we didn't need to fight the algorithm. We gave the community something worth sharing, and they became the distribution engine.
           </p>
           <p>
             <strong>76,000+ organic likes</strong> and <strong>1.4 million organic impressions</strong> — achieved with zero paid media spend. The community didn't just engage; they <em>owned</em> the narrative, turning a digital ecosystem's expedition into a national moment of collective wonder.
@@ -533,7 +533,7 @@ const StreamingFromTheLostWorld = () => {
               { big: "76K+", label: "Organic Likes" },
               { big: "1.4M+", label: "Organic Reach" },
               { big: "98%", label: "Positive Sentiment" },
-              { big: "1st Ever", label: "Live from Summit" },
+              { big: "Live", label: "From Summit · no certified first" },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="bg-[#070b14] p-6 sm:p-8 h-full">
@@ -547,7 +547,7 @@ const StreamingFromTheLostWorld = () => {
           </div>
           <h3 className="!mt-14">A Historical Milestone</h3>
           <p>
-            The first live broadcast from the summit of one of Earth's oldest mountains. A community-powered moment that proved authentic content, shared in real time, can outpace any algorithm — and reframe an entire national conversation.
+            A live broadcast from the summit of one of Earth's oldest mountains, without a claim of worldwide first. A community-powered moment that proved authentic content, shared in real time, can outpace any algorithm — and reframe an entire national conversation.
           </p>
         </SectionWrap>
 

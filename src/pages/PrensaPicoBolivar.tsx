@@ -18,12 +18,12 @@ const PrensaPicoBolivar = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    headline: "Vacílate Esto va por el récord mundial: el podcast más alto del mundo desde el Pico Bolívar",
+    headline: "Vacílate Esto prepara un estudio de podcast en la cumbre del Pico Bolívar",
     datePublished: "2026-08-05",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
     publisher: { "@type": "Organization", name: "Vacílate Esto" },
-    about: "Podcast en la Cumbre · Pico Bolívar (4.978 m) · Noviembre 2026",
+    about: "Podcast en la Cumbre · Pico Bolívar (aproximadamente 4.978 m) · 15 al 23 de noviembre de 2026 · sujeto a seguridad y viabilidad",
   };
 
   return (
@@ -32,12 +32,13 @@ const PrensaPicoBolivar = () => {
         <title>Nota de prensa: Podcast en la Cumbre · Pico Bolívar 2026</title>
         <meta
           name="description"
-          content="Vacílate Esto anuncia el intento de récord mundial del podcast más alto del mundo desde el Pico Bolívar (4.978 m) en noviembre de 2026. Nota de prensa y material descargable."
+          content="Plan para grabar un episodio completo con un estudio de podcast en la cumbre del Pico Bolívar del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad."
         />
-        <link rel="canonical" href="https://vacilateesto.com/prensa/pico-bolivar" />
+        <link rel="canonical" href="https://www.vacilateesto.com/prensa/pico-bolivar" />
         <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.vacilateesto.com/prensa/pico-bolivar" />
         <meta property="og:title" content="Nota de prensa: Podcast en la Cumbre · Pico Bolívar 2026" />
-        <meta property="og:description" content="Récord mundial del podcast más alto del mundo desde el Pico Bolívar (4.978 m), noviembre 2026." />
+        <meta property="og:description" content="Estudio de podcast previsto en la cumbre del Pico Bolívar, aproximadamente 4.978 m, del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
@@ -56,12 +57,10 @@ const PrensaPicoBolivar = () => {
               <span className="font-display font-black text-xs uppercase tracking-widest">Nota de prensa · Caracas, 5 de agosto de 2026</span>
             </div>
             <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-[-0.04em] leading-[0.92]">
-              Vacílate Esto va por el <span className="italic text-primary">récord mundial</span>: el podcast más alto del mundo desde el Pico Bolívar
+              Vacílate Esto prepara un <span className="italic text-primary">estudio de podcast</span> en la cumbre del Pico Bolívar
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
-              El proyecto <strong className="text-primary">Podcast en la Cumbre</strong> cerrará su trilogía en noviembre de 2026 grabando un
-              episodio íntegro a 4.978 metros de altura, en la cima del Pico Bolívar. La producción ya introdujo la
-              <strong className="text-primary"> solicitud de récord ante Guinness World Records</strong>.
+              El plan de <strong className="text-primary">Podcast en la Cumbre</strong> es grabar un episodio completo con un estudio de podcast en la cumbre, en la ventana del 15 al 23 de noviembre de 2026, sujeto a condiciones de seguridad y viabilidad. El Pico Bolívar alcanza aproximadamente 4.978 m; la altitud exacta del punto de grabación está por certificar.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -85,22 +84,20 @@ const PrensaPicoBolivar = () => {
         <section className="py-14 sm:py-20 bg-background border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-3xl space-y-5 font-body text-foreground/85 leading-relaxed">
             <p className="text-lg text-foreground font-semibold">
-              <strong>Caracas, Venezuela — 5 de agosto de 2026.</strong> Vacílate Esto anunció que en noviembre de 2026 intentará grabar
-              el podcast completo más alto del mundo desde la cima del Pico Bolívar (4.978 m), la montaña más alta de Venezuela.
+              <strong>Caracas, Venezuela — 5 de agosto de 2026.</strong> Vacílate Esto prepara el plan de grabar un episodio completo con un estudio de podcast en la cumbre del Pico Bolívar, del 15 al 23 de noviembre de 2026, sujeto a condiciones de seguridad y viabilidad. La montaña alcanza aproximadamente 4.978 m; la altitud exacta del punto de grabación está por certificar.
             </p>
             <p>
-              El intento cierra <strong>Podcast en la Cumbre</strong>, una travesía audiovisual que ya grabó episodios completos en el
+              El plan de cierre de <strong>Podcast en la Cumbre</strong> sigue a las expediciones con grabación en el
               Pico Naiguatá (2.765 m) y en el Monte Roraima (2.810 m). Ambas entregas suman 212 publicaciones, 2,6 millones de vistas y
-              137 mil interacciones, con un engagement promedio de 6,6%.
+              137 mil interacciones, con un engagement promedio de 6,6%. La duración de cada video editado no equivale al tiempo de grabación en cumbre. Roraima dura 1 h 01 min (1 h 01 min 29 s en el archivo editado) e incluye una introducción desde Santa Elena.
             </p>
             <p>
               La expedición se apoyará en Mérida como base de operaciones e incluirá un mes completo de contenidos: recorrido gastronómico
               y de historias de la ciudad, un podcast grabado en Mérida con invitados locales, el ascenso documentado por la Sierra Nevada y,
-              como cierre, un episodio de más de 60 minutos grabado íntegramente en la cumbre.
+              como cierre previsto, un episodio completo con un estudio de podcast en la cumbre, sujeto a seguridad y viabilidad, sin un mínimo continuo de duración confirmado.
             </p>
             <p>
-              Para validar el logro, la producción introdujo la <strong>solicitud formal de récord ante Guinness World Records</strong> y
-              registrará la grabación con testigos, GPS, timecode y material bruto completo, siguiendo los requisitos de evidencia del organismo.
+              Cualquier posible reconocimiento como récord queda sujeto a verificación y a los criterios del organismo correspondiente. No se afirma que exista una solicitud introducida, una categoría aceptada, homologación o certificación.
             </p>
             <p>
               El proyecto es una producción de Vacílate Esto junto a El Patio Content Studio, conducida por <strong>JhonSnacks</strong> y
@@ -115,9 +112,9 @@ const PrensaPicoBolivar = () => {
             <StickerHeader badge="Datos clave" badgeIcon={Mountain} badgeVariant="dark" title="La cifra de la" highlight="cumbre" align="center" />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
               {[
-                { v: "4.978 m", l: "Altitud objetivo" },
-                { v: "Nov 2026", l: "Expedición" },
-                { v: "60 min+", l: "Podcast en cima" },
+                { v: "≈ 4.978 m", l: "Altitud de la montaña" },
+                { v: "15–23 nov", l: "Ventana prevista · 2026" },
+                { v: "Estudio", l: "Podcast en cumbre · previsto" },
                 { v: "2,6M", l: "Vistas previas" },
               ].map((s) => (
                 <div key={s.l} className="bg-background border-2 border-foreground rounded-2xl p-5 text-center sticker-shadow-primary">

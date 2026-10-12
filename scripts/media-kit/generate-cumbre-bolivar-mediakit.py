@@ -8,6 +8,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import ImageReader
 from PIL import Image
 import os
+from io import BytesIO
+from pypdf import PdfReader, PdfWriter
 
 OUT = "public/downloads/PodcastEnLaCumbre-PicoBolivar-MediaKit-2026.pdf"
 W, H = letter
@@ -57,7 +59,7 @@ def logo_badge(c, path, x, y, w, h, shadow=CYAN, pad=8):
 def header(c, page, label):
     draw_logo(c, LOGO, 36, H - 34, 24, 22)
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 7)
-    c.drawString(66, H - 26, f"VACÍLATE ESTO  ·  PODCAST EN LA CUMBRE  ·  PICO BOLÍVAR 4.978 M  ·  {label.upper()}")
+    c.drawString(66, H - 26, f"VACÍLATE ESTO  ·  PODCAST EN LA CUMBRE  ·  PICO BOLÍVAR ~4.978 M  ·  {label.upper()}")
     c.drawRightString(W - 36, H - 26, f"MEDIA KIT 2026 · {page}/{PAGES}")
     c.setStrokeColor(INK); c.setLineWidth(0.6); c.line(36, H - 40, W - 36, H - 40)
 
@@ -104,6 +106,11 @@ def section_title(c, y, text):
     return y - 26
 
 
+existing_annex = []
+if os.path.exists(OUT):
+    existing = PdfReader(BytesIO(open(OUT, "rb").read()))
+    existing_annex = list(existing.pages[PAGES:])
+
 c = canvas.Canvas(OUT, pagesize=letter)
 c.setTitle("Media Kit · Podcast en la Cumbre · Pico Bolívar 2026")
 c.setAuthor("Vacílate Esto")
@@ -112,20 +119,20 @@ c.setAuthor("Vacílate Esto")
 header(c, 1, "Media kit")
 c.setFillColor(INK); c.rect(0, H - 400, W, 350, fill=1, stroke=0)
 logo_badge(c, LOGO_C, 36, H - 160, 100, 88)
-pill(c, 152, H - 112, 196, 18, "RÉCORD MUNDIAL · NOV 2026", fill=PINK)
+pill(c, 152, H - 112, 196, 18, "PICO BOLÍVAR · NOV 2026", fill=PINK)
 c.setFillColor(white); c.setFont("Helvetica-Bold", 26)
-c.drawString(152, H - 148, "El podcast más alto")
+c.drawString(152, H - 148, "Un estudio de podcast")
 c.setFillColor(PINK)
-c.drawString(152, H - 178, "del mundo")
+c.drawString(152, H - 178, "en la cumbre")
 c.setFillColor(white); c.setFont("Helvetica-Bold", 14)
-c.drawString(152, H - 202, "Pico Bolívar · 4.978 m · Mérida, Venezuela")
-wrap(c, "Podcast en la Cumbre cierra su trilogía grabando un episodio completo en la montaña más alta de Venezuela. Solicitud de récord introducida ante Guinness World Records.",
+c.drawString(152, H - 202, "Pico Bolívar · aprox. 4.978 m · Venezuela")
+wrap(c, "Plan: grabar un episodio completo con un estudio de podcast en la cumbre, del 15 al 23 de noviembre de 2026, sujeto a condiciones de seguridad y viabilidad. Altitud del punto de grabación por certificar.",
      36, H - 240, W - 72, fs=10, lead=14, color=GREY)
 
 kw = (W - 72 - 3 * 10) / 4
 ky = H - 330
-for i, (v, l) in enumerate([("4.978 m", "Altitud objetivo"), ("Nov 2026", "Expedición"),
-                            ("60 min+", "Podcast en cima"), ("1 mes", "De contenidos")]):
+for i, (v, l) in enumerate([("~4.978 m", "Altitud de la montaña"), ("15–23 nov", "Ventana 2026"),
+                            ("Estudio", "En cumbre · previsto"), ("1 mes", "De contenidos")]):
     x = 36 + i * (kw + 10)
     card(c, x, ky, kw, 58, shadow=CYAN if i % 2 else PINK)
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 16)
@@ -134,7 +141,7 @@ for i, (v, l) in enumerate([("4.978 m", "Altitud objetivo"), ("Nov 2026", "Exped
     c.drawCentredString(x + kw / 2, ky + 17, l.upper())
 
 y = section_title(c, H - 430, "Qué es Podcast en la Cumbre")
-y = wrap(c, "Una travesía audiovisual de Vacílate Esto que graba podcasts completos en las cumbres más emblemáticas de Venezuela. Ya conquistamos el Pico Naiguatá (2.765 m) y el Monte Roraima (2.810 m). El cierre es el Pico Bolívar: 4.978 metros, un episodio íntegro grabado en la cima y un intento formal de récord mundial.",
+y = wrap(c, "Una travesía audiovisual de Vacílate Esto que documenta expediciones y grabaciones en cumbre. Naiguatá y Roraima son los episodios 1 y 2. Su duración editada no mide tiempo grabado en cima: Roraima dura 1 h 01 min 29 s e incluye una introducción desde Santa Elena. Cualquier posible reconocimiento como récord queda sujeto a verificación y a los criterios del organismo correspondiente.",
           36, y, W - 72)
 y = wrap(c, "Conducido por JhonSnacks y JuanSofa, con producción de Vacílate Esto y El Patio Content Studio. Cada cumbre se documenta con podcast, reels, microdocumental, fotografía editorial y cobertura en vivo.",
           36, y - 6, W - 72)
@@ -197,9 +204,9 @@ y = section_title(c, H - 76, "El reto del Pico Bolívar")
 for it in [
     "Aclimatación por etapas en la Sierra Nevada de Mérida.",
     "Equipo de audio y cámara resistente a frío extremo y viento.",
-    "Energía autónoma para grabar más de 60 minutos continuos en cima.",
-    "Registro certificable: testigos, GPS, timecode y material bruto completo.",
-    "Solicitud formal introducida ante Guinness World Records.",
+    "Energía autónoma para la grabación, sin mínimo continuo de duración confirmado.",
+    "Documentación de la grabación: GPS, timecode y material bruto; no implica certificación.",
+    "Posibles reconocimientos sujetos a verificación y criterios del organismo correspondiente.",
 ]:
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 10); c.drawString(36, y, "▲")
     y = wrap(c, it, 52, y, W - 100, fs=10, lead=13) - 2
@@ -209,7 +216,7 @@ route = [
     ("Semana 1", "Mérida: comida, historias y personajes de la ciudad."),
     ("Semana 2", "Podcast grabado en Mérida con invitados locales."),
     ("Semana 3", "Ascenso: ruta, campamento y aclimatación documentados."),
-    ("Semana 4", "Cumbre: podcast completo a 4.978 m y cierre de la trilogía."),
+    ("Semana 4", "Cumbre: estudio de podcast previsto, sujeto a seguridad y viabilidad."),
 ]
 for k, v in route:
     card(c, 36, y - 18, W - 72, 32, shadow=CYAN, fill=white)
@@ -241,7 +248,7 @@ footer(c, 3); c.showPage()
 # ─────────────────────────── PÁGINA 4 · PROPUESTA COMERCIAL
 header(c, 4, "Propuesta para marcas")
 y = section_title(c, H - 76, "Sé parte de la cumbre")
-y = wrap(c, "Un paquete único de un mes de actividades alrededor de Podcast en la Cumbre · Pico Bolívar, con presencia de marca en la expedición completa y en el episodio del récord mundial.",
+y = wrap(c, "Un paquete único de un mes de actividades alrededor de Podcast en la Cumbre · Pico Bolívar, con presencia de marca en la expedición completa y en el episodio previsto en cumbre, sujeto a seguridad y viabilidad.",
           36, y, W - 72)
 
 incl = [
@@ -281,7 +288,7 @@ c.drawString(px + 16, ty - 6, "Cupos limitados por categoría")
 
 y = section_title(c, min(iy, cy - 190) - 24, "Por qué sumarse")
 for k, v in [
-    ("Hito histórico", "Un récord mundial venezolano con cobertura de prensa nacional."),
+    ("Expedición", "Un proyecto venezolano con cobertura de prensa nacional."),
     ("Contenido premium", "Producción documental, no publicidad convencional."),
     ("Vida útil larga", "El episodio y el microdocumental siguen sumando vistas por años."),
 ]:
@@ -329,4 +336,13 @@ for t in [
 c.setFillColor(PINK); c.setFont("Helvetica-Bold", 8.5)
 c.drawString(52, ty - 4, "vacilateesto.com/podcast-en-la-cumbre  ·  vacilateesto.com/prensa/pico-bolivar")
 footer(c, 5); c.save()
+if existing_annex:
+    writer = PdfWriter()
+    generated = PdfReader(OUT)
+    writer.append(generated)
+    for page in existing_annex:
+        writer.add_page(page)
+    writer.add_metadata(dict(generated.metadata or {}))
+    with open(OUT, "wb") as output:
+        writer.write(output)
 print("OK", OUT)

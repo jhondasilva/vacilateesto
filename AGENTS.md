@@ -1,2 +1,4 @@
 - Resolve and render dashboard logos through the shared dashboard logo registry and viewport component, so cards and all dashboard headers use identical assets and safe image failure handling without changing data flows.
 - Collapse duplicate dashboard brand identities only within the already authorized card list, preserving existing routes and permissions so presentation changes cannot grant access.
+- Cumbre PDF generators preserve existing trailing annex pages when regenerating editorial pages, so unrelated report data stays intact.
+- Historical Cumbre press PDFs retain their original pages and attributed quotations behind an editorial clarification, so archive material is not mistaken for current verified claims.
