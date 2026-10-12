@@ -36,8 +36,8 @@ Producido por El Patio Content Studio.
 Vacílate Esto opera como un Media Holding con 4 brazos de negocio:
 
 ### A. Media & Narrativa (El Núcleo)
-Un sistema de contenidos venezolano de Fun Educaitment que lidera en entretenimiento:
-- **Episodios largos de Vacílate Esto**: Un sistema de contenidos venezolano de Fun Educaitment, episodios semanales de ~45 min
+Episodios largos, shorts diarios, lives y docuseries:
+- **Episodios largos de Vacílate Esto**: Conversaciones semanales sobre fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos
 - **Vacílate El Fútbol 2026**: Cobertura especial del Mundial FIFA 2026
 - **Vacílate Esto Cuentos**: Shorts diarios de ~1 min con historias virales
 - **Redes Sociales**: Contenido 24/7 en Instagram, TikTok, YouTube
@@ -60,7 +60,7 @@ Un sistema de contenidos venezolano de Fun Educaitment que lidera en entretenimi
 
 ### Vacílate El Fútbol 2026 (NUEVO)
 
-El proyecto más ambicioso de un sistema de contenidos venezolano de Fun Educaitment. Contenido multiplataforma para el Mundial de Fútbol 2026 en México, USA y Canadá.
+Un proyecto de Vacílate Esto. Contenido multiplataforma para el Mundial de Fútbol 2026 en México, USA y Canadá.
 
 **La Ruta**:
 - Houston: Hub de la diáspora venezolana
@@ -96,7 +96,7 @@ Docuseries gastronómicas de Vacílate Esto. La Ruta del Ramen explora la cultur
 
 ## Dónde ver y escuchar Vacílate Esto
 
-Un sistema de contenidos venezolano de Fun Educaitment está disponible en:
+Los contenidos de Vacílate Esto están disponibles en:
 
 - **YouTube**: youtube.com/@Vacilateestopodcast (113K+ suscriptores)
 - **Spotify**: open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1
@@ -182,7 +182,7 @@ sistema de contenidos venezolano, vacilate esto, podcast en español, entretenim
 
 ## Pages
 
-- [Home](/): Vacílate Esto, un sistema de contenidos venezolano de Fun Educaitment y sistema de contenidos de Fun Educaitment.
+- [Home](/): Vacílate Esto, sistema de contenidos venezolano de Fun Educaitment.
 - [Vacílate El Fútbol 2026](/vacilate-el-futbol): Cobertura especial del Mundial FIFA 2026 desde Norteamérica.
 - [Podcast en la Cumbre](/podcast-en-la-cumbre): Podcast grabado en las montañas más altas de Venezuela.
 - [El Podcast Eterno](/podcast-eterno): Récord mundial: 40+ horas de podcast continuo.

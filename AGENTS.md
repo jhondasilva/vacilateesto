@@ -2,3 +2,4 @@
 - Collapse duplicate dashboard brand identities only within the already authorized card list, preserving existing routes and permissions so presentation changes cannot grant access.
 - Cumbre PDF generators preserve existing trailing annex pages when regenerating editorial pages, so unrelated report data stays intact.
 - Historical Cumbre press PDFs retain their original pages and attributed quotations behind an editorial clarification, so archive material is not mistaken for current verified claims.
+- Press archive ZIP refreshes synchronize existing current PDF entries and brand boilerplate while preserving historical documents, quotations and all other entries, so downloadable copies match the current site.

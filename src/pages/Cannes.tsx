@@ -197,14 +197,14 @@ const Cannes = () => {
   return (
     <div className="min-h-screen bg-[#05080f] text-white overflow-x-hidden selection:bg-rose-400/30 selection:text-white">
       <Helmet>
-        <title>Vacílate AI — Cannes 2026 Technical Dossier · Vacílate Esto</title>
+        <title>Vacílate AI Radio — Cannes 2026 Technical Dossier · Vacílate Esto</title>
         <meta
           name="description"
-          content="AI + Data + Automation = a daily AI-generated conversation. Multi-LLM pipeline orchestrating Perplexity, Gemini, ChatGPT, 0CodeKit and ElevenLabs to capture two Venezuelan hosts' soul."
+          content="AI + Data + Automation = a daily FM radio show. Multi-LLM pipeline orchestrating Perplexity, Gemini, ChatGPT, 0CodeKit and ElevenLabs to capture two Venezuelan hosts' soul."
         />
         <link rel="canonical" href={URL} />
-        <meta property="og:title" content="Vacílate AI — Cannes 2026 Technical Dossier" />
-        <meta property="og:description" content="A 5-AI pipeline that turns curated topics into a fully produced audio conversation, in the voice of Jhon and Juan." />
+        <meta property="og:title" content="Vacílate AI Radio — Cannes 2026 Technical Dossier" />
+        <meta property="og:description" content="A 5-AI pipeline that turns curated topics into a fully produced FM radio show, in the voice of Jhon and Juan." />
         <meta property="og:url" content={URL} />
       </Helmet>
 
@@ -255,7 +255,7 @@ const Cannes = () => {
             Cannes 2026
           </span>
           <span className="text-[10px] sm:text-xs tracking-[0.3em] text-white/45 uppercase">
-            Technical Dossier — Audio Module
+            Technical Dossier — Radio Module
           </span>
         </div>
         <span className="hidden sm:inline-flex px-3 py-1 rounded-full border border-white/10 text-[10px] tracking-[0.25em] uppercase text-white/60">
@@ -305,14 +305,14 @@ const Cannes = () => {
             <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-rose-400/30 bg-rose-400/10 text-[11px] tracking-[0.25em] uppercase text-rose-200 mb-8">
                 <Radio className="w-3.5 h-3.5" />
-                Vacílate AI
+                Vacílate AI Radio
               </div>
             </Reveal>
             <Reveal delay={100}>
               <h1 className="font-black leading-[1.02] tracking-tight text-4xl sm:text-6xl md:text-7xl">
                 AI + Data + Automation ={" "}
                 <span className="block sm:inline bg-gradient-to-r from-rose-300 via-pink-400 to-amber-300 bg-clip-text text-transparent">
-                  Conversaciones diarias con IA
+                  A FM Daily Radio Show
                 </span>
               </h1>
             </Reveal>
@@ -342,7 +342,7 @@ const Cannes = () => {
                   className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 text-white text-sm font-semibold hover:shadow-[0_8px_30px_-8px_rgba(244,63,94,0.6)] transition-shadow"
                 >
                   <Headphones className="w-4 h-4" />
-                  Escucha las conversaciones generadas con IA
+                  Listen to AI-Generated Radio Shows
                   <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <button
@@ -363,7 +363,7 @@ const Cannes = () => {
             <Reveal delay={100}>
               <div className="prose prose-invert prose-lg max-w-none prose-p:text-white/70 prose-strong:text-white">
                 <p>
-                  <strong>Vacílate AI</strong> is built around the <strong>Creative Hub</strong> — a production interface where the editorial team doesn't just click a button, but actively shapes each show. First, the team selects a date and generates topics informed by{" "}
+                  <strong>Vacílate AI Radio</strong> is built around the <strong>Creative Hub</strong> — a production interface where the editorial team doesn't just click a button, but actively shapes each show. First, the team selects a date and generates topics informed by{" "}
                   <strong>Metricool analytics data, Perplexity real-time trends, and 8 curated content pillars</strong>. Then comes the critical editorial phase: reviewing each topic, reordering for narrative flow, replacing weak topics, editing titles, and ensuring the right balance of culture, humor, and information. Only when the lineup is editorially approved does the team click <strong>"Send to Production"</strong> — triggering the fully automated Make.com pipeline where{" "}
                   <strong>OpenAI ChatGPT</strong>, <strong>Google Gemini</strong>, <strong>0CodeKit Python</strong>, and{" "}
                   <strong>ElevenLabs</strong> transform curated topics into a complete audio show. The finished audio lands in Google Drive and the Hub is notified via webhook callback — all without leaving the interface.
@@ -470,7 +470,7 @@ const Cannes = () => {
             <Reveal delay={300}>
               <Card className="mt-8 bg-gradient-to-br from-rose-500/10 via-white/[0.02] to-amber-500/10 border-rose-400/20">
                 <div className="flex items-start gap-3">
-                  <div className="text-2xl"></div>
+                  <div className="text-2xl">🔄</div>
                   <p className="text-sm sm:text-base text-white/80 leading-relaxed">
                     <strong className="text-white">Intelligence Loop:</strong> Performance data feeds smarter topics →
                     AI-modeled host personalities shape the scripts → cloned voices deliver authentic Venezuelan cadence
@@ -496,10 +496,10 @@ const Cannes = () => {
             <div className="grid lg:grid-cols-2 gap-6">
               <Reveal delay={150}>
                 <Card>
-                  <h3 className="text-sm tracking-[0.25em] uppercase text-white/50 mb-4">Audio-Specific Prompt</h3>
+                  <h3 className="text-sm tracking-[0.25em] uppercase text-white/50 mb-4">Radio-Specific Prompt</h3>
                   <CodeBlock>{`Search for the 8 most viral trends (48-72h)
 on TikTok, YouTube, X, Instagram & Google Trends
-for "Vacílate AI" — informal Venezuelan audio conversations.
+for "Vacílate AI" — informal Venezuelan radio.
 
 PROGRAM CONTEXT:
 - Colloquial tone: "Chamo", "Pana", "Burda", "Fino"
@@ -524,7 +524,7 @@ Include 1-2 from VENEZUELA/Latin America`}</CodeBlock>
                       <div className="text-sm text-white/75">Post-processing: 25+ programmatically blocked keywords</div>
                     </div>
                   </div>
-                  <h3 className="text-sm tracking-[0.25em] uppercase text-white/50 mt-6 mb-3">Audio Pillars</h3>
+                  <h3 className="text-sm tracking-[0.25em] uppercase text-white/50 mt-6 mb-3">Radio Pillars</h3>
                   <div className="flex flex-wrap gap-2">
                     {["pop culture", "celebrities", "curiosities", "technology", "AI", "sports", "venezuela", "gastronomy", "music"].map((p) => (
                       <Pill key={p} tone="rose">{p}</Pill>
@@ -557,11 +557,11 @@ Include 1-2 from VENEZUELA/Latin America`}</CodeBlock>
               <div className="grid sm:grid-cols-2 gap-4">
                 {[
                   { l: "Layer 1: Identity", t: "Restricted role: 'Specialist in REAL AND 100% VERIFIABLE topics'" },
-                  { l: "Layer 2: Prohibitions", t: "Pattern blacklist:  'Study reveals that…',  'The [brand] initiative…'" },
-                  { l: "Layer 3: Positive examples", t: " Verifiable anniversaries ·  Geographic data ·  Pop culture milestones" },
+                  { l: "Layer 2: Prohibitions", t: "Pattern blacklist: ❌ 'Study reveals that…', ❌ 'The [brand] initiative…'" },
+                  { l: "Layer 3: Positive examples", t: "✅ Verifiable anniversaries · ✅ Geographic data · ✅ Pop culture milestones" },
                   { l: "Layer 4: Captured real case", t: "'The Guayoyo river in Portuguesa' — that river DOESN'T EXIST. The LLM invented it." },
                   { l: "Layer 5: High-risk zones", t: "Venezuelan etymologies, local geography, exact statistics" },
-                  { l: "Layer 6: Certainty labeling", t: " Confirmed ·  Probable ·  Theory ·  Unknown" },
+                  { l: "Layer 6: Certainty labeling", t: "🟢 Confirmed · 🟡 Probable · 🟠 Theory · 🔴 Unknown" },
                 ].map((x) => (
                   <Card key={x.l} className="!p-5">
                     <div className="text-[10px] tracking-widest uppercase text-amber-300 font-bold mb-2">{x.l}</div>
@@ -582,10 +582,10 @@ Include 1-2 from VENEZUELA/Latin America`}</CodeBlock>
               <h3 className="text-xl font-bold mt-12 mb-5">C.R.E.A.R. Methodology — How We Classify Information</h3>
               <div className="grid sm:grid-cols-2 gap-3">
                 {[
-                  { icon: CheckCircle2, color: "text-emerald-300 border-emerald-400/30 bg-emerald-400/5", tag: " CONFIRMED", t: "Fact verified with primary sources: dates, public records, official data. Example: 'Angel Falls is 979m tall' — UNESCO verified." },
-                  { icon: Circle, color: "text-amber-300 border-amber-400/30 bg-amber-400/5", tag: " PROBABLE", t: "Widely accepted with multiple secondary sources but no absolute proof. Example: 'The arepa originated in pre-Columbian times' — archaeological evidence supports it." },
-                  { icon: AlertTriangle, color: "text-orange-300 border-orange-400/30 bg-orange-400/5", tag: " THEORY / LEGEND", t: "Popular belief or cultural tradition without scientific backing. The AI explicitly labels it as such. Example: 'They say guayoyo got its name from the Guayoyo river' —  that river doesn't exist." },
-                  { icon: XCircle, color: "text-rose-300 border-rose-400/30 bg-rose-400/5", tag: " UNKNOWN", t: "No reliable source found. The AI states it doesn't know rather than inventing. Example: 'The exact origin of chamo is debated — no consensus exists.'" },
+                  { icon: CheckCircle2, color: "text-emerald-300 border-emerald-400/30 bg-emerald-400/5", tag: "🟢 CONFIRMED", t: "Fact verified with primary sources: dates, public records, official data. Example: 'Angel Falls is 979m tall' — UNESCO verified." },
+                  { icon: Circle, color: "text-amber-300 border-amber-400/30 bg-amber-400/5", tag: "🟡 PROBABLE", t: "Widely accepted with multiple secondary sources but no absolute proof. Example: 'The arepa originated in pre-Columbian times' — archaeological evidence supports it." },
+                  { icon: AlertTriangle, color: "text-orange-300 border-orange-400/30 bg-orange-400/5", tag: "🟠 THEORY / LEGEND", t: "Popular belief or cultural tradition without scientific backing. The AI explicitly labels it as such. Example: 'They say guayoyo got its name from the Guayoyo river' — ⚠️ that river doesn't exist." },
+                  { icon: XCircle, color: "text-rose-300 border-rose-400/30 bg-rose-400/5", tag: "🔴 UNKNOWN", t: "No reliable source found. The AI states it doesn't know rather than inventing. Example: 'The exact origin of chamo is debated — no consensus exists.'" },
                 ].map((x) => (
                   <div key={x.tag} className={`rounded-xl border p-5 ${x.color}`}>
                     <div className="text-sm font-bold mb-2">{x.tag}</div>
@@ -594,7 +594,7 @@ Include 1-2 from VENEZUELA/Latin America`}</CodeBlock>
                 ))}
               </div>
               <p className="text-sm text-white/65 leading-relaxed mt-6">
-                <strong className="text-white">How it works in practice:</strong> When the LLM generates a topic involving Venezuelan etymologies, local geography, or historical claims, the prompt forces it to self-classify each claim. If a claim falls into  or , the script must include phrases like <em>"se dice que…"</em> or <em>"aunque no está confirmado…"</em> — never presenting legends as facts. This was implemented after the Guayoyo river incident.
+                <strong className="text-white">How it works in practice:</strong> When the LLM generates a topic involving Venezuelan etymologies, local geography, or historical claims, the prompt forces it to self-classify each claim. If a claim falls into 🟠 or 🔴, the script must include phrases like <em>"se dice que…"</em> or <em>"aunque no está confirmado…"</em> — never presenting legends as facts. This was implemented after the Guayoyo river incident.
               </p>
             </Reveal>
 
@@ -603,7 +603,7 @@ Include 1-2 from VENEZUELA/Latin America`}</CodeBlock>
               <Reveal delay={250}>
                 <Card>
                   <h3 className="text-sm tracking-[0.25em] uppercase text-white/50 mb-4">Data-Driven Prompting</h3>
-                  <CodeBlock>{` ACCUMULATED PERFORMANCE DATA:
+                  <CodeBlock>{`📊 ACCUMULATED PERFORMANCE DATA:
 
 Most effective pillars:
   Pop Culture (weight: 35/100)
@@ -617,7 +617,7 @@ Recommendations:
   More music content
   Fewer generic anniversaries
 
- USE THIS DATA to prioritize topics
+⚠️ USE THIS DATA to prioritize topics
    similar to best performers`}</CodeBlock>
                   <p className="text-xs text-white/45 mt-3">
                     Source: <code className="text-white/70">content_performance_insights</code> table fed by Metricool CSVs
@@ -635,11 +635,11 @@ const { data } = await supabase
   .limit(500);
 
 // Injected into prompt:
- BLOCKED TOPICS (127 already used):
+🚫 BLOCKED TOPICS (127 already used):
 1. "Did you know Angel Falls...?"
 2. "The history of the first World Cup"
 ...
- Generate COMPLETELY NEW topics`}</CodeBlock>
+⚠️ Generate COMPLETELY NEW topics`}</CodeBlock>
                 </Card>
               </Reveal>
             </div>
@@ -852,12 +852,12 @@ const { data } = await supabase
               <h3 className="text-xl font-bold mt-14 mb-5">Editorial Tools Available in the Hub</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                 {[
-                  { e: "↕", t: "Reorder", s: "@dnd-kit" },
-                  { e: "✏", t: "Edit inline", s: "React Input" },
-                  { e: "", t: "Delete", s: "3-route Dialog" },
-                  { e: "", t: "Regenerate", s: "Gemini + pillar" },
+                  { e: "↕️", t: "Reorder", s: "@dnd-kit" },
+                  { e: "✏️", t: "Edit inline", s: "React Input" },
+                  { e: "🗑️", t: "Delete", s: "3-route Dialog" },
+                  { e: "🔄", t: "Regenerate", s: "Gemini + pillar" },
                   { e: "➕", t: "Add manual", s: "Input + pillar" },
-                  { e: "", t: "Copy", s: "Clipboard API" },
+                  { e: "📋", t: "Copy", s: "Clipboard API" },
                 ].map((tool) => (
                   <div key={tool.t} className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-center">
                     <div className="text-2xl mb-2">{tool.e}</div>
@@ -872,10 +872,10 @@ const { data } = await supabase
               <h3 className="text-xl font-bold mt-14 mb-5">The Intelligence Behind the Creativity</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
-                  { icon: "", t: "Performance Data", s: "Views, engagement, top pillars — the AI learns what content resonates and adapts" },
-                  { icon: "", t: "Host Soul Models", s: "Jhon's dry humor + stoicism, Juan's curiosity + optimism — personality DNA in every script" },
-                  { icon: "", t: "Venezuelan Slang Engine", s: "'Chamo', 'Naguará', 'Fino', 'Pilla' — AI trained to think and speak in authentic cadence" },
-                  { icon: "", t: "Cloned Voice Synthesis", s: "ElevenLabs captures the exact tone, rhythm, and vocal texture of each host" },
+                  { icon: "📊", t: "Performance Data", s: "Views, engagement, top pillars — the AI learns what content resonates and adapts" },
+                  { icon: "🧠", t: "Host Soul Models", s: "Jhon's dry humor + stoicism, Juan's curiosity + optimism — personality DNA in every script" },
+                  { icon: "🇻🇪", t: "Venezuelan Slang Engine", s: "'Chamo', 'Naguará', 'Fino', 'Pilla' — AI trained to think and speak in authentic cadence" },
+                  { icon: "🎤", t: "Cloned Voice Synthesis", s: "ElevenLabs captures the exact tone, rhythm, and vocal texture of each host" },
                 ].map((c) => (
                   <Card key={c.t} className="!p-5">
                     <div className="text-2xl mb-2">{c.icon}</div>
@@ -886,9 +886,9 @@ const { data } = await supabase
               </div>
               <Card className="mt-6 bg-gradient-to-br from-rose-500/10 to-amber-500/10 border-rose-400/20">
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl"></span>
+                  <span className="text-2xl">🎙️</span>
                   <p className="text-sm text-white/80 leading-relaxed">
-                    <strong className="text-white">The result:</strong> An audio conversation that sounds human — because every AI layer was trained to think in Venezuelan slang, respect each host's unique soul, and get smarter with every episode.
+                    <strong className="text-white">The result:</strong> A radio show that sounds human — because every AI layer was trained to think in Venezuelan slang, respect each host's unique soul, and get smarter with every episode.
                   </p>
                 </div>
               </Card>
@@ -903,13 +903,13 @@ const { data } = await supabase
 
             <div className="space-y-3">
               {[
-                { e: "", t: "Webhook", time: "~1 min", d: "Receives JSON payload with topics from Creative Hub", tag: "Make Webhook" },
-                { e: "", t: "Router", time: "instant", d: "Splits into 4 parallel paths", tag: "Make Router" },
-                { e: "", t: "LLM Chain", time: "~16 min", d: "Dual-LLM scriptwriting & cross-validation", tag: "ChatGPT + Gemini" },
-                { e: "", t: "0CodeKit", time: "~4 min", d: "Split voices (pre-TTS) + Join audio (post-TTS)", tag: "Python" },
-                { e: "", t: "ElevenLabs", time: "~30 min", d: "Cloned voice synthesis (Jhon + Juan + Narrator)", tag: "TTS v2" },
-                { e: "", t: "Upload", time: "~5 min", d: "Final MP3 per section, accessible by URL", tag: "Google Drive" },
-                { e: "", t: "Callback", time: "~1 min", d: "Returns status + drive_url to Creative Hub", tag: "HTTP POST" },
+                { e: "📥", t: "Webhook", time: "~1 min", d: "Receives JSON payload with topics from Creative Hub", tag: "Make Webhook" },
+                { e: "🔀", t: "Router", time: "instant", d: "Splits into 4 parallel paths", tag: "Make Router" },
+                { e: "🤖", t: "LLM Chain", time: "~16 min", d: "Dual-LLM scriptwriting & cross-validation", tag: "ChatGPT + Gemini" },
+                { e: "🐍", t: "0CodeKit", time: "~4 min", d: "Split voices (pre-TTS) + Join audio (post-TTS)", tag: "Python" },
+                { e: "🎤", t: "ElevenLabs", time: "~30 min", d: "Cloned voice synthesis (Jhon + Juan + Narrator)", tag: "TTS v2" },
+                { e: "☁️", t: "Upload", time: "~5 min", d: "Final MP3 per section, accessible by URL", tag: "Google Drive" },
+                { e: "🔔", t: "Callback", time: "~1 min", d: "Returns status + drive_url to Creative Hub", tag: "HTTP POST" },
               ].map((step, i) => (
                 <Reveal key={step.t} delay={i * 60}>
                   <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5 flex items-center gap-5 hover:bg-white/[0.04] transition-colors">
@@ -956,7 +956,7 @@ const { data } = await supabase
               <h3 className="text-xl font-bold mb-5">4-Path Router Architecture</h3>
               <Card className="!p-5">
                 <div className="grid md:grid-cols-3 gap-3 text-xs">
-                  {[" Creative Hub → Webhook", " JSON Parser", " Router (4 parallel paths)"].map((s) => (
+                  {["📥 Creative Hub → Webhook", "📋 JSON Parser", "🔀 Router (4 parallel paths)"].map((s) => (
                     <div key={s} className="rounded-lg bg-black/40 border border-white/10 p-3 text-center text-white/85 font-medium">
                       {s}
                     </div>
@@ -972,13 +972,13 @@ const { data } = await supabase
                 <div className="mt-5 text-[11px] tracking-widest uppercase text-white/45 mb-2">Each path runs:</div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-[11px]">
                   {[
-                    "✍ ChatGPT Script",
-                    " Gemini Validation",
-                    " 0CodeKit Split",
-                    " ElevenLabs TTS",
-                    " 0CodeKit Join",
-                    " Drive Upload",
-                    " Callback",
+                    "✍️ ChatGPT Script",
+                    "🔄 Gemini Validation",
+                    "🐍 0CodeKit Split",
+                    "🎤 ElevenLabs TTS",
+                    "🐍 0CodeKit Join",
+                    "☁️ Drive Upload",
+                    "🔔 Callback",
                   ].map((s) => (
                     <div key={s} className="rounded-md bg-white/5 border border-white/10 p-2 text-center text-white/80 font-medium">
                       {s}
@@ -991,8 +991,8 @@ const { data } = await supabase
             <Reveal delay={150}>
               <h3 className="text-xl font-bold mt-12 mb-5">ChatGPT "Guionista" — Production Prompt</h3>
               <CodeBlock>{`Think and act as a podcast scriptwriter, who must create the
-opening of an audio conversation — a conversation between Juan and Jhon.
-The show is called Vacílate A.I, an audio program,
+opening of a radio show — a conversation between Juan and Jhon.
+The show is called Vacílate A.I, a radio program on Circuito Líder,
 covering current events, pop culture, music, technology, AI and curiosities.
 
 Reference:
@@ -1105,10 +1105,10 @@ final_audio = concatenate(segments)
 
               <div className="grid md:grid-cols-2 gap-4 mt-6">
                 {[
-                  { e: "", t: "Intro", v: "2 (Jhon + Juan)", d: "Aggregator → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
-                  { e: "", t: "Chapters", v: "3 (Jhon + Juan + Narrator)", d: "Iterator per topic → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
-                  { e: "", t: "Closing", v: "2 (Jhon + Juan)", d: "Aggregator → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
-                  { e: "", t: "Callback", v: "—", d: "HTTP POST back to Creative Hub with request_id + status + drive_url → Edge Function updates radio_programs → Frontend detects via Realtime" },
+                  { e: "🎙️", t: "Intro", v: "2 (Jhon + Juan)", d: "Aggregator → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
+                  { e: "📖", t: "Chapters", v: "3 (Jhon + Juan + Narrator)", d: "Iterator per topic → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
+                  { e: "🎬", t: "Closing", v: "2 (Jhon + Juan)", d: "Aggregator → Context → ChatGPT → Gemini → 0CodeKit Split → ElevenLabs → 0CodeKit Join → Drive" },
+                  { e: "🔄", t: "Callback", v: "—", d: "HTTP POST back to Creative Hub with request_id + status + drive_url → Edge Function updates radio_programs → Frontend detects via Realtime" },
                 ].map((p) => (
                   <Card key={p.t} className="!p-5">
                     <div className="flex items-start justify-between mb-2">
@@ -1260,10 +1260,10 @@ final_audio = concatenate(segments)
                   }}
                 />
                 <div className="relative">
-                  <div className="text-3xl mb-3"></div>
+                  <div className="text-3xl mb-3">🎧</div>
                   <h2 className="text-2xl sm:text-4xl font-black mb-3">Listen to a Sample</h2>
                   <p className="text-white/65 max-w-xl mx-auto mb-8 text-sm sm:text-base">
-                    Hear an AI-generated audio conversation fragment — full pipeline, zero post-production.
+                    Hear an AI-generated FM radio show fragment — full pipeline, zero post-production.
                   </p>
                   <a
                     href={AUDIO_URL}
@@ -1288,7 +1288,7 @@ final_audio = concatenate(segments)
         <footer className="px-5 sm:px-10 lg:px-20 py-10 border-t border-white/10">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-white/40">
             <div className="tracking-[0.2em] uppercase">
-              Vacílate Esto · Vacílate AI · Cannes 2026
+              Vacílate Esto · Vacílate AI Radio · Cannes 2026
             </div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

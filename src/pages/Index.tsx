@@ -165,7 +165,7 @@ const Index = () => {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "¿Cuál es el sistema de contenidos venezolano de Fun Educaitment?",
+                "name": "¿Qué es Vacílate Esto?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela."
@@ -176,7 +176,7 @@ const Index = () => {
                 "name": "¿Qué contenidos hace Vacílate Esto?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela."
+                  "text": "Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. También hace eventos en vivo y contenido para marcas que le quieren hablar a Venezuela."
                 }
               },
               {
@@ -244,7 +244,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <AwardsBanner />
-        <main role="main" aria-label="Contenido principal dVacílate Esto">
+        <main role="main" aria-label="Contenido principal de Vacílate Esto">
           <article itemScope itemType="https://schema.org/Organization">
             <meta itemProp="name" content="Vacílate Esto" />
             <meta itemProp="description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
