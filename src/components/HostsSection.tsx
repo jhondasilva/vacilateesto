@@ -11,7 +11,7 @@ const hosts = [
     role: "Co-Host & Co-Fundador",
     description: "Con su estilo único, energía inconfundible y visión creativa, Jhon aporta la chispa que hace de cada contenido una experiencia memorable. Su pasión por contar historias auténticas ha conectado a Vacílate Esto con miles de personas en toda Venezuela y el mundo.",
     image: jhonDaSilva,
-    sticker: " La Chispa",
+    sticker: "★ La Chispa",
     accent: "primary" as const,
     rotate: -1.5,
     socials: {
@@ -26,7 +26,7 @@ const hosts = [
     role: "Co-Host & Co-Fundador",
     description: "La mente estratégica y la voz reflexiva de la marca. Juan Carlos combina profundidad, humor e inteligencia en cada contenido, creando el equilibrio perfecto que define el estilo único de Vacílate Esto. Juntos, no se quedan quietos.",
     image: juanCarlosMartinez,
-    sticker: " El Estratega",
+    sticker: "★ El Estratega",
     accent: "accent" as const,
     rotate: 1.5,
     socials: {
@@ -37,7 +37,7 @@ const hosts = [
   },
 ];
 
-const TICKER = ["LOS HOSTS", "", "JUANSOFA + JHONSNACKS", "✦", "DESDE 2020", "", "FUN EDUCAITMENT", "✦"];
+const TICKER = ["LOS HOSTS", "★", "JUANSOFA + JHONSNACKS", "✦", "DESDE 2020", "★", "FUN EDUCAITMENT", "✦"];
 
 const HostsSection = () => {
   return (

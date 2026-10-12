@@ -216,11 +216,11 @@ const MediaKitVEM = () => {
               <div className="flex whitespace-nowrap animate-marquee">
                 {Array.from({ length: 4 }).flatMap((_, k) => [
                   "VACÍLATE EL FÚTBOL 2026",
-                  "",
+                  "★",
                   "MX · USA · CAN · FRA · VEN",
                   "✦",
                   "FEB — JUL 2026",
-                  "",
+                  "★",
                   "16 PARADAS · 4 PAÍSES",
                   "✦",
                 ].map((item, i) => (
@@ -248,7 +248,7 @@ const MediaKitVEM = () => {
 
                   {/* Floating sticker: 16 PARADAS */}
                   <div className="absolute top-0 sm:-top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1 sm:px-3 sm:py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))]">
-                    <span className="font-display font-black text-[10px] uppercase tracking-widest"> 16 Paradas · 4 Países</span>
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest">★ 16 Paradas · 4 Países</span>
                   </div>
 
                   <h1
@@ -328,7 +328,7 @@ const MediaKitVEM = () => {
                         </defs>
                         <text className="fill-foreground font-display font-black" style={{ fontSize: "11px", letterSpacing: "2px" }}>
                           <textPath href="#circlePathVem">
-                             MUNDIAL · 2026 · MX · USA · CAN ·  MUNDIAL · 2026 ·
+                            ★ MUNDIAL · 2026 · MX · USA · CAN · ★ MUNDIAL · 2026 ·
                           </textPath>
                         </text>
                       </svg>

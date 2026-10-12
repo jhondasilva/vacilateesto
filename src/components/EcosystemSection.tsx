@@ -10,7 +10,7 @@ const contentFormats = [
   { title: "Episodios largos", subtitle: "Vacílate Esto", description: "Nuestro formato estrella de análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana. Episodios semanales de ~45 minutos que generan conversación.", icon: Mic, color: "primary" as const, stats: "Semanal · ~45 min", platforms: "Televen TV, YouTube, Spotify" },
   { title: "Vacílate Esto Comiendo", subtitle: "Serie Gastronómica", description: "Juan y Jhon se lanzan a probar distintas propuestas gastronómicas, explorando cada detalle, las comidas y las experiencias desde lugares sencillos hasta restaurantes sofisticados.", icon: Utensils, color: "accent" as const, stats: "Ruta del Ramen" },
   { title: "Metraje", subtitle: "Documental", description: "Jhon lleva a Juan o Juan lleva a Jhon a un lugar fuera del estudio y le explica por qué le lleva a ese lugar. Sirve de excusa para mostrarle a la comunidad de Vacílate Esto lugares insólitos y sus historias.", icon: Film, color: "primary" as const, stats: "Formato aventura" },
-  { title: "Lives", subtitle: "En Vivo", description: "Hacer un podcast es divertido, pero con público es mejor. Transformamos nuestro formato de estudio a una experiencia totalmente en vivo, donde nos relajamos y compartimos con la audiencia.", icon: Radio, color: "accent" as const, stats: "Shows en vivo" },
+  { title: "Lives", subtitle: "En Vivo", description: "Compartir historias con público convierte cada encuentro en una experiencia. Transformamos nuestro formato de estudio a una experiencia totalmente en vivo, donde nos relajamos y compartimos con la audiencia.", icon: Radio, color: "accent" as const, stats: "Shows en vivo" },
   { title: "Streaming", subtitle: "TikTok Live", description: "Transmisiones en vivo en TikTok desde la grabación de nuestros episodios largos, fútbol en vivo o proyectos especiales como Roraima. Contenido interactivo que conecta en tiempo real con nuestra comunidad.", icon: Video, color: "primary" as const, stats: "En directo" },
   { title: "Guerra de Comerciales", subtitle: "Campeonato Nacional", description: "Torneo estilo Mundial de Fútbol donde enfrentamos los comerciales más icónicos de Venezuela. 40,773 votos, 1.35M impresiones y Covencaucho como campeón absoluto.", icon: Trophy, color: "primary" as const, stats: "40K+ votos", platforms: "Instagram, TikTok" },
   { title: "Rutas", subtitle: "Exploraciones Temáticas", description: "Series de exploración donde recorremos lugares con un tema específico. Como la Ruta del Ramen, donde probamos y evaluamos los mejores restaurantes de ramen en la ciudad.", icon: MapPin, color: "accent" as const, stats: "Series temáticas", platforms: "TikTok, Instagram, YouTube" },
@@ -20,7 +20,7 @@ const contentFormats = [
   { title: "Vacílate El Fútbol", subtitle: "Cobertura Especial 2026", description: "El Mundial de Fútbol 2026 visto desde los ojos de Vacílate Esto. Una cobertura única con nuestro estilo, análisis y entretenimiento de febrero a julio 2026.", icon: Trophy, color: "accent" as const, stats: "Feb - Jul 2026" },
 ];
 
-const TICKER = ["ECOSISTEMA", "", "12 FORMATOS", "✦", "MULTIPLATAFORMA", "", "VACÍLATE ESTO", "✦"];
+const TICKER = ["ECOSISTEMA", "★", "12 FORMATOS", "✦", "MULTIPLATAFORMA", "★", "VACÍLATE ESTO", "✦"];
 
 const EcosystemSection = () => {
   return (
@@ -71,7 +71,7 @@ const EcosystemSection = () => {
                     isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
                   }`}
                 >
-                   {format.stats}
+                  ★ {format.stats}
                 </div>
                 {format.platforms && (
                   <p className="text-[11px] text-muted-foreground mt-3 font-semibold uppercase tracking-wider">

@@ -37,7 +37,7 @@ const scheduleData = [
   ]},
 ];
 
-const TICKER = ["PROGRAMACIÓN SEMANAL", "", "7 DÍAS", "✦", "MULTIPLATAFORMA", "", "NUNCA PARAMOS", "✦"];
+const TICKER = ["PROGRAMACIÓN SEMANAL", "★", "7 DÍAS", "✦", "MULTIPLATAFORMA", "★", "NUNCA PARAMOS", "✦"];
 
 const AgendaSection = () => {
   return (
@@ -118,7 +118,7 @@ const AgendaSection = () => {
         </div>
 
         <p className="text-center text-muted-foreground text-xs mt-10 font-bold uppercase tracking-widest">
-           Hora Venezuela (VET)
+          ★ Hora Venezuela (VET) ★
         </p>
       </div>
     </section>

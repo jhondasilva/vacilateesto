@@ -276,7 +276,7 @@ const Buscador = () => {
             ◆ {stats ? `${stats.podcasts} episodios` : "Episodios"}
           </div>
           <div aria-hidden className="absolute top-32 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
-             {stats ? `${stats.shorts.toLocaleString()} shorts` : "Shorts"}
+            ★ {stats ? `${stats.shorts.toLocaleString()} shorts` : "Shorts"}
           </div>
 
           <div className="container mx-auto px-4 pt-10 pb-8 md:pt-20 md:pb-14 max-w-4xl">

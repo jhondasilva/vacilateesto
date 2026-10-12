@@ -320,7 +320,7 @@ const PodcastEnLaCumbre = () => {
               ▲ 4.978m
             </div>
             <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[12deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
-               Aventura
+              ★ Aventura
             </div>
             <div className="container mx-auto px-4 relative z-10 text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-foreground rounded-full mb-6 shadow-[4px_4px_0_hsl(var(--foreground))] rotate-[-2deg]">
@@ -382,7 +382,7 @@ const PodcastEnLaCumbre = () => {
           </section>
 
           {/* Manifiesto Section */}
-          <StickerMarquee items={[" Naiguatá 2.765m", "▲ Roraima 2.810m", "● Pico Bolívar 4.978m", "✦ Aquí hay altura"]} variant="primary" />
+          <StickerMarquee items={["★ Naiguatá 2.765m", "▲ Roraima 2.810m", "● Pico Bolívar 4.978m", "✦ Aquí hay altura"]} variant="primary" />
           <section className="py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="manifiesto-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
@@ -1175,7 +1175,7 @@ const PodcastEnLaCumbre = () => {
                     <p className="text-muted-foreground">
                       Vamos en busca de voces que han hecho de la altura su forma de vida, porque entendemos
                       que <strong className="text-foreground">estar a la altura consiste en sostenerse</strong>.
-                      Este es un podcast que enaltece a todos los que creen que siempre se puede subir un poco más.
+                      Este proyecto enaltece a todos los que creen que siempre se puede subir un poco más.
                     </p>
                   </div>
 
@@ -1204,7 +1204,7 @@ const PodcastEnLaCumbre = () => {
                   </div>
 
                   <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-accent">
-                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Mucho más que un podcast</h3>
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Una experiencia de altura</h3>
                     <p className="text-background/80 mb-6">
                       Además de los episodios que documentan las expediciones y la grabación en cumbre, Podcast en la Cumbre generará una 
                       experiencia audiovisual con marcas de altura:

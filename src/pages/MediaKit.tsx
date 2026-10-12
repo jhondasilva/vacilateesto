@@ -127,7 +127,7 @@ const contentFormats = [
   {
     title: "Lives",
     subtitle: "En Vivo",
-    description: "Hacer un podcast es divertido, pero con público es mejor. Transformamos nuestro formato de estudio a una experiencia totalmente en vivo, donde nos relajamos y compartimos con la audiencia.",
+    description: "Compartir historias con público convierte cada encuentro en una experiencia. Transformamos nuestro formato de estudio a una experiencia totalmente en vivo, donde nos relajamos y compartimos con la audiencia.",
     icon: Radio,
     color: "bg-[#7DE8E8]",
     stats: "Shows en vivo",
@@ -570,7 +570,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-               1.84M
+              ★ 1.84M
             </div>
             <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
               ◆ Media Kit
@@ -635,7 +635,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={[` ${audienceData.totalViews} VISTAS`, `◆ ${audienceData.totalImpressions} IMPRESIONES REPORTADAS`, `▲ ${audienceData.totalInteractions} INTERACCIONES`, `● ${audienceData.totalPublications} PUBLICACIONES`, " FUENTE: METRICOOL · ENE–SEP 2026"]}
+              items={[`★ ${audienceData.totalViews} VISTAS`, `◆ ${audienceData.totalImpressions} IMPRESIONES REPORTADAS`, `▲ ${audienceData.totalInteractions} INTERACCIONES`, `● ${audienceData.totalPublications} PUBLICACIONES`, "★ FUENTE: METRICOOL · ENE–SEP 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -733,7 +733,7 @@ const MediaKit = () => {
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Países */}
                 <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary">
-                  <div className="inline-block mb-6 px-3 py-1 bg-foreground text-background border-2 border-foreground font-display font-black text-xs uppercase tracking-widest -rotate-1"> Top 10 Países</div>
+                  <div className="inline-block mb-6 px-3 py-1 bg-foreground text-background border-2 border-foreground font-display font-black text-xs uppercase tracking-widest -rotate-1">★ Top 10 Países</div>
                   <div className="space-y-3">
                     {audienceData.demographics.countries.map((country, idx) => (
                       <div key={idx} className="flex items-center gap-4">
@@ -897,7 +897,7 @@ const MediaKit = () => {
               <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl" />
             </div>
             <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-               FIAP 2026
+              ★ FIAP 2026
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
               ◆ 8 nominaciones CIMA
@@ -1022,7 +1022,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-               Sponsors
+              ★ Sponsors
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
               ◆ 2026
@@ -1051,7 +1051,7 @@ const MediaKit = () => {
                   >
                     {plan.highlighted && (
                       <div className="absolute -top-3 -right-3 rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-[10px] uppercase tracking-widest shadow-[3px_3px_0_hsl(var(--foreground))]">
-                         Recomendado
+                        ★ Recomendado
                       </div>
                     )}
                     <h3 className={`font-display text-3xl sm:text-4xl font-black mb-2 tracking-tight ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'}`}>

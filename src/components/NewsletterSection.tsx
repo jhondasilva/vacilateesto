@@ -8,7 +8,7 @@ import { z } from "zod";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 
-const TICKER = ["NEWSLETTER SEMANAL", "", "0% SPAM", "✦", "100% VACILE", "", "SUSCRIBITE", "✦"];
+const TICKER = ["NEWSLETTER SEMANAL", "★", "0% SPAM", "✦", "100% VACILE", "★", "SUSCRIBITE", "✦"];
 
 const emailSchema = z.string()
   .min(1, "Por favor ingresa tu correo electrónico")
@@ -128,7 +128,7 @@ const NewsletterSection = () => {
           </form>
 
           <p className="text-xs text-muted-foreground mt-6 text-center font-bold uppercase tracking-widest">
-             Sin spam · Solo contenido de valor · Baja cuando quieras
+            ★ Sin spam · Solo contenido de valor · Baja cuando quieras ★
           </p>
         </div>
       </div>

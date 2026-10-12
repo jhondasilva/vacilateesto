@@ -24,7 +24,7 @@ const businessArms = [
   ]},
 ];
 
-const TICKER = ["MEDIA HOLDING", "", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR", "", "DATA + EXPERIENCIAS", "✦"];
+const TICKER = ["MEDIA HOLDING", "★", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR", "★", "DATA + EXPERIENCIAS", "✦"];
 
 const MediaHoldingSection = () => {
   return (
@@ -104,7 +104,7 @@ const MediaHoldingSection = () => {
         {/* Flywheel card */}
         <div className="relative bg-background rounded-3xl p-6 sm:p-8 md:p-12 border-2 border-foreground sticker-shadow-lg-foreground max-w-5xl mx-auto">
           <div className="absolute -top-4 left-4 sm:left-8 bg-foreground text-background px-3 py-1.5 sm:px-4 rounded-full border-2 border-foreground">
-            <span className="font-display font-black text-[10px] uppercase tracking-widest"> El Flywheel Vacílate</span>
+            <span className="font-display font-black text-[10px] uppercase tracking-widest">★ El Flywheel Vacílate</span>
           </div>
 
           <div className="text-center mb-8 sm:mb-10 mt-2">

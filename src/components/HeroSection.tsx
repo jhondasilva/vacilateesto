@@ -5,11 +5,11 @@ import mediaKitMetrics from "@/data/mediaKitMetrics.json";
 
 const marqueeItems = [
   "VACÍLATE ESTO",
-  "",
+  "★",
   "FUN EDUCAITMENT",
   "✦",
   "EPISODIOS · SHORTS · LIVES",
-  "",
+  "★",
   "DESDE VENEZUELA ",
   "✦",
 ];
@@ -67,7 +67,7 @@ const HeroSection = () => {
 
             {/* Floating sticker: NEW */}
             <div className="absolute top-0 sm:-top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1 sm:px-3 sm:py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))]">
-              <span className="font-display font-black text-[10px] uppercase tracking-widest"> Nuevo Episodio</span>
+              <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo Episodio</span>
             </div>
 
             <h1 id="hero-title" className="font-display font-black tracking-[-0.04em] leading-[0.92] mt-14 sm:mt-16 md:mt-20 pb-2">
@@ -151,7 +151,7 @@ const HeroSection = () => {
                   </defs>
                   <text className="fill-foreground font-display font-black" style={{ fontSize: "11px", letterSpacing: "2px" }}>
                     <textPath href="#circlePath">
-                       FUN · EDUCAITMENT · DESDE 2020 ·  FUN · EDUCAITMENT ·
+                      ★ FUN · EDUCAITMENT · DESDE 2020 · ★ FUN · EDUCAITMENT ·
                     </textPath>
                   </text>
                 </svg>

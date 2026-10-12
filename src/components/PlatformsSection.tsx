@@ -51,7 +51,7 @@ const PlatformIcon = ({ icon, size = "md" }: { icon: string; size?: "sm" | "md" 
   return icons[icon] || <div className={`${sizeClass} rounded-full bg-muted`} />;
 };
 
-const TICKER = ["DISTRIBUCIÓN", "", "10 CANALES", "✦", "MULTIPLATAFORMA", "", "GLOBAL", "✦"];
+const TICKER = ["DISTRIBUCIÓN", "★", "10 CANALES", "✦", "MULTIPLATAFORMA", "★", "GLOBAL", "✦"];
 
 const PlatformsSection = () => {
   return (

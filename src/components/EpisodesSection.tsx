@@ -128,7 +128,7 @@ const EpisodesSection = () => {
 
                       {index === 0 && (
                         <div className="absolute top-4 left-4 bg-primary text-primary-foreground rounded-full px-3 py-1 -rotate-3 border-2 border-foreground">
-                          <span className="font-display font-black text-[10px] uppercase tracking-widest"> Nuevo</span>
+                          <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Nuevo</span>
                         </div>
                       )}
 
