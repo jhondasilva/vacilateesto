@@ -33,7 +33,7 @@ const HistoriaArepa = () => (
     ]}
   >
     <p className="text-xl leading-relaxed">
-      La <strong>arepa</strong> no es un platillo: es una identidad. Tiene <strong>más de 2.800 años</strong> de historia y sigue siendo lo primero que extraña un venezolano cuando emigra. Esta es su historia, contada como nos gusta a nosotros.
+      La <strong>arepa</strong> es una identidad que se come y se comparte. Tiene <strong>más de 2.800 años</strong> de historia y sigue siendo lo primero que extraña un venezolano cuando emigra. Esta es su historia, contada como nos gusta a nosotros.
     </p>
 
     <h2 id="origen">Origen prehispánico</h2>

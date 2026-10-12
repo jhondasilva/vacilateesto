@@ -60,7 +60,7 @@ Deno.serve(async (req) => {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "Catálogo de episodios de Vacílate Esto",
-      description: "Listado completo de episodios y shorts del podcast venezolano Vacílate Esto, incluyendo Podcast en la Cumbre, El Podcast Eterno y Pelotica de Goma.",
+      description: "Listado completo de episodios y shorts del sistema de contenidos venezolano de Fun Educaitment Vacílate Esto, incluyendo Podcast en la Cumbre, El Podcast Eterno y Pelotica de Goma.",
       url: `${SITE}/buscador`,
       numberOfItems: items.length,
       itemListElement: items,

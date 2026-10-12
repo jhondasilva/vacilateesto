@@ -43,7 +43,7 @@ const HostsSection = () => {
   return (
     <section id="hosts" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="hosts-title" itemScope itemType="https://schema.org/WebPageElement">
       <meta itemProp="name" content="Hosts: JuanSofa y JhonSnacks" />
-      <meta itemProp="description" content="Conoce a Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), co-fundadores y hosts de Vacílate Esto, el ecosistema de Fun Educaitment más grande de Venezuela." />
+      <meta itemProp="description" content="Conoce a Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks), co-fundadores y hosts de Vacílate Esto, el sistema de contenidos venezolano de Fun Educaitment." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#hosts" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-0 w-[36rem] h-[36rem] bg-primary/15 rounded-full blur-[140px] -translate-x-1/3 -translate-y-1/3 animate-float" />
@@ -60,7 +60,7 @@ const HostsSection = () => {
           badgeIcon={Sparkles}
           title="los"
           highlight="hosts"
-          description="Las voces y rostros detrás de las aventuras que te compartimos cada semana. ¡La marca de Fun Educaitment que nunca se queda quieta!"
+          description="Las voces y rostros detrás de las aventuras que te compartimos cada semana. Creadores de un sistema de contenidos venezolano de Fun Educaitment."
         />
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto">
@@ -80,7 +80,7 @@ const HostsSection = () => {
               <div className="relative aspect-[4/3] overflow-hidden bg-foreground border-b-2 border-foreground">
                 <img
                   src={host.image}
-                  alt={`${host.name} - ${host.role} de Vacílate Esto Podcast`}
+                  alt={`${host.name} - ${host.role} de Vacílate Esto`}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"

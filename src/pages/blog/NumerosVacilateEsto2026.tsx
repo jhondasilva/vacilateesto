@@ -76,7 +76,7 @@ const NumerosVacilateEsto2026 = () => (
       Al 30 de septiembre somos <strong>1,16 millones en TikTok</strong>, 292.760 en Instagram, 216.490 en Facebook, 125.000 en YouTube y 62.920 en Threads. Detrás de cada número hay alguien que se ríe con JuanSofa y Jhon, que aprende un dato insólito o que se reencuentra con algo de Venezuela.
     </p>
     <p>
-      Por eso decimos que Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, redes sociales y eventos en un mismo lugar.
+      Por eso decimos que Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: episodios largos, redes sociales y eventos en un mismo lugar.
     </p>
 
     <h2 id="fuente">De dónde salen estos números</h2>

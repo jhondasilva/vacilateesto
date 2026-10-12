@@ -113,7 +113,7 @@ def page_cover(c):
     logo_badge(c, LOGO_VE, cx+cw-142, cy+ch-152, 120, 130, shadow=CYAN, pad=10)
     sticker_pill(c, cx+22, cy+ch-46, 130, 22, "FUN EDUCAITMENT", fill=CYAN, fg=INK)
     c.setFillColor(white); c.setFont("Helvetica-Bold", 9)
-    c.drawString(cx+22, cy+ch-72, "MEDIA KIT 2026  ·  ECOSISTEMA DE CONTENIDO")
+    c.drawString(cx+22, cy+ch-72, "MEDIA KIT 2026  ·  SISTEMA DE CONTENIDOS")
     c.setFillColor(white); c.setFont("Helvetica-Bold", 52)
     c.drawString(cx+22, cy+ch-130, "VACÍLATE")
     c.setFillColor(PINK); c.drawString(cx+22, cy+ch-178, "ESTO")
@@ -121,7 +121,7 @@ def page_cover(c):
     c.drawString(cx+22, cy+ch-200,
         "PODCAST · STREAMING · REELS · LIVE  ·  CARACAS — MIAMI — MADRID")
     wrap(c,
-        "El ecosistema de Fun Educaitment de Jhon & Juan. Conectamos marcas con una comunidad de más de 1.84M de seguidores a través de contenido auténtico, irreverente y entretenido — en podcast, streaming, reels y stories.",
+        "El sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020. Fútbol, gastronomía, historia, leyendas y datos insólitos con calle y con data. Episodios largos, shorts diarios, lives y docuseries.",
         cx+22, cy+90, cw-44, font="Helvetica", fs=10, leading=14, color=white)
     sticker_pill(c, cx+22, cy+30, 90,  22, "PODCAST",       fill=PINK, fg=white)
     sticker_pill(c, cx+118,cy+30, 90,  22, "STREAMING",     fill=CYAN, fg=INK)
@@ -142,10 +142,10 @@ def page_about(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "VACÍLATE ESTO")
     wrap(c,
-        "Un ecosistema de contenido conducido por Jhon Da Silva (El Fiebrúo) y Juan Carlos Martínez (El Escéptico). Nacimos como podcast y crecimos a streaming, reels, stories y formatos verticales — siempre con el mismo ADN: humor, calle, data y autenticidad.",
+        "Un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias: Cumbres, la Ruta del Ramen y Pelotica de Goma.",
         36, H-138, W-72, fs=10, leading=14)
     wrap(c,
-        "Hablamos de fútbol, cultura pop, gastronomía, marcas y todo lo que pasa en la calle. Conectamos con una comunidad de 1.84M+ en LATAM, EE.UU. y España.",
+        "Hablamos de fútbol, cultura pop, gastronomía, marcas y todo lo que pasa en la calle. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela.",
         36, H-200, W-72, fs=10, leading=14, color=MUT)
 
     kpis = [("1.84M","COMUNIDAD"),("30+","PAÍSES"),("5","PLATAFORMAS"),("3","CIUDADES BASE")]
@@ -284,7 +284,7 @@ def page_formats(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LOS FORMATOS")
     wrap(c,
-        "Cuatro verticales que se alimentan entre sí — el podcast es el corazón, las redes amplifican y el streaming convierte. Tu marca puede entrar por donde mejor encaje.",
+        "Episodios largos, shorts diarios, lives y docuseries conectan nuestras historias y experiencias. Tu marca puede entrar por donde mejor encaje.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     formats = [
@@ -411,7 +411,7 @@ def page_brands(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "TRABAJAN CON NOSOTROS")
     wrap(c,
-        "Marcas líderes que ya activan dentro del ecosistema Vacílate Esto — integraciones nativas en podcast, reels, stories, rutas y streaming en vivo.",
+        "Marcas líderes que ya activan dentro del sistema de contenidos Vacílate Esto — integraciones nativas en podcast, reels, stories, rutas y streaming en vivo.",
         36, H-138, W-72, fs=10, leading=14, color=MUT)
 
     brands = [
@@ -455,7 +455,7 @@ def page_plan(c):
 
     items = [
         ("30", "Menciones en el body copy de Shorts en TikTok, Instagram y Facebook, con presencia de marca en el estudio (todos los posts)"),
-        ("4",  "Long Podcast en YouTube con mención de marca dedicada"),
+        ("4",  "Episodios largos en YouTube con mención de marca dedicada"),
         ("2",  "Historias en Instagram dedicadas"),
         ("4",  "Presencia de marca en Newsletters"),
         ("1",  "Short mensual con historia de marca dedicada a la marca"),
@@ -492,7 +492,7 @@ def page_plan(c):
             "Mención en body copy + branding en el estudio  ·  1.30M impresiones · 5.6K interacciones")
 
     example(ey+ECH-152,
-            "LONG PODCAST · YOUTUBE  ·  MENCIÓN DEDICADA",
+            "EPISODIOS LARGOS · YOUTUBE  ·  MENCIÓN DEDICADA",
             "\u201cEste episodio va con @bncbanco: hablamos de cómo se mueve la plata del venezolano — y sí, el patio está brandeado.\u201d",
             "Segmento dedicado de 60–90 seg dentro del episodio  ·  branding visible en set")
 
@@ -505,15 +505,15 @@ def page_awards(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "4 SOLES DE BRONCE · FIAP 2026")
     wrap(c,
-        "Cuatro Soles de Bronce para casos de Vacílate Esto Podcast y una mención de honor / shortlist; 8 nominaciones CIMA 2026 de Vacílate Esto.",
+        "Cuatro Soles de Bronce para casos de Vacílate Esto y una mención de honor / shortlist; 8 nominaciones CIMA 2026 de Vacílate Esto.",
         36, H-138, W-72, fs=10, leading=14, color=MUT)
 
     finalists = [
-        ("Producción", "Técnicas de Producción de Contenidos · Bronce", "Streaming from the Lost World", "Vacílate Esto Podcast"),
-        ("Formatos", "Mejor estrategia de lanzamiento · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
-        ("Producción", "Promoción de Broadcast · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
-        ("Formatos", "Evento en Vivo · Mención / Shortlist", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
-        ("Formatos", "Estrategia digital · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+        ("Producción", "Técnicas de Producción de Contenidos · Bronce", "Streaming from the Lost World", "Vacílate Esto"),
+        ("Formatos", "Mejor estrategia de lanzamiento · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto"),
+        ("Producción", "Promoción de Broadcast · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto"),
+        ("Formatos", "Evento en Vivo · Mención / Shortlist", "Pelotica de Goma: The Legacy", "Vacílate Esto"),
+        ("Formatos", "Estrategia digital · Bronce", "Walking Ads Above the Algorithm", "Vacílate Esto"),
     ]
     cw = (W-72-20)/2; ch = 110
     for i,(disc,cat,proj,brand) in enumerate(finalists):
@@ -535,7 +535,7 @@ def page_awards(c):
     c.setFillColor(PINK); c.setFont("Helvetica-Bold", 13)
     c.drawString(56, cy+68, "FIAP 2026 · CIMA 2026")
     wrap(c,
-        "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
+        "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment, con formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
         56, cy+52, W-72-40, font="Helvetica", fs=10, leading=13, color=INK)
     footer(c, 9)
 

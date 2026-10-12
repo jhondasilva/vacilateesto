@@ -167,7 +167,7 @@ const PodcastEnLaCumbre = () => {
         "@type": "WebPage",
         "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre",
         "url": "https://www.vacilateesto.com/podcast-en-la-cumbre",
-        "name": "Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela",
+        "name": "Podcast en la Cumbre | Expediciones de Vacílate Esto",
         "description": "Expediciones a Naiguatá y Roraima. Plan del Pico Bolívar: grabar un episodio completo con un estudio de podcast en la cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad; cualquier posible récord requiere verificación.",
         "inLanguage": "es-VE",
         "isPartOf": {
@@ -271,7 +271,7 @@ const PodcastEnLaCumbre = () => {
   return (
     <>
       <Helmet>
-        <title>Podcast en la Cumbre | Aventura Venezuela 🇻🇪</title>
+        <title>Podcast en la Cumbre | Aventura Venezuela </title>
         <meta name="title" content="Podcast en la Cumbre | Aventura Venezuela" />
         <meta name="description" content="Naiguatá, Roraima y el plan del Pico Bolívar: episodio completo con estudio en cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta name="keywords" content="podcast en la cumbre, podcast venezuela, podcast montaña venezuela, pico naiguata podcast, monte roraima podcast, pico bolivar, aventura venezuela, JuanSofa, JhonSnacks, vacilate esto, montañismo venezuela, mejor podcast aventura, podcast latinoamerica, podcasts venezolanos, tepuy roraima" />
@@ -287,7 +287,7 @@ const PodcastEnLaCumbre = () => {
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Vacílate Esto" />
-        <meta property="og:title" content="Podcast en la Cumbre | Aventura en las Montañas de Venezuela 🇻🇪" />
+        <meta property="og:title" content="Podcast en la Cumbre | Aventura en las Montañas de Venezuela " />
         <meta property="og:description" content="Expediciones a Naiguatá y Roraima; estudio de podcast previsto en el Pico Bolívar del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta property="og:url" content="https://www.vacilateesto.com/podcast-en-la-cumbre" />
         <meta property="og:image" content="https://www.vacilateesto.com/og-image.png" />
@@ -300,7 +300,7 @@ const PodcastEnLaCumbre = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@vacilateesto" />
         <meta name="twitter:creator" content="@vacilateesto" />
-        <meta name="twitter:title" content="Podcast en la Cumbre | Aventura en Venezuela 🏔️" />
+        <meta name="twitter:title" content="Podcast en la Cumbre | Aventura en Venezuela " />
         <meta name="twitter:description" content="Naiguatá y Roraima; plan de estudio de podcast en la cumbre del Pico Bolívar del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta property="twitter:image" content="https://www.vacilateesto.com/og-image.png" />
         
@@ -423,9 +423,9 @@ const PodcastEnLaCumbre = () => {
                   <div className="pt-6 border-t border-background/20">
                     <p className="font-display font-black text-xs uppercase tracking-widest text-primary mb-5">Una afirmación</p>
                     <div className="flex flex-wrap justify-center gap-3">
-                      <span className="px-4 py-2 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-3deg]">🏔️ Aquí hay altura</span>
-                      <span className="px-4 py-2 bg-accent text-accent-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[2deg]">📖 Aquí hay historias</span>
-                      <span className="px-4 py-2 bg-background text-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-2deg]">🇻🇪 Aquí hay país</span>
+                      <span className="px-4 py-2 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-3deg]"> Aquí hay altura</span>
+                      <span className="px-4 py-2 bg-accent text-accent-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[2deg]"> Aquí hay historias</span>
+                      <span className="px-4 py-2 bg-background text-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest rotate-[-2deg]"> Aquí hay país</span>
                     </div>
                   </div>
                 </div>
@@ -1173,9 +1173,9 @@ const PodcastEnLaCumbre = () => {
                       sino por su ADN de altitud Made in Venezuela.
                     </p>
                     <p className="text-muted-foreground">
-                      Vamos en busca de voces que han hecho de la altura su forma de vida, porque entendemos 
-                      que <strong className="text-foreground">estar a la altura no es llegar, es sostenerse</strong>. 
-                      Este es un podcast que enaltece a todos los que creen que siempre se puede subir un poco más.
+                      Vamos en busca de voces que han hecho de la altura su forma de vida, porque entendemos
+                      que <strong className="text-foreground">estar a la altura consiste en sostenerse</strong>.
+                      Este proyecto enaltece a todos los que creen que siempre se puede subir un poco más.
                     </p>
                   </div>
 
@@ -1204,7 +1204,7 @@ const PodcastEnLaCumbre = () => {
                   </div>
 
                   <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-accent">
-                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Mucho más que un podcast</h3>
+                    <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Una experiencia de altura</h3>
                     <p className="text-background/80 mb-6">
                       Además de los episodios que documentan las expediciones y la grabación en cumbre, Podcast en la Cumbre generará una 
                       experiencia audiovisual con marcas de altura:
@@ -1252,14 +1252,14 @@ const PodcastEnLaCumbre = () => {
                       href="mailto:andreina.ascension@hacemosloquenosgusta.com" 
                       className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
-                      <span className="text-xl">📩</span>
+                      <span className="text-xl"></span>
                       andreina.ascension@hacemosloquenosgusta.com
                     </a>
                     <a 
                       href="mailto:estrella.rodriguez@hacemosloquenosgusta.com" 
                       className="flex items-center gap-2 text-background hover:text-primary transition-colors font-body"
                     >
-                      <span className="text-xl">📩</span>
+                      <span className="text-xl"></span>
                       estrella.rodriguez@hacemosloquenosgusta.com
                     </a>
                   </div>

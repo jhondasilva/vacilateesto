@@ -17,7 +17,7 @@ const MejorPerroCalienteCaracas = () => (
       {
         question: "¿Qué hace especial al perro caliente caraqueño?",
         answer:
-          "El perro caliente caraqueño es una arquitectura barroca: pan tostado, salchicha, repollo, papitas trituradas, queso amarillo rallado, salsa rosada, mostaza, kétchup, salsa de ajo y guasacaca. No es un hot dog, es un universo.",
+          "El perro caliente caraqueño es una arquitectura barroca: pan tostado, salchicha, repollo, papitas trituradas, queso amarillo rallado, salsa rosada, mostaza, kétchup, salsa de ajo y guasacaca. Es un universo de sabores caraqueños.",
       },
       {
         question: "¿Cuáles son los mejores perreros de Caracas?",
@@ -35,11 +35,11 @@ const MejorPerroCalienteCaracas = () => (
       { id: "ingredientes", label: "Anatomía del perro perfecto" },
       { id: "ruta", label: "Los mejores perreros de Caracas" },
       { id: "reglas", label: "Reglas no escritas del perrero" },
-      { id: "podcast", label: "La radiografía completa en el podcast" },
+      { id: "podcast", label: "La radiografía completa en el episodio largo" },
     ]}
   >
     <p className="text-xl leading-relaxed">
-      En Caracas, el <strong>perro caliente</strong> no es un hot dog. Es una declaración de identidad nocturna, un ritual urbano y una de las creaciones gastronómicas más subestimadas del continente.
+      En Caracas, el <strong>perro caliente</strong> es una declaración de identidad nocturna, un ritual urbano y una de las creaciones gastronómicas más subestimadas del continente.
     </p>
 
     <p>
@@ -83,7 +83,7 @@ const MejorPerroCalienteCaracas = () => (
       <li>El segundo siempre sabe mejor que el primero.</li>
     </ol>
 
-    <h2 id="podcast">La radiografía completa en el podcast</h2>
+    <h2 id="podcast">La radiografía completa en el episodio largo</h2>
     <p>
       Si querés escuchar el debate completo —incluyendo la encuesta de salsas, la teoría del perro caliente como "marcador socioeconómico nocturno" y la anécdota de Jhon comiéndose 6 en una noche—, dale play a <em>"La radiografía del Perro Caliente"</em> en YouTube o Spotify. Y para buscar momentos exactos donde se mencione tu perrero favorito, usá nuestro <a href="/buscador">buscador semántico</a>.
     </p>

@@ -55,8 +55,8 @@ const InstallApp = () => {
   return (
     <>
       <Helmet>
-        <title>Instalar App | Vacílate Esto - El Mejor Podcast de Venezuela</title>
-        <meta name="description" content="Instala la app de Vacílate Esto en tu teléfono. Accede al mejor podcast de Venezuela desde tu pantalla de inicio." />
+        <title>Instalar App | Vacílate Esto - Sistema de contenidos venezolano de Fun Educaitment</title>
+        <meta name="description" content="Instala la app de Vacílate Esto en tu teléfono. Accede al sistema de contenidos venezolano de Fun Educaitment Vacílate Esto desde tu pantalla de inicio." />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -80,7 +80,7 @@ const InstallApp = () => {
                   .
                 </h1>
                 <p className="font-body text-base md:text-xl text-muted-foreground">
-                  Accede al mejor podcast de Venezuela directamente desde tu pantalla de inicio.
+                  Accede al sistema de contenidos venezolano de Fun Educaitment Vacílate Esto directamente desde tu pantalla de inicio.
                 </p>
               </div>
 

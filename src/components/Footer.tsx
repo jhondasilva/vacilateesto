@@ -93,7 +93,7 @@ const Footer = () => {
       links: [
         { label: "Todos los artículos", href: "/blog" },
         { label: "Mejores podcasts de Venezuela", href: "/mejores-podcasts-venezuela" },
-      { label: "Podcasts hechos en Venezuela 🇻🇪", href: "/hecho-en-venezuela" },
+      { label: "Podcasts hechos en Venezuela ", href: "/hecho-en-venezuela" },
         { label: "Podcasts venezolanos de comedia", href: "/podcasts-venezolanos-comedia" },
         { label: "Podcasts venezolanos de fútbol", href: "/podcasts-venezolanos-futbol" },
         { label: "Podcasts venezolanos en Spotify", href: "/podcasts-venezolanos-spotify" },
@@ -139,16 +139,16 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2">
             <p className="text-background/70 text-sm mb-4 max-w-lg leading-relaxed">
-              Vacílate Esto es una marca producida por{" "}
-              <a 
-                href="https://www.elpatiocontentstudio.com" 
-                target="_blank" 
+              Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por{" "}
+              <a
+                href="https://www.elpatiocontentstudio.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
                 El Patio Content Studio
               </a>
-              . Ecosistema de Fun Educaitment 🇻🇪 que nunca se queda quieto. ✨👋
+              . Desde Caracas, con calle y con data.
             </p>
             
             <div className="flex items-center gap-2 text-background/60 text-sm mb-6">
@@ -214,7 +214,7 @@ const Footer = () => {
             © {currentYear} Vacílate Esto. Todos los derechos reservados.
           </p>
           <p className="text-background/50 text-sm">
-            Hecho con ❤️ en Venezuela
+            Hecho con  en Venezuela
           </p>
         </div>
       </div>

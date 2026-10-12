@@ -37,7 +37,7 @@ const formatRelative = (iso: string | null) => {
   return `Hace ${y} ${y === 1 ? "año" : "años"}`;
 };
 
-const TICKER = ["NUEVO EPISODIO", "★", "VACÍLATE ESTO", "✦", "PODCAST SEMANAL", "★", "FUN EDUCAITMENT", "✦"];
+const TICKER = ["NUEVO EPISODIO", "", "VACÍLATE ESTO", "✦", "EPISODIOS LARGOS", "", "FUN EDUCAITMENT", "✦"];
 
 const EpisodesSection = () => {
   const [episodes, setEpisodes] = useState<Episode[] | null>(null);
@@ -67,8 +67,8 @@ const EpisodesSection = () => {
 
   return (
     <section id="episodes" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="episodes-title" itemScope itemType="https://schema.org/ItemList">
-      <meta itemProp="name" content="Episodios recientes del podcast Vacílate Esto" />
-      <meta itemProp="description" content="Últimos episodios del podcast Vacílate Esto con JuanSofa y JhonSnacks: humor, cultura, fútbol, gastronomía e historias venezolanas. Disponibles en Spotify y YouTube." />
+      <meta itemProp="name" content="Episodios recientes dVacílate Esto" />
+      <meta itemProp="description" content="Últimos episodios dVacílate Esto con JuanSofa y JhonSnacks: humor, cultura, fútbol, gastronomía e historias venezolanas. Disponibles en Spotify y YouTube." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#episodes" />
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -113,7 +113,7 @@ const EpisodesSection = () => {
                     <div className="relative aspect-video overflow-hidden border-b-2 border-foreground">
                       <img
                         src={episode.thumbnail_url || `https://img.youtube.com/vi/${episode.video_id}/maxresdefault.jpg`}
-                        alt={`Episodio: ${episode.title} - Vacílate Esto Podcast Venezuela`}
+                        alt={`Episodio: ${episode.title} - Vacílate Esto Venezuela`}
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

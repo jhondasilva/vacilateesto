@@ -8,9 +8,9 @@ const marqueeItems = [
   "★",
   "FUN EDUCAITMENT",
   "✦",
-  "PODCAST · SHORTS · LIVES",
+  "EPISODIOS · SHORTS · LIVES",
   "★",
-  "DESDE VENEZUELA 🇻🇪",
+  "DESDE VENEZUELA ",
   "✦",
 ];
 
@@ -23,8 +23,8 @@ const HeroSection = () => {
       itemScope
       itemType="https://schema.org/WebPageElement"
     >
-      <meta itemProp="name" content="Vacílate Esto · Ecosistema de Entretenimiento de Venezuela" />
-      <meta itemProp="description" content="Inicio de Vacílate Esto: el marca de entretenimiento digital relevante hecha en Venezuela y ecosistema de Fun Educaitment con humor, fútbol, gastronomía, historia y mitos urbanos. Hosts: JuanSofa y JhonSnacks. 2M+ seguidores." />
+      <meta itemProp="name" content="Vacílate Esto · Sistema de contenidos venezolano de Fun Educaitment" />
+      <meta itemProp="description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#hero" />
       {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -86,8 +86,7 @@ const HeroSection = () => {
             {/* Subtitle + CTAs */}
             <div className="mt-6 sm:mt-8 max-w-xl">
               <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-                El <span className="font-bold text-foreground">ecosistema de Fun Educaitment</span> que mezcla podcast, shorts, lives y docuseries.
-                Fútbol, gastronomía, leyendas y mitos urbanos — desde Venezuela para el mundo. ✦
+                Un <span className="font-bold text-foreground">sistema de contenidos venezolano de Fun Educaitment</span>: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Episodios largos, shorts diarios, lives, docuseries y experiencias.
               </p>
 
               <div className="flex flex-wrap items-center gap-3">

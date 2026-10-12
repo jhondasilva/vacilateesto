@@ -633,7 +633,7 @@ const WalkingAds = () => {
               <div className="p-6 rounded-2xl border border-amber-400/30 bg-gradient-to-br from-amber-400/10 to-rose-400/5">
                 <div className="text-[10px] tracking-[0.4em] uppercase text-amber-300/80 mb-4">After</div>
                 <div className="flex flex-wrap gap-2">
-                  {["🇻🇪 pride", "❤️ beautiful", "⛰️ Roraima", "💪 brave", "🌿 indigenous", "🏆 history"].map((w) => (
+                  {[" pride", " beautiful", " Roraima", " brave", " indigenous", " history"].map((w) => (
                     <span key={w} className="px-3 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-xs text-amber-200 font-medium">
                       {w}
                     </span>
@@ -677,7 +677,7 @@ const WalkingAds = () => {
             {[
               { big: "14", icon: Users, title: "Pemón Team Members", text: "Multi-generational team of adult men, women, and youth from Paraitepuy." },
               { big: "Zero", icon: Leaf, title: "Ecological Footprint", text: "Strict 'Zero-Impact' protocol — the crew even removed waste from previous travelers." },
-              { big: "♀", icon: ShieldCheck, title: "Female-Led Expedition", text: "Led by expert guide Odimar López, director of Eco Aventura." },
+              { big: "", icon: ShieldCheck, title: "Female-Led Expedition", text: "Led by expert guide Odimar López, director of Eco Aventura." },
             ].map((c, i) => (
               <Reveal key={c.title} delay={i * 80}>
                 <div className="h-full p-6 rounded-xl border border-white/10 bg-white/[0.02] hover:border-emerald-400/40 hover:bg-white/[0.04] hover:-translate-y-1 transition-all duration-300">
@@ -944,7 +944,7 @@ const WalkingAds = () => {
                   $44 became a national milestone.
                 </h2>
                 <p className="text-white/65 max-w-xl mx-auto mb-8">
-                  Explore the rest of the Vacílate Esto ecosystem — podcast, expeditions, and stories told from the ground up.
+                  Descubre Vacílate Esto: un sistema de contenidos venezolano de Fun Educaitment con episodios largos, shorts, lives, docuseries y experiencias.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <Link

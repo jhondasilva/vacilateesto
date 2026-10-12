@@ -319,7 +319,7 @@ for i, (n, r) in enumerate(team):
 
 y = y - 3 * 56 - 10
 y = section_title(c, y, "Sobre Vacílate Esto")
-y = wrap(c, "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, social media y eventos en vivo. Conducido por JhonSnacks y JuanSofa, produce contenido semanal en YouTube, TikTok, Instagram y Facebook, además de formatos propios como Guerra de Comerciales, Vacílate El Fútbol y Podcast en la Cumbre.",
+y = wrap(c, "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por El Patio Content Studio en Caracas. Fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos con calle y con data. Episodios largos, shorts, lives, docuseries y experiencias.",
           36, y, W - 72, fs=9.5, lead=13)
 
 cy = y - 30

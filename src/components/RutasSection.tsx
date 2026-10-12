@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 
-const TICKER = ["RUTAS", "★", "VACÍLATE COMIENDO", "✦", "RAMEN & BBQ", "★", "🍜 🍖", "✦"];
+const TICKER = ["RUTAS", "", "VACÍLATE COMIENDO", "✦", "RAMEN & BBQ", "", " ", "✦"];
 
 type Ruta = {
   id: "ramen" | "bbq";

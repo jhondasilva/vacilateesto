@@ -65,7 +65,7 @@ const contentFormats = [
     platforms: "Facebook, Instagram, TikTok, YouTube Shorts"
   },
   { 
-    title: "Podcast Vacílate Esto", 
+    title: "Episodios largos de Vacílate Esto", 
     subtitle: "Formato Estrella", 
     stats: "Semanal · ~45 min",
     description: "Análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana.",
@@ -96,7 +96,7 @@ const contentFormats = [
     title: "Streaming", 
     subtitle: "TikTok Live", 
     stats: "En directo",
-    description: "Transmisiones en vivo en TikTok desde la grabación del podcast, fútbol en vivo o proyectos especiales como Roraima.",
+    description: "Transmisiones en vivo en TikTok desde la grabación de los episodios largos, fútbol en vivo o proyectos especiales como Roraima.",
     platforms: "TikTok"
   },
   { 
@@ -155,7 +155,7 @@ const sponsorshipPlans = [
     name: "Plan 1 - Brand Placement Intensivo",
     features: [
       "30 Brand Placement Shorts en TikTok e Instagram",
-      "4 Long Podcast en YouTube - Mención de 30 seg",
+      "4 Episodios largos en YouTube - Mención de 30 seg",
       "4 Historias en Instagram - 1 semanal",
       "4 Presencia en Newsletters - 1 semanal",
       "1 Short mensual con historia de marca",
@@ -165,7 +165,7 @@ const sponsorshipPlans = [
     name: "Plan 2 - Content Integration",
     features: [
       "15 Content Shorts en TikTok e Instagram",
-      "4 Long Podcast en YouTube",
+      "4 Episodios largos en YouTube",
       "2 Historias en Instagram",
       "4 Presencia en Newsletters",
       "1 Short mensual con historia de marca",
@@ -293,7 +293,7 @@ const generatePdfContent = async (doc: jsPDF, logoBase64: string | null) => {
 
   doc.setTextColor(...PRIMARY_COLOR);
   doc.setFontSize(18);
-  doc.text("El Ecosistema de Contenido", pageWidth / 2, 130, { align: "center" });
+  doc.text("El Sistema de Contenidos", pageWidth / 2, 130, { align: "center" });
   doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
   doc.text("Fun Educaitment", pageWidth / 2, 145, { align: "center" });

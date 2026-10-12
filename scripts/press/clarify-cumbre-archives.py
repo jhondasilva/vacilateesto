@@ -61,12 +61,12 @@ def refresh_zip():
     with ZipFile(path) as source, ZipFile(buffer, "w") as target:
         for entry in source.infolist():
             data = source.read(entry.filename)
-            if entry.filename in ["documentos/Nota_de_Prensa_Pico_Bolivar_2026.pdf", "documentos/PodcastEnLaCumbre-PicoBolivar-MediaKit-2026.pdf"]:
+            if entry.filename in ["documentos/Nota_de_Prensa_Pico_Bolivar_2026.pdf", "documentos/PodcastEnLaCumbre-PicoBolivar-MediaKit-2026.pdf", "documentos/VacilateEsto-MediaKit-2026.pdf", "documentos/VacilateElFutbol-MediaKit-2026.pdf"]:
                 folder = "press" if "Nota_de_Prensa" in entry.filename else "downloads"
                 data = (Path("public") / folder / Path(entry.filename).name).read_bytes()
             elif entry.filename == "BOILERPLATE.txt":
                 text = data.decode("utf8")
-                text = text.replace("la serie que graba episodios completos en las\nmontañas más altas del país", "la serie que documenta expediciones y grabaciones\nen cumbre")
+                text = 'VACÍLATE ESTO — PRESS KIT 2026\n\nBOILERPLATE (ESPAÑOL)\nVacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela.\n\nBOILERPLATE CORTO\nVacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks y producido por El Patio Content Studio en Caracas.\n\nBOILERPLATE (ENGLISH)\nVacílate Esto is a Venezuelan Fun Educaitment content system created by JuanSofa and JhonSnacks in 2020 and produced by El Patio Content Studio in Caracas. Long-form episodes, daily shorts, live streams, docuseries, experiences, live events and content for brands connecting with Venezuela.\n\n' + "USO CORRECTO DE LA MARCA" + text.split("USO CORRECTO DE LA MARCA", 1)[1]
                 if "CRITERIO EDITORIAL DE CUMBRE" not in text:
                     text += "\nCRITERIO EDITORIAL DE CUMBRE\nPlan Pico Bolívar: grabar un episodio completo con un estudio de podcast en la cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad. Aproximadamente 4.978 m; altitud del punto de grabación por certificar. Sin mínimo continuo confirmado. Cualquier posible reconocimiento como récord queda sujeto a verificación y a los criterios del organismo correspondiente. Roraima: duración del episodio editado 1 h 01 min 29 s, incluida introducción desde Santa Elena. En Naiguatá y Roraima, duración editada no equivale a tiempo grabado en cumbre.\n"
                 data = text.encode("utf8")

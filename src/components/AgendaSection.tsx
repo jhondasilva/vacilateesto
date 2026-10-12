@@ -4,34 +4,34 @@ import StickerHeader from "@/components/StickerHeader";
 
 const scheduleData = [
   { day: "Lun", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
   ]},
   { day: "Mar", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "10:00 AM", title: "Streaming", platform: "Twitch" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
   ]},
   { day: "Mié", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
     { time: "12:00 PM", title: "Newsletter", platform: "Email" },
   ]},
   { day: "Jue", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
     { time: "8:00 PM", title: "Podcast", platform: "YouTube/Spotify" },
   ]},
   { day: "Vie", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
   ]},
   { day: "Sáb", events: [
-    { time: "8:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "8:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
   ]},
   { day: "Dom", events: [
-    { time: "10:00 AM", title: "Short Podcast", platform: "Varios" },
+    { time: "10:00 AM", title: "Shorts", platform: "Varios" },
     { time: "12:00 PM", title: "Cuentos", platform: "Varios" },
     { time: "10:00 PM", title: "Podcast TV", platform: "Televen" },
   ]},
@@ -43,7 +43,7 @@ const AgendaSection = () => {
   return (
     <section id="agenda" className="relative overflow-hidden bg-background pt-0 pb-20 md:pb-28" aria-labelledby="agenda-title" itemScope itemType="https://schema.org/WebPageElement">
       <meta itemProp="name" content="Agenda y eventos en vivo de Vacílate Esto" />
-      <meta itemProp="description" content="Próximos shows en vivo, grabaciones públicas y eventos del ecosistema Vacílate Esto en Venezuela y la gira internacional." />
+      <meta itemProp="description" content="Próximos shows en vivo, grabaciones públicas y eventos del sistema de contenidos Vacílate Esto en Venezuela y la gira internacional." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#agenda" />
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-20 left-10 w-[28rem] h-[28rem] bg-primary/10 rounded-full blur-[140px]" />

@@ -40,10 +40,10 @@ const TermsOfUse = () => {
                 <section>
                   <h2 className="text-2xl font-bold text-foreground mb-4">2. Descripción del Servicio</h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Vacílate Esto es un ecosistema de entretenimiento educativo ("Fun Educaitment") que incluye:
+                    Vacílate Esto es un sistema de contenidos venezolano ("Fun Educaitment") que incluye:
                   </p>
                   <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-                    <li>Podcasts (Vacílate Esto, Podcast en la Cumbre, Pelotica, Ruta Ramen, entre otros)</li>
+                    <li>Episodios largos, shorts, lives, docuseries y experiencias (Podcast en la Cumbre, Pelotica de Goma, Ruta del Ramen, entre otros)</li>
                     <li>Videos, shorts y formatos como Guerra de Comerciales</li>
                     <li>Buscador de episodios con transcripciones e inteligencia artificial</li>
                     <li>App PWA, blog editorial y newsletter</li>
