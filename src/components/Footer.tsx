@@ -141,7 +141,7 @@ const Footer = () => {
             <p className="text-background/70 text-sm mb-4 max-w-lg leading-relaxed">
               Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por{" "}
               <a
-                href="https://www.elpatiocontentstudio.com"
+                href="https://elpatiocontent.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
