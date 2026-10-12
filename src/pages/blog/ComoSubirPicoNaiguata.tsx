@@ -89,7 +89,7 @@ const ComoSubirPicoNaiguata = () => (
 
     <h2 id="podcast">Naiguatá en Podcast en la Cumbre</h2>
     <p>
-      El primer episodio de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> se grabó precisamente en la cima del Naiguatá. Si querés ver cómo se hizo y la conversación completa, está en <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">nuestro canal de YouTube</a>.
+      El episodio 1 de la serie <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> documenta la expedición y la grabación en la cima del Naiguatá. La duración del video editado no equivale al tiempo grabado en cumbre ni acredita que se grabara íntegramente allí. Si querés ver cómo se hizo y la conversación completa, está en <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">nuestro canal de YouTube</a>.
     </p>
   </BlogArticleLayout>
 );

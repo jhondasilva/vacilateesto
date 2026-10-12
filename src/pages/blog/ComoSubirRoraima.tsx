@@ -6,7 +6,7 @@ const ComoSubirRoraima = () => (
     canonicalPath="/blog/como-subir-roraima-guia-completa"
     title="Cómo Subir el Monte Roraima: Guía Completa 2026 (Precio, Días y Qué Llevar)"
     h1="Cómo subir el Monte Roraima: la guía definitiva 2026"
-    description="Días, dificultad, costo, qué llevar y mejores operadores para ascender al Monte Roraima en Venezuela. La guía más completa, contada por quienes grabaron un podcast en su cima."
+    description="Días, dificultad, costo, qué llevar y mejores operadores para ascender al Monte Roraima en Venezuela. La guía más completa, contada por quienes grabaron un podcast en su cima; el episodio editado también incluye una introducción desde Santa Elena."
     keywords="cómo subir el roraima, monte roraima venezuela, tepuy roraima, roraima guía 2026, cuánto cuesta subir el roraima, qué llevar al roraima, tour roraima venezuela, trekking roraima, podcast en la cumbre roraima"
     datePublished="2026-04-26"
     readingMinutes={14}
@@ -56,7 +56,7 @@ const ComoSubirRoraima = () => (
     ]}
   >
     <p className="text-xl leading-relaxed">
-      El <strong>Monte Roraima</strong> no es una caminata cualquiera: es subir a una <strong>meseta de 2.810 metros</strong> con más de <strong>2.000 millones de años</strong> de antigüedad, el tepuy más famoso del mundo y la inspiración de <em>El Mundo Perdido</em> de Conan Doyle. En esta guía te contamos todo lo que aprendimos cuando subimos a grabar un episodio entero de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en su cima.
+      El <strong>Monte Roraima</strong> no es una caminata cualquiera: es subir a una <strong>meseta de 2.810 metros</strong> con más de <strong>2.000 millones de años</strong> de antigüedad, el tepuy más famoso del mundo y la inspiración de <em>El Mundo Perdido</em> de Conan Doyle. En esta guía te contamos todo lo que aprendimos cuando subimos a grabar contenido para el episodio 2 de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en su cima; el episodio editado también incluye una introducción desde Santa Elena.
     </p>
 
     <h2 id="que-es">¿Qué es el Monte Roraima?</h2>
@@ -134,7 +134,7 @@ const ComoSubirRoraima = () => (
 
     <h2 id="podcast">El Roraima en Podcast en la Cumbre</h2>
     <p>
-      En noviembre de 2025 grabamos el segundo episodio de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en la meseta del Roraima. Es la primera vez en la historia que se graba un podcast completo en un tepuy. Si querés ver cómo se siente caminar por la "Madre de todas las aguas", el episodio está en <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">nuestro canal de YouTube</a>.
+      En noviembre de 2025 grabamos el segundo episodio de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en la meseta del Roraima. Duración del episodio editado: 1 h 01 min (1 h 01 min 29 s en el archivo); incluye una introducción desde Santa Elena y no mide el tiempo de grabación en cumbre. No se presenta como primicia mundial. Si querés ver cómo se siente caminar por la "Madre de todas las aguas", el episodio está en <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">nuestro canal de YouTube</a>.
     </p>
 
     <blockquote>

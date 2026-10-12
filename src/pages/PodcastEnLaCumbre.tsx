@@ -51,7 +51,7 @@ const PodcastEnLaCumbre = () => {
         "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre#podcast",
         "name": "Podcast en la Cumbre",
         "alternateName": ["Podcast En La Cumbre Venezuela", "Vacílate Esto En La Cumbre"],
-        "description": "Podcast en la Cumbre es una travesía audiovisual de siete meses grabando podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (4.978m). Un proyecto de Vacílate Esto que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas.",
+        "description": "Podcast en la Cumbre es una travesía audiovisual de siete meses grabando podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (aproximadamente 4.978 m; plan del 15 al 23 de noviembre de 2026 sujeto a seguridad y viabilidad). Un proyecto de Vacílate Esto que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas.",
         "url": "https://www.vacilateesto.com/podcast-en-la-cumbre",
         "image": "https://www.vacilateesto.com/og-image.png",
         "inLanguage": "es-VE",
@@ -104,7 +104,7 @@ const PodcastEnLaCumbre = () => {
           {
             "@type": "Place",
             "name": "Pico Bolívar",
-            "description": "La montaña más alta de Venezuela a 4.978 metros",
+            "description": "La montaña más alta de Venezuela, aproximadamente 4.978 m; altitud exacta del punto de grabación por certificar",
             "geo": { "@type": "GeoCoordinates", "latitude": "8.5419", "longitude": "-71.0469", "elevation": "4978" },
             "containedInPlace": { "@type": "Country", "name": "Venezuela" }
           }
@@ -114,13 +114,13 @@ const PodcastEnLaCumbre = () => {
           "seasonNumber": 1,
           "numberOfEpisodes": 3,
           "startDate": "2025-08",
-          "endDate": "2026-02",
+          "endDate": "2026-11",
           "episode": [
             {
               "@type": "PodcastEpisode",
               "name": "Podcast en Naiguatá - El Techo de Caracas",
               "episodeNumber": 1,
-              "description": "Primer episodio grabado en la cima del Pico Naiguatá a 2.765 metros, el techo de Caracas. Una expedición de 20 personas subiendo con micrófonos, cámaras y humor venezolano.",
+              "description": "Episodio 1 de la serie: expedición al Pico Naiguatá (2.765 m) con grabación en cumbre. La duración corresponde al video editado, no al tiempo de grabación en la cima.",
               "inLanguage": "es-VE",
               "duration": "PT1H30M",
               "datePublished": "2025-09",
@@ -137,7 +137,7 @@ const PodcastEnLaCumbre = () => {
               "@type": "PodcastEpisode",
               "name": "Podcast en Roraima - 2.000 Millones de Años de Ancestralidad",
               "episodeNumber": 2,
-              "description": "Expedición al Monte Roraima, el tepuy más emblemático de Venezuela a 2.810 metros. Un viaje al origen del tiempo geológico y la cultura Pemón.",
+              "description": "Episodio 2: expedición al Monte Roraima (2.810 m). La duración PT1H1M29S corresponde al episodio editado, que incluye una introducción desde Santa Elena, no al tiempo grabado en cumbre.",
               "inLanguage": "es-VE",
               "duration": "PT1H1M29S",
               "datePublished": "2025-11",
@@ -168,7 +168,7 @@ const PodcastEnLaCumbre = () => {
         "@id": "https://www.vacilateesto.com/podcast-en-la-cumbre",
         "url": "https://www.vacilateesto.com/podcast-en-la-cumbre",
         "name": "Podcast en la Cumbre | El Mejor Podcast de Aventura de Venezuela",
-        "description": "Travesía audiovisual grabando podcasts en las montañas más emblemáticas de Venezuela: Naiguatá, Roraima y Pico Bolívar. Aventura, humor y reflexión desde las alturas con JuanSofa y JhonSnacks.",
+        "description": "Expediciones a Naiguatá y Roraima. Plan del Pico Bolívar: grabar un episodio completo con un estudio de podcast en la cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad; cualquier posible récord requiere verificación.",
         "inLanguage": "es-VE",
         "isPartOf": {
           "@type": "WebSite",
@@ -191,7 +191,7 @@ const PodcastEnLaCumbre = () => {
             "name": "¿Qué es Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Podcast en la Cumbre es una travesía audiovisual de siete meses para grabar podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (4.978m). Es un proyecto de Vacílate Esto producido por El Patio Content Studio que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas."
+              "text": "Podcast en la Cumbre es una travesía audiovisual de siete meses para grabar podcasts en las cumbres más emblemáticas de Venezuela: Pico Naiguatá (2.765m), Monte Roraima (2.810m) y Pico Bolívar (aproximadamente 4.978 m; plan del 15 al 23 de noviembre de 2026 sujeto a seguridad y viabilidad). Es un proyecto de Vacílate Esto producido por El Patio Content Studio que combina aventura, humor y reflexión para mostrar a Venezuela desde sus alturas."
             }
           },
           {
@@ -207,7 +207,7 @@ const PodcastEnLaCumbre = () => {
             "name": "¿Cuáles son las montañas del proyecto Podcast en la Cumbre?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El proyecto incluye tres cumbres icónicas de Venezuela: Pico Naiguatá (2.765m) conocido como el techo de Caracas, Monte Roraima (2.810m) el tepuy más emblemático con 2.000 millones de años de antigüedad, y Pico Bolívar (4.978m) la montaña más alta de Venezuela."
+              "text": "El proyecto incluye tres cumbres icónicas de Venezuela: Pico Naiguatá (2.765m) conocido como el techo de Caracas, Monte Roraima (2.810m) el tepuy más emblemático con 2.000 millones de años de antigüedad, y Pico Bolívar (aproximadamente 4.978 m; plan del 15 al 23 de noviembre de 2026 sujeto a seguridad y viabilidad) la montaña más alta de Venezuela."
             }
           },
           {
@@ -239,7 +239,7 @@ const PodcastEnLaCumbre = () => {
       {
         "@type": "VideoObject",
         "name": "Podcast en la Cumbre - Episodio Naiguatá",
-        "description": "Primer episodio de Podcast en la Cumbre grabado en el Pico Naiguatá a 2.765 metros, el techo de Caracas, Venezuela.",
+        "description": "Episodio 1 de Podcast en la Cumbre: expedición al Pico Naiguatá (2.765 m), Venezuela. La duración corresponde al video editado, no al tiempo grabado en cumbre.",
         "thumbnailUrl": "https://img.youtube.com/vi/NZWSKJvOdXg/maxresdefault.jpg",
         "uploadDate": "2025-09-01",
         "duration": "PT1H30M",
@@ -250,7 +250,7 @@ const PodcastEnLaCumbre = () => {
       {
         "@type": "VideoObject",
         "name": "Podcast en la Cumbre - Episodio Roraima",
-        "description": "Expedición al Monte Roraima grabando podcast a 2.810 metros. 2.000 millones de años de ancestralidad venezolana.",
+        "description": "Expedición al Monte Roraima (2.810 m). Duración del episodio editado: 1 h 01 min 29 s, incluida una introducción desde Santa Elena; no mide el tiempo grabado en cumbre.",
         "thumbnailUrl": "https://img.youtube.com/vi/NdrcKpsD0UU/maxresdefault.jpg",
         "uploadDate": "2025-11-01",
         "duration": "PT1H1M29S",
@@ -273,7 +273,7 @@ const PodcastEnLaCumbre = () => {
       <Helmet>
         <title>Podcast en la Cumbre | Aventura Venezuela 🇻🇪</title>
         <meta name="title" content="Podcast en la Cumbre | Aventura Venezuela" />
-        <meta name="description" content="Travesía audiovisual de Vacílate Esto grabando podcasts en las montañas más altas de Venezuela: Naiguatá, Roraima y Pico Bolívar." />
+        <meta name="description" content="Naiguatá, Roraima y el plan del Pico Bolívar: episodio completo con estudio en cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta name="keywords" content="podcast en la cumbre, podcast venezuela, podcast montaña venezuela, pico naiguata podcast, monte roraima podcast, pico bolivar, aventura venezuela, JuanSofa, JhonSnacks, vacilate esto, montañismo venezuela, mejor podcast aventura, podcast latinoamerica, podcasts venezolanos, tepuy roraima" />
         <meta name="author" content="Vacílate Esto - JuanSofa y JhonSnacks" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -288,7 +288,7 @@ const PodcastEnLaCumbre = () => {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Vacílate Esto" />
         <meta property="og:title" content="Podcast en la Cumbre | Aventura en las Montañas de Venezuela 🇻🇪" />
-        <meta property="og:description" content="Travesía audiovisual de 7 meses grabando podcasts en Naiguatá, Roraima y Pico Bolívar. Tres cumbres, tres historias, un mismo mensaje: Aquí hay altura, aquí hay país." />
+        <meta property="og:description" content="Expediciones a Naiguatá y Roraima; estudio de podcast previsto en el Pico Bolívar del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta property="og:url" content="https://www.vacilateesto.com/podcast-en-la-cumbre" />
         <meta property="og:image" content="https://www.vacilateesto.com/og-image.png" />
         <meta property="og:image:width" content="1200" />
@@ -301,7 +301,7 @@ const PodcastEnLaCumbre = () => {
         <meta name="twitter:site" content="@vacilateesto" />
         <meta name="twitter:creator" content="@vacilateesto" />
         <meta name="twitter:title" content="Podcast en la Cumbre | Aventura en Venezuela 🏔️" />
-        <meta name="twitter:description" content="Grabando podcasts en las cumbres más emblemáticas de Venezuela: Naiguatá, Roraima y Pico Bolívar. Por JuanSofa y JhonSnacks." />
+        <meta name="twitter:description" content="Naiguatá y Roraima; plan de estudio de podcast en la cumbre del Pico Bolívar del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad." />
         <meta property="twitter:image" content="https://www.vacilateesto.com/og-image.png" />
         
         {/* Structured Data */}
@@ -348,7 +348,7 @@ const PodcastEnLaCumbre = () => {
                   className="inline-flex items-center gap-2 px-6 py-4 bg-primary text-primary-foreground border-2 border-foreground rounded-2xl font-display font-black text-sm uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_hsl(var(--foreground))] transition-all"
                 >
                   <Trophy className="w-4 h-4" />
-                  Pico Bolívar · Récord Mundial · Nov 2026
+                  Pico Bolívar · 15–23 nov 2026
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
@@ -397,7 +397,7 @@ const PodcastEnLaCumbre = () => {
                 />
                 <div className="bg-background/5 border-2 border-background/30 rounded-2xl p-8 sm:p-10 space-y-6 text-background/90 text-base sm:text-lg leading-relaxed text-center">
                   <p className="text-2xl font-bold text-primary">
-                    La altura es una manera de vivir.
+                    Altura Es una manera de vivir.
                   </p>
                   
                   <p>
@@ -813,6 +813,7 @@ const PodcastEnLaCumbre = () => {
                     <blockquote className="font-body text-sm sm:text-base leading-relaxed text-foreground/85">
                       “{c.text}”
                     </blockquote>
+                    {c.author === "@jesusbenitez5262" && <p className="mt-3 font-body text-xs text-foreground/70">Opinión de la audiencia, no una certificación de récord. Cualquier posible reconocimiento requiere verificación.</p>}
                     <figcaption className="mt-4 font-body text-xs sm:text-sm text-foreground/60 flex items-center gap-2">
                       <Youtube className="w-4 h-4" aria-hidden="true" />
                       <span className="font-bold text-foreground">{c.author}</span>
@@ -845,21 +846,21 @@ const PodcastEnLaCumbre = () => {
                     tilt: "sticker-tilt-l-sm sticker-shadow-primary",
                     stats: [
                       { k: "Expedición", v: "20 personas" },
-                      { k: "Formato", v: "Podcast completo en cima" },
+                      { k: "Formato", v: "Podcast con grabación en cumbre" },
                       { k: "Lectura", v: "Prueba de concepto" },
                     ],
-                    text: "El techo de Caracas validó el formato: se puede producir un podcast íntegro, con audio y cámara, por encima de las nubes.",
+                    text: "El episodio 1 documenta la expedición al Naiguatá y la grabación en cumbre. La duración del video editado no equivale al tiempo de grabación en la cima.",
                   },
                   {
                     title: "Monte Roraima",
                     meta: "2.810 m · Episodio 2",
                     tilt: "sticker-tilt-r-sm sticker-shadow-accent",
                     stats: [
-                      { k: "Duración", v: "1h 01m en cima" },
+                      { k: "Duración del episodio editado", v: "1 h 01 min" },
                       { k: "Formato", v: "Podcast + microdocumental" },
                       { k: "Lectura", v: "Escala y narrativa" },
                     ],
-                    text: "El tepuy elevó la producción: logística de varios días, cultura Pemón y una narrativa que trascendió el humor para tocar lo educativo.",
+                    text: "El tepuy elevó la producción: logística de varios días y cultura Pemón. El episodio editado incluye una introducción desde Santa Elena; su duración no mide el tiempo grabado en cumbre.",
                   },
                 ].map((c) => (
                   <article key={c.title} className={`bg-background border-2 border-foreground rounded-2xl p-6 sm:p-8 sticker-card-rotate ${c.tilt}`}>
@@ -897,25 +898,23 @@ const PodcastEnLaCumbre = () => {
             </div>
           </section>
 
-          {/* Pico Bolívar — Récord Mundial */}
+          {/* Pico Bolívar — Plan de grabación */}
           <section id="pico-bolivar" className="scroll-mt-24 py-16 sm:py-24 bg-foreground text-background border-b-4 border-foreground" aria-labelledby="bolivar-heading">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-10">
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground border-2 border-background rounded-full mb-6 rotate-[-2deg]">
                     <Trophy className="w-4 h-4" />
-                    <span className="font-display font-black text-xs uppercase tracking-widest">Noviembre 2026 · Gran Final</span>
+                    <span className="font-display font-black text-xs uppercase tracking-widest">15 al 23 de noviembre de 2026 · Ventana prevista</span>
                   </div>
                   <h2 id="bolivar-heading" className="font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-[-0.04em] leading-[0.9]">
                     Pico <span className="italic text-primary">Bolívar</span>
                   </h2>
                   <p className="font-display font-black text-xs uppercase tracking-widest text-primary mt-4">
-                    4.978 m · La cumbre más alta de Venezuela
+                    Aproximadamente 4.978 m · La cumbre más alta de Venezuela
                   </p>
                   <p className="font-body text-background/80 max-w-3xl mx-auto mt-5 leading-relaxed">
-                    El cierre de la trilogía y el intento más ambicioso: grabar el{" "}
-                    <strong className="text-primary">podcast completo más alto del mundo</strong>, un episodio íntegro
-                    producido en la cima del Pico Bolívar, buscando el reconocimiento como récord mundial.
+                    El plan para cerrar la trilogía es <strong className="text-primary">grabar un episodio completo con un estudio de podcast en la cumbre</strong>, en la ventana del 15 al 23 de noviembre de 2026, sujeto a condiciones de seguridad y viabilidad. La altitud exacta del punto de grabación está por certificar. Cualquier posible reconocimiento como récord queda sujeto a verificación y a los criterios del organismo correspondiente.
                   </p>
                   <div className="flex flex-wrap justify-center gap-3 mt-6">
                     <a
@@ -936,9 +935,9 @@ const PodcastEnLaCumbre = () => {
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                   {[
-                    { v: "4.978 m", l: "Altitud objetivo" },
-                    { v: "Nov 2026", l: "Fecha de expedición" },
-                    { v: "60 min+", l: "Podcast íntegro en cima" },
+                    { v: "≈ 4.978 m", l: "Altitud de la montaña" },
+                    { v: "15–23 nov", l: "Ventana prevista · 2026" },
+                    { v: "Estudio", l: "Podcast en la cumbre · previsto" },
                     { v: "Mérida", l: "Base de operaciones" },
                   ].map((s) => (
                     <div key={s.l} className="bg-background/5 border-2 border-background/30 rounded-2xl p-5 text-center">
@@ -954,8 +953,8 @@ const PodcastEnLaCumbre = () => {
                     <ul className="space-y-3 text-background/85 font-body text-sm leading-relaxed">
                       <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Aclimatación por etapas en la Sierra Nevada de Mérida.</li>
                       <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Equipo de audio y cámara resistente a frío extremo y viento.</li>
-                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Energía autónoma para grabar más de 60 minutos continuos.</li>
-                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Registro certificable: testigos, GPS, timecode y material bruto.</li>
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Energía autónoma para la grabación, sin un mínimo continuo de duración confirmado.</li>
+                      <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Documentación de la grabación: GPS, timecode y material bruto; no implica certificación.</li>
                     </ul>
                   </div>
                   <div className="bg-primary text-primary-foreground border-2 border-background rounded-2xl p-6 sm:p-8 sticker-shadow-accent">
@@ -964,7 +963,7 @@ const PodcastEnLaCumbre = () => {
                       <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 1 · Mérida: comida, historias y personajes de la ciudad.</li>
                       <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 2 · Podcast en Mérida con invitados locales.</li>
                       <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 3 · Ascenso: ruta, campamento y aclimatación en vivo.</li>
-                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 4 · Cumbre: podcast completo a 4.978 m y cierre.</li>
+                      <li className="flex gap-2"><CalendarDays className="w-4 h-4 shrink-0 mt-0.5" /> Semana 4 · Cumbre: episodio con estudio de podcast, sujeto a seguridad y viabilidad.</li>
                     </ul>
                   </div>
                 </div>
@@ -1186,22 +1185,20 @@ const PodcastEnLaCumbre = () => {
                     <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-l-sm sticker-card-rotate">
                       <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Naiguatá</h4>
                       <p className="text-sm text-foreground/70 font-body leading-relaxed">
-                        Desde el techo de Caracas, el primer podcast será un homenaje a una ciudad con 
+                        Desde el techo de Caracas, el episodio 1 de la serie es un homenaje a una ciudad con 
                         historias y gente de altura.
                       </p>
                     </div>
                     <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-accent">
                       <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Monte Roraima</h4>
                       <p className="text-sm text-foreground/70 font-body leading-relaxed">
-                        Considerado uno de los paisajes más místicos del continente, será escenario de 
-                        una transmisión sin precedentes: el primer podcast grabado y transmitido desde su punto más alto.
+                        El episodio 2 documenta la expedición y la grabación en Roraima. Su versión editada incluye una introducción desde Santa Elena; no se presenta como primicia mundial.
                       </p>
                     </div>
                     <div className="bg-background border-2 border-foreground rounded-2xl p-6 sticker-shadow-primary sticker-tilt-r-sm sticker-card-rotate">
                       <h4 className="font-display font-black text-lg tracking-[-0.02em] text-foreground mb-2">Pico Bolívar</h4>
                       <p className="text-sm text-foreground/70 font-body leading-relaxed">
-                        El cierre del ciclo. La cumbre más alta del país donde culmina esta trilogía con 
-                        una visión épica de los venezolanos de altura.
+                        El cierre previsto: grabar un episodio completo con un estudio de podcast en la cumbre, del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad.
                       </p>
                     </div>
                   </div>
@@ -1209,7 +1206,7 @@ const PodcastEnLaCumbre = () => {
                   <div className="bg-foreground text-background border-2 border-foreground rounded-2xl p-8 my-8 sticker-shadow-accent">
                     <h3 className="font-display font-black text-2xl tracking-[-0.02em] mb-4">Mucho más que un podcast</h3>
                     <p className="text-background/80 mb-6">
-                      Además de los episodios grabados en cada cumbre, Podcast en la Cumbre generará una 
+                      Además de los episodios que documentan las expediciones y la grabación en cumbre, Podcast en la Cumbre generará una 
                       experiencia audiovisual con marcas de altura:
                     </p>
                     <ul className="grid md:grid-cols-2 gap-3 text-background/90">
@@ -1271,7 +1268,7 @@ const PodcastEnLaCumbre = () => {
                       onClick={handleDownloadPressReleases}
                       className="inline-flex items-center gap-2 px-7 py-4 bg-primary text-primary-foreground border-2 border-background font-display font-black text-xs uppercase tracking-widest hover:translate-x-[-2px] hover:translate-y-[-2px] transition-transform shadow-[6px_6px_0_hsl(var(--background))] rotate-[-1deg]"
                     >
-                      Descargar Notas de Prensa
+                      Descargar notas históricas (con aclaración)
                     </button>
                   </div>
                 </div>

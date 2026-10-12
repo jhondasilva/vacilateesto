@@ -44,7 +44,7 @@ const CONTACTS = [
 ];
 
 const BOILERPLATE =
-  "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, social media y eventos en vivo. Conducido por JhonSnacks y JuanSofa, produce contenido semanal en YouTube, TikTok, Instagram y Facebook, además de formatos propios como Guerra de Comerciales, Vacílate El Fútbol y Podcast en la Cumbre, la serie que graba episodios completos en las montañas más altas del país. Su comunidad y sus marcas aliadas convierten cada formato en conversación nacional.";
+  "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, social media y eventos en vivo. Conducido por JhonSnacks y JuanSofa, produce contenido semanal en YouTube, TikTok, Instagram y Facebook, además de formatos propios como Guerra de Comerciales, Vacílate El Fútbol y Podcast en la Cumbre, la serie que documenta expediciones y grabaciones en cumbre; el plan del Pico Bolívar es grabar un episodio completo con un estudio de podcast en la cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad. Su comunidad y sus marcas aliadas convierten cada formato en conversación nacional.";
 
 const BOILERPLATE_EN =
   "Vacílate Esto is one of Venezuela's most relevant digital entertainment brands, made in Venezuela: podcast, social media and live events. Hosted by JhonSnacks and JuanSofa, it publishes weekly content on YouTube, TikTok, Instagram and Facebook, and produces original formats such as Guerra de Comerciales, Vacílate El Fútbol and Podcast en la Cumbre.";

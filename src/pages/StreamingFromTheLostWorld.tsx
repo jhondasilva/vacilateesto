@@ -118,11 +118,11 @@ const StreamingFromTheLostWorld = () => {
         <title>Streaming From The Lost World — Vacílate Esto · Cannes Lions 2026</title>
         <meta
           name="description"
-          content="The first live broadcast from the summit of Mount Roraima. A community-powered expedition by Vacílate Esto — zero paid media, pure human connection."
+          content="A live broadcast from the summit of Mount Roraima; no worldwide first is claimed. A community-powered expedition by Vacílate Esto — zero paid media, pure human connection."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:title" content="Streaming From The Lost World" />
-        <meta property="og:description" content="The first live broadcast from the summit of Mount Roraima." />
+        <meta property="og:description" content="A live broadcast from the summit of Mount Roraima; no worldwide first is claimed." />
         <meta property="og:url" content={URL} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
       </Helmet>
@@ -362,7 +362,7 @@ const StreamingFromTheLostWorld = () => {
               { big: "76K+", label: "Organic Likes", sub: "No paid promotion" },
               { big: "1.4M+", label: "Organic Reach", sub: "Total impressions" },
               { big: "98%", label: "Positive Sentiment", sub: "Narrative shift" },
-              { big: "1st", label: "Historical Milestone", sub: "Live from Roraima" },
+              { big: "Live", label: "Expedition Broadcast", sub: "From Roraima · not a certified first" },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="bg-[#070b14] p-6 sm:p-8 hover:bg-[#0a1020] transition-colors h-full">
@@ -383,7 +383,7 @@ const StreamingFromTheLostWorld = () => {
             Mount Roraima — the tabletop mountain that inspired Arthur Conan Doyle's <em>"The Lost World"</em> — stands at 2,810 meters on the triple border of Venezuela, Brazil, and Guyana. It is one of the oldest geological formations on Earth, a <strong>tepui</strong> shrouded in clouds and mystery, home to endemic species found nowhere else on the planet.
           </p>
           <p>
-            Despite being a UNESCO-worthy natural wonder, Roraima had <strong>never been live-streamed from its summit</strong>. No internet infrastructure, no power grid, no cellular signal — the summit exists in complete <em>digital isolation</em>.
+            Despite being a UNESCO-worthy natural wonder, Roraima presented <strong>major challenges for live streaming from its summit</strong>; this project does not establish a worldwide first. No internet infrastructure, no power grid, no cellular signal — the summit exists in complete <em>digital isolation</em>.
           </p>
           <p>
             Venezuela's social media landscape was trapped in a cycle of negative news. The algorithm rewarded despair. We saw an opportunity: to use the most remote place in the country to create <strong>the most connected moment in its digital history</strong>.
@@ -393,13 +393,13 @@ const StreamingFromTheLostWorld = () => {
         {/* 02 Idea */}
         <SectionWrap id="idea" num="02" title="The Idea">
           <p>
-            <strong>Stream live from the summit of Mount Roraima</strong> — a place where no internet signal has ever reached — and turn an entire nation into a real-time community of witnesses.
+            <strong>Stream live from the summit of Mount Roraima</strong> — a place with major connectivity challenges — and turn an entire nation into a real-time community of witnesses.
           </p>
           <p>
             For <em>"Vacílate Esto"</em> — a digital ecosystem built around a podcast and social media channels — we designed an expedition that would carry portable satellite technology to the top of one of Earth's oldest mountains. The goal wasn't just to broadcast — it was to create a <strong>shared moment of collective wonder</strong> that would break through the algorithm's negativity bias.
           </p>
           <p>
-            By streaming from a place that had never been connected, we would prove that <strong>human ambition can still outpace technological limitations</strong> — and that community engagement doesn't need paid promotion when the content is genuinely extraordinary.
+            By streaming from a remote place with connectivity challenges, we would prove that <strong>human ambition can still outpace technological limitations</strong> — and that community engagement doesn't need paid promotion when the content is genuinely extraordinary.
           </p>
         </SectionWrap>
 

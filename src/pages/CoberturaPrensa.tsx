@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: "¿Puedo cubrir la grabación del Podcast en la Cumbre en el Pico Bolívar?",
-    a: "Sí. La expedición de noviembre 2026 tiene cupos limitados de prensa por razones logísticas y de seguridad en altura. Marca la opción \"Cobertura Pico Bolívar\" en el formulario: pedimos seguro médico vigente y experiencia previa en montaña para el tramo alto.",
+    a: "Sí. La expedición prevista del 15 al 23 de noviembre de 2026, sujeta a condiciones de seguridad y viabilidad, tiene cupos limitados de prensa por razones logísticas y de seguridad en altura. Marca la opción \"Cobertura Pico Bolívar\" en el formulario: pedimos seguro médico vigente y experiencia previa en montaña para el tramo alto.",
   },
   {
     q: "¿Dónde descargo logos, fotos y el boilerplate?",
@@ -71,7 +71,7 @@ const HORARIOS = [
   { label: "Atención a medios", detail: "Lunes a viernes · 9:00 a.m. – 5:00 p.m. (VET, GMT-4)" },
   { label: "Ventana de entrevistas", detail: "Martes y jueves · 2:00 p.m. – 6:00 p.m. (VET)" },
   { label: "Visitas al estudio (Caracas)", detail: "Miércoles · 10:00 a.m. – 1:00 p.m., con cita previa" },
-  { label: "Grabaciones Podcast en la Cumbre", detail: "Noviembre 2026 · Mérida y Pico Bolívar, agenda por confirmar" },
+  { label: "Grabaciones Podcast en la Cumbre", detail: "15 al 23 de noviembre de 2026 · Mérida y Pico Bolívar, sujeto a seguridad y viabilidad; agenda por confirmar" },
   { label: "Tiempo de respuesta", detail: "Hasta 3 días hábiles · urgencias de cierre, indícalo en el mensaje" },
 ];
 
