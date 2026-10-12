@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import infographic from "@/assets/fali-infografia.png.asset.json";
 import cover from "@/assets/fali-carousel-01.jpg.asset.json";
 import { FaliLanguageLinks, FaliLocaleMetadata } from "@/components/fali/FaliLocale";
+import FaliManifesto from "@/components/fali/FaliManifesto";
 
 const cycle = [
   ["01", "Idea inicial", "El usuario tiene un pensamiento, pregunta o intención creativa."],
@@ -186,6 +187,9 @@ const Fali = () => (
           </div>
         </div>
       </section>
+
+      <FaliManifesto locale="es" />
+
 
       <section className="fali-final-band py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
