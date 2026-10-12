@@ -3,3 +3,4 @@
 - Cumbre PDF generators preserve existing trailing annex pages when regenerating editorial pages, so unrelated report data stays intact.
 - Historical Cumbre press PDFs retain their original pages and attributed quotations behind an editorial clarification, so archive material is not mistaken for current verified claims.
 - Press archive ZIP refreshes synchronize existing current PDF entries and brand boilerplate while preserving historical documents, quotations and all other entries, so downloadable copies match the current site.
+- FALI English lives at /en/fali with route-scoped header/footer locale props and reciprocal metadata; keep other routes Spanish to isolate translation changes.

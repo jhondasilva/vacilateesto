@@ -56,7 +56,11 @@ const SpotifyIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const Footer = () => {
+const Footer = ({ locale = "es" }: { locale?: "es" | "en" }) => {
+  const english = locale === "en";
+  const labels: Record<string, string> = {
+    "Todos los artículos": "All articles", "Mejores podcasts de Venezuela": "Top podcasts in Venezuela", "Podcasts hechos en Venezuela ": "Podcasts made in Venezuela", "Podcasts venezolanos de comedia": "Venezuelan comedy podcasts", "Podcasts venezolanos de fútbol": "Venezuelan football podcasts", "Podcasts venezolanos en Spotify": "Venezuelan podcasts on Spotify", "Mejores podcasts venezolanos": "Top Venezuelan podcasts", "Cómo subir el Roraima": "Climbing Mount Roraima", "Cómo subir el Pico Naiguatá": "Climbing Pico Naiguatá", "Leyendas urbanas de Venezuela": "Venezuelan urban legends", "Historia de la arepa": "The history of the arepa", "Mundial 2026 desde Venezuela": "World Cup 2026 from Venezuela", "El podcast más largo": "The longest podcast", "Ruta del ramen en Caracas": "Caracas ramen trail", "Media Kit VEF 2026": "VEF 2026 Media Kit", Privacidad: "Privacy", Términos: "Terms", Recursos: "Resources"
+  };
   const currentYear = new Date().getFullYear();
 
   // Metricool (Google Analytics is loaded in index.html)
@@ -130,7 +134,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-16">
         {/* Logo Section - Full Width */}
         <div className="text-center mb-12">
-          <a href="#hero" className="inline-block">
+          <a href={english ? "/en/fali" : "#hero"} className="inline-block">
             <Logo size="xl" className="brightness-0 invert" />
           </a>
         </div>
@@ -139,7 +143,7 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2">
             <p className="text-background/70 text-sm mb-4 max-w-lg leading-relaxed">
-              Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por{" "}
+              {english ? "Vacílate Esto is a Venezuelan Fun Educaitment content system, created by JuanSofa and JhonSnacks in 2020 and produced by " : "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment creado por JuanSofa y JhonSnacks en 2020 y producido por "}
               <a
                 href="https://elpatiocontent.com"
                 target="_blank"
@@ -148,7 +152,7 @@ const Footer = () => {
               >
                 El Patio Content Studio
               </a>
-              . Desde Caracas, con calle y con data.
+              {english ? ". From Caracas, with street smarts and data." : ". Desde Caracas, con calle y con data."}
             </p>
             
             <div className="flex items-center gap-2 text-background/60 text-sm mb-6">
@@ -182,15 +186,16 @@ const Footer = () => {
           </div>
 
           {/* Links */}
+          {english && <p className="text-background/60 text-sm">Linked pages are in Spanish.</p>}
           {footerLinks.map((section) => (
-            <div key={section.title}>
-              <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-background">{section.title}</h4>
+            <div key={english ? (labels[section.title] ?? section.title) : section.title}>
+              <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-background">{english ? (labels[section.title] ?? section.title) : section.title}</h4>
               <ul className="space-y-3">
                 {section.links.map((link) => {
                   const isPdf = link.href.toLowerCase().endsWith(".pdf");
                   const isExternal = link.href.startsWith("http") || isPdf;
                   return (
-                    <li key={link.label}>
+                    <li key={english ? (labels[link.label] ?? link.label) : link.label}>
                       <a
                         href={link.href}
                         target={isExternal ? "_blank" : undefined}
@@ -198,7 +203,7 @@ const Footer = () => {
                         {...(isPdf ? { download: "" } : {})}
                         className="text-background/60 hover:text-primary transition-colors text-sm"
                       >
-                        {link.label}
+                        {english ? (labels[link.label] ?? link.label) : link.label}
                       </a>
                     </li>
                   );
@@ -211,10 +216,10 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-background/50 text-sm">
-            © {currentYear} Vacílate Esto. Todos los derechos reservados.
+            © {currentYear} Vacílate Esto. {english ? "All rights reserved." : "Todos los derechos reservados."}
           </p>
           <p className="text-background/50 text-sm">
-            Hecho con  en Venezuela
+            {english ? "Made in Venezuela" : "Hecho con  en Venezuela"}
           </p>
         </div>
       </div>

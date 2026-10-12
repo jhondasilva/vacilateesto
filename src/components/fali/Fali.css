@@ -1,0 +1,26 @@
+.fali-page h2, .fali-page h3 { overflow-wrap: anywhere; }
+.fali-page .fali-outcome { min-width: 0; }
+.fali-page .fali-outcome h3 { overflow-wrap: anywhere; }
+.fali-page-en .fali-section-title { font-size: 2.5rem; }
+.fali-page-en .fali-thesis h2 { font-size: 2rem; }
+.fali-page-en .fali-outcome h3 { font-size: 1.7rem; }
+.fali-manifesto h1, .fali-manifesto h2 { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; line-height: 1.2; padding-top: 1.5rem; }
+.fali-manifesto hr { border-color: hsl(var(--fali-paper) / .25); margin-block: 2.5rem; }
+.fali-carousel-items { display: flex; gap: 1rem; padding-block: .5rem 1rem; }
+.fali-carousel-items .fali-slide { flex: 0 0 min(80%, 24rem); min-width: 0; }
+.fali-carousel-pager { display: grid; grid-template-columns: repeat(12, 1fr); gap: .125rem; max-width: 100%; }
+.fali-carousel-pager .fali-carousel-dot { width: 100%; min-width: 0; height: 1.5rem; border-radius: 0; border-block: .5rem solid hsl(var(--fali-paper)); padding: 0; }
+@media (min-width: 768px) {
+  .fali-page-en .fali-section-title { font-size: 4rem; }
+  .fali-page-en .fali-thesis h2 { font-size: 3.5rem; }
+  .fali-page-en .fali-outcome h3 { font-size: 2.5rem; }
+  .fali-carousel-items .fali-slide { flex-basis: min(42%, 28rem); }
+}
+@media (min-width: 1024px) {
+  .fali-page-en .fali-section-title { font-size: 6rem; }
+  .fali-page-en .fali-thesis h2 { font-size: 5.5rem; }
+  .fali-carousel-items .fali-slide { flex-basis: min(29%, 28rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fali-page *, .fali-page *::after { scroll-behavior: auto; transition: none; }
+}

@@ -7,6 +7,7 @@ import FaliCarousel from "@/components/fali/FaliCarousel";
 import { Button } from "@/components/ui/button";
 import infographic from "@/assets/fali-infografia.png.asset.json";
 import cover from "@/assets/fali-carousel-01.jpg.asset.json";
+import { FaliLanguageLinks, FaliLocaleMetadata } from "@/components/fali/FaliLocale";
 
 const cycle = [
   ["01", "Idea inicial", "El usuario tiene un pensamiento, pregunta o intención creativa."],
@@ -34,6 +35,7 @@ const hypotheses = [
 
 const Fali = () => (
   <div className="fali-page min-h-screen">
+    <FaliLocaleMetadata />
     <Helmet>
       <title>FALI | ¿Qué le hace la espera tecnológica a una idea?</title>
       <meta name="description" content="FALI explora cómo la latencia de la inteligencia artificial desplaza la atención y puede transformar la trayectoria creativa de una idea." />
@@ -61,6 +63,7 @@ const Fali = () => (
       <section className="fali-hero">
         <div className="container mx-auto grid min-h-[calc(100svh-5rem)] items-center gap-10 px-4 pb-12 pt-28 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
           <div className="relative z-10">
+            <FaliLanguageLinks />
             <span className="fali-kicker">Una idea de Vacílate Esto · 2026</span>
             <h1 className="fali-display mt-4">FALI</h1>
             <p className="fali-hand-note max-w-lg">Frustración de atención por latencia inútil</p>
