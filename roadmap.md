@@ -16,3 +16,4 @@
 - [x] Sustituir el dominio antiguo de El Patio y verificar enlaces, descargas y plantillas sin otros cambios
 - [x] Crear /en/fali con manifiesto completo, arte original y navegación ES/EN; preservar cambios ajenos
 - [x] Verificar idiomas, metadatos, controles y tamaños; entregar diff FALI sin publicar ni desplegar
+- [ ] Corregir la explicación inglesa a Useless Latency manteniendo Inútil y verificar ambos idiomas sin publicar
