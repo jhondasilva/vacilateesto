@@ -331,7 +331,7 @@ Starting points.
 
 ## What is useless is the imposed wait.
 
-The word “useless” refers to the wait the tool imposes on our intention to create. What we do during that interval can turn out to be useful: thinking, observing, resting or finding a new idea. It depends on our intention and our motivation. Making use of that time does not erase the interruption that caused it.
+The word “useless” refers to the wait the tool imposes on our intention to create. What we do during that interval can turn out to be useful: thinking, observing, resting or finding a new idea. It can also slip into banal entertainment that diverts or breaks the line of thought. These are two broad possibilities that vary from one occasion to the next, and leisure is not a problem in itself. It depends on our intention and our motivation. Making use of that time does not erase the interruption that caused it.
 
 ---
 
