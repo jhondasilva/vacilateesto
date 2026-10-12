@@ -11,5 +11,5 @@
 - [x] Corregir copy, SEO y memoria de Podcast en la Cumbre sin publicar ni alterar otros proyectos
 - [x] Regenerar descargables correspondientes y revisar PDFs históricos/ZIP sin borrar archivos
 - [x] Verificar textos, lint, compilación, vista y estado publicado; conservar GA4 y Search Console
-- [ ] Actualizar posicionamiento a sistema de contenidos en sitio, SEO, plantillas y memoria; retirar radio
-- [ ] Verificar rutas, textos y vistas; entregar inventario y dudas sin publicar
+- [x] Actualizar posicionamiento a sistema de contenidos en sitio, SEO, plantillas y memoria; retirar radio
+- [x] Verificar rutas, textos y vistas; entregar inventario y dudas sin publicar
