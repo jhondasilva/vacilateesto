@@ -8,3 +8,6 @@
 - [x] Distinguir notas históricas de los resultados finales y verificar la vista
 - [x] Completar logos oficiales y presentación compartida en dashboards, sin cambios de datos ni publicación
 - [x] Verificar diff, controles relevantes y logos en escritorio y móvil mediante fixture aislado
+- [ ] Corregir copy, SEO y memoria de Podcast en la Cumbre sin publicar ni alterar otros proyectos
+- [ ] Regenerar descargables correspondientes y revisar PDFs históricos/ZIP sin borrar archivos
+- [ ] Verificar textos, lint, compilación, vista y estado publicado; conservar GA4 y Search Console
