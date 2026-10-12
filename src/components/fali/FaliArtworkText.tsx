@@ -14,7 +14,7 @@ export const FaliInfographicText = () => (
   <details className="mx-auto mt-8 max-w-5xl border-t border-fali-paper/40 pt-6">
     <summary className="cursor-pointer text-lg font-bold">Read the infographic in English</summary>
     <div className="mt-6 space-y-6 text-base leading-relaxed">
-      <p><strong>FALI — Frustración de Atención por Latencia Inútil.</strong> Roughly, Attention Frustration from Unnecessary Latency. What happens to an idea when technology makes us wait? FALI describes the experience that arises when a person is temporarily suspended, waiting for a technological response. During that latency, attention shifts, interests and associations change, and the creative trajectory of thinking may be transformed.</p>
+      <p><strong>FALI — Frustración de Atención por Latencia Inútil.</strong> Roughly, Attention Frustration from Useless Latency. What happens to an idea when technology makes us wait? FALI describes the experience that arises when a person is temporarily suspended, waiting for a technological response. During that latency, attention shifts, interests and associations change, and the creative trajectory of thinking may be transformed.</p>
       <h3 className="text-xl font-bold">The cycle of an idea with latency</h3>
       <p>{carouselEnglish[2][1]} The illustration says: “I want to explore this idea…”; “Processing…”; “Idea A? Idea B? Idea C?” Its timeline reads 1 second, 5 seconds, 10 seconds, 30 seconds, 2 minutes: illustrative intervals, not measured findings.</p>
       <h3 className="text-xl font-bold">Possible trajectories of an idea</h3>

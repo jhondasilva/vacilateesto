@@ -56,7 +56,7 @@ It moves.
 
 **Frustración de Atención por Latencia Inútil.**
 
-Roughly, **Attention Frustration from Unnecessary Latency**.
+Roughly, **Attention Frustration from Useless Latency**.
 
 FALI appears when we want to continue an action or a thought, but technology makes us wait.
 

@@ -43,7 +43,7 @@ const FaliEnglish = () => (
       <meta name="description" content="FALI is an editorial observation and five open hypotheses about how technological waiting may shift attention and transform an idea." />
       <link rel="canonical" href="https://www.vacilateesto.com/en/fali" />
       <meta property="og:type" content="article" />
-      <meta property="og:title" content="FALI | Attention Frustration from Unnecessary Latency" />
+      <meta property="og:title" content="FALI | Attention Frustration from Useless Latency" />
       <meta property="og:description" content="What does technological waiting do to an idea?" />
       <meta property="og:url" content="https://www.vacilateesto.com/en/fali" />
       <meta name="twitter:card" content="summary_large_image" />
@@ -68,11 +68,11 @@ const FaliEnglish = () => (
             <FaliLanguageLinks locale="en" />
             <span className="fali-kicker">An idea from Vacílate Esto · 2026</span>
             <h1 className="fali-display mt-4">FALI</h1>
-            <p className="fali-hand-note max-w-lg">Attention Frustration from Unnecessary Latency</p>
+            <p className="fali-hand-note max-w-lg">Attention Frustration from Useless Latency</p>
             <h2 className="mt-8 max-w-2xl text-3xl font-black uppercase leading-[1.02] md:text-5xl">
               What does technological waiting do to an idea?
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed">FALI is the Spanish acronym <span lang="es">“Frustración de Atención por Latencia Inútil”</span>, roughly “Attention Frustration from Unnecessary Latency”. This editorial observation and manifesto proposes five open hypotheses, not an established diagnosis, a proven study or a productivity method.</p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed">FALI is the Spanish acronym <span lang="es">“Frustración de Atención por Latencia Inútil”</span>, roughly “Attention Frustration from Useless Latency”. This editorial observation and manifesto proposes five open hypotheses, not an established diagnosis, a proven study or a productivity method.</p>
             <p className="mt-6 max-w-xl text-base font-medium leading-relaxed text-fali-paper/75 md:text-lg">
               Between the question and the answer, technology processes. Human attention does not stop: it shifts, makes associations, changes interests and may transform the original idea.
             </p>
@@ -83,7 +83,7 @@ const FaliEnglish = () => (
           </div>
           <figure className="fali-hero-art">
             <img src={cover.url} alt="FALI cover artwork with the original Spanish acronym" width="720" height="720" />
-            <figcaption className="px-3 py-2 text-sm">Spanish original: FALI — Attention Frustration from Unnecessary Latency.</figcaption>
+            <figcaption className="px-3 py-2 text-sm">Spanish original: FALI — Attention Frustration from Useless Latency.</figcaption>
           </figure>
         </div>
       </section>
