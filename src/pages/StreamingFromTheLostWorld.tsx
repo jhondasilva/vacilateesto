@@ -220,14 +220,14 @@ const StreamingFromTheLostWorld = () => {
               <Reveal>
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-[10px] tracking-[0.25em] uppercase text-white/60 mb-8">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                  A historical first
+                  A summit expedition
                 </div>
               </Reveal>
 
               <h1 className="font-black leading-[1.02] tracking-tight">
                 <Reveal delay={50}>
                   <span className="block text-[2.6rem] sm:text-5xl md:text-6xl lg:text-7xl text-white">
-                    The First
+                    A Shared
                   </span>
                 </Reveal>
                 <Reveal delay={150}>
@@ -438,10 +438,10 @@ const StreamingFromTheLostWorld = () => {
             A <strong>6-day expedition</strong> through the Gran Sabana to the summit of Mount Roraima. The team — including indigenous Pemón guides who have ancestral knowledge of the mountain's paths — carried the portable satellite system through dense jungle, river crossings, and the famous vertical wall that guards the summit.
           </p>
           <p>
-            Upon reaching the top, the <em>Starlink antenna was deployed</em> for the first time ever on a Venezuelan tepui. Within minutes, a live signal was established — connecting one of the most isolated places on Earth directly to millions of screens.
+            Upon reaching the top, the <em>Starlink antenna was deployed</em> for this expedition. Within minutes, a live signal was established — connecting one of the most isolated places on Earth directly to millions of screens. No worldwide first or certification is claimed.
           </p>
           <p>
-            The live stream captured <strong>never-before-seen views</strong> from the summit: endemic plants, crystal-clear pools, and the vast stone landscape that has existed for over 2 billion years. Audiences watched in real-time as the team explored a world most Venezuelans had never seen — despite it being their own.
+            The live stream captured <strong>views from the expedition</strong> on the summit: endemic plants, crystal-clear pools, and the vast stone landscape that has existed for over 2 billion years. Audiences watched in real-time as the team explored a world most Venezuelans had never seen — despite it being their own.
           </p>
           <p>
             <strong>No paid promotion was used.</strong> Every share, every comment, every like was earned organically through the sheer power of authentic, extraordinary content shared in real-time with a community that chose to participate.
@@ -519,7 +519,7 @@ const StreamingFromTheLostWorld = () => {
           </div>
           <h3 className="!mt-14">Social Insight</h3>
           <p>
-            The algorithm is designed to amplify what already has momentum. By creating content so inherently extraordinary — a <strong>first-ever live stream from an unreachable summit</strong> — we didn't need to fight the algorithm. We gave the community something worth sharing, and they became the distribution engine.
+            The algorithm is designed to amplify what already has momentum. By creating content so inherently extraordinary — a <strong>live stream from a remote summit</strong> — we didn't need to fight the algorithm. We gave the community something worth sharing, and they became the distribution engine.
           </p>
           <p>
             <strong>76,000+ organic likes</strong> and <strong>1.4 million organic impressions</strong> — achieved with zero paid media spend. The community didn't just engage; they <em>owned</em> the narrative, turning a digital ecosystem's expedition into a national moment of collective wonder.
@@ -533,7 +533,7 @@ const StreamingFromTheLostWorld = () => {
               { big: "76K+", label: "Organic Likes" },
               { big: "1.4M+", label: "Organic Reach" },
               { big: "98%", label: "Positive Sentiment" },
-              { big: "1st Ever", label: "Live from Summit" },
+              { big: "Live", label: "From Summit · no certified first" },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 80}>
                 <div className="bg-[#070b14] p-6 sm:p-8 h-full">
@@ -547,7 +547,7 @@ const StreamingFromTheLostWorld = () => {
           </div>
           <h3 className="!mt-14">A Historical Milestone</h3>
           <p>
-            The first live broadcast from the summit of one of Earth's oldest mountains. A community-powered moment that proved authentic content, shared in real time, can outpace any algorithm — and reframe an entire national conversation.
+            A live broadcast from the summit of one of Earth's oldest mountains, without a claim of worldwide first. A community-powered moment that proved authentic content, shared in real time, can outpace any algorithm — and reframe an entire national conversation.
           </p>
         </SectionWrap>
 
