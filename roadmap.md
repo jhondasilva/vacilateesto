@@ -14,3 +14,5 @@
 - [x] Actualizar posicionamiento a sistema de contenidos en sitio, SEO, plantillas y memoria; retirar radio
 - [x] Verificar rutas, textos y vistas; entregar inventario y dudas sin publicar
 - [x] Sustituir el dominio antiguo de El Patio y verificar enlaces, descargas y plantillas sin otros cambios
+- [x] Crear /en/fali con manifiesto completo, arte original y navegación ES/EN; preservar cambios ajenos
+- [x] Verificar idiomas, metadatos, controles y tamaños; entregar diff FALI sin publicar ni desplegar

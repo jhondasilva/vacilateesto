@@ -36,6 +36,7 @@ import PodcastsVenezolanosFutbol from "./pages/PodcastsVenezolanosFutbol";
 import PodcastsVenezolanosSpotify from "./pages/PodcastsVenezolanosSpotify";
 import HechoEnVenezuela from "./pages/HechoEnVenezuela";
 import Fali from "./pages/Fali";
+import FaliEnglish from "./pages/FaliEnglish";
 
 import WalkingAds from "./pages/WalkingAds";
 import StreamingFromTheLostWorld from "./pages/StreamingFromTheLostWorld";
@@ -115,6 +116,7 @@ const App = () => (
             <Route path="/podcasts-venezolanos-spotify" element={<PodcastsVenezolanosSpotify />} />
             <Route path="/hecho-en-venezuela" element={<HechoEnVenezuela />} />
             <Route path="/fali" element={<Fali />} />
+            <Route path="/en/fali" element={<FaliEnglish />} />
             
             <Route path="/walking-ads" element={<WalkingAds />} />
             <Route path="/streaming-from-the-lost-world" element={<StreamingFromTheLostWorld />} />

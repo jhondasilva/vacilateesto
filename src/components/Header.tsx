@@ -21,7 +21,10 @@ const navLinks = [
   { label: "Contacto", href: "/#contact" },
 ];
 
-const Header = () => {
+const Header = ({ locale = "es" }: { locale?: "es" | "en" }) => {
+  const english = locale === "en";
+  const labels: Record<string, string> = { Inicio: "Home", Blog: "Blog", FALI: "FALI", Hosts: "Hosts", "Media Kit": "Media Kit", "Podcast en la Cumbre": "Podcast en la Cumbre", "Pelotica de Goma": "Pelotica de Goma", "VEF 2026": "VEF 2026", "Podcast Eterno": "Podcast Eterno", "Guerra de Comerciales": "Guerra de Comerciales", "Creative Hub": "Creative Hub", Dashboard: "Dashboard", Contacto: "Contact" };
+  const links = english ? navLinks.map(link => ({ ...link, label: labels[link.label] ?? link.label, href: link.href === "/fali" ? "/en/fali" : link.href })) : navLinks;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -47,8 +50,8 @@ const Header = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-4">
-            {navLinks.map((link) => {
+          <nav aria-label={english ? "Main navigation — other pages in Spanish" : undefined} className="hidden xl:flex items-center gap-4">
+            {links.map((link) => {
               const isHashLink = link.href.includes('#') && !link.external;
               
               if (link.external) {
@@ -91,12 +94,16 @@ const Header = () => {
 
 
           {/* Mobile Menu Button */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={english ? (isMobileMenuOpen ? "Close menu" : "Open menu") : (isMobileMenuOpen ? "Cerrar menú" : "Abrir menú")}
+            aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="xl:hidden p-2 text-foreground hover:text-primary transition-colors"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          </Button>
         </div>
 
         {/* Mobile Menu */}
@@ -105,8 +112,8 @@ const Header = () => {
             isMobileMenuOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
-          <nav className="flex flex-col gap-3 py-4 px-2 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
-            {navLinks.map((link) => {
+          <nav aria-label={english ? "Main navigation — other pages in Spanish" : undefined} className="flex flex-col gap-3 py-4 px-2 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
+            {links.map((link) => {
               const isHashLink = link.href.includes('#') && !link.external;
               
               if (link.external) {
