@@ -114,7 +114,7 @@ const PodcastEnLaCumbre = () => {
           "seasonNumber": 1,
           "numberOfEpisodes": 3,
           "startDate": "2025-08",
-          "endDate": "2026-11",
+          "endDate": "2026-02",
           "episode": [
             {
               "@type": "PodcastEpisode",
