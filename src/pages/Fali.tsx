@@ -190,7 +190,6 @@ const Fali = () => (
 
       <FaliManifesto locale="es" />
 
-
       <section className="fali-final-band py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
           <Clock3 className="mx-auto h-10 w-10" aria-hidden="true" />
