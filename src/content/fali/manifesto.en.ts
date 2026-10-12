@@ -329,6 +329,12 @@ Starting points.
 
 ---
 
+## Useless, or unnecessary?
+
+We also wonder whether “useless” is the right word. The wait may be necessary for the machine and feel unnecessary to the person using it. And what happens during that interval may scatter an idea or open a valuable direction. Does the frustration come from waiting, from losing the intention, or from not deciding what to do with that pause? We leave that question open.
+
+---
+
 ## FALI doesn't belong exclusively to artificial intelligence, either.
 
 It can happen while waiting for a video to load.
