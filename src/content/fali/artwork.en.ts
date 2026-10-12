@@ -1,7 +1,7 @@
 // English equivalents verified against the twelve original Spanish raster images.
 // These captions preserve the artwork's wording, not evidence for its hypotheses.
 export const carouselEnglish = [
-  ["FALI", "Frustración de Atención por Latencia Inútil: roughly, Attention Frustration from Unnecessary Latency."],
+  ["FALI", "Frustración de Atención por Latencia Inútil: roughly, Attention Frustration from Useless Latency."],
   ["What is FALI?", "The experience that arises when we are temporarily suspended, waiting for a technological response. During that latency, attention shifts, interests and associations change, and the creative trajectory of thinking may be transformed. Discussed in the Vacílate Esto episode."],
   ["The cycle of an idea with latency", "Initial idea: a thought, question or creative intention. Delegation to AI: you formulate your request. Latency: the system processes information; you wait. During the wait: attention may shift to other stimuli. AI response: AI answers the original intention. A different user: the answer arrives when the user's mental state may differ from when they asked the question."],
   ["But the user is no longer the same", "AI answers the user who asked the question, but the answer is received by a cognitively different user. Same question. Different thinking."],
