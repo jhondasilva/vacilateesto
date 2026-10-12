@@ -13,4 +13,4 @@
 - [x] Verificar textos, lint, compilación, vista y estado publicado; conservar GA4 y Search Console
 - [x] Actualizar posicionamiento a sistema de contenidos en sitio, SEO, plantillas y memoria; retirar radio
 - [x] Verificar rutas, textos y vistas; entregar inventario y dudas sin publicar
-- [ ] Sustituir el dominio antiguo de El Patio y verificar enlaces, descargas y plantillas sin otros cambios
+- [x] Sustituir el dominio antiguo de El Patio y verificar enlaces, descargas y plantillas sin otros cambios
