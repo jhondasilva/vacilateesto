@@ -329,9 +329,9 @@ Starting points.
 
 ---
 
-## Useless, or unnecessary?
+## What is useless is the imposed wait.
 
-We also wonder whether “useless” is the right word. The wait may be necessary for the machine and feel unnecessary to the person using it. And what happens during that interval may scatter an idea or open a valuable direction. Does the frustration come from waiting, from losing the intention, or from not deciding what to do with that pause? We leave that question open.
+The word “useless” refers to the wait the tool imposes on our intention to create. What we do during that interval can turn out to be useful: thinking, observing, resting or finding a new idea. It depends on our intention and our motivation. Making use of that time does not erase the interruption that caused it.
 
 ---
 

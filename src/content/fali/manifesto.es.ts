@@ -327,9 +327,9 @@ Puntos de partida.
 
 ---
 
-## ¿Inútil o innecesaria?
+## Lo inútil es la espera impuesta.
 
-También nos preguntamos si «inútil» es la palabra adecuada. La espera puede ser necesaria para la máquina y sentirse innecesaria para quien la usa. Y lo que ocurre durante ese intervalo puede dispersar una idea o abrir una dirección valiosa. ¿La frustración nace de esperar, de perder la intención o de no decidir qué hacer con esa pausa? Dejamos esa pregunta abierta.
+La palabra «inútil» se refiere a la espera que la herramienta impone sobre nuestra intención de crear. Lo que hacemos durante ese intervalo puede resultar útil: pensar, observar, descansar o encontrar una nueva idea. Depende de nuestra intención y de nuestra motivación. Aprovechar ese tiempo no elimina la interrupción que lo originó.
 
 ---
 
