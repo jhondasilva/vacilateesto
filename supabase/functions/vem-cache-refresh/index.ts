@@ -6,7 +6,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 // Vacílate El Mundial = todo lo publicado en las 3 plataformas core del podcast
 // durante la ventana de cobertura del Mundial FIFA 2026 (feb–jul 2026).
-const BLOG_ID = 1943481; // Vacílate Esto Podcast
+const BLOG_ID = 1943481; // Vacílate Esto
 const PLATFORMS = ["instagram", "tiktok", "youtube"];
 const BRAND_SLUG = "vacilate-el-mundial";
 

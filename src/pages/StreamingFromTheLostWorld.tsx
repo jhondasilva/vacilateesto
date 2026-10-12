@@ -396,7 +396,7 @@ const StreamingFromTheLostWorld = () => {
             <strong>Stream live from the summit of Mount Roraima</strong> — a place with major connectivity challenges — and turn an entire nation into a real-time community of witnesses.
           </p>
           <p>
-            For <em>"Vacílate Esto"</em> — a digital ecosystem built around a podcast and social media channels — we designed an expedition that would carry portable satellite technology to the top of one of Earth's oldest mountains. The goal wasn't just to broadcast — it was to create a <strong>shared moment of collective wonder</strong> that would break through the algorithm's negativity bias.
+            For <em>"Vacílate Esto"</em> — a Venezuelan Fun Educaitment content system created by JuanSofa and JhonSnacks in 2020 and produced by El Patio Content Studio in Caracas — we designed an expedition that would carry portable satellite technology to the top of one of Earth's oldest mountains. The goal wasn't just to broadcast — it was to create a <strong>shared moment of collective wonder</strong> that would break through the algorithm's negativity bias.
           </p>
           <p>
             By streaming from a remote place with connectivity challenges, we would prove that <strong>human ambition can still outpace technological limitations</strong> — and that community engagement doesn't need paid promotion when the content is genuinely extraordinary.
@@ -571,7 +571,7 @@ const StreamingFromTheLostWorld = () => {
                   Made from the heart of Venezuela.
                 </h2>
                 <p className="text-white/65 max-w-xl mx-auto mb-8">
-                  Explore the Vacílate Esto ecosystem — podcast, expeditions, fútbol, and stories told from the ground up.
+                  Descubre Vacílate Esto: un sistema de contenidos venezolano de Fun Educaitment con episodios largos, shorts, lives, docuseries y experiencias.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <Link

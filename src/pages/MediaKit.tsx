@@ -100,13 +100,13 @@ const contentFormats = [
     platforms: "Facebook, Instagram, TikTok, YouTube Shorts",
   },
   {
-    title: "Podcast",
+    title: "Episodios largos",
     subtitle: "Vacílate Esto",
     description: "Nuestro formato estrella de análisis y reflexiones profundas sobre historias, leyendas, datos curiosos y cultura venezolana. Episodios semanales de ~45 minutos que generan conversación.",
     icon: Mic,
     color: "bg-primary",
     stats: "Semanal · ~45 min",
-    platforms: "Televen TV, YouTube, Spotify, Radio FM Center",
+    platforms: "Televen TV, YouTube, Spotify",
   },
   {
     title: "Vacílate Esto Comiendo",
@@ -135,7 +135,7 @@ const contentFormats = [
   {
     title: "Streaming",
     subtitle: "TikTok Live",
-    description: "Transmisiones en vivo en TikTok desde la grabación de nuestro podcast, fútbol en vivo o proyectos especiales como Roraima. Contenido interactivo que conecta en tiempo real con nuestra comunidad.",
+    description: "Transmisiones en vivo en TikTok desde la grabación de nuestros episodios largos, fútbol en vivo o proyectos especiales como Roraima. Contenido interactivo que conecta en tiempo real con nuestra comunidad.",
     icon: Video,
     color: "bg-primary",
     stats: "En directo",
@@ -177,7 +177,7 @@ const contentFormats = [
   {
     title: "Proyectos Especiales",
     subtitle: "Producciones Únicas",
-    description: "Proyectos con identidad propia que nacen del ecosistema Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.",
+    description: "Proyectos con identidad propia que nacen del sistema de contenidos Vacílate Esto: Podcast Eterno, Podcast en la Cumbre y Pelotica de Goma. Cada uno con su audiencia y comunidad.",
     icon: Star,
     color: "bg-primary",
     stats: "3 proyectos realizados",
@@ -198,7 +198,7 @@ const sponsorshipPlans = [
     subtitle: "Content Integration",
     features: [
       { quantity: "30", description: "Menciones en el body copy de Shorts en TikTok, Instagram y Facebook, con presencia de marca en el estudio (todos los posts)" },
-      { quantity: "4", description: "Long Podcast en YouTube con mención de marca dedicada" },
+      { quantity: "4", description: "Episodios largos en YouTube con mención de marca dedicada" },
       { quantity: "2", description: "Historias en Instagram dedicadas" },
       { quantity: "4", description: "Presencia de marca en Newsletters" },
       { quantity: "1", description: "Short mensual con historia de marca dedicada a la marca" },
@@ -501,27 +501,27 @@ const MediaKit = () => {
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Media Kit 2026 | Vacílate Esto Podcast" />
-        <meta property="og:description" content="Colabora con el ecosistema de contenido más grande de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026, Campeonato de Comerciales y más." />
+        <meta property="og:title" content="Media Kit 2026 | Vacílate Esto" />
+        <meta property="og:description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
         <meta property="og:url" content="https://www.vacilateesto.com/media-kit" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Kit 2026 | Vacílate Esto" />
-        <meta name="twitter:description" content="Colabora con el una de las marcas de entretenimiento digital más relevantes de Venezuela. 1.84M+ seguidores. Vacílate El Fútbol 2026 y más proyectos." />
-        
+        <meta name="twitter:description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
+
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Media Kit Vacílate Esto 2026",
-            "description": "Media Kit oficial con métricas, formatos de contenido y oportunidades de patrocinio del una de las marcas de entretenimiento digital más relevantes de Venezuela.",
+            "description": "Media Kit del sistema de contenidos venezolano de Fun Educaitment Vacílate Esto: métricas, formatos y oportunidades de patrocinio.",
             "url": "https://www.vacilateesto.com/media-kit",
             "mainEntity": {
               "@type": "Organization",
               "name": "Vacílate Esto",
-              "description": "Ecosistema de Fun Educaitment venezolano con más de 1.84 millones de seguidores.",
+              "description": "Sistema de contenidos de Fun Educaitment venezolano con más de 1.84 millones de seguidores.",
               "numberOfEmployees": "2",
               "founder": [
                 { "@type": "Person", "name": "Juan Carlos Martínez" },
@@ -549,7 +549,7 @@ const MediaKit = () => {
               {
                 "@type": "Offer",
                 "name": "Brand Placement Intensivo",
-                "description": "30 shorts con brand placement, 4 podcasts largos, historias y newsletters semanales.",
+                "description": "30 shorts con brand placement, 4 episodios largos, historias y newsletters semanales.",
                 "category": "Plan de Patrocinio"
               }
             ]
@@ -570,7 +570,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-28 left-6 hidden md:block rotate-[-10deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ★ 1.84M
+               1.84M
             </div>
             <div aria-hidden className="absolute top-40 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
               ◆ Media Kit
@@ -583,13 +583,13 @@ const MediaKit = () => {
                 </div>
                 
                 <h1 className="font-display font-black tracking-[-0.04em] leading-[0.9] text-[10vw] sm:text-5xl md:text-7xl text-background mb-6">
-                  El Ecosistema de Contenido{" "}
+                  El Sistema de Contenidos{" "}
                   <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Fun Educaitment</span>
                   .
                 </h1>
                 
                 <p className="font-body text-base md:text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-                  Entre enero y septiembre de 2026 registramos <strong>{audienceData.totalImpressions} de impresiones reportadas</strong>, <strong>{audienceData.totalViews} de vistas</strong> y{" "}
+                  Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data. Creado por JuanSofa y JhonSnacks en 2020 y producido por El Patio Content Studio en Caracas. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. Eventos en vivo y contenido para marcas que le quieren hablar a Venezuela. Entre enero y septiembre de 2026 registramos <strong>{audienceData.totalImpressions} de impresiones reportadas</strong>, <strong>{audienceData.totalViews} de vistas</strong> y{" "}
                   <strong>{audienceData.totalInteractions} interacciones</strong> (me gusta, comentarios y compartidos) en {audienceData.totalPublications} publicaciones de TikTok, Instagram, Facebook y YouTube. Metricool no reporta impresiones para todas las redes.
                 </p>
 
@@ -635,7 +635,7 @@ const MediaKit = () => {
           {/* Platform Stats Section */}
           <section className="py-16 md:py-24 bg-background">
             <StickerMarquee
-              items={[`★ ${audienceData.totalViews} VISTAS`, `◆ ${audienceData.totalImpressions} IMPRESIONES REPORTADAS`, `▲ ${audienceData.totalInteractions} INTERACCIONES`, `● ${audienceData.totalPublications} PUBLICACIONES`, "★ FUENTE: METRICOOL · ENE–SEP 2026"]}
+              items={[` ${audienceData.totalViews} VISTAS`, `◆ ${audienceData.totalImpressions} IMPRESIONES REPORTADAS`, `▲ ${audienceData.totalInteractions} INTERACCIONES`, `● ${audienceData.totalPublications} PUBLICACIONES`, " FUENTE: METRICOOL · ENE–SEP 2026"]}
               variant="primary"
               className="mb-12 sm:mb-16"
             />
@@ -733,7 +733,7 @@ const MediaKit = () => {
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Países */}
                 <div className="bg-card rounded-3xl p-6 sm:p-8 border-2 border-foreground sticker-shadow-primary">
-                  <div className="inline-block mb-6 px-3 py-1 bg-foreground text-background border-2 border-foreground font-display font-black text-xs uppercase tracking-widest -rotate-1">★ Top 10 Países</div>
+                  <div className="inline-block mb-6 px-3 py-1 bg-foreground text-background border-2 border-foreground font-display font-black text-xs uppercase tracking-widest -rotate-1"> Top 10 Países</div>
                   <div className="space-y-3">
                     {audienceData.demographics.countries.map((country, idx) => (
                       <div key={idx} className="flex items-center gap-4">
@@ -789,7 +789,7 @@ const MediaKit = () => {
                 badge="Formatos de contenido"
                 badgeIcon={Play}
                 badgeVariant="dark"
-                title="Nuestro ecosistema de"
+                title="Nuestro sistema de"
                 highlight="contenido"
                 description="Múltiples formatos para conectar con nuestra audiencia de diferentes maneras."
               />
@@ -839,7 +839,7 @@ const MediaKit = () => {
                   </div>
                   <div>
                     <p className="text-xs font-display font-black uppercase tracking-wider text-muted-foreground mb-2">
-                      Long Podcast · YouTube · Mención dedicada
+                      Episodios largos · YouTube · Mención dedicada
                     </p>
                     <blockquote className="border-l-4 border-accent bg-muted/60 p-4 italic text-foreground/90">
                       “Este episodio va con @bncbanco: hablamos de cómo se mueve la plata del venezolano — y sí, el patio está brandeado.”
@@ -897,7 +897,7 @@ const MediaKit = () => {
               <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl" />
             </div>
             <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-              ★ FIAP 2026
+               FIAP 2026
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
               ◆ 8 nominaciones CIMA
@@ -916,7 +916,7 @@ const MediaKit = () => {
                 <p className="font-body text-base md:text-lg text-background/70 mb-10 max-w-2xl mx-auto">
                   <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
                   <strong className="text-primary">Streaming from the Lost World</strong> uno. <strong className="text-primary">Pelotica de Goma: The Legacy</strong> recibió
-                  mención de honor / shortlist. Los casos son de Vacílate Esto Podcast, no de Movilnet.
+                  mención de honor / shortlist. Los casos son de Vacílate Esto.
                 </p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -1022,7 +1022,7 @@ const MediaKit = () => {
             </div>
             {/* Floating stickers */}
             <div aria-hidden className="absolute top-16 left-6 hidden md:block rotate-[-8deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
-              ★ Sponsors
+               Sponsors
             </div>
             <div aria-hidden className="absolute top-24 right-8 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[5px_5px_0_hsl(var(--background))]">
               ◆ 2026
@@ -1051,7 +1051,7 @@ const MediaKit = () => {
                   >
                     {plan.highlighted && (
                       <div className="absolute -top-3 -right-3 rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-[10px] uppercase tracking-widest shadow-[3px_3px_0_hsl(var(--foreground))]">
-                        ★ Recomendado
+                         Recomendado
                       </div>
                     )}
                     <h3 className={`font-display text-3xl sm:text-4xl font-black mb-2 tracking-tight ${plan.highlighted ? 'text-primary-foreground' : 'text-foreground'}`}>

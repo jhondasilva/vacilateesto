@@ -12,31 +12,31 @@ const FINALISTS = [
     discipline: "Producción",
     category: "Técnicas de Producción de Contenidos",
     project: "Streaming from the Lost World",
-    brand: "Vacílate Esto Podcast",
+    brand: "Vacílate Esto",
   },
   {
     discipline: "Formatos",
     category: "Mejor estrategia de lanzamiento de programa",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto Podcast",
+    brand: "Vacílate Esto",
   },
   {
     discipline: "Producción",
     category: "Técnicas de Producción — Promoción de Broadcast",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto Podcast",
+    brand: "Vacílate Esto",
   },
   {
     discipline: "Formatos",
     category: "Evento en Vivo o Híbrido",
     project: "Pelotica de Goma: The Legacy",
-    brand: "Vacílate Esto Podcast",
+    brand: "Vacílate Esto",
   },
   {
     discipline: "Formatos",
     category: "Contenido con mejor estrategia digital",
     project: "Walking Ads Above the Algorithm",
-    brand: "Vacílate Esto Podcast",
+    brand: "Vacílate Esto",
   },
 ];
 
@@ -130,15 +130,15 @@ const PrensaFIAP2026 = () => {
               de Publicidad), el certamen que reconoce las mejores piezas y estrategias de comunicación de Iberoamérica.
             </p>
             <p>
-              Las nominaciones reconocen el trabajo de tres formatos propios del ecosistema Vacílate Esto: la
+              Las nominaciones reconocen el trabajo de tres formatos propios del sistema de contenidos Vacílate Esto: la
               docuserie <strong>Streaming from the Lost World</strong>, la campaña{" "}
               <strong>Walking Ads Above the Algorithm</strong> y el evento en vivo{" "}
               <strong>Pelotica de Goma: The Legacy</strong>. Las categorías abarcan técnicas de producción de contenidos,
               estrategia digital, lanzamiento de programas, promoción de broadcast y eventos en vivo o híbridos.
             </p>
             <p>
-              Los FIAP 2026 consolidan a Vacílate Esto como una de las marcas de entretenimiento digital más relevantes
-              de Venezuela, hecha en Venezuela, con capacidad de crear formatos propios que compiten a nivel
+              Los FIAP 2026 consolidan a Vacílate Esto como un sistema de contenidos venezolano de Fun Educaitment
+              con capacidad de crear formatos propios que compiten a nivel
               iberoamericano en creatividad, ejecución y estrategia.
             </p>
           </div>

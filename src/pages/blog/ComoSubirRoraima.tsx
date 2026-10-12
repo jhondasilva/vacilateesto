@@ -56,7 +56,7 @@ const ComoSubirRoraima = () => (
     ]}
   >
     <p className="text-xl leading-relaxed">
-      El <strong>Monte Roraima</strong> no es una caminata cualquiera: es subir a una <strong>meseta de 2.810 metros</strong> con más de <strong>2.000 millones de años</strong> de antigüedad, el tepuy más famoso del mundo y la inspiración de <em>El Mundo Perdido</em> de Conan Doyle. En esta guía te contamos todo lo que aprendimos cuando subimos a grabar contenido para el episodio 2 de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en su cima; el episodio editado también incluye una introducción desde Santa Elena.
+      El <strong>Monte Roraima</strong> propone subir a una <strong>meseta de 2.810 metros</strong> con más de <strong>2.000 millones de años</strong> de antigüedad, el tepuy más famoso del mundo y la inspiración de <em>El Mundo Perdido</em> de Conan Doyle. En esta guía te contamos todo lo que aprendimos cuando subimos a grabar contenido para el episodio 2 de <a href="/podcast-en-la-cumbre">Podcast en la Cumbre</a> en su cima; el episodio editado también incluye una introducción desde Santa Elena.
     </p>
 
     <h2 id="que-es">¿Qué es el Monte Roraima?</h2>

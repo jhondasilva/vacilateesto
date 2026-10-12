@@ -203,7 +203,7 @@ def page_audience(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "LA COMUNIDAD EN NÚMEROS")
     wrap(c,
-        "Datos reales medidos en Metricool entre el 1 de febrero y el 30 de junio de 2026 — Instagram (Feed + Reels + Stories), TikTok y YouTube de Vacílate Esto Podcast.",
+        "Datos reales medidos en Metricool entre el 1 de febrero y el 30 de junio de 2026 — Instagram (Feed + Reels + Stories), TikTok y YouTube de Vacílate Esto.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     # ── Top KPI row (totales 4 meses)
@@ -265,7 +265,7 @@ def page_audience(c):
 
     # ── Footnote
     c.setFillColor(MUT); c.setFont("Helvetica-Oblique", 7)
-    c.drawString(36, 50, "Fuente: Metricool · Vacílate Esto Podcast · período 1 feb – 30 jun 2026. Métricas combinan reach orgánico y views totales por plataforma.")
+    c.drawString(36, 50, "Fuente: Metricool · Vacílate Esto · período 1 feb – 30 jun 2026. Métricas combinan reach orgánico y views totales por plataforma.")
     footer(c, 3)
 
 # ───────── PAGE 4: HOSTS ─────────
@@ -325,7 +325,7 @@ def page_formats(c):
          "Cobertura cruda y al instante: behind the scenes, encuestas, polls de pronósticos, stickers de marca y entrevistas rápidas.",
          "Stories 24/7 · Polls · Stickers de marca", INK),
         ("04","PODCASTS",
-         "Episodios desde la ruta — análisis con humor, invitados locales y la crónica de cada parada. Spotify, YouTube y FM Center.",
+         "Episodios desde la ruta — análisis con humor, invitados locales y la crónica de cada parada. Spotify, YouTube.",
          "2 episodios/semana · 30–45 min", PINK),
     ]
     cw = (W-72-20)/2; ch = 175
@@ -341,16 +341,6 @@ def page_formats(c):
         # meta pill
         sticker_pill(c, cx+16, cy+16, cw-32, 22, meta, fill=SOFT, fg=INK, fs=7)
 
-    # Radio · FM Center callout strip
-    ry = 70
-    c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.2)
-    c.roundRect(36, ry, W-72, 70, 12, fill=1, stroke=1)
-    sticker_pill(c, 50, ry+44, 130, 18, "RADIO · FM CENTER", fill=PINK, fg=white, fs=7)
-    c.setFillColor(white); c.setFont("Helvetica-Bold", 13)
-    c.drawString(50, ry+24, "CUENTOS DE 1 MINUTO  ·  HOT SPORTS  ·  6 ROTACIONES DIARIAS")
-    c.setFillColor(CYAN); c.setFont("Helvetica", 8.5)
-    c.drawString(50, ry+10, "Bases desde las sedes de EE.UU. siguiendo la ruta del Mundial.")
-
     footer(c, 5)
 
 # ───────── PAGE 6: ECOSISTEMA + CALENDARIO ─────────
@@ -363,8 +353,7 @@ def page_eco(c):
     cols = [
         ("REDES", ["Reels IG","Stories IG","TikToks","Shorts YouTube"], PINK),
         ("STREAMING", ["TikTok Live","Watch parties","Reacciones","Multi-cam"], CYAN),
-        ("PODCAST", ["Episodios semanales","Especiales Mundial","Spotify · YouTube","FM Center"], INK),
-        ("RADIO FM", ["FM Center · Hot Sports","Cuentos de 1 minuto","6 veces al día","Bases en sedes USA"], PINK),
+        ("EPISODIOS", ["Episodios largos","Especiales Mundial","Spotify · YouTube"], INK),
     ]
     cw = (W-72-45)/4; cy = H-310
     for i,(t,items,col) in enumerate(cols):
@@ -448,7 +437,7 @@ def page_plans(c):
     c.setFillColor(INK); c.setFont("Helvetica-Bold", 28)
     c.drawString(36, H-110, "¿QUÉ INCLUYE TU MARCA?")
     wrap(c,
-        "Dos planes para activar tu marca dentro del ecosistema Vacílate El Fútbol 2026. Cada uno combina piezas en redes, historias, show en vivo, podcast y radio FM.",
+        "Dos planes para activar tu marca dentro del ecosistema Vacílate El Fútbol 2026. Cada uno combina piezas en redes, historias, show en vivo, episodios largos.",
         36, H-130, W-72, fs=10, leading=13, color=MUT)
 
     # Dos planes lado a lado
@@ -495,7 +484,6 @@ def page_plans(c):
         ("DURACIÓN", "20 seg. aprox. por mención integrada al contenido.", PINK),
         ("FASES", "Pre-mundial (mayo) y mundial (junio). Coordinamos día.", CYAN),
         ("VISIBILIDAD", "Menciones en momentos épicos y eventos relevantes.", PINK),
-        ("RADIO FM", "6 cuentos diarios en Hot Sport (FM Center).", CYAN),
     ]
     cw = (W-72-30)/4; cy = H-530
     for i,(t,d,col) in enumerate(bens):

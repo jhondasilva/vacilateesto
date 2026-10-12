@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Homepage - El Mejor Podcast de Venezuela y Ecosistema de Entretenimiento -->
+  <!-- Homepage - Sistema de contenidos venezolano de Fun Educaitment y Ecosistema de Entretenimiento -->
   <url>
     <loc>https://www.vacilateesto.com/</loc>
     <lastmod>2026-04-25</lastmod>
@@ -29,7 +29,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Buscador del Podcast -->
+  <!-- Buscador de contenidos -->
   <url>
     <loc>https://www.vacilateesto.com/buscador</loc>
     <lastmod>2026-04-25</lastmod>

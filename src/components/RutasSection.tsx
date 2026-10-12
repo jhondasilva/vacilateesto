@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 
-const TICKER = ["RUTAS", "★", "VACÍLATE COMIENDO", "✦", "RAMEN & BBQ", "★", "🍜 🍖", "✦"];
+const TICKER = ["RUTAS", "", "VACÍLATE COMIENDO", "✦", "RAMEN & BBQ", "", " ", "✦"];
 
 type Ruta = {
   id: "ramen" | "bbq";
@@ -150,7 +150,7 @@ const RutasSection = () => {
         <div className="max-w-4xl mx-auto mb-14">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground text-background border-2 border-foreground">
-              <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Cómo evaluamos</span>
+              <span className="font-display font-black text-[10px] uppercase tracking-widest"> Cómo evaluamos</span>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">

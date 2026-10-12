@@ -25,7 +25,7 @@ const FiapPremios = () => (
       {
         question: "¿Qué es FIAP?",
         answer:
-          "FIAP (Festival Iberoamericano de la Publicidad) es el certamen que reconoce las mejores piezas y estrategias de comunicación de Iberoamérica. En su edición 2026 premió con Soles de Bronce a cuatro casos de Vacílate Esto Podcast.",
+          "FIAP (Festival Iberoamericano de la Publicidad) es el certamen que reconoce las mejores piezas y estrategias de comunicación de Iberoamérica. En su edición 2026 premió con Soles de Bronce a cuatro casos de Vacílate Esto.",
       },
       {
         question: "¿Cuántos Soles de Bronce ganó Vacílate Esto en FIAP 2026?",
@@ -35,7 +35,7 @@ const FiapPremios = () => (
       {
         question: "¿Cuáles fueron los 5 finalistas de Vacílate Esto en FIAP 2026?",
         answer:
-          "Streaming from the Lost World, Walking Ads Above the Algorithm (en tres categorías) y Pelotica de Goma: The Legacy. Todos los casos son de Vacílate Esto Podcast.",
+          "Streaming from the Lost World, Walking Ads Above the Algorithm (en tres categorías) y Pelotica de Goma: The Legacy. Todos los casos son de Vacílate Esto.",
       },
       {
         question: "¿Qué obtuvo Pelotica de Goma: The Legacy en FIAP 2026?",
@@ -45,7 +45,7 @@ const FiapPremios = () => (
     ]}
   >
     <p className="text-xl leading-relaxed">
-      <strong>FIAP 2026</strong> dejó un resultado que pocos proyectos venezolanos pueden contar: <strong>cinco finalistas</strong> de Vacílate Esto y <strong>cuatro Soles de Bronce</strong>. En este artículo te contamos qué es FIAP Awards, por qué es uno de los festivales más importantes de la industria iberoamericana y qué logró el ecosistema de Vacílate Esto en esta edición.
+      <strong>FIAP 2026</strong> dejó un resultado que pocos proyectos venezolanos pueden contar: <strong>cinco finalistas</strong> de Vacílate Esto y <strong>cuatro Soles de Bronce</strong>. En este artículo te contamos qué es FIAP Awards, por qué es uno de los festivales más importantes de la industria iberoamericana y qué logró el sistema de contenidos de Vacílate Esto en esta edición.
     </p>
 
     <h2 id="que-es-fiap">¿Qué es FIAP y por qué importa?</h2>
@@ -58,7 +58,7 @@ const FiapPremios = () => (
 
     <h2 id="finalistas">Los 5 finalistas de Vacílate Esto</h2>
     <p>
-      Las cinco candidaturas finalistas fueron casos propios del ecosistema de <strong>Vacílate Esto Podcast</strong>, repartidos entre tres formatos:
+      Las cinco candidaturas finalistas fueron casos propios del sistema de contenidos de <strong>Vacílate Esto</strong>, repartidos entre tres formatos:
     </p>
     <ul>
       <li><strong>Streaming from the Lost World</strong> — Técnicas de Producción de Contenidos (disciplina Producción).</li>
@@ -108,13 +108,13 @@ const FiapPremios = () => (
 
     <h2 id="que-significa">Qué significa para Venezuela</h2>
     <p>
-      Estos premios consolidan a Vacílate Esto como <strong>una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela</strong>, con capacidad de crear formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.
+      Estos premios consolidan a Vacílate Esto como <strong>un sistema de contenidos venezolano de Fun Educaitment</strong>, con capacidad de crear formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.
     </p>
     <p>
       Detrás de cada Sol hay un formato que nació como contenido digital y terminó compitiendo contra producciones de toda la región: un podcast, una liga de béisbol callejero, una docuserie y una campaña que sacó la publicidad a la calle. Eso es lo que celebramos: que un proyecto hecho en Caracas pueda medirse con lo mejor de Iberoamérica y volver con metales.
     </p>
     <p>
-      Si querés seguir lo que viene, todo está en <a href="/premios">la página de premios</a>, en el <a href="/media-kit">media kit</a> y, por supuesto, en el podcast: <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer">Spotify</a> y <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">YouTube</a>.
+      Si querés seguir lo que viene, todo está en <a href="/premios">la página de premios</a>, en el <a href="/media-kit">media kit</a> y, por supuesto, en los episodios largos: <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer">Spotify</a> y <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">YouTube</a>.
     </p>
   </BlogArticleLayout>
 );

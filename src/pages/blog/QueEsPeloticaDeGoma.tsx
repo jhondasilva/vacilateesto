@@ -6,7 +6,7 @@ const QueEsPeloticaDeGoma = () => (
     canonicalPath="/blog/que-es-pelotica-de-goma"
     title="Qué es Pelotica de Goma: historia, equipos y formato de la liga | Vacílate Esto"
     h1="Qué es Pelotica de Goma: el fenómeno del béisbol callejero hecho en Venezuela"
-    description="Pelotica de Goma es el podcast y la liga de béisbol callejero del ecosistema Vacílate Esto. Conoce su historia, los equipos, el formato y por qué trascendió fronteras."
+    description="Pelotica de Goma es el podcast y la liga de béisbol callejero del sistema de contenidos Vacílate Esto. Conoce su historia, los equipos, el formato y por qué trascendió fronteras."
     keywords="pelotica de goma, que es pelotica de goma, liga pelotica de goma, pelotica de goma equipos, pelotica de goma reglas, podcast beisbol venezuela, vacilate esto pelotica de goma, pelotica de goma historia"
     datePublished="2026-09-14"
     dateModified="2026-09-14"
@@ -17,7 +17,7 @@ const QueEsPeloticaDeGoma = () => (
       {
         question: "¿Qué es Pelotica de Goma?",
         answer:
-          "Pelotica de Goma es el podcast y la liga de béisbol callejero del ecosistema Vacílate Esto. Nació en Venezuela como una forma de contar la pelotica de barrio con reglas propias, equipos con identidad y una narración que mezcla deporte, cultura y entretenimiento.",
+          "Pelotica de Goma es el podcast y la liga de béisbol callejero del sistema de contenidos Vacílate Esto. Nació en Venezuela como una forma de contar la pelotica de barrio con reglas propias, equipos con identidad y una narración que mezcla deporte, cultura y entretenimiento.",
       },
       {
         question: "¿Cuáles son los equipos de la Liga Pelotica de Goma?",
@@ -37,7 +37,7 @@ const QueEsPeloticaDeGoma = () => (
       {
         question: "¿Dónde puedo ver o escuchar Pelotica de Goma?",
         answer:
-          "La liga tiene su sitio oficial en peloticadegoma.com y el podcast forma parte del ecosistema Vacílate Esto, disponible en Spotify y en el canal de YouTube @Vacilateestopodcast.",
+          "La liga tiene su sitio oficial en peloticadegoma.com y el podcast forma parte del sistema de contenidos Vacílate Esto, disponible en Spotify y en el canal de YouTube @Vacilateestopodcast.",
       },
     ]}
     toc={[
@@ -64,7 +64,7 @@ const QueEsPeloticaDeGoma = () => (
 
     <h2 id="historia">Historia: del barrio a la cancha</h2>
     <p>
-      El proyecto nació dentro de <a href="/">Vacílate Esto</a>, una de las marcas de entretenimiento digital más relevantes de Venezuela, con podcast, redes sociales, eventos y una comunidad que consume sus contenidos desde Spotify, YouTube, Instagram y TikTok. La idea fue sencilla: si el béisbol es el deporte nacional de Venezuela, ¿por qué no hay un formato de entretenimiento que lo cuente desde la calle, sin filtros ni solemnidad de estadio?
+      El proyecto nació dentro de <a href="/">Vacílate Esto</a>, un sistema de contenidos venezolano de Fun Educaitment, con episodios largos, redes sociales, eventos y una comunidad que consume sus contenidos desde Spotify, YouTube, Instagram y TikTok. La idea fue sencilla: si el béisbol es el deporte nacional de Venezuela, ¿por qué no hay un formato de entretenimiento que lo cuente desde la calle, sin filtros ni solemnidad de estadio?
     </p>
     <p>
       De ahí salió la primera versión de la liga. Lo que comenzó como un experimento de contenido se convirtió en un fenómeno local. Equipos con nombres de barrio, chivos —figuras que lideran cada franquicia— y una narración que suena más a conversación de esquina que a transmisión deportiva tradicional.
@@ -113,7 +113,7 @@ const QueEsPeloticaDeGoma = () => (
       El nombre es un homenaje directo a la <strong>pelota de goma</strong>, ese objeto casi sagrado del béisbol de barrio venezolano. Antes de que un niño agarre una pelota de cuero, juega con una pelotica de goma. Es más barata, más dura y más accesible. Puede rebotar en asfalto, en tierra, contra una pared, y sigue viva.
     </p>
     <p>
-      Esa resistencia y esa democracia —que cualquiera puede jugarla con casi nada— son el espíritu del proyecto. Pelotica de Goma no es béisbol de estadio, es béisbol de calle. Y en Venezuela, el béisbol de calle es donde se forman muchos de los grandes peloteros que después vemos en las Grandes Ligas.
+      Esa resistencia y esa democracia —que cualquiera puede jugarla con casi nada— son el espíritu del proyecto. Pelotica de Goma es béisbol de calle. Y en Venezuela, el béisbol de calle es donde se forman muchos de los grandes peloteros que después vemos en las Grandes Ligas.
     </p>
 
     <h2 id="impacto">Premios y alcance internacional</h2>
@@ -127,7 +127,7 @@ const QueEsPeloticaDeGoma = () => (
       <li><strong>Tres nominaciones en el Festival CIMA 2026</strong>: Premio Ápice por "Pelotica de Goma: The Legacy", Experiencia Figital por "Movilnet en Pelotica de Goma" y Creativo del Año para Jhon Da Silva.</li>
     </ul>
     <p>
-      En su edición anterior, el proyecto alcanzó más de <strong>12 millones de usuarios</strong>, sumó más de <strong>1,3 millones de visualizaciones</strong> en publicaciones de medios y llevó por primera vez la narración en vivo de la pelotica de goma a la radio nacional, con más de <strong>270.000 radioescuchas</strong>.
+      En su edición anterior, el proyecto alcanzó más de <strong>12 millones de usuarios</strong>, sumó más de <strong>1,3 millones de visualizaciones</strong> en publicaciones de medios.
     </p>
 
     <h2 id="seguir">Dónde seguir la liga</h2>

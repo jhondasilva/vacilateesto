@@ -20,7 +20,7 @@ const formatViews = (n: number | null) => {
   return `${n}`;
 };
 
-const TICKER = ["SHORTS DIARIOS", "★", "1 MIN", "✦", "TIKTOK · IG · YT", "★", "VIRAL", "✦"];
+const TICKER = ["SHORTS DIARIOS", "", "1 MIN", "✦", "TIKTOK · IG · YT", "", "VIRAL", "✦"];
 
 const ShortsSection = () => {
   const [shorts, setShorts] = useState<Short[] | null>(null);

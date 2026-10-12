@@ -62,7 +62,7 @@ const Premios = () => {
     "@type": "WebPage",
     headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 8 nominaciones CIMA 2026",
     description:
-      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto Podcast; 8 nominaciones CIMA 2026.",
+      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto; 8 nominaciones CIMA 2026.",
     datePublished: "2026-10-02",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
@@ -76,7 +76,7 @@ const Premios = () => {
         <title>Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026</title>
         <meta
           name="description"
-          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto Podcast y 8 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto y 8 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
@@ -112,8 +112,7 @@ const Premios = () => {
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
-              <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto
-              Podcast. Además, hay 8 nominaciones en los Premios CIMA 2026.
+              <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto. Además, hay 8 nominaciones en los Premios CIMA 2026.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -177,7 +176,7 @@ const Premios = () => {
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-4 text-center">
-              Cinco finalistas, cuatro metales: 80 % de conversión. Todos los casos son de Vacílate Esto Podcast.
+              Cinco finalistas, cuatro metales: 80 % de conversión. Todos los casos son de Vacílate Esto.
             </p>
           </div>
         </section>
@@ -218,7 +217,7 @@ const Premios = () => {
         <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-3xl space-y-5 font-body text-foreground/85 leading-relaxed">
             <p className="text-lg text-foreground font-semibold">
-              En FIAP 2026, los casos de Vacílate Esto Podcast fueron cinco finalistas y obtuvieron cuatro Soles de Bronce
+              En FIAP 2026, los casos de Vacílate Esto fueron cinco finalistas y obtuvieron cuatro Soles de Bronce
               en Producción y Formatos.
             </p>
             <p>
@@ -227,8 +226,7 @@ const Premios = () => {
               <strong> Pelotica de Goma: The Legacy</strong> recibió mención de honor / shortlist en Evento en Vivo o Híbrido.
             </p>
             <p>
-              Estos reconocimientos consolidan a Vacílate Esto como una de las marcas de entretenimiento digital más relevantes
-              de Venezuela, hecha en Venezuela, con capacidad de producir formatos propios que compiten a nivel
+              Estos reconocimientos consolidan a Vacílate Esto como un sistema de contenidos venezolano de Fun Educaitment, con capacidad de producir formatos propios que compiten a nivel
               iberoamericano en creatividad, ejecución y estrategia.
             </p>
           </div>
@@ -251,7 +249,7 @@ const Premios = () => {
                 <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento, el único shortlist venezolano en Effie Latam 2026.</p>
               </div>
             </div>
-            <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto Podcast. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
+            <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
           </div>
         </section>
 

@@ -271,7 +271,7 @@ const PodcastEterno = () => {
   return (
     <>
       <Helmet>
-        <title>El Podcast Eterno | Récord Mundial del Podcast Más Largo del Mundo 🏆</title>
+        <title>El Podcast Eterno | Récord Mundial del Podcast Más Largo del Mundo </title>
         <meta name="title" content="El Podcast Eterno | Récord Mundial del Podcast Más Largo del Mundo" />
         <meta name="description" content="El Podcast Eterno: 40 horas de transmisión en vivo que rompieron el récord mundial del podcast más largo del mundo el 30 de julio de 2022. Conducido por Juan Carlos Martínez (JuanSofa) y Jhon Da Silva (JhonSnacks) de Vacílate Esto, con 35 invitados y más de 100 personas en el equipo." />
         <meta name="keywords" content="podcast eterno, podcast más largo del mundo, récord mundial podcast, 40 horas podcast, Juan Carlos Martínez, JuanSofa, Jhon Da Silva, JhonSnacks, Vacílate Esto, récord guinness podcast, venezuela podcast, streaming venezuela, podcast latinoamerica, Danny Ocean, Luis Carlos Díaz, Leonardo Padrón, El Patio Content Studio" />
@@ -287,7 +287,7 @@ const PodcastEterno = () => {
         {/* Open Graph */}
         <meta property="og:type" content="video.other" />
         <meta property="og:site_name" content="Vacílate Esto" />
-        <meta property="og:title" content="El Podcast Eterno | 40 Horas de Récord Mundial 🏆" />
+        <meta property="og:title" content="El Podcast Eterno | 40 Horas de Récord Mundial " />
         <meta property="og:description" content="Dos venezolanos lograron la hazaña de hacer el podcast más largo del mundo: 40 horas de transmisión continua con 35 invitados y más de 100 personas en el equipo." />
         <meta property="og:url" content="https://www.vacilateesto.com/podcast-eterno" />
         <meta property="og:image" content="https://img.youtube.com/vi/w03pnnz_IM4/maxresdefault.jpg" />
@@ -302,7 +302,7 @@ const PodcastEterno = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@vacilateesto" />
         <meta name="twitter:creator" content="@vacilateesto" />
-        <meta name="twitter:title" content="El Podcast Eterno | 40 Horas de Récord Mundial 🏆" />
+        <meta name="twitter:title" content="El Podcast Eterno | 40 Horas de Récord Mundial " />
         <meta name="twitter:description" content="Dos venezolanos lograron la hazaña de hacer el podcast más largo del mundo: 40 horas de transmisión continua." />
         <meta property="twitter:image" content="https://img.youtube.com/vi/w03pnnz_IM4/maxresdefault.jpg" />
         <meta name="twitter:player" content="https://www.youtube.com/embed/w03pnnz_IM4" />
@@ -322,7 +322,7 @@ const PodcastEterno = () => {
           <section className="relative pt-28 pb-20 bg-foreground text-background overflow-hidden border-b-4 border-foreground">
             {/* Decorative stickers */}
             <div aria-hidden className="absolute top-24 left-8 hidden md:block rotate-[-12deg] bg-primary text-primary-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
-              ★ 40 horas
+               40 horas
             </div>
             <div aria-hidden className="absolute top-32 right-10 hidden md:block rotate-[8deg] bg-accent text-accent-foreground border-2 border-background px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--background))]">
               ▲ Récord Mundial 2022-2025
@@ -365,7 +365,7 @@ const PodcastEterno = () => {
                     <strong className="text-background">43 horas continuas</strong>{" "}
                     de transmisión desde <em>La Industria Bakery &amp; Café</em>, con más de{" "}
                     <strong className="text-background">50 invitados</strong> y aprobación para Récord Guinness.{" "}
-                    <span className="italic text-background/70">¡Salud, hermano! 🇻🇪🏆</span>
+                    <span className="italic text-background/70">¡Salud, hermano! </span>
                   </p>
                 </div>
                 
@@ -378,7 +378,7 @@ const PodcastEterno = () => {
           </section>
 
           {/* Stats Section */}
-          <StickerMarquee items={["★ 40 horas continuas", "▲ 35 invitados", "● 100+ producción", "✦ Récord mundial"]} variant="primary" />
+          <StickerMarquee items={[" 40 horas continuas", "▲ 35 invitados", "● 100+ producción", "✦ Récord mundial"]} variant="primary" />
           <section className="py-16 sm:py-20 bg-background border-b-4 border-foreground">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-5xl mx-auto">

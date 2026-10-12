@@ -47,11 +47,11 @@ import RouteMap from "@/components/vacilate-mundial/RouteMap";
 
 const HERO_TICKER = [
   "VACÍLATE EL MUNDIAL 2026",
-  "★",
+  "",
   "MX · USA · CAN",
   "✦",
   "ENE — AGO 2026",
-  "★",
+  "",
   "FUN EDUCAITMENT",
   "✦",
 ];
@@ -77,7 +77,6 @@ const platforms = [
   { name: "TikTok", icon: Play },
   { name: "YouTube", icon: Play },
   { name: "TikTok Live", icon: Tv },
-  { name: "Radio FM Center", icon: Radio },
 ];
 
 const contentFormats = [
@@ -338,14 +337,14 @@ const VacilateElMundial = () => {
                           <path id="vemHeroPath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
                         </defs>
                         <text className="fill-foreground font-display font-black" style={{ fontSize: "10px", letterSpacing: "2px" }}>
-                          <textPath href="#vemHeroPath">★ MUNDIAL · 2026 · COBERTURA · ESPECIAL · ★ MUNDIAL ·</textPath>
+                          <textPath href="#vemHeroPath"> MUNDIAL · 2026 · COBERTURA · ESPECIAL ·  MUNDIAL ·</textPath>
                         </text>
                       </svg>
                       <Sparkles className="absolute inset-0 m-auto w-6 h-6 sm:w-7 sm:h-7 text-primary" aria-hidden="true" />
                     </div>
 
                     <div className="absolute -top-3 right-0 z-30 bg-foreground text-background rounded-full px-3 py-1.5 rotate-6 hover:-rotate-2 transition-transform border-2 border-foreground">
-                      <span className="font-display font-black text-[10px] uppercase tracking-widest">★ FIFA 2026</span>
+                      <span className="font-display font-black text-[10px] uppercase tracking-widest"> FIFA 2026</span>
                     </div>
 
                     <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
@@ -639,7 +638,7 @@ const VacilateElMundial = () => {
             </div>
 
             <StickerMarquee
-              items={["LA GRAN EXPEDICIÓN", "★", "6 CIUDADES", "✦", "4 PAÍSES", "★", "6 MESES EN VIVO", "✦"]}
+              items={["LA GRAN EXPEDICIÓN", "", "6 CIUDADES", "✦", "4 PAÍSES", "", "6 MESES EN VIVO", "✦"]}
               variant="dark"
               className="mb-12 md:mb-16"
             />
@@ -799,7 +798,7 @@ const VacilateElMundial = () => {
                           isAccent ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
                         }`}
                       >
-                        ★ {format.stats}
+                         {format.stats}
                       </div>
                     </article>
                   );

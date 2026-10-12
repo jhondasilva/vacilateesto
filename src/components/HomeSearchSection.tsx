@@ -14,7 +14,7 @@ const SUGGESTIONS = [
   "llaneridad",
 ];
 
-const TICKER = ["BUSCA", "★", "ESCUCHA", "✦", "VACÍLATE", "★", "DESCUBRE", "✦"];
+const TICKER = ["BUSCA", "", "ESCUCHA", "✦", "VACÍLATE", "", "DESCUBRE", "✦"];
 
 const HomeSearchSection = () => {
   const [query, setQuery] = useState("");
@@ -39,7 +39,7 @@ const HomeSearchSection = () => {
       itemScope
       itemType="https://schema.org/WebPageElement"
     >
-      <meta itemProp="name" content="Buscador del podcast Vacílate Esto" />
+      <meta itemProp="name" content="Buscador dVacílate Esto" />
       <meta itemProp="description" content="Busca por palabras dentro de los episodios de Vacílate Esto: encuentra el momento exacto donde se habla de un tema, un invitado o una historia." />
       <meta itemProp="url" content="https://www.vacilateesto.com/#search" />
       {/* Background blobs + dot grid */}

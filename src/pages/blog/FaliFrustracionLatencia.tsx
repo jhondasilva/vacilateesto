@@ -93,7 +93,7 @@ const FaliFrustracionLatencia = () => (
       La mejor metáfora del episodio es venezolanísima: la idea es como una <strong>arepa frita</strong>. Si no la dejas el tiempo correcto en el aceite, queda cruda por dentro; si la dejas de más, se enchumba. Con las ideas pasa igual: si estás pensando algo y una espera de 40 minutos te interrumpe, se te enchumba la idea.
     </p>
     <p>
-      Jhon lo demostró con un ejemplo real sin IA de por medio: le llegó un video por WhatsApp para aprobar, la descarga tardaba, se fue a otros chats, y 25 minutos y 13 temas después recibió el reclamo de que no había cumplido su tarea principal. La latencia inútil le robó toda la atención. El FALI no es exclusivo de la inteligencia artificial: es de cualquier espera impuesta que malgastamos sin darnos cuenta.
+      Jhon lo demostró con un ejemplo real sin IA de por medio: le llegó un video por WhatsApp para aprobar, la descarga tardaba, se fue a otros chats, y 25 minutos y 13 temas después recibió el reclamo de que no había cumplido su tarea principal. La latencia inútil le robó toda la atención. El FALI puede aparecer en cualquier espera impuesta que malgastamos sin darnos cuenta.
     </p>
 
     <h2 id="como-lidiar">Cómo lidiar con un momento FALI</h2>

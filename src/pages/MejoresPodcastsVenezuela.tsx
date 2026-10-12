@@ -35,8 +35,8 @@ const PODCASTS: PodcastEntry[] = [
     name: "Vacílate Esto",
     category: "Humor · Cultura · Entretenimiento",
     hosts: "JuanSofa & JhonSnacks",
-    why: "Una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de Fun Educaitment. 1.84M+ seguidores activos en todas las plataformas y récord mundial del podcast más largo del mundo (40+ horas continuas en 2022).",
-    highlight: "Ecosistema completo: podcast, shorts, lives, docuseries y proyectos especiales como Podcast en la Cumbre y Vacílate El Fútbol 2026.",
+    why: "Un sistema de contenidos venezolano de Fun Educaitment. Mezcla humor, cultura pop, fútbol, gastronomía e historia bajo el concepto de Fun Educaitment. Más de 2 millones de seguidores activos en todas las plataformas y récord mundial del podcast más largo del mundo (40+ horas continuas en 2022).",
+    highlight: "Ecosistema completo: episodios largos, shorts diarios, lives, docuseries y proyectos especiales como Podcast en la Cumbre y Vacílate El Fútbol 2026.",
     spotify: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
     youtube: "https://www.youtube.com/@Vacilateestopodcast",
     apple: "https://podcasts.apple.com/us/podcast/vac%C3%ADlate-esto-podcast/id1666351070",
@@ -156,7 +156,7 @@ const itemListSchema = {
   itemListElement: PODCASTS.map((p) => ({
     "@type": "ListItem",
     item: {
-      "@type": "PodcastSeries",
+      "@type": p.name === "Vacílate Esto" ? "CreativeWorkSeries" : "PodcastSeries",
       name: p.name,
       description: p.why,
       genre: p.category,
@@ -173,7 +173,7 @@ const faqSchema = {
       name: "¿Cuáles son podcasts venezolanos destacados en 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No hay un único 'mejor podcast de Venezuela'; depende del género y del gusto. Entre los proyectos venezolanos destacados en 2026 están: Vacílate Esto (humor y cultura, +1.84M seguidores y récord mundial del podcast más largo del mundo), Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Esto es Venezueling, Venezolanos, Casos Confidenciales, Podcast en la Cumbre y Vacílate El Fútbol.",
+        text: "No hay un único 'mejor podcast de Venezuela'; depende del género y del gusto. Entre los proyectos venezolanos destacados en 2026 están: Vacílate Esto (sistema de contenidos venezolano de Fun Educaitment con episodios largos, shorts y lives), Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Esto es Venezueling, Venezolanos, Casos Confidenciales, Podcast en la Cumbre y Vacílate El Fútbol.",
       },
     },
     {
@@ -181,7 +181,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts venezolanos más populares?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Los podcasts venezolanos más populares en 2026 son: Vacílate Esto, Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Ni Me Ladilles, Palantespaya, Esto es Venezueling, Venezolanos y Casos Confidenciales.",
+        text: "Vacílate Esto publica episodios largos como parte de su sistema de contenidos venezolano. Entre los podcasts venezolanos populares están Escuela de Nada, El Cuartico, Por Eso Estamos Como Estamos, A Medias, Ni Me Ladilles, Palantespaya, Esto es Venezueling, Venezolanos y Casos Confidenciales.",
       },
     },
     {
@@ -213,7 +213,7 @@ const faqSchema = {
       name: "¿Qué podcasts venezolanos se graban DESDE Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Estos son los podcasts hechos en Venezuela que mantienen viva la conversación local.",
+        text: "La gran mayoría de los podcasts venezolanos importantes se graban fuera del país (Madrid, Miami, Buenos Aires, Ciudad de México). Entre los pocos que siguen produciéndose desde dentro de Venezuela destacan Vacílate Esto (Caracas), Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Estas son producciones hechas en Venezuela que mantienen viva la conversación local.",
       },
     },
     {
@@ -249,7 +249,7 @@ const MejoresPodcastsVenezuela = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Podcasts Venezolanos Recomendados 2026 🇻🇪 Lista por categoría</title>
+        <title>Podcasts Venezolanos Recomendados 2026  Lista por categoría</title>
         <meta
           name="description"
           content="Lista de podcasts venezolanos recomendados en 2026 por categoría: humor, cultura, fútbol, noticias. Incluye proyectos hechos en Venezuela y desde la diáspora, en Spotify y YouTube."
@@ -263,7 +263,7 @@ const MejoresPodcastsVenezuela = () => {
 
         {/* Open Graph */}
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Podcasts Venezolanos Recomendados 2026 🇻🇪" />
+        <meta property="og:title" content="Podcasts Venezolanos Recomendados 2026 " />
         <meta
           property="og:description"
           content="Lista de podcasts venezolanos recomendados en 2026. Humor, cultura, deporte y noticias."
@@ -274,7 +274,7 @@ const MejoresPodcastsVenezuela = () => {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Podcasts Venezolanos Recomendados 2026 🇻🇪" />
+        <meta name="twitter:title" content="Podcasts Venezolanos Recomendados 2026 " />
         <meta
           name="twitter:description"
           content="Lista de podcasts venezolanos recomendados en 2026."
@@ -308,14 +308,14 @@ const MejoresPodcastsVenezuela = () => {
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Una <strong>lista — no un ranking</strong> — de podcasts venezolanos relevantes en
             Spotify, Apple Podcasts y YouTube. Humor, cultura, fútbol, noticias y producción
-            <strong> hecha desde Venezuela</strong> 🇻🇪 y desde la diáspora.
+            <strong> hecha desde Venezuela</strong>  y desde la diáspora.
           </p>
         </header>
 
         {/* Hecho en Venezuela - diferenciador clave */}
         <section className="mb-10 md:mb-12 p-5 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-primary/30">
           <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-            <div className="text-3xl sm:text-4xl">🇻🇪</div>
+            <div className="text-3xl sm:text-4xl"></div>
             <div className="min-w-0">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3">
                 Hecho en Venezuela: nuestro mayor diferenciador
@@ -323,8 +323,8 @@ const MejoresPodcastsVenezuela = () => {
               <p className="text-sm sm:text-base leading-relaxed mb-3">
                 La gran mayoría de los podcasts venezolanos importantes hoy se graban
                 <strong> fuera del país</strong> — desde Madrid, Miami, Buenos Aires o Ciudad de
-                México. <strong>Vacílate Esto es uno de los pocos podcasts venezolanos relevantes
-                que sigue grabándose y produciéndose desde Caracas, Venezuela</strong>, con equipo
+                México. <strong>Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment
+                producido desde Caracas</strong>, con equipo
                 local, voces locales y mirada local.
               </p>
               <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
@@ -351,7 +351,7 @@ const MejoresPodcastsVenezuela = () => {
             Cómo elegimos esta lista
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-            No es un ranking ordenado por puesto. Reunimos podcasts venezolanos relevantes por
+            Reunimos podcasts venezolanos relevantes por
             <strong> oyentes</strong> en Apple Podcasts y
             Spotify Venezuela (vía Podscan y los charts oficiales), <strong>seguidores en redes</strong>,
             <strong> frecuencia de publicación</strong> en los últimos 12 meses, y la
@@ -446,21 +446,21 @@ const MejoresPodcastsVenezuela = () => {
               to="/podcasts-venezolanos-comedia"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
-              <h3 className="font-bold mb-1">🎭 Comedia</h3>
+              <h3 className="font-bold mb-1"> Comedia</h3>
               <p className="text-xs sm:text-sm text-muted-foreground">Los podcasts venezolanos de humor más escuchados</p>
             </Link>
             <Link
               to="/podcasts-venezolanos-futbol"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
-              <h3 className="font-bold mb-1">⚽ Fútbol</h3>
+              <h3 className="font-bold mb-1"> Fútbol</h3>
               <p className="text-xs sm:text-sm text-muted-foreground">Podcasts venezolanos de fútbol y la Vinotinto</p>
             </Link>
             <Link
               to="/podcasts-venezolanos-spotify"
               className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-colors"
             >
-              <h3 className="font-bold mb-1">🎧 En Spotify</h3>
+              <h3 className="font-bold mb-1"> En Spotify</h3>
               <p className="text-xs sm:text-sm text-muted-foreground">Los mejores podcasts venezolanos en Spotify</p>
             </Link>
           </div>

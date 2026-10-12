@@ -4,8 +4,8 @@ import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 
 const businessArms = [
-  { id: "media", title: "Media & Narrativa", subtitle: "El Núcleo", description: "El motor que genera confianza masiva. Podcast, shorts, lives, docuseries. El contenido no es el producto final; es el motor de marketing para todo el ecosistema.", icon: Tv, color: "primary" as const, products: [
-    { name: "Podcast Vacílate Esto", link: "https://youtube.com/@Vacilateestopodcast" },
+  { id: "media", title: "Media & Narrativa", subtitle: "El Núcleo", description: "El motor que genera confianza masiva. Episodios largos, shorts diarios, lives, docuseries. El contenido conecta la audiencia con nuestras experiencias y proyectos.", icon: Tv, color: "primary" as const, products: [
+    { name: "Episodios largos de Vacílate Esto", link: "https://youtube.com/@Vacilateestopodcast" },
     { name: "Vacílate El Fútbol 2026", link: "/vacilate-el-futbol" },
     { name: "Vacílate Esto Cuentos", link: "https://www.tiktok.com/@vacilateesto" },
   ]},
@@ -24,7 +24,7 @@ const businessArms = [
   ]},
 ];
 
-const TICKER = ["MEDIA HOLDING", "★", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR", "★", "DATA + EXPERIENCIAS", "✦"];
+const TICKER = ["MEDIA HOLDING", "", "4 UNIDADES", "✦", "FLYWHEEL CIRCULAR", "", "DATA + EXPERIENCIAS", "✦"];
 
 const MediaHoldingSection = () => {
   return (
@@ -47,7 +47,7 @@ const MediaHoldingSection = () => {
           badgeIcon={Sparkles}
           title="un media"
           highlight="holding"
-          description="No vendemos solo atención. Convertimos la atención en activos propios: Data, Experiencias y Productos de Consumo. Un ecosistema circular donde el éxito de cada unidad alimenta a las demás."
+          description="Convertimos la atención en activos propios: Data, Experiencias y Productos de Consumo. Un ecosistema circular donde el éxito de cada unidad alimenta a las demás."
         />
 
         {/* Business arms grid */}
@@ -104,13 +104,13 @@ const MediaHoldingSection = () => {
         {/* Flywheel card */}
         <div className="relative bg-background rounded-3xl p-6 sm:p-8 md:p-12 border-2 border-foreground sticker-shadow-lg-foreground max-w-5xl mx-auto">
           <div className="absolute -top-4 left-4 sm:left-8 bg-foreground text-background px-3 py-1.5 sm:px-4 rounded-full border-2 border-foreground">
-            <span className="font-display font-black text-[10px] uppercase tracking-widest">★ El Flywheel Vacílate</span>
+            <span className="font-display font-black text-[10px] uppercase tracking-widest"> El Flywheel Vacílate</span>
           </div>
 
           <div className="text-center mb-8 sm:mb-10 mt-2">
             <h3 className="font-display font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase mb-3">Negocio Circular</h3>
             <p className="font-body text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-              Nuestro negocio ya no es lineal, es circular. El éxito de una unidad alimenta a la otra.
+              Nuestro negocio es circular. El éxito de una unidad alimenta a la otra.
             </p>
           </div>
 

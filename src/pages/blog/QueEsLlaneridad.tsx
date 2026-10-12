@@ -39,7 +39,7 @@ const QueEsLlaneridad = () => (
     ]}
   >
     <p className="text-xl leading-relaxed">
-      Hablar de <strong>llaneridad</strong> no es hablar de geografía: es hablar de un código. Una manera de pararse frente a la vida que nació entre la sabana abierta, los hatos infinitos y el silencio que solo se rompe con el canto de un alcaraván.
+      Hablar de <strong>llaneridad</strong> es hablar de un código cultural. Una manera de pararse frente a la vida que nació entre la sabana abierta, los hatos infinitos y el silencio que solo se rompe con el canto de un alcaraván.
     </p>
 
     <p>

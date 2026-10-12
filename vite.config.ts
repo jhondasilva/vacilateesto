@@ -17,9 +17,9 @@ export default defineConfig(({ mode }) => ({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "pwa-192x192.png", "pwa-512x512.png"],
       manifest: {
-        name: "Vacílate Esto - El Mejor Podcast de Venezuela",
+        name: "Vacílate Esto - Sistema de contenidos venezolano de Fun Educaitment",
         short_name: "Vacílate Esto",
-        description: "El podcast venezolano #1 en entretenimiento. Humor, cultura y conversaciones sin filtro.",
+        description: "Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data.",
         theme_color: "#FF4B1F",
         background_color: "#0D0D0D",
         display: "standalone",
@@ -52,12 +52,12 @@ export default defineConfig(({ mode }) => ({
           {
             name: "Escuchar en Spotify",
             url: "https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1",
-            description: "Escucha el podcast en Spotify"
+            description: "Escucha los episodios largos en Spotify"
           },
           {
             name: "Ver en YouTube",
             url: "https://www.youtube.com/@Vacilateestopodcast",
-            description: "Ve el podcast en YouTube"
+            description: "Ve los episodios largos en YouTube"
           }
         ]
       },

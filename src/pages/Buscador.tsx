@@ -50,7 +50,7 @@ type Programa = "all" | "podcast" | "streaming" | "pelotica" | "cumbre";
 
 const PROGRAMAS: { k: Programa; label: string }[] = [
   { k: "all", label: "Todos" },
-  { k: "podcast", label: "Podcast" },
+  { k: "podcast", label: "Episodios largos" },
   { k: "streaming", label: "Streaming" },
   { k: "pelotica", label: "Pelotica de Goma" },
   { k: "cumbre", label: "En la Cumbre" },
@@ -276,7 +276,7 @@ const Buscador = () => {
             ◆ {stats ? `${stats.podcasts} episodios` : "Episodios"}
           </div>
           <div aria-hidden className="absolute top-32 right-8 hidden md:block rotate-[10deg] bg-accent text-accent-foreground border-2 border-foreground px-3 py-1 font-display font-black text-xs uppercase tracking-widest shadow-[6px_6px_0_hsl(var(--foreground))]">
-            ★ {stats ? `${stats.shorts.toLocaleString()} shorts` : "Shorts"}
+             {stats ? `${stats.shorts.toLocaleString()} shorts` : "Shorts"}
           </div>
 
           <div className="container mx-auto px-4 pt-10 pb-8 md:pt-20 md:pb-14 max-w-4xl">
@@ -354,7 +354,7 @@ const Buscador = () => {
             <div className="flex gap-2 mt-6 justify-center">
               {([
                 { k: "all", label: "Todo", icon: Sparkles },
-                { k: "podcast", label: "Podcasts", icon: Mic },
+                { k: "podcast", label: "Episodios largos", icon: Mic },
                 { k: "short", label: "Shorts", icon: Film },
               ] as const).map(({ k, label, icon: Icon }) => (
                 <button
@@ -512,7 +512,7 @@ const Buscador = () => {
                               ) : (
                                 <>
                                   <Mic className="w-3 h-3 mr-1" />
-                                  Podcast
+                                  Episodio largo
                                 </>
                               )}
                             </Badge>

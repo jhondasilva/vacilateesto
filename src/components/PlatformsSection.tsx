@@ -3,11 +3,11 @@ import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
 
 const platformsData = [
-  { name: "Podcast", platforms: [
+  { name: "Episodios largos", platforms: [
     { name: "Spotify", icon: "spotify" }, { name: "YouTube", icon: "youtube" },
     { name: "Pocket Casts", icon: "pocket" },
   ]},
-  { name: "Short Podcast", platforms: [
+  { name: "Shorts", platforms: [
     { name: "YouTube", icon: "youtube" }, { name: "Pocket Casts", icon: "pocket" },
     { name: "TikTok", icon: "tiktok" }, { name: "Instagram", icon: "instagram" },
     { name: "Facebook", icon: "facebook" },
@@ -51,7 +51,7 @@ const PlatformIcon = ({ icon, size = "md" }: { icon: string; size?: "sm" | "md" 
   return icons[icon] || <div className={`${sizeClass} rounded-full bg-muted`} />;
 };
 
-const TICKER = ["DISTRIBUCIÓN", "★", "10 CANALES", "✦", "MULTIPLATAFORMA", "★", "GLOBAL", "✦"];
+const TICKER = ["DISTRIBUCIÓN", "", "10 CANALES", "✦", "MULTIPLATAFORMA", "", "GLOBAL", "✦"];
 
 const PlatformsSection = () => {
   return (
@@ -73,7 +73,7 @@ const PlatformsSection = () => {
           badgeVariant="outline"
           title="dónde nos"
           highlight="encuentras"
-          description="Una marca de Fun Educaitment presente en múltiples plataformas."
+          description="Un sistema de contenidos venezolano de Fun Educaitment presente en múltiples plataformas."
           onDark
         />
 

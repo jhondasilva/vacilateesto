@@ -6,7 +6,7 @@ const HeroBanner = () => {
       <div className="w-full">
         <img
           src={headerBanner}
-          alt="Vacílate Esto Podcast - JuanSofa y JhonSnacks, los hosts del mejor podcast de Venezuela"
+          alt="Vacílate Esto - JuanSofa y JhonSnacks, los hosts del sistema de contenidos venezolano de Fun Educaitment"
           className="w-full h-auto object-cover"
           loading="eager"
           fetchPriority="high"

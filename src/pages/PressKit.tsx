@@ -44,10 +44,10 @@ const CONTACTS = [
 ];
 
 const BOILERPLATE =
-  "Vacílate Esto es una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela: podcast, social media y eventos en vivo. Conducido por JhonSnacks y JuanSofa, produce contenido semanal en YouTube, TikTok, Instagram y Facebook, además de formatos propios como Guerra de Comerciales, Vacílate El Fútbol y Podcast en la Cumbre, la serie que documenta expediciones y grabaciones en cumbre; el plan del Pico Bolívar es grabar un episodio completo con un estudio de podcast en la cumbre del 15 al 23 de noviembre de 2026, sujeto a seguridad y viabilidad. Su comunidad y sus marcas aliadas convierten cada formato en conversación nacional.";
+  "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela.";
 
 const BOILERPLATE_EN =
-  "Vacílate Esto is one of Venezuela's most relevant digital entertainment brands, made in Venezuela: podcast, social media and live events. Hosted by JhonSnacks and JuanSofa, it publishes weekly content on YouTube, TikTok, Instagram and Facebook, and produces original formats such as Guerra de Comerciales, Vacílate El Fútbol and Podcast en la Cumbre.";
+  "Vacílate Esto is a Venezuelan Fun Educaitment content system: football, gastronomy, history, legends, unusual facts and urban myths told with street smarts and data. Created by JuanSofa and JhonSnacks in 2020 and produced by El Patio Content Studio in Caracas, it combines long-form episodes, daily shorts, live streams, docuseries, experiences and live events. More than 2 million followers across YouTube, TikTok, Instagram, Spotify and Twitch. It also creates content for brands connecting with Venezuela.";
 
 const PressKit = () => (
   <div className="min-h-screen bg-background">

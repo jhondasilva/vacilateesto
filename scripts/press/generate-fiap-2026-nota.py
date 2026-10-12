@@ -99,9 +99,9 @@ c.setFillColor(INK); c.setFont("Helvetica-Bold", 10)
 c.drawString(36, y, "Caracas, Venezuela — 20 de agosto de 2026.")
 y = wrap(c, "Vacílate Esto anunció que cinco de sus proyectos fueron seleccionados como finalistas en la edición 2026 de los FIAP (Festival Iberoamericano de Publicidad), el certamen que reconoce las mejores piezas y estrategias de comunicación de Iberoamérica.",
          36, y-16, W-72)
-y = wrap(c, "Las nominaciones reconocen el trabajo de tres formatos propios del ecosistema Vacílate Esto: la docuserie Streaming from the Lost World, la campaña Walking Ads Above the Algorithm y el evento en vivo Pelotica de Goma: The Legacy. Las categorías abarcan técnicas de producción de contenidos, estrategia digital, lanzamiento de programas, promoción de broadcast y eventos en vivo o híbridos.",
+y = wrap(c, "Las nominaciones reconocen el trabajo de tres formatos propios del sistema de contenidos Vacílate Esto: la docuserie Streaming from the Lost World, la campaña Walking Ads Above the Algorithm y el evento en vivo Pelotica de Goma: The Legacy. Las categorías abarcan técnicas de producción de contenidos, estrategia digital, lanzamiento de programas, promoción de broadcast y eventos en vivo o híbridos.",
          36, y-6, W-72)
-y = wrap(c, "Los FIAP 2026 consolidan a Vacílate Esto como una de las marcas de entretenimiento digital más relevantes de Venezuela, hecha en Venezuela, con capacidad de crear formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
+y = wrap(c, "Los FIAP 2026 consolidan a Vacílate Esto como un sistema de contenidos venezolano de Fun Educaitment, con capacidad de crear formatos propios que compiten a nivel iberoamericano en creatividad, ejecución y estrategia.",
          36, y-6, W-72)
 
 # KPIs
@@ -123,11 +123,11 @@ c.setFillColor(INK); c.setFont("Helvetica-Bold", 15)
 c.drawString(36, y, "Listado de finalistas")
 
 finalists = [
-    ("Técnicas de Producción de Contenidos", "Contenido con mejor estrategia digital", "Streaming from the Lost World", "Vacílate Esto Podcast"),
+    ("Técnicas de Producción de Contenidos", "Contenido con mejor estrategia digital", "Streaming from the Lost World", "Vacílate Esto"),
     ("Formatos", "Mejor estrategia de lanzamiento de programa", "Walking Ads Above the Algorithm", "Vacílate Esto"),
-    ("Producción", "Técnicas de Producción — Promoción de Broadcast", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
-    ("Formatos", "Evento en Vivo o Híbrido", "Pelotica de Goma: The Legacy", "Vacílate Esto Podcast"),
-    ("Formatos", "Contenido con mejor estrategia digital", "Walking Ads Above the Algorithm", "Vacílate Esto Podcast"),
+    ("Producción", "Técnicas de Producción — Promoción de Broadcast", "Walking Ads Above the Algorithm", "Vacílate Esto"),
+    ("Formatos", "Evento en Vivo o Híbrido", "Pelotica de Goma: The Legacy", "Vacílate Esto"),
+    ("Formatos", "Contenido con mejor estrategia digital", "Walking Ads Above the Algorithm", "Vacílate Esto"),
 ]
 
 yy = y-28

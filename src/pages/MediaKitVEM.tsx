@@ -23,7 +23,6 @@ import {
   Youtube,
   Tv,
   Play,
-  Radio,
 } from "lucide-react";
 import logoVEM from "@/assets/logo-vacilate-futbol.png";
 
@@ -122,16 +121,10 @@ const ecosystem = [
     items: ["TikTok Live", "YouTube Live", "Watch parties", "Reacciones"],
   },
   {
-    title: "Podcast",
+    title: "Episodios largos",
     icon: Mic,
     color: "bg-foreground",
     items: ["Episodios semanales", "Especiales Mundial", "Spotify · YouTube"],
-  },
-  {
-    title: "Radio",
-    icon: Radio,
-    color: "bg-primary",
-    items: ["FM Center", "Cobertura nacional", "Cápsulas diarias"],
   },
 ];
 
@@ -223,11 +216,11 @@ const MediaKitVEM = () => {
               <div className="flex whitespace-nowrap animate-marquee">
                 {Array.from({ length: 4 }).flatMap((_, k) => [
                   "VACÍLATE EL FÚTBOL 2026",
-                  "★",
+                  "",
                   "MX · USA · CAN · FRA · VEN",
                   "✦",
                   "FEB — JUL 2026",
-                  "★",
+                  "",
                   "16 PARADAS · 4 PAÍSES",
                   "✦",
                 ].map((item, i) => (
@@ -255,7 +248,7 @@ const MediaKitVEM = () => {
 
                   {/* Floating sticker: 16 PARADAS */}
                   <div className="absolute top-0 sm:-top-2 right-0 md:right-12 z-20 bg-accent text-accent-foreground rounded-2xl px-2.5 py-1 sm:px-3 sm:py-1.5 rotate-6 hover:-rotate-3 transition-transform duration-300 border-2 border-foreground shadow-[4px_4px_0_hsl(var(--foreground))] sm:shadow-[6px_6px_0_hsl(var(--foreground))]">
-                    <span className="font-display font-black text-[10px] uppercase tracking-widest">★ 16 Paradas · 4 Países</span>
+                    <span className="font-display font-black text-[10px] uppercase tracking-widest"> 16 Paradas · 4 Países</span>
                   </div>
 
                   <h1
@@ -276,7 +269,7 @@ const MediaKitVEM = () => {
                   {/* Subtitle + CTAs */}
                   <div className="mt-6 sm:mt-8 max-w-xl">
                     <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-                      El <span className="font-bold text-foreground">ecosistema de Fun Educaitment</span> que cubre el Mundial FIFA 2026 con
+                      El <span className="font-bold text-foreground">sistema de contenidos de Fun Educaitment</span> que cubre el Mundial FIFA 2026 con
                       <span className="font-bold text-foreground"> humor, data y calle</span>. MX · USA · CAN · FRA · VEN — feb a jul 2026. ✦
                     </p>
 
@@ -335,7 +328,7 @@ const MediaKitVEM = () => {
                         </defs>
                         <text className="fill-foreground font-display font-black" style={{ fontSize: "11px", letterSpacing: "2px" }}>
                           <textPath href="#circlePathVem">
-                            ★ MUNDIAL · 2026 · MX · USA · CAN · ★ MUNDIAL · 2026 ·
+                             MUNDIAL · 2026 · MX · USA · CAN ·  MUNDIAL · 2026 ·
                           </textPath>
                         </text>
                       </svg>
@@ -490,10 +483,10 @@ const MediaKitVEM = () => {
                 Vacílate El Fútbol
               </h2>
               <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                Es la cobertura no-oficial del Mundial FIFA 2026 desde la mirada de Vacílate Esto. Un ecosistema de contenido que mezcla humor, data, gastronomía y calle para hablarle tanto al fanático duro del fútbol como al 80% del mercado que disfruta el Mundial sin ser futbolero.
+                Es la cobertura no-oficial del Mundial FIFA 2026 desde la mirada de Vacílate Esto. Un sistema de contenidos que mezcla humor, data, gastronomía y calle para hablarle tanto al fanático duro del fútbol como al 80% del mercado que disfruta el Mundial sin ser futbolero.
               </p>
               <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                Reels, Shorts, TikToks, Streaming en vivo y Podcast — desde Caracas hasta las sedes de México, Estados Unidos, Francia y Venezuela. Todo, todo el tiempo: la locura.
+                Reels, Shorts, TikToks, Streaming en vivo y episodios largos — desde Caracas hasta las sedes de México, Estados Unidos, Francia y Venezuela. Todo, todo el tiempo: la locura.
               </p>
 
               {/* Pillars */}
@@ -601,7 +594,6 @@ const MediaKitVEM = () => {
                     { label: "TikTok", icon: Play },
                     { label: "YouTube", icon: Youtube },
                     { label: "TikTok Live", icon: Tv },
-                    { label: "Radio FM Center", icon: Radio },
                   ].map((p) => (
                     <span
                       key={p.label}

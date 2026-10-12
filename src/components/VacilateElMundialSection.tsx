@@ -1,10 +1,10 @@
 import { Globe, UtensilsCrossed, Newspaper, MapPin, Zap, Sparkles, ArrowUpRight } from "lucide-react";
 import logoVacilateElMundial from "@/assets/logo-vacilate-futbol.png";
 
-const TICKER = ["VACÍLATE EL MUNDIAL 2026", "★", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "★", "EL GOL Y EL TACO", "✦"];
+const TICKER = ["VACÍLATE EL MUNDIAL 2026", "", "MÉXICO · USA · CANADÁ", "✦", "FEB — JUL 2026", "", "EL GOL Y EL TACO", "✦"];
 
 const features = [
-  { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live) y Radio FM Center" },
+  { icon: Globe, title: "Multiplataforma", description: "Instagram, YouTube, TikTok (incluyendo TikTok Live)" },
   { icon: Zap, title: "Fun Educaitment", description: "Diversión, educación y entretenimiento en cada contenido" },
   { icon: UtensilsCrossed, title: "El Gol y la Comida", description: "Sabores de México, USA y Canadá mientras celebramos cada gol" },
   { icon: Newspaper, title: "Vacílalo News", description: "Noticias del fútbol con ironía y data insólita" },
@@ -71,7 +71,7 @@ const VacilateElMundialSection = () => {
                   </defs>
                   <text className="fill-foreground font-display font-black" style={{ fontSize: "10px", letterSpacing: "2px" }}>
                     <textPath href="#vemPath">
-                      ★ MUNDIAL · 2026 · COBERTURA · ESPECIAL · ★ MUNDIAL ·
+                       MUNDIAL · 2026 · COBERTURA · ESPECIAL ·  MUNDIAL ·
                     </textPath>
                   </text>
                 </svg>
@@ -80,7 +80,7 @@ const VacilateElMundialSection = () => {
 
               {/* Sticker: PROYECTO ESPECIAL */}
               <div className="absolute -top-3 right-0 z-30 bg-foreground text-background rounded-full px-3 py-1.5 rotate-6 hover:-rotate-2 transition-transform border-2 border-foreground">
-                <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Proyecto 2026</span>
+                <span className="font-display font-black text-[10px] uppercase tracking-widest"> Proyecto 2026</span>
               </div>
 
               <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-10 sticker-shadow-lg-accent hover:shadow-[16px_16px_0_hsl(var(--primary))] hover:-translate-x-1 hover:-translate-y-1 transition-all -rotate-2 hover:rotate-0">
@@ -169,7 +169,7 @@ const VacilateElMundialSection = () => {
         {/* Content formats — neo-brutalist card */}
         <div className="relative bg-background rounded-3xl border-2 border-foreground p-6 sm:p-8 md:p-12 sticker-shadow-lg-foreground">
           <div className="absolute -top-4 left-4 sm:left-8 bg-foreground text-background px-3 py-1.5 sm:px-4 rounded-full border-2 border-foreground">
-            <span className="font-display font-black text-[10px] uppercase tracking-widest">★ Contenido que conecta</span>
+            <span className="font-display font-black text-[10px] uppercase tracking-widest"> Contenido que conecta</span>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 mt-4">
@@ -193,7 +193,7 @@ const VacilateElMundialSection = () => {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-2 pt-8 border-t-2 border-dashed border-border">
             <span className="text-xs uppercase tracking-widest font-bold text-muted-foreground mr-1">Seguinos:</span>
-            {["Instagram", "TikTok", "YouTube", "Radio FM Center"].map((p, i) => (
+            {["Instagram", "TikTok", "YouTube"].map((p, i) => (
               <span
                 key={p}
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-background border-2 border-foreground text-foreground shadow-[3px_3px_0_hsl(var(--foreground))]"

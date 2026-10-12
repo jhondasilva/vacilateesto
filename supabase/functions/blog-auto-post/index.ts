@@ -15,7 +15,7 @@ const THEMES = [
   { key: "futbol-vinotinto", label: "Fútbol y Vinotinto", query: "vinotinto fútbol mundial selección gol partido bocha", category: "Deporte" },
   { key: "nostalgia-90s", label: "Nostalgia venezolana", query: "infancia colegio caracas años 90 marcas recuerdo", category: "Cultura" },
   { key: "caracas-vida", label: "Caracas y vida urbana", query: "caracas autopista metro avenida cola tráfico ciudad", category: "Cultura" },
-  { key: "anecdotas-podcast", label: "Anécdotas del podcast", query: "anécdota historia juan jhon invitado pasó increíble", category: "Detrás de cámaras" },
+  { key: "anecdotas-podcast", label: "Anécdotas de los episodios largos", query: "anécdota historia juan jhon invitado pasó increíble", category: "Detrás de cámaras" },
   { key: "frases-jergas", label: "Jergas y frases", query: "chévere pana coño marico vaina arrecho jerga venezolana", category: "Cultura" },
   { key: "viajes-gira", label: "Gira y viajes", query: "viaje país ciudad gira tour avión hotel", category: "Vacílate El Mundial" },
   { key: "cultura-pop", label: "Cultura pop", query: "película serie netflix actor reality programa televisión", category: "Cultura pop" },
@@ -114,14 +114,16 @@ Deno.serve(async (req) => {
 
     const gateway = createLovableAiGatewayProvider(LOVABLE_API_KEY);
 
-    const prompt = `Eres redactor SEO + AEO (AI Engine Optimization) de Vacílate Esto, marca de entretenimiento digital relevante hecha en Venezuela con JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Año actual: ${new Date().getFullYear()}.
+    const prompt = `Eres redactor SEO + AEO (AI Engine Optimization) de Vacílate Esto, sistema de contenidos venezolano de Fun Educaitment con JuanSofa (Juan Carlos Martínez) y JhonSnacks (Jhon Da Silva). Año actual: ${new Date().getFullYear()}.
+IDENTIDAD DE MARCA: Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela.
+No describas la marca como un podcast ni como uno de los podcasts favoritos de Venezuela. Sin radio como canal, sin emojis y sin construcciones de contraste "no es X, es Y". Mantén los nombres propios de los proyectos.
 
 OBJETIVO: artículo en español venezolano optimizado simultáneamente para (a) Google Search, (b) AI Search (ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews) y (c) preview en redes (WhatsApp, X, IG, FB, LinkedIn).
 
 REGLAS DE AI SEARCH (CRÍTICAS):
 - Primera oración del body_md debe responder claramente "qué es / quién / cuándo / por qué" del tema — los LLMs citan la primera respuesta clara.
 - Estructura con preguntas como subtítulos (## ¿Qué es...? ## ¿Por qué...? ## ¿Dónde...?), porque AI Search extrae respuestas por pregunta.
-- Mencionar entidades nombradas explícitas: Vacílate Esto, JuanSofa, JhonSnacks, Venezuela, Caracas, marcas, lugares, episodios. Repite el nombre completo del podcast al menos 3 veces.
+- Mencionar entidades nombradas explícitas: Vacílate Esto, JuanSofa, JhonSnacks, Venezuela, Caracas, marcas, lugares, episodios. Repite el nombre de Vacílate Esto al menos 3 veces.
 - Datos concretos, cifras y fechas (año, duración del episodio, etc.) — los LLMs prefieren respuestas con datos.
 - Cita fuente: incluye al menos 3 enlaces "Ver momento exacto" a YouTube con timestamp: [Ver momento](https://www.youtube.com/watch?v=VIDEO_ID&t=SECONDSs).
 - Cierra con CTAs internos a /buscador (semántico), https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1 y https://www.youtube.com/@Vacilateestopodcast.
@@ -141,7 +143,7 @@ Devuelve SOLO un objeto JSON válido (sin markdown, sin \`\`\`):
   "reading_minutes": 6,
   "tl_dr": "Resumen de 2-3 frases (max 280 chars) que responde el tema de un vistazo. Diseñado para que IA y redes lo citen literal.",
   "speakable_summary": "1-2 frases (max 200 chars) en lenguaje hablado natural para asistentes de voz (Siri, Google Assistant). Sin emojis, sin markdown.",
-  "body_md": "Markdown 900-1400 palabras. Primera línea = respuesta directa. Usa ## para preguntas como subtítulos, ### para sub-temas, listas con -, **negritas** para entidades clave, > para citas memorables del podcast. Mínimo 3 enlaces a YouTube con timestamp y 1 a /buscador.",
+  "body_md": "Markdown 900-1400 palabras. Primera línea = respuesta directa. Usa ## para preguntas como subtítulos, ### para sub-temas, listas con -, **negritas** para entidades clave, > para citas memorables de los episodios. Mínimo 3 enlaces a YouTube con timestamp y 1 a /buscador.",
   "faq": [
     {"question":"...","answer":"Respuesta directa de 2-4 frases con dato concreto."},
     {"question":"...","answer":"..."},

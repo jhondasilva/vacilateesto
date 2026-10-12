@@ -83,7 +83,7 @@ const PeloticaSplit4 = () => (
       La liga llega a este 4to Split tras haber conquistado el primer <strong>León de Plata</strong> para Venezuela en Cannes Lions 2025, un <strong>shortlist en Cannes Lions 2026</strong> en Community Engagement – Entertainment for Sport y un <strong>shortlist en FIAP 2026</strong> en Evento en Vivo o Híbrido. En Venezuela, el <strong>Festival CIMA 2026</strong> sumó tres nominaciones: Premio Ápice ("Pelotica de Goma: The Legacy"), Experiencia Figital ("Movilnet en Pelotica de Goma") y Creativo del Año (Jhon Da Silva).
     </p>
     <p>
-      En su edición anterior, el proyecto alcanzó más de <strong>12 millones de usuarios</strong>, sumó más de <strong>1,3 millones de visualizaciones</strong> en publicaciones de medios y llevó por primera vez la narración en vivo de la pelotica de goma a la radio nacional, con más de <strong>270.000 radioescuchas</strong>.
+      En su edición anterior, el proyecto alcanzó más de <strong>12 millones de usuarios</strong>, sumó más de <strong>1,3 millones de visualizaciones</strong> en publicaciones de medios.
     </p>
 
     <h2 id="prensa">Prensa y media kit</h2>
@@ -91,7 +91,7 @@ const PeloticaSplit4 = () => (
       La nota de prensa completa y el media kit del 4to Split están disponibles en la sala de prensa de la liga: <a href="https://www.peloticadegoma.com/prensa" target="_blank" rel="noopener noreferrer">peloticadegoma.com/prensa</a>. Contacto de prensa: <strong>Andreina Ascención</strong>, Directora — <a href="mailto:andreina.ascension@hacemosloquenosgusta.com">andreina.ascension@hacemosloquenosgusta.com</a>.
     </p>
     <p>
-      Más de nuestro ecosistema: conocé <a href="/premios">los premios y reconocimientos</a> de Vacílate Esto y escuchá el podcast en <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer">Spotify</a> o <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">YouTube</a>.
+      Más de nuestro ecosistema: conocé <a href="/premios">los premios y reconocimientos</a> de Vacílate Esto y escucha los episodios largos en <a href="https://open.spotify.com/show/2b2AeZVRxEFkNy1KKYkQG1" target="_blank" rel="noopener noreferrer">Spotify</a> o <a href="https://www.youtube.com/@Vacilateestopodcast" target="_blank" rel="noopener noreferrer">YouTube</a>.
     </p>
   </BlogArticleLayout>
 );

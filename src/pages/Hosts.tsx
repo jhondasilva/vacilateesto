@@ -25,11 +25,11 @@ const Hosts = () => {
         <title>Hosts de Vacílate Esto: Conoce, Explora e Interactúa con su Contenido</title>
         <meta
           name="description"
-          content="Perfiles de Jhon y Juan, insights lingüísticos de sus podcasts, buscador por hablante e IA que conoce todo el contenido diarizado de YouTube."
+          content="Perfiles de Jhon y Juan, insights lingüísticos de sus episodios largos, buscador por hablante e IA que conoce todo el contenido diarizado de YouTube."
         />
         <link rel="canonical" href={url} />
         <meta property="og:title" content="Hosts de Vacílate Esto" />
-        <meta property="og:description" content="Conoce a Jhon y Juan, explora qué dice cada uno y pregúntale a la IA sobre sus podcasts y shorts." />
+        <meta property="og:description" content="Conoce a Jhon y Juan, explora qué dice cada uno y pregúntale a la IA sobre sus episodios largos y shorts." />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
       </Helmet>
@@ -49,7 +49,7 @@ const Hosts = () => {
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
             Conoce a <strong className="text-foreground">JhonSnacks</strong> y{" "}
             <strong className="text-foreground">JuanSofa</strong>, explora qué ha dicho cada uno en
-            los podcasts y shorts de YouTube, y pregúntale a la IA cualquier cosa sobre el
+            los episodios largos y shorts de YouTube, y pregúntale a la IA cualquier cosa sobre el
             contenido diarizado.
           </p>
         </section>
@@ -105,7 +105,7 @@ const Hosts = () => {
                 </h2>
                 <p className="text-sm md:text-base text-muted-foreground">
                   Busca frases textuales por hablante, mira estadísticas por episodio o pregúntale
-                  a la IA que conoce todo el contenido diarizado de podcasts y shorts.
+                  a la IA que conoce todo el contenido diarizado de episodios largos y shorts.
                 </p>
               </div>
               <LabHosts embedded />

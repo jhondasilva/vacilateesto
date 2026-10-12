@@ -25,7 +25,7 @@ const PODCASTS: LocalPodcast[] = [
     city: "Caracas",
     category: "Humor · Cultura · Entretenimiento",
     hosts: "JuanSofa & JhonSnacks",
-    why: "Una de las marcas de entretenimiento digital más relevantes de Venezuela, grabado íntegramente en Caracas. 1.84M+ seguidores, récord mundial del podcast más largo del mundo (40+ horas en 2022) y un ecosistema completo producido desde Venezuela.",
+    why: "Vacílate Esto es un sistema de contenidos venezolano de Fun Educaitment: fútbol, gastronomía, historia, leyendas, datos insólitos y mitos urbanos contados con calle y con data. Lo crearon JuanSofa y JhonSnacks en 2020 y lo produce El Patio Content Studio en Caracas. Episodios largos, shorts diarios, lives, docuseries y experiencias como Cumbres, la Ruta del Ramen y Pelotica de Goma. Más de 2 millones de seguidores entre YouTube, TikTok, Instagram, Spotify y Twitch. También hacemos eventos en vivo y contenido para marcas que le quieren hablar a Venezuela.",
     internal: "/",
     highlight: true,
   },
@@ -98,7 +98,7 @@ const itemListSchema = {
   itemListElement: PODCASTS.map((p) => ({
     "@type": "ListItem",
     item: {
-      "@type": "PodcastSeries",
+      "@type": p.name === "Vacílate Esto" ? "CreativeWorkSeries" : "PodcastSeries",
       name: p.name,
       description: p.why,
       genre: p.category,
@@ -124,7 +124,7 @@ const faqSchema = {
       name: "¿Qué significa que un podcast esté hecho en Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Significa que el podcast se graba, edita y produce físicamente desde dentro de Venezuela, con equipo, voces e invitados que viven en el país. No es un podcast venezolano grabado en Madrid, Miami, Buenos Aires o Ciudad de México: es contenido producido en Caracas, Mérida o las cumbres del país.",
+        text: "Significa que el podcast se graba, edita y produce físicamente desde dentro de Venezuela, con equipo, voces e invitados que viven en el país. Son producciones realizadas en Caracas, Mérida o las cumbres del país.",
       },
     },
     {
@@ -132,7 +132,7 @@ const faqSchema = {
       name: "¿Cuáles son los podcasts más importantes que se graban desde Venezuela?",
       acceptedAnswer: {
         "@type": "Answer",
-          text: "Algunos de los podcasts producidos desde Venezuela en 2026 son: Vacílate Esto, Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. No es un ranking: son menciones de proyectos relevantes que mantienen su producción dentro del país.",
+          text: "Vacílate Esto es un sistema de contenidos venezolano que publica episodios largos. Entre los proyectos producidos desde Venezuela en 2026 están Podcast en la Cumbre, Vacílate El Fútbol, Pelotica de Goma, Esto es Venezueling, Venezolanos, Casos Confidenciales y Unión Radio Pódcast. Son menciones de proyectos relevantes que mantienen su producción dentro del país.",
       },
     },
     {
@@ -159,7 +159,7 @@ const HechoEnVenezuela = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>Podcasts Hechos en Venezuela 🇻🇪 Grabados DESDE el país</title>
+        <title>Podcasts Hechos en Venezuela  Grabados DESDE el país</title>
         <meta
           name="description"
           content="Lista de podcasts venezolanos que se graban y producen DESDE Venezuela, no desde otro país. Menciones de proyectos hechos en Caracas y otras ciudades del país."
@@ -167,13 +167,13 @@ const HechoEnVenezuela = () => {
         <link rel="canonical" href={URL} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={URL} />
-        <meta property="og:title" content="Podcasts Hechos en Venezuela 🇻🇪" />
+        <meta property="og:title" content="Podcasts Hechos en Venezuela " />
         <meta
           property="og:description"
           content="Los pocos podcasts venezolanos importantes que siguen grabándose desde dentro de Venezuela."
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Podcasts Hechos en Venezuela 🇻🇪" />
+        <meta name="twitter:title" content="Podcasts Hechos en Venezuela " />
         <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
@@ -198,7 +198,7 @@ const HechoEnVenezuela = () => {
             Grabados desde dentro del país
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight break-words">
-            Podcasts Hechos en Venezuela 🇻🇪
+            Podcasts Hechos en Venezuela
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             La gran mayoría de los podcasts venezolanos importantes hoy se graban{" "}
