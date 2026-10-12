@@ -329,7 +329,7 @@ Puntos de partida.
 
 ## Lo inútil es la espera impuesta.
 
-La palabra «inútil» se refiere a la espera que la herramienta impone sobre nuestra intención de crear. Lo que hacemos durante ese intervalo puede resultar útil: pensar, observar, descansar o encontrar una nueva idea. Depende de nuestra intención y de nuestra motivación. Aprovechar ese tiempo no elimina la interrupción que lo originó.
+La palabra «inútil» se refiere a la espera que la herramienta impone sobre nuestra intención de crear. Lo que hacemos durante ese intervalo puede resultar útil: pensar, observar, descansar o encontrar una nueva idea. También puede deslizarse hacia un entretenimiento banal que desvía o rompe el hilo del pensamiento. Son dos grandes posibilidades que varían según la ocasión, sin que el ocio sea un problema en sí mismo. Depende de nuestra intención y de nuestra motivación. Aprovechar ese tiempo no elimina la interrupción que lo originó.
 
 ---
 
