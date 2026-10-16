@@ -39,7 +39,9 @@ export const createPageViewTracker = (d: TrackerDeps, maxWait = 1200, settleMs =
   const emit = (token: number, force = false) => {
     const p = pending;
     if (!p || p.token !== token) return;
-    if (!force && d.isWaiting?.()) return; // el próximo cambio del <head> reprograma
+    // Nunca emitir mientras la página carga (ni siquiera al vencer el plazo):
+    // el observador del <head> reprograma cuando llega el título real.
+    if (d.isWaiting?.()) return;
 
     cancel();
     const current = normalizePath(d.getPath());

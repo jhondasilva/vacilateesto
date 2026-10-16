@@ -6,6 +6,7 @@ const corsHeaders = {
 };
 
 const SITE = "https://www.vacilateesto.com";
+const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
 
 function escapeXml(s: string): string {
   return s
@@ -32,17 +33,18 @@ Deno.serve(async (req) => {
       .eq("kind", "podcast")
       .eq("is_available", true)
       .not("published_at", "is", null)
+      .lte("published_at", new Date().toISOString())
       .order("published_at", { ascending: false })
       .limit(1000);
 
     if (error) throw error;
+    const published = (videos ?? []).filter((v) => VIDEO_ID.test(v.video_id ?? ""));
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n`;
 
     // Las páginas estáticas viven en /sitemap.xml; aquí solo fichas de episodio.
-    for (const v of videos ?? []) {
+    for (const v of published) {
       const pageUrl = `${SITE}/episodios/${v.video_id}`;
-      const ytUrl = `https://www.youtube.com/watch?v=${v.video_id}`;
       const title = escapeXml((v.title ?? "").slice(0, 100));
       const desc = escapeXml((v.description ?? v.title ?? "Episodio de Vacílate Esto").slice(0, 2000));
       const thumb = escapeXml(v.thumbnail_url ?? `https://i.ytimg.com/vi/${v.video_id}/hqdefault.jpg`);
@@ -56,7 +58,6 @@ Deno.serve(async (req) => {
       xml += `      <video:title>${title}</video:title>\n`;
       xml += `      <video:description>${desc}</video:description>\n`;
       xml += `      <video:player_loc allow_embed="yes">https://www.youtube.com/embed/${v.video_id}</video:player_loc>\n`;
-      xml += `      <video:content_loc>${ytUrl}</video:content_loc>\n`;
       if (v.duration_seconds) xml += `      <video:duration>${v.duration_seconds}</video:duration>\n`;
       if (v.published_at) xml += `      <video:publication_date>${new Date(v.published_at).toISOString()}</video:publication_date>\n`;
       xml += `      <video:family_friendly>yes</video:family_friendly>\n`;
