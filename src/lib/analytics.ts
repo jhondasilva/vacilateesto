@@ -93,9 +93,35 @@ const loadGa = () => {
   document.head.appendChild(s);
 };
 
+/** Parámetros de consulta considerados seguros para Metricool (lista vacía: ninguno). */
+const METRICOOL_SAFE_PARAMS = new Set<string>();
+const SENSITIVE_REFERRER = /\/(dashboard|gira|reset-password|admin|auth|~oauth)(\/|$|\?|#)/i;
+
+/**
+ * Metricool (beTracker.t) lee location/referrer reales y no admite override.
+ * Si la URL tiene hash o algún parámetro fuera de la lista segura, o el referrer
+ * viene de una ruta privada/sensible o trae query/hash, se omite el hit.
+ */
+export const metricoolSafe = (href: string, referrer: string): boolean => {
+  try {
+    const u = new URL(href);
+    if (u.hash) return false;
+    for (const k of u.searchParams.keys()) if (!METRICOOL_SAFE_PARAMS.has(k)) return false;
+    if (isPrivatePath(u.pathname)) return false;
+    if (referrer) {
+      const r = new URL(referrer);
+      if (r.search || r.hash || SENSITIVE_REFERRER.test(r.pathname)) return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const metricoolHit = () => {
   const w = win();
-  if (metricoolState === "ready" && w?.beTracker) w.beTracker.t({ hash: METRICOOL_HASH });
+  if (!w || !metricoolSafe(w.location.href, document.referrer)) return;
+  if (metricoolState === "ready" && w.beTracker) w.beTracker.t({ hash: METRICOOL_HASH });
   else metricoolQueued = true;
 };
 

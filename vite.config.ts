@@ -64,7 +64,13 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,avif,jpg,jpeg,woff,woff2}"],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-        navigateFallbackDenylist: [/^\/~oauth/],
+        // Recursos no-app (robots, sitemaps, llms.txt, verificaciones, descargas,
+        // cualquier archivo con extensión) siempre van a la red, nunca al index.html.
+        navigateFallbackDenylist: [
+          /^\/~oauth/,
+          /^\/(downloads|functions|api)\//,
+          /^\/[^?#]*\.[a-z0-9]{2,5}(?:[?#].*)?$/i,
+        ],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

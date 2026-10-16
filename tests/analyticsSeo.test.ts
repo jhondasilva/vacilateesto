@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import { strictEqual, deepStrictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
-import { classifyIntent, createDeduper, isPrivatePath, isProductionHost, sanitizeUrl } from "../src/lib/analytics";
+import { metricoolSafe, classifyIntent, createDeduper, isPrivatePath, isProductionHost, sanitizeUrl } from "../src/lib/analytics";
 import { routeSeo, isPublicRoute } from "../src/lib/seo";
 import { episodeJsonLd, isValidVideoId } from "../src/lib/episodes";
 
@@ -85,3 +85,23 @@ test("funciones de sitemap/feed apuntan a /episodios y no usan la fecha de hoy",
   strictEqual(sv.includes("new Date().toISOString"), false);
   strictEqual(sv.includes("/episodios/"), true);
 });
+
+
+test("omite Metricool con query, hash o referrer sensible", async () => {
+    
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/blog", "" ), true);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/buscador?q=hola", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/?token=x", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/#access_token=x", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://www.vacilateesto.com/dashboard/x" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://google.com/search?q=a" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://www.google.com/" ), true);
+  });
+test("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () => {
+    const src = readFileSync("vite.config.ts", "utf8");
+    const m = src.match(/navigateFallbackDenylist: \[([\s\S]*?)\],/)!;
+    const list = eval(`[${m[1].replace(/^\s*\/\/.*$/gm, "")}]`) as RegExp[];
+    const denied = (p: string) => list.some((r) => r.test(p));
+    for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) strictEqual(denied(p ), true);
+    for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) strictEqual(denied(p ), false);
+  });
