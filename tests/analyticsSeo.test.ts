@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import { strictEqual, deepStrictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
-import { classifyIntent, createDeduper, isPrivatePath, isProductionHost, sanitizeUrl } from "../src/lib/analytics";
+import { metricoolSafe, classifyIntent, createDeduper, isPrivatePath, isProductionHost, sanitizeUrl } from "../src/lib/analytics";
 import { routeSeo, isPublicRoute } from "../src/lib/seo";
 import { episodeJsonLd, isValidVideoId } from "../src/lib/episodes";
 
@@ -86,23 +86,22 @@ test("funciones de sitemap/feed apuntan a /episodios y no usan la fecha de hoy",
   strictEqual(sv.includes("/episodios/"), true);
 });
 
-describe("Metricool y service worker", () => {
-  it("omite Metricool con query, hash o referrer sensible", async () => {
-    const { metricoolSafe } = await import("../src/lib/analytics");
-    expect(metricoolSafe("https://www.vacilateesto.com/blog", "")).toBe(true);
-    expect(metricoolSafe("https://www.vacilateesto.com/buscador?q=hola", "")).toBe(false);
-    expect(metricoolSafe("https://www.vacilateesto.com/?token=x", "")).toBe(false);
-    expect(metricoolSafe("https://www.vacilateesto.com/#access_token=x", "")).toBe(false);
-    expect(metricoolSafe("https://www.vacilateesto.com/", "https://www.vacilateesto.com/dashboard/x")).toBe(false);
-    expect(metricoolSafe("https://www.vacilateesto.com/", "https://google.com/search?q=a")).toBe(false);
-    expect(metricoolSafe("https://www.vacilateesto.com/", "https://www.google.com/")).toBe(true);
+
+test("omite Metricool con query, hash o referrer sensible", async () => {
+    
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/blog", "" ), true);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/buscador?q=hola", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/?token=x", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/#access_token=x", "" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://www.vacilateesto.com/dashboard/x" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://google.com/search?q=a" ), false);
+    strictEqual(metricoolSafe("https://www.vacilateesto.com/", "https://www.google.com/" ), true);
   });
-  it("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () => {
-    const src = (await import("fs")).readFileSync("vite.config.ts", "utf8");
+test("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () => {
+    const src = readFileSync("vite.config.ts", "utf8");
     const m = src.match(/navigateFallbackDenylist: \[([\s\S]*?)\],/)!;
     const list = eval(`[${m[1].replace(/\/\/.*$/gm, "")}]`) as RegExp[];
     const denied = (p: string) => list.some((r) => r.test(p));
-    for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) expect(denied(p)).toBe(true);
-    for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) expect(denied(p)).toBe(false);
+    for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) strictEqual(denied(p ), true);
+    for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) strictEqual(denied(p ), false);
   });
-});
