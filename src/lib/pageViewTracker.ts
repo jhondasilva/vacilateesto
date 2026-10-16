@@ -11,6 +11,8 @@ export type TrackerDeps = {
   getPath: () => string;
   getTitle: () => string;
   isNoindex: () => boolean;
+  /** La página aún carga su título real (p. ej. ficha de episodio). */
+  isWaiting?: () => boolean;
   send: (pathname: string, title: string, entryId: string) => void;
   setPrivacy: (pathname: string) => void;
   setTimer: (fn: () => void, ms: number) => number;
@@ -32,9 +34,11 @@ export const createPageViewTracker = (d: TrackerDeps, maxWait = 1200, settleMs =
     pending = null;
   };
 
-  const emit = (token: number) => {
+  const emit = (token: number, force = false) => {
     const p = pending;
     if (!p || p.token !== token) return;
+    if (!force && d.isWaiting?.()) return; // el próximo cambio del <head> reprograma
+
     cancel();
     const current = normalizePath(d.getPath());
     if (current !== p.pathname || !isPublicRoute(current) || d.isNoindex()) return;
@@ -54,11 +58,11 @@ export const createPageViewTracker = (d: TrackerDeps, maxWait = 1200, settleMs =
       if (!isPublicRoute(pathname)) return;
       const token = ++seq;
       const startTitle = d.getTitle();
-      pending = { token, pathname, entryId, timers: [d.setTimer(() => emit(token), maxWait)] };
+      pending = { token, pathname, entryId, timers: [d.setTimer(() => emit(token, true), maxWait)] };
       if (d.observeHead) {
         let settle = 0;
         pending.stop = d.observeHead(() => {
-          if (!pending || pending.token !== token || d.getTitle() === startTitle) return;
+          if (!pending || pending.token !== token || (d.getTitle() === startTitle && !d.isWaiting)) return;
           if (settle) d.clearTimer(settle);
           settle = d.setTimer(() => emit(token), settleMs);
           pending.timers.push(settle);

@@ -64,6 +64,8 @@ const EpisodePage = () => {
           <meta property="og:url" content={url} />
           <meta property="og:title" content={shown.title} />
           <meta property="og:description" content={(shown.description || shown.title).slice(0, 200)} />
+          <meta name="twitter:title" content={shown.title} />
+          <meta name="twitter:description" content={(shown.description || shown.title).slice(0, 200)} />
           {shown.thumbnail_url && <meta property="og:image" content={shown.thumbnail_url} />}
           {shown.thumbnail_url && <meta name="twitter:image" content={shown.thumbnail_url} />}
           <script type="application/ld+json">{JSON.stringify(episodeJsonLd(shown))}</script>
@@ -82,7 +84,7 @@ const EpisodePage = () => {
             <button type="button" onClick={() => window.location.reload()} className="font-semibold text-primary hover:underline">Reintentar</button>
           </div>
         ) : !shown ? (
-          <div role="status" className="space-y-4">
+          <div role="status" data-pageview-wait="" className="space-y-4">
             <div className="h-10 w-3/4 animate-pulse rounded bg-muted" />
             <div className="aspect-video w-full animate-pulse rounded-2xl bg-muted" />
             <span className="sr-only">Cargando episodio…</span>

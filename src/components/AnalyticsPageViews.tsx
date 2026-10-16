@@ -9,6 +9,7 @@ const tracker = typeof window === "undefined" ? null : createPageViewTracker({
   getTitle: () => document.title,
   isNoindex: () => Array.from(document.querySelectorAll('meta[name="robots"]'))
     .some((m) => /noindex/i.test(m.getAttribute("content") || "")),
+  isWaiting: () => !!document.querySelector("[data-pageview-wait]"),
   send: sendPageView,
   setPrivacy: setRoutePrivacy,
   setTimer: (fn, ms) => window.setTimeout(fn, ms),
