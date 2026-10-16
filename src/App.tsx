@@ -28,6 +28,7 @@ import DashboardHome from "./pages/DashboardHome";
 import DashboardBrand from "./pages/DashboardBrand";
 import DashboardAdmin from "./pages/DashboardAdmin";
 import AdminMediaKitVEM from "./pages/AdminMediaKitVEM";
+import DashboardComunidad from "./pages/DashboardComunidad";
 import IngestHealth from "./pages/IngestHealth";
 import ResetPassword from "./pages/ResetPassword";
 import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
@@ -109,6 +110,7 @@ const App = () => (
             <Route path="/dashboard/admin" element={<DashboardAdmin />} />
             <Route path="/dashboard/admin/ingest-health" element={<IngestHealth />} />
             <Route path="/dashboard/admin/mediakit-vem" element={<AdminMediaKitVEM />} />
+            <Route path="/dashboard/comunidad" element={<DashboardComunidad />} />
             <Route path="/dashboard/:slug" element={<DashboardBrand />} />
             <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />

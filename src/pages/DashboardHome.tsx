@@ -43,6 +43,11 @@ const DashboardHome = () => {
           <div className="flex items-center gap-2">
             {isAdmin && (
               <Button asChild variant="ghost" size="sm">
+                <Link to="/dashboard/comunidad">Comunidad</Link>
+              </Button>
+            )}
+            {isAdmin && (
+              <Button asChild variant="ghost" size="sm">
                 <Link to="/dashboard/admin"><Settings className="w-4 h-4 mr-1" /> Admin</Link>
               </Button>
             )}
