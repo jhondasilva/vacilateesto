@@ -52,7 +52,6 @@ const EpisodePage = () => {
       {!shown && (
         <Helmet>
           <title>{state === "error" ? "Episodio no disponible por ahora | Vacílate Esto" : "Cargando episodio | Vacílate Esto"}</title>
-          {state === "error" && <meta name="robots" content="noindex, nofollow" />}
         </Helmet>
       )}
       {shown && (
