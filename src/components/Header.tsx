@@ -99,6 +99,7 @@ const Header = ({ locale = "es" }: { locale?: "es" | "en" }) => {
             size="icon"
             aria-label={english ? (isMobileMenuOpen ? "Close menu" : "Open menu") : (isMobileMenuOpen ? "Cerrar menú" : "Abrir menú")}
             aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="xl:hidden p-2 text-foreground hover:text-primary transition-colors"
           >
@@ -108,8 +109,11 @@ const Header = ({ locale = "es" }: { locale?: "es" | "en" }) => {
 
         {/* Mobile Menu */}
         <div
+          id="mobile-menu"
+          aria-hidden={!isMobileMenuOpen}
+          {...(!isMobileMenuOpen ? { inert: "" } : {})}
           className={`xl:hidden transition-all duration-500 ${
-            isMobileMenuOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0 overflow-hidden"
+            isMobileMenuOpen ? "visible max-h-[80vh] opacity-100 overflow-y-auto" : "invisible max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           <nav aria-label={english ? "Main navigation — other pages in Spanish" : undefined} className="flex flex-col gap-3 py-4 px-2 border-t border-border bg-background/95 backdrop-blur-lg rounded-b-xl">
