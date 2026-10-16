@@ -2,7 +2,8 @@ import { Component, lazy, Suspense, type ComponentType, type ReactNode } from "r
 import { useLocation } from "react-router-dom";
 
 /** lazy() con un reintento: tras una publicación nueva, un chunk viejo puede fallar una vez. */
-export const lazyPage = <T extends ComponentType<any>>(load: () => Promise<{ default: T }>) =>
+// eslint-disable-next-line react-refresh/only-export-components
+export const lazyPage = <T extends ComponentType<object>>(load: () => Promise<{ default: T }>) =>
   lazy(() => load().catch(() => new Promise<{ default: T }>((r) => setTimeout(() => r(load()), 400))));
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
