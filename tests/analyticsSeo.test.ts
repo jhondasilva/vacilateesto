@@ -100,7 +100,7 @@ test("omite Metricool con query, hash o referrer sensible", async () => {
 test("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () => {
     const src = readFileSync("vite.config.ts", "utf8");
     const m = src.match(/navigateFallbackDenylist: \[([\s\S]*?)\],/)!;
-    const list = eval(`[${m[1].replace(/\/\/.*$/gm, "")}]`) as RegExp[];
+    const list = eval(`[${m[1].replace(/^\s*\/\/.*$/gm, "")}]`) as RegExp[];
     const denied = (p: string) => list.some((r) => r.test(p));
     for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) strictEqual(denied(p ), true);
     for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) strictEqual(denied(p ), false);
