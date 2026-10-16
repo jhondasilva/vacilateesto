@@ -102,7 +102,8 @@ test("Metricool: callback tardío del SDK no emite un hit viejo en la ruta nueva
 });
 
 test("Metricool: carga tardía en la misma entrada emite una sola vez y respeta seguridad", () => {
-  let ready = false, safe = true, hits = 0;
+  let ready = false, hits = 0;
+  const safe = true;
   const q = createMetricoolQueue({ isReady: () => ready, currentEntry: () => "a|/", isSafeNow: () => safe, hit: () => hits++ });
   q.request("a|/"); ready = true; q.onReady(); q.onReady(); q.request("a|/");
   strictEqual(hits, 1);
