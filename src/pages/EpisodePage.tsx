@@ -45,14 +45,14 @@ const EpisodePage = () => {
 
   const url = `${SITE}/episodios/${videoId}`;
   const shown = state === "ok" && episode && episode.video_id === videoId ? episode : null;
-  const date = shown?.published_at ? new Date(episode.published_at) : null;
+  const date = shown?.published_at ? new Date(shown.published_at) : null;
 
   return (
     <div className="min-h-screen bg-background">
       {!shown && (
         <Helmet>
           <title>{state === "error" ? "Episodio no disponible por ahora | Vacílate Esto" : "Cargando episodio | Vacílate Esto"}</title>
-          <meta name="robots" content="noindex, nofollow" />
+          {state === "error" && <meta name="robots" content="noindex, nofollow" />}
         </Helmet>
       )}
       {shown && (
