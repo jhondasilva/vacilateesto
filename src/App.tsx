@@ -4,65 +4,69 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
-import PodcastEnLaCumbre from "./pages/PodcastEnLaCumbre";
-import PrensaPicoBolivar from "./pages/PrensaPicoBolivar";
-import PressKit from "./pages/PressKit";
-import CoberturaPrensa from "./pages/CoberturaPrensa";
-import PodcastEterno from "./pages/PodcastEterno";
-import Premios from "./pages/Premios";
-import PrensaFIAP2026 from "./pages/PrensaFIAP2026";
-import VacilateElMundial from "./pages/VacilateElMundial";
-import MediaKit from "./pages/MediaKit";
-import MediaKitVEM from "./pages/MediaKitVEM";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfUse from "./pages/TermsOfUse";
-import InstallApp from "./pages/InstallApp";
-import NotFound from "./pages/NotFound";
-import Gira from "./pages/Gira";
-import GiraLogin from "./pages/GiraLogin";
-import GiraPoliticas from "./pages/GiraPoliticas";
-import Buscador from "./pages/Buscador";
-import Hosts from "./pages/Hosts";
-import DashboardLogin from "./pages/DashboardLogin";
-import DashboardHome from "./pages/DashboardHome";
-import DashboardBrand from "./pages/DashboardBrand";
-import DashboardAdmin from "./pages/DashboardAdmin";
-import AdminMediaKitVEM from "./pages/AdminMediaKitVEM";
-import DashboardComunidad from "./pages/DashboardComunidad";
-import IngestHealth from "./pages/IngestHealth";
-import ResetPassword from "./pages/ResetPassword";
-import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
-import PodcastsVenezolanosComedia from "./pages/PodcastsVenezolanosComedia";
-import PodcastsVenezolanosFutbol from "./pages/PodcastsVenezolanosFutbol";
-import PodcastsVenezolanosSpotify from "./pages/PodcastsVenezolanosSpotify";
-import HechoEnVenezuela from "./pages/HechoEnVenezuela";
-import Fali from "./pages/Fali";
-import FaliEnglish from "./pages/FaliEnglish";
 
-import WalkingAds from "./pages/WalkingAds";
-import StreamingFromTheLostWorld from "./pages/StreamingFromTheLostWorld";
-import Cannes from "./pages/Cannes";
-import BlogIndex from "./pages/blog/BlogIndex";
-import MejoresPodcastsVenezolanos from "./pages/blog/MejoresPodcastsVenezolanos";
-import ComoSubirRoraima from "./pages/blog/ComoSubirRoraima";
-import ComoSubirPicoNaiguata from "./pages/blog/ComoSubirPicoNaiguata";
-import LeyendasUrbanasVenezuela from "./pages/blog/LeyendasUrbanasVenezuela";
-import HistoriaArepa from "./pages/blog/HistoriaArepa";
-import MundialDesdeVenezuela from "./pages/blog/MundialDesdeVenezuela";
-import PodcastMasLargo from "./pages/blog/PodcastMasLargo";
-import RutaRamenCaracas from "./pages/blog/RutaRamenCaracas";
-import TioSimonTributoFrases from "./pages/blog/TioSimonTributoFrases";
-import MejorPerroCalienteCaracas from "./pages/blog/MejorPerroCalienteCaracas";
-import QueEsLlaneridad from "./pages/blog/QueEsLlaneridad";
-import MarcasVenezolanasNostalgicas from "./pages/blog/MarcasVenezolanasNostalgicas";
-import PeloticaSplit4 from "./pages/blog/PeloticaSplit4";
-import QueEsPeloticaDeGoma from "./pages/blog/QueEsPeloticaDeGoma";
-import FaliFrustracionLatencia from "./pages/blog/FaliFrustracionLatencia";
-import FiapPremios from "./pages/blog/FiapPremios";
-import NumerosVacilateEsto2026 from "./pages/blog/NumerosVacilateEsto2026";
-import BlogPostDynamic from "./pages/blog/BlogPostDynamic";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 import AnalyticsPageViews from "./components/AnalyticsPageViews";
+import RouteSeo from "./components/RouteSeo";
+import { lazyPage, PageBoundary } from "./components/PageBoundary";
+
+const PodcastEnLaCumbre = lazyPage(() => import("./pages/PodcastEnLaCumbre"));
+const PrensaPicoBolivar = lazyPage(() => import("./pages/PrensaPicoBolivar"));
+const PressKit = lazyPage(() => import("./pages/PressKit"));
+const CoberturaPrensa = lazyPage(() => import("./pages/CoberturaPrensa"));
+const PodcastEterno = lazyPage(() => import("./pages/PodcastEterno"));
+const Premios = lazyPage(() => import("./pages/Premios"));
+const PrensaFIAP2026 = lazyPage(() => import("./pages/PrensaFIAP2026"));
+const VacilateElMundial = lazyPage(() => import("./pages/VacilateElMundial"));
+const MediaKit = lazyPage(() => import("./pages/MediaKit"));
+const MediaKitVEM = lazyPage(() => import("./pages/MediaKitVEM"));
+const PrivacyPolicy = lazyPage(() => import("./pages/PrivacyPolicy"));
+const TermsOfUse = lazyPage(() => import("./pages/TermsOfUse"));
+const InstallApp = lazyPage(() => import("./pages/InstallApp"));
+const NotFound = lazyPage(() => import("./pages/NotFound"));
+const Gira = lazyPage(() => import("./pages/Gira"));
+const GiraLogin = lazyPage(() => import("./pages/GiraLogin"));
+const GiraPoliticas = lazyPage(() => import("./pages/GiraPoliticas"));
+const Buscador = lazyPage(() => import("./pages/Buscador"));
+const Hosts = lazyPage(() => import("./pages/Hosts"));
+const DashboardLogin = lazyPage(() => import("./pages/DashboardLogin"));
+const DashboardHome = lazyPage(() => import("./pages/DashboardHome"));
+const DashboardBrand = lazyPage(() => import("./pages/DashboardBrand"));
+const DashboardAdmin = lazyPage(() => import("./pages/DashboardAdmin"));
+const AdminMediaKitVEM = lazyPage(() => import("./pages/AdminMediaKitVEM"));
+const DashboardComunidad = lazyPage(() => import("./pages/DashboardComunidad"));
+const IngestHealth = lazyPage(() => import("./pages/IngestHealth"));
+const ResetPassword = lazyPage(() => import("./pages/ResetPassword"));
+const MejoresPodcastsVenezuela = lazyPage(() => import("./pages/MejoresPodcastsVenezuela"));
+const PodcastsVenezolanosComedia = lazyPage(() => import("./pages/PodcastsVenezolanosComedia"));
+const PodcastsVenezolanosFutbol = lazyPage(() => import("./pages/PodcastsVenezolanosFutbol"));
+const PodcastsVenezolanosSpotify = lazyPage(() => import("./pages/PodcastsVenezolanosSpotify"));
+const HechoEnVenezuela = lazyPage(() => import("./pages/HechoEnVenezuela"));
+const Fali = lazyPage(() => import("./pages/Fali"));
+const FaliEnglish = lazyPage(() => import("./pages/FaliEnglish"));
+const WalkingAds = lazyPage(() => import("./pages/WalkingAds"));
+const StreamingFromTheLostWorld = lazyPage(() => import("./pages/StreamingFromTheLostWorld"));
+const Cannes = lazyPage(() => import("./pages/Cannes"));
+const BlogIndex = lazyPage(() => import("./pages/blog/BlogIndex"));
+const MejoresPodcastsVenezolanos = lazyPage(() => import("./pages/blog/MejoresPodcastsVenezolanos"));
+const ComoSubirRoraima = lazyPage(() => import("./pages/blog/ComoSubirRoraima"));
+const ComoSubirPicoNaiguata = lazyPage(() => import("./pages/blog/ComoSubirPicoNaiguata"));
+const LeyendasUrbanasVenezuela = lazyPage(() => import("./pages/blog/LeyendasUrbanasVenezuela"));
+const HistoriaArepa = lazyPage(() => import("./pages/blog/HistoriaArepa"));
+const MundialDesdeVenezuela = lazyPage(() => import("./pages/blog/MundialDesdeVenezuela"));
+const PodcastMasLargo = lazyPage(() => import("./pages/blog/PodcastMasLargo"));
+const RutaRamenCaracas = lazyPage(() => import("./pages/blog/RutaRamenCaracas"));
+const TioSimonTributoFrases = lazyPage(() => import("./pages/blog/TioSimonTributoFrases"));
+const MejorPerroCalienteCaracas = lazyPage(() => import("./pages/blog/MejorPerroCalienteCaracas"));
+const QueEsLlaneridad = lazyPage(() => import("./pages/blog/QueEsLlaneridad"));
+const MarcasVenezolanasNostalgicas = lazyPage(() => import("./pages/blog/MarcasVenezolanasNostalgicas"));
+const PeloticaSplit4 = lazyPage(() => import("./pages/blog/PeloticaSplit4"));
+const QueEsPeloticaDeGoma = lazyPage(() => import("./pages/blog/QueEsPeloticaDeGoma"));
+const FaliFrustracionLatencia = lazyPage(() => import("./pages/blog/FaliFrustracionLatencia"));
+const FiapPremios = lazyPage(() => import("./pages/blog/FiapPremios"));
+const NumerosVacilateEsto2026 = lazyPage(() => import("./pages/blog/NumerosVacilateEsto2026"));
+const BlogPostDynamic = lazyPage(() => import("./pages/blog/BlogPostDynamic"));
+const EpisodePage = lazyPage(() => import("./pages/EpisodePage"));
 
 const queryClient = new QueryClient();
 
@@ -79,7 +83,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <DomainRedirectHandler>
+          <RouteSeo />
           <AnalyticsPageViews />
+          <PageBoundary>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/podcast-en-la-cumbre" element={<PodcastEnLaCumbre />} />
@@ -101,6 +107,7 @@ const App = () => (
             <Route path="/gira" element={<Gira />} />
             <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
+            <Route path="/episodios/:videoId" element={<EpisodePage />} />
             <Route path="/hosts" element={<Hosts />} />
             <Route path="/lab/hosts" element={<Navigate to="/hosts" replace />} />
             <Route path="/lab/host" element={<Navigate to="/hosts" replace />} />
@@ -146,6 +153,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </PageBoundary>
         </DomainRedirectHandler>
       </BrowserRouter>
     </TooltipProvider>
