@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
+import { trackFormSuccess } from "@/lib/analytics";
   BadgeCheck,
   CalendarClock,
   HelpCircle,
@@ -147,6 +148,8 @@ const CoberturaPrensa = () => {
       toast.error("No pudimos enviar tu solicitud. Intenta de nuevo.");
       return;
     }
+    // La solicitud quedó guardada en el backend: lead confirmado (sin datos personales).
+    trackFormSuccess("press_request");
 
     try {
       await supabase.functions.invoke("send-press-request", {

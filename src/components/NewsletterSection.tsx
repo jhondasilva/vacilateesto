@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import StickerMarquee from "@/components/StickerMarquee";
 import StickerHeader from "@/components/StickerHeader";
+import { trackFormSuccess } from "@/lib/analytics";
 
 const TICKER = ["NEWSLETTER SEMANAL", "★", "0% SPAM", "✦", "100% VACILE", "★", "SUSCRIBITE", "✦"];
 
@@ -58,6 +59,7 @@ const NewsletterSection = () => {
           throw error;
         }
       } else {
+        trackFormSuccess("newsletter");
         toast({ title: "¡Suscrito con éxito!", description: "Te enviaremos las últimas novedades a tu correo." });
         setEmail("");
         setEmailError(null);
