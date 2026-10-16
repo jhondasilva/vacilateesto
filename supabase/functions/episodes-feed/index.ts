@@ -6,6 +6,8 @@ const corsHeaders = {
 };
 
 const SITE = "https://www.vacilateesto.com";
+const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
+const KINDS = new Set(["podcast", "short"]);
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -17,14 +19,17 @@ Deno.serve(async (req) => {
     );
 
     const url = new URL(req.url);
-    const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "200"), 500);
-    const kind = url.searchParams.get("kind"); // 'podcast' | 'short' | null
+    const rawLimit = parseInt(url.searchParams.get("limit") ?? "200", 10);
+    const limit = Number.isFinite(rawLimit) ? Math.min(Math.max(rawLimit, 1), 500) : 200;
+    const rawKind = url.searchParams.get("kind");
+    const kind = rawKind && KINDS.has(rawKind) ? rawKind : null; // 'podcast' | 'short' | null
 
     let q = supabase
       .from("yt_videos")
       .select("video_id, title, description, thumbnail_url, published_at, duration_seconds, kind, view_count")
       .eq("is_available", true)
       .not("published_at", "is", null)
+      .lte("published_at", new Date().toISOString())
       .order("published_at", { ascending: false })
       .limit(limit);
     if (kind) q = q.eq("kind", kind);
@@ -32,8 +37,10 @@ Deno.serve(async (req) => {
     const { data: videos, error } = await q;
     if (error) throw error;
 
-    const items = (videos ?? []).map((v, idx) => ({
-      "@type": "PodcastEpisode",
+    const items = (videos ?? [])
+      .filter((v) => VIDEO_ID.test(v.video_id ?? ""))
+      .map((v, idx) => ({
+      "@type": v.kind === "short" ? "VideoObject" : "PodcastEpisode",
       position: idx + 1,
       name: v.title,
       description: (v.description ?? "").slice(0, 500),

@@ -45,7 +45,6 @@ Deno.serve(async (req) => {
     // Las páginas estáticas viven en /sitemap.xml; aquí solo fichas de episodio.
     for (const v of published) {
       const pageUrl = `${SITE}/episodios/${v.video_id}`;
-      const ytUrl = `https://www.youtube.com/watch?v=${v.video_id}`;
       const title = escapeXml((v.title ?? "").slice(0, 100));
       const desc = escapeXml((v.description ?? v.title ?? "Episodio de Vacílate Esto").slice(0, 2000));
       const thumb = escapeXml(v.thumbnail_url ?? `https://i.ytimg.com/vi/${v.video_id}/hqdefault.jpg`);
