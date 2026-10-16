@@ -9,17 +9,18 @@
 export const GA_ID = "G-8C1W3N2FBE";
 export const METRICOOL_HASH = "ea27a283da270adea7c04cfa40488e8e";
 const PROD_HOSTS = new Set(["vacilateesto.com", "www.vacilateesto.com"]);
-const PRIVATE_PATH = /^\/(dashboard|gira|reset-password|admin|auth)(\/|$)/i;
+import { isPrivatePath, isPublicRoute, normalizePath } from "./routes";
+import { createMetricoolQueue } from "./pageViewTracker";
+export { isPrivatePath };
 
 export const isProductionHost = (hostname: string) => PROD_HOSTS.has(hostname.toLowerCase());
-export const isPrivatePath = (pathname: string) => PRIVATE_PATH.test(pathname);
 
 /** Devuelve origin + pathname (sin query ni hash). Si la ruta es privada, solo el origin. */
 export const sanitizeUrl = (raw: string): string => {
   if (!raw) return "";
   try {
     const u = new URL(raw);
-    return u.origin + (isPrivatePath(u.pathname) ? "/" : u.pathname);
+    return u.origin + (isPublicRoute(u.pathname) ? normalizePath(u.pathname) : "/");
   } catch {
     return "";
   }
@@ -55,9 +56,7 @@ type W = Window & {
 
 let gaLoaded = false;
 let metricoolState: "idle" | "loading" | "ready" = "idle";
-let metricoolQueued = false;
 let lastPublicUrl = "";
-let currentPathPrivate = true;
 
 const win = () => (typeof window === "undefined" ? null : (window as unknown as W));
 
@@ -107,7 +106,7 @@ export const metricoolSafe = (href: string, referrer: string): boolean => {
     const u = new URL(href);
     if (u.hash) return false;
     for (const k of u.searchParams.keys()) if (!METRICOOL_SAFE_PARAMS.has(k)) return false;
-    if (isPrivatePath(u.pathname)) return false;
+    if (!isPublicRoute(u.pathname)) return false;
     if (referrer) {
       const r = new URL(referrer);
       if (r.search || r.hash || SENSITIVE_REFERRER.test(r.pathname)) return false;
@@ -118,12 +117,19 @@ export const metricoolSafe = (href: string, referrer: string): boolean => {
   }
 };
 
-const metricoolHit = () => {
-  const w = win();
-  if (!w || !metricoolSafe(w.location.href, document.referrer)) return;
-  if (metricoolState === "ready" && w.beTracker) w.beTracker.t({ hash: METRICOOL_HASH });
-  else metricoolQueued = true;
-};
+let currentEntry: string | null = null;
+/** Entrada de historial actual (key|pathname), fijada en cada cambio de ubicación. */
+export const setCurrentEntry = (entryId: string) => { currentEntry = entryId; };
+
+const metricoolQueue = createMetricoolQueue({
+  isReady: () => metricoolState === "ready" && !!win()?.beTracker,
+  currentEntry: () => currentEntry,
+  isSafeNow: () => {
+    const w = win();
+    return !!w && measurementEnabled() && isPublicRoute(w.location.pathname) && metricoolSafe(w.location.href, document.referrer);
+  },
+  hit: () => win()!.beTracker!.t({ hash: METRICOOL_HASH }),
+});
 
 const loadMetricool = () => {
   if (metricoolState !== "idle") return;
@@ -133,24 +139,26 @@ const loadMetricool = () => {
   s.src = "https://tracker.metricool.com/resources/be.js";
   s.onload = () => {
     metricoolState = "ready";
-    if (metricoolQueued && !currentPathPrivate) {
-      metricoolQueued = false;
-      metricoolHit();
-    }
+    metricoolQueue.onReady();
   };
   document.head.appendChild(s);
 };
 
 /** Marca la ruta actual (llamar en cada cambio de pathname, antes de medir). */
 export const setRoutePrivacy = (pathname: string) => {
-  currentPathPrivate = isPrivatePath(pathname);
-  if (measurementEnabled()) setGaDisabled(currentPathPrivate);
+  if (measurementEnabled()) setGaDisabled(!isPublicRoute(pathname));
 };
 
-/** Envía un page_view a GA4 y un hit a Metricool para una ruta pública. */
-export const sendPageView = (pathname: string, title: string) => {
+/**
+ * Envía un page_view a GA4 y pide un hit a Metricool para la entrada actual.
+ * Solo si la ruta pedida es exactamente la actual y es pública reconocida;
+ * nunca re-habilita GA en una ruta privada o desconocida.
+ */
+export const sendPageView = (pathname: string, title: string, entryId: string) => {
   const w = win();
-  if (!w || !measurementEnabled() || isPrivatePath(pathname)) return;
+  if (!w || !measurementEnabled()) return;
+  const current = normalizePath(w.location.pathname);
+  if (current !== pathname || !isPublicRoute(current) || entryId !== currentEntry) return;
   setGaDisabled(false);
   loadGa();
   loadMetricool();
@@ -158,14 +166,12 @@ export const sendPageView = (pathname: string, title: string) => {
   const referrer = lastPublicUrl || sanitizeUrl(document.referrer);
   w.gtag!("event", "page_view", { page_location: location, page_referrer: referrer, page_title: title });
   lastPublicUrl = location;
-  if (!isPrivatePath(w.location.pathname)) metricoolHit();
-  // Si ya se navegó a una ruta privada mientras esperaba el título, vuelve a bloquear.
-  setGaDisabled(isPrivatePath(w.location.pathname));
+  metricoolQueue.request(entryId);
 };
 
 const sendEvent = (name: string, params: Record<string, string>) => {
   const w = win();
-  if (!w || !measurementEnabled() || isPrivatePath(w.location.pathname) || !gaLoaded) return;
+  if (!w || !measurementEnabled() || !isPublicRoute(w.location.pathname) || !gaLoaded) return;
   w.gtag!("event", name, { ...params, page_location: w.location.origin + w.location.pathname });
 };
 
