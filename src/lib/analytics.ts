@@ -57,6 +57,7 @@ type W = Window & {
 let gaLoaded = false;
 let metricoolState: "idle" | "loading" | "ready" = "idle";
 let lastPublicUrl = "";
+let currentReferrer = "";
 
 const win = () => (typeof window === "undefined" ? null : (window as unknown as W));
 
@@ -81,11 +82,7 @@ const loadGa = () => {
     w.dataLayer!.push(arguments);
   };
   w.gtag("js", new Date());
-  w.gtag("config", GA_ID, {
-    send_page_view: false,
-    page_location: sanitizeUrl(w.location.href),
-    page_referrer: sanitizeUrl(document.referrer),
-  });
+  // La config por ruta se envía en sendPageView (contexto SPA limpio y actual).
   const s = document.createElement("script");
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
@@ -163,8 +160,12 @@ export const sendPageView = (pathname: string, title: string, entryId: string) =
   loadGa();
   loadMetricool();
   const location = w.location.origin + pathname;
-  const referrer = lastPublicUrl || sanitizeUrl(document.referrer);
+  const referrer = lastPublicUrl || sanitizeUrl(document.referrer) || "";
+  // Config a nivel de destino: prevalece sobre `set`, así que se actualiza en cada ruta
+  // pública confirmada para que los eventos automáticos usen la URL/referrer actuales.
+  w.gtag!("config", GA_ID, { send_page_view: false, page_location: location, page_referrer: referrer, page_title: title });
   w.gtag!("event", "page_view", { page_location: location, page_referrer: referrer, page_title: title });
+  currentReferrer = referrer;
   lastPublicUrl = location;
   metricoolQueue.request(entryId);
 };
@@ -172,7 +173,7 @@ export const sendPageView = (pathname: string, title: string, entryId: string) =
 const sendEvent = (name: string, params: Record<string, string>) => {
   const w = win();
   if (!w || !measurementEnabled() || !isPublicRoute(w.location.pathname) || !gaLoaded) return;
-  w.gtag!("event", name, { ...params, page_location: w.location.origin + w.location.pathname });
+  w.gtag!("event", name, { ...params, page_location: w.location.origin + normalizePath(w.location.pathname), page_referrer: currentReferrer });
 };
 
 /** Solo tras confirmación del backend. Sin datos personales. */
