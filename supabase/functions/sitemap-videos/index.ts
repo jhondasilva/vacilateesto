@@ -31,45 +31,24 @@ Deno.serve(async (req) => {
       .select("video_id, title, description, thumbnail_url, published_at, duration_seconds")
       .eq("kind", "podcast")
       .eq("is_available", true)
+      .not("published_at", "is", null)
       .order("published_at", { ascending: false })
       .limit(1000);
 
     if (error) throw error;
 
-    const today = new Date().toISOString().split("T")[0];
-
-    const staticUrls = [
-      { loc: `${SITE}/`, priority: "1.0", changefreq: "daily" },
-      { loc: `${SITE}/buscador`, priority: "0.9", changefreq: "daily" },
-      { loc: `${SITE}/vacilate-el-futbol`, priority: "0.95", changefreq: "daily" },
-      { loc: `${SITE}/mejores-podcasts-venezuela`, priority: "0.95", changefreq: "weekly" },
-      { loc: `${SITE}/podcasts-venezolanos-comedia`, priority: "0.85", changefreq: "monthly" },
-      { loc: `${SITE}/podcasts-venezolanos-futbol`, priority: "0.85", changefreq: "monthly" },
-      { loc: `${SITE}/podcasts-venezolanos-spotify`, priority: "0.85", changefreq: "monthly" },
-      { loc: `${SITE}/media-kit`, priority: "0.7", changefreq: "monthly" },
-      { loc: `${SITE}/podcast-en-la-cumbre`, priority: "0.8", changefreq: "weekly" },
-      { loc: `${SITE}/podcast-eterno`, priority: "0.8", changefreq: "monthly" },
-    ];
-
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n`;
 
-    for (const u of staticUrls) {
-      xml += `  <url><loc>${u.loc}</loc><lastmod>${today}</lastmod><changefreq>${u.changefreq}</changefreq><priority>${u.priority}</priority></url>\n`;
-    }
-
+    // Las páginas estáticas viven en /sitemap.xml; aquí solo fichas de episodio.
     for (const v of videos ?? []) {
-      const pageUrl = `${SITE}/buscador?v=${v.video_id}`;
+      const pageUrl = `${SITE}/episodios/${v.video_id}`;
       const ytUrl = `https://www.youtube.com/watch?v=${v.video_id}`;
-      const lastmod = v.published_at
-        ? new Date(v.published_at).toISOString().split("T")[0]
-        : today;
       const title = escapeXml((v.title ?? "").slice(0, 100));
       const desc = escapeXml((v.description ?? v.title ?? "Episodio de Vacílate Esto").slice(0, 2000));
       const thumb = escapeXml(v.thumbnail_url ?? `https://i.ytimg.com/vi/${v.video_id}/hqdefault.jpg`);
 
       xml += `  <url>\n`;
       xml += `    <loc>${pageUrl}</loc>\n`;
-      xml += `    <lastmod>${lastmod}</lastmod>\n`;
       xml += `    <changefreq>monthly</changefreq>\n`;
       xml += `    <priority>0.8</priority>\n`;
       xml += `    <video:video>\n`;
