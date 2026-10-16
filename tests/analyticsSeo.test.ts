@@ -85,3 +85,24 @@ test("funciones de sitemap/feed apuntan a /episodios y no usan la fecha de hoy",
   strictEqual(sv.includes("new Date().toISOString"), false);
   strictEqual(sv.includes("/episodios/"), true);
 });
+
+describe("Metricool y service worker", () => {
+  it("omite Metricool con query, hash o referrer sensible", async () => {
+    const { metricoolSafe } = await import("../src/lib/analytics");
+    expect(metricoolSafe("https://www.vacilateesto.com/blog", "")).toBe(true);
+    expect(metricoolSafe("https://www.vacilateesto.com/buscador?q=hola", "")).toBe(false);
+    expect(metricoolSafe("https://www.vacilateesto.com/?token=x", "")).toBe(false);
+    expect(metricoolSafe("https://www.vacilateesto.com/#access_token=x", "")).toBe(false);
+    expect(metricoolSafe("https://www.vacilateesto.com/", "https://www.vacilateesto.com/dashboard/x")).toBe(false);
+    expect(metricoolSafe("https://www.vacilateesto.com/", "https://google.com/search?q=a")).toBe(false);
+    expect(metricoolSafe("https://www.vacilateesto.com/", "https://www.google.com/")).toBe(true);
+  });
+  it("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () => {
+    const src = (await import("fs")).readFileSync("vite.config.ts", "utf8");
+    const m = src.match(/navigateFallbackDenylist: \[([\s\S]*?)\],/)!;
+    const list = eval(`[${m[1].replace(/\/\/.*$/gm, "")}]`) as RegExp[];
+    const denied = (p: string) => list.some((r) => r.test(p));
+    for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) expect(denied(p)).toBe(true);
+    for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) expect(denied(p)).toBe(false);
+  });
+});
