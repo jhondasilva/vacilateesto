@@ -1,22 +1,28 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { createDeduper, installIntentListener, isPrivatePath, sendPageView, setRoutePrivacy } from "@/lib/analytics";
+import { installIntentListener, sendPageView, setCurrentEntry, setRoutePrivacy } from "@/lib/analytics";
+import { createPageViewTracker } from "@/lib/pageViewTracker";
+import { normalizePath } from "@/lib/routes";
 
-const isNewEntry = createDeduper();
-let pending: { id: string; pathname: string; timer: number; observer?: MutationObserver } | null = null;
-
-const flush = () => {
-  if (!pending) return;
-  const p = pending;
-  pending = null;
-  window.clearTimeout(p.timer);
-  p.observer?.disconnect();
-  sendPageView(p.pathname, document.title);
-};
+const tracker = typeof window === "undefined" ? null : createPageViewTracker({
+  getPath: () => window.location.pathname,
+  getTitle: () => document.title,
+  isNoindex: () => Array.from(document.querySelectorAll('meta[name="robots"]'))
+    .some((m) => /noindex/i.test(m.getAttribute("content") || "")),
+  send: sendPageView,
+  setPrivacy: setRoutePrivacy,
+  setTimer: (fn, ms) => window.setTimeout(fn, ms),
+  clearTimer: (id) => window.clearTimeout(id),
+  observeHead: typeof MutationObserver === "undefined" ? undefined : (cb) => {
+    const obs = new MutationObserver(cb);
+    obs.observe(document.head, { subtree: true, childList: true, characterData: true, attributes: true });
+    return () => obs.disconnect();
+  },
+});
 
 /**
- * Un único page_view manual (GA4 + Metricool) por entrada de historial pública,
- * incluida la carga inicial. Espera a que Helmet actualice el título (máx. 1,2 s).
+ * Un único page_view manual (GA4 + Metricool) por ruta pública reconocida, incluida la carga
+ * inicial. Espera el título de Helmet (máx. 1,2 s); al navegar, cancela la vista pendiente.
  */
 const AnalyticsPageViews = () => {
   const { pathname, key } = useLocation();
@@ -24,25 +30,8 @@ const AnalyticsPageViews = () => {
   useEffect(() => { installIntentListener(); }, []);
 
   useEffect(() => {
-    setRoutePrivacy(pathname);
-    if (!isNewEntry({ key, pathname })) return;
-    // Nueva entrada: si quedó una vista pendiente de otra ruta, se envía antes.
-    if (pending) flush();
-    if (isPrivatePath(pathname)) return;
-    const startTitle = document.title;
-    const timer = window.setTimeout(flush, 1200);
-    pending = { id: key, pathname, timer };
-    const titleEl = document.querySelector("title");
-    if (titleEl && typeof MutationObserver !== "undefined") {
-      let settle = 0;
-      const obs = new MutationObserver(() => {
-        if (document.title === startTitle) return;
-        window.clearTimeout(settle);
-        settle = window.setTimeout(flush, 150);
-      });
-      obs.observe(document.head, { subtree: true, childList: true, characterData: true });
-      pending.observer = obs;
-    }
+    setCurrentEntry(`${key}|${normalizePath(pathname)}`);
+    tracker?.onLocation(key, pathname);
   }, [pathname, key]);
 
   return null;
