@@ -78,6 +78,32 @@ test("título tardío: espera la marca de carga y usa el título real", () => {
   deepStrictEqual(s.sent, [["/episodios/dQw4w9WgXcQ", "Episodio X | Vacílate Esto"]]);
 });
 
+test("carga >1200ms: el plazo no emite con título de carga; el éxito posterior cuenta una sola vez", () => {
+  const s = setup();
+  s.env.waiting = true;
+  s.nav("a", "/episodios/dQw4w9WgXcQ");
+  s.runTimers(); // vence el plazo máximo: no se envía nada con título falso
+  deepStrictEqual(s.sent, []);
+  s.env.waiting = false;
+  s.headChanged("Episodio X | Vacílate Esto");
+  s.runTimers();
+  deepStrictEqual(s.sent, [["/episodios/dQw4w9WgXcQ", "Episodio X | Vacílate Esto"]]);
+  s.runTimers();
+  strictEqual(s.sent.length, 1);
+});
+
+test("carga lenta cancelada por navegación: nunca emite la vista vieja", () => {
+  const s = setup();
+  s.env.waiting = true;
+  s.nav("a", "/episodios/dQw4w9WgXcQ");
+  s.runTimers();
+  s.nav("b", "/blog");
+  s.env.waiting = false;
+  s.headChanged("Blog | Vacílate Esto");
+  s.runTimers();
+  deepStrictEqual(s.sent, [["/blog", "Blog | Vacílate Esto"]]);
+});
+
 test("rutas desconocidas, 404 con noindex y parámetros inválidos no se miden", () => {
   const s = setup();
   s.nav("a", "/no-existe"); s.runTimers();
