@@ -28,6 +28,7 @@ import DashboardHome from "./pages/DashboardHome";
 import DashboardBrand from "./pages/DashboardBrand";
 import DashboardAdmin from "./pages/DashboardAdmin";
 import AdminMediaKitVEM from "./pages/AdminMediaKitVEM";
+import DashboardComunidad from "./pages/DashboardComunidad";
 import IngestHealth from "./pages/IngestHealth";
 import ResetPassword from "./pages/ResetPassword";
 import MejoresPodcastsVenezuela from "./pages/MejoresPodcastsVenezuela";
