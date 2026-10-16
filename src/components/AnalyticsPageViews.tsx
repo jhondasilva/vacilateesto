@@ -20,6 +20,8 @@ const tracker = typeof window === "undefined" ? null : createPageViewTracker({
   },
 });
 
+let lastPath: string | null = null;
+
 /**
  * Un único page_view manual (GA4 + Metricool) por ruta pública reconocida, incluida la carga
  * inicial. Espera el título de Helmet (máx. 1,2 s); al navegar, cancela la vista pendiente.
@@ -30,7 +32,9 @@ const AnalyticsPageViews = () => {
   useEffect(() => { installIntentListener(); }, []);
 
   useEffect(() => {
-    setCurrentEntry(`${key}|${normalizePath(pathname)}`);
+    // La entrada actual solo cambia con el pathname (cambios de query/hash no cuentan).
+    const path = normalizePath(pathname);
+    if (path !== lastPath) { lastPath = path; setCurrentEntry(`${key}|${path}`); }
     tracker?.onLocation(key, pathname);
   }, [pathname, key]);
 
