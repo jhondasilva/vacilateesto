@@ -132,7 +132,9 @@ export const sendPageView = (pathname: string, title: string) => {
   const referrer = lastPublicUrl || sanitizeUrl(document.referrer);
   w.gtag!("event", "page_view", { page_location: location, page_referrer: referrer, page_title: title });
   lastPublicUrl = location;
-  metricoolHit();
+  if (!isPrivatePath(w.location.pathname)) metricoolHit();
+  // Si ya se navegó a una ruta privada mientras esperaba el título, vuelve a bloquear.
+  setGaDisabled(isPrivatePath(w.location.pathname));
 };
 
 const sendEvent = (name: string, params: Record<string, string>) => {
