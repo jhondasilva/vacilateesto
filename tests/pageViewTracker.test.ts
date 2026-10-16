@@ -9,17 +9,17 @@ const setup = () => {
   const sent: [string, string][] = [];
   const privacy: string[] = [];
   let id = 0;
-  const timers = new Map<number, () => void>();
+  const timers = new Map<number, { fn: () => void; ms: number }>();
   const observers = new Set<() => void>();
   const t = createPageViewTracker({
     getPath: () => env.path, getTitle: () => env.title, isNoindex: () => env.noindex,
     isWaiting: () => env.waiting,
     send: (p, title) => sent.push([p, title]), setPrivacy: (p) => privacy.push(p),
-    setTimer: (fn) => { timers.set(++id, fn); return id; }, clearTimer: (i) => timers.delete(i),
+    setTimer: (fn, ms) => { timers.set(++id, { fn, ms }); return id; }, clearTimer: (i) => timers.delete(i),
     observeHead: (cb) => { observers.add(cb); return () => observers.delete(cb); },
   });
   const nav = (key: string, path: string) => { env.path = path; t.onLocation(key, path); };
-  const runTimers = () => { const fns = [...timers.values()]; timers.clear(); fns.forEach((f) => f()); };
+  const runTimers = (limit = Infinity) => { const due = [...timers].filter(([, t]) => t.ms <= limit); due.forEach(([k]) => timers.delete(k)); due.forEach(([, t]) => t.fn()); };
   const headChanged = (title: string) => { env.title = title; [...observers].forEach((o) => o()); };
   return { env, sent, privacy, nav, runTimers, headChanged, timers };
 };
@@ -70,7 +70,7 @@ test("título tardío: espera la marca de carga y usa el título real", () => {
   s.env.waiting = true;
   s.nav("a", "/episodios/dQw4w9WgXcQ");
   s.headChanged("Inicio genérico");
-  s.runTimers(); // solo corre el settle: sigue esperando
+  s.runTimers(500); // solo corre el settle: sigue esperando
   strictEqual(s.sent.length, 0);
   s.env.waiting = false;
   s.headChanged("Episodio X | Vacílate Esto");
