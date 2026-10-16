@@ -13,7 +13,9 @@ export type TrackerDeps = {
   isNoindex: () => boolean;
   /** La página aún carga su título real (p. ej. ficha de episodio). */
   isWaiting?: () => boolean;
-  send: (pathname: string, title: string, entryId: string) => void;
+  send: (pathname: string, title: string, activationId: string) => void;
+  /** Nueva activación (cada llegada a un pathname, incluidas privadas y regresos Atrás/Adelante). */
+  onActivate?: (activationId: string) => void;
   setPrivacy: (pathname: string) => void;
   setTimer: (fn: () => void, ms: number) => number;
   clearTimer: (id: number) => void;
@@ -55,10 +57,12 @@ export const createPageViewTracker = (d: TrackerDeps, maxWait = 1200, settleMs =
       if (pathname === lastPath) return; // solo cambió query/hash
       lastPath = pathname;
       cancel();
-      if (!isPublicRoute(pathname)) return;
       const token = ++seq;
+      const activationId = `${entryId}#${token}`;
+      d.onActivate?.(activationId);
+      if (!isPublicRoute(pathname)) return;
       const startTitle = d.getTitle();
-      pending = { token, pathname, entryId, timers: [d.setTimer(() => emit(token, true), maxWait)] };
+      pending = { token, pathname, entryId: activationId, timers: [d.setTimer(() => emit(token, true), maxWait)] };
       if (d.observeHead) {
         let settle = 0;
         pending.stop = d.observeHead(() => {
@@ -74,7 +78,8 @@ export const createPageViewTracker = (d: TrackerDeps, maxWait = 1200, settleMs =
 };
 
 /**
- * Cola de Metricool por entrada: un hit como máximo por entrada; si el SDK carga tarde,
+ * Cola de Metricool por ACTIVACIÓN (cada llegada a una ruta, también al volver con Atrás):
+ * un hit como máximo por activación (protege de repeticiones StrictMode); si el SDK carga tarde,
  * solo emite si la entrada encolada sigue siendo la actual y es segura.
  */
 export const createMetricoolQueue = (d: {
@@ -83,11 +88,11 @@ export const createMetricoolQueue = (d: {
   isSafeNow: () => boolean;
   hit: () => void;
 }) => {
-  const sent = new Set<string>();
+  let lastSent: string | null = null;
   let queued: string | null = null;
   const tryHit = (entryId: string) => {
-    if (sent.has(entryId) || d.currentEntry() !== entryId || !d.isSafeNow()) return;
-    sent.add(entryId);
+    if (lastSent === entryId || d.currentEntry() !== entryId || !d.isSafeNow()) return;
+    lastSent = entryId;
     d.hit();
   };
   return {

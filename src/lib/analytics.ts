@@ -89,24 +89,47 @@ const loadGa = () => {
   document.head.appendChild(s);
 };
 
-/** Parámetros de consulta considerados seguros para Metricool (lista vacía: ninguno). */
-const METRICOOL_SAFE_PARAMS = new Set<string>();
-const SENSITIVE_REFERRER = /\/(dashboard|gira|reset-password|admin|auth|~oauth)(\/|$|\?|#)/i;
+/**
+ * Allowlist estricta para Metricool: solo llaves de campaña conocidas con valores acotados.
+ * - utm_*: 1-100 caracteres [A-Za-z0-9._-] (sin espacios, @, / ni texto libre).
+ * - gclid/fbclid: 10-255 caracteres [A-Za-z0-9_-].
+ * Cualquier otra llave, valor fuera de formato o llave repetida omite el hit completo.
+ * Limitación: campañas con espacios o acentos en el valor se omiten (no se validan con fiabilidad).
+ */
+const UTM_VALUE = /^[A-Za-z0-9._-]{1,100}$/;
+const CLICK_ID = /^[A-Za-z0-9_-]{10,255}$/;
+export const METRICOOL_PARAM_RULES: Record<string, RegExp> = {
+  utm_source: UTM_VALUE, utm_medium: UTM_VALUE, utm_campaign: UTM_VALUE,
+  utm_term: UTM_VALUE, utm_content: UTM_VALUE, utm_id: UTM_VALUE,
+  gclid: CLICK_ID, fbclid: CLICK_ID,
+};
+const SENSITIVE_REFERRER = /\/(dashboard|gira|reset-password|admin|auth|~oauth)(\/|$)/i;
+
+export const safeCampaignQuery = (search: string): boolean => {
+  if (!search || search === "?") return true;
+  if (search.length > 1024) return false;
+  const params = new URLSearchParams(search);
+  const seen = new Set<string>();
+  for (const [k, v] of params) {
+    const rule = METRICOOL_PARAM_RULES[k];
+    if (!rule || seen.has(k) || !rule.test(v)) return false;
+    seen.add(k);
+  }
+  return true;
+};
 
 /**
  * Metricool (beTracker.t) lee location/referrer reales y no admite override.
- * Si la URL tiene hash o algún parámetro fuera de la lista segura, o el referrer
- * viene de una ruta privada/sensible o trae query/hash, se omite el hit.
+ * Solo se emite si la URL no tiene hash, su query cumple la allowlist de campaña y
+ * el referrer no es privado/sensible ni trae hash o query fuera de la allowlist.
  */
 export const metricoolSafe = (href: string, referrer: string): boolean => {
   try {
     const u = new URL(href);
-    if (u.hash) return false;
-    for (const k of u.searchParams.keys()) if (!METRICOOL_SAFE_PARAMS.has(k)) return false;
-    if (!isPublicRoute(u.pathname)) return false;
+    if (u.hash || !safeCampaignQuery(u.search) || !isPublicRoute(u.pathname)) return false;
     if (referrer) {
       const r = new URL(referrer);
-      if (r.search || r.hash || SENSITIVE_REFERRER.test(r.pathname)) return false;
+      if (r.hash || SENSITIVE_REFERRER.test(r.pathname) || !safeCampaignQuery(r.search)) return false;
     }
     return true;
   } catch {
@@ -115,7 +138,7 @@ export const metricoolSafe = (href: string, referrer: string): boolean => {
 };
 
 let currentEntry: string | null = null;
-/** Entrada de historial actual (key|pathname), fijada en cada cambio de ubicación. */
+/** Activación actual (key|pathname#n), nueva en cada llegada a un pathname. */
 export const setCurrentEntry = (entryId: string) => { currentEntry = entryId; };
 
 const metricoolQueue = createMetricoolQueue({

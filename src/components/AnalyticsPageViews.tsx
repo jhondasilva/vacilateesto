@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { installIntentListener, sendPageView, setCurrentEntry, setRoutePrivacy } from "@/lib/analytics";
 import { createPageViewTracker } from "@/lib/pageViewTracker";
-import { normalizePath } from "@/lib/routes";
 
 const tracker = typeof window === "undefined" ? null : createPageViewTracker({
   getPath: () => window.location.pathname,
@@ -11,6 +10,7 @@ const tracker = typeof window === "undefined" ? null : createPageViewTracker({
     .some((m) => /noindex/i.test(m.getAttribute("content") || "")),
   isWaiting: () => !!document.querySelector("[data-pageview-wait]"),
   send: sendPageView,
+  onActivate: setCurrentEntry,
   setPrivacy: setRoutePrivacy,
   setTimer: (fn, ms) => window.setTimeout(fn, ms),
   clearTimer: (id) => window.clearTimeout(id),
@@ -20,8 +20,6 @@ const tracker = typeof window === "undefined" ? null : createPageViewTracker({
     return () => obs.disconnect();
   },
 });
-
-let lastPath: string | null = null;
 
 /**
  * Un único page_view manual (GA4 + Metricool) por ruta pública reconocida, incluida la carga
@@ -33,9 +31,6 @@ const AnalyticsPageViews = () => {
   useEffect(() => { installIntentListener(); }, []);
 
   useEffect(() => {
-    // La entrada actual solo cambia con el pathname (cambios de query/hash no cuentan).
-    const path = normalizePath(pathname);
-    if (path !== lastPath) { lastPath = path; setCurrentEntry(`${key}|${path}`); }
     tracker?.onLocation(key, pathname);
   }, [pathname, key]);
 

@@ -129,3 +129,29 @@ test("páginas públicas con Helmet propio declaran og:title y og:description", 
     strictEqual(/og:title/.test(s) && /og:description/.test(s), true, f);
   }
 });
+
+const flow = () => {
+  let path = "/", act: string | null = null;
+  const hits: string[] = [];
+  const timers: (() => void)[] = [];
+  const q = createMetricoolQueue({ isReady: () => true, currentEntry: () => act, isSafeNow: () => isPublicRoute(path), hit: () => hits.push(path) });
+  const t = createPageViewTracker({
+    getPath: () => path, getTitle: () => "T", isNoindex: () => false,
+    send: (_p, _t, id) => q.request(id), onActivate: (id) => { act = id; }, setPrivacy: () => {},
+    setTimer: (fn) => { timers.push(fn); return timers.length; }, clearTimer: (i) => { timers[i - 1] = () => {}; },
+  });
+  const nav = (key: string, p: string) => { path = p; t.onLocation(key, p); t.onLocation(key, p); timers.splice(0).forEach((f) => f()); };
+  return { hits, nav };
+};
+
+test("Metricool: A → B → Atrás A envía A, B, A una vez cada uno", () => {
+  const f = flow();
+  f.nav("a", "/blog"); f.nav("b", "/premios"); f.nav("a", "/blog");
+  deepStrictEqual(f.hits, ["/blog", "/premios", "/blog"]);
+});
+
+test("Metricool: A → privada → Atrás A envía A, A sin la privada", () => {
+  const f = flow();
+  f.nav("a", "/blog"); f.nav("b", "/dashboard"); f.nav("a", "/blog");
+  deepStrictEqual(f.hits, ["/blog", "/blog"]);
+});

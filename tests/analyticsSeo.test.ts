@@ -105,3 +105,25 @@ test("el SW no sirve la app en robots, sitemaps, llms ni descargas", async () =>
     for (const p of ["/robots.txt", "/sitemap.xml", "/sitemap-videos.xml", "/llms.txt", "/google123.html", "/downloads/VacilateEsto-MediaKit-2026.pdf"]) strictEqual(denied(p ), true);
     for (const p of ["/", "/fali", "/en/fali", "/episodios/abc123", "/blog/numeros-vacilate-esto-2026"]) strictEqual(denied(p ), false);
   });
+
+test("Metricool: campañas seguras sí; email, texto libre, tokens y referrers sensibles no", () => {
+  const H = "https://www.vacilateesto.com/blog";
+  strictEqual(metricoolSafe(`${H}?utm_source=instagram&utm_medium=social&utm_campaign=fiap_2026`, ""), true);
+  strictEqual(metricoolSafe(`${H}?utm_id=123&utm_term=pelotica-goma&utm_content=v1`, ""), true);
+  strictEqual(metricoolSafe(`${H}?gclid=Cj0KCQjwAbCdEf_123-xyz`, ""), true);
+  strictEqual(metricoolSafe(`${H}?fbclid=IwAR0abcdEFGH12345`, ""), true);
+  strictEqual(metricoolSafe(`${H}?utm_source=juan%40mail.com`, ""), false);
+  strictEqual(metricoolSafe(`${H}?utm_campaign=Juan+Perez+0414`, ""), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=a&utm_source=b`, ""), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=ig&token=abc`, ""), false);
+  strictEqual(metricoolSafe(`${H}?access_token=abc`, ""), false);
+  strictEqual(metricoolSafe(`${H}?gclid=x`, ""), false);
+  strictEqual(metricoolSafe(`${H}?gclid=${"a".repeat(300)}`, ""), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=<script>`, ""), false);
+  strictEqual(metricoolSafe(`${H}?q=juan`, ""), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=ig`, "https://www.vacilateesto.com/auth/callback"), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=ig`, "https://www.vacilateesto.com/reset-password?code=1"), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=ig`, "https://l.instagram.com/?u=x"), false);
+  strictEqual(metricoolSafe(`${H}?utm_source=ig`, "https://www.instagram.com/"), true);
+  strictEqual(metricoolSafe(`${H}`, "https://www.vacilateesto.com/premios?utm_source=ig"), true);
+});
