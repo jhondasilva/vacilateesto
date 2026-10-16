@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { episodePath, isValidVideoId } from "@/lib/episodes";
 import {
   Search,
   Play,
@@ -248,6 +249,10 @@ const Buscador = () => {
     });
   };
 
+  // Compatibilidad: los enlaces antiguos /buscador?v=VIDEO_ID llevan a la ficha del episodio.
+  const legacyVideo = searchParams.get("v");
+  if (legacyVideo && isValidVideoId(legacyVideo)) return <Navigate to={episodePath(legacyVideo)} replace />;
+
   return (
     <>
       <Helmet>
@@ -257,6 +262,8 @@ const Buscador = () => {
           content={`Busca cualquier tema en ${stats ? `${stats.podcasts} episodios y ${stats.shorts} shorts` : "todos los episodios y shorts"} de Vacílate Esto. Encuentra el minuto exacto donde lo conversamos y míralo en YouTube.`}
         />
         <link rel="canonical" href="https://www.vacilateesto.com/buscador" />
+        <meta property="og:title" content="Buscador de momentos | Vacílate Esto" />
+        <meta property="og:description" content="Busca cualquier tema en los episodios y shorts de Vacílate Esto y encuentra el minuto exacto." />
       </Helmet>
       <div className="min-h-screen bg-background">
         <Header />
@@ -532,7 +539,7 @@ const Buscador = () => {
                             )}
                           </div>
                           <h3 className="font-bold text-base sm:text-lg leading-snug mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                            {r.title}
+                            <Link to={episodePath(r.video_id)} className="hover:underline">{r.title}</Link>
                           </h3>
                           <p className="text-sm text-muted-foreground line-clamp-3 mb-3 leading-relaxed">
                             …{highlight(r.text, submittedQuery)}…

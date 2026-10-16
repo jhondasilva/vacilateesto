@@ -57,7 +57,7 @@ const PressKit = () => (
         name="description"
         content="Descarga el press kit oficial de Vacílate Esto: logos en alta, fotos oficiales de JhonSnacks y JuanSofa, boilerplate para medios y media kits para patrocinadores."
       />
-      <link rel="canonical" href="https://vacilateesto.com/press-kit" />
+      <link rel="canonical" href="https://www.vacilateesto.com/press-kit" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Press Kit Vacílate Esto | Logos, fotos y boilerplate" />
       <meta property="og:description" content="Material oficial para medios y patrocinadores: logos, fotos, boilerplate y media kits." />

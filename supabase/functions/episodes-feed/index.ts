@@ -24,6 +24,7 @@ Deno.serve(async (req) => {
       .from("yt_videos")
       .select("video_id, title, description, thumbnail_url, published_at, duration_seconds, kind, view_count")
       .eq("is_available", true)
+      .not("published_at", "is", null)
       .order("published_at", { ascending: false })
       .limit(limit);
     if (kind) q = q.eq("kind", kind);
@@ -36,7 +37,7 @@ Deno.serve(async (req) => {
       position: idx + 1,
       name: v.title,
       description: (v.description ?? "").slice(0, 500),
-      url: `${SITE}/buscador?v=${v.video_id}`,
+      url: `${SITE}/episodios/${v.video_id}`,
       datePublished: v.published_at,
       duration: v.duration_seconds ? `PT${v.duration_seconds}S` : undefined,
       thumbnailUrl: v.thumbnail_url,

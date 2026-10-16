@@ -1,125 +1,54 @@
 # Vacílate Esto - Sistema de contenidos venezolano de Fun Educaitment
 # https://www.vacilateesto.com
+#
+# Todas las páginas se pueden rastrear. Las zonas privadas (dashboards, gira,
+# restablecer contraseña) se protegen con inicio de sesión y llevan "noindex";
+# no se bloquean aquí para que los buscadores puedan leer esa etiqueta.
+# Este archivo no es una medida de seguridad.
 
 User-agent: *
 Allow: /
 
-# Sitemap
+# Mismas reglas, declaradas explícitamente para buscadores, redes e IA
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Video
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Yandex
+User-agent: Baiduspider
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: LinkedInBot
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Pinterest
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: Google-Extended
+User-agent: Anthropic-AI
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: PerplexityBot
+User-agent: Cohere-ai
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: FacebookBot
+User-agent: Amazonbot
+User-agent: YouBot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Diffbot
+User-agent: Omgilibot
+Allow: /
+
 Sitemap: https://www.vacilateesto.com/sitemap.xml
 Sitemap: https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/sitemap-videos
 Sitemap: https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/blog-sitemap
 
-# LLMs.txt for AI crawlers
-# https://llmstxt.org/
-LLMs: https://www.vacilateesto.com/llms.txt
-
-# Feed JSON-LD de episodios para crawlers IA
-# https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/episodes-feed
-
-# Allow all major search engines with full access
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Googlebot-Video
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Yandex
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-# Social Media Bots
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: WhatsApp
-Allow: /
-
-User-agent: TelegramBot
-Allow: /
-
-User-agent: Pinterest
-Allow: /
-
-# AI Search and LLM Crawlers - Full Access Granted
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Anthropic-AI
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Cohere-ai
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: Meta-ExternalFetcher
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: AppleBot
-Allow: /
-
-User-agent: AppleBot-Extended
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: Diffbot
-Allow: /
-
-User-agent: Omgilibot
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
+# LLMs.txt para rastreadores de IA: https://www.vacilateesto.com/llms.txt
+# Feed JSON-LD de episodios: https://dpgvanocynbrmqvgvgvd.supabase.co/functions/v1/episodes-feed

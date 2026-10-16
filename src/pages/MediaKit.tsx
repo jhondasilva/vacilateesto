@@ -43,6 +43,7 @@ import { Button } from "@/components/ui/button";
 import StickerHeader from "@/components/StickerHeader";
 import StickerMarquee from "@/components/StickerMarquee";
 import mediaKitMetrics from "@/data/mediaKitMetrics.json";
+import { trackFormSuccess } from "@/lib/analytics";
 
 // Cache-buster sincronizado con el PDF (lo actualiza scripts/media-kit/sync.mjs)
 const PDF_VERSION = mediaKitMetrics.version;
@@ -275,6 +276,7 @@ const ContactForm = () => {
       });
 
       if (error) throw error;
+      trackFormSuccess("media_kit_contact");
 
       toast({
         title: "¡Mensaje enviado!",
@@ -400,6 +402,7 @@ const PdfActions = () => {
       });
 
       if (error) throw error;
+      trackFormSuccess("media_kit_email");
 
       toast({
         title: "¡Media Kit enviado!",
@@ -526,12 +529,7 @@ const MediaKit = () => {
               "founder": [
                 { "@type": "Person", "name": "Juan Carlos Martínez" },
                 { "@type": "Person", "name": "Jhon Da Silva" }
-              ],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "1300"
-              }
+              ]
             },
             "offers": [
               {

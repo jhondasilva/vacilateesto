@@ -8,6 +8,9 @@ const TermsOfUse = () => {
       <Helmet>
         <title>Términos de Uso | Vacílate Esto</title>
         <meta name="description" content="Términos y condiciones de uso del sitio web y contenido de Vacílate Esto." />
+        <link rel="canonical" href="https://www.vacilateesto.com/terminos" />
+        <meta property="og:title" content="Términos de Uso | Vacílate Esto" />
+        <meta property="og:description" content="Términos y condiciones de uso del sitio web y contenido de Vacílate Esto." />
       </Helmet>
 
       <div className="min-h-screen bg-background">

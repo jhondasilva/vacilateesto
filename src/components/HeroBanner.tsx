@@ -7,7 +7,9 @@ const HeroBanner = () => {
         <img
           src={headerBanner}
           alt="Vacílate Esto - JuanSofa y JhonSnacks, los hosts del sistema de contenidos venezolano de Fun Educaitment"
-          className="w-full h-auto object-cover"
+          width={1584}
+          height={396}
+          className="w-full h-auto aspect-[4/1] object-cover"
           loading="eager"
           fetchPriority="high"
           decoding="async"

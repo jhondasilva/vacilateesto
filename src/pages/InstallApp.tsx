@@ -57,6 +57,8 @@ const InstallApp = () => {
       <Helmet>
         <title>Instalar App | Vacílate Esto - Sistema de contenidos venezolano de Fun Educaitment</title>
         <meta name="description" content="Instala la app de Vacílate Esto en tu teléfono. Accede al sistema de contenidos venezolano de Fun Educaitment Vacílate Esto desde tu pantalla de inicio." />
+        <meta property="og:title" content="Instalar App | Vacílate Esto" />
+        <meta property="og:description" content="Instala la app de Vacílate Esto en tu teléfono y accede desde tu pantalla de inicio." />
       </Helmet>
 
       <div className="min-h-screen bg-background">

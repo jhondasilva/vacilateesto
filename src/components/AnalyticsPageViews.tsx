@@ -1,31 +1,49 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { createDeduper, installIntentListener, isPrivatePath, sendPageView, setRoutePrivacy } from "@/lib/analytics";
 
-const PRIVATE_PATH = /^\/(dashboard|gira|reset-password)(\/|$)/;
+const isNewEntry = createDeduper();
+let pending: { id: string; pathname: string; timer: number; observer?: MutationObserver } | null = null;
 
-/** Sends a GA4 page_view on SPA route changes. The first view is sent by the initial config in index.html. */
+const flush = () => {
+  if (!pending) return;
+  const p = pending;
+  pending = null;
+  window.clearTimeout(p.timer);
+  p.observer?.disconnect();
+  sendPageView(p.pathname, document.title);
+};
+
+/**
+ * Un único page_view manual (GA4 + Metricool) por entrada de historial pública,
+ * incluida la carga inicial. Espera a que Helmet actualice el título (máx. 1,2 s).
+ */
 const AnalyticsPageViews = () => {
-  const { pathname } = useLocation();
-  const isFirst = useRef(true);
+  const { pathname, key } = useLocation();
+
+  useEffect(() => { installIntentListener(); }, []);
 
   useEffect(() => {
-    if (isFirst.current) {
-      isFirst.current = false;
-      return;
-    }
-    if (PRIVATE_PATH.test(pathname)) return;
-    const gtag = (window as any).gtag;
-    if (typeof gtag !== "function") return;
-    // Short delay so page titles set by Helmet are applied; only path is sent (no query/personal data).
-    const t = setTimeout(() => {
-      gtag("event", "page_view", {
-        page_path: pathname,
-        page_location: window.location.origin + pathname,
-        page_title: document.title,
+    setRoutePrivacy(pathname);
+    if (!isNewEntry({ key, pathname })) return;
+    // Nueva entrada: si quedó una vista pendiente de otra ruta, se envía antes.
+    if (pending) flush();
+    if (isPrivatePath(pathname)) return;
+    const startTitle = document.title;
+    const timer = window.setTimeout(flush, 1200);
+    pending = { id: key, pathname, timer };
+    const titleEl = document.querySelector("title");
+    if (titleEl && typeof MutationObserver !== "undefined") {
+      let settle = 0;
+      const obs = new MutationObserver(() => {
+        if (document.title === startTitle) return;
+        window.clearTimeout(settle);
+        settle = window.setTimeout(flush, 150);
       });
-    }, 50);
-    return () => clearTimeout(t);
-  }, [pathname]);
+      obs.observe(document.head, { subtree: true, childList: true, characterData: true });
+      pending.observer = obs;
+    }
+  }, [pathname, key]);
 
   return null;
 };
