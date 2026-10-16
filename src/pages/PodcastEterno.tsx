@@ -88,12 +88,6 @@ const PodcastEterno = () => {
           "name": "Caracas, Venezuela",
           "address": { "@type": "PostalAddress", "addressCountry": "VE", "addressLocality": "Caracas" }
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5",
-          "ratingCount": "1000",
-          "bestRating": "5"
-        },
         "interactionStatistic": [
           { "@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": "500000" },
           { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": "25000" }

@@ -526,12 +526,7 @@ const MediaKit = () => {
               "founder": [
                 { "@type": "Person", "name": "Juan Carlos Martínez" },
                 { "@type": "Person", "name": "Jhon Da Silva" }
-              ],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "1300"
-              }
+              ]
             },
             "offers": [
               {

@@ -152,12 +152,6 @@ const PodcastEnLaCumbre = () => {
             }
           ]
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "137000",
-          "bestRating": "5"
-        },
         "interactionStatistic": [
           { "@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": "2600000" },
           { "@type": "InteractionCounter", "interactionType": "https://schema.org/LikeAction", "userInteractionCount": "137000" }
