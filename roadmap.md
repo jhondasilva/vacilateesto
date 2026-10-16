@@ -17,3 +17,5 @@
 - [x] Crear /en/fali con manifiesto completo, arte original y navegación ES/EN; preservar cambios ajenos
 - [x] Verificar idiomas, metadatos, controles y tamaños; entregar diff FALI sin publicar ni desplegar
 - [x] Corregir la explicación inglesa a Useless Latency manteniendo Inútil y verificar ambos idiomas sin publicar
+- [x] Auditoría SEO/medición/accesibilidad: GA4 y Metricool únicos, metadatos por ruta, fichas de episodio, sitemap/robots, eventos de formularios, lazy load (sin publicar)
+- [ ] Desplegar sitemap-videos y episodes-feed y publicar — espera revisión del usuario y panel GA4

@@ -28,7 +28,7 @@ const Index = () => {
         <title>Vacílate Esto | Sistema de contenidos venezolano de Fun Educaitment</title>
         <meta name="description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
         <meta name="keywords" content="vacilate esto, sistema de contenidos venezolano, fun educaitment, fútbol, gastronomía, historia, leyendas venezolanas, datos insólitos, mitos urbanos, juansofa, jhonsnacks" />
-        <link rel="canonical" href="https://www.vacilateesto.com" />
+        <link rel="canonical" href="https://www.vacilateesto.com/" />
         
         {/* Robots */}
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -43,7 +43,7 @@ const Index = () => {
         <meta property="og:site_name" content="Vacílate Esto" />
         <meta property="og:title" content="Vacílate Esto | Sistema de contenidos venezolano de Fun Educaitment" />
         <meta property="og:description" content="Vacílate Esto: sistema de contenidos venezolano de Fun Educaitment. Fútbol, gastronomía, historia, leyendas y mitos urbanos contados con calle y con data." />
-        <meta property="og:url" content="https://www.vacilateesto.com" />
+        <meta property="og:url" content="https://www.vacilateesto.com/" />
         <meta property="og:locale" content="es_VE" />
         
         {/* Twitter */}
