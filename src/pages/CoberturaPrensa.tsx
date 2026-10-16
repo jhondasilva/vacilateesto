@@ -1,3 +1,4 @@
+import { trackFormSuccess } from "@/lib/analytics";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -14,7 +15,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-import { trackFormSuccess } from "@/lib/analytics";
   BadgeCheck,
   CalendarClock,
   HelpCircle,
