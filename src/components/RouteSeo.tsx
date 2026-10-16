@@ -25,7 +25,7 @@ const RouteSeo = () => {
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="es_VE" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
+      {/* Sin twitter:title/description/image: X usa los og:* de cada página. */}
     </Helmet>
   );
 };

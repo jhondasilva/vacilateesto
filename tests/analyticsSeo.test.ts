@@ -58,7 +58,7 @@ test("episodios: id válido y schema VideoObject + Breadcrumb con canonical prop
   strictEqual(isValidVideoId("dQw4w9WgXcQ"), true);
   strictEqual(isValidVideoId("../etc"), false);
   const ld = episodeJsonLd({ video_id: "dQw4w9WgXcQ", title: "T", description: null, thumbnail_url: null, published_at: null, duration_seconds: null, kind: "podcast" });
-  const [video, crumbs] = ld["@graph"] as any[];
+  const [video, crumbs] = ld["@graph"] as Array<Record<string, unknown>>;
   strictEqual(video["@type"], "VideoObject");
   strictEqual(video.url, "https://www.vacilateesto.com/episodios/dQw4w9WgXcQ");
   strictEqual("uploadDate" in video, false); // sin fecha inventada
