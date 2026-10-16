@@ -4,6 +4,6 @@
 - Historical Cumbre press PDFs retain their original pages and attributed quotations behind an editorial clarification, so archive material is not mistaken for current verified claims.
 - Press archive ZIP refreshes synchronize existing current PDF entries and brand boilerplate while preserving historical documents, quotations and all other entries, so downloadable copies match the current site.
 - FALI English lives at /en/fali with route-scoped header/footer locale props and reciprocal metadata; keep other routes Spanish to isolate translation changes.
-- Measurement (GA4 + Metricool) loads and fires only from src/lib/analytics.ts on production hosts and public paths, one manual page_view per history entry, so preview and private routes never pollute data.
+- Measurement (GA4 + Metricool) loads and fires only from src/lib/analytics.ts on production hosts, for routes recognized by the shared src/lib/routes.ts registry, via the pure pageViewTracker (one view per pathname, pending views cancelled on navigation), so preview, private, unknown and stale routes never pollute data.
 - Head metadata comes from RouteSeo defaults plus each page's Helmet, with static index.html tags removed at boot, so every route has exactly one canonical/description/OG set.
 - Public episode pages live at /episodios/:videoId using only public yt_videos columns; legacy /buscador?v= redirects there, so sitemap/feed URLs resolve.
