@@ -82,7 +82,7 @@ test("funciones de sitemap/feed apuntan a /episodios y no usan la fecha de hoy",
   const feed = readFileSync("supabase/functions/episodes-feed/index.ts", "utf8");
   strictEqual(sv.includes("buscador?v="), false);
   strictEqual(feed.includes("buscador?v="), false);
-  strictEqual(sv.includes("new Date().toISOString"), false);
+  strictEqual(sv.includes("<lastmod>"), false);
   strictEqual(sv.includes("/episodios/"), true);
 });
 
