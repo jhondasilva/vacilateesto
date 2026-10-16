@@ -8,6 +8,9 @@ const PrivacyPolicy = () => {
       <Helmet>
         <title>Política de Privacidad | Vacílate Esto</title>
         <meta name="description" content="Política de privacidad de Vacílate Esto. Conoce cómo protegemos y manejamos tu información personal." />
+        <link rel="canonical" href="https://www.vacilateesto.com/privacidad" />
+        <meta property="og:title" content="Política de Privacidad | Vacílate Esto" />
+        <meta property="og:description" content="Política de privacidad de Vacílate Esto. Conoce cómo protegemos y manejamos tu información personal." />
       </Helmet>
 
       <div className="min-h-screen bg-background">

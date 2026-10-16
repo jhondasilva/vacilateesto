@@ -179,7 +179,7 @@ const CoberturaPrensa = () => {
           name="description"
           content="Todo para medios: preguntas frecuentes, credenciales, horarios de atención y formulario de solicitud de entrevistas y cobertura de Vacílate Esto y Podcast en la Cumbre."
         />
-        <link rel="canonical" href="https://vacilateesto.com/prensa/cobertura" />
+        <link rel="canonical" href="https://www.vacilateesto.com/prensa/cobertura" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Cobertura para prensa | Vacílate Esto" />
         <meta property="og:description" content="FAQ, credenciales, horarios y formulario de solicitud de entrevistas y cobertura para medios." />
