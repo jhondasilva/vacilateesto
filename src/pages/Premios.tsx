@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickerHeader from "@/components/StickerHeader";
+import { CIMA_2026 } from "@/data/cima2026";
 import { Trophy, Download, Mail, ArrowLeft, Star, Award, ExternalLink } from "lucide-react";
 
 const PDF = "/press/Nota_de_Prensa_FIAP_2026.pdf";
@@ -60,9 +61,9 @@ const Premios = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    headline: "Vacílate Esto: 4 Soles de Bronce FIAP 2026 y 8 nominaciones CIMA 2026",
+    headline: "Vacílate Esto: reconocimientos FIAP y Premios CIMA 2026",
     description:
-      "Cuatro Soles de Bronce en FIAP 2026 para casos de Vacílate Esto; 8 nominaciones CIMA 2026.",
+      "Cuatro Soles de Bronce en FIAP 2026 y resultados oficiales de Premios CIMA 2026 para Vacílate Esto, Movilnet en Pelotica de Goma y Jhon Da Silva.",
     datePublished: "2026-10-02",
     inLanguage: "es-VE",
     author: { "@type": "Organization", name: "Vacílate Esto" },
@@ -73,21 +74,22 @@ const Premios = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026</title>
+        <title>Vacílate Esto: reconocimientos FIAP y Premios CIMA 2026</title>
         <meta
           name="description"
-          content="Cuatro Soles de Bronce FIAP 2026 para casos de Vacílate Esto y 8 nominaciones CIMA 2026. Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026 y resultados oficiales CIMA 2026: Vacílate Esto, Movilnet en Pelotica de Goma y Jhon Da Silva."
         />
         <link rel="canonical" href="https://www.vacilateesto.com/premios" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026" />
+        <meta property="og:title" content="Vacílate Esto: reconocimientos FIAP y Premios CIMA 2026" />
         <meta
           property="og:description"
-          content="Cuatro Soles de Bronce FIAP 2026, 8 nominaciones CIMA y selecciones en Cannes, El Dorado y Effie Latam."
+          content="Cuatro Soles de Bronce FIAP 2026 y resultados oficiales CIMA 2026: Vacílate Esto, Movilnet en Pelotica de Goma y Jhon Da Silva."
         />
         <meta property="og:url" content="https://www.vacilateesto.com/premios" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vacílate Esto: 4 Soles de Bronce FIAP y 8 nominaciones CIMA 2026" />
+        <meta name="twitter:title" content="Vacílate Esto: reconocimientos FIAP y Premios CIMA 2026" />
+        <meta name="twitter:description" content="Cuatro Soles de Bronce FIAP 2026 y resultados oficiales CIMA 2026: Vacílate Esto, Movilnet en Pelotica de Goma y Jhon Da Silva." />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
@@ -112,7 +114,7 @@ const Premios = () => {
             </h1>
             <p className="font-body text-background/80 text-base sm:text-lg leading-relaxed mt-6">
               <strong className="text-primary">Walking Ads Above the Algorithm</strong> obtuvo tres bronces y{" "}
-              <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto. Además, hay 8 nominaciones en los Premios CIMA 2026.
+              <strong className="text-primary">Streaming from the Lost World</strong> uno. Los casos son de Vacílate Esto. Además, los Premios CIMA 2026 reconocieron a Vacílate Esto, a Movilnet en Pelotica de Goma y a Jhon Da Silva en las cuatro categorías detalladas abajo.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a
@@ -181,17 +183,33 @@ const Premios = () => {
           </div>
         </section>
 
-        {/* Shortlist CIMA 2026 */}
+        {/* Resultados oficiales CIMA 2026 y nominaciones históricas */}
         <section className="py-14 sm:py-20 bg-muted/30 border-b-4 border-foreground">
           <div className="container mx-auto px-4 max-w-5xl">
             <StickerHeader
               badge="Premios CIMA 2026"
               badgeIcon={Trophy}
               badgeVariant="accent"
-              title="8 nominaciones en los"
-              highlight="Premios de la Creatividad Venezolana"
+              title="Premios CIMA 2026"
+              highlight="Resultados oficiales"
               align="center"
+              titleId="cima-resultados"
             />
+            <p className="font-body text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
+              4ta edición, avalados por {CIMA_2026.endorsedBy}. Ceremonia: <time dateTime={CIMA_2026.ceremonyDate}>19 de octubre de 2026</time>, {CIMA_2026.venue}.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4 mt-8" aria-labelledby="cima-resultados">
+              {CIMA_2026.winners.map((item) => (
+                <div key={item.category} className="bg-card rounded-md p-5 border-2 border-foreground min-w-0">
+                  <p className="font-display font-black text-xs text-primary mb-2">{item.category}</p>
+                  <h3 className="font-display font-black text-base sm:text-lg text-foreground leading-tight break-words">{item.project}</h3>
+                  <p className="font-body text-sm text-muted-foreground mt-3 leading-relaxed">{item.attribution}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-muted-foreground mt-6 text-center">Todos con {CIMA_2026.agency}.</p>
+            <p className="text-xs text-muted-foreground mt-2 text-center">Fuente: correo oficial de resultados de Premios CIMA, 20 de octubre de 2026.</p>
+            <h3 className="font-display font-black text-xl sm:text-2xl text-foreground mt-12">8 nominaciones CIMA 2026 · Archivo</h3>
             <div className="grid sm:grid-cols-2 gap-4 mt-8">
               {CIMA_SHORTLIST.map((item, idx) => (
                 <div
@@ -208,7 +226,7 @@ const Premios = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground mt-6 text-center">
-              Estas son las 8 nominaciones de Vacílate Esto. La premiación será el 19 de octubre de 2026; aún no son premios ganados.
+              Se conservan las 8 nominaciones previas de Vacílate Esto como archivo. Los premios ganados figuran en los resultados oficiales de arriba.
             </p>
           </div>
         </section>
@@ -249,7 +267,7 @@ const Premios = () => {
                 <p className="font-body text-sm leading-relaxed"><strong>Salvando Pelotica de Goma</strong>: shortlist en Deportes y Entretenimiento, el único shortlist venezolano en Effie Latam 2026.</p>
               </div>
             </div>
-            <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto. “Movilnet en Pelotica de Goma” es un caso distinto, nominado a Experiencia Figital en CIMA 2026.</p>
+            <p className="mt-7 text-sm text-muted-foreground">Los casos mencionados son de Vacílate Esto. El premio CIMA 2026 de Experiencia Figital corresponde a Movilnet, en el Torneo de Pelotica de Goma de Vacílate Esto, como se detalla arriba.</p>
           </div>
         </section>
 
