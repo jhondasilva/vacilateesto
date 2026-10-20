@@ -21,6 +21,6 @@ describe("Resultados oficiales CIMA 2026", () => {
     expect(CIMA_2026.endorsedBy).toBe("FEVAP");
     expect(CIMA_2026.ceremonyDate).toBe("2026-10-19");
     expect(CIMA_2026.venue).toBe("Hotel Eurobuilding, Caracas");
-    expect(CIMA_2026.agency).toBe("La Web Figital Agency");
+    expect((CIMA_2026 as Record<string, unknown>).agency).toBeUndefined();
   });
 });

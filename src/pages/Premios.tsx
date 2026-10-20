@@ -207,8 +207,6 @@ const Premios = () => {
                 </div>
               ))}
             </div>
-            <p className="text-sm text-muted-foreground mt-6 text-center">Todos con {CIMA_2026.agency}.</p>
-            <p className="text-xs text-muted-foreground mt-2 text-center">Fuente: correo oficial de resultados de Premios CIMA, 20 de octubre de 2026.</p>
             <h3 className="font-display font-black text-xl sm:text-2xl text-foreground mt-12">8 nominaciones CIMA 2026 · Archivo</h3>
             <div className="grid sm:grid-cols-2 gap-4 mt-8">
               {CIMA_SHORTLIST.map((item, idx) => (
