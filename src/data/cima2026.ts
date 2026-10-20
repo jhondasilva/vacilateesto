@@ -4,7 +4,6 @@ export const CIMA_2026 = {
   endorsedBy: "FEVAP",
   ceremonyDate: "2026-10-19",
   venue: "Hotel Eurobuilding, Caracas",
-  agency: "La Web Figital Agency",
   winners: [
     {
       category: "Plataforma de Streaming de Medios",
