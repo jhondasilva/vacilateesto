@@ -24,6 +24,7 @@ import { TeamRankingSection } from "@/components/dashboard/TeamRankingSection";
 import { PeloticaLivesSection } from "@/components/dashboard/PeloticaLivesSection";
 import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
 import DashboardLogo from "@/components/dashboard/DashboardLogo";
+import PanDashboard from "@/components/dashboard/PanDashboard";
 
 // Configuración de keywords por marca (filtros de menciones en redes)
 const BRAND_KEYWORDS: Record<
@@ -405,6 +406,8 @@ const DashboardBrand = () => {
           <Loader2 className="w-6 h-6 animate-spin text-primary" />
         ) : !brand ? (
           <p className="text-muted-foreground">Marca no disponible.</p>
+        ) : brand.slug === "harina-pan" || brand.slug === "pan-pdg" ? (
+          <PanDashboard slug={brand.slug} />
         ) : brand.slug === "speed-stick" ? (
           <SpeedStickSection accent={accent} />
         ) : PDG_SPONSORS[brand.slug] ? (
