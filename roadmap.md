@@ -20,3 +20,5 @@
 - [x] Auditoría SEO/medición/accesibilidad: GA4 y Metricool únicos, metadatos por ruta, fichas de episodio, sitemap/robots, eventos de formularios, lazy load (sin publicar)
 - [ ] Desplegar sitemap-videos y episodes-feed y publicar — espera revisión del usuario y panel GA4
 - [x] Incorporar los cuatro resultados oficiales CIMA 2026 a premios y su banner; verificar móvil/escritorio sin publicar
+- [ ] Ajustar pestañas y filtros P.A.N., deduplicación y métricas nulas; bloqueado por confirmación de ventana de medición del cuarto split
+- [ ] Verificar P.A.N. con pruebas, auditoría de totales y preview escritorio/móvil tras confirmar período; sin publicación ni despliegue
