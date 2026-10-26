@@ -75,7 +75,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
         const syncs = stored.map(p => p.synced_at).filter(Boolean).sort();
         const dates = stored.map(p => p.published_at).filter((d): d is string => Boolean(d)).sort();
         sources.push({ label: "Capturas almacenadas de Pelotica · histórico", updated: syncs[0] ?? null,
-          from: dates[0] ?? null, to: dates.at(-1) ?? null, count: stored.length });
+          from: dates[0] ?? null, to: dates[dates.length - 1] ?? null, count: stored.length });
         collected.push(...stored.map(p => ({
           platform: p.platform, id: p.external_id, url: p.url, text: p.text ?? "", hashtags: p.hashtags ?? [],
           publishedAt: p.published_at, thumbnail: p.thumbnail, source: "stored" as const, updatedAt: p.synced_at,
