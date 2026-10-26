@@ -14,15 +14,16 @@ export type PanPost = {
 };
 export type ClassifiedPanPost = PanPost & { initiative: "pelotica" | "cumbre"; key: string };
 const handle = /(?:^|[^\w@])@panvenezuela(?![\w.])/i;
-const pelotica = /(?:^|[^\w#])#(?:peloticadegoma|amoajuga)(?![\w])/i;
+const pelotica = /(?:^|[^\p{L}\p{N}_#])#peloticadegoma(?![\p{L}\p{N}_])/iu;
+const peloticaMention = /(?:^|[^\p{L}\p{N}_@])@peloticadegomave(?![\p{L}\p{N}_.])/iu;
 const cumbre = /(?:^|[^\w#])#podcastenlacumbre(?![\w])/i;
 
 export function panInitiative(post: Pick<PanPost, "text" | "hashtags">): "pelotica" | "cumbre" | null {
   if (!handle.test(post.text)) return null;
-  const evidence = `${post.text} ${post.hashtags.map(t => t.startsWith("#") ? t : `#${t}`).join(" ")}`;
+  const evidence = `${post.text} ${post.hashtags.map(t => /^[#@]/.test(t) ? t : `#${t}`).join(" ")}`;
   // Mixed posts belong only to Cumbres, never Solo en Pelotica.
   if (cumbre.test(evidence)) return "cumbre";
-  return pelotica.test(evidence) ? "pelotica" : null;
+  return pelotica.test(evidence) || peloticaMention.test(evidence) ? "pelotica" : null;
 }
 
 export const availableMetric = (value: unknown): number | null =>
