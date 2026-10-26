@@ -64,6 +64,10 @@ test("null metrics remain unavailable, IG unvalidated zero is not counted as rea
   strictEqual(sumPanMetric([zero], "views").value, null);
   strictEqual(sumPanMetric([{ ...zero, platform: "tiktok" }], "views").value, 0);
 });
+test("Instagram numeric media IDs deduplicate owner suffix aliases without permalink", () => {
+  strictEqual(deduplicatePanPosts([post("123456_789"), post("123456")]).length, 1);
+  strictEqual(deduplicatePanPosts([post("123456_789"), post("987654_789")]).length, 2);
+});
 test("fixture manual Venezuela date bounds include exact first/last millisecond, not adjacent days", () => {
   const rows = ["2026-09-10T03:59:59.999Z", "2026-09-10T04:00:00.000Z", "2026-09-11T03:59:59.999Z", "2026-09-11T04:00:00.000Z"]
     .map((publishedAt, i) => post(String(i), undefined, { publishedAt }));

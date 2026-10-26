@@ -30,7 +30,12 @@ export const availableMetric = (value: unknown): number | null =>
 
 export function panIdentity(post: Pick<PanPost, "platform" | "id" | "url">): string[] {
   const keys: string[] = [];
-  if (post.id) keys.push(`${post.platform}:id:${post.id}`);
+  if (post.id) {
+    keys.push(`${post.platform}:id:${post.id}`);
+    if (post.platform === "instagram" && /^\d+(?:_\d+)?$/.test(post.id)) {
+      keys.push(`instagram:id:${post.id.split("_")[0]}`);
+    }
+  }
   if (post.url) {
     try {
       const url = new URL(post.url);
