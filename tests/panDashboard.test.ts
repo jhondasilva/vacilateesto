@@ -16,17 +16,35 @@ test("PAN requires exact @panvenezuela, never #PAN or another sponsor alone", ()
   strictEqual(panInitiative(post("a", "@panvenezuela_extra #PeloticaDeGoma")), null);
   strictEqual(panInitiative(post("a", "@panvenezuela.other #PeloticaDeGoma")), null);
 });
-test("#AmoAJuga without r is evidence; longer hashtags and plain mention are not", () => {
-  strictEqual(panInitiative(post("a", "@PANVENEZUELA #AMOAJUGA")), "pelotica");
-  strictEqual(panInitiative(post("a", "@panvenezuela #AmoAJugar")), null);
-  strictEqual(panInitiative(post("a", "@panvenezuela #PeloticaDeGomaOtra")), null);
-  strictEqual(panInitiative(post("a", "@panvenezuela @peloticadegomave")), null);
-  strictEqual(panInitiative(post("a", "@panvenezuela", { hashtags: ["AmoAJuga"] })), "pelotica");
+test("exact #PeloticaDeGoma alternative matches caption or stored hashtags case insensitively", () => {
+  strictEqual(panInitiative(post("a", "@PANVENEZUELA #PELOTICADEGOMA")), "pelotica");
+  strictEqual(panInitiative(post("a", "@panvenezuela", { hashtags: ["PeloticaDeGoma"] })), "pelotica");
+});
+test("exact @peloticadegomave alternative matches caption or stored token list", () => {
+  strictEqual(panInitiative(post("a", "@panvenezuela @PELOTICADEGOMAVE")), "pelotica");
+  strictEqual(panInitiative(post("a", "@panvenezuela", { hashtags: ["@peloticadegomave"] })), "pelotica");
+});
+test("author_handle alone is not evidence", () => {
+  const authorOnly = { ...post("a", "@panvenezuela"), author_handle: "@peloticadegomave" };
+  strictEqual(panInitiative(authorOnly), null);
+});
+test("#AmoAJuga alone no longer qualifies, including stored hashtag list", () => {
+  strictEqual(panInitiative(post("a", "@PANVENEZUELA #AMOAJUGA")), null);
+  strictEqual(panInitiative(post("a", "@panvenezuela", { hashtags: ["AmoAJuga"] })), null);
+});
+test("partial hashtag and mention identifiers never qualify", () => {
+  for (const token of ["#PeloticaDeGomaOtra", "#PeloticaDeGoma_extra", "#PeloticaDeGomañ", "@peloticadegomave_extra", "@peloticadegomave.otro", "@peloticadegomave2", "@peloticadegomaveñ", "x@peloticadegomave", "##PeloticaDeGoma"]) {
+    strictEqual(panInitiative(post("a", `@panvenezuela ${token}`)), null, token);
+  }
+});
+test("Cumbre PAN without Pelotica evidence never enters Solo Pelotica", () => {
+  strictEqual(selectPanPosts([post("a", "@panvenezuela #PodcastEnLaCumbre")], "pelotica").length, 0);
 });
 test("Cumbre requires hashtag; mixed content is excluded from Solo Pelotica", () => {
   strictEqual(panInitiative(post("a", "@panvenezuela #PodcastEnLaCumbre")), "cumbre");
   strictEqual(panInitiative(post("a", "@panvenezuela Podcast en la Cumbre")), null);
-  strictEqual(selectPanPosts([post("a", "@panvenezuela #PodcastEnLaCumbre #AmoAJuga")], "pelotica").length, 0);
+  strictEqual(selectPanPosts([post("a", "@panvenezuela #PodcastEnLaCumbre #PeloticaDeGoma")], "pelotica").length, 0);
+  strictEqual(selectPanPosts([post("a", "@panvenezuela #PodcastEnLaCumbre @peloticadegomave")], "pelotica").length, 0);
 });
 test("consolidated counts and known totals equal disjoint Pelotica and Cumbre partitions", () => {
   const fixtures = [post("a"), post("b", "@panvenezuela #PodcastEnLaCumbre"),

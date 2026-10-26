@@ -134,7 +134,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
               <p className="text-xs text-muted-foreground">{totals[key].available}/{selected.length} con dato{totals[key].missing ? " · suma parcial" : ""}</p>
             </div>)}
           </div>
-          <p className="text-xs text-muted-foreground mb-4">Pelotica: @panvenezuela + #PeloticaDeGoma / #AmoAJuga. Cumbres: @panvenezuela + #PodcastEnLaCumbre. Las menciones mixtas se asignan a Cumbres.</p>
+          <p className="text-xs text-muted-foreground mb-4">Pelotica: @panvenezuela + (#PeloticaDeGoma o @peloticadegomave en caption/hashtags). Ser el autor o usar sólo #AmoAJuga no basta. Cumbres: @panvenezuela + #PodcastEnLaCumbre. Las menciones mixtas se asignan a Cumbres.</p>
           {selected.length === 0 ? <p className="text-muted-foreground">Sin menciones disponibles para esta selección.</p> : <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {selected.map(p => <article key={p.key} className="bg-card border border-border rounded-lg overflow-hidden min-w-0">
               {p.thumbnail && <img src={p.thumbnail} alt="" loading="lazy" referrerPolicy="no-referrer" className="w-full aspect-[4/5] object-cover bg-muted" />}
