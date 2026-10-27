@@ -1091,6 +1091,48 @@ export type Database = {
       }
       is_allowed_user: { Args: never; Returns: boolean }
       is_brand_client: { Args: never; Returns: boolean }
+      pan_qa_begin: {
+        Args: { p_admin: string }
+        Returns: {
+          email: string
+          planned_user_id: string
+          run_id: string
+        }[]
+      }
+      pan_qa_close: {
+        Args: { p_admin: string; p_run: string }
+        Returns: string
+      }
+      pan_qa_confirm: {
+        Args: { p_admin: string; p_run: string }
+        Returns: string
+      }
+      pan_qa_mark_banned: {
+        Args: { p_admin: string; p_run: string }
+        Returns: string
+      }
+      pan_qa_record_created: {
+        Args: { p_admin: string; p_created: string; p_run: string }
+        Returns: string
+      }
+      pan_qa_revoke: {
+        Args: { p_admin: string; p_run: string }
+        Returns: number
+      }
+      pan_qa_status: {
+        Args: { p_admin: string }
+        Returns: {
+          actual_user_id: string
+          admin_user_id: string
+          auth_user_present: boolean
+          banned: boolean
+          candidate_user_id: string
+          email: string
+          planned_user_id: string
+          run_id: string
+          state: string
+        }[]
+      }
       user_has_brand_access: { Args: { _brand_id: string }; Returns: boolean }
       yt_episode_speaker_compare: {
         Args: { p_label: string }

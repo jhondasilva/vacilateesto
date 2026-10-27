@@ -8,6 +8,13 @@
       "when": 1793130556220,
       "tag": "0000_pan_readonly_access_and_cron_credential",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793133097260,
+      "tag": "0001_pan_qa_fixture",
+      "breakpoints": true
     }
   ]
 }
