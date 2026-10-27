@@ -270,6 +270,7 @@ export type Database = {
       }
       brand_users: {
         Row: {
+          access_mode: string
           brand_id: string
           created_at: string
           display_name: string | null
@@ -278,6 +279,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          access_mode?: string
           brand_id: string
           created_at?: string
           display_name?: string | null
@@ -286,6 +288,7 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          access_mode?: string
           brand_id?: string
           created_at?: string
           display_name?: string | null
@@ -1060,6 +1063,10 @@ export type Database = {
           deleted_count: number
         }[]
       }
+      get_cron_refresh_digests: {
+        Args: { p_target: string }
+        Returns: string[]
+      }
       get_diarization_status: {
         Args: { limit_count?: number }
         Returns: {
@@ -1073,6 +1080,7 @@ export type Database = {
           video_id: string
         }[]
       }
+      get_pan_access_context: { Args: never; Returns: Json }
       get_videos_without_transcription: {
         Args: { limit_count?: number }
         Returns: {
