@@ -1,4 +1,4 @@
-/** Stored-data-only PAN classification. Never derives a split period. */
+/** Stored-data-only PAN classification and explicitly confirmed measurement selection. */
 export type PanScope = "all" | "pelotica" | "cumbre";
 export type PanPost = {
   platform: string;
@@ -12,15 +12,45 @@ export type PanPost = {
   updatedAt: string | null;
   metrics: { views: number | null; impressions: number | null; likes: number | null; comments: number | null; shares: number | null };
 };
-export type ClassifiedPanPost = PanPost & { initiative: "pelotica" | "cumbre"; key: string };
-const handle = /(?:^|[^\w@])@panvenezuela(?![\w.])/i;
-const pelotica = /(?:^|[^\p{L}\p{N}_#])#peloticadegoma(?![\p{L}\p{N}_])/iu;
-const peloticaMention = /(?:^|[^\p{L}\p{N}_@])@peloticadegomave(?![\p{L}\p{N}_.])/iu;
-const cumbre = /(?:^|[^\w#])#podcastenlacumbre(?![\w])/i;
+export type ClassifiedPanPost = PanPost & { initiative: "pelotica" | "cumbre"; key: string; reviewReason?: string };
+const handle = /(?:^|[^\p{L}\p{N}\p{M}_@.#/])@panvenezuela(?![\p{L}\p{N}\p{M}_.@])/iu;
+const pelotica = /(?:^|[^\p{L}\p{N}\p{M}_#@/])#peloticadegoma(?![\p{L}\p{N}\p{M}_])/iu;
+const peloticaMention = /(?:^|[^\p{L}\p{N}\p{M}_@.#/])@peloticadegomave(?![\p{L}\p{N}\p{M}_.@])/iu;
+const cumbre = /(?:^|[^\p{L}\p{N}\p{M}_#@/])#podcastenlacumbre(?![\p{L}\p{N}\p{M}_])/iu;
+const evidenceText = (post: Pick<PanPost, "text" | "hashtags">) => `${post.text} ${post.hashtags.map(t => /^[#@]/.test(t) ? t : `#${t}`).join(" ")}`;
 
-export function panInitiative(post: Pick<PanPost, "text" | "hashtags">): "pelotica" | "cumbre" | null {
-  if (!handle.test(post.text)) return null;
-  const evidence = `${post.text} ${post.hashtags.map(t => /^[#@]/.test(t) ? t : `#${t}`).join(" ")}`;
+/** Exact URL-derived, platform-scoped identities; never match a bare ID from another network. */
+export const PAN_CUMBRE_REVIEWS = [
+  { identity: "facebook:reel:3302943209913397", kind: "tree", day: "2026-05-31", reason: "Día del Árbol: relato de Podcast en la Cumbre y patrocinio @panvenezuela; falta hashtag." },
+  { identity: "instagram:permalink:DZBKez1hGZN", kind: "tree", day: "2026-05-31", reason: "Día del Árbol: relato de Podcast en la Cumbre y patrocinio @panvenezuela; falta hashtag." },
+  { identity: "youtube:id:PdQBoXKOsjM", kind: "tree", day: "2026-05-31", reason: "Día del Árbol: relato de Podcast en la Cumbre y patrocinio @panvenezuela; falta hashtag." },
+  { identity: "tiktok:id:7646137166988397842", kind: "tree", day: "2026-05-31", reason: "Día del Árbol: relato de Podcast en la Cumbre y patrocinio @panvenezuela; falta hashtag." },
+  { identity: "tiktok:id:7573780272949251384", kind: "home", day: "2025-11-17", reason: "Roraima y patrocinio explícito @pan.venezuela: nutre nuestro hogar." },
+  { identity: "instagram:story:3757076637541087029", kind: "story", day: "2025-11-02", reason: "Lista de patrocinantes y #PodcastEnLaCumbre; typo @@panvenezuela." },
+  { identity: "tiktok:id:7566312886297955595", kind: "adventure", day: "2025-10-28", reason: "Roraima y agradecimiento explícito a @pan.venezuela por acompañar la aventura." },
+  { identity: "instagram:permalink:DPBxzJ4DmhB", kind: "stolk", day: "2025-09-25", reason: "Manantial Stolk: #PodcastEnLaCumbre y panvenezuela sin @ en patrocinantes." },
+] as const;
+
+export function panReviewReason(post: PanPost): string | undefined {
+  // URL required as well as canonical identity and reviewed semantic context.
+  const identities = panIdentity({ ...post, id: "" });
+  const text = evidenceText(post);
+  const review = PAN_CUMBRE_REVIEWS.find(r => identities.includes(r.identity));
+  if (!review) return undefined;
+  const context = review.kind === "tree"
+    ? handle.test(text) && /En Podcast en la Cumbre hemos aprendido/iu.test(text) && /Naiguat[áa]|Roraima/iu.test(text)
+    : cumbre.test(text) && (review.kind === "home"
+      ? /Roraima/iu.test(text) && /@pan\.venezuela nutre nuestro hogar/iu.test(text)
+      : review.kind === "story" ? /@@panvenezuela(?![\p{L}\p{N}\p{M}_.])/iu.test(text) && /Falta poco/iu.test(text)
+      : review.kind === "adventure" ? /Gracias a @pan\.venezuela por acompañarnos en esta nueva aventura/iu.test(text)
+      : /Desde que subimos e hicimos/iu.test(text) && /(?:^|\n)\s*panvenezuela\s*(?:\n|$)/iu.test(post.text));
+  return context ? `Revisión 2026-10-27 · ${review.reason}` : undefined;
+}
+
+export function panInitiative(post: Pick<PanPost, "text" | "hashtags"> & Partial<PanPost>): "pelotica" | "cumbre" | null {
+  if (post.platform && post.url && panReviewReason(post as PanPost)) return "cumbre";
+  const evidence = evidenceText(post);
+  if (!handle.test(evidence)) return null;
   // Mixed posts belong only to Cumbres, never Solo en Pelotica.
   if (cumbre.test(evidence)) return "cumbre";
   return pelotica.test(evidence) || peloticaMention.test(evidence) ? "pelotica" : null;
@@ -42,16 +72,20 @@ export function panIdentity(post: Pick<PanPost, "platform" | "id" | "url">): str
       const url = new URL(post.url);
       const host = url.hostname.toLowerCase().replace(/^www\./, "");
       const path = url.pathname.replace(/\/+$/, "");
-      if (/^(?:instagram\.com|m\.instagram\.com)$/.test(host)) {
+      if (post.platform === "instagram" && /^(?:instagram\.com|m\.instagram\.com)$/.test(host)) {
         const code = path.match(/^\/(?:p|reel|reels)\/([\w-]+)$/)?.[1];
         if (code) keys.push(`instagram:permalink:${code}`); // Preserve shortcode case.
-      } else if (host.endsWith("tiktok.com") && /^(?:[\w-]+\.)*tiktok\.com$/.test(host)) {
-        const id = path.match(/\/video\/(\d+)$/)?.[1];
+        const story = path.match(/^\/stories\/[\w.]+\/(\d+)$/)?.[1];
+        if (story) keys.push(`instagram:story:${story}`);
+      } else if (post.platform === "tiktok" && /^(?:www\.|m\.)?tiktok\.com$/.test(host)) {
+        const id = path.match(/^\/@[\w.]+\/video\/(\d+)$/)?.[1];
         if (id) keys.push(`tiktok:id:${id}`);
-      } else if (["youtube.com", "m.youtube.com", "youtu.be"].includes(host)) {
+      } else if (post.platform === "youtube" && ["youtube.com", "m.youtube.com", "youtu.be"].includes(host)) {
         const id = host === "youtu.be" ? path.slice(1) : url.searchParams.get("v") ?? path.match(/^\/(?:shorts|live)\/([\w-]+)$/)?.[1];
-        if (id) keys.push(`youtube:id:${id}`);
-      } else if (["facebook.com", "m.facebook.com", "fb.watch"].includes(host)) {
+        if (id && /^[\w-]{11}$/.test(id)) keys.push(`youtube:id:${id}`);
+      } else if (post.platform === "facebook" && ["facebook.com", "m.facebook.com", "fb.watch"].includes(host)) {
+        const reel = path.match(/^\/reel\/(\d+)$/)?.[1];
+        if (reel) keys.push(`facebook:reel:${reel}`);
         keys.push(`facebook:permalink:${host === "m.facebook.com" ? "facebook.com" : host}${path}${url.searchParams.has("story_fbid") ? `?story_fbid=${url.searchParams.get("story_fbid")}` : ""}`);
       }
     } catch { /* An invalid link must not merge unrelated posts. */ }
@@ -88,17 +122,33 @@ export function deduplicatePanPosts(posts: PanPost[]): PanPost[] {
   return groups.map(g => g.post);
 }
 
-/** Manual day bounds in Venezuela, inclusive through the last millisecond. */
+export const PAN_SPLIT4 = { from: "2026-08-01", to: "2026-10-15", label: "4.º split · 1 ago–15 oct 2026" } as const;
+export type PanRanges = Record<PanScope, { from: string; to: string }>;
+export const initialPanRanges = (): PanRanges => ({ all: { from: "", to: "" }, pelotica: { from: "", to: "" }, cumbre: { from: "", to: "" } });
+export const updatePanRange = (ranges: PanRanges, scope: PanScope, range: { from: string; to: string }): PanRanges => ({ ...ranges, [scope]: range });
+export const isPanSplit4 = (from: string, to: string) => from === PAN_SPLIT4.from && to === PAN_SPLIT4.to;
+
+/** Naive timestamps and day-only dates use Caracas, not the browser's timezone. */
+export function panTimestamp(value: string | null): number {
+  if (!value) return NaN;
+  const match = value.match(/^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?)(Z|[+-]\d{2}:?\d{2})?)?$/i);
+  if (!match) return NaN;
+  const day = new Date(`${match[1]}T00:00:00Z`);
+  if (!Number.isFinite(day.getTime()) || day.toISOString().slice(0, 10) !== match[1]) return NaN;
+  return Date.parse(`${match[1]}T${match[2] ?? "00:00:00"}${match[3] ?? "-04:00"}`);
+}
+
+/** Inclusive Caracas days represented as a half-open UTC interval. */
 export function panDateBounds(from: string, to: string): { from: number; to: number } | null {
   const day = (s: string, end: boolean) => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return NaN;
     const utc = new Date(`${s}T00:00:00Z`);
     if (!Number.isFinite(utc.getTime()) || utc.toISOString().slice(0, 10) !== s) return NaN;
-    return Date.parse(`${s}T${end ? "23:59:59.999" : "00:00:00.000"}-04:00`);
+    return panTimestamp(s) + (end ? 86400000 : 0);
   };
   const start = from ? day(from, false) : -Infinity;
   const end = to ? day(to, true) : Infinity;
-  return Number.isNaN(start) || Number.isNaN(end) || start > end ? null : { from: start, to: end };
+  return Number.isNaN(start) || Number.isNaN(end) || start >= end ? null : { from: start, to: end };
 }
 
 export function selectPanPosts(posts: PanPost[], scope: PanScope, from = "", to = ""): ClassifiedPanPost[] {
@@ -107,11 +157,13 @@ export function selectPanPosts(posts: PanPost[], scope: PanScope, from = "", to 
   return deduplicatePanPosts(posts).flatMap((post, index) => {
     const initiative = panInitiative(post);
     if (!initiative || (scope !== "all" && scope !== initiative)) return [];
-    const timestamp = Date.parse(post.publishedAt ?? "");
-    if ((from || to) && (!Number.isFinite(timestamp) || timestamp < range.from || timestamp > range.to)) return [];
-    return [{ ...post, initiative, key: panIdentity(post)[0] ?? `unidentified:${index}` }];
+    const timestamp = panTimestamp(post.publishedAt);
+    if ((from || to) && (!Number.isFinite(timestamp) || timestamp < range.from || timestamp >= range.to)) return [];
+    return [{ ...post, initiative, key: panIdentity(post)[0] ?? `unidentified:${index}`, reviewReason: panReviewReason(post) }];
   });
 }
+
+export const filterPanNetworks = <T extends PanPost>(posts: T[], network: string): T[] => posts.filter(p => network === "all" || (network === "ig-tiktok" ? ["instagram", "tiktok"].includes(p.platform) : p.platform === network));
 
 export function sumPanMetric(posts: PanPost[], metric: keyof PanPost["metrics"]) {
   const values = posts.map(p => p.platform === "instagram" && metric === "views" && p.metrics.views === 0
