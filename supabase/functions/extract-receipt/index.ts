@@ -1,3 +1,4 @@
+import { guardLegacyDashboardRequest } from "../_shared/legacyDashboardAuth.ts";
 // Edge function: extrae datos estructurados de una foto de recibo usando Lovable AI (Gemini Vision)
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
@@ -24,6 +25,9 @@ No incluyas texto fuera del JSON. No uses backticks.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const accessDenied = await guardLegacyDashboardRequest(req, corsHeaders);
+  if (accessDenied) return accessDenied;
 
   try {
     const { imageBase64, mimeType } = await req.json();

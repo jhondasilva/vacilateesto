@@ -1,3 +1,4 @@
+import { guardLegacyDashboardRequest } from "../_shared/legacyDashboardAuth.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
@@ -15,6 +16,9 @@ const json = (body: unknown, status = 200) =>
 // Solo administradores (allowed_users). El email debe existir en brand_users.
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const accessDenied = await guardLegacyDashboardRequest(req, corsHeaders);
+  if (accessDenied) return accessDenied;
 
   try {
     const authHeader = req.headers.get("Authorization");

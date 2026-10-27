@@ -38,3 +38,7 @@ verify_jwt = false
 
 [functions.vem-cache-refresh]
 verify_jwt = false
+
+# Prepared only: deploy after approved SQL and legacy cron authentication.
+[functions.pan-dashboard-read]
+verify_jwt = true

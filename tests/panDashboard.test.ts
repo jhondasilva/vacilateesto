@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import { strictEqual, deepStrictEqual } from "node:assert";
-import { deduplicatePanPosts, filterPanNetworks, initialPanRanges, isPanSplit4, PAN_CUMBRE_REVIEWS, PAN_SPLIT4, panTimestamp, updatePanRange, panInitiative, panIdentity, panDateBounds, selectPanPosts, sumPanMetric, type PanPost } from "../src/lib/panDashboard";
+import { deduplicatePanPosts, filterPanNetworks, initialPanRanges, isPanSplit4, PAN_CUMBRE_REVIEWS, PAN_SPLIT4, panTimestamp, updatePanRange, panInitiative, panIdentity, panDateBounds, selectPanPosts, sumPanMetric, type PanPost } from "../src/lib/panDashboard.ts";
 
 // Synthetic fixtures with explicit confirmed split boundary tests, not source coverage claims.
 const post = (id: string, text = "@panvenezuela #PeloticaDeGoma", extra: Partial<PanPost> = {}): PanPost => ({

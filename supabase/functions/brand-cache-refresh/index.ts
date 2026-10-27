@@ -1,3 +1,4 @@
+import { guardLegacyDashboardRequest } from "../_shared/legacyDashboardAuth.ts";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
@@ -294,6 +295,9 @@ async function callMetricool(body: Record<string, unknown>) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const accessDenied = await guardLegacyDashboardRequest(req, corsHeaders, { cronTarget: "brand-cache-refresh" });
+  if (accessDenied) return accessDenied;
+
   try {
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, {
       auth: { persistSession: false },

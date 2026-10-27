@@ -11,7 +11,7 @@ import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import RequestAccessForm from "@/components/dashboard/RequestAccessForm";
 
 const DashboardLogin = () => {
-  const { session, loading, brands, isAdmin } = useBrandAuth();
+  const { session, loading, brands, isAdmin, accessError } = useBrandAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,6 +59,7 @@ const DashboardLogin = () => {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-8 shadow-[var(--shadow-card)]">
+          {accessError && <p role="alert" className="text-destructive mb-4">No se pudieron verificar los permisos. Intenta iniciar sesión de nuevo.</p>}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>

@@ -23,7 +23,7 @@ const dateLabel = (value: string | null) => Number.isFinite(panTimestamp(value))
 const isStale = (value: string | null) => !value || !Number.isFinite(Date.parse(value)) || Date.now() - Date.parse(value) > 24 * 60 * 60 * 1000;
 
 /** No functions, live providers or refresh controls: SELECT-only historical view. */
-export default function PanDashboard({ slug }: { slug: string }) {
+export default function PanDashboard({ slug, viewerId, readonlyMode }: { slug: string; viewerId: string; readonlyMode: boolean }) {
   const [posts, setPosts] = useState<PanPost[]>([]);
   const [coverage, setCoverage] = useState<Coverage[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -39,9 +39,20 @@ export default function PanDashboard({ slug }: { slug: string }) {
     const load = async () => {
       setLoading(true);
       setError(null);
+      setPosts([]);
+      setCoverage([]);
       const collected: PanPost[] = [];
       const sources: Coverage[] = [];
       try {
+        if (readonlyMode) {
+          // Server filters the full authorized P.A.N. universe before anything reaches the browser.
+          // Never fall back to raw tables, another brand, or a live provider on error.
+          const { data, error: requestError } = await supabase.functions.invoke("pan-dashboard-read");
+          if (requestError || data?.schemaVersion !== 1 || data?.authorization?.userId !== viewerId ||
+            !Array.isArray(data?.posts) || !Array.isArray(data?.coverage)) throw new Error("PAN access unavailable");
+          if (!cancelled) { setPosts(data.posts); setCoverage(data.coverage); }
+          return;
+        }
         for (const [brandSlug, periodKey, label] of [
           ["harina-pan", "cumulative-all", "P.A.N. / Cumbres · acumulado histórico"],
           ["pelotica-de-goma", "cumulative-2026", "Pelotica · acumulado 2026"],
@@ -90,7 +101,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
     };
     void load();
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, viewerId, readonlyMode]);
 
   const selected = useMemo(() => filterPanNetworks(selectPanPosts(posts, scope, from, to), network), [posts, scope, from, to, network]);
   const totals = useMemo(() => ({ views: sumPanMetric(selected, "views"), likes: sumPanMetric(selected, "likes"),
@@ -159,8 +170,8 @@ export default function PanDashboard({ slug }: { slug: string }) {
       </TabsContent>)}
     </Tabs>
     {!loading && !error && <div className="mt-8 border-t border-border pt-4 space-y-2 text-xs text-muted-foreground">
-      <h2 className="font-semibold text-foreground">Cobertura de fuentes almacenadas</h2>
-      {coverage.map(c => <p key={c.label}>{c.label}: {c.count} registros de origen · {dateLabel(c.from)} a {dateLabel(c.to)} · actualización{c.label.startsWith("Capturas") ? " más antigua" : ""}: {dateLabel(c.updated)}{isStale(c.updated) ? " · datos desactualizados o no disponibles" : ""}</p>)}
+      <h2 className="font-semibold text-foreground">Cobertura de fuentes almacenadas{readonlyMode ? " · solo P.A.N." : ""}</h2>
+      {coverage.map(c => <p key={c.label}>{c.label}: {c.count} {readonlyMode ? "registros P.A.N." : "registros de origen"} · {dateLabel(c.from)} a {dateLabel(c.to)} · actualización{c.label.startsWith("Capturas") ? " más antigua" : ""}: {dateLabel(c.updated)}{isStale(c.updated) ? " · datos desactualizados o no disponibles" : ""}</p>)}
     </div>}
   </section>;
 }

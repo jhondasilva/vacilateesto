@@ -9,3 +9,4 @@
 - Public episode pages live at /episodios/:videoId using only public yt_videos columns; legacy /buscador?v= redirects there, so sitemap/feed URLs resolve.
 - Keep official CIMA results in src/data/cima2026.ts and render them in the existing awards section, so exact case attribution remains independently testable without modifying historical nominations.
 - Both authorized PAN route identities render the shared stored-data-only PanDashboard; pure classification, platform-scoped canonical identities, reviewed Cumbres attribution, Caracas date parsing and per-tab range selection live in panDashboard.ts, so tabs share one partition without live refresh or permission changes.
+- The two dashboard refresh cron jobs authenticate with a Vault-held token (x-cron-token) verified by SHA-256 digest via service-only get_cron_refresh_digests; only brand-cache-refresh and vem-cache-refresh accept it, so scheduler access never relies on anonymous calls or shared user credentials.
