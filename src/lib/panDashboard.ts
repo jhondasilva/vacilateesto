@@ -81,7 +81,7 @@ export function panIdentity(post: Pick<PanPost, "platform" | "id" | "url">): str
         const id = path.match(/^\/@[\w.]+\/video\/(\d+)$/)?.[1];
         if (id) keys.push(`tiktok:id:${id}`);
       } else if (post.platform === "youtube" && ["youtube.com", "m.youtube.com", "youtu.be"].includes(host)) {
-        const id = host === "youtu.be" ? path.slice(1) : url.searchParams.get("v") ?? path.match(/^\/(?:shorts|live)\/([\w-]+)$/)?.[1];
+        const id = host === "youtu.be" ? path.slice(1) : path === "/watch" ? url.searchParams.get("v") : path.match(/^\/(?:shorts|live)\/([\w-]+)$/)?.[1];
         if (id && /^[\w-]{11}$/.test(id)) keys.push(`youtube:id:${id}`);
       } else if (post.platform === "facebook" && ["facebook.com", "m.facebook.com", "fb.watch"].includes(host)) {
         const reel = path.match(/^\/reel\/(\d+)$/)?.[1];
