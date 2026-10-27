@@ -12,8 +12,8 @@ const fixture = (action: string, extra: object = {}) =>
   call(adminJwt, "pan-qa-fixture", { method: "POST", body: JSON.stringify({ action, ...extra }) });
 const log = (k: string, v: unknown) => console.log(`${k}=${v}`);
 
-const LEGACY = ["brand-cache-refresh","vem-cache-refresh","apify-sync","influencer-hashtag-sync","brand-user-create",
-  "brand-users-list","metricool-brand-mentions","brand-report-upload","finance-sync"]; // replace with the exact nine from AGENTS/security-review
+const LEGACY = ["influencer-hashtag-sync","brand-cache-refresh","vem-cache-refresh","apify-sync","extract-receipt",
+  "metricool-brand-mentions","brand-user-invite","admin-login-activity","brand-user-create"];
 
 let password: string | null = crypto.getRandomValues(new Uint8Array(32)).reduce((s, b) => s + b.toString(16).padStart(2, "0"), "");
 let qaJwt: string | null = null; let created = false; let failures = 0;
@@ -27,7 +27,6 @@ try {
   const sb = createClient(URL_, ANON, { auth: { persistSession: false } });
   const { data: s, error } = await sb.auth.signInWithPassword({ email: cj.email ?? "", password: password! });
   password = null;
-  // email is not returned by the helper; sign-in uses fixture_user_id lookup is not possible → see README note.
   if (error || !s.session) throw new Error("signin_failed");
   qaJwt = s.session.access_token;
   const q = createClient(URL_, ANON, { global: { headers: { Authorization: `Bearer ${qaJwt}` } }, auth: { persistSession: false } });

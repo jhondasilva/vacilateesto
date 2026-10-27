@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
       await admin.rpc("pan_qa_revoke", { p_admin: caller, p_run: run_id });
       return reply(500, { status: "bind_failed_banned", run_id, fixture_user_id: planned_user_id });
     }
-    return reply(200, { status: "bound", run_id, fixture_user_id: planned_user_id });
+    return reply(200, { status: "bound", run_id, fixture_user_id: planned_user_id, email }); // synthetic .invalid, non-secret
   }
 
   if (body.action === "disable") {
