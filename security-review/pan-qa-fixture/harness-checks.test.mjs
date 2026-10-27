@@ -1,0 +1,10 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { denied, emptyRead, validPan, sameCanonical, onlyPanBrand, storageDenied } from './harness-checks.mjs';
+const pan = { schemaVersion: 1, authorization: { userId: 'qa' }, coverage: [], posts: Array.from({ length: 591 }, (_, i) => ({ key: String(i), initiative: i < 436 ? 'pelotica' : 'cumbre' })) };
+test('actual endpoint schema is required, not nonexistent counts', () => { assert.ok(validPan(200, pan, 'qa')); assert.ok(!validPan(200, { counts: { total: 591 } }, 'qa')); });
+test('wrong identity, status and initiatives are not accepted', () => { assert.ok(!validPan(200, pan, 'owner')); assert.ok(!validPan(500, pan, 'qa')); assert.ok(!validPan(200, { ...pan, posts: pan.posts.slice(1) }, 'qa')); });
+test('only explicit authorization denial or successful empty array is a negative pass', () => { for (const s of [401, 403]) assert.ok(emptyRead(s, {})); assert.ok(emptyRead(200, [])); for (const s of [0, 400, 404, 500, 503]) assert.ok(!emptyRead(s, [])); assert.ok(!emptyRead(200, null)); assert.ok(!emptyRead(200, [{}])); });
+test('brands cannot pass on error or null data', () => { assert.ok(onlyPanBrand(200, [{ slug: 'harina-pan' }])); for (const b of [null, [], [{ slug: 'other' }]]) assert.ok(!onlyPanBrand(200, b)); assert.ok(!onlyPanBrand(500, [{ slug: 'harina-pan' }])); });
+test('canonical comparison ignores order but not data', () => { assert.ok(sameCanonical(pan, { ...pan, posts: [...pan.posts].reverse() })); assert.ok(!sameCanonical(pan, { ...pan, posts: pan.posts.slice(1) })); });
+test('storage rejects generic failures as evidence', () => { assert.ok(storageDenied(403, {})); assert.ok(storageDenied(400, { code: 'not_found' })); assert.ok(!storageDenied(500, { code: 'not_found' })); assert.ok(!storageDenied(400, { error: 'invalid input syntax' })); assert.ok(!denied(404)); });
