@@ -13,9 +13,9 @@ export type PanPost = {
   metrics: { views: number | null; impressions: number | null; likes: number | null; comments: number | null; shares: number | null };
 };
 export type ClassifiedPanPost = PanPost & { initiative: "pelotica" | "cumbre"; key: string; reviewReason?: string };
-const handle = /(?:^|[^\p{L}\p{N}\p{M}_@.#/])@panvenezuela(?![\p{L}\p{N}\p{M}_.@])/iu;
+const handle = /(?:^|[\s([{¡¿,;:"“”])@panvenezuela(?![\p{L}\p{N}\p{M}_.@])/iu;
 const pelotica = /(?:^|[^\p{L}\p{N}\p{M}_#@/])#peloticadegoma(?![\p{L}\p{N}\p{M}_])/iu;
-const peloticaMention = /(?:^|[^\p{L}\p{N}\p{M}_@.#/])@peloticadegomave(?![\p{L}\p{N}\p{M}_.@])/iu;
+const peloticaMention = /(?:^|[\s([{¡¿,;:"“”])@peloticadegomave(?![\p{L}\p{N}\p{M}_.@])/iu;
 const cumbre = /(?:^|[^\p{L}\p{N}\p{M}_#@/])#podcastenlacumbre(?![\p{L}\p{N}\p{M}_])/iu;
 const evidenceText = (post: Pick<PanPost, "text" | "hashtags">) => `${post.text} ${post.hashtags.map(t => /^[#@]/.test(t) ? t : `#${t}`).join(" ")}`;
 
