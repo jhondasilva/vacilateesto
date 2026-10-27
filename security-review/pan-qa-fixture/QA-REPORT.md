@@ -14,7 +14,7 @@ Date: 2026-10-27 UTC. Base HEAD 1d239ee; reviewed patch SHA256 41db5fbb...f23b (
 
 ## Run
 - Fixture UUID: f7545df0-b625-41e4-bada-a899be308b71 (synthetic .invalid email, harina-pan pan_readonly only).
-- 56 checks: 56 PASS, 0 FAIL, 0 INCONCLUSIVE.
+- 51 checks: 51 PASS, 0 FAIL, 0 INCONCLUSIVE.
 - Storage: brand-reports existing object denied; expense-receipts had no signable object evaluated (not recorded).
 - Cleanup: disable HTTP 200 (banned + grant revoked with audit snapshot), stale JWT denied (PAN + 4 raw tables), close 200, future create 410.
 - brand_users after: 86 rows, 0 pan_readonly (unchanged baseline). Owner sessions not revoked; local session file discarded.
