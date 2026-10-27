@@ -135,6 +135,10 @@ export function panTimestamp(value: string | null): number {
   if (!match) return NaN;
   const day = new Date(`${match[1]}T00:00:00Z`);
   if (!Number.isFinite(day.getTime()) || day.toISOString().slice(0, 10) !== match[1]) return NaN;
+  if (match[2]) {
+    const [hour, minute, second = "0"] = match[2].split(":");
+    if (Number(hour) > 23 || Number(minute) > 59 || Number(second) >= 60) return NaN;
+  }
   return Date.parse(`${match[1]}T${match[2] ?? "00:00:00"}${match[3] ?? "-04:00"}`);
 }
 

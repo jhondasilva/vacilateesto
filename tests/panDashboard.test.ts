@@ -30,6 +30,8 @@ test("confirmed split is exactly the Caracas half-open UTC interval", () => {
 });
 
 test("naive date policy does not depend on browser/system timezone", () => {
+  strictEqual(Number.isNaN(panTimestamp("2026-08-01T24:00:00")), true);
+  strictEqual(Number.isNaN(panTimestamp("2026-08-01T12:60:00")), true);
   const original = process.env.TZ;
   try {
     for (const tz of ["UTC", "America/Caracas", "Asia/Tokyo", "America/Los_Angeles"]) {
@@ -73,6 +75,7 @@ test("review allowlist needs the correct platform URL and semantic context", () 
     strictEqual(panInitiative({ ...row, url: null }), null);
     strictEqual(panInitiative({ ...row, platform: row.platform === "instagram" ? "facebook" : "instagram" }), null);
     strictEqual(panInitiative({ ...row, url: row.url?.replace(/\.com/, ".com.evil.test") ?? null }), null);
+    if (row.platform === "youtube") strictEqual(panInitiative({ ...row, url: "https://www.youtube.com/not-watch?v=PdQBoXKOsjM" }), null);
     strictEqual(panInitiative({ ...row, url: row.url?.replace(/\/reel\/|\/p\/|\/video\/|\/stories\//, "/other/").replace("PdQBoXKOsjM", "XXXXXXXXXXX") ?? null }), null);
   }
   const mixed = { ...reviewedFixtures()[0], text: `${reviewedFixtures()[0].text} #PeloticaDeGoma` };
