@@ -11,7 +11,7 @@ import { distinctDashboardBrands } from "@/lib/dashboardBrandIdentity";
 
 const DashboardHome = () => {
   // El hook ya devuelve marcas únicas por brand_id (incluso para admins).
-  const { session, loading, brands, isAdmin } = useBrandAuth();
+  const { session, loading, brands, isAdmin, accessError } = useBrandAuth();
 
   if (!loading && !session) {
     return (
@@ -64,6 +64,8 @@ const DashboardHome = () => {
 
         {loading ? (
           <Loader2 className="w-6 h-6 animate-spin text-primary" />
+        ) : accessError ? (
+          <p role="alert">No se pudieron verificar los permisos. Vuelve a iniciar sesión.</p>
         ) : brands.length === 0 ? (
           <div className="bg-card border border-border rounded-2xl p-8 text-center">
             <p className="text-muted-foreground">

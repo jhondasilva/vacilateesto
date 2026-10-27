@@ -317,41 +317,57 @@ type Brand = { id: string; name: string; slug: string; brand_color: string | nul
 
 const DashboardBrand = () => {
   const { slug } = useParams();
-  const { session, loading: authLoading } = useBrandAuth();
+  const { session, loading: authLoading, accessMode, accessError } = useBrandAuth();
   const [brand, setBrand] = useState<Brand | null>(null);
   const [reports, setReports] = useState<Report[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
+  const [loadedForUser, setLoadedForUser] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!session || !slug) return;
-    (async () => {
-      setLoading(true);
-      const { data: b } = await supabase
-        .from("brands")
-        .select("id, name, slug, brand_color, logo_url")
-        .eq("slug", slug)
-        .maybeSingle();
-      if (!b) {
-        setBrand(null);
-        setLoading(false);
-        return;
+    let cancelled = false;
+    setBrand(null);
+    setReports([]);
+    setActiveId(null);
+    setLoadedForUser(null);
+    if (!session || !slug || authLoading || accessError) return () => { cancelled = true; };
+    const userId = session.user.id;
+    setLoading(true);
+    void (async () => {
+      try {
+        const { data: b, error } = await supabase.from("brands")
+          .select("id, name, slug, brand_color, logo_url").eq("slug", slug).maybeSingle();
+        if (error) throw error;
+        if (cancelled) return;
+        if (b && (accessMode !== "pan_readonly" || ["harina-pan", "pan-pdg"].includes(b.slug))) {
+          setBrand(b as Brand);
+          // Restricted accounts never fetch generic reports/PDF paths, even for PAN.
+          if (accessMode !== "pan_readonly") {
+            const { data: r, error: reportError } = await supabase.from("brand_reports")
+              .select("id, title, period_label, summary, platforms, top_posts, pdf_url, content_items")
+              .eq("brand_id", b.id).order("period_end", { ascending: false });
+            if (reportError) throw reportError;
+            if (cancelled) return;
+            const list = (r ?? []) as Report[];
+            setReports(list);
+            setActiveId(list[0]?.id ?? null);
+          }
+        }
+      } catch {
+        if (!cancelled) { setBrand(null); setReports([]); setActiveId(null); }
+      } finally {
+        if (!cancelled) { setLoadedForUser(userId); setLoading(false); }
       }
-      setBrand(b as Brand);
-      const { data: r } = await supabase
-        .from("brand_reports")
-        .select("id, title, period_label, summary, platforms, top_posts, pdf_url, content_items")
-        .eq("brand_id", b.id)
-        .order("period_end", { ascending: false });
-      const list = (r ?? []) as Report[];
-      setReports(list);
-      setActiveId(list[0]?.id ?? null);
-      setLoading(false);
     })();
-  }, [session, slug]);
+    return () => { cancelled = true; };
+  }, [session?.user.id, slug, authLoading, accessMode, accessError]);
 
   if (!authLoading && !session) return <Navigate to="/dashboard/login" replace />;
+  if (accessError) return <p role="alert" className="p-8">No se pudieron verificar los permisos. Vuelve a iniciar sesión.</p>;
+  if (authLoading || (session && loadedForUser !== session.user.id)) {
+    return <div className="p-8"><Loader2 aria-label="Verificando permisos" className="w-6 h-6 animate-spin" /></div>;
+  }
 
   const active = reports.find((r) => r.id === activeId);
   const accent = brand?.brand_color ?? "hsl(var(--primary))";
@@ -407,7 +423,7 @@ const DashboardBrand = () => {
         ) : !brand ? (
           <p className="text-muted-foreground">Marca no disponible.</p>
         ) : brand.slug === "harina-pan" || brand.slug === "pan-pdg" ? (
-          <PanDashboard slug={brand.slug} />
+          <PanDashboard key={`${session!.user.id}:${accessMode}:${brand.slug}`} slug={brand.slug} viewerId={session!.user.id} readonlyMode={accessMode === "pan_readonly"} />
         ) : brand.slug === "speed-stick" ? (
           <SpeedStickSection accent={accent} />
         ) : PDG_SPONSORS[brand.slug] ? (

@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import { useDomainRedirect } from "./hooks/useDomainRedirect";
 import AnalyticsPageViews from "./components/AnalyticsPageViews";
 import RouteSeo from "./components/RouteSeo";
+import DashboardSessionBoundary from "./components/DashboardSessionBoundary";
 import { lazyPage, PageBoundary } from "./components/PageBoundary";
 
 const PodcastEnLaCumbre = lazyPage(() => import("./pages/PodcastEnLaCumbre"));
@@ -104,7 +105,7 @@ const App = () => (
             <Route path="/terminos" element={<TermsOfUse />} />
             <Route path="/instalar" element={<InstallApp />} />
             <Route path="/gira/login" element={<GiraLogin />} />
-            <Route path="/gira" element={<Gira />} />
+            <Route path="/gira" element={<DashboardSessionBoundary><Gira /></DashboardSessionBoundary>} />
             <Route path="/gira/politicas" element={<GiraPoliticas />} />
             <Route path="/buscador" element={<Buscador />} />
             <Route path="/episodios/:videoId" element={<EpisodePage />} />
@@ -113,12 +114,12 @@ const App = () => (
             <Route path="/lab/host" element={<Navigate to="/hosts" replace />} />
             <Route path="/dashboard/login" element={<DashboardLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/dashboard" element={<DashboardHome />} />
-            <Route path="/dashboard/admin" element={<DashboardAdmin />} />
-            <Route path="/dashboard/admin/ingest-health" element={<IngestHealth />} />
-            <Route path="/dashboard/admin/mediakit-vem" element={<AdminMediaKitVEM />} />
-            <Route path="/dashboard/comunidad" element={<DashboardComunidad />} />
-            <Route path="/dashboard/:slug" element={<DashboardBrand />} />
+            <Route path="/dashboard" element={<DashboardSessionBoundary><DashboardHome /></DashboardSessionBoundary>} />
+            <Route path="/dashboard/admin" element={<DashboardSessionBoundary><DashboardAdmin /></DashboardSessionBoundary>} />
+            <Route path="/dashboard/admin/ingest-health" element={<DashboardSessionBoundary><IngestHealth /></DashboardSessionBoundary>} />
+            <Route path="/dashboard/admin/mediakit-vem" element={<DashboardSessionBoundary><AdminMediaKitVEM /></DashboardSessionBoundary>} />
+            <Route path="/dashboard/comunidad" element={<DashboardSessionBoundary><DashboardComunidad /></DashboardSessionBoundary>} />
+            <Route path="/dashboard/:slug" element={<DashboardSessionBoundary><DashboardBrand /></DashboardSessionBoundary>} />
             <Route path="/mejores-podcasts-venezuela" element={<MejoresPodcastsVenezuela />} />
             <Route path="/podcasts-venezolanos-comedia" element={<PodcastsVenezolanosComedia />} />
             <Route path="/podcasts-venezolanos-futbol" element={<PodcastsVenezolanosFutbol />} />

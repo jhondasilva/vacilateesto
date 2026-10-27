@@ -1,3 +1,4 @@
+import { guardLegacyDashboardRequest } from "../_shared/legacyDashboardAuth.ts";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 
 const TOKEN = Deno.env.get("METRICOOL_USER_TOKEN")!;
@@ -157,6 +158,9 @@ async function fetchPlatform(
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const accessDenied = await guardLegacyDashboardRequest(req, corsHeaders);
+  if (accessDenied) return accessDenied;
+
   try {
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     if (body.listBrands) {
