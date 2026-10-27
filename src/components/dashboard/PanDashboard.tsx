@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, Heart, Loader2 } from "lucide-react";
 import DashboardLogo from "./DashboardLogo";
-import { availableMetric, panDateBounds, selectPanPosts, sumPanMetric, type PanPost, type PanScope } from "@/lib/panDashboard";
+import { availableMetric, filterPanNetworks, initialPanRanges, isPanSplit4, PAN_SPLIT4, panDateBounds, panTimestamp, selectPanPosts, sumPanMetric, updatePanRange, type PanPost, type PanScope } from "@/lib/panDashboard";
 
 type StoredPost = {
   platform: string; external_id: string; url: string | null; text: string | null;
@@ -14,12 +14,12 @@ type StoredPost = {
 };
 type CachedPost = {
   platform: string; id: string; url?: string; text?: string; publishedAt?: string;
-  thumbnail?: string; metrics?: Record<string, unknown>;
+  thumbnail?: string; hashtags?: string[]; metrics?: Record<string, unknown>;
 };
 type Coverage = { label: string; updated: string | null; from: string | null; to: string | null; count: number };
 const formatNumber = (n: number | null) => n === null ? "No disponible" : n.toLocaleString("es-VE");
-const dateLabel = (value: string | null) => value && Number.isFinite(Date.parse(value))
-  ? new Intl.DateTimeFormat("es-VE", { dateStyle: "medium", timeZone: "America/Caracas" }).format(new Date(value)) : "No disponible";
+const dateLabel = (value: string | null) => Number.isFinite(panTimestamp(value))
+  ? new Intl.DateTimeFormat("es-VE", { dateStyle: "medium", timeZone: "America/Caracas" }).format(new Date(panTimestamp(value))) : "No disponible";
 const isStale = (value: string | null) => !value || !Number.isFinite(Date.parse(value)) || Date.now() - Date.parse(value) > 24 * 60 * 60 * 1000;
 
 /** No functions, live providers or refresh controls: SELECT-only historical view. */
@@ -30,8 +30,9 @@ export default function PanDashboard({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true);
   const [scope, setScope] = useState<PanScope>("all");
   const [network, setNetwork] = useState("all");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const [ranges, setRanges] = useState(initialPanRanges);
+  const { from, to } = ranges[scope];
+  const setRange = (range: { from: string; to: string }) => setRanges(current => updatePanRange(current, scope, range));
 
   useEffect(() => {
     let cancelled = false;
@@ -52,7 +53,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
           const raw = ((data?.payload as { posts?: CachedPost[] } | null)?.posts ?? []);
           sources.push({ label, updated: data?.refreshed_at ?? null, from: data?.period_from ?? null, to: data?.period_to ?? null, count: raw.length });
           collected.push(...raw.map(p => ({
-            platform: p.platform, id: String(p.id ?? ""), url: p.url ?? null, text: p.text ?? "", hashtags: [],
+            platform: p.platform, id: String(p.id ?? ""), url: p.url ?? null, text: p.text ?? "", hashtags: p.hashtags ?? [],
             publishedAt: p.publishedAt ?? null, thumbnail: p.thumbnail ?? null, source: "metricool" as const,
             updatedAt: data?.refreshed_at ?? null,
             metrics: { views: availableMetric(p.metrics?.views), impressions: availableMetric(p.metrics?.impressions),
@@ -64,7 +65,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
         for (let offset = 0; ; offset += 500) {
           const { data, error: queryError } = await supabase.from("influencer_posts")
             .select("platform,external_id,url,text,hashtags,published_at,thumbnail,views,likes,comments,shares,synced_at")
-            .eq("campaign_slug", "pelotica-de-goma").ilike("text", "%@panvenezuela%")
+            .eq("campaign_slug", "pelotica-de-goma")
             .order("id", { ascending: true }).range(offset, offset + 499);
           if (queryError) throw queryError;
           const page = (data ?? []) as StoredPost[];
@@ -91,28 +92,33 @@ export default function PanDashboard({ slug }: { slug: string }) {
     return () => { cancelled = true; };
   }, [slug]);
 
-  const selected = useMemo(() => selectPanPosts(posts, scope, from, to)
-    .filter(p => network === "all" || p.platform === network), [posts, scope, from, to, network]);
+  const selected = useMemo(() => filterPanNetworks(selectPanPosts(posts, scope, from, to), network), [posts, scope, from, to, network]);
   const totals = useMemo(() => ({ views: sumPanMetric(selected, "views"), likes: sumPanMetric(selected, "likes"),
     comments: sumPanMetric(selected, "comments"), shares: sumPanMetric(selected, "shares") }), [selected]);
   const invalidRange = panDateBounds(from, to) === null;
+  const dates = selected.map(p => panTimestamp(p.publishedAt)).filter(Number.isFinite).sort((a, b) => a - b);
+  const scopeLabel = { all: "Consolidado", pelotica: "Solo en Pelotica", cumbre: "Solo en Cumbres" }[scope];
+  const networkLabel = { all: "Todas", "ig-tiktok": "Instagram + TikTok", instagram: "Instagram", tiktok: "TikTok", facebook: "Facebook", youtube: "YouTube" }[network];
 
   return <section className="min-w-0">
     <DashboardLogo slug={slug} name="P.A.N." size="feature" />
     <h1 className="text-2xl font-black mt-3">P.A.N. · @panvenezuela</h1>
-    <p className="text-sm font-semibold mt-2">Período de medición del 4.º split por confirmar</p>
-    <p className="text-xs text-muted-foreground mt-1">Histórico almacenado · menciones de patrocinio, no piezas dedicadas · sin resultados certificados del 4.º split.</p>
+    <p className="text-sm font-semibold mt-2">4.º split confirmado · 1 agosto–15 octubre 2026 · America/Caracas</p>
+    <p className="text-xs text-muted-foreground mt-1">Datos almacenados · menciones de patrocinio, no piezas dedicadas. Seleccionar el split no certifica cobertura exhaustiva.</p>
     <div className="border-l-4 border-primary bg-muted p-3 my-5 text-xs space-y-2" role="note">
       <p>Las fuentes pueden estar desactualizadas y tener coberturas distintas. Los totales corresponden sólo a registros disponibles.</p>
       <p>Métricas nulas: no disponibles. Los ceros de vistas en Instagram no están validados y no equivalen a vistas reales; se excluyen de la suma de vistas conocidas.</p>
       <p>Metricool tiene prioridad; las capturas almacenadas sólo completan campos ausentes. Los ceros ya normalizados por la fuente no permiten reconstruir métricas originalmente nulas.</p>
+      <p>Universo: todas las cuentas presentes en las fuentes almacenadas que cumplen el criterio P.A.N., sin filtro de autor. La caché no identifica autores: no se certifica un universo exclusivo de la cuenta oficial. Una mención no identifica al autor.</p>
+      <p>Comparabilidad entre marcas: deben coincidir período, cuentas, redes y métrica. Likes ≠ interacciones.</p>
     </div>
     <div className="flex flex-wrap items-end gap-3 mb-5">
-      <label className="text-xs space-y-1">Desde · Venezuela<Input aria-label="Desde · Venezuela" type="date" value={from} onChange={e => setFrom(e.target.value)} /></label>
-      <label className="text-xs space-y-1">Hasta · Venezuela<Input aria-label="Hasta · Venezuela" type="date" value={to} onChange={e => setTo(e.target.value)} /></label>
-      <Button variant="outline" size="sm" onClick={() => { setFrom(""); setTo(""); }}>Todo el histórico</Button>
+      <label className="text-xs space-y-1 min-w-0">Desde · Venezuela<Input aria-label="Desde · Venezuela" type="date" value={from} onChange={e => setRange({ from: e.target.value, to })} /></label>
+      <label className="text-xs space-y-1 min-w-0">Hasta · Venezuela<Input aria-label="Hasta · Venezuela" type="date" value={to} onChange={e => setRange({ from, to: e.target.value })} /></label>
+      {scope === "pelotica" && <Button className="h-auto whitespace-normal text-left" variant={isPanSplit4(from, to) ? "default" : "outline"} size="sm" aria-pressed={isPanSplit4(from, to)} onClick={() => setRange({ from: PAN_SPLIT4.from, to: PAN_SPLIT4.to })}>{PAN_SPLIT4.label}</Button>}
+      <Button variant="outline" size="sm" onClick={() => setRange({ from: "", to: "" })}>Todo el histórico</Button>
     </div>
-    <p className="text-xs text-muted-foreground mb-4">{from || to ? `Rango manual: ${from || "sin inicio"} → ${to || "sin fin"} · no es el período del split` : "Sin rango de split asignado · todo el histórico disponible"}</p>
+    <p className="text-xs text-muted-foreground mb-4" data-testid="pan-active-period">{scopeLabel} · {isPanSplit4(from, to) ? PAN_SPLIT4.label : from || to ? `Rango manual: ${from || "sin inicio"} → ${to || "sin fin"} (inclusive)` : "Todo el histórico disponible"} · America/Caracas · Redes: {networkLabel} · Todas las cuentas elegibles almacenadas.</p>
     {invalidRange && <p role="alert" className="text-destructive text-sm mb-3">Rango de fechas inválido.</p>}
     <Tabs value={scope} onValueChange={v => setScope(v as PanScope)}>
       <TabsList className="grid grid-cols-1 sm:grid-cols-3 h-auto w-full mb-4">
@@ -122,8 +128,8 @@ export default function PanDashboard({ slug }: { slug: string }) {
       </TabsList>
       {(["all", "pelotica", "cumbre"] as const).map(tab => <TabsContent key={tab} value={tab}>
         <div className="flex flex-wrap gap-2 mb-5" aria-label="Red social">
-          {["all", "instagram", "tiktok", "facebook", "youtube"].map(n => <Button key={n} size="sm" variant={network === n ? "default" : "outline"}
-            aria-pressed={network === n} onClick={() => setNetwork(n)}>{n === "all" ? "Todas" : n === "youtube" ? "YouTube" : n === "tiktok" ? "TikTok" : n === "instagram" ? "Instagram" : "Facebook"}</Button>)}
+          {["all", "ig-tiktok", "instagram", "tiktok", "facebook", "youtube"].map(n => <Button key={n} size="sm" variant={network === n ? "default" : "outline"}
+            aria-pressed={network === n} onClick={() => setNetwork(n)}>{n === "all" ? "Todas" : n === "ig-tiktok" ? "Instagram + TikTok" : n === "youtube" ? "YouTube" : n === "tiktok" ? "TikTok" : n === "instagram" ? "Instagram" : "Facebook"}</Button>)}
         </div>
         {loading ? <Loader2 aria-label="Cargando datos almacenados" className="w-6 h-6 animate-spin text-primary" /> : error ? <p role="alert">{error}</p> : <>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
@@ -134,7 +140,8 @@ export default function PanDashboard({ slug }: { slug: string }) {
               <p className="text-xs text-muted-foreground">{totals[key].available}/{selected.length} con dato{totals[key].missing ? " · suma parcial" : ""}</p>
             </div>)}
           </div>
-          <p className="text-xs text-muted-foreground mb-4">Pelotica: @panvenezuela + (#PeloticaDeGoma o @peloticadegomave en caption/hashtags). Ser el autor o usar sólo #AmoAJuga no basta. Cumbres: @panvenezuela + #PodcastEnLaCumbre. Las menciones mixtas se asignan a Cumbres.</p>
+          <p className="text-xs text-muted-foreground mb-4">Pelotica: @panvenezuela + (#PeloticaDeGoma o @peloticadegomave en caption/hashtags). Ser el autor o usar sólo #AmoAJuga no basta. Cumbres: @panvenezuela + #PodcastEnLaCumbre, más ocho identidades revisadas el 27 octubre 2026 con contexto y motivo registrado. Las menciones mixtas se asignan a Cumbres, sin exigir vínculo con Pelotica.</p>
+          <p className="text-xs text-muted-foreground mb-4" data-testid="pan-selection-coverage">Publicaciones disponibles en esta selección: {dates.length ? `${dateLabel(new Date(dates[0]).toISOString())} a ${dateLabel(new Date(dates[dates.length - 1]).toISOString())}` : "No disponible"} · {dates.length}/{selected.length} con fecha válida. No garantiza ausencia de publicaciones en días faltantes.</p>
           {selected.length === 0 ? <p className="text-muted-foreground">Sin menciones disponibles para esta selección.</p> : <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {selected.map(p => <article key={p.key} className="bg-card border border-border rounded-lg overflow-hidden min-w-0">
               {p.thumbnail && <img src={p.thumbnail} alt="" loading="lazy" referrerPolicy="no-referrer" className="w-full aspect-[4/5] object-cover bg-muted" />}
@@ -142,6 +149,7 @@ export default function PanDashboard({ slug }: { slug: string }) {
                 <p className="text-muted-foreground">{p.platform} · {dateLabel(p.publishedAt)}</p>
                 <p className="line-clamp-3 break-words">{p.text}</p>
                 <p className="text-muted-foreground">Mención · {p.initiative === "pelotica" ? "Pelotica" : "Cumbres"}</p>
+                {p.reviewReason && <p className="text-muted-foreground break-words">{p.reviewReason}</p>}
                 <p className="flex items-center gap-1 flex-wrap"><Eye className="w-3 h-3" />{formatNumber(p.platform === "instagram" && p.metrics.views === 0 ? null : p.metrics.views)}<Heart className="w-3 h-3 ml-1" />{formatNumber(p.metrics.likes)}</p>
                 {p.url && /^https?:\/\//i.test(p.url) && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary underline">Ver publicación</a>}
               </div>

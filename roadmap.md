@@ -22,5 +22,6 @@
 - [x] Incorporar los cuatro resultados oficiales CIMA 2026 a premios y su banner; verificar móvil/escritorio sin publicar
 - [x] Implementar pestañas P.A.N. y filtros, deduplicación y nulos con datos almacenados, sin configurar fechas del split
 - [x] Verificar partición, consolidación y preview seguro con fixtures; auditar cobertura y antigüedad sin refresh
-- [ ] Certificar resultados del cuarto split — bloqueado únicamente por confirmación de ventana de medición y cobertura de datos
+- [ ] Certificar cobertura exhaustiva del cuarto split — pendiente de validación de cobertura, no de fechas
 - [x] Corregir criterio P.A.N. a #PeloticaDeGoma o @peloticadegomave exactos; comprobar regresiones y auditar archivo automático sin revertir cambios ajenos
+- [x] Ajustar únicamente P.A.N.: preset confirmado, fechas independientes, tokens Unicode, ocho revisiones Cumbres, universo/redes explícitos; probar y auditar SELECT sin publicar

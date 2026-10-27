@@ -8,4 +8,4 @@
 - Head metadata comes from RouteSeo defaults plus each page's Helmet, with static index.html tags removed at boot, so every route has exactly one canonical/description/OG set.
 - Public episode pages live at /episodios/:videoId using only public yt_videos columns; legacy /buscador?v= redirects there, so sitemap/feed URLs resolve.
 - Keep official CIMA results in src/data/cima2026.ts and render them in the existing awards section, so exact case attribution remains independently testable without modifying historical nominations.
-- Both authorized PAN route identities render the shared stored-data-only PanDashboard; pure classification, canonical deduplication and manual date bounds live in panDashboard.ts, so tabs share one partition without live refresh or permission changes.
+- Both authorized PAN route identities render the shared stored-data-only PanDashboard; pure classification, platform-scoped canonical identities, reviewed Cumbres attribution, Caracas date parsing and per-tab range selection live in panDashboard.ts, so tabs share one partition without live refresh or permission changes.
