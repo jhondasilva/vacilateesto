@@ -25,6 +25,8 @@ import { PeloticaLivesSection } from "@/components/dashboard/PeloticaLivesSectio
 import { UnifiedSection } from "@/components/dashboard/UnifiedSection";
 import DashboardLogo from "@/components/dashboard/DashboardLogo";
 import PanDashboard from "@/components/dashboard/PanDashboard";
+import { ConsultationRangeControls } from "@/components/dashboard/ConsultationRangeControls";
+import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeDates, rangeLabel, validateRange, type ConsultationRange } from "@/lib/consultationRange";
 
 // Configuración de keywords por marca (filtros de menciones en redes)
 const BRAND_KEYWORDS: Record<
@@ -851,6 +853,14 @@ const MetricoolDashboard = ({
   const showInfluencers = brand.slug === "pelotica-de-goma";
   const [mainTab, setMainTab] = useState<"general" | "equipos" | "influencers" | "lives" | "web" | "trends" | "todo" | "ranking">(brand.slug === "pelotica-de-goma" ? "todo" : "general");
   const [peloticaFilter, setPeloticaFilter] = useState<"all" | "with" | "without">("all");
+  // Rango de consulta compartido (días de Caracas, por fecha de publicación). En Pelotica de Goma
+  // alimenta todas las pestañas; en las demás marcas filtra el caché acumulado guardado.
+  const [range, setRange] = useState<ConsultationRange>(EMPTY_RANGE);
+  const rangeValidation = validateRange(range);
+  const isPdg = brand.slug === "pelotica-de-goma";
+  const rangeMode = isPdg || (rangeValidation.ok ? rangeValidation.active : true);
+  const cumulativeKey = months.find((m) => m.key.startsWith("cumulative"))?.key ?? months[0].key;
+  const effectiveKey = rangeMode ? cumulativeKey : monthKey;
 
 
   const [cache, setCache] = useState<Record<string, MentionsResponse>>({});
@@ -865,13 +875,15 @@ const MetricoolDashboard = ({
   useEffect(() => {
     if (!showPelotica) return;
     (async () => {
-      const { data: rows } = await supabase
+      const { rows } = await fetchAllPages<any>((a, b) => supabase
         .from("influencer_posts")
-        .select("external_id,url,text,thumbnail,published_at,views,likes,comments,shares")
+        .select("id,external_id,url,text,thumbnail,published_at,views,likes,comments,shares")
         .eq("author_handle", "@peloticadegomave")
         .eq("platform", "tiktok")
         .gte("published_at", "2026-01-01T04:00:00Z")
-        .limit(2000);
+        .order("published_at", { ascending: false })
+        .order("id", { ascending: true })
+        .range(a, b));
       const byId = new Map<string, MentionPost>();
       for (const r of rows ?? []) {
         if (!r.external_id || byId.has(r.external_id)) continue;
@@ -893,12 +905,13 @@ const MetricoolDashboard = ({
   useEffect(() => {
     if (brand.slug !== "pelotica-de-goma") return;
     (async () => {
-      const { data: rows } = await supabase
+      const { rows } = await fetchAllPages<any>((a, b) => supabase
         .from("apify_metrics")
-        .select("external_id, value, unit, recorded_at, raw_data")
+        .select("id, external_id, value, unit, recorded_at, raw_data")
         .eq("platform", "tiktok")
         .eq("metric_type", "video")
-        .limit(2000);
+        .order("id", { ascending: true })
+        .range(a, b));
       if (!rows?.length) return;
       const byId = new Map<string, MentionPost>();
       for (const r of rows) {
@@ -911,7 +924,8 @@ const MetricoolDashboard = ({
           platform: "tiktok" as const,
           id,
           url: (raw.webVideoUrl as string) ?? `https://www.tiktok.com/@peloticadegomave/video/${id}`,
-          publishedAt: r.recorded_at as string,
+          // Fecha de PUBLICACIÓN del video (nunca la fecha de captura recorded_at); sin dato => sin fecha.
+          publishedAt: (raw.createTimeISO as string) ?? (Number.isFinite(Number(raw.createTime)) && Number(raw.createTime) > 0 ? new Date(Number(raw.createTime) * 1000).toISOString() : null),
           text: (raw.text as string) ?? (raw.description as string) ?? "",
           thumbnail: (raw.videoMeta?.coverUrl as string) ?? (raw.covers?.default as string) ?? null,
           metrics: {} as Record<string, number>,
@@ -927,7 +941,7 @@ const MetricoolDashboard = ({
 
 
   const month = months.find((m) => m.key === monthKey)!;
-  const cacheKey = `${monthKey}::${scope}`;
+  const cacheKey = `${effectiveKey}::${scope}`;
   const data = cache[cacheKey];
   const brandConfig = BRAND_KEYWORDS[brand.slug] ?? {
     keywords: undefined as unknown as string[],
@@ -938,6 +952,7 @@ const MetricoolDashboard = ({
 
   useEffect(() => {
     if (cache[cacheKey]) return;
+    let cancelled = false;
     setLoading(true);
     const fmtIso = (d: Date) => format(d, "yyyy-MM-dd'T'HH:mm:ss");
     (async () => {
@@ -947,11 +962,17 @@ const MetricoolDashboard = ({
         .select("payload, refreshed_at")
         .eq("brand_slug", brand.slug)
         .eq("scope", scope)
-        .eq("period_key", monthKey)
+        .eq("period_key", effectiveKey)
         .maybeSingle();
+      if (cancelled) return;
       if (cached?.payload) {
         setCache((prev) => ({ ...prev, [cacheKey]: cached.payload as MentionsResponse }));
         if (cached.refreshed_at) setLastRefreshed(new Date(cached.refreshed_at));
+        setLoading(false);
+        return;
+      }
+      // Con rango de consulta solo se usan datos guardados: nada de llamadas externas.
+      if (rangeMode) {
         setLoading(false);
         return;
       }
@@ -977,6 +998,7 @@ const MetricoolDashboard = ({
 
         },
       });
+      if (cancelled) return;
       if (error) {
         toast.error("Error consultando Metricool");
       } else if (data) {
@@ -984,8 +1006,9 @@ const MetricoolDashboard = ({
       }
       setLoading(false);
     })();
+    return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [monthKey, scope]);
+  }, [effectiveKey, scope]);
 
   const handleManualRefresh = async () => {
     setRefreshing(true);
@@ -1020,7 +1043,7 @@ const MetricoolDashboard = ({
         .select("payload, refreshed_at")
         .eq("brand_slug", brand.slug)
         .eq("scope", scope)
-        .eq("period_key", monthKey)
+        .eq("period_key", effectiveKey)
         .maybeSingle();
       if (cached?.payload) {
         setCache({ [cacheKey]: cached.payload as MentionsResponse });
@@ -1040,7 +1063,12 @@ const MetricoolDashboard = ({
 
   const ALL_PLATFORMS: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
   const excludedIds = new Set(EXCLUDED_POST_IDS[brand.slug] ?? []);
-  const metricoolPosts = (data?.posts ?? []).filter((p) => !excludedIds.has(p.id));
+  const rangedMetricool = applyConsultationRange((data?.posts ?? []).filter((p) => !excludedIds.has(p.id)), (p) => p.publishedAt, rangeMode ? range : EMPTY_RANGE);
+  const metricoolPosts = rangedMetricool.included;
+  const rangeInvalid = !rangeValidation.ok;
+  const periodLabel = rangeMode ? rangeLabel(range) : month.label;
+  const periodDates = rangeMode ? rangeDates(range, new Date("2026-01-01T04:00:00Z")) : { from: month.from, to: month.to };
+  const storedCoverage = data as unknown as { from?: string; to?: string } | undefined;
   const existingIds = new Set(metricoolPosts.map((p) => p.id));
   const brandKeywordList = (brandConfig?.keywords ?? []).map((k) => k.toLowerCase());
   const matchesBrandKeywords = (text?: string | null) => {
@@ -1051,6 +1079,10 @@ const MetricoolDashboard = ({
     if (existingIds.has(p.id) || excludedIds.has(p.id)) return false;
     if (!p.publishedAt) return false;
     if (!matchesBrandKeywords(p.text)) return false;
+    if (rangeMode) {
+      if (showPelotica && !(brandConfig.handles ?? []).some((h) => (p.text ?? "").toLowerCase().includes(h.toLowerCase()))) return false;
+      return applyConsultationRange([p], (x) => x.publishedAt, range).included.length === 1;
+    }
     // Mismo criterio en todas las marcas: el post debe mencionar la cuenta de la marca.
     if (showPelotica && !(brandConfig.handles ?? []).some((h) => (p.text ?? "").toLowerCase().includes(h.toLowerCase()))) return false;
     const t = new Date(p.publishedAt).getTime();
@@ -1167,6 +1199,12 @@ const MetricoolDashboard = ({
           </p>
         </div>
       )}
+      {isPdg && (
+        <ConsultationRangeControls value={range} onChange={(r) => { setRange(r); setView("all"); }}
+          note={mainTab === "web" || mainTab === "trends"
+            ? "Esta pestaña muestra agregados guardados de su propio período: las fechas no la filtran."
+            : "Aplica a Todo unificado, General, Equipos y chivos, Ranking, Influencers y Lives."} />
+      )}
       {showInfluencers && (
         <div className="mb-6 flex max-w-full overflow-x-auto sm:inline-flex rounded-full border border-border p-1 bg-card">
           {([
@@ -1194,16 +1232,16 @@ const MetricoolDashboard = ({
       )}
 
       {showInfluencers && mainTab === "influencers" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="influencers" />
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="influencers" range={range} />
       )}
       {showInfluencers && mainTab === "equipos" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" range={range} />
       )}
-      {showInfluencers && mainTab === "lives" && <PeloticaLivesSection />}
+      {showInfluencers && mainTab === "lives" && <PeloticaLivesSection range={range} />}
       {showInfluencers && mainTab === "web" && <PeloticaSiteAnalytics part="web" />}
       {showInfluencers && mainTab === "trends" && <PeloticaSiteAnalytics part="trends" />}
-      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
-      {showInfluencers && mainTab === "ranking" && <TeamRankingSection accent={accent} />}
+      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} range={range} />}
+      {showInfluencers && mainTab === "ranking" && <TeamRankingSection accent={accent} range={range} />}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && <PeloticaOfficialAccounts />}
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
@@ -1228,6 +1266,17 @@ const MetricoolDashboard = ({
 
 
       {/* Selector de mes */}
+      {!isPdg && (
+        <ConsultationRangeControls value={range} onChange={(r) => { setRange(r); setView("all"); }}
+          note="Con fechas se filtra el acumulado guardado; usa los meses de abajo para volver a la vista mensual." />
+      )}
+      {rangeMode && data && (
+        <p className="mb-3 text-[11px] text-muted-foreground font-mono" data-testid="general-coverage">
+          Cobertura guardada (Metricool): {storedCoverage?.from ?? "?"} → {storedCoverage?.to ?? "?"}
+          {rangedMetricool.undated > 0 ? ` · ${rangedMetricool.undated} publicaciones sin fecha de publicación quedaron fuera` : ""}
+          {" "}· horas sin zona se leen en hora de Caracas.
+        </p>
+      )}
 
       <div className="mb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <p className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
@@ -1258,7 +1307,7 @@ const MetricoolDashboard = ({
           <Button
             size="sm"
             variant="outline"
-            disabled={!data || matchedCount === 0}
+            disabled={!data || rangeInvalid || matchedCount === 0}
             onClick={() => {
               if (!data) return;
               void generateBrandReportPdf({
@@ -1268,9 +1317,9 @@ const MetricoolDashboard = ({
                   scope === "brand"
                     ? brandConfig.label
                     : "Todas las publicaciones de Vacílate Esto",
-                periodLabel: month.label,
-                from: month.from,
-                to: month.to,
+                periodLabel,
+                from: periodDates.from,
+                to: periodDates.to,
                 data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
                 includeTikTokLives: TIKTOK_LIVES_BRANDS.has(brand.slug),
               });
@@ -1282,14 +1331,14 @@ const MetricoolDashboard = ({
         </div>
       </div>
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0">
+        <div className={cn("flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0", isPdg && "hidden")}>
           {months.map((m) => (
             <button
               key={m.key}
-              onClick={() => { setMonthKey(m.key); setView("all"); }}
+              onClick={() => { setMonthKey(m.key); setRange(EMPTY_RANGE); setView("all"); }}
               className={cn(
                 "shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors capitalize",
-                m.key === monthKey
+                m.key === monthKey && !rangeMode
                   ? "bg-foreground text-background border-foreground"
                   : "bg-transparent text-foreground border-border hover:border-foreground/40",
               )}
@@ -1421,12 +1470,20 @@ const MetricoolDashboard = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Consultando Metricool…</span>
         </div>
+      ) : rangeInvalid ? (
+        <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">
+          {rangeValidation.ok ? "" : rangeValidation.message} No se muestran totales con un rango inválido.
+        </div>
+      ) : !data && rangeMode ? (
+        <div role="alert" className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
+          No hay caché acumulado guardado para filtrar por fechas. Sin datos guardados no se cuenta como cero.
+        </div>
       ) : !data || matchedCount === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center">
           <p className="text-muted-foreground">
             {scope === "brand"
-              ? `Sin menciones de ${brand.name} en ${month.label}.`
-              : `Sin publicaciones de Vacílate Esto en ${month.label}.`}
+              ? `Sin menciones guardadas de ${brand.name} en ${periodLabel}.`
+              : `Sin publicaciones guardadas de Vacílate Esto en ${periodLabel}.`}
           </p>
         </div>
       ) : (

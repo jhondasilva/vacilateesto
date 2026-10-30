@@ -1,20 +1,30 @@
-import { PELOTICA_LIVES, sumLives } from "@/components/dashboard/PeloticaLivesSection";
+import { PELOTICA_LIVES, livesInRange, sumLives, type LiveRow } from "@/components/dashboard/PeloticaLivesSection";
 import { loadLiveSiteAnalytics, SITE_ANALYTICS } from "@/data/peloticaSiteAnalytics";
+import {
+  applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeDates, rangeLabel, validateRange, type ConsultationRange,
+} from "@/lib/consultationRange";
+import { ConsultationRangeControls } from "@/components/dashboard/ConsultationRangeControls";
 
 // Total anual de impresiones de las cuentas oficiales según Metricool (1 ene – 29 sep 2026).
-const OFFICIAL_ACCOUNTS_IMPRESSIONS = 13940000;
+// Es un agregado sin fecha por pieza: solo se suma cuando no hay rango de consulta.
+export const OFFICIAL_ACCOUNTS_IMPRESSIONS = 13940000;
 
 type ImpRow = { source: string; author: string | null; impressions: number };
-export function impressionBreakdown(rows: ImpRow[], sitePageviews: number) {
+/**
+ * Con `periodOnly` (rango activo) se excluyen los agregados estáticos que no se pueden fechar:
+ * total anual de cuentas oficiales y páginas vistas del sitio. Los lives se pasan ya filtrados.
+ */
+export function impressionBreakdown(rows: ImpRow[], sitePageviews: number, lives: LiveRow[] = PELOTICA_LIVES, periodOnly = false) {
   const isOfficial = (r: ImpRow) => (r.author ?? "").toLowerCase().includes("peloticadegomave");
   const sum = (f: (r: ImpRow) => boolean) => rows.filter(f).reduce((a, r) => a + r.impressions, 0);
-  const official = Math.max(OFFICIAL_ACCOUNTS_IMPRESSIONS, sum(isOfficial));
+  const officialPosts = sum(isOfficial);
+  const official = periodOnly ? officialPosts : Math.max(OFFICIAL_ACCOUNTS_IMPRESSIONS, officialPosts);
   const generalOther = sum((r) => r.source === "general" && !isOfficial(r));
   const equipos = sum((r) => r.source === "equipos" && !isOfficial(r));
   const influencers = sum((r) => r.source === "influencers" && !isOfficial(r)) + generalOther;
-  const lives = sumLives(PELOTICA_LIVES).views;
-  const web = sitePageviews;
-  return { official, equipos, influencers, lives, web, total: official + equipos + influencers + lives + web };
+  const livesViews = sumLives(lives).views;
+  const web = periodOnly ? 0 : sitePageviews;
+  return { official, equipos, influencers, lives: livesViews, web, total: official + equipos + influencers + livesViews + web };
 }
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -106,21 +116,6 @@ const OFFICIAL_OR_ROSTER = [
 
 const CAMPAIGN_START = Date.parse("2026-01-01T00:00:00Z");
 
-const PERIODS: { key: string; label: string }[] = [
-  { key: "cumulative-2026", label: "Acumulado 2026" },
-  { key: "2026-09", label: "Septiembre 2026" },
-  { key: "2026-08", label: "Agosto 2026" },
-  { key: "2026-07", label: "Julio 2026" },
-];
-
-const periodRange = (key: string) => {
-  if (key === "cumulative-2026") {
-    return { from: new Date(2026, 0, 1), to: new Date() };
-  }
-  const [y, m] = key.split("-").map(Number);
-  return { from: new Date(y, m - 1, 1, 0, 0, 0), to: new Date(y, m, 0, 23, 59, 59) };
-};
-
 const normKey = (platform: string, id: string, url?: string | null) => {
   const fromUrl = (url ?? "").match(/(?:video|reel|p|shorts)\/([\w.-]+)/i)?.[1];
   return `${platform}::${(fromUrl ?? id).toLowerCase()}`;
@@ -129,44 +124,49 @@ const normKey = (platform: string, id: string, url?: string | null) => {
 /**
  * Pestaña "Todo": une General + Equipos y chivos + Influencers sin duplicar piezas.
  */
-export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
-  const [periodKey, setPeriodKey] = useState<string>("cumulative-2026");
+export const UnifiedSection = ({
+  accent = "#E91E63",
+  range = EMPTY_RANGE,
+  onRangeChange,
+}: {
+  accent?: string;
+  range?: ConsultationRange;
+  onRangeChange?: (r: ConsultationRange) => void;
+}) => {
   const [platform, setPlatform] = useState<"all" | Platform>("all");
   const [loading, setLoading] = useState(true);
   const [pdfBusy, setPdfBusy] = useState(false);
-  const [rows, setRows] = useState<Row[]>([]);
+  const [allRows, setAllRows] = useState<Row[]>([]);
+  const [coverage, setCoverage] = useState<{ generalFrom: string | null; generalTo: string | null; refreshedAt: string | null; missingGeneral: boolean; error: string | null; truncated: boolean }>({ generalFrom: null, generalTo: null, refreshedAt: null, missingGeneral: false, error: null, truncated: false });
 
-  const loadRows = async (key: string): Promise<Row[]> => {
-    const { from, to } = periodRange(key);
-    const inRange = (iso: string | null) => {
-      if (!iso) return false;
-      const t = Date.parse(iso);
-      return Number.isFinite(t) && t >= from.getTime() && t <= to.getTime();
-    };
-
-    const [{ data: cached }, { data: influencerRows }] = await Promise.all([
+  /** Lee solo datos guardados (caché acumulado + publicaciones capturadas); el rango se aplica después por fecha de publicación. */
+  const loadRows = async () => {
+    const [{ data: cached, error: cacheError }, influencer] = await Promise.all([
       supabase
         .from("brand_metricool_cache")
-        .select("payload")
+        .select("payload, refreshed_at")
         .eq("brand_slug", "pelotica-de-goma")
         .eq("scope", "brand")
-        .eq("period_key", key)
+        .eq("period_key", "cumulative-2026")
         .maybeSingle(),
-      supabase
+      fetchAllPages<any>((a, b) => supabase
         .from("influencer_posts")
         .select("*")
         .eq("campaign_slug", "pelotica-de-goma")
-        .order("published_at", { ascending: false })
-        .limit(2000),
+        .order("published_at", { ascending: false, nullsFirst: false })
+        .order("id", { ascending: true })
+        .range(a, b)),
     ]);
+    const influencerRows = influencer.rows;
 
     const out = new Map<string, Row>();
 
-    // 1. General (Metricool)
-    const posts = ((cached?.payload as any)?.posts ?? []) as any[];
+    // 1. General (Metricool, caché acumulado 2026)
+    const payload = (cached?.payload ?? null) as any;
+    const posts = (payload?.posts ?? []) as any[];
     for (const p of posts) {
       if (EXCLUDED_GENERAL_IDS.has(p.id)) continue;
-      if (!inRange(p.publishedAt)) continue;
+      if (!p.publishedAt) continue;
       const t = String(p.text ?? "").toLowerCase();
       const oficial = p.blogId === PELOTICA_OFICIAL_BLOG_ID;
       if (!oficial) {
@@ -199,7 +199,6 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     for (const p of (influencerRows ?? []) as any[]) {
       const ts = p.published_at ? Date.parse(p.published_at) : NaN;
       if (!Number.isFinite(ts) || ts < CAMPAIGN_START) continue;
-      if (!inRange(p.published_at)) continue;
       const external = String(p.external_id ?? "");
       if (EXCLUDED_EXTERNAL_IDS.has(external)) continue;
 
@@ -257,25 +256,40 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       });
     }
 
-    return [...out.values()].sort((a, b) =>
-      (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
-    );
+    return {
+      rows: [...out.values()].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "")),
+      coverage: {
+        generalFrom: payload?.from ?? null,
+        generalTo: payload?.to ?? null,
+        refreshedAt: cached?.refreshed_at ?? null,
+        missingGeneral: !payload || Boolean(cacheError),
+        error: influencer.error,
+        truncated: influencer.truncated,
+      },
+    };
   };
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       setLoading(true);
-      const r = await loadRows(periodKey);
+      const r = await loadRows();
       if (!cancelled) {
-        setRows(r);
+        setAllRows(r.rows);
+        setCoverage(r.coverage);
         setLoading(false);
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [periodKey]);
+  }, []);
+
+  const validation = validateRange(range);
+  const periodOnly = validation.ok && validation.active;
+  const ranged = useMemo(() => applyConsultationRange(allRows, (r) => r.publishedAt, range), [allRows, range]);
+  const rows = ranged.included;
+  const rangedLives = useMemo(() => livesInRange(PELOTICA_LIVES, range), [range]);
 
   const filtered = useMemo(
     () => rows.filter((r) => platform === "all" || r.platform === platform),
@@ -308,7 +322,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
 
   const [sitePv, setSitePv] = useState(SITE_ANALYTICS.pageviews);
   useEffect(() => { loadLiveSiteAnalytics().then(() => setSitePv(SITE_ANALYTICS.pageviews)); }, []);
-  const imp = useMemo(() => impressionBreakdown(rows, sitePv), [rows, sitePv]);
+  const imp = useMemo(() => impressionBreakdown(rows, sitePv, rangedLives, periodOnly), [rows, sitePv, rangedLives, periodOnly]);
 
 
   const conclusions = useMemo(() => {
@@ -346,21 +360,19 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
     [rows],
   );
 
-  const periodLabel = PERIODS.find((p) => p.key === periodKey)?.label ?? periodKey;
+  const periodLabel = rangeLabel(range);
 
   const handleDownloadPdf = async () => {
     setPdfBusy(true);
     try {
-      // El informe unificado siempre asume el criterio Acumulado 2026,
-      // sin importar el período que esté visible en la pestaña.
-      let source = filtered;
-      if (periodKey !== "cumulative-2026") {
-        source = (await loadRows("cumulative-2026")).filter(
-          (r) => platform === "all" || r.platform === platform,
-        );
+      // El informe usa exactamente el rango y la red visibles en pantalla.
+      if (!ranged.valid) {
+        toast.error("El rango de fechas no es válido.");
+        return;
       }
+      const source = filtered;
       if (!source.length) {
-        toast.error("No hay piezas en Acumulado 2026 con esos filtros.");
+        toast.error(`No hay piezas en ${periodLabel} con esos filtros.`);
         return;
       }
       const byPlatform = source.reduce<Record<string, number>>((acc, r) => {
@@ -379,7 +391,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       );
       if (platform === "all") {
         await loadLiveSiteAnalytics();
-        totalsPdf.impressions = impressionBreakdown(rows, SITE_ANALYTICS.pageviews).total;
+        totalsPdf.impressions = impressionBreakdown(rows, SITE_ANALYTICS.pageviews, rangedLives, periodOnly).total;
       }
       const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
         .map((key) => {
@@ -410,17 +422,18 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
         scopeLabel:
           "General + Equipos y chivos + Influencers, sin duplicar piezas" +
           (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
-        periodLabel: "Acumulado 2026",
-        from: periodRange("cumulative-2026").from,
-        to: new Date(),
+        periodLabel,
+        ...rangeDates(range, new Date("2026-01-01T04:00:00Z")),
         brandLogoSrc: logoPeloticaDeGoma,
-        lives: PELOTICA_LIVES,
-        officialAccounts: true,
-        siteAnalytics: true,
+        lives: platform === "all" ? rangedLives : [],
+        // Agregados sin fecha por pieza: solo sin rango de consulta.
+        officialAccounts: !periodOnly,
+        siteAnalytics: !periodOnly,
         reportAnalysis: {
           result: (() => {
-            const lvViews = PELOTICA_LIVES.reduce((s, l) => s + (l.views ?? 0), 0);
-            return `${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones. Sumando ${PELOTICA_LIVES.length} lives (${fmt(lvViews)} vistas), el total unificado llega a ${fmt(totalsPdf.views + lvViews)} vistas. Criterios: equipos con todos sus posts; chivos e influencers con #PeloticaDeGoma, #AmoAJuga o mención a @peloticadegomave.`;
+            const pdfLives = platform === "all" ? rangedLives : [];
+            const lvViews = pdfLives.reduce((s, l) => s + (l.views ?? 0), 0);
+            return `${periodLabel}: ${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones. Sumando ${pdfLives.length} lives (${fmt(lvViews)} vistas), el total unificado llega a ${fmt(totalsPdf.views + lvViews)} vistas. Criterios: equipos con todos sus posts; chivos e influencers con #PeloticaDeGoma, #AmoAJuga o mención a @peloticadegomave.`;
           })(),
           visibility: leadingPlatform
             ? `${PLATFORM_META[leadingPlatform.key].label} lidera con ${fmt(leadingPlatform.views)} vistas en ${fmt(leadingPlatform.pieces)} piezas.`
@@ -450,7 +463,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           })),
         },
       });
-      toast.success("Informe unificado listo · Acumulado 2026", {
+      toast.success(`Informe unificado listo · ${periodLabel}`, {
         description: "Si no se descargó solo, toca «Abrir PDF».",
         duration: 20000,
         action: { label: "Abrir PDF", onClick: () => window.open(pdf.url, "_blank", "noopener") },
@@ -488,28 +501,19 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       </div>
 
       <div className="flex justify-end mb-3">
-        <Button size="sm" variant="outline" disabled={loading || pdfBusy || filtered.length === 0} onClick={handleDownloadPdf}>
+        <Button size="sm" variant="outline" disabled={loading || pdfBusy || !ranged.valid || filtered.length === 0} onClick={handleDownloadPdf}>
           {pdfBusy ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Download className="w-4 h-4 mr-1" />}
-          {pdfBusy ? "Generando Acumulado 2026…" : "Informe PDF unificado"}
+          {pdfBusy ? `Generando ${periodLabel}…` : "Informe PDF unificado"}
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-
-        {PERIODS.map((p) => (
-          <button
-            key={p.key}
-            onClick={() => setPeriodKey(p.key)}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",
-              periodKey === p.key
-                ? "bg-foreground text-background border-foreground"
-                : "bg-transparent text-foreground border-border hover:border-foreground/40",
-            )}
-          >
-            {p.label}
-          </button>
-        ))}
+      {onRangeChange && <ConsultationRangeControls value={range} onChange={onRangeChange} />}
+      <div className="mb-4 text-[11px] text-muted-foreground font-mono space-y-1" data-testid="unified-coverage">
+        <p>
+          Cobertura guardada · General (Metricool): {coverage.missingGeneral ? "sin caché acumulado disponible; General no se cuenta como cero" : `${coverage.generalFrom ?? "?"} → ${coverage.generalTo ?? "?"}${coverage.refreshedAt ? ` · actualizado ${new Intl.DateTimeFormat("es-VE", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Caracas" }).format(new Date(coverage.refreshedAt))} (Caracas){""}` : ""}`} · Apify: publicaciones capturadas desde 2026.
+        </p>
+        {ranged.undated > 0 && <p>{ranged.undated} piezas sin fecha de publicación quedaron fuera del período.</p>}
+        {(coverage.error || coverage.truncated) && <p role="alert" className="text-destructive font-bold">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas.</p>}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -541,6 +545,10 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Unificando todo el ruido de Pelotica de Goma…</span>
         </div>
+      ) : !ranged.valid ? (
+        <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">
+          {ranged.message} No se muestran totales con un rango inválido.
+        </div>
       ) : filtered.length === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
           No hay piezas en {periodLabel} con esos filtros.
@@ -560,10 +568,12 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
                 label: "Impresiones",
                 value: fmt(platform === "all" ? imp.total : totals.impressions),
                 hint: platform === "all"
-                  ? "Cuentas oficiales (Metricool) + equipos y chivos + influencers + lives + páginas vistas del sitio"
+                  ? periodOnly
+                    ? "Publicaciones del período + lives del período · sin el total anual de cuentas oficiales ni páginas vistas del sitio (no tienen fecha por pieza)"
+                    : "Cuentas oficiales (Metricool) + equipos y chivos + influencers + lives + páginas vistas del sitio"
                   : "Si la red no da impresiones, se usan las vistas",
               },
-              ...(platform === "all"
+              ...(platform === "all" && !periodOnly
                 ? [
                     {
                       label: "Alcance estimado",
@@ -684,7 +694,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
       )}
 <section className="rounded-3xl border border-border bg-card p-6">
         {(() => {
-          const lv = sumLives(PELOTICA_LIVES);
+          const lv = sumLives(rangedLives);
           const f = (n: number) => n.toLocaleString("es-VE");
           return (
             <>
@@ -694,7 +704,7 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
                 <div><p className="text-xs text-muted-foreground">Vistas lives ({lv.lives} lives · {Math.floor(lv.minutes / 60)}h {lv.minutes % 60}m)</p><p className="text-2xl font-black">{f(lv.views)}</p></div>
                 <div><p className="text-xs text-muted-foreground">Total unificado</p><p className="text-2xl font-black">{f(totals.views + lv.views)}</p></div>
               </div>
-              <p className="text-xs text-muted-foreground mt-3">El detalle de cada live está en la pestaña Lives.</p>
+              <p className="text-xs text-muted-foreground mt-3">Lives con fecha dentro de {periodLabel}. El detalle de cada live está en la pestaña Lives.</p>
             </>
           );
         })()}
@@ -715,7 +725,9 @@ export const UnifiedSection = ({ accent = "#E91E63" }: { accent?: string }) => {
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Cuentas oficiales: se usa el total anual de Metricool ({OFFICIAL_ACCOUNTS_IMPRESSIONS.toLocaleString("es-VE")}) o la suma de sus publicaciones, lo que sea mayor. En las demás fuentes, si la red no da impresiones, se usan las vistas. Cada publicación cuenta una sola vez.
+            {periodOnly
+              ? `Con rango de fechas, cuentas oficiales = suma de sus publicaciones del período. El total anual de Metricool (${OFFICIAL_ACCOUNTS_IMPRESSIONS.toLocaleString("es-VE")}, 1 ene–29 sep 2026) y las páginas vistas del sitio son agregados de su propio período y no se suman.`
+              : `Cuentas oficiales: se usa el total anual de Metricool (${OFFICIAL_ACCOUNTS_IMPRESSIONS.toLocaleString("es-VE")}) o la suma de sus publicaciones, lo que sea mayor.`} En las demás fuentes, si la red no da impresiones, se usan las vistas. Cada publicación cuenta una sola vez.
           </p>
         </section>
       )}

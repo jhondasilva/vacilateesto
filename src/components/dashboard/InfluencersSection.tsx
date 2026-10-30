@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, MessageCircle, Loader2, RefreshCw, Users, Music2, Instagram } from "lucide-react";
@@ -56,30 +57,40 @@ export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
   mode = "influencers",
+  range = EMPTY_RANGE,
 }: {
   campaignSlug?: string;
   accent?: string;
   mode?: "influencers" | "equipos";
+  range?: ConsultationRange;
 }) => {
   const isTeams = mode === "equipos";
   const allowedCategories = isTeams ? ["equipo", "chivo"] : ["influencer"];
 
-  const [posts, setPosts] = useState<InfluencerPost[]>([]);
+  const [allPosts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [coverage, setCoverage] = useState<{ error: string | null; truncated: boolean }>({ error: null, truncated: false });
   const [platform, setPlatform] = useState<"all" | "tiktok" | "instagram">("all");
   const [tier, setTier] = useState<"all" | "nano" | "micro" | "macro">("all");
   const [group, setGroup] = useState<string>("all");
+  const requestRef = useRef(0);
 
   const load = async () => {
+    const req = ++requestRef.current;
     setLoading(true);
-    const { data, error } = await supabase
+    const res = await fetchAllPages<InfluencerPost>((a, b) => supabase
       .from("influencer_posts")
       .select("*")
       .eq("campaign_slug", campaignSlug)
       .in("category", allowedCategories)
-      .order("published_at", { ascending: false })
-      .limit(1000);
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .order("id", { ascending: true })
+      .range(a, b));
+    if (req !== requestRef.current) return; // respuesta vieja: se descarta
+    const data = res.rows;
+    const error = res.error;
+    setCoverage({ error: res.error, truncated: res.truncated });
     if (error) toast.error("No se pudieron cargar las publicaciones");
     // Criterio obligatorio: #PeloticaDeGoma + #AmoAJuga, o mención a un equipo
     // de la liga / un chivo.
@@ -168,6 +179,10 @@ export const InfluencersSection = ({
     setTimeout(() => void load(), 120_000);
     setTimeout(() => { void load(); setSyncing(false); }, 300_000);
   };
+
+  // Lista, contadores, creadores y conclusiones salen del mismo conjunto filtrado por fecha de publicación.
+  const ranged = useMemo(() => applyConsultationRange(allPosts, (p) => p.published_at, range), [allPosts, range]);
+  const posts = ranged.included;
 
   const filtered = useMemo(
     () =>
@@ -265,7 +280,11 @@ export const InfluencersSection = ({
             {isTeams
               ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a una cuenta de equipo · Fuente: Apify + sincronización manual"
               : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Solo publicaciones desde enero 2026 · Fuente: Apify + sincronización manual"}
+            {` · Período: ${rangeLabel(range)} (fecha de publicación, Caracas)`}
           </p>
+          {(coverage.error || coverage.truncated) && (
+            <p role="alert" className="text-xs text-destructive font-bold mt-1">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas.</p>
+          )}
 
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -334,9 +353,13 @@ export const InfluencersSection = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Cargando contenido de influencers…</span>
         </div>
+      ) : !ranged.valid ? (
+        <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">
+          {ranged.message} No se muestran totales con un rango inválido.
+        </div>
       ) : filtered.length === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
-          Todavía no hay piezas de influencers con esos filtros. Usa “Actualizar influencers”.
+          No hay piezas guardadas con esos filtros en {rangeLabel(range)}.
         </div>
       ) : (
         <>

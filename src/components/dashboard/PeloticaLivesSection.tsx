@@ -1,4 +1,5 @@
 import { Radio, Clock, Eye, Users, Gift, MessageCircle, Youtube } from "lucide-react";
+import { applyConsultationRange, EMPTY_RANGE, rangeLabel, validateRange, type ConsultationRange } from "@/lib/consultationRange";
 
 // Lives TikTok — capturas de TikTok Studio ("Centro LIVE"), carpeta de Drive del equipo.
 // VE = @vacilateesto · PDG = @peloticadegomave. "Espectadores" = views.
@@ -68,10 +69,17 @@ const fmtDate = (d: string) => {
   return `${dd}/${mm}`;
 };
 
-export const PeloticaLivesSection = () => {
-  const tk = sumLives(PELOTICA_TIKTOK_LIVES);
-  const ytT = sumLives(PELOTICA_YOUTUBE_LIVES);
-  const all = sumLives(PELOTICA_LIVES);
+/** Lives dentro del rango (fecha del live, día de Caracas). Rango inválido => ninguno. */
+export const livesInRange = (rows: LiveRow[], range: ConsultationRange) =>
+  applyConsultationRange(rows, (l) => l.date, range).included;
+
+export const PeloticaLivesSection = ({ range = EMPTY_RANGE }: { range?: ConsultationRange }) => {
+  const v = validateRange(range);
+  const lives = livesInRange(PELOTICA_LIVES, range);
+  const tk = sumLives(lives.filter((l) => l.platform === "tiktok"));
+  const ytT = sumLives(lives.filter((l) => l.platform === "youtube"));
+  const all = sumLives(lives);
+  if (!v.ok) return <div role="alert" className="mt-12 bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">{v.message}</div>;
 
   const Card = ({ title, icon: Icon, t, extra }: { title: string; icon: any; t: ReturnType<typeof sumLives>; extra?: boolean }) => (
     <div className="bg-card border border-border rounded-xl p-4">
@@ -101,7 +109,7 @@ export const PeloticaLivesSection = () => {
       </div>
       <p className="text-xs text-muted-foreground mb-4">
         TikTok: capturas de TikTok Studio de @vacilateesto y @peloticadegomave. YouTube: transmisiones del 4to Split en
-        @Vacilateestopodcast. Estos totales se suman en la pestaña Todo unificado.
+        @Vacilateestopodcast. Estos totales se suman en la pestaña Todo unificado. Período: {rangeLabel(range)} (fecha del live, Caracas).
       </p>
       <div className="grid md:grid-cols-3 gap-3 mb-6">
         <Card title="TikTok" icon={Radio} t={tk} extra />
@@ -123,7 +131,7 @@ export const PeloticaLivesSection = () => {
             </tr>
           </thead>
           <tbody>
-            {PELOTICA_LIVES.map((l, i) => (
+            {lives.map((l, i) => (
               <tr key={i} className="border-t border-border">
                 <td className="px-4 py-2 whitespace-nowrap">{fmtDate(l.date)}</td>
                 <td className="px-3 py-2">{l.platform === "tiktok" ? "TikTok" : "YouTube"}</td>

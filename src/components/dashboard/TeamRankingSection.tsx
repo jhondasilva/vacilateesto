@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
 
 // Cada equipo de la liga con su chivo (mismo orden que los rosters de Equipos y chivos).
 const PAIRS = [
@@ -29,28 +30,37 @@ const CAMPAIGN_START = Date.parse("2026-01-01T00:00:00Z");
 type Side = { posts: number; views: number; interactions: number };
 const empty = (): Side => ({ posts: 0, views: 0, interactions: 0 });
 
-export const TeamRankingSection = ({ accent = "#E91E63" }: { accent?: string }) => {
+export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: { accent?: string; range?: ConsultationRange }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [coverage, setCoverage] = useState<{ error: string | null; truncated: boolean }>({ error: null, truncated: false });
   const [sortBy, setSortBy] = useState<"views" | "interactions" | "posts">("views");
 
   useEffect(() => {
+    let cancelled = false;
     (async () => {
-      const { data } = await supabase
+      const res = await fetchAllPages<Post>((a, b) => supabase
         .from("influencer_posts")
-        .select("platform,external_id,category,author_handle,text,hashtags,published_at,views,likes,comments,shares")
+        .select("id,platform,external_id,category,author_handle,text,hashtags,published_at,views,likes,comments,shares")
         .eq("campaign_slug", "pelotica-de-goma")
         .in("category", ["equipo", "chivo"])
-        .limit(2000);
-      setPosts((data as Post[]) ?? []);
+        .order("published_at", { ascending: false, nullsFirst: false })
+        .order("id", { ascending: true })
+        .range(a, b));
+      if (cancelled) return;
+      setPosts(res.rows);
+      setCoverage({ error: res.error, truncated: res.truncated });
       setLoading(false);
     })();
+    return () => { cancelled = true; };
   }, []);
+
+  const ranged = useMemo(() => applyConsultationRange(posts, (p) => p.published_at, range), [posts, range]);
 
   const rows = useMemo(() => {
     const seen = new Set<string>();
     const map = new Map(PAIRS.map((p) => [p.team, { ...p, teamSide: empty(), chivoSide: empty() }]));
-    for (const p of posts) {
+    for (const p of ranged.included) {
       const ts = p.published_at ? Date.parse(p.published_at) : NaN;
       if (!Number.isFinite(ts) || ts < CAMPAIGN_START) continue;
       const key = p.platform + p.external_id;
@@ -83,7 +93,7 @@ export const TeamRankingSection = ({ accent = "#E91E63" }: { accent?: string }) 
         },
       }))
       .sort((a, b) => b.total[sortBy] - a.total[sortBy]);
-  }, [posts, sortBy]);
+  }, [ranged, sortBy]);
 
   const max = Math.max(1, ...rows.map((r) => r.total[sortBy]));
 
@@ -94,13 +104,19 @@ export const TeamRankingSection = ({ accent = "#E91E63" }: { accent?: string }) 
       </div>
     );
 
+  if (!ranged.valid)
+    return <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">{ranged.message} El ranking no se calcula con un rango inválido.</div>;
+
   return (
     <div>
       <div className="mb-5">
         <h2 className="text-xl font-black">Ranking de equipos · cuenta oficial + chivo</h2>
         <p className="text-[11px] text-muted-foreground font-mono">
-          Equipo: todos sus posts · Chivo: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a un equipo · Desde enero 2026 · Sin doble conteo
+          Equipo: todos sus posts · Chivo: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a un equipo · Desde enero 2026 · Período: {rangeLabel(range)} (fecha de publicación, Caracas) · Sin doble conteo
         </p>
+        {(coverage.error || coverage.truncated) && (
+          <p role="alert" className="text-xs text-destructive font-bold mt-1">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas. Las cifras pueden ser menores a las reales.</p>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-5">
