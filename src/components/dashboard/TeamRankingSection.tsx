@@ -93,7 +93,7 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
         },
       }))
       .sort((a, b) => b.total[sortBy] - a.total[sortBy]);
-  }, [posts, sortBy]);
+  }, [ranged, sortBy]);
 
   const max = Math.max(1, ...rows.map((r) => r.total[sortBy]));
 
@@ -104,13 +104,19 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
       </div>
     );
 
+  if (!ranged.valid)
+    return <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">{ranged.message} El ranking no se calcula con un rango inválido.</div>;
+
   return (
     <div>
       <div className="mb-5">
         <h2 className="text-xl font-black">Ranking de equipos · cuenta oficial + chivo</h2>
         <p className="text-[11px] text-muted-foreground font-mono">
-          Equipo: todos sus posts · Chivo: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a un equipo · Desde enero 2026 · Sin doble conteo
+          Equipo: todos sus posts · Chivo: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a un equipo · Desde enero 2026 · Período: {rangeLabel(range)} (fecha de publicación, Caracas) · Sin doble conteo
         </p>
+        {(coverage.error || coverage.truncated) && (
+          <p role="alert" className="text-xs text-destructive font-bold mt-1">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas. Las cifras pueden ser menores a las reales.</p>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-2 mb-5">
