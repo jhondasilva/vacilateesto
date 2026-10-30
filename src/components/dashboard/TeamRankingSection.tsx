@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Trophy } from "lucide-react";
+import { buildAuditCsv, downloadCsv } from "@/lib/postAudit";
+import { Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
 
@@ -21,6 +23,7 @@ type Post = {
   platform: string; external_id: string; category: string | null; author_handle: string | null;
   text: string | null; hashtags: string[] | null; published_at: string | null;
   views: number | null; likes: number | null; comments: number | null; shares: number | null;
+  id?: string; url?: string | null; synced_at?: string | null;
 };
 
 const fmt = (n: number) => new Intl.NumberFormat("es-VE").format(Math.round(n || 0));
@@ -41,7 +44,7 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
     (async () => {
       const res = await fetchAllPages<Post>((a, b) => supabase
         .from("influencer_posts")
-        .select("id,platform,external_id,category,author_handle,text,hashtags,published_at,views,likes,comments,shares")
+        .select("id,platform,external_id,category,author_handle,text,hashtags,published_at,views,likes,comments,shares,url,synced_at")
         .eq("campaign_slug", "pelotica-de-goma")
         .in("category", ["equipo", "chivo"])
         .order("published_at", { ascending: false, nullsFirst: false })
@@ -57,8 +60,9 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
 
   const ranged = useMemo(() => applyConsultationRange(posts, (p) => p.published_at, range), [posts, range]);
 
-  const rows = useMemo(() => {
+  const rowsData = useMemo(() => {
     const seen = new Set<string>();
+    const counted: { post: Post; group: string }[] = [];
     const map = new Map(PAIRS.map((p) => [p.team, { ...p, teamSide: empty(), chivoSide: empty() }]));
     for (const p of ranged.included) {
       const ts = p.published_at ? Date.parse(p.published_at) : NaN;
@@ -78,12 +82,13 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
         if (!ok) continue;
       }
       seen.add(key);
+      counted.push({ post: p, group: `${pair.name} · ${side === "teamSide" ? "equipo" : "chivo"}` });
       const s = map.get(pair.team)![side];
       s.posts += 1;
       s.views += Math.max(0, p.views ?? 0);
       s.interactions += Math.max(0, p.likes ?? 0) + Math.max(0, p.comments ?? 0) + Math.max(0, p.shares ?? 0);
     }
-    return [...map.values()]
+    const list = [...map.values()]
       .map((r) => ({
         ...r,
         total: {
@@ -93,7 +98,16 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
         },
       }))
       .sort((a, b) => b.total[sortBy] - a.total[sortBy]);
+    return { list, counted };
   }, [ranged, sortBy]);
+  const rows = rowsData.list;
+
+  const exportCsv = () => {
+    const groups = new Map(rowsData.counted.map((c) => [c.post, c.group]));
+    const partial = Boolean(coverage.error || coverage.truncated);
+    const csv = buildAuditCsv(rowsData.counted.map((c) => c.post), { section: "Ranking equipos + chivo", period: rangeLabel(range), filters: "todas las redes; sin doble conteo", partial }, (p) => groups.get(p as Post) ?? "");
+    downloadCsv(csv, `detalle-ranking-${range.from || "inicio"}_${range.to || "fin"}${partial ? "-PARCIAL" : ""}.csv`);
+  };
 
   const max = Math.max(1, ...rows.map((r) => r.total[sortBy]));
 
@@ -120,6 +134,9 @@ export const TeamRankingSection = ({ accent = "#E91E63", range = EMPTY_RANGE }: 
       </div>
 
       <div className="flex flex-wrap gap-2 mb-5">
+        <button onClick={exportCsv} className="px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-border hover:border-foreground/40 flex items-center gap-1.5">
+          <Download className="w-3.5 h-3.5" /> Detalle CSV · {rowsData.counted.length}
+        </button>
         {([["views", "Por vistas"], ["interactions", "Por interacciones"], ["posts", "Por piezas"]] as const).map(([k, l]) => (
           <button key={k} onClick={() => setSortBy(k)}
             className={cn("px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border transition-colors",

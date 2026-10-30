@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
+import { buildAuditCsv, downloadCsv, PDG_EXCLUDED_EXTERNAL_IDS, PDG_INCLUDED_EXTERNAL_IDS } from "@/lib/postAudit";
+import { Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, MessageCircle, Loader2, RefreshCw, Users, Music2, Instagram } from "lucide-react";
@@ -25,6 +27,7 @@ type InfluencerPost = {
   comments: number | null;
   shares: number | null;
   hashtags: string[] | null;
+  synced_at?: string | null;
 };
 
 const fmt = (n: number) => new Intl.NumberFormat("es-VE").format(Math.round(n || 0));
@@ -103,14 +106,8 @@ export const InfluencersSection = ({
       "@jhonsnacks", "@juansofa",
     ];
     // Publicaciones descartadas manualmente (no son de Pelotica de Goma).
-    const EXCLUDED_EXTERNAL_IDS = new Set(["7550124744004078853", "3990082622452650566"]);
-    // Publicaciones incluidas manualmente (validadas aunque no traigan hashtags).
-    const INCLUDED_EXTERNAL_IDS = new Set([
-      "7683301114023939348", "7682173924817358100", "7682929732656188693",
-      "7685902044862942485", "3991391175003360385", "3986879758008167609",
-      "3987049638114123295", "3986162588420753795", "3986317332877413403",
-      "3980566841372687701", "7685527573824015636", "7684415937629424917",
-    ]);
+    const EXCLUDED_EXTERNAL_IDS = PDG_EXCLUDED_EXTERNAL_IDS;
+    const INCLUDED_EXTERNAL_IDS = PDG_INCLUDED_EXTERNAL_IDS;
     // Cuentas que NO son influencers: marcas y canales.
     const NON_INFLUENCER_HANDLES = new Set([
       "@vatelvenezuela", "@mykonosvzla", "@ivcnetworks",
@@ -287,10 +284,24 @@ export const InfluencersSection = ({
           )}
 
         </div>
+        <div className="flex gap-2">
+        <Button size="sm" variant="outline" disabled={loading || !ranged.valid} onClick={() => {
+          const partial = Boolean(coverage.error || coverage.truncated);
+          const csv = buildAuditCsv(filtered, {
+            section: isTeams ? "Equipos y chivos" : "Influencers",
+            period: rangeLabel(range),
+            filters: `red=${platform}; grupo=${group}${isTeams ? "" : `; tier=${tier}`}`,
+            partial,
+          });
+          downloadCsv(csv, `detalle-${isTeams ? "equipos-chivos" : "influencers"}-${range.from || "inicio"}_${range.to || "fin"}${partial ? "-PARCIAL" : ""}.csv`);
+        }}>
+          <Download className="w-4 h-4 mr-1" /> Detalle CSV · {filtered.length}
+        </Button>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
           {syncing ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-1" />}
           {syncing ? "Buscando…" : "Actualizar datos"}
         </Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-5">
