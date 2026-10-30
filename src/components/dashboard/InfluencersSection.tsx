@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, MessageCircle, Loader2, RefreshCw, Users, Music2, Instagram } from "lucide-react";
@@ -56,30 +57,40 @@ export const InfluencersSection = ({
   campaignSlug = "pelotica-de-goma",
   accent = "#E91E63",
   mode = "influencers",
+  range = EMPTY_RANGE,
 }: {
   campaignSlug?: string;
   accent?: string;
   mode?: "influencers" | "equipos";
+  range?: ConsultationRange;
 }) => {
   const isTeams = mode === "equipos";
   const allowedCategories = isTeams ? ["equipo", "chivo"] : ["influencer"];
 
-  const [posts, setPosts] = useState<InfluencerPost[]>([]);
+  const [allPosts, setPosts] = useState<InfluencerPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [coverage, setCoverage] = useState<{ error: string | null; truncated: boolean }>({ error: null, truncated: false });
   const [platform, setPlatform] = useState<"all" | "tiktok" | "instagram">("all");
   const [tier, setTier] = useState<"all" | "nano" | "micro" | "macro">("all");
   const [group, setGroup] = useState<string>("all");
+  const requestRef = useRef(0);
 
   const load = async () => {
+    const req = ++requestRef.current;
     setLoading(true);
-    const { data, error } = await supabase
+    const res = await fetchAllPages<InfluencerPost>((a, b) => supabase
       .from("influencer_posts")
       .select("*")
       .eq("campaign_slug", campaignSlug)
       .in("category", allowedCategories)
-      .order("published_at", { ascending: false })
-      .limit(1000);
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .order("id", { ascending: true })
+      .range(a, b));
+    if (req !== requestRef.current) return; // respuesta vieja: se descarta
+    const data = res.rows;
+    const error = res.error;
+    setCoverage({ error: res.error, truncated: res.truncated });
     if (error) toast.error("No se pudieron cargar las publicaciones");
     // Criterio obligatorio: #PeloticaDeGoma + #AmoAJuga, o mención a un equipo
     // de la liga / un chivo.
