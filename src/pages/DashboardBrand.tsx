@@ -1199,6 +1199,12 @@ const MetricoolDashboard = ({
           </p>
         </div>
       )}
+      {isPdg && (
+        <ConsultationRangeControls value={range} onChange={(r) => { setRange(r); setView("all"); }}
+          note={mainTab === "web" || mainTab === "trends"
+            ? "Esta pestaña muestra agregados guardados de su propio período: las fechas no la filtran."
+            : "Aplica a Todo unificado, General, Equipos y chivos, Ranking, Influencers y Lives."} />
+      )}
       {showInfluencers && (
         <div className="mb-6 flex max-w-full overflow-x-auto sm:inline-flex rounded-full border border-border p-1 bg-card">
           {([
@@ -1226,16 +1232,16 @@ const MetricoolDashboard = ({
       )}
 
       {showInfluencers && mainTab === "influencers" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="influencers" />
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="influencers" range={range} />
       )}
       {showInfluencers && mainTab === "equipos" && (
-        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" />
+        <InfluencersSection campaignSlug="pelotica-de-goma" accent={accent} mode="equipos" range={range} />
       )}
-      {showInfluencers && mainTab === "lives" && <PeloticaLivesSection />}
+      {showInfluencers && mainTab === "lives" && <PeloticaLivesSection range={range} />}
       {showInfluencers && mainTab === "web" && <PeloticaSiteAnalytics part="web" />}
       {showInfluencers && mainTab === "trends" && <PeloticaSiteAnalytics part="trends" />}
-      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} />}
-      {showInfluencers && mainTab === "ranking" && <TeamRankingSection accent={accent} />}
+      {showInfluencers && mainTab === "todo" && <UnifiedSection accent={accent} range={range} />}
+      {showInfluencers && mainTab === "ranking" && <TeamRankingSection accent={accent} range={range} />}
 
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && <PeloticaOfficialAccounts />}
       {showInfluencers && mainTab === "general" && brand.slug === "pelotica-de-goma" && (
@@ -1260,6 +1266,17 @@ const MetricoolDashboard = ({
 
 
       {/* Selector de mes */}
+      {!isPdg && (
+        <ConsultationRangeControls value={range} onChange={(r) => { setRange(r); setView("all"); }}
+          note="Con fechas se filtra el acumulado guardado; usa los meses de abajo para volver a la vista mensual." />
+      )}
+      {rangeMode && data && (
+        <p className="mb-3 text-[11px] text-muted-foreground font-mono" data-testid="general-coverage">
+          Cobertura guardada (Metricool): {storedCoverage?.from ?? "?"} → {storedCoverage?.to ?? "?"}
+          {rangedMetricool.undated > 0 ? ` · ${rangedMetricool.undated} publicaciones sin fecha de publicación quedaron fuera` : ""}
+          {" "}· horas sin zona se leen en hora de Caracas.
+        </p>
+      )}
 
       <div className="mb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <p className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
@@ -1290,7 +1307,7 @@ const MetricoolDashboard = ({
           <Button
             size="sm"
             variant="outline"
-            disabled={!data || matchedCount === 0}
+            disabled={!data || rangeInvalid || matchedCount === 0}
             onClick={() => {
               if (!data) return;
               void generateBrandReportPdf({
@@ -1300,9 +1317,9 @@ const MetricoolDashboard = ({
                   scope === "brand"
                     ? brandConfig.label
                     : "Todas las publicaciones de Vacílate Esto",
-                periodLabel: month.label,
-                from: month.from,
-                to: month.to,
+                periodLabel,
+                from: periodDates.from,
+                to: periodDates.to,
                 data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
                 includeTikTokLives: TIKTOK_LIVES_BRANDS.has(brand.slug),
               });
@@ -1314,14 +1331,14 @@ const MetricoolDashboard = ({
         </div>
       </div>
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0">
+        <div className={cn("flex gap-2 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1 flex-1 min-w-0", isPdg && "hidden")}>
           {months.map((m) => (
             <button
               key={m.key}
-              onClick={() => { setMonthKey(m.key); setView("all"); }}
+              onClick={() => { setMonthKey(m.key); setRange(EMPTY_RANGE); setView("all"); }}
               className={cn(
                 "shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors capitalize",
-                m.key === monthKey
+                m.key === monthKey && !rangeMode
                   ? "bg-foreground text-background border-foreground"
                   : "bg-transparent text-foreground border-border hover:border-foreground/40",
               )}
@@ -1453,12 +1470,20 @@ const MetricoolDashboard = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Consultando Metricool…</span>
         </div>
+      ) : rangeInvalid ? (
+        <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">
+          {rangeValidation.ok ? "" : rangeValidation.message} No se muestran totales con un rango inválido.
+        </div>
+      ) : !data && rangeMode ? (
+        <div role="alert" className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
+          No hay caché acumulado guardado para filtrar por fechas. Sin datos guardados no se cuenta como cero.
+        </div>
       ) : !data || matchedCount === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center">
           <p className="text-muted-foreground">
             {scope === "brand"
-              ? `Sin menciones de ${brand.name} en ${month.label}.`
-              : `Sin publicaciones de Vacílate Esto en ${month.label}.`}
+              ? `Sin menciones guardadas de ${brand.name} en ${periodLabel}.`
+              : `Sin publicaciones guardadas de Vacílate Esto en ${periodLabel}.`}
           </p>
         </div>
       ) : (
