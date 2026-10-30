@@ -34,6 +34,7 @@ import { es } from "date-fns/locale";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
+import { reportAggregateAnnexesAllowed } from "@/lib/reportSelection";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.png";
 import {
   Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
@@ -290,6 +291,7 @@ export const UnifiedSection = ({
   const ranged = useMemo(() => applyConsultationRange(allRows, (r) => r.publishedAt, range), [allRows, range]);
   const rows = ranged.included;
   const rangedLives = useMemo(() => livesInRange(PELOTICA_LIVES, range), [range]);
+  const selectedLives = useMemo(() => rangedLives.filter((live) => platform === "all" || live.platform === platform), [rangedLives, platform]);
 
   const filtered = useMemo(
     () => rows.filter((r) => platform === "all" || r.platform === platform),
@@ -390,7 +392,6 @@ export const UnifiedSection = ({
         { views: 0, likes: 0, comments: 0, impressions: 0 },
       );
       if (platform === "all") {
-        await loadLiveSiteAnalytics();
         totalsPdf.impressions = impressionBreakdown(rows, SITE_ANALYTICS.pageviews, rangedLives, periodOnly).total;
       }
       const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
@@ -415,7 +416,6 @@ export const UnifiedSection = ({
       const leadingPlatform = platformRows[0];
       const leadingSource = sourceRows[0];
 
-      await loadLiveSiteAnalytics();
       const pdf = await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",
@@ -423,15 +423,18 @@ export const UnifiedSection = ({
           "General + Equipos y chivos + Influencers, sin duplicar piezas" +
           (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
         periodLabel,
+        selectedPlatform: platform,
+        selectedPeriod: periodOnly,
+        coverageNote: coverage.error || coverage.truncated || coverage.missingGeneral ? "Cobertura guardada incompleta: informe parcial." : undefined,
         ...rangeDates(range, new Date("2026-01-01T04:00:00Z")),
         brandLogoSrc: logoPeloticaDeGoma,
-        lives: platform === "all" ? rangedLives : [],
+        lives: selectedLives,
         // Agregados sin fecha por pieza: solo sin rango de consulta.
-        officialAccounts: !periodOnly,
-        siteAnalytics: !periodOnly,
+        officialAccounts: reportAggregateAnnexesAllowed(periodOnly, platform),
+        siteAnalytics: reportAggregateAnnexesAllowed(periodOnly, platform),
         reportAnalysis: {
           result: (() => {
-            const pdfLives = platform === "all" ? rangedLives : [];
+            const pdfLives = selectedLives;
             const lvViews = pdfLives.reduce((s, l) => s + (l.views ?? 0), 0);
             return `${periodLabel}: ${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones. Sumando ${pdfLives.length} lives (${fmt(lvViews)} vistas), el total unificado llega a ${fmt(totalsPdf.views + lvViews)} vistas. Criterios: equipos con todos sus posts; chivos e influencers con #PeloticaDeGoma, #AmoAJuga o mención a @peloticadegomave.`;
           })(),
@@ -694,7 +697,7 @@ export const UnifiedSection = ({
       )}
 <section className="rounded-3xl border border-border bg-card p-6">
         {(() => {
-          const lv = sumLives(rangedLives);
+          const lv = sumLives(selectedLives);
           const f = (n: number) => n.toLocaleString("es-VE");
           return (
             <>
