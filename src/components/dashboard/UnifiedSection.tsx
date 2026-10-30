@@ -510,7 +510,7 @@ export const UnifiedSection = ({
       {onRangeChange && <ConsultationRangeControls value={range} onChange={onRangeChange} />}
       <div className="mb-4 text-[11px] text-muted-foreground font-mono space-y-1" data-testid="unified-coverage">
         <p>
-          Cobertura guardada · General (Metricool): {coverage.missingGeneral ? "sin caché acumulado disponible; General no se cuenta como cero" : `${coverage.generalFrom ?? "?"} → ${coverage.generalTo ?? "?"}${coverage.refreshedAt ? ` · actualizado ${format(new Date(coverage.refreshedAt), "d MMM yyyy HH:mm", { locale: es })}` : ""}`} · Apify: publicaciones capturadas desde 2026.
+          Cobertura guardada · General (Metricool): {coverage.missingGeneral ? "sin caché acumulado disponible; General no se cuenta como cero" : `${coverage.generalFrom ?? "?"} → ${coverage.generalTo ?? "?"}${coverage.refreshedAt ? ` · actualizado ${new Intl.DateTimeFormat("es-VE", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Caracas" }).format(new Date(coverage.refreshedAt))} (Caracas){""}` : ""}`} · Apify: publicaciones capturadas desde 2026.
         </p>
         {ranged.undated > 0 && <p>{ranged.undated} piezas sin fecha de publicación quedaron fuera del período.</p>}
         {(coverage.error || coverage.truncated) && <p role="alert" className="text-destructive font-bold">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas.</p>}
