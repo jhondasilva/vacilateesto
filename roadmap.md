@@ -25,3 +25,4 @@
 - [ ] Certificar cobertura exhaustiva del cuarto split — pendiente de validación de cobertura, no de fechas
 - [x] Corregir criterio P.A.N. a #PeloticaDeGoma o @peloticadegomave exactos; comprobar regresiones y auditar archivo automático sin revertir cambios ajenos
 - [x] Ajustar únicamente P.A.N.: preset confirmado, fechas independientes, tokens Unicode, ocho revisiones Cumbres, universo/redes explícitos; probar y auditar SELECT sin publicar
+- [ ] Corregir exclusivamente coherencia de fechas Caracas/redes/anexos PDF y cobertura General; probar y descargar evidencia sin publicar
