@@ -180,6 +180,10 @@ export const InfluencersSection = ({
     setTimeout(() => { void load(); setSyncing(false); }, 300_000);
   };
 
+  // Lista, contadores, creadores y conclusiones salen del mismo conjunto filtrado por fecha de publicación.
+  const ranged = useMemo(() => applyConsultationRange(allPosts, (p) => p.published_at, range), [allPosts, range]);
+  const posts = ranged.included;
+
   const filtered = useMemo(
     () =>
       posts.filter(
@@ -276,7 +280,11 @@ export const InfluencersSection = ({
             {isTeams
               ? "Equipos: todos sus posts · Chivos: con #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave o a una cuenta de equipo · Fuente: Apify + sincronización manual"
               : "Basta #PeloticaDeGoma o #AmoAJuga, o mención a @peloticadegomave · sin cuentas oficiales, equipos ni chivos · Solo publicaciones desde enero 2026 · Fuente: Apify + sincronización manual"}
+            {` · Período: ${rangeLabel(range)} (fecha de publicación, Caracas)`}
           </p>
+          {(coverage.error || coverage.truncated) && (
+            <p role="alert" className="text-xs text-destructive font-bold mt-1">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas.</p>
+          )}
 
         </div>
         <Button size="sm" variant="outline" disabled={syncing} onClick={handleSync}>
@@ -345,9 +353,13 @@ export const InfluencersSection = ({
           <Loader2 className="w-5 h-5 animate-spin" />
           <span className="text-muted-foreground">Cargando contenido de influencers…</span>
         </div>
+      ) : !ranged.valid ? (
+        <div role="alert" className="bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">
+          {ranged.message} No se muestran totales con un rango inválido.
+        </div>
       ) : filtered.length === 0 ? (
         <div className="bg-card border border-border rounded-2xl p-8 text-center text-muted-foreground">
-          Todavía no hay piezas de influencers con esos filtros. Usa “Actualizar influencers”.
+          No hay piezas guardadas con esos filtros en {rangeLabel(range)}.
         </div>
       ) : (
         <>
