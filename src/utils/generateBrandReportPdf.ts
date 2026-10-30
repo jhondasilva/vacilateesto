@@ -464,7 +464,7 @@ export const generateBrandReportPdf = async ({
     doc.setTextColor(...INK);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(28);
-    doc.text("TIKTOK + YOUTUBE", M, 112);
+    doc.text(selectedPlatform === "all" ? "TIKTOK + YOUTUBE" : networkLabel.toUpperCase(), M, 112);
     doc.setTextColor(...MUT);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
@@ -645,7 +645,7 @@ export const generateBrandReportPdf = async ({
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.text(
-      `${TIKTOK_LIVES.length} transmisiones LIVE desde @vacilateesto  ·  Fuente: TikTok Studio`,
+      `${TIKTOK_LIVES.length} LIVE · TikTok Studio · Período independiente: 11–16 junio (año no informado)`,
       M,
       130,
     );

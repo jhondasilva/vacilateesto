@@ -291,6 +291,7 @@ export const UnifiedSection = ({
   const ranged = useMemo(() => applyConsultationRange(allRows, (r) => r.publishedAt, range), [allRows, range]);
   const rows = ranged.included;
   const rangedLives = useMemo(() => livesInRange(PELOTICA_LIVES, range), [range]);
+  const selectedLives = useMemo(() => rangedLives.filter((live) => platform === "all" || live.platform === platform), [rangedLives, platform]);
 
   const filtered = useMemo(
     () => rows.filter((r) => platform === "all" || r.platform === platform),
@@ -427,13 +428,13 @@ export const UnifiedSection = ({
         coverageNote: coverage.error || coverage.truncated || coverage.missingGeneral ? "Cobertura guardada incompleta: informe parcial." : undefined,
         ...rangeDates(range, new Date("2026-01-01T04:00:00Z")),
         brandLogoSrc: logoPeloticaDeGoma,
-        lives: platform === "all" ? rangedLives : [],
+        lives: selectedLives,
         // Agregados sin fecha por pieza: solo sin rango de consulta.
         officialAccounts: reportAggregateAnnexesAllowed(periodOnly, platform),
         siteAnalytics: reportAggregateAnnexesAllowed(periodOnly, platform),
         reportAnalysis: {
           result: (() => {
-            const pdfLives = platform === "all" ? rangedLives : [];
+            const pdfLives = selectedLives;
             const lvViews = pdfLives.reduce((s, l) => s + (l.views ?? 0), 0);
             return `${periodLabel}: ${fmt(source.length)} piezas únicas acumulan ${fmt(totalsPdf.views)} vistas y ${fmt(interactions)} interacciones. Sumando ${pdfLives.length} lives (${fmt(lvViews)} vistas), el total unificado llega a ${fmt(totalsPdf.views + lvViews)} vistas. Criterios: equipos con todos sus posts; chivos e influencers con #PeloticaDeGoma, #AmoAJuga o mención a @peloticadegomave.`;
           })(),
@@ -696,7 +697,7 @@ export const UnifiedSection = ({
       )}
 <section className="rounded-3xl border border-border bg-card p-6">
         {(() => {
-          const lv = sumLives(rangedLives);
+          const lv = sumLives(selectedLives);
           const f = (n: number) => n.toLocaleString("es-VE");
           return (
             <>
