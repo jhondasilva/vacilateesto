@@ -34,6 +34,7 @@ import { es } from "date-fns/locale";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
+import { reportAggregateAnnexesAllowed } from "@/lib/reportSelection";
 import logoPeloticaDeGoma from "@/assets/logo-pelotica-de-goma.png";
 import {
   Eye, Heart, MessageCircle, Loader2, Info, Instagram, Music2, Facebook, Youtube, Users, Download,
@@ -390,7 +391,6 @@ export const UnifiedSection = ({
         { views: 0, likes: 0, comments: 0, impressions: 0 },
       );
       if (platform === "all") {
-        await loadLiveSiteAnalytics();
         totalsPdf.impressions = impressionBreakdown(rows, SITE_ANALYTICS.pageviews, rangedLives, periodOnly).total;
       }
       const platformRows = (["instagram", "tiktok", "facebook", "youtube"] as Platform[])
@@ -415,7 +415,6 @@ export const UnifiedSection = ({
       const leadingPlatform = platformRows[0];
       const leadingSource = sourceRows[0];
 
-      await loadLiveSiteAnalytics();
       const pdf = await generateBrandReportPdf({
         brandName: "Pelotica de Goma · Todo unificado",
         brandColor: accent.startsWith("#") ? accent : "#E91E63",
@@ -423,12 +422,15 @@ export const UnifiedSection = ({
           "General + Equipos y chivos + Influencers, sin duplicar piezas" +
           (platform === "all" ? "" : ` · Solo ${PLATFORM_META[platform].label}`),
         periodLabel,
+        selectedPlatform: platform,
+        selectedPeriod: periodOnly,
+        coverageNote: coverage.error || coverage.truncated || coverage.missingGeneral ? "Cobertura guardada incompleta: informe parcial." : undefined,
         ...rangeDates(range, new Date("2026-01-01T04:00:00Z")),
         brandLogoSrc: logoPeloticaDeGoma,
         lives: platform === "all" ? rangedLives : [],
         // Agregados sin fecha por pieza: solo sin rango de consulta.
-        officialAccounts: !periodOnly,
-        siteAnalytics: !periodOnly,
+        officialAccounts: reportAggregateAnnexesAllowed(periodOnly, platform),
+        siteAnalytics: reportAggregateAnnexesAllowed(periodOnly, platform),
         reportAnalysis: {
           result: (() => {
             const pdfLives = platform === "all" ? rangedLives : [];

@@ -18,6 +18,7 @@ import { PdgSponsorSection, PDG_SPONSORS } from "@/components/dashboard/PdgSpons
 import PeloticaSiteAnalytics from "@/components/dashboard/PeloticaSiteAnalytics";
 import PeloticaOfficialAccounts from "@/components/dashboard/PeloticaOfficialAccounts";
 import { generateBrandReportPdf } from "@/utils/generateBrandReportPdf";
+import { selectReportData } from "@/lib/reportSelection";
 import { TikTokLivesSection, TIKTOK_LIVES_BRANDS } from "@/components/dashboard/TikTokLivesSection";
 import { InfluencersSection } from "@/components/dashboard/InfluencersSection";
 import { TeamRankingSection } from "@/components/dashboard/TeamRankingSection";
@@ -812,9 +813,8 @@ const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: 
   let y = startYear;
   let m = startMonth;
   while (y < endYear || (y === endYear && m <= endMonth)) {
-    const from = new Date(y, m, 1, 0, 0, 0);
-    const to = new Date(y, m + 1, 0, 23, 59, 59);
     const key = `${y}-${String(m + 1).padStart(2, "0")}`;
+    const { from, to } = rangeDates({ from: `${key}-01`, to: `${key}-${String(new Date(Date.UTC(y, m + 1, 0)).getUTCDate()).padStart(2, "0")}` }, new Date(0));
     out.push({ key, label: format(from, "MMM yy", { locale: es }), from, to });
     m++;
     if (m > 11) {
@@ -828,14 +828,12 @@ const buildMonths = (brandSlug?: string): { key: MonthKey; label: string; from: 
       ? {
           key: "cumulative-all" as MonthKey,
           label: `Acumulado ${startYear}-${now.getFullYear()}`,
-          from: new Date(startYear, 0, 1, 0, 0, 0),
-          to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+          ...rangeDates({ from: `${startYear}-01-01`, to: "" }, new Date(0)),
         }
       : {
           key: "cumulative-2026" as MonthKey,
           label: "Acumulado 2026",
-          from: new Date(2026, 1, 1, 0, 0, 0),
-          to: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+          ...rangeDates({ from: "2026-01-01", to: "" }, new Date(0)),
         };
   return [cumulative, ...monthly];
 };
@@ -870,12 +868,15 @@ const MetricoolDashboard = ({
   // TikTok de @peloticadegomave: la cuenta no está conectada en Metricool,
   // se completa con los datos capturados vía Apify.
   const [apifyTikToks, setApifyTikToks] = useState<MentionPost[]>([]);
+  const [apifyCoverage, setApifyCoverage] = useState<"loading" | "complete" | "incomplete" | "unused">("unused");
 
   // Marcas patrocinantes: TikTok de @peloticadegomave (no está en Metricool) vía Apify.
   useEffect(() => {
     if (!showPelotica) return;
+    let cancelled = false;
+    setApifyCoverage("loading");
     (async () => {
-      const { rows } = await fetchAllPages<any>((a, b) => supabase
+      const { rows, error, truncated } = await fetchAllPages<any>((a, b) => supabase
         .from("influencer_posts")
         .select("id,external_id,url,text,thumbnail,published_at,views,likes,comments,shares")
         .eq("author_handle", "@peloticadegomave")
@@ -898,21 +899,25 @@ const MetricoolDashboard = ({
           blogId: 1908520,
         } as MentionPost);
       }
+      if (cancelled) return;
       setApifyTikToks([...byId.values()]);
+      setApifyCoverage(error || truncated ? "incomplete" : "complete");
     })();
+    return () => { cancelled = true; };
   }, [brand.slug, showPelotica]);
 
   useEffect(() => {
     if (brand.slug !== "pelotica-de-goma") return;
+    let cancelled = false;
+    setApifyCoverage("loading");
     (async () => {
-      const { rows } = await fetchAllPages<any>((a, b) => supabase
+      const { rows, error, truncated } = await fetchAllPages<any>((a, b) => supabase
         .from("apify_metrics")
         .select("id, external_id, value, unit, recorded_at, raw_data")
         .eq("platform", "tiktok")
         .eq("metric_type", "video")
         .order("id", { ascending: true })
         .range(a, b));
-      if (!rows?.length) return;
       const byId = new Map<string, MentionPost>();
       for (const r of rows) {
         const id = r.external_id as string;
@@ -935,8 +940,11 @@ const MetricoolDashboard = ({
         if (r.unit) existing.metrics[r.unit as string] = Number(r.value) || 0;
         byId.set(id, existing);
       }
+      if (cancelled) return;
       setApifyTikToks([...byId.values()]);
+      setApifyCoverage(error || truncated ? "incomplete" : "complete");
     })();
+    return () => { cancelled = true; };
   }, [brand.slug]);
 
 
@@ -1277,6 +1285,8 @@ const MetricoolDashboard = ({
           {" "}· horas sin zona se leen en hora de Caracas.
         </p>
       )}
+      {apifyCoverage === "incomplete" && <p role="alert" className="mb-3 text-xs text-destructive">Cobertura incompleta de publicaciones TikTok guardadas: falló una página o se alcanzó el límite. Totales e informe son parciales.</p>}
+      {apifyCoverage === "loading" && <p role="status" className="mb-3 text-xs text-muted-foreground">Leyendo cobertura TikTok guardada…</p>}
 
       <div className="mb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <p className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Mes · Filtro</p>
@@ -1307,7 +1317,7 @@ const MetricoolDashboard = ({
           <Button
             size="sm"
             variant="outline"
-            disabled={!data || rangeInvalid || matchedCount === 0}
+            disabled={!data || rangeInvalid || postsForView.length === 0 || apifyCoverage === "loading"}
             onClick={() => {
               if (!data) return;
               void generateBrandReportPdf({
@@ -1320,7 +1330,10 @@ const MetricoolDashboard = ({
                 periodLabel,
                 from: periodDates.from,
                 to: periodDates.to,
-                data: { ...data, posts: basePosts, matchedCount, byPlatform, totals: { ...data.totals, views: totalsForView.views, likes: totalsForView.likes, comments: totalsForView.comments, impressions: totalsForView.impressions } },
+                data: selectReportData(basePosts, view),
+                selectedPlatform: view,
+                selectedPeriod: rangeMode ? Boolean(range.from || range.to) : !monthKey.startsWith("cumulative"),
+                coverageNote: apifyCoverage === "incomplete" ? "Cobertura TikTok guardada incompleta: totales parciales." : undefined,
                 includeTikTokLives: TIKTOK_LIVES_BRANDS.has(brand.slug),
               });
               toast.success("Informe descargado");

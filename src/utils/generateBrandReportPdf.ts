@@ -1,7 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
+import { reportAggregateAnnexesAllowed, reportDateLabel, reportNetworkLabel, reportPeriodLabel, selectReportData, selectReportLives, type ReportNetwork } from "@/lib/reportSelection";
 import logoVacilate from "@/assets/logo-vacilate-esto.png";
 import { TIKTOK_LIVES } from "@/components/dashboard/TikTokLivesSection";
 import type { LiveRow } from "@/components/dashboard/PeloticaLivesSection";
@@ -39,6 +38,9 @@ type Args = {
   from: Date;
   to: Date;
   data: MentionsResponse;
+  selectedPlatform?: ReportNetwork;
+  selectedPeriod?: boolean;
+  coverageNote?: string;
   includeTikTokLives?: boolean;
   lives?: LiveRow[];
   brandLogoSrc?: string;
@@ -110,14 +112,27 @@ export const generateBrandReportPdf = async ({
   periodLabel,
   from,
   to,
-  data,
-  includeTikTokLives = false,
-  lives,
+  data: inputData,
+  selectedPlatform = "all",
+  selectedPeriod = true,
+  coverageNote,
+  includeTikTokLives: requestedTikTokLives = false,
+  lives: inputLives,
   brandLogoSrc,
   reportAnalysis,
-  officialAccounts = false,
-  siteAnalytics = false,
+  officialAccounts: requestedOfficialAccounts = false,
+  siteAnalytics: requestedSiteAnalytics = false,
 }: Args) => {
+  const data = selectReportData(inputData.posts, selectedPlatform);
+  // Unified impressions can include explicitly dated lives/independent historical aggregates.
+  // Callers calculate that breakdown; other counters always come from selected posts.
+  data.totals.impressions = inputData.totals.impressions;
+  const lives = selectReportLives(inputLives ?? [], from, to, selectedPlatform);
+  const aggregateAnnexes = reportAggregateAnnexesAllowed(selectedPeriod, selectedPlatform);
+  const includeTikTokLives = requestedTikTokLives && aggregateAnnexes;
+  const officialAccounts = requestedOfficialAccounts && aggregateAnnexes;
+  const siteAnalytics = requestedSiteAnalytics && aggregateAnnexes;
+  const networkLabel = reportNetworkLabel(selectedPlatform);
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
@@ -255,7 +270,7 @@ export const generateBrandReportPdf = async ({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.text(
-    `${format(from, "d MMM yyyy", { locale: es })} — ${format(to, "d MMM yyyy", { locale: es })}  ·  TODAS LAS REDES`,
+    `${reportDateLabel(from)} — ${reportDateLabel(to)}  ·  ${networkLabel.toUpperCase()}`,
     cx + 22,
     cy + 184,
   );
@@ -285,15 +300,17 @@ export const generateBrandReportPdf = async ({
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.text(`Filtros: ${clean(scopeLabel)}`, M, H - 76, { maxWidth: W - M * 2 });
+  doc.text(reportPeriodLabel(from, to), M, H - 94);
+  if (coverageNote) doc.text(clean(coverageNote), M, H - 110, { maxWidth: W - M * 2 });
   doc.text(
-    `Generado el ${format(new Date(), "d 'de' MMMM yyyy 'a las' HH:mm", { locale: es })}`,
+    `Generado el ${new Intl.DateTimeFormat("es-VE", { timeZone: "America/Caracas", dateStyle: "long", timeStyle: "short" }).format(new Date())} (America/Caracas)`,
     M,
     H - 58,
   );
   footer(1);
 
   /* filas por plataforma */
-  const platformOrder: MentionPost["platform"][] = ["instagram", "tiktok", "facebook", "youtube"];
+  const platformOrder: MentionPost["platform"][] = selectedPlatform === "all" ? ["instagram", "tiktok", "facebook", "youtube"] : [selectedPlatform];
   const platformRows = platformOrder.map((p) => {
     const posts = data.posts.filter((x) => x.platform === p);
     const totals = posts.reduce(
@@ -330,7 +347,7 @@ export const generateBrandReportPdf = async ({
   doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(28);
-  doc.text("TODAS LAS REDES", M, 112);
+  doc.text(networkLabel.toUpperCase(), M, 112);
   doc.setTextColor(...MUT);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
@@ -343,7 +360,7 @@ export const generateBrandReportPdf = async ({
       sub: `${Object.keys(data.byPlatform).filter((k) => data.byPlatform[k] > 0).length} redes con actividad`,
       shadow: PINK,
     },
-    { label: "VIEWS TOTALES", value: fmtNum(data.totals.views), sub: "Todas las plataformas", shadow: CYAN },
+    { label: "VIEWS TOTALES", value: fmtNum(data.totals.views), sub: networkLabel, shadow: CYAN },
     { label: "LIKES TOTALES", value: fmtNum(data.totals.likes), sub: "Reacciones acumuladas", shadow: ACCENT },
     { label: "COMENTARIOS", value: fmtNum(data.totals.comments), sub: "Interacciones totales", shadow: PINK },
   ];
@@ -476,7 +493,7 @@ export const generateBrandReportPdf = async ({
       startY: 290,
       head: [["Fecha", "Red", "Cuenta", "Live", "Duración", "Vistas", "Seg.", "Don."]],
       body: lives.map((l) => [
-        l.date.split("-").reverse().slice(0, 2).join("/"),
+        reportDateLabel(l.date, true),
         l.platform === "tiktok" ? "TikTok" : "YouTube",
         l.account,
         clean(l.title),
@@ -713,7 +730,7 @@ export const generateBrandReportPdf = async ({
     body: topPosts.map((p, i) => [
       String(i + 1),
       PLATFORM_LABEL[p.platform],
-      p.publishedAt ? format(new Date(p.publishedAt), "d MMM yy", { locale: es }) : "—",
+      reportDateLabel(p.publishedAt, true),
       fmtNum(p.metrics.views ?? 0),
       fmtNum(p.metrics.likes ?? p.metrics.reactions ?? 0),
       fmtNum(p.metrics.comments ?? 0),
