@@ -1,4 +1,5 @@
 import { Radio, Clock, Eye, Users, Gift, MessageCircle, Youtube } from "lucide-react";
+import { applyConsultationRange, EMPTY_RANGE, rangeLabel, validateRange, type ConsultationRange } from "@/lib/consultationRange";
 
 // Lives TikTok — capturas de TikTok Studio ("Centro LIVE"), carpeta de Drive del equipo.
 // VE = @vacilateesto · PDG = @peloticadegomave. "Espectadores" = views.
@@ -68,10 +69,17 @@ const fmtDate = (d: string) => {
   return `${dd}/${mm}`;
 };
 
-export const PeloticaLivesSection = () => {
-  const tk = sumLives(PELOTICA_TIKTOK_LIVES);
-  const ytT = sumLives(PELOTICA_YOUTUBE_LIVES);
-  const all = sumLives(PELOTICA_LIVES);
+/** Lives dentro del rango (fecha del live, día de Caracas). Rango inválido => ninguno. */
+export const livesInRange = (rows: LiveRow[], range: ConsultationRange) =>
+  applyConsultationRange(rows, (l) => l.date, range).included;
+
+export const PeloticaLivesSection = ({ range = EMPTY_RANGE }: { range?: ConsultationRange }) => {
+  const v = validateRange(range);
+  const lives = livesInRange(PELOTICA_LIVES, range);
+  const tk = sumLives(lives.filter((l) => l.platform === "tiktok"));
+  const ytT = sumLives(lives.filter((l) => l.platform === "youtube"));
+  const all = sumLives(lives);
+  if (!v.ok) return <div role="alert" className="mt-12 bg-card border border-destructive rounded-2xl p-8 text-center text-destructive font-bold">{v.message}</div>;
 
   const Card = ({ title, icon: Icon, t, extra }: { title: string; icon: any; t: ReturnType<typeof sumLives>; extra?: boolean }) => (
     <div className="bg-card border border-border rounded-xl p-4">
