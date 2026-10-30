@@ -5,6 +5,8 @@ import { Eye, Heart, Loader2, Music2, Instagram } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { applyConsultationRange, EMPTY_RANGE, fetchAllPages, rangeLabel, type ConsultationRange } from "@/lib/consultationRange";
+import { ConsultationRangeControls } from "@/components/dashboard/ConsultationRangeControls";
 
 // Marcas patrocinantes que solo aparecen en @peloticadegomave.
 export const PDG_SPONSORS: Record<string, { name: string; handle: string }> = {
@@ -32,18 +34,25 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [net, setNet] = useState<"all" | "instagram" | "tiktok">("all");
+  const [range, setRange] = useState<ConsultationRange>(EMPTY_RANGE);
+  const [coverage, setCoverage] = useState<{ error: string | null; truncated: boolean }>({ error: null, truncated: false });
 
   useEffect(() => {
+    let cancelled = false;
     (async () => {
-      const { data, error } = await supabase
+      const res = await fetchAllPages<Post & { id: string }>((a, b) => supabase
         .from("influencer_posts")
-        .select("platform,external_id,url,text,thumbnail,published_at,views,likes,comments,shares,hashtags")
+        .select("id,platform,external_id,url,text,thumbnail,published_at,views,likes,comments,shares,hashtags")
         .eq("author_handle", "@peloticadegomave")
         .gte("published_at", new Date(START).toISOString())
         .ilike("text", `%@${cfg.handle}%`)
         .order("published_at", { ascending: false })
-        .limit(2000);
-      if (error) toast.error("No se pudieron cargar las publicaciones");
+        .order("id", { ascending: true })
+        .range(a, b));
+      if (cancelled) return;
+      const data = res.rows;
+      setCoverage({ error: res.error, truncated: res.truncated });
+      if (res.error) toast.error("No se pudieron cargar las publicaciones");
       const seen = new Set<string>();
       setPosts(((data as Post[]) ?? []).filter((p) => {
         const k = `${p.platform}:${p.external_id}`;
@@ -53,9 +62,11 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
       }));
       setLoading(false);
     })();
+    return () => { cancelled = true; };
   }, [cfg.handle]);
 
-  const filtered = useMemo(() => (net === "all" ? posts : posts.filter((p) => p.platform === net)), [posts, net]);
+  const ranged = useMemo(() => applyConsultationRange(posts, (p) => p.published_at, range), [posts, range]);
+  const filtered = useMemo(() => (net === "all" ? ranged.included : ranged.included.filter((p) => p.platform === net)), [ranged, net]);
   const t = useMemo(() => filtered.reduce((a, p) => {
     a.views += Math.max(0, p.views ?? 0);
     a.inter += Math.max(0, p.likes ?? 0) + Math.max(0, p.comments ?? 0) + Math.max(0, p.shares ?? 0);
@@ -69,9 +80,11 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
         <DashboardLogo slug={slug} name={cfg.name} size="feature" />
         <h2 className="text-xl font-black break-words">{cfg.name} · @{cfg.handle} en Pelotica de Goma</h2>
         <p className="text-[11px] text-muted-foreground font-mono">
-          Publicaciones de @peloticadegomave que mencionan a @{cfg.handle} · desde el inicio de 2026 · cada publicación se cuenta una vez · Fuente: Apify
+          Publicaciones de @peloticadegomave que mencionan a @{cfg.handle} · desde el inicio de 2026 · cada publicación se cuenta una vez · Fuente: Apify (datos guardados) · Período: {rangeLabel(range)}
         </p>
+        {(coverage.error || coverage.truncated) && <p role="alert" className="text-xs text-destructive font-bold mt-1">Cobertura incompleta: no se pudieron leer todas las publicaciones guardadas.</p>}
       </div>
+      <ConsultationRangeControls value={range} onChange={setRange} />
       <div className="flex gap-2 mb-5">
         {(["all", "instagram", "tiktok"] as const).map((k) => (
           <button key={k} onClick={() => setNet(k)}
@@ -80,7 +93,9 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
           </button>
         ))}
       </div>
-      {loading ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : (
+      {loading ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : !ranged.valid ? (
+        <p role="alert" className="text-destructive font-bold">{ranged.message} No se muestran totales con un rango inválido.</p>
+      ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {[["Publicaciones", filtered.length], ["Vistas", t.views], ["Interacciones", t.inter], ["IG / TikTok", `${t.ig} / ${t.tt}`]].map(([l, v]) => (
@@ -91,7 +106,7 @@ export const PdgSponsorSection = ({ slug }: { slug: string }) => {
             ))}
           </div>
           {filtered.length === 0 ? (
-            <p className="text-muted-foreground">Aún no hay publicaciones que mencionen a @{cfg.handle}.</p>
+            <p className="text-muted-foreground">No hay publicaciones guardadas que mencionen a @{cfg.handle} en {rangeLabel(range)}.</p>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {filtered.map((p) => (
