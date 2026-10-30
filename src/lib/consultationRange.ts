@@ -15,15 +15,15 @@ export const publicationTimestamp = (value: string | null | undefined): number =
 const isRealDay = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(panDateBounds(s, "")?.from ?? NaN);
 
 export type RangeValidation =
-  | { ok: true; active: boolean; bounds: { from: number; to: number } }
-  | { ok: false; message: string };
+  | { ok: true; active: boolean; bounds: { from: number; to: number }; message: null }
+  | { ok: false; message: string; active?: undefined; bounds?: undefined };
 
 export function validateRange(range: ConsultationRange): RangeValidation {
   if (range.from && !isRealDay(range.from)) return { ok: false, message: "La fecha «Desde» no es una fecha real." };
   if (range.to && !isRealDay(range.to)) return { ok: false, message: "La fecha «Hasta» no es una fecha real." };
   const bounds = panDateBounds(range.from, range.to);
   if (!bounds) return { ok: false, message: "«Desde» es posterior a «Hasta». Corrige el rango." };
-  return { ok: true, active: Boolean(range.from || range.to), bounds };
+  return { ok: true, active: Boolean(range.from || range.to), bounds, message: null };
 }
 
 /** true/false si la fecha de publicación está o no en el rango; null si no hay fecha de publicación válida. */
