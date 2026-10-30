@@ -109,7 +109,7 @@ export const PeloticaLivesSection = ({ range = EMPTY_RANGE }: { range?: Consulta
       </div>
       <p className="text-xs text-muted-foreground mb-4">
         TikTok: capturas de TikTok Studio de @vacilateesto y @peloticadegomave. YouTube: transmisiones del 4to Split en
-        @Vacilateestopodcast. Estos totales se suman en la pestaña Todo unificado.
+        @Vacilateestopodcast. Estos totales se suman en la pestaña Todo unificado. Período: {rangeLabel(range)} (fecha del live, Caracas).
       </p>
       <div className="grid md:grid-cols-3 gap-3 mb-6">
         <Card title="TikTok" icon={Radio} t={tk} extra />
@@ -131,7 +131,7 @@ export const PeloticaLivesSection = ({ range = EMPTY_RANGE }: { range?: Consulta
             </tr>
           </thead>
           <tbody>
-            {PELOTICA_LIVES.map((l, i) => (
+            {lives.map((l, i) => (
               <tr key={i} className="border-t border-border">
                 <td className="px-4 py-2 whitespace-nowrap">{fmtDate(l.date)}</td>
                 <td className="px-3 py-2">{l.platform === "tiktok" ? "TikTok" : "YouTube"}</td>
